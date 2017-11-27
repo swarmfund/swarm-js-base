@@ -1,6 +1,6 @@
 describe('PreEmission', function() {
 
-  it("constructs PreEmission object from a data", function(done) {
+ /*
     let amount      = "200";
     let serialNumber = "test";
     let asset = "BLC";
@@ -112,5 +112,5 @@ describe('PreEmission', function() {
     expect(xdrFromData.amount).to.be.equal(preEmission.amount);
     expect(xdrFromData.signatures).to.be.equal(preEmission.signatures);
     done();
-  });
+});*/
 });
