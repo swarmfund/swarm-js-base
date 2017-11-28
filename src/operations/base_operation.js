@@ -197,6 +197,14 @@ export class BaseOperation {
     /**
      * @private
      */
+    static _toUnsignedXDRAmount(value) {
+        let amount = new BigNumber(value).mul(ONE);
+        return UnsignedHyper.fromString(amount.toString());
+    }
+
+    /**
+     * @private
+     */
     static _fromXDRAmount(value) {
         return new BigNumber(value).div(ONE).toString();
     }
@@ -255,5 +263,27 @@ export class BaseOperation {
 
     static _isValidRequestType(rawRequestType) {
         return xdr.RequestType._byValue.has(rawRequestType);
+    }
+
+    static accountIdtoAddress(accountId) {
+            return encodeCheck("accountId", accountId.ed25519());
+    }
+
+    static balanceIdtoString(balanceId) {
+           return encodeCheck("balanceId", balanceId.ed25519());
+    }
+
+    /**
+     * This operation set SourceAccount
+     * @param {object} [opts]
+     * @returns undefined
+     */
+    static setSourceAccount(opAttributes, opts) {
+        if (opts.source) {
+            if (!Keypair.isValidPublicKey(opts.source)) {
+                throw new Error("Source address is invalid");
+            }
+            opAttributes.sourceAccount = Keypair.fromAccountId(opts.source).xdrAccountId();
+        }
     }
 }

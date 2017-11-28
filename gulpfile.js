@@ -79,6 +79,7 @@ gulp.task('test:init-istanbul', ['clean-coverage'], function () {
 });
 
 gulp.task('test:node', ['build:node', 'test:init-istanbul'], function() {
+  Error.stackTraceLimit = Infinity;
   return gulp.src(["test/test-helper.js", "test/unit/**/*.js"])
     .pipe(plugins.mocha({
       reporter: ['dot']

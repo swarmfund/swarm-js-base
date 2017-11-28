@@ -14,6 +14,7 @@ import isNumber from 'lodash/isNumber';
 import isFinite from 'lodash/isFinite';
 import crypto from 'crypto';
 import {BaseOperation} from './operations/base_operation';
+import {ManageAssetBuilder} from './operations/manage_asset_builder';
 
 /**
  * When set using `{@link Operation.setOptions}` option, requires the issuing account to
@@ -927,20 +928,6 @@ export class Operation extends BaseOperation {
     }
 
     /**
-     * This operation set SourceAccount
-     * @param {object} [opts]
-     * @returns undefined
-     */
-    static setSourceAccount(opAttributes, opts) {
-        if (opts.source) {
-            if (!Keypair.isValidPublicKey(opts.source)) {
-                throw new Error("Source address is invalid");
-            }
-            opAttributes.sourceAccount = Keypair.fromAccountId(opts.source).xdrAccountId();
-        }
-    }
-
-    /**
      * Converts the XDR Operation object to the opts object used to create the XDR
      * operation.
      * @param {xdr.Operation} operation - An XDR Operation.
@@ -1132,9 +1119,7 @@ export class Operation extends BaseOperation {
                 break;
             case "manageAsset":
                 result.type = "manageAsset";
-                result.action = attrs.action();
-                result.code = attrs.code();
-                result.policies = attrs.policies();
+                ManageAssetBuilder.manageAssetToObject(result, attrs);
                 break;
             case "uploadPreemission":
                 result.type = "uploadPreemissions";
