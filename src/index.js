@@ -14,6 +14,7 @@ export {Memo} from "./memo";
 export {Account} from "./account";
 export {Network, Networks} from "./network";
 export {ManageAssetBuilder} from './operations/manage_asset_builder';
+export {ReviewRequestBuilder} from './operations/review_request_builder';
 
 export * from "./strkey";
 

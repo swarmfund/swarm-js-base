@@ -15,6 +15,7 @@ import isFinite from 'lodash/isFinite';
 import crypto from 'crypto';
 import {BaseOperation} from './operations/base_operation';
 import {ManageAssetBuilder} from './operations/manage_asset_builder';
+import {ReviewRequestBuilder} from './operations/review_request_builder';
 
 /**
  * When set using `{@link Operation.setOptions}` option, requires the issuing account to
@@ -1164,6 +1165,10 @@ export class Operation extends BaseOperation {
                 result.policies = attrs.policies();
                 result.physicalPriceCorrection = Operation._fromXDRAmount(attrs.physicalPriceCorrection());
                 result.maxPriceStep = Operation._fromXDRAmount(attrs.maxPriceStep());
+                break;
+            case "reviewRequest":
+            result.type = "reviewRequest";
+                ReviewRequestBuilder.reviewRequestToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");

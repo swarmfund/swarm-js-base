@@ -4,6 +4,7 @@ import isNull from "lodash/isNull";
 import isString from "lodash/isString";
 import {UnsignedHyper} from "js-xdr";
 import BigNumber from 'bignumber.js';
+import Hasher from './util/hasher';
 
 /**
  * `Memo` represents memos attached to transactions. Use static methods to create memos.
