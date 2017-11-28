@@ -16,6 +16,7 @@ export {Network, Networks} from "./network";
 export {ManageAssetBuilder} from './operations/manage_asset_builder';
 export {ReviewRequestBuilder} from './operations/review_request_builder';
 export {PreIssuanceRequestOpBuilder} from './operations/pre_issuance_request_op_builder';
+export {CreateIssuanceRequestBuilder} from './operations/create_issuance_request_builder';
 
 export * from "./strkey";
 

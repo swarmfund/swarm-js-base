@@ -400,7 +400,7 @@ describe('Operation', function () {
             var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
             var obj = StellarBase.Operation.operationToObject(operation);
 
-            expect(obj.type).to.be.equal("setOptions");
+            expect(obj.type).to.be.equal("setOption");
             expect(obj.masterWeight).to.be.equal(opts.masterWeight);
             expect(obj.lowThreshold).to.be.equal(opts.lowThreshold);
             expect(obj.medThreshold).to.be.equal(opts.medThreshold);
@@ -571,7 +571,7 @@ describe('Operation', function () {
             var xdr = op.toXDR("hex");
             var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
             var obj = StellarBase.Operation.operationToObject(operation);
-            expect(obj.type).to.be.equal("setFees");
+            expect(obj.type).to.be.equal("setFee");
             expect(obj.fee.percentFee).to.be.equal('10');
             expect(obj.fee.fixedFee).to.be.equal('1');
             expect(obj.fee.feeType).to.be.equal(feeType);
@@ -757,7 +757,7 @@ describe('Operation', function () {
             var xdr = op.toXDR("hex");
             var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
             var obj = StellarBase.Operation.operationToObject(operation);
-            expect(obj.type).to.be.equal("setLimits");
+            expect(obj.type).to.be.equal("setLimit");
             expect(obj.account).to.be.equal(account.accountId());
             expect(obj.limits.dailyOut).to.be.equal('1');
             expect(obj.limits.annualOut).to.be.equal('5');

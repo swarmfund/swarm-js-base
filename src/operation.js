@@ -13,10 +13,11 @@ import isString from 'lodash/isString';
 import isNumber from 'lodash/isNumber';
 import isFinite from 'lodash/isFinite';
 import crypto from 'crypto';
-import {BaseOperation} from './operations/base_operation';
-import {ManageAssetBuilder} from './operations/manage_asset_builder';
-import {ReviewRequestBuilder} from './operations/review_request_builder';
-import {PreIssuanceRequestOpBuilder} from './operations/pre_issuance_request_op_builder';
+import { BaseOperation } from './operations/base_operation';
+import { ManageAssetBuilder } from './operations/manage_asset_builder';
+import { ReviewRequestBuilder } from './operations/review_request_builder';
+import { PreIssuanceRequestOpBuilder } from './operations/pre_issuance_request_op_builder';
+import { CreateIssuanceRequestBuilder } from './operations/create_issuance_request_builder';
 
 /**
  * When set using `{@link Operation.setOptions}` option, requires the issuing account to
@@ -460,124 +461,6 @@ export class Operation extends BaseOperation {
     }
 
     /**
-     * Returns a XDR ManageCoinsEmissionRequestOp. A "manage coinst emission request" operation creates, updates, or
-     * deletes an emission request.
-     * @param {object} opts
-     * @param {string} opts.amount - The total amount you're selling.
-     * @param {string} opts.requestId - The ID of emission (if deleting).
-     * @param {object} opts.action - Value of xdr.ManageCoinsEmissionRequestAction enum.
-     * @param {string} [opts.source] - The source account (defaults to transaction source).
-     * @returns {xdr.ManageCoinsEmissionRequestOp}
-     */
-    static manageCoinsEmissionRequest(opts) {
-        let attributes = {};
-        if (isUndefined(opts.action)) {
-            throw new TypeError('action must be specified');
-        }
-        if (isUndefined(opts.requestId)) {
-            throw new TypeError('requestId must be specified');
-        }
-        if (isUndefined(opts.asset)) {
-            throw new TypeError('asset must be specified');
-        }
-        if (isUndefined(opts.reference)) {
-            opts.reference = "";
-        }
-        if (!Keypair.isValidBalanceKey(opts.receiver)) {
-            throw new Error("receiver is invalid");
-        }
-
-        if (opts.action == xdr.ManageCoinsEmissionRequestAction.manageCoinsEmissionRequestCreate()) {
-            if (!Operation.isValidAmount(opts.amount, true)) {
-                throw new TypeError('amount argument must be of type String and represent a positive number or zero');
-            }
-            attributes.amount = Operation._toXDRAmount(opts.amount);
-
-        } else if (opts.action == xdr.ManageCoinsEmissionRequestAction.manageCoinsEmissionRequestDelete()) {
-            attributes.amount = Operation._toXDRAmount('0');
-        } else {
-            throw new Error('invalid action');
-        }
-
-        attributes.receiver = Keypair.fromBalanceId(opts.receiver).xdrBalanceId();
-        attributes.requestId = UnsignedHyper.fromString(opts.requestId);
-        attributes.asset = opts.asset;
-        attributes.reference = opts.reference;
-        attributes.action = opts.action;
-        attributes.ext = new xdr.ManageCoinsEmissionRequestOpExt(xdr.LedgerVersion.emptyVersion());
-        let manageRequestOp = new xdr.ManageCoinsEmissionRequestOp(attributes);
-
-        let opAttributes = {};
-        opAttributes.body = xdr.OperationBody.manageCoinsEmissionRequest(manageRequestOp);
-        Operation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
-    }
-
-    /**
-     * Returns a XDR ReviewCoinsEmissionRequestOp. A "review coins emission request" operation approves or rejects an emission request.
-     * @param {object} opts
-     * @param {object} opts.request - The request to be reviewed
-     * @param {string} opts.request.requestId - ID of emission to be reviewed
-     * @param {string} opts.request.issuer - Issuer of the request
-     * @param {number|string} opts.request.amount - Amount of the request
-     * @param {boolean} opts.approve - True - to approve, false - to reject request
-     * @param {string} [opts.reason]- Reason of rejection
-     * @returns {xdr.ReviewCoinsEmissionRequestOp}
-     */
-    static reviewCoinsEmissionRequest(opts) {
-        if (isUndefined(opts.request)) {
-            throw new Error("request must be specified");
-        }
-
-        if (isUndefined(opts.request.requestId)) {
-            throw new Error("request.requestId must be defined");
-        }
-        if (isUndefined(opts.request.reference)) {
-            throw new Error("request.reference must be defined");
-        }
-        if (!Operation.isValidAmount(opts.request.amount, false)) {
-            throw new TypeError('request.amount argument must be of type String and represent a positive number');
-        }
-
-        if (!Keypair.isValidPublicKey(opts.request.issuer)) {
-            throw new Error("request.issuer is invalid");
-        }
-        if (!Keypair.isValidBalanceKey(opts.request.receiver)) {
-            throw new Error("request.receiver is invalid");
-        }
-        let attributes = {
-            ext: new xdr.ReviewCoinsEmissionRequestOpExt(xdr.LedgerVersion.emptyVersion()),
-            request: new xdr.CoinsEmissionRequestEntry({
-                requestId: UnsignedHyper.fromString(opts.request.requestId),
-                amount: Operation._toXDRAmount(opts.request.amount),
-                issuer: Keypair.fromAccountId(opts.request.issuer).xdrAccountId(),
-                receiver: Keypair.fromBalanceId(opts.request.receiver).xdrBalanceId(),
-                asset: opts.request.asset,
-                reference: opts.request.reference,
-                ext: new xdr.CoinsEmissionRequestEntryExt(xdr.LedgerVersion.emptyVersion()),
-            })
-        };
-        if (typeof (opts.approve) !== "boolean") {
-            throw new Error("approve must be boolean");
-        }
-        attributes.approve = opts.approve;
-        if (opts.approve) {
-            if (!isUndefined(opts.reason)) {
-                throw new Error("reason must be empty");
-            } else {
-                attributes.reason = '';
-            }
-        } else {
-            attributes.reason = opts.reason;
-        }
-        let reviewRequestOp = new xdr.ReviewCoinsEmissionRequestOp(attributes);
-        let opAttributes = {};
-        opAttributes.body = xdr.OperationBody.reviewCoinsEmissionRequest(reviewRequestOp);
-        Operation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
-    }
-
-    /**
      * Returns an XDR ManageAccountOp. A "manage account" operations block|ublocks account.
      * @param {object} opts
      * @param {string} opts.account - Account to be managed.
@@ -679,41 +562,6 @@ export class Operation extends BaseOperation {
 
         let opAttributes = {};
         opAttributes.body = xdr.OperationBody.reviewPaymentRequest(reviewPaymentRequestOp);
-        Operation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
-    }
-
-    /**
-     * Returns an XDR ManageAssetOp. A "manage asset" operations creates|deletes asset.
-     * @param {object} opts
-     * @param {string} opts.code
-     * @param {xdr.ManageAssetAction} – Delete or create
-     * @returns {xdr.ManageBalanceOp}
-     */
-    static manageAsset(opts) {
-        let attributes = {
-            ext: new xdr.ManageAssetOpExt(xdr.LedgerVersion.emptyVersion())
-        };
-        if (!Operation.isValidAsset(opts.code)) {
-            throw new TypeError('code is invalid');
-        }
-
-        if (!(opts.action instanceof xdr.ManageAssetAction)) {
-            throw new TypeError('action argument should be value of xdr.ManageAssetAction enum');
-        }
-
-        if (isUndefined(opts.policies)) {
-            throw new TypeError('policies are not defined');
-        }
-
-        attributes.code = opts.code;
-        attributes.policies = opts.policies;
-        attributes.action = opts.action;
-
-        let manageAssetOp = new xdr.ManageAssetOp(attributes);
-
-        let opAttributes = {};
-        opAttributes.body = xdr.OperationBody.manageAsset(manageAssetOp);
         Operation.setSourceAccount(opAttributes, opts);
         return new xdr.Operation(opAttributes);
     }
@@ -869,39 +717,6 @@ export class Operation extends BaseOperation {
     }
 
 
-    /* Returns a XDR UploadPreemissionsOp.
-     * @param {object} opts
-     * @param {array} opts.preEmissions — PreEmissions to be used for emission
-     * @param {number|string} opts.preEmissions[0].amount - Amount of preEmission
-     * @param {string} opts.preEmissions[0].serialNumber - SerialNumber of preEmission
-     * @param {array} opts.preEmissions[0].signatures - Array of DecoratedSignature
-     * @returns {xdr.UploadPreemissionsOp}
-     */
-    static uploadPreemissions(opts = {}) {
-        let attributes = {
-            ext: new xdr.UploadPreemissionsOpExt(xdr.LedgerVersion.emptyVersion())
-        };
-        attributes.preEmissions = [];
-        if (!Operation.isValidArray(opts.preEmissions, 1)) {
-            throw new Error("preEmissions must be non-empty array of PreEmission");
-        }
-        for (var i = 0; i < opts.preEmissions.length; i++) {
-            try {
-                var preEmission = xdr.PreEmission.fromXDR(opts.preEmissions[i], 'hex');
-                attributes.preEmissions.push(preEmission);
-            } catch (e) {
-                throw new Error("preEmissions must be non-empty array of PreEmission");
-            }
-        }
-        let uploadPreemissionsOp = new xdr.UploadPreemissionsOp(attributes);
-
-        let opAttributes = {};
-        opAttributes.body = xdr.OperationBody.uploadPreemission(uploadPreemissionsOp);
-        Operation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
-    }
-
-
     static setLimits(opts = {}) {
         let attributes = {
             ext: new xdr.SetLimitsOpExt(xdr.LedgerVersion.emptyVersion()),
@@ -951,9 +766,9 @@ export class Operation extends BaseOperation {
         }
 
         let attrs = operation.body().value();
+        result.type = operation.body().switch().name;
         switch (operation.body().switch().name) {
             case "createAccount":
-                result.type = "createAccount";
                 result.destination = accountIdtoAddress(attrs.destination());
                 result.accountType = attrs.accountType().value;
                 result.policies = attrs.policies();
@@ -963,7 +778,6 @@ export class Operation extends BaseOperation {
                 }
                 break;
             case "payment":
-                result.type = "payment";
                 result.amount = Operation._fromXDRAmount(attrs.amount());
                 result.feeFromSource = attrs.feeFromSource;
                 result.sourceBalanceId = balanceIdtoString(attrs.sourceBalanceId());
@@ -989,7 +803,6 @@ export class Operation extends BaseOperation {
                 }
                 break;
             case "directDebit":
-                result.type = "directDebit";
                 let paymentOp = attrs.paymentOp();
                 result.amount = Operation._fromXDRAmount(paymentOp.amount());
                 result.feeFromSource = paymentOp.feeFromSource;
@@ -1011,7 +824,6 @@ export class Operation extends BaseOperation {
                 };
                 break;
             case "setOption":
-                result.type = "setOptions";
                 result.masterWeight = attrs.masterWeight();
                 result.lowThreshold = attrs.lowThreshold();
                 result.medThreshold = attrs.medThreshold();
@@ -1036,7 +848,6 @@ export class Operation extends BaseOperation {
                 }
                 break;
             case "setFee":
-                result.type = "setFees";
                 if (!isUndefined(attrs.fee())) {
                     result.fee = {};
                     result.fee.fixedFee = Operation._fromXDRAmount(attrs.fee().fixedFee());
@@ -1055,36 +866,13 @@ export class Operation extends BaseOperation {
                     result.fee.hash = attrs.fee().hash();
                 }
                 break;
-            case "manageCoinsEmissionRequest":
-                result.type = "manageCoinsEmissionRequest";
-                result.amount = Operation._fromXDRAmount(attrs.amount());
-                result.requestId = attrs.requestId().toString();
-                result.action = attrs.action();
-                result.asset = attrs.asset();
-                result.reference = attrs.reference();
-                result.receiver = balanceIdtoString(attrs.receiver());
-                break;
-            case "reviewCoinsEmissionRequest":
-                result.type = "reviewCoinsEmissionRequest";
-                result.request = {};
-                result.request.requestId = attrs.request().requestId().toString();
-                result.request.amount = Operation._fromXDRAmount(attrs.request().amount());
-                result.request.issuer = accountIdtoAddress(attrs.request().issuer());
-                result.request.receiver = balanceIdtoString(attrs.request().receiver());
-                result.request.asset = attrs.request().asset();
-                result.request.reference = attrs.request().reference();
-                result.approve = attrs.approve();
-                result.reason = attrs.reason();
-                break;
             case "manageAccount":
-                result.type = "manageAccount";
                 result.account = accountIdtoAddress(attrs.account());
                 result.blockReasonsToAdd = attrs.blockReasonsToAdd();
                 result.blockReasonsToRemove = attrs.blockReasonsToRemove();
                 result.accountType = attrs.accountType().value;
                 break;
             case "manageForfeitRequest":
-                result.type = "manageForfeitRequest";
                 result.amount = Operation._fromXDRAmount(attrs.amount());
                 result.totalFee = Operation._fromXDRAmount(attrs.totalFee());
                 result.balance = balanceIdtoString(attrs.balance());
@@ -1092,27 +880,23 @@ export class Operation extends BaseOperation {
                 result.reviewer = accountIdtoAddress(attrs.reviewer());
                 break;
             case "recover":
-                result.type = "recover";
                 result.account = accountIdtoAddress(attrs.account());
                 result.oldSigner = accountIdtoAddress(attrs.oldSigner());
                 result.newSigner = accountIdtoAddress(attrs.newSigner());
                 break;
             case "reviewRecoveryRequest":
-                result.type = "reviewRecoveryRequest";
                 result.accept = attrs.accept();
                 result.requestId = attrs.requestId().toString();
                 result.oldAccount = accountIdtoAddress(attrs.oldAccount());
                 result.newAccount = accountIdtoAddress(attrs.newAccount());
                 break;
             case "manageBalance":
-                result.type = "manageBalance";
                 result.action = attrs.action();
                 result.balanceId = balanceIdtoString(attrs.balanceId());
                 result.destination = accountIdtoAddress(attrs.destination());
                 result.asset = attrs.asset();
                 break;
             case "reviewPaymentRequest":
-                result.type = "reviewPaymentRequest";
                 result.accept = attrs.accept();
                 result.paymentId = attrs.paymentId().toString();
                 if (attrs.rejectReason()) {
@@ -1120,15 +904,12 @@ export class Operation extends BaseOperation {
                 }
                 break;
             case "manageAsset":
-                result.type = "manageAsset";
                 ManageAssetBuilder.manageAssetToObject(result, attrs);
                 break;
             case "createPreissuanceRequest":
-                result.type = "createPreissuanceRequest";
                 PreIssuanceRequestOpBuilder.preIssuanceRequestOpToObject(result, attrs);
                 break;
             case "setLimit":
-                result.type = "setLimits";
                 if (attrs.account()) {
                     result.account = accountIdtoAddress(attrs.account());
                 }
@@ -1142,7 +923,6 @@ export class Operation extends BaseOperation {
                 result.limits.annualOut = Operation._fromXDRAmount(attrs.limits().annualOut());
                 break;
             case "manageOffer":
-                result.type = "manageOffer";
                 result.amount = Operation._fromXDRAmount(attrs.amount());
                 result.price = Operation._fromXDRAmount(attrs.price());
                 result.fee = Operation._fromXDRAmount(attrs.fee());
@@ -1152,14 +932,12 @@ export class Operation extends BaseOperation {
                 result.offerID = attrs.offerId().toString();
                 break;
             case "manageInvoice":
-                result.type = "manageInvoice";
                 result.amount = Operation._fromXDRAmount(attrs.amount());
                 result.sender = accountIdtoAddress(attrs.sender());
                 result.receiverBalance = balanceIdtoString(attrs.receiverBalance());
                 result.invoiceId = attrs.invoiceId().toString();
                 break;
             case "manageAssetPair":
-                result.type = "manageAssetPair";
                 result.action = attrs.action();
                 result.base = attrs.base();
                 result.quote = attrs.quote();
@@ -1168,8 +946,10 @@ export class Operation extends BaseOperation {
                 result.maxPriceStep = Operation._fromXDRAmount(attrs.maxPriceStep());
                 break;
             case "reviewRequest":
-            result.type = "reviewRequest";
                 ReviewRequestBuilder.reviewRequestToObject(result, attrs);
+                break;
+            case "createIssuanceRequest":
+                CreateIssuanceRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");
