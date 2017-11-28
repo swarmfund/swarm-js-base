@@ -16,6 +16,7 @@ import crypto from 'crypto';
 import {BaseOperation} from './operations/base_operation';
 import {ManageAssetBuilder} from './operations/manage_asset_builder';
 import {ReviewRequestBuilder} from './operations/review_request_builder';
+import {PreIssuanceRequestOpBuilder} from './operations/pre_issuance_request_op_builder';
 
 /**
  * When set using `{@link Operation.setOptions}` option, requires the issuing account to
@@ -1122,9 +1123,9 @@ export class Operation extends BaseOperation {
                 result.type = "manageAsset";
                 ManageAssetBuilder.manageAssetToObject(result, attrs);
                 break;
-            case "uploadPreemission":
-                result.type = "uploadPreemissions";
-                result.preEmissions = attrs.preEmissions();
+            case "createPreissuanceRequest":
+                result.type = "createPreissuanceRequest";
+                PreIssuanceRequestOpBuilder.preIssuanceRequestOpToObject(result, attrs);
                 break;
             case "setLimit":
                 result.type = "setLimits";

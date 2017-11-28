@@ -1,4 +1,4 @@
-// Automatically generated on 2017-11-27T13:51:20+02:00
+// Automatically generated on 2017-11-28T15:12:47+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -2809,7 +2809,6 @@ xdr.union("CreatePreIssuanceRequestOpExt", {
 //   struct CreatePreIssuanceRequestOp
 //   {
 //       PreIssuanceRequest request;
-//   	string64 reference;
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
 //       {
@@ -2822,7 +2821,6 @@ xdr.union("CreatePreIssuanceRequestOpExt", {
 // ===========================================================================
 xdr.struct("CreatePreIssuanceRequestOp", [
   ["request", xdr.lookup("PreIssuanceRequest")],
-  ["reference", xdr.lookup("String64")],
   ["ext", xdr.lookup("CreatePreIssuanceRequestOpExt")],
 ]);
 
@@ -6043,6 +6041,7 @@ xdr.union("PreIssuanceRequestExt", {
 //   	AssetCode asset;
 //   	uint64 amount;
 //   	DecoratedSignature signature;
+//   	string64 reference;
 //   
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
@@ -6058,6 +6057,7 @@ xdr.struct("PreIssuanceRequest", [
   ["asset", xdr.lookup("AssetCode")],
   ["amount", xdr.lookup("Uint64")],
   ["signature", xdr.lookup("DecoratedSignature")],
+  ["reference", xdr.lookup("String64")],
   ["ext", xdr.lookup("PreIssuanceRequestExt")],
 ]);
 

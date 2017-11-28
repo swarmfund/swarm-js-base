@@ -16,7 +16,7 @@ export class ReviewRequestBuilder {
      * @param {xdr.ReviewRequestOpAction} opts.action - action to be performed over request
      * @param {string} opts.reason - Reject reason
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-     * @returns {xdr.ManageAssetOp}
+     * @returns {xdr.ReviewRequestOp}
      */
     static reviewRequest(opts) {
         let attrs = {};
