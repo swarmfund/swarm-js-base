@@ -44029,6 +44029,8 @@ var StellarBase =
 
 	var _operation = __webpack_require__(128);
 
+	var _operationsBase_operation = __webpack_require__(214);
+
 	var _generatedStellarXdr_generated = __webpack_require__(2);
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
@@ -44061,14 +44063,14 @@ var StellarBase =
 	         * @returns {xdr.PreIssuanceRequest}
 	         */
 	        value: function build(opts) {
-	            if (!_operation.Operation.isValidAmount(opts.amount, false)) {
+	            if (!_operationsBase_operation.BaseOperation.isValidAmount(opts.amount, false)) {
 	                throw new TypeError('amount must be of type String and represent a positive number');
 	            }
-	            if (!_operation.Operation.isValidString(opts.reference, 4, 64)) {
+	            if (!_operationsBase_operation.BaseOperation.isValidString(opts.reference, 4, 64)) {
 	                throw new TypeError('reference must be 4-64 string');
 	            }
 
-	            if (!_operation.Operation.isValidAsset(opts.asset)) {
+	            if (!_operationsBase_operation.BaseOperation.isValidAsset(opts.asset)) {
 	                throw new TypeError('asset is invalid');
 	            }
 
@@ -44076,7 +44078,7 @@ var StellarBase =
 	                throw new TypeError("opts.keyPair is invalid");
 	            }
 
-	            opts.amount = _operation.Operation._toUnsignedXDRAmount(opts.amount);
+	            opts.amount = _operationsBase_operation.BaseOperation._toUnsignedXDRAmount(opts.amount);
 	            var signature = opts.keyPair.signDecorated(this._getSignatureData(opts));
 	            return new _generatedStellarXdr_generated2["default"].PreIssuanceRequest({
 	                reference: opts.reference,
@@ -44091,7 +44093,7 @@ var StellarBase =
 	        value: function xdrFromData(data) {
 	            return new _generatedStellarXdr_generated2["default"].PreIssuanceRequest({
 	                reference: data.reference,
-	                amount: _operation.Operation._toUnsignedXDRAmount(data.amount),
+	                amount: _operationsBase_operation.BaseOperation._toUnsignedXDRAmount(data.amount),
 	                asset: data.asset,
 	                signature: data.signature
 	            });
@@ -44100,7 +44102,7 @@ var StellarBase =
 	        key: "dataFromXdr",
 	        value: function dataFromXdr(xdr) {
 	            var attributes = {};
-	            attributes.amount = _operation.Operation._fromXDRAmount(xdr.amount());
+	            attributes.amount = _operationsBase_operation.BaseOperation._fromXDRAmount(xdr.amount());
 	            attributes.reference = xdr.reference();
 	            attributes.asset = xdr.asset();
 	            attributes.signature = xdr.signature();

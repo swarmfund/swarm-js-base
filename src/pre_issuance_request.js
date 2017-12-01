@@ -1,5 +1,6 @@
 import {Keypair} from './keypair';
 import { Operation } from "./operation";
+import { BaseOperation } from "./operations/base_operation";
 import { default as xdr } from "./generated/stellar-xdr_generated";
 import BigNumber from 'bignumber.js';
 import { hash } from "./hashing";
@@ -17,14 +18,14 @@ export class PreIssuanceRequest {
      * @returns {xdr.PreIssuanceRequest}
      */
     static build(opts) {
-        if (!Operation.isValidAmount(opts.amount, false)) {
+        if (!BaseOperation.isValidAmount(opts.amount, false)) {
             throw new TypeError('amount must be of type String and represent a positive number');
         }
-        if (!Operation.isValidString(opts.reference, 4, 64)) {
+        if (!BaseOperation.isValidString(opts.reference, 4, 64)) {
             throw new TypeError('reference must be 4-64 string');
         }
         
-        if (!Operation.isValidAsset(opts.asset)) {
+        if (!BaseOperation.isValidAsset(opts.asset)) {
             throw new TypeError('asset is invalid');
         }
 
@@ -32,7 +33,7 @@ export class PreIssuanceRequest {
             throw new TypeError("opts.keyPair is invalid");
         }
 
-        opts.amount = Operation._toUnsignedXDRAmount(opts.amount);
+        opts.amount = BaseOperation._toUnsignedXDRAmount(opts.amount);
         var signature = opts.keyPair.signDecorated(this._getSignatureData(opts));
         return new xdr.PreIssuanceRequest({
             reference: opts.reference,
@@ -46,7 +47,7 @@ export class PreIssuanceRequest {
     static xdrFromData(data) {
         return new xdr.PreIssuanceRequest({
             reference: data.reference,
-            amount: Operation._toUnsignedXDRAmount(data.amount),
+            amount: BaseOperation._toUnsignedXDRAmount(data.amount),
             asset: data.asset,
             signature: data.signature
         });
@@ -54,7 +55,7 @@ export class PreIssuanceRequest {
 
     static dataFromXdr(xdr) {
         var attributes = {};
-        attributes.amount = Operation._fromXDRAmount(xdr.amount());
+        attributes.amount = BaseOperation._fromXDRAmount(xdr.amount());
         attributes.reference = xdr.reference();
         attributes.asset = xdr.asset();
         attributes.signature = xdr.signature();
