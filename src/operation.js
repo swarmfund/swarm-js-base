@@ -303,7 +303,7 @@ export class Operation extends BaseOperation {
                 opts.fee.lowerBound = '0';
             }
             if (isUndefined(opts.fee.upperBound)) {
-                opts.fee.upperBound = MAX_INT64_AMOUNT;
+                opts.fee.upperBound = BaseOperation.MAX_INT64_AMOUNT;
             }
 
             var feeData = {

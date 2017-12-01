@@ -32944,7 +32944,7 @@ var StellarBase =
 	                    opts.fee.lowerBound = '0';
 	                }
 	                if ((0, _lodashIsUndefined2["default"])(opts.fee.upperBound)) {
-	                    opts.fee.upperBound = MAX_INT64_AMOUNT;
+	                    opts.fee.upperBound = _operationsBase_operation.BaseOperation.MAX_INT64_AMOUNT;
 	                }
 
 	                var feeData = {
@@ -43780,8 +43780,8 @@ var StellarBase =
 	         * @param {object} opts
 	         * @param {string} opts.requestID - request ID
 	         * @param {string} opts.requestHash - Hash of the request to be reviewed
-	         * @param {xdr.ReviewableRequestType} opts.requestType - Type of the request to be reviewed
-	         * @param {xdr.ReviewRequestOpAction} opts.action - action to be performed over request
+	         * @param {number} opts.requestType - Type of the request to be reviewed (xdr.ReviewableRequestType)
+	         * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
 	         * @param {string} opts.reason - Reject reason
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         * @returns {xdr.ReviewRequestOp}
