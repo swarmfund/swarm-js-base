@@ -261,7 +261,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2017-11-28T15:12:47+02:00
+	// Automatically generated on 2017-12-08T18:16:19+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -318,24 +318,24 @@ var StellarBase =
 	//
 	//   enum SignerType
 	//   {
-	//   	SIGNER_READER = 1,                  // can only read data from API and Horizon
-	//   	SIGNER_NOT_VERIFIED_ACC_MANAGER = 2,// can manage not verified account and block/unblock general
-	//   	SIGNER_GENERAL_ACC_MANAGER = 4,     // allowed to create account, block/unblock, change limits for particular general account
-	//   	SIGNER_DIRECT_DEBIT_OPERATOR = 8, // allowed to perform direct debit operation
-	//   	SIGNER_ASSET_MANAGER = 16, // allowed to create assets/asset pairs and update policies, set fees, review pre-issuance requests
-	//   	SIGNER_ASSET_RATE_MANAGER = 32, // allowed to set physical asset price
-	//   	SIGNER_BALANCE_MANAGER = 64, // allowed to create balances, spend assets from balances
-	//   	SIGNER_ISSUANCE_MANAGER = 128, // allowed to make preissuance request, review issuance requests
-	//   	SIGNER_INVOICE_MANAGER = 256, // allowed to create payment requests to other accounts
-	//   	SIGNER_PAYMENT_OPERATOR = 512, // allowed to review payment requests
-	//   	SIGNER_LIMITS_MANAGER = 1024, // allowed to change limits
-	//   	SIGNER_ACCOUNT_MANAGER = 2048, // allowed to add/delete signers and trust
-	//   	SIGNER_COMMISSION_BALANCE_MANAGER  = 4096,// allowed to spend from commission balances
-	//   	SIGNER_OPERATIONAL_BALANCE_MANAGER = 8192 // allowed to spend from operational balances
+	//   	READER = 1,                  // can only read data from API and Horizon
+	//   	NOT_VERIFIED_ACC_MANAGER = 2,// can manage not verified account and block/unblock general
+	//   	GENERAL_ACC_MANAGER = 4,     // allowed to create account, block/unblock, change limits for particular general account
+	//   	DIRECT_DEBIT_OPERATOR = 8, // allowed to perform direct debit operation
+	//   	ASSET_MANAGER = 16, // allowed to create assets/asset pairs and update policies, set fees
+	//   	ASSET_RATE_MANAGER = 32, // allowed to set physical asset price
+	//   	BALANCE_MANAGER = 64, // allowed to create balances, spend assets from balances
+	//   	ISSUANCE_MANAGER = 128, // allowed to make preissuance request, review issuance
+	//   	INVOICE_MANAGER = 256, // allowed to create payment requests to other accounts
+	//   	PAYMENT_OPERATOR = 512, // allowed to review payment requests
+	//   	LIMITS_MANAGER = 1024, // allowed to change limits
+	//   	ACCOUNT_MANAGER = 2048, // allowed to add/delete signers and trust
+	//   	COMMISSION_BALANCE_MANAGER  = 4096,// allowed to spend from commission balances
+	//   	OPERATIONAL_BALANCE_MANAGER = 8192 // allowed to spend from operational balances
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("SignerType",{signerReader:1,signerNotVerifiedAccManager:2,signerGeneralAccManager:4,signerDirectDebitOperator:8,signerAssetManager:16,signerAssetRateManager:32,signerBalanceManager:64,signerIssuanceManager:128,signerInvoiceManager:256,signerPaymentOperator:512,signerLimitsManager:1024,signerAccountManager:2048,signerCommissionBalanceManager:4096,signerOperationalBalanceManager:8192}); // === xdr source ============================================================
+	xdr["enum"]("SignerType",{reader:1,notVerifiedAccManager:2,generalAccManager:4,directDebitOperator:8,assetManager:16,assetRateManager:32,balanceManager:64,issuanceManager:128,invoiceManager:256,paymentOperator:512,limitsManager:1024,accountManager:2048,commissionBalanceManager:4096,operationalBalanceManager:8192}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -495,13 +495,13 @@ var StellarBase =
 	//
 	//   enum AssetPairPolicy
 	//   {
-	//   	ASSET_PAIR_TRADEABLE = 1, // if not set pair can not be traided
-	//   	ASSET_PAIR_PHYSICAL_PRICE_RESTRICTION = 2, // if set, then prices for new offers must be greater then physical price with correction
-	//   	ASSET_PAIR_CURRENT_PRICE_RESTRICTION = 4 // if set, then price for new offers must be in interval of (1 +- maxPriceStep)*currentPrice
+	//   	TRADEABLE = 1, // if not set pair can not be traided
+	//   	PHYSICAL_PRICE_RESTRICTION = 2, // if set, then prices for new offers must be greater then physical price with correction
+	//   	CURRENT_PRICE_RESTRICTION = 4 // if set, then price for new offers must be in interval of (1 +- maxPriceStep)*currentPrice
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("AssetPairPolicy",{assetPairTradeable:1,assetPairPhysicalPriceRestriction:2,assetPairCurrentPriceRestriction:4}); // === xdr source ============================================================
+	xdr["enum"]("AssetPairPolicy",{tradeable:1,physicalPriceRestriction:2,currentPriceRestriction:4}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -540,11 +540,13 @@ var StellarBase =
 	//
 	//   enum AssetPolicy
 	//   {
-	//   	ASSET_TRANSFERABLE = 1
+	//   	TRANSFERABLE = 1,
+	//   	BASE_ASSET = 2,
+	//   	STATS_QUOTE_ASSET = 4
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("AssetPolicy",{assetTransferable:1}); // === xdr source ============================================================
+	xdr["enum"]("AssetPolicy",{transferable:1,baseAsset:2,statsQuoteAsset:4}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -608,6 +610,42 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("BalanceEntry",[["balanceId",xdr.lookup("BalanceId")],["asset",xdr.lookup("AssetCode")],["accountId",xdr.lookup("AccountId")],["amount",xdr.lookup("Uint64")],["locked",xdr.lookup("Uint64")],["ext",xdr.lookup("BalanceEntryExt")]]); // === xdr source ============================================================
+	//
+	//   enum ExternalSystemType
+	//   {
+	//   	BITCOIN = 1,
+	//   	ETHEREUM = 2
+	//   };
+	//
+	// ===========================================================================
+	xdr["enum"]("ExternalSystemType",{bitcoin:1,ethereum:2}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("ExternalSystemAccountIdExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct ExternalSystemAccountID
+	//   {
+	//       AccountID accountID;
+	//       ExternalSystemType externalSystemType;
+	//   	longstring data;
+	//   
+	//   	 // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("ExternalSystemAccountId",[["accountId",xdr.lookup("AccountId")],["externalSystemType",xdr.lookup("ExternalSystemType")],["data",xdr.lookup("Longstring")],["ext",xdr.lookup("ExternalSystemAccountIdExt")]]); // === xdr source ============================================================
 	//
 	//   enum FeeType
 	//   {
@@ -855,7 +893,7 @@ var StellarBase =
 	xdr.union("ReviewableRequestEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct ReviewableRequestEntry {
-	//   	uint64 ID;
+	//   	uint64 requestID;
 	//   	Hash hash; // hash of the request body
 	//   	AccountID requestor;
 	//   	string256 rejectReason;
@@ -883,7 +921,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("ReviewableRequestEntry",[["id",xdr.lookup("Uint64")],["hash",xdr.lookup("Hash")],["requestor",xdr.lookup("AccountId")],["rejectReason",xdr.lookup("String256")],["reviewer",xdr.lookup("AccountId")],["reference",xdr.option(xdr.lookup("String64"))],["body",xdr.lookup("ReviewableRequestEntryBody")],["ext",xdr.lookup("ReviewableRequestEntryExt")]]); // === xdr source ============================================================
+	xdr.struct("ReviewableRequestEntry",[["requestId",xdr.lookup("Uint64")],["hash",xdr.lookup("Hash")],["requestor",xdr.lookup("AccountId")],["rejectReason",xdr.lookup("String256")],["reviewer",xdr.lookup("AccountId")],["reference",xdr.option(xdr.lookup("String64"))],["body",xdr.lookup("ReviewableRequestEntryBody")],["ext",xdr.lookup("ReviewableRequestEntryExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -919,14 +957,14 @@ var StellarBase =
 	//
 	//   enum ThresholdIndexes
 	//   {
-	//       THRESHOLD_MASTER_WEIGHT = 0,
-	//       THRESHOLD_LOW = 1,
-	//       THRESHOLD_MED = 2,
-	//       THRESHOLD_HIGH = 3
+	//       MASTER_WEIGHT = 0,
+	//       LOW = 1,
+	//       MED = 2,
+	//       HIGH = 3
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ThresholdIndices",{thresholdMasterWeight:0,thresholdLow:1,thresholdMed:2,thresholdHigh:3}); // === xdr source ============================================================
+	xdr["enum"]("ThresholdIndices",{masterWeight:0,low:1,med:2,high:3}); // === xdr source ============================================================
 	//
 	//   enum LedgerEntryType
 	//   {
@@ -943,11 +981,12 @@ var StellarBase =
 	//   	ASSET_PAIR = 12,
 	//   	OFFER_ENTRY = 13,
 	//       INVOICE = 14,
-	//   	REVIEWABLE_REQUEST = 15
+	//   	REVIEWABLE_REQUEST = 15,
+	//   	EXTERNAL_SYSTEM_ACCOUNT_ID = 16
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerEntryType",{account:0,fee:2,balance:4,paymentRequest:5,asset:6,referenceEntry:7,accountTypeLimit:8,statistic:9,trust:10,accountLimit:11,assetPair:12,offerEntry:13,invoice:14,reviewableRequest:15}); // === xdr source ============================================================
+	xdr["enum"]("LedgerEntryType",{account:0,fee:2,balance:4,paymentRequest:5,asset:6,referenceEntry:7,accountTypeLimit:8,statistic:9,trust:10,accountLimit:11,assetPair:12,offerEntry:13,invoice:14,reviewableRequest:15,externalSystemAccountId:16}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerEntryType type)
 	//       {
@@ -979,10 +1018,12 @@ var StellarBase =
 	//           InvoiceEntry invoice;
 	//   	case REVIEWABLE_REQUEST:
 	//   		ReviewableRequestEntry reviewableRequest;
+	//   	case EXTERNAL_SYSTEM_ACCOUNT_ID:
+	//   		ExternalSystemAccountID externalSystemAccountID;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("LedgerEntryData",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["paymentRequest","paymentRequest"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["invoice","invoice"],["reviewableRequest","reviewableRequest"]],arms:{account:xdr.lookup("AccountEntry"),feeState:xdr.lookup("FeeEntry"),balance:xdr.lookup("BalanceEntry"),paymentRequest:xdr.lookup("PaymentRequestEntry"),asset:xdr.lookup("AssetEntry"),reference:xdr.lookup("ReferenceEntry"),accountTypeLimits:xdr.lookup("AccountTypeLimitsEntry"),stats:xdr.lookup("StatisticsEntry"),trust:xdr.lookup("TrustEntry"),accountLimits:xdr.lookup("AccountLimitsEntry"),assetPair:xdr.lookup("AssetPairEntry"),offer:xdr.lookup("OfferEntry"),invoice:xdr.lookup("InvoiceEntry"),reviewableRequest:xdr.lookup("ReviewableRequestEntry")}}); // === xdr source ============================================================
+	xdr.union("LedgerEntryData",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["paymentRequest","paymentRequest"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["invoice","invoice"],["reviewableRequest","reviewableRequest"],["externalSystemAccountId","externalSystemAccountId"]],arms:{account:xdr.lookup("AccountEntry"),feeState:xdr.lookup("FeeEntry"),balance:xdr.lookup("BalanceEntry"),paymentRequest:xdr.lookup("PaymentRequestEntry"),asset:xdr.lookup("AssetEntry"),reference:xdr.lookup("ReferenceEntry"),accountTypeLimits:xdr.lookup("AccountTypeLimitsEntry"),stats:xdr.lookup("StatisticsEntry"),trust:xdr.lookup("TrustEntry"),accountLimits:xdr.lookup("AccountLimitsEntry"),assetPair:xdr.lookup("AssetPairEntry"),offer:xdr.lookup("OfferEntry"),invoice:xdr.lookup("InvoiceEntry"),reviewableRequest:xdr.lookup("ReviewableRequestEntry"),externalSystemAccountId:xdr.lookup("ExternalSystemAccountId")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -1027,6 +1068,8 @@ var StellarBase =
 	//           InvoiceEntry invoice;
 	//   	case REVIEWABLE_REQUEST:
 	//   		ReviewableRequestEntry reviewableRequest;
+	//   	case EXTERNAL_SYSTEM_ACCOUNT_ID:
+	//   		ExternalSystemAccountID externalSystemAccountID;
 	//       }
 	//       data;
 	//   
@@ -1044,13 +1087,21 @@ var StellarBase =
 	//
 	//   enum EnvelopeType
 	//   {
-	//       ENVELOPE_TYPE_SCP = 1,
-	//       ENVELOPE_TYPE_TX = 2,
-	//       ENVELOPE_TYPE_AUTH = 3
+	//       SCP = 1,
+	//       TX = 2,
+	//       AUTH = 3
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("EnvelopeType",{envelopeTypeScp:1,envelopeTypeTx:2,envelopeTypeAuth:3}); // === xdr source ============================================================
+	xdr["enum"]("EnvelopeType",{scp:1,tx:2,auth:3}); // === xdr source ============================================================
+	//
+	//   enum ExternalSystemIDGeneratorType {
+	//   	BITCOIN_BASIC = 1,
+	//   	ETHEREUM_BASIC = 2
+	//   };
+	//
+	// ===========================================================================
+	xdr["enum"]("ExternalSystemIdGeneratorType",{bitcoinBasic:1,ethereumBasic:2}); // === xdr source ============================================================
 	//
 	//   typedef opaque UpgradeType<128>;
 	//
@@ -1090,6 +1141,14 @@ var StellarBase =
 	// ===========================================================================
 	xdr.struct("StellarValue",[["txSetHash",xdr.lookup("Hash")],["closeTime",xdr.lookup("Uint64")],["upgrades",xdr.varArray(xdr.lookup("UpgradeType"),6)],["ext",xdr.lookup("StellarValueExt")]]); // === xdr source ============================================================
 	//
+	//   struct IdGenerator {
+	//   	LedgerEntryType entryType; // type of the entry, for which ids will be generated
+	//   	uint64 idPool; // last used entry specific ID, used for generating entry of specified type
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("IdGenerator",[["entryType",xdr.lookup("LedgerEntryType")],["idPool",xdr.lookup("Uint64")]]); // === xdr source ============================================================
+	//
 	//   union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -1109,14 +1168,14 @@ var StellarBase =
 	//   
 	//       uint32 ledgerSeq; // sequence number of this ledger
 	//   
-	//       uint64 idPool; // last used global ID, used for generating objects
+	//       IdGenerator idGenerators<>; // generators of ids
 	//   
 	//       uint32 baseFee;     // base fee per operation in stroops
 	//       uint32 baseReserve; // account base reserve in stroops
 	//   
 	//       uint32 maxTxSetSize; // maximum size a transaction set can be
 	//   
-	//       PublicKey issuanceKeys<>;
+	//       ExternalSystemIDGeneratorType externalSystemIDGenerators<>;
 	//       int64 txExpirationPeriod;
 	//       
 	//       Hash skipList[4]; // hashes of ledgers in the past. allows you to jump back
@@ -1135,33 +1194,33 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("LedgerHeader",[["ledgerVersion",xdr.lookup("Uint32")],["previousLedgerHash",xdr.lookup("Hash")],["scpValue",xdr.lookup("StellarValue")],["txSetResultHash",xdr.lookup("Hash")],["bucketListHash",xdr.lookup("Hash")],["ledgerSeq",xdr.lookup("Uint32")],["idPool",xdr.lookup("Uint64")],["baseFee",xdr.lookup("Uint32")],["baseReserve",xdr.lookup("Uint32")],["maxTxSetSize",xdr.lookup("Uint32")],["issuanceKeys",xdr.varArray(xdr.lookup("PublicKey"),2147483647)],["txExpirationPeriod",xdr.lookup("Int64")],["skipList",xdr.array(xdr.lookup("Hash"),4)],["ext",xdr.lookup("LedgerHeaderExt")]]); // === xdr source ============================================================
+	xdr.struct("LedgerHeader",[["ledgerVersion",xdr.lookup("Uint32")],["previousLedgerHash",xdr.lookup("Hash")],["scpValue",xdr.lookup("StellarValue")],["txSetResultHash",xdr.lookup("Hash")],["bucketListHash",xdr.lookup("Hash")],["ledgerSeq",xdr.lookup("Uint32")],["idGenerators",xdr.varArray(xdr.lookup("IdGenerator"),2147483647)],["baseFee",xdr.lookup("Uint32")],["baseReserve",xdr.lookup("Uint32")],["maxTxSetSize",xdr.lookup("Uint32")],["externalSystemIdGenerators",xdr.varArray(xdr.lookup("ExternalSystemIdGeneratorType"),2147483647)],["txExpirationPeriod",xdr.lookup("Int64")],["skipList",xdr.array(xdr.lookup("Hash"),4)],["ext",xdr.lookup("LedgerHeaderExt")]]); // === xdr source ============================================================
 	//
 	//   enum LedgerUpgradeType
 	//   {
-	//       LEDGER_UPGRADE_VERSION = 1,
-	//       LEDGER_UPGRADE_MAX_TX_SET_SIZE = 2,
-	//       LEDGER_UPGRADE_ISSUANCE_KEYS = 3,
-	//       LEDGER_UPGRADE_TX_EXPIRATION_PERIOD = 4
+	//       VERSION = 1,
+	//       MAX_TX_SET_SIZE = 2,
+	//       TX_EXPIRATION_PERIOD = 3,
+	//   	EXTERNAL_SYSTEM_ID_GENERATOR = 4
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerUpgradeType",{ledgerUpgradeVersion:1,ledgerUpgradeMaxTxSetSize:2,ledgerUpgradeIssuanceKey:3,ledgerUpgradeTxExpirationPeriod:4}); // === xdr source ============================================================
+	xdr["enum"]("LedgerUpgradeType",{version:1,maxTxSetSize:2,txExpirationPeriod:3,externalSystemIdGenerator:4}); // === xdr source ============================================================
 	//
 	//   union LedgerUpgrade switch (LedgerUpgradeType type)
 	//   {
-	//   case LEDGER_UPGRADE_VERSION:
+	//   case VERSION:
 	//       uint32 newLedgerVersion; // update ledgerVersion
-	//   case LEDGER_UPGRADE_MAX_TX_SET_SIZE:
+	//   case MAX_TX_SET_SIZE:
 	//       uint32 newMaxTxSetSize; // update maxTxSetSize
-	//   case LEDGER_UPGRADE_ISSUANCE_KEYS:
-	//       PublicKey newIssuanceKeys<>;
-	//   case LEDGER_UPGRADE_TX_EXPIRATION_PERIOD:
+	//   case EXTERNAL_SYSTEM_ID_GENERATOR:
+	//       ExternalSystemIDGeneratorType newExternalSystemIDGenerators<>;
+	//   case TX_EXPIRATION_PERIOD:
 	//       int64 newTxExpirationPeriod;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("LedgerUpgrade",{switchOn:xdr.lookup("LedgerUpgradeType"),switchName:"type",switches:[["ledgerUpgradeVersion","newLedgerVersion"],["ledgerUpgradeMaxTxSetSize","newMaxTxSetSize"],["ledgerUpgradeIssuanceKey","newIssuanceKeys"],["ledgerUpgradeTxExpirationPeriod","newTxExpirationPeriod"]],arms:{newLedgerVersion:xdr.lookup("Uint32"),newMaxTxSetSize:xdr.lookup("Uint32"),newIssuanceKeys:xdr.varArray(xdr.lookup("PublicKey"),2147483647),newTxExpirationPeriod:xdr.lookup("Int64")}}); // === xdr source ============================================================
+	xdr.union("LedgerUpgrade",{switchOn:xdr.lookup("LedgerUpgradeType"),switchName:"type",switches:[["version","newLedgerVersion"],["maxTxSetSize","newMaxTxSetSize"],["externalSystemIdGenerator","newExternalSystemIdGenerators"],["txExpirationPeriod","newTxExpirationPeriod"]],arms:{newLedgerVersion:xdr.lookup("Uint32"),newMaxTxSetSize:xdr.lookup("Uint32"),newExternalSystemIdGenerators:xdr.varArray(xdr.lookup("ExternalSystemIdGeneratorType"),2147483647),newTxExpirationPeriod:xdr.lookup("Int64")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -1455,7 +1514,7 @@ var StellarBase =
 	xdr.union("LedgerKeyReviewableRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct {
-	//           uint64 ID;
+	//           uint64 requestID;
 	//   		union switch (LedgerVersion v)
 	//   		{
 	//   		case EMPTY_VERSION:
@@ -1465,7 +1524,30 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-	xdr.struct("LedgerKeyReviewableRequest",[["id",xdr.lookup("Uint64")],["ext",xdr.lookup("LedgerKeyReviewableRequestExt")]]); // === xdr source ============================================================
+	xdr.struct("LedgerKeyReviewableRequest",[["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("LedgerKeyReviewableRequestExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//   		{
+	//   		case EMPTY_VERSION:
+	//   			void;
+	//   		}
+	//
+	// ===========================================================================
+	xdr.union("LedgerKeyExternalSystemAccountIdExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct {
+	//   		AccountID accountID;
+	//   		ExternalSystemType externalSystemType;
+	//   		union switch (LedgerVersion v)
+	//   		{
+	//   		case EMPTY_VERSION:
+	//   			void;
+	//   		}
+	//   		ext;
+	//   	}
+	//
+	// ===========================================================================
+	xdr.struct("LedgerKeyExternalSystemAccountId",[["accountId",xdr.lookup("AccountId")],["externalSystemType",xdr.lookup("ExternalSystemType")],["ext",xdr.lookup("LedgerKeyExternalSystemAccountIdExt")]]); // === xdr source ============================================================
 	//
 	//   union LedgerKey switch (LedgerEntryType type)
 	//   {
@@ -1606,7 +1688,7 @@ var StellarBase =
 	//       } invoice;
 	//   case REVIEWABLE_REQUEST:
 	//       struct {
-	//           uint64 ID;
+	//           uint64 requestID;
 	//   		union switch (LedgerVersion v)
 	//   		{
 	//   		case EMPTY_VERSION:
@@ -1614,10 +1696,21 @@ var StellarBase =
 	//   		}
 	//   		ext;
 	//       } reviewableRequest;
+	//   case EXTERNAL_SYSTEM_ACCOUNT_ID:
+	//   	struct {
+	//   		AccountID accountID;
+	//   		ExternalSystemType externalSystemType;
+	//   		union switch (LedgerVersion v)
+	//   		{
+	//   		case EMPTY_VERSION:
+	//   			void;
+	//   		}
+	//   		ext;
+	//   	} externalSystemAccountID;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("LedgerKey",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["paymentRequest","paymentRequest"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["invoice","invoice"],["reviewableRequest","reviewableRequest"]],arms:{account:xdr.lookup("LedgerKeyAccount"),feeState:xdr.lookup("LedgerKeyFeeState"),balance:xdr.lookup("LedgerKeyBalance"),paymentRequest:xdr.lookup("LedgerKeyPaymentRequest"),asset:xdr.lookup("LedgerKeyAsset"),reference:xdr.lookup("LedgerKeyReference"),accountTypeLimits:xdr.lookup("LedgerKeyAccountTypeLimits"),stats:xdr.lookup("LedgerKeyStats"),trust:xdr.lookup("LedgerKeyTrust"),accountLimits:xdr.lookup("LedgerKeyAccountLimits"),assetPair:xdr.lookup("LedgerKeyAssetPair"),offer:xdr.lookup("LedgerKeyOffer"),invoice:xdr.lookup("LedgerKeyInvoice"),reviewableRequest:xdr.lookup("LedgerKeyReviewableRequest")}}); // === xdr source ============================================================
+	xdr.union("LedgerKey",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["paymentRequest","paymentRequest"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["invoice","invoice"],["reviewableRequest","reviewableRequest"],["externalSystemAccountId","externalSystemAccountId"]],arms:{account:xdr.lookup("LedgerKeyAccount"),feeState:xdr.lookup("LedgerKeyFeeState"),balance:xdr.lookup("LedgerKeyBalance"),paymentRequest:xdr.lookup("LedgerKeyPaymentRequest"),asset:xdr.lookup("LedgerKeyAsset"),reference:xdr.lookup("LedgerKeyReference"),accountTypeLimits:xdr.lookup("LedgerKeyAccountTypeLimits"),stats:xdr.lookup("LedgerKeyStats"),trust:xdr.lookup("LedgerKeyTrust"),accountLimits:xdr.lookup("LedgerKeyAccountLimits"),assetPair:xdr.lookup("LedgerKeyAssetPair"),offer:xdr.lookup("LedgerKeyOffer"),invoice:xdr.lookup("LedgerKeyInvoice"),reviewableRequest:xdr.lookup("LedgerKeyReviewableRequest"),externalSystemAccountId:xdr.lookup("LedgerKeyExternalSystemAccountId")}}); // === xdr source ============================================================
 	//
 	//   enum BucketEntryType
 	//   {
@@ -1773,29 +1866,29 @@ var StellarBase =
 	//
 	//   enum LedgerEntryChangeType
 	//   {
-	//       LEDGER_ENTRY_CREATED = 0, // entry was added to the ledger
-	//       LEDGER_ENTRY_UPDATED = 1, // entry was modified in the ledger
-	//       LEDGER_ENTRY_REMOVED = 2, // entry was removed from the ledger
-	//       LEDGER_ENTRY_STATE = 3    // value of the entry
+	//       CREATED = 0, // entry was added to the ledger
+	//       UPDATED = 1, // entry was modified in the ledger
+	//       REMOVED = 2, // entry was removed from the ledger
+	//       STATE = 3    // value of the entry
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerEntryChangeType",{ledgerEntryCreated:0,ledgerEntryUpdated:1,ledgerEntryRemoved:2,ledgerEntryState:3}); // === xdr source ============================================================
+	xdr["enum"]("LedgerEntryChangeType",{created:0,updated:1,removed:2,state:3}); // === xdr source ============================================================
 	//
 	//   union LedgerEntryChange switch (LedgerEntryChangeType type)
 	//   {
-	//   case LEDGER_ENTRY_CREATED:
+	//   case CREATED:
 	//       LedgerEntry created;
-	//   case LEDGER_ENTRY_UPDATED:
+	//   case UPDATED:
 	//       LedgerEntry updated;
-	//   case LEDGER_ENTRY_REMOVED:
+	//   case REMOVED:
 	//       LedgerKey removed;
-	//   case LEDGER_ENTRY_STATE:
+	//   case STATE:
 	//       LedgerEntry state;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("LedgerEntryChange",{switchOn:xdr.lookup("LedgerEntryChangeType"),switchName:"type",switches:[["ledgerEntryCreated","created"],["ledgerEntryUpdated","updated"],["ledgerEntryRemoved","removed"],["ledgerEntryState","state"]],arms:{created:xdr.lookup("LedgerEntry"),updated:xdr.lookup("LedgerEntry"),removed:xdr.lookup("LedgerKey"),state:xdr.lookup("LedgerEntry")}}); // === xdr source ============================================================
+	xdr.union("LedgerEntryChange",{switchOn:xdr.lookup("LedgerEntryChangeType"),switchName:"type",switches:[["created","created"],["updated","updated"],["removed","removed"],["state","state"]],arms:{created:xdr.lookup("LedgerEntry"),updated:xdr.lookup("LedgerEntry"),removed:xdr.lookup("LedgerKey"),state:xdr.lookup("LedgerEntry")}}); // === xdr source ============================================================
 	//
 	//   typedef LedgerEntryChange LedgerEntryChanges<>;
 	//
@@ -1850,19 +1943,19 @@ var StellarBase =
 	//   enum CreateAccountResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       CREATE_ACCOUNT_SUCCESS = 0, // account was created
+	//       SUCCESS = 0, // account was created
 	//   
 	//       // codes considered as "failure" for the operation
-	//       CREATE_ACCOUNT_MALFORMED = -1,       // invalid destination
-	//   	CREATE_ACCOUNT_ACCOUNT_TYPE_MISMATCHED = -2, // account already exist and change of account type is not allowed
-	//   	CREATE_ACCOUNT_TYPE_NOT_ALLOWED = -3, // master or commission account types are not allowed
-	//       CREATE_ACCOUNT_NAME_DUPLICATION = -4,
-	//       CREATE_ACCOUNT_REFERRER_NOT_FOUND = -5,
-	//   	CREATE_ACCOUNT_INVALID_ACCOUNT_VERSION = -6 // if account version is higher than ledger version
+	//       MALFORMED = -1,       // invalid destination
+	//   	ACCOUNT_TYPE_MISMATCHED = -2, // account already exist and change of account type is not allowed
+	//   	TYPE_NOT_ALLOWED = -3, // master or commission account types are not allowed
+	//       NAME_DUPLICATION = -4,
+	//       REFERRER_NOT_FOUND = -5,
+	//   	INVALID_ACCOUNT_VERSION = -6 // if account version is higher than ledger version
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("CreateAccountResultCode",{createAccountSuccess:0,createAccountMalformed:-1,createAccountAccountTypeMismatched:-2,createAccountTypeNotAllowed:-3,createAccountNameDuplication:-4,createAccountReferrerNotFound:-5,createAccountInvalidAccountVersion:-6}); // === xdr source ============================================================
+	xdr["enum"]("CreateAccountResultCode",{success:0,malformed:-1,accountTypeMismatched:-2,typeNotAllowed:-3,nameDuplication:-4,referrerNotFound:-5,invalidAccountVersion:-6}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -1875,6 +1968,7 @@ var StellarBase =
 	//
 	//   struct CreateAccountSuccess
 	//   {
+	//   	ExternalSystemAccountID externalSystemIDs<>;
 	//   	int64 referrerFee;
 	//   	 // reserved for future use
 	//       union switch (LedgerVersion v)
@@ -1886,18 +1980,18 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("CreateAccountSuccess",[["referrerFee",xdr.lookup("Int64")],["ext",xdr.lookup("CreateAccountSuccessExt")]]); // === xdr source ============================================================
+	xdr.struct("CreateAccountSuccess",[["externalSystemIDs",xdr.varArray(xdr.lookup("ExternalSystemAccountId"),2147483647)],["referrerFee",xdr.lookup("Int64")],["ext",xdr.lookup("CreateAccountSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union CreateAccountResult switch (CreateAccountResultCode code)
 	//   {
-	//   case CREATE_ACCOUNT_SUCCESS:
+	//   case SUCCESS:
 	//       CreateAccountSuccess success;
 	//   default:
 	//       void;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("CreateAccountResult",{switchOn:xdr.lookup("CreateAccountResultCode"),switchName:"code",switches:[["createAccountSuccess","success"]],arms:{success:xdr.lookup("CreateAccountSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("CreateAccountResult",{switchOn:xdr.lookup("CreateAccountResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreateAccountSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -1927,20 +2021,20 @@ var StellarBase =
 	//   enum CreateIssuanceRequestResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       CREATE_ISSUANCE_REQUEST_SUCCESS = 0,
+	//       SUCCESS = 0,
 	//   
 	//       // codes considered as "failure" for the operation
-	//       CREATE_ISSUANCE_REQUEST_ASSET_NOT_FOUND = -1,
-	//   	CREATE_ISSUANCE_REQUEST_INVALID_AMOUNT = -2,
-	//   	CREATE_ISSUANCE_REQUEST_REFERENCE_DUPLICATION = -3,
-	//   	CREATE_ISSUANCE_REQUEST_NO_COUNTERPARTY = -4,
-	//   	CREATE_ISSUANCE_REQUEST_NOT_AUTHORIZED = -5,
-	//   	CREATE_ISSUANCE_REQUEST_EXCEEDS_MAX_ISSUANCE_AMOUNT = -6,
-	//   	CREATE_ISSUANCE_REQUEST_RECEIVER_FULL_LINE = -7
+	//       ASSET_NOT_FOUND = -1,
+	//   	INVALID_AMOUNT = -2,
+	//   	REFERENCE_DUPLICATION = -3,
+	//   	NO_COUNTERPARTY = -4,
+	//   	NOT_AUTHORIZED = -5,
+	//   	EXCEEDS_MAX_ISSUANCE_AMOUNT = -6,
+	//   	RECEIVER_FULL_LINE = -7
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("CreateIssuanceRequestResultCode",{createIssuanceRequestSuccess:0,createIssuanceRequestAssetNotFound:-1,createIssuanceRequestInvalidAmount:-2,createIssuanceRequestReferenceDuplication:-3,createIssuanceRequestNoCounterparty:-4,createIssuanceRequestNotAuthorized:-5,createIssuanceRequestExceedsMaxIssuanceAmount:-6,createIssuanceRequestReceiverFullLine:-7}); // === xdr source ============================================================
+	xdr["enum"]("CreateIssuanceRequestResultCode",{success:0,assetNotFound:-1,invalidAmount:-2,referenceDuplication:-3,noCounterparty:-4,notAuthorized:-5,exceedsMaxIssuanceAmount:-6,receiverFullLine:-7}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   	{
@@ -1953,6 +2047,7 @@ var StellarBase =
 	//
 	//   struct CreateIssuanceRequestSuccess {
 	//   	uint64 requestID;
+	//   	AccountID receiver;
 	//   	bool fulfilled;
 	//   	union switch (LedgerVersion v)
 	//   	{
@@ -1963,18 +2058,18 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("CreateIssuanceRequestSuccess",[["requestId",xdr.lookup("Uint64")],["fulfilled",xdr.bool()],["ext",xdr.lookup("CreateIssuanceRequestSuccessExt")]]); // === xdr source ============================================================
+	xdr.struct("CreateIssuanceRequestSuccess",[["requestId",xdr.lookup("Uint64")],["receiver",xdr.lookup("AccountId")],["fulfilled",xdr.bool()],["ext",xdr.lookup("CreateIssuanceRequestSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union CreateIssuanceRequestResult switch (CreateIssuanceRequestResultCode code)
 	//   {
-	//   case CREATE_ISSUANCE_REQUEST_SUCCESS:
+	//   case SUCCESS:
 	//       CreateIssuanceRequestSuccess success;
 	//   default:
 	//       void;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("CreateIssuanceRequestResult",{switchOn:xdr.lookup("CreateIssuanceRequestResultCode"),switchName:"code",switches:[["createIssuanceRequestSuccess","success"]],arms:{success:xdr.lookup("CreateIssuanceRequestSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("CreateIssuanceRequestResult",{switchOn:xdr.lookup("CreateIssuanceRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreateIssuanceRequestSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2003,20 +2098,20 @@ var StellarBase =
 	//   enum CreatePreIssuanceRequestResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       CREATE_PREISSUANCE_REQUEST_SUCCESS = 0,
+	//       SUCCESS = 0,
 	//   
 	//       // codes considered as "failure" for the operation
-	//       CREATE_PREISSUANCE_REQUEST_ASSET_NOT_FOUND = -1,
-	//       CREATE_PREISSUANCE_REQUEST_REFERENCE_DUPLICATION = -2,    // reference is already used
-	//       CREATE_PREISSUANCE_REQUEST_NOT_AUTHORIZED_UPLOAD = -3, // tries to pre issue asset for not owned asset
-	//       CREATE_PREISSUANCE_REQUEST_INVALID_SIGNATURE = -4,
-	//       CREATE_PREISSUANCE_REQUEST_EXCEEDED_MAX_AMOUNT = -5,
-	//   	CREATE_PREISSUANCE_REQUEST_INVALID_AMOUNT = -6,
-	//   	CREATE_PREISSUANCE_REQUEST_INVALID_REFERENCE = -7
+	//       ASSET_NOT_FOUND = -1,
+	//       REFERENCE_DUPLICATION = -2,    // reference is already used
+	//       NOT_AUTHORIZED_UPLOAD = -3, // tries to pre issue asset for not owned asset
+	//       INVALID_SIGNATURE = -4,
+	//       EXCEEDED_MAX_AMOUNT = -5,
+	//   	INVALID_AMOUNT = -6,
+	//   	INVALID_REFERENCE = -7
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("CreatePreIssuanceRequestResultCode",{createPreissuanceRequestSuccess:0,createPreissuanceRequestAssetNotFound:-1,createPreissuanceRequestReferenceDuplication:-2,createPreissuanceRequestNotAuthorizedUpload:-3,createPreissuanceRequestInvalidSignature:-4,createPreissuanceRequestExceededMaxAmount:-5,createPreissuanceRequestInvalidAmount:-6,createPreissuanceRequestInvalidReference:-7}); // === xdr source ============================================================
+	xdr["enum"]("CreatePreIssuanceRequestResultCode",{success:0,assetNotFound:-1,referenceDuplication:-2,notAuthorizedUpload:-3,invalidSignature:-4,exceededMaxAmount:-5,invalidAmount:-6,invalidReference:-7}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -2043,7 +2138,7 @@ var StellarBase =
 	//
 	//   union CreatePreIssuanceRequestResult switch (CreatePreIssuanceRequestResultCode code)
 	//   {
-	//   case CREATE_PREISSUANCE_REQUEST_SUCCESS:
+	//   case SUCCESS:
 	//       struct {
 	//   		uint64 requestID;
 	//   		// reserved for future use
@@ -2059,7 +2154,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("CreatePreIssuanceRequestResult",{switchOn:xdr.lookup("CreatePreIssuanceRequestResultCode"),switchName:"code",switches:[["createPreissuanceRequestSuccess","success"]],arms:{success:xdr.lookup("CreatePreIssuanceRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("CreatePreIssuanceRequestResult",{switchOn:xdr.lookup("CreatePreIssuanceRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreatePreIssuanceRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2089,26 +2184,26 @@ var StellarBase =
 	//   enum DirectDebitResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       DIRECT_DEBIT_SUCCESS = 0, // payment successfuly completed
+	//       SUCCESS = 0, // payment successfuly completed
 	//   
 	//       // codes considered as "failure" for the operation
-	//       DIRECT_DEBIT_MALFORMED = -1,       // bad input
-	//       DIRECT_DEBIT_UNDERFUNDED = -2,     // not enough funds in source account
-	//       DIRECT_DEBIT_LINE_FULL = -3,       // destination would go above their limit
-	//   	DIRECT_DEBIT_FEE_MISMATCHED = -4,   // fee is not equal to expected fee
-	//       DIRECT_DEBIT_BALANCE_NOT_FOUND = -5, // destination balance not found
-	//       DIRECT_DEBIT_BALANCE_ACCOUNT_MISMATCHED = -6,
-	//       DIRECT_DEBIT_BALANCE_ASSETS_MISMATCHED = -7,
-	//   	DIRECT_DEBIT_SRC_BALANCE_NOT_FOUND = -8, // source balance not found
-	//       DIRECT_DEBIT_REFERENCE_DUPLICATION = -9,
-	//       DIRECT_DEBIT_STATS_OVERFLOW = -10,
-	//       DIRECT_DEBIT_LIMITS_EXCEEDED = -11,
-	//       DIRECT_DEBIT_NOT_ALLOWED_BY_ASSET_POLICY = -12,
-	//       DIRECT_DEBIT_NO_TRUST = -13
+	//       MALFORMED = -1,       // bad input
+	//       UNDERFUNDED = -2,     // not enough funds in source account
+	//       LINE_FULL = -3,       // destination would go above their limit
+	//   	FEE_MISMATCHED = -4,   // fee is not equal to expected fee
+	//       BALANCE_NOT_FOUND = -5, // destination balance not found
+	//       BALANCE_ACCOUNT_MISMATCHED = -6,
+	//       BALANCE_ASSETS_MISMATCHED = -7,
+	//   	SRC_BALANCE_NOT_FOUND = -8, // source balance not found
+	//       REFERENCE_DUPLICATION = -9,
+	//       STATS_OVERFLOW = -10,
+	//       LIMITS_EXCEEDED = -11,
+	//       NOT_ALLOWED_BY_ASSET_POLICY = -12,
+	//       NO_TRUST = -13
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("DirectDebitResultCode",{directDebitSuccess:0,directDebitMalformed:-1,directDebitUnderfunded:-2,directDebitLineFull:-3,directDebitFeeMismatched:-4,directDebitBalanceNotFound:-5,directDebitBalanceAccountMismatched:-6,directDebitBalanceAssetsMismatched:-7,directDebitSrcBalanceNotFound:-8,directDebitReferenceDuplication:-9,directDebitStatsOverflow:-10,directDebitLimitsExceeded:-11,directDebitNotAllowedByAssetPolicy:-12,directDebitNoTrust:-13}); // === xdr source ============================================================
+	xdr["enum"]("DirectDebitResultCode",{success:0,malformed:-1,underfunded:-2,lineFull:-3,feeMismatched:-4,balanceNotFound:-5,balanceAccountMismatched:-6,balanceAssetsMismatched:-7,srcBalanceNotFound:-8,referenceDuplication:-9,statsOverflow:-10,limitsExceeded:-11,notAllowedByAssetPolicy:-12,noTrust:-13}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2135,14 +2230,14 @@ var StellarBase =
 	//
 	//   union DirectDebitResult switch (DirectDebitResultCode code)
 	//   {
-	//   case DIRECT_DEBIT_SUCCESS:
+	//   case SUCCESS:
 	//       DirectDebitSuccess success;
 	//   default:
 	//       void;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("DirectDebitResult",{switchOn:xdr.lookup("DirectDebitResultCode"),switchName:"code",switches:[["directDebitSuccess","success"]],arms:{success:xdr.lookup("DirectDebitSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("DirectDebitResult",{switchOn:xdr.lookup("DirectDebitResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("DirectDebitSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2174,17 +2269,17 @@ var StellarBase =
 	//   enum ManageAccountResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       MANAGE_ACCOUNT_SUCCESS = 0, // account was created
+	//       SUCCESS = 0, // account was created
 	//   
 	//       // codes considered as "failure" for the operation
-	//       MANAGE_ACCOUNT_NOT_FOUND = -1,         // account does not exists
-	//       MANAGE_ACCOUNT_MALFORMED = -2,
-	//   	MANAGE_ACCOUNT_NOT_ALLOWED = -3,         // manage account operation is not allowed on this account
-	//       MANAGE_ACCOUNT_TYPE_MISMATCH = -4
+	//       NOT_FOUND = -1,         // account does not exists
+	//       MALFORMED = -2,
+	//   	NOT_ALLOWED = -3,         // manage account operation is not allowed on this account
+	//       TYPE_MISMATCH = -4
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageAccountResultCode",{manageAccountSuccess:0,manageAccountNotFound:-1,manageAccountMalformed:-2,manageAccountNotAllowed:-3,manageAccountTypeMismatch:-4}); // === xdr source ============================================================
+	xdr["enum"]("ManageAccountResultCode",{success:0,notFound:-1,malformed:-2,notAllowed:-3,typeMismatch:-4}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2211,24 +2306,24 @@ var StellarBase =
 	//
 	//   union ManageAccountResult switch (ManageAccountResultCode code)
 	//   {
-	//   case MANAGE_ACCOUNT_SUCCESS:
+	//   case SUCCESS:
 	//       ManageAccountSuccess success;
 	//   default:
 	//       void;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("ManageAccountResult",{switchOn:xdr.lookup("ManageAccountResultCode"),switchName:"code",switches:[["manageAccountSuccess","success"]],arms:{success:xdr.lookup("ManageAccountSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("ManageAccountResult",{switchOn:xdr.lookup("ManageAccountResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageAccountSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   enum ManageAssetPairAction
 	//   {
-	//       MANAGE_ASSET_PAIR_CREATE = 0,
-	//       MANAGE_ASSET_PAIR_UPDATE_PRICE = 1,
-	//       MANAGE_ASSET_PAIR_UPDATE_POLICIES = 2
+	//       CREATE = 0,
+	//       UPDATE_PRICE = 1,
+	//       UPDATE_POLICIES = 2
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageAssetPairAction",{manageAssetPairCreate:0,manageAssetPairUpdatePrice:1,manageAssetPairUpdatePolicy:2}); // === xdr source ============================================================
+	xdr["enum"]("ManageAssetPairAction",{create:0,updatePrice:1,updatePolicy:2}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2267,20 +2362,20 @@ var StellarBase =
 	//   enum ManageAssetPairResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       MANAGE_ASSET_PAIR_SUCCESS = 0,
+	//       SUCCESS = 0,
 	//   
 	//       // codes considered as "failure" for the operation
-	//   	MANAGE_ASSET_PAIR_NOT_FOUND = -1,           // failed to find asset with such code
-	//   	MANAGE_ASSET_PAIR_ALREADY_EXISTS = -2,
-	//       MANAGE_ASSET_PAIR_MALFORMED = -3,
-	//   	MANAGE_ASSET_PAIR_INVALID_ASSET = -4,
-	//   	MANAGE_ASSET_PAIR_INVALID_ACTION = -5,
-	//   	MANAGE_ASSET_PAIR_INVALID_POLICIES = -6,
-	//   	MANAGE_ASSET_PAIR_ASSET_NOT_FOUND = -7
+	//   	NOT_FOUND = -1,           // failed to find asset with such code
+	//   	ALREADY_EXISTS = -2,
+	//       MALFORMED = -3,
+	//   	INVALID_ASSET = -4,
+	//   	INVALID_ACTION = -5,
+	//   	INVALID_POLICIES = -6,
+	//   	ASSET_NOT_FOUND = -7
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageAssetPairResultCode",{manageAssetPairSuccess:0,manageAssetPairNotFound:-1,manageAssetPairAlreadyExist:-2,manageAssetPairMalformed:-3,manageAssetPairInvalidAsset:-4,manageAssetPairInvalidAction:-5,manageAssetPairInvalidPolicy:-6,manageAssetPairAssetNotFound:-7}); // === xdr source ============================================================
+	xdr["enum"]("ManageAssetPairResultCode",{success:0,notFound:-1,alreadyExist:-2,malformed:-3,invalidAsset:-4,invalidAction:-5,invalidPolicy:-6,assetNotFound:-7}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2308,24 +2403,24 @@ var StellarBase =
 	//
 	//   union ManageAssetPairResult switch (ManageAssetPairResultCode code)
 	//   {
-	//   case MANAGE_ASSET_PAIR_SUCCESS:
+	//   case SUCCESS:
 	//       ManageAssetPairSuccess success;
 	//   default:
 	//       void;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("ManageAssetPairResult",{switchOn:xdr.lookup("ManageAssetPairResultCode"),switchName:"code",switches:[["manageAssetPairSuccess","success"]],arms:{success:xdr.lookup("ManageAssetPairSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("ManageAssetPairResult",{switchOn:xdr.lookup("ManageAssetPairResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageAssetPairSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   enum ManageAssetAction
 	//   {
-	//       MANAGE_ASSET_CREATE_ASSET_CREATION_REQUEST = 0,
-	//       MANAGE_ASSET_CREATE_ASSET_UPDATE_REQUEST = 1,
-	//   	MANAGE_ASSET_CANCEL_ASSET_REQUEST = 2
+	//       CREATE_ASSET_CREATION_REQUEST = 0,
+	//       CREATE_ASSET_UPDATE_REQUEST = 1,
+	//   	CANCEL_ASSET_REQUEST = 2
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageAssetAction",{manageAssetCreateAssetCreationRequest:0,manageAssetCreateAssetUpdateRequest:1,manageAssetCancelAssetRequest:2}); // === xdr source ============================================================
+	xdr["enum"]("ManageAssetAction",{createAssetCreationRequest:0,createAssetUpdateRequest:1,cancelAssetRequest:2}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2337,7 +2432,7 @@ var StellarBase =
 	xdr.union("CancelAssetRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct CancelAssetRequest {
-	//   	
+	//   
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -2350,18 +2445,18 @@ var StellarBase =
 	// ===========================================================================
 	xdr.struct("CancelAssetRequest",[["ext",xdr.lookup("CancelAssetRequestExt")]]); // === xdr source ============================================================
 	//
-	//   union switch (ManageAssetAction action) 
+	//   union switch (ManageAssetAction action)
 	//   	{
-	//   	case MANAGE_ASSET_CREATE_ASSET_CREATION_REQUEST:
+	//   	case CREATE_ASSET_CREATION_REQUEST:
 	//   		AssetCreationRequest createAsset;
-	//   	case MANAGE_ASSET_CREATE_ASSET_UPDATE_REQUEST:
+	//   	case CREATE_ASSET_UPDATE_REQUEST:
 	//   		AssetUpdateRequest updateAsset;
-	//   	case MANAGE_ASSET_CANCEL_ASSET_REQUEST:
+	//   	case CANCEL_ASSET_REQUEST:
 	//   		CancelAssetRequest cancelRequest;
 	//   	}
 	//
 	// ===========================================================================
-	xdr.union("ManageAssetOpRequest",{switchOn:xdr.lookup("ManageAssetAction"),switchName:"action",switches:[["manageAssetCreateAssetCreationRequest","createAsset"],["manageAssetCreateAssetUpdateRequest","updateAsset"],["manageAssetCancelAssetRequest","cancelRequest"]],arms:{createAsset:xdr.lookup("AssetCreationRequest"),updateAsset:xdr.lookup("AssetUpdateRequest"),cancelRequest:xdr.lookup("CancelAssetRequest")}}); // === xdr source ============================================================
+	xdr.union("ManageAssetOpRequest",{switchOn:xdr.lookup("ManageAssetAction"),switchName:"action",switches:[["createAssetCreationRequest","createAsset"],["createAssetUpdateRequest","updateAsset"],["cancelAssetRequest","cancelRequest"]],arms:{createAsset:xdr.lookup("AssetCreationRequest"),updateAsset:xdr.lookup("AssetUpdateRequest"),cancelRequest:xdr.lookup("CancelAssetRequest")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2375,13 +2470,13 @@ var StellarBase =
 	//   struct ManageAssetOp
 	//   {
 	//   	uint64 requestID; // 0 to create, non zero will try to update
-	//       union switch (ManageAssetAction action) 
+	//       union switch (ManageAssetAction action)
 	//   	{
-	//   	case MANAGE_ASSET_CREATE_ASSET_CREATION_REQUEST:
+	//   	case CREATE_ASSET_CREATION_REQUEST:
 	//   		AssetCreationRequest createAsset;
-	//   	case MANAGE_ASSET_CREATE_ASSET_UPDATE_REQUEST:
+	//   	case CREATE_ASSET_UPDATE_REQUEST:
 	//   		AssetUpdateRequest updateAsset;
-	//   	case MANAGE_ASSET_CANCEL_ASSET_REQUEST:
+	//   	case CANCEL_ASSET_REQUEST:
 	//   		CancelAssetRequest cancelRequest;
 	//   	} request;
 	//   
@@ -2400,20 +2495,22 @@ var StellarBase =
 	//   enum ManageAssetResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       MANAGE_ASSET_SUCCESS = 0,                       // request was successfully created/updated/canceled
+	//       SUCCESS = 0,                       // request was successfully created/updated/canceled
 	//   
 	//       // codes considered as "failure" for the operation
-	//   	MANAGE_ASSET_REQUEST_NOT_FOUND = -1,           // failed to find asset request with such id
-	//   	MANAGE_ASSET_ASSET_ALREADY_EXISTS = -3,			   // asset with such code already exist
-	//       MANAGE_ASSET_INVALID_MAX_ISSUANCE_AMOUNT = -4, // max issuance amount is 0
-	//   	MANAGE_ASSET_INVALID_CODE = -5,                // asset code is invalid (empty or contains space)
-	//   	MANAGE_ASSET_INVALID_NAME = -6,                // asset name is invalid (empty)
-	//   	MANAGE_ASSET_INVALID_POLICIES = -7,            // asset policies (has flag which does not belong to AssetPolicies enum)
-	//   	MANAGE_ASSET_ASSET_NOT_FOUND = -8
+	//   	REQUEST_NOT_FOUND = -1,           // failed to find asset request with such id
+	//   	ASSET_ALREADY_EXISTS = -3,			   // asset with such code already exist
+	//       INVALID_MAX_ISSUANCE_AMOUNT = -4, // max issuance amount is 0
+	//   	INVALID_CODE = -5,                // asset code is invalid (empty or contains space)
+	//   	INVALID_NAME = -6,                // asset name is invalid (empty)
+	//   	INVALID_POLICIES = -7,            // asset policies (has flag which does not belong to AssetPolicies enum)
+	//   	ASSET_NOT_FOUND = -8,             // asset does not exists
+	//   	REQUEST_ALREADY_EXISTS = -9,      // request for creation of unique entry already exists
+	//   	STATS_ASSET_ALREADY_EXISTS = -10
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageAssetResultCode",{manageAssetSuccess:0,manageAssetRequestNotFound:-1,manageAssetAssetAlreadyExist:-3,manageAssetInvalidMaxIssuanceAmount:-4,manageAssetInvalidCode:-5,manageAssetInvalidName:-6,manageAssetInvalidPolicy:-7,manageAssetAssetNotFound:-8}); // === xdr source ============================================================
+	xdr["enum"]("ManageAssetResultCode",{success:0,requestNotFound:-1,assetAlreadyExist:-3,invalidMaxIssuanceAmount:-4,invalidCode:-5,invalidName:-6,invalidPolicy:-7,assetNotFound:-8,requestAlreadyExist:-9,statsAssetAlreadyExist:-10}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2427,6 +2524,7 @@ var StellarBase =
 	//   struct ManageAssetSuccess
 	//   {
 	//   	uint64 requestID;
+	//   	bool fulfilled;
 	//       // reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -2437,27 +2535,27 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("ManageAssetSuccess",[["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("ManageAssetSuccessExt")]]); // === xdr source ============================================================
+	xdr.struct("ManageAssetSuccess",[["requestId",xdr.lookup("Uint64")],["fulfilled",xdr.bool()],["ext",xdr.lookup("ManageAssetSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union ManageAssetResult switch (ManageAssetResultCode code)
 	//   {
-	//   case MANAGE_ASSET_SUCCESS:
+	//   case SUCCESS:
 	//       ManageAssetSuccess success;
 	//   default:
 	//       void;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("ManageAssetResult",{switchOn:xdr.lookup("ManageAssetResultCode"),switchName:"code",switches:[["manageAssetSuccess","success"]],arms:{success:xdr.lookup("ManageAssetSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("ManageAssetResult",{switchOn:xdr.lookup("ManageAssetResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageAssetSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   enum ManageBalanceAction
 	//   {
-	//       MANAGE_BALANCE_CREATE = 0,
-	//       MANAGE_BALANCE_DELETE = 1
+	//       CREATE = 0,
+	//       DELETE_BALANCE = 1
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageBalanceAction",{manageBalanceCreate:0,manageBalanceDelete:1}); // === xdr source ============================================================
+	xdr["enum"]("ManageBalanceAction",{create:0,deleteBalance:1}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2488,19 +2586,19 @@ var StellarBase =
 	//   enum ManageBalanceResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       MANAGE_BALANCE_SUCCESS = 0,
+	//       SUCCESS = 0,
 	//   
 	//       // codes considered as "failure" for the operation
-	//       MANAGE_BALANCE_MALFORMED = -1,       // invalid destination
-	//       MANAGE_BALANCE_NOT_FOUND = -2,
-	//       MANAGE_BALANCE_DESTINATION_NOT_FOUND = -3,
-	//       MANAGE_BALANCE_ALREADY_EXISTS = -4,
-	//       MANAGE_BALANCE_ASSET_NOT_FOUND = -5,
-	//       MANAGE_BALANCE_INVALID_ASSET = -6
+	//       MALFORMED = -1,       // invalid destination
+	//       NOT_FOUND = -2,
+	//       DESTINATION_NOT_FOUND = -3,
+	//       ALREADY_EXISTS = -4,
+	//       ASSET_NOT_FOUND = -5,
+	//       INVALID_ASSET = -6
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageBalanceResultCode",{manageBalanceSuccess:0,manageBalanceMalformed:-1,manageBalanceNotFound:-2,manageBalanceDestinationNotFound:-3,manageBalanceAlreadyExist:-4,manageBalanceAssetNotFound:-5,manageBalanceInvalidAsset:-6}); // === xdr source ============================================================
+	xdr["enum"]("ManageBalanceResultCode",{success:0,malformed:-1,notFound:-2,destinationNotFound:-3,alreadyExist:-4,assetNotFound:-5,invalidAsset:-6}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2526,14 +2624,14 @@ var StellarBase =
 	//
 	//   union ManageBalanceResult switch (ManageBalanceResultCode code)
 	//   {
-	//   case MANAGE_BALANCE_SUCCESS:
+	//   case SUCCESS:
 	//       ManageBalanceSuccess success;
 	//   default:
 	//       void;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("ManageBalanceResult",{switchOn:xdr.lookup("ManageBalanceResultCode"),switchName:"code",switches:[["manageBalanceSuccess","success"]],arms:{success:xdr.lookup("ManageBalanceSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("ManageBalanceResult",{switchOn:xdr.lookup("ManageBalanceResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageBalanceSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2567,22 +2665,22 @@ var StellarBase =
 	//   enum ManageForfeitRequestResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       MANAGE_FORFEIT_REQUEST_SUCCESS = 0,
+	//       SUCCESS = 0,
 	//   
 	//       // codes considered as "failure" for the operation
-	//   	MANAGE_FORFEIT_REQUEST_UNDERFUNDED = -1,
-	//       MANAGE_FORFEIT_REQUEST_INVALID_AMOUNT = -2,
-	//       MANAGE_FORFEIT_REQUEST_LINE_FULL = -3,
-	//       MANAGE_FORFEIT_REQUEST_BALANCE_MISMATCH = -4,
-	//       MANAGE_FORFEIT_REQUEST_STATS_OVERFLOW = -5,
-	//       MANAGE_FORFEIT_REQUEST_LIMITS_EXCEEDED = -6,
-	//       MANAGE_FORFEIT_REQUEST_REVIEWER_NOT_FOUND = -7,
-	//       MANAGE_FORFEIT_REQUEST_INVALID_DETAILS = -8,
-	//   	MANAGE_FORFEIT_REQUEST_FEE_MISMATCH = -9 // fee is not equal to expected fee
+	//   	UNDERFUNDED = -1,
+	//       INVALID_AMOUNT = -2,
+	//       LINE_FULL = -3,
+	//       BALANCE_MISMATCH = -4,
+	//       STATS_OVERFLOW = -5,
+	//       LIMITS_EXCEEDED = -6,
+	//       REVIEWER_NOT_FOUND = -7,
+	//       INVALID_DETAILS = -8,
+	//   	FEE_MISMATCH = -9 // fee is not equal to expected fee
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageForfeitRequestResultCode",{manageForfeitRequestSuccess:0,manageForfeitRequestUnderfunded:-1,manageForfeitRequestInvalidAmount:-2,manageForfeitRequestLineFull:-3,manageForfeitRequestBalanceMismatch:-4,manageForfeitRequestStatsOverflow:-5,manageForfeitRequestLimitsExceeded:-6,manageForfeitRequestReviewerNotFound:-7,manageForfeitRequestInvalidDetail:-8,manageForfeitRequestFeeMismatch:-9}); // === xdr source ============================================================
+	xdr["enum"]("ManageForfeitRequestResultCode",{success:0,underfunded:-1,invalidAmount:-2,lineFull:-3,balanceMismatch:-4,statsOverflow:-5,limitsExceeded:-6,reviewerNotFound:-7,invalidDetail:-8,feeMismatch:-9}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//               {
@@ -2610,7 +2708,7 @@ var StellarBase =
 	//
 	//   union ManageForfeitRequestResult switch (ManageForfeitRequestResultCode code)
 	//   {
-	//       case MANAGE_FORFEIT_REQUEST_SUCCESS:
+	//       case SUCCESS:
 	//           struct
 	//           {
 	//               uint64 paymentID;
@@ -2627,7 +2725,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("ManageForfeitRequestResult",{switchOn:xdr.lookup("ManageForfeitRequestResultCode"),switchName:"code",switches:[["manageForfeitRequestSuccess","success"]],arms:{success:xdr.lookup("ManageForfeitRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("ManageForfeitRequestResult",{switchOn:xdr.lookup("ManageForfeitRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageForfeitRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2662,20 +2760,20 @@ var StellarBase =
 	//   enum ManageInvoiceResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       MANAGE_INVOICE_SUCCESS = 0,
+	//       SUCCESS = 0,
 	//   
 	//       // codes considered as "failure" for the operation
-	//       MANAGE_INVOICE_MALFORMED = -1,
-	//       MANAGE_INVOICE_BALANCE_NOT_FOUND = -2,
-	//   	MANAGE_INVOICE_OVERFLOW = -3,
+	//       MALFORMED = -1,
+	//       BALANCE_NOT_FOUND = -2,
+	//   	INVOICE_OVERFLOW = -3,
 	//   
-	//       MANAGE_INVOICE_NOT_FOUND = -4,
-	//       MANAGE_INVOICE_TOO_MANY_INVOICES = -5,
-	//       MANAGE_INVOICE_CAN_NOT_DELETE_IN_PROGRESS = -6
+	//       NOT_FOUND = -4,
+	//       TOO_MANY_INVOICES = -5,
+	//       CAN_NOT_DELETE_IN_PROGRESS = -6
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageInvoiceResultCode",{manageInvoiceSuccess:0,manageInvoiceMalformed:-1,manageInvoiceBalanceNotFound:-2,manageInvoiceOverflow:-3,manageInvoiceNotFound:-4,manageInvoiceTooManyInvoice:-5,manageInvoiceCanNotDeleteInProgress:-6}); // === xdr source ============================================================
+	xdr["enum"]("ManageInvoiceResultCode",{success:0,malformed:-1,balanceNotFound:-2,invoiceOverflow:-3,notFound:-4,tooManyInvoice:-5,canNotDeleteInProgress:-6}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2705,14 +2803,14 @@ var StellarBase =
 	//
 	//   union ManageInvoiceResult switch (ManageInvoiceResultCode code)
 	//   {
-	//   case MANAGE_INVOICE_SUCCESS:
+	//   case SUCCESS:
 	//       ManageInvoiceSuccessResult success;
 	//   default:
 	//       void;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("ManageInvoiceResult",{switchOn:xdr.lookup("ManageInvoiceResultCode"),switchName:"code",switches:[["manageInvoiceSuccess","success"]],arms:{success:xdr.lookup("ManageInvoiceSuccessResult")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("ManageInvoiceResult",{switchOn:xdr.lookup("ManageInvoiceResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageInvoiceSuccessResult")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2750,35 +2848,35 @@ var StellarBase =
 	//   enum ManageOfferResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       MANAGE_OFFER_SUCCESS = 0,
+	//       SUCCESS = 0,
 	//   
 	//       // codes considered as "failure" for the operation
-	//       MANAGE_OFFER_MALFORMED = -1,     // generated offer would be invalid
-	//       MANAGE_OFFER_PAIR_NOT_TRADED = -2, // it's not allowed to trage with this pair
-	//       MANAGE_OFFER_BALANCE_NOT_FOUND = -3,  // does not own balance for buying or selling
-	//       MANAGE_OFFER_UNDERFUNDED = -4,    // doesn't hold what it's trying to sell
-	//       MANAGE_OFFER_CROSS_SELF = -5,     // would cross an offer from the same user
-	//   	MANAGE_OFFER_OVERFLOW = -6,
-	//   	MANAGE_OFFER_ASSET_PAIR_NOT_TRADABLE = -7,
-	//   	MANAGE_OFFER_PHYSICAL_PRICE_RESTRICTION = -8, // offer price violates physical price restriction
-	//   	MAANGE_OFFER_CURRENT_PRICE_RESTRICTION = -9,
-	//       MANAGE_OFFER_NOT_FOUND = -10, // offerID does not match an existing offer
-	//       MANAGE_OFFER_INVALID_PERCENT_FEE = -11,
-	//   	MANAGE_OFFER_INSUFFISIENT_PRICE = -12
+	//       MALFORMED = -1,     // generated offer would be invalid
+	//       PAIR_NOT_TRADED = -2, // it's not allowed to trage with this pair
+	//       BALANCE_NOT_FOUND = -3,  // does not own balance for buying or selling
+	//       UNDERFUNDED = -4,    // doesn't hold what it's trying to sell
+	//       CROSS_SELF = -5,     // would cross an offer from the same user
+	//   	OFFER_OVERFLOW = -6,
+	//   	ASSET_PAIR_NOT_TRADABLE = -7,
+	//   	PHYSICAL_PRICE_RESTRICTION = -8, // offer price violates physical price restriction
+	//   	CURRENT_PRICE_RESTRICTION = -9,
+	//       NOT_FOUND = -10, // offerID does not match an existing offer
+	//       INVALID_PERCENT_FEE = -11,
+	//   	INSUFFICIENT_PRICE = -12
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageOfferResultCode",{manageOfferSuccess:0,manageOfferMalformed:-1,manageOfferPairNotTraded:-2,manageOfferBalanceNotFound:-3,manageOfferUnderfunded:-4,manageOfferCrossSelf:-5,manageOfferOverflow:-6,manageOfferAssetPairNotTradable:-7,manageOfferPhysicalPriceRestriction:-8,maangeOfferCurrentPriceRestriction:-9,manageOfferNotFound:-10,manageOfferInvalidPercentFee:-11,manageOfferInsuffisientPrice:-12}); // === xdr source ============================================================
+	xdr["enum"]("ManageOfferResultCode",{success:0,malformed:-1,pairNotTraded:-2,balanceNotFound:-3,underfunded:-4,crossSelf:-5,offerOverflow:-6,assetPairNotTradable:-7,physicalPriceRestriction:-8,currentPriceRestriction:-9,notFound:-10,invalidPercentFee:-11,insufficientPrice:-12}); // === xdr source ============================================================
 	//
 	//   enum ManageOfferEffect
 	//   {
-	//       MANAGE_OFFER_CREATED = 0,
-	//       MANAGE_OFFER_UPDATED = 1,
-	//       MANAGE_OFFER_DELETED = 2
+	//       CREATED = 0,
+	//       UPDATED = 1,
+	//       DELETED = 2
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageOfferEffect",{manageOfferCreated:0,manageOfferUpdated:1,manageOfferDeleted:2}); // === xdr source ============================================================
+	xdr["enum"]("ManageOfferEffect",{created:0,updated:1,deleted:2}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2816,15 +2914,15 @@ var StellarBase =
 	//
 	//   union switch (ManageOfferEffect effect)
 	//       {
-	//       case MANAGE_OFFER_CREATED:
-	//       case MANAGE_OFFER_UPDATED:
+	//       case CREATED:
+	//       case UPDATED:
 	//           OfferEntry offer;
 	//       default:
 	//           void;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ManageOfferSuccessResultOffer",{switchOn:xdr.lookup("ManageOfferEffect"),switchName:"effect",switches:[["manageOfferCreated","offer"],["manageOfferUpdated","offer"]],arms:{offer:xdr.lookup("OfferEntry")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("ManageOfferSuccessResultOffer",{switchOn:xdr.lookup("ManageOfferEffect"),switchName:"effect",switches:[["created","offer"],["updated","offer"]],arms:{offer:xdr.lookup("OfferEntry")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2845,8 +2943,8 @@ var StellarBase =
 	//   
 	//       union switch (ManageOfferEffect effect)
 	//       {
-	//       case MANAGE_OFFER_CREATED:
-	//       case MANAGE_OFFER_UPDATED:
+	//       case CREATED:
+	//       case UPDATED:
 	//           OfferEntry offer;
 	//       default:
 	//           void;
@@ -2910,9 +3008,9 @@ var StellarBase =
 	//
 	//   union ManageOfferResult switch (ManageOfferResultCode code)
 	//   {
-	//   case MANAGE_OFFER_SUCCESS:
+	//   case SUCCESS:
 	//       ManageOfferSuccessResult success;
-	//   case MANAGE_OFFER_PHYSICAL_PRICE_RESTRICTION:
+	//   case PHYSICAL_PRICE_RESTRICTION:
 	//   	struct {
 	//   		int64 physicalPrice;
 	//   		union switch (LedgerVersion v)
@@ -2922,7 +3020,7 @@ var StellarBase =
 	//   		}
 	//   		ext;
 	//   	} physicalPriceRestriction;
-	//   case MAANGE_OFFER_CURRENT_PRICE_RESTRICTION:
+	//   case CURRENT_PRICE_RESTRICTION:
 	//   	struct {
 	//   		int64 currentPrice;
 	//   		union switch (LedgerVersion v)
@@ -2938,7 +3036,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("ManageOfferResult",{switchOn:xdr.lookup("ManageOfferResultCode"),switchName:"code",switches:[["manageOfferSuccess","success"],["manageOfferPhysicalPriceRestriction","physicalPriceRestriction"],["maangeOfferCurrentPriceRestriction","currentPriceRestriction"]],arms:{success:xdr.lookup("ManageOfferSuccessResult"),physicalPriceRestriction:xdr.lookup("ManageOfferResultPhysicalPriceRestriction"),currentPriceRestriction:xdr.lookup("ManageOfferResultCurrentPriceRestriction")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("ManageOfferResult",{switchOn:xdr.lookup("ManageOfferResultCode"),switchName:"code",switches:[["success","success"],["physicalPriceRestriction","physicalPriceRestriction"],["currentPriceRestriction","currentPriceRestriction"]],arms:{success:xdr.lookup("ManageOfferSuccessResult"),physicalPriceRestriction:xdr.lookup("ManageOfferResultPhysicalPriceRestriction"),currentPriceRestriction:xdr.lookup("ManageOfferResultCurrentPriceRestriction")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3050,30 +3148,30 @@ var StellarBase =
 	//   enum PaymentResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       PAYMENT_SUCCESS = 0, // payment successfuly completed
+	//       SUCCESS = 0, // payment successfuly completed
 	//   
 	//       // codes considered as "failure" for the operation
-	//       PAYMENT_MALFORMED = -1,       // bad input
-	//       PAYMENT_UNDERFUNDED = -2,     // not enough funds in source account
-	//       PAYMENT_LINE_FULL = -3,       // destination would go above their limit
-	//   	PAYMENT_FEE_MISMATCHED = -4,   // fee is not equal to expected fee
-	//       PAYMENT_BALANCE_NOT_FOUND = -5, // destination balance not found
-	//       PAYMENT_BALANCE_ACCOUNT_MISMATCHED = -6,
-	//       PAYMENT_BALANCE_ASSETS_MISMATCHED = -7,
-	//   	PAYMENT_SRC_BALANCE_NOT_FOUND = -8, // source balance not found
-	//       PAYMENT_REFERENCE_DUPLICATION = -9,
-	//       PAYMENT_STATS_OVERFLOW = -10,
-	//       PAYMENT_LIMITS_EXCEEDED = -11,
-	//       PAYMENT_NOT_ALLOWED_BY_ASSET_POLICY = -12,
-	//       PAYMENT_INVOICE_NOT_FOUND = -13,
-	//       PAYMENT_INVOICE_WRONG_AMOUNT = -14,
-	//       PAYMENT_INVOICE_BALANCE_MISMATCH = -15,
-	//       PAYMENT_INVOICE_ACCOUNT_MISMATCH = -16,
-	//       PAYMENT_INVOICE_ALREADY_PAID = -17
+	//       MALFORMED = -1,       // bad input
+	//       UNDERFUNDED = -2,     // not enough funds in source account
+	//       LINE_FULL = -3,       // destination would go above their limit
+	//   	FEE_MISMATCHED = -4,   // fee is not equal to expected fee
+	//       BALANCE_NOT_FOUND = -5, // destination balance not found
+	//       BALANCE_ACCOUNT_MISMATCHED = -6,
+	//       BALANCE_ASSETS_MISMATCHED = -7,
+	//   	SRC_BALANCE_NOT_FOUND = -8, // source balance not found
+	//       REFERENCE_DUPLICATION = -9,
+	//       STATS_OVERFLOW = -10,
+	//       LIMITS_EXCEEDED = -11,
+	//       NOT_ALLOWED_BY_ASSET_POLICY = -12,
+	//       INVOICE_NOT_FOUND = -13,
+	//       INVOICE_WRONG_AMOUNT = -14,
+	//       INVOICE_BALANCE_MISMATCH = -15,
+	//       INVOICE_ACCOUNT_MISMATCH = -16,
+	//       INVOICE_ALREADY_PAID = -17
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("PaymentResultCode",{paymentSuccess:0,paymentMalformed:-1,paymentUnderfunded:-2,paymentLineFull:-3,paymentFeeMismatched:-4,paymentBalanceNotFound:-5,paymentBalanceAccountMismatched:-6,paymentBalanceAssetsMismatched:-7,paymentSrcBalanceNotFound:-8,paymentReferenceDuplication:-9,paymentStatsOverflow:-10,paymentLimitsExceeded:-11,paymentNotAllowedByAssetPolicy:-12,paymentInvoiceNotFound:-13,paymentInvoiceWrongAmount:-14,paymentInvoiceBalanceMismatch:-15,paymentInvoiceAccountMismatch:-16,paymentInvoiceAlreadyPaid:-17}); // === xdr source ============================================================
+	xdr["enum"]("PaymentResultCode",{success:0,malformed:-1,underfunded:-2,lineFull:-3,feeMismatched:-4,balanceNotFound:-5,balanceAccountMismatched:-6,balanceAssetsMismatched:-7,srcBalanceNotFound:-8,referenceDuplication:-9,statsOverflow:-10,limitsExceeded:-11,notAllowedByAssetPolicy:-12,invoiceNotFound:-13,invoiceWrongAmount:-14,invoiceBalanceMismatch:-15,invoiceAccountMismatch:-16,invoiceAlreadyPaid:-17}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3102,14 +3200,14 @@ var StellarBase =
 	//
 	//   union PaymentResult switch (PaymentResultCode code)
 	//   {
-	//   case PAYMENT_SUCCESS:
+	//   case SUCCESS:
 	//       PaymentResponse paymentResponse;
 	//   default:
 	//       void;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("PaymentResult",{switchOn:xdr.lookup("PaymentResultCode"),switchName:"code",switches:[["paymentSuccess","paymentResponse"]],arms:{paymentResponse:xdr.lookup("PaymentResponse")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("PaymentResult",{switchOn:xdr.lookup("PaymentResultCode"),switchName:"code",switches:[["success","paymentResponse"]],arms:{paymentResponse:xdr.lookup("PaymentResponse")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3140,17 +3238,17 @@ var StellarBase =
 	//   enum RecoverResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       RECOVER_SUCCESS = 0,
+	//       SUCCESS = 0,
 	//   
 	//       // codes considered as "failure" for the operation
 	//   
-	//       RECOVER_MALFORMED = -1,
-	//       RECOVER_OLD_SIGNER_NOT_FOUND = -2,
-	//       RECOVER_SIGNER_ALREADY_EXISTS = -3
+	//       MALFORMED = -1,
+	//       OLD_SIGNER_NOT_FOUND = -2,
+	//       SIGNER_ALREADY_EXISTS = -3
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("RecoverResultCode",{recoverSuccess:0,recoverMalformed:-1,recoverOldSignerNotFound:-2,recoverSignerAlreadyExist:-3}); // === xdr source ============================================================
+	xdr["enum"]("RecoverResultCode",{success:0,malformed:-1,oldSignerNotFound:-2,signerAlreadyExist:-3}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -3176,7 +3274,7 @@ var StellarBase =
 	//
 	//   union RecoverResult switch (RecoverResultCode code)
 	//   {
-	//   case RECOVER_SUCCESS:
+	//   case SUCCESS:
 	//       struct {
 	//   		// reserved for future use
 	//   		union switch (LedgerVersion v)
@@ -3191,7 +3289,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("RecoverResult",{switchOn:xdr.lookup("RecoverResultCode"),switchName:"code",switches:[["recoverSuccess","success"]],arms:{success:xdr.lookup("RecoverResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("RecoverResult",{switchOn:xdr.lookup("RecoverResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("RecoverResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   	{
@@ -3223,25 +3321,25 @@ var StellarBase =
 	//   enum ReviewPaymentRequestResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       REVIEW_PAYMENT_REQUEST_SUCCESS = 0,
+	//       SUCCESS = 0,
 	//   
 	//       // codes considered as "failure" for the operation
-	//   	REVIEW_PAYMENT_REQUEST_NOT_FOUND = -1,           // failed to find Recovery request with such ID
-	//       REVIEW_PAYMENT_REQUEST_LINE_FULL = -2
+	//   	NOT_FOUND = -1,           // failed to find Recovery request with such ID
+	//       LINE_FULL = -2
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ReviewPaymentRequestResultCode",{reviewPaymentRequestSuccess:0,reviewPaymentRequestNotFound:-1,reviewPaymentRequestLineFull:-2}); // === xdr source ============================================================
+	xdr["enum"]("ReviewPaymentRequestResultCode",{success:0,notFound:-1,lineFull:-2}); // === xdr source ============================================================
 	//
 	//   enum PaymentState
 	//   {
-	//       PAYMENT_PENDING = 0,
-	//       PAYMENT_PROCESSED = 1,
-	//       PAYMENT_REJECTED = 2
+	//       PENDING = 0,
+	//       PROCESSED = 1,
+	//       REJECTED = 2
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("PaymentState",{paymentPending:0,paymentProcessed:1,paymentRejected:2}); // === xdr source ============================================================
+	xdr["enum"]("PaymentState",{pending:0,processed:1,rejected:2}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   	{
@@ -3270,14 +3368,14 @@ var StellarBase =
 	//
 	//   union ReviewPaymentRequestResult switch (ReviewPaymentRequestResultCode code)
 	//   {
-	//   case REVIEW_PAYMENT_REQUEST_SUCCESS:
+	//   case SUCCESS:
 	//       ReviewPaymentResponse reviewPaymentResponse;
 	//   default:
 	//       void;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("ReviewPaymentRequestResult",{switchOn:xdr.lookup("ReviewPaymentRequestResultCode"),switchName:"code",switches:[["reviewPaymentRequestSuccess","reviewPaymentResponse"]],arms:{reviewPaymentResponse:xdr.lookup("ReviewPaymentResponse")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("ReviewPaymentRequestResult",{switchOn:xdr.lookup("ReviewPaymentRequestResultCode"),switchName:"code",switches:[["success","reviewPaymentResponse"]],arms:{reviewPaymentResponse:xdr.lookup("ReviewPaymentResponse")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   enum ReviewRequestOpAction {
 	//   	APPROVE = 1,
@@ -3319,29 +3417,29 @@ var StellarBase =
 	//   enum ReviewRequestResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       REVIEW_REQUEST_SUCCESS = 0,
+	//       SUCCESS = 0,
 	//   
 	//       // codes considered as "failure" for the operation
-	//       REVIEW_REQUEST_INVALID_REASON = -1,        // reason must be empty if approving and not empty if rejecting
-	//   	REVIEW_REQUEST_INVALID_ACTION = -2,
-	//   	REVIEW_REQUEST_HASH_MISMATCHED = -3,
-	//   	REVIEW_REQUEST_NOT_FOUND = -4,
-	//   	REVIEW_REQUEST_TYPE_MISMATCHED = -5,
-	//   	REVIEW_REQUEST_REJECT_NOT_ALLOWED = -6, // reject not allowed, use permanent reject
+	//       INVALID_REASON = -1,        // reason must be empty if approving and not empty if rejecting
+	//   	INVALID_ACTION = -2,
+	//   	HASH_MISMATCHED = -3,
+	//   	NOT_FOUND = -4,
+	//   	TYPE_MISMATCHED = -5,
+	//   	REJECT_NOT_ALLOWED = -6, // reject not allowed, use permanent reject
 	//   
 	//   	// Asset requests
-	//   	REVIEW_REQUEST_ASSET_ALREADY_EXISTS = -20,
-	//   	REVIEW_REQUEST_ASSET_DOES_NOT_EXISTS = -21,
+	//   	ASSET_ALREADY_EXISTS = -20,
+	//   	ASSET_DOES_NOT_EXISTS = -21,
 	//   
 	//   	// Issuance requests
-	//   	REVIEW_REQUEST_MAX_ISSUANCE_AMOUNT_EXCEEDED = -40,
-	//   	REVIEW_REQUEST_INSUFFICIENT_AVAILABLE_FOR_ISSUANCE_AMOUNT = -41,
-	//   	REVIEW_REQUEST_FULL_LINE = -42 // can't fund balance - total funds exceed UINT64_MAX
+	//   	MAX_ISSUANCE_AMOUNT_EXCEEDED = -40,
+	//   	INSUFFICIENT_AVAILABLE_FOR_ISSUANCE_AMOUNT = -41,
+	//   	FULL_LINE = -42 // can't fund balance - total funds exceed UINT64_MAX
 	//   	
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ReviewRequestResultCode",{reviewRequestSuccess:0,reviewRequestInvalidReason:-1,reviewRequestInvalidAction:-2,reviewRequestHashMismatched:-3,reviewRequestNotFound:-4,reviewRequestTypeMismatched:-5,reviewRequestRejectNotAllowed:-6,reviewRequestAssetAlreadyExist:-20,reviewRequestAssetDoesNotExist:-21,reviewRequestMaxIssuanceAmountExceeded:-40,reviewRequestInsufficientAvailableForIssuanceAmount:-41,reviewRequestFullLine:-42}); // === xdr source ============================================================
+	xdr["enum"]("ReviewRequestResultCode",{success:0,invalidReason:-1,invalidAction:-2,hashMismatched:-3,notFound:-4,typeMismatched:-5,rejectNotAllowed:-6,assetAlreadyExist:-20,assetDoesNotExist:-21,maxIssuanceAmountExceeded:-40,insufficientAvailableForIssuanceAmount:-41,fullLine:-42}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -3367,7 +3465,7 @@ var StellarBase =
 	//
 	//   union ReviewRequestResult switch (ReviewRequestResultCode code)
 	//   {
-	//   case REVIEW_REQUEST_SUCCESS:
+	//   case SUCCESS:
 	//   	struct {
 	//   		// reserved for future use
 	//   		union switch (LedgerVersion v)
@@ -3382,7 +3480,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("ReviewRequestResult",{switchOn:xdr.lookup("ReviewRequestResultCode"),switchName:"code",switches:[["reviewRequestSuccess","success"]],arms:{success:xdr.lookup("ReviewRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("ReviewRequestResult",{switchOn:xdr.lookup("ReviewRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ReviewRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -3412,22 +3510,22 @@ var StellarBase =
 	//   enum SetFeesResultCode
 	//       {
 	//           // codes considered as "success" for the operation
-	//           SET_FEES_SUCCESS = 0,
+	//           SUCCESS = 0,
 	//           
 	//           // codes considered as "failure" for the operation
-	//           SET_FEES_INVALID_AMOUNT = -1,      // amount is negative
-	//   		SET_FEES_INVALID_FEE_TYPE = -2,     // operation type is invalid
-	//           SET_FEES_ASSET_NOT_FOUND = -3,
-	//           SET_FEES_INVALID_ASSET = -4,
-	//           SET_FEES_MALFORMED = -5,
-	//   		SET_FEES_MALFORMED_RANGE = -6,
-	//   		SET_FEES_RANGE_OVERLAP = -7,
-	//   		SET_FEES_NOT_FOUND = -8,
-	//   		SET_FEES_SUB_TYPE_NOT_EXIST = -9
+	//           INVALID_AMOUNT = -1,      // amount is negative
+	//   		INVALID_FEE_TYPE = -2,     // operation type is invalid
+	//           ASSET_NOT_FOUND = -3,
+	//           INVALID_ASSET = -4,
+	//           MALFORMED = -5,
+	//   		MALFORMED_RANGE = -6,
+	//   		RANGE_OVERLAP = -7,
+	//   		NOT_FOUND = -8,
+	//   		SUB_TYPE_NOT_EXIST = -9
 	//       };
 	//
 	// ===========================================================================
-	xdr["enum"]("SetFeesResultCode",{setFeesSuccess:0,setFeesInvalidAmount:-1,setFeesInvalidFeeType:-2,setFeesAssetNotFound:-3,setFeesInvalidAsset:-4,setFeesMalformed:-5,setFeesMalformedRange:-6,setFeesRangeOverlap:-7,setFeesNotFound:-8,setFeesSubTypeNotExist:-9}); // === xdr source ============================================================
+	xdr["enum"]("SetFeesResultCode",{success:0,invalidAmount:-1,invalidFeeType:-2,assetNotFound:-3,invalidAsset:-4,malformed:-5,malformedRange:-6,rangeOverlap:-7,notFound:-8,subTypeNotExist:-9}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   				{
@@ -3453,7 +3551,7 @@ var StellarBase =
 	//
 	//   union SetFeesResult switch (SetFeesResultCode code)
 	//       {
-	//           case SET_FEES_SUCCESS:
+	//           case SUCCESS:
 	//               struct {
 	//   				// reserved for future use
 	//   				union switch (LedgerVersion v)
@@ -3468,7 +3566,7 @@ var StellarBase =
 	//       };
 	//
 	// ===========================================================================
-	xdr.union("SetFeesResult",{switchOn:xdr.lookup("SetFeesResultCode"),switchName:"code",switches:[["setFeesSuccess","success"]],arms:{success:xdr.lookup("SetFeesResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("SetFeesResult",{switchOn:xdr.lookup("SetFeesResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("SetFeesResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   	{
@@ -3500,13 +3598,13 @@ var StellarBase =
 	//   enum SetLimitsResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       SET_LIMITS_SUCCESS = 0,
+	//       SUCCESS = 0,
 	//       // codes considered as "failure" for the operation
-	//       SET_LIMITS_MALFORMED = -1
+	//       MALFORMED = -1
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("SetLimitsResultCode",{setLimitsSuccess:0,setLimitsMalformed:-1}); // === xdr source ============================================================
+	xdr["enum"]("SetLimitsResultCode",{success:0,malformed:-1}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -3532,7 +3630,7 @@ var StellarBase =
 	//
 	//   union SetLimitsResult switch (SetLimitsResultCode code)
 	//   {
-	//   case SET_LIMITS_SUCCESS:
+	//   case SUCCESS:
 	//       struct {
 	//   		// reserved for future use
 	//   		union switch (LedgerVersion v)
@@ -3547,7 +3645,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("SetLimitsResult",{switchOn:xdr.lookup("SetLimitsResultCode"),switchName:"code",switches:[["setLimitsSuccess","success"]],arms:{success:xdr.lookup("SetLimitsResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("SetLimitsResult",{switchOn:xdr.lookup("SetLimitsResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("SetLimitsResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   enum ManageTrustAction
 	//   {
@@ -3620,19 +3718,19 @@ var StellarBase =
 	//   enum SetOptionsResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       SET_OPTIONS_SUCCESS = 0,
+	//       SUCCESS = 0,
 	//       // codes considered as "failure" for the operation
-	//       SET_OPTIONS_TOO_MANY_SIGNERS = -1, // max number of signers already reached
-	//       SET_OPTIONS_THRESHOLD_OUT_OF_RANGE = -2, // bad value for weight/threshold
-	//       SET_OPTIONS_BAD_SIGNER = -3,             // signer cannot be masterkey
-	//       SET_OPTIONS_BALANCE_NOT_FOUND = -4,
-	//       SET_OPTIONS_TRUST_MALFORMED = -5,
-	//   	SET_OPTIONS_TRUST_TOO_MANY = -6,
-	//   	SET_OPTIONS_INVALID_SIGNER_VERSION = -7 // if signer version is higher than ledger version
+	//       TOO_MANY_SIGNERS = -1, // max number of signers already reached
+	//       THRESHOLD_OUT_OF_RANGE = -2, // bad value for weight/threshold
+	//       BAD_SIGNER = -3,             // signer cannot be masterkey
+	//       BALANCE_NOT_FOUND = -4,
+	//       TRUST_MALFORMED = -5,
+	//   	TRUST_TOO_MANY = -6,
+	//   	INVALID_SIGNER_VERSION = -7 // if signer version is higher than ledger version
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("SetOptionsResultCode",{setOptionsSuccess:0,setOptionsTooManySigner:-1,setOptionsThresholdOutOfRange:-2,setOptionsBadSigner:-3,setOptionsBalanceNotFound:-4,setOptionsTrustMalformed:-5,setOptionsTrustTooMany:-6,setOptionsInvalidSignerVersion:-7}); // === xdr source ============================================================
+	xdr["enum"]("SetOptionsResultCode",{success:0,tooManySigner:-1,thresholdOutOfRange:-2,badSigner:-3,balanceNotFound:-4,trustMalformed:-5,trustTooMany:-6,invalidSignerVersion:-7}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -3658,7 +3756,7 @@ var StellarBase =
 	//
 	//   union SetOptionsResult switch (SetOptionsResultCode code)
 	//   {
-	//   case SET_OPTIONS_SUCCESS:
+	//   case SUCCESS:
 	//       struct {
 	//   		// reserved for future use
 	//   		union switch (LedgerVersion v)
@@ -3673,19 +3771,19 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("SetOptionsResult",{switchOn:xdr.lookup("SetOptionsResultCode"),switchName:"code",switches:[["setOptionsSuccess","success"]],arms:{success:xdr.lookup("SetOptionsResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("SetOptionsResult",{switchOn:xdr.lookup("SetOptionsResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("SetOptionsResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   enum ErrorCode
 	//   {
-	//       ERR_MISC = 0, // Unspecific error
-	//       ERR_DATA = 1, // Malformed data
-	//       ERR_CONF = 2, // Misconfiguration error
-	//       ERR_AUTH = 3, // Authentication failure
-	//       ERR_LOAD = 4  // System overloaded
+	//       MISC = 0, // Unspecific error
+	//       DATA = 1, // Malformed data
+	//       CONF = 2, // Misconfiguration error
+	//       AUTH = 3, // Authentication failure
+	//       LOAD = 4  // System overloaded
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ErrorCode",{errMisc:0,errDatum:1,errConf:2,errAuth:3,errLoad:4}); // === xdr source ============================================================
+	xdr["enum"]("ErrorCode",{misc:0,datum:1,conf:2,auth:3,load:4}); // === xdr source ============================================================
 	//
 	//   struct Error
 	//   {
@@ -3993,14 +4091,14 @@ var StellarBase =
 	//
 	//   enum SCPStatementType
 	//   {
-	//       SCP_ST_PREPARE = 0,
-	//       SCP_ST_CONFIRM = 1,
-	//       SCP_ST_EXTERNALIZE = 2,
-	//       SCP_ST_NOMINATE = 3
+	//       PREPARE = 0,
+	//       CONFIRM = 1,
+	//       EXTERNALIZE = 2,
+	//       NOMINATE = 3
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ScpStatementType",{scpStPrepare:0,scpStConfirm:1,scpStExternalize:2,scpStNominate:3}); // === xdr source ============================================================
+	xdr["enum"]("ScpStatementType",{prepare:0,confirm:1,externalize:2,nominate:3}); // === xdr source ============================================================
 	//
 	//   struct SCPNomination
 	//   {
@@ -4049,7 +4147,7 @@ var StellarBase =
 	//
 	//   union switch (SCPStatementType type)
 	//       {
-	//       case SCP_ST_PREPARE:
+	//       case PREPARE:
 	//           struct
 	//           {
 	//               Hash quorumSetHash;       // D
@@ -4059,7 +4157,7 @@ var StellarBase =
 	//               uint32 nC;                // c.n
 	//               uint32 nH;                // h.n
 	//           } prepare;
-	//       case SCP_ST_CONFIRM:
+	//       case CONFIRM:
 	//           struct
 	//           {
 	//               SCPBallot ballot;   // b
@@ -4068,19 +4166,19 @@ var StellarBase =
 	//               uint32 nH;          // h.n
 	//               Hash quorumSetHash; // D
 	//           } confirm;
-	//       case SCP_ST_EXTERNALIZE:
+	//       case EXTERNALIZE:
 	//           struct
 	//           {
 	//               SCPBallot commit;         // c
 	//               uint32 nH;                // h.n
 	//               Hash commitQuorumSetHash; // D used before EXTERNALIZE
 	//           } externalize;
-	//       case SCP_ST_NOMINATE:
+	//       case NOMINATE:
 	//           SCPNomination nominate;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ScpStatementPledges",{switchOn:xdr.lookup("ScpStatementType"),switchName:"type",switches:[["scpStPrepare","prepare"],["scpStConfirm","confirm"],["scpStExternalize","externalize"],["scpStNominate","nominate"]],arms:{prepare:xdr.lookup("ScpStatementPrepare"),confirm:xdr.lookup("ScpStatementConfirm"),externalize:xdr.lookup("ScpStatementExternalize"),nominate:xdr.lookup("ScpNomination")}}); // === xdr source ============================================================
+	xdr.union("ScpStatementPledges",{switchOn:xdr.lookup("ScpStatementType"),switchName:"type",switches:[["prepare","prepare"],["confirm","confirm"],["externalize","externalize"],["nominate","nominate"]],arms:{prepare:xdr.lookup("ScpStatementPrepare"),confirm:xdr.lookup("ScpStatementConfirm"),externalize:xdr.lookup("ScpStatementExternalize"),nominate:xdr.lookup("ScpNomination")}}); // === xdr source ============================================================
 	//
 	//   struct SCPStatement
 	//   {
@@ -4089,7 +4187,7 @@ var StellarBase =
 	//   
 	//       union switch (SCPStatementType type)
 	//       {
-	//       case SCP_ST_PREPARE:
+	//       case PREPARE:
 	//           struct
 	//           {
 	//               Hash quorumSetHash;       // D
@@ -4099,7 +4197,7 @@ var StellarBase =
 	//               uint32 nC;                // c.n
 	//               uint32 nH;                // h.n
 	//           } prepare;
-	//       case SCP_ST_CONFIRM:
+	//       case CONFIRM:
 	//           struct
 	//           {
 	//               SCPBallot ballot;   // b
@@ -4108,14 +4206,14 @@ var StellarBase =
 	//               uint32 nH;          // h.n
 	//               Hash quorumSetHash; // D
 	//           } confirm;
-	//       case SCP_ST_EXTERNALIZE:
+	//       case EXTERNALIZE:
 	//           struct
 	//           {
 	//               SCPBallot commit;         // c
 	//               uint32 nH;                // h.n
 	//               Hash commitQuorumSetHash; // D used before EXTERNALIZE
 	//           } externalize;
-	//       case SCP_ST_NOMINATE:
+	//       case NOMINATE:
 	//           SCPNomination nominate;
 	//       }
 	//       pledges;
@@ -4538,7 +4636,7 @@ var StellarBase =
 	//
 	//   enum PublicKeyType
 	//   {
-	//   	PUBLIC_KEY_TYPE_ED25519 = KEY_TYPE_ED25519
+	//   	PUBLIC_KEY_TYPE_ED25519 = 0
 	//   };
 	//
 	// ===========================================================================
