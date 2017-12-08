@@ -32632,7 +32632,7 @@ var StellarBase =
 	    }, {
 	        key: "signatureBase",
 	        value: function signatureBase() {
-	            return Buffer.concat([_network.Network.current().networkId(), _index.xdr.EnvelopeType.envelopeTypeTx().toXDR(), this.tx.toXDR()]);
+	            return Buffer.concat([_network.Network.current().networkId(), _index.xdr.EnvelopeType.tx().toXDR(), this.tx.toXDR()]);
 	        }
 
 	        /**
@@ -43706,7 +43706,7 @@ var StellarBase =
 	            attrs.ext = new _generatedStellarXdr_generated2['default'].AssetCreationRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
 
 	            var assetCreationRequest = new _generatedStellarXdr_generated2['default'].AssetCreationRequest(attrs);
-	            return ManageAssetBuilder._createManageAssetOp(opts, new _generatedStellarXdr_generated2['default'].ManageAssetOpRequest.manageAssetCreateAssetCreationRequest(assetCreationRequest));
+	            return ManageAssetBuilder._createManageAssetOp(opts, new _generatedStellarXdr_generated2['default'].ManageAssetOpRequest.createAssetCreationRequest(assetCreationRequest));
 	        }
 
 	        /**
@@ -43727,7 +43727,7 @@ var StellarBase =
 	            attrs.ext = new _generatedStellarXdr_generated2['default'].AssetUpdateRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
 	            var assetUpdateRequest = new _generatedStellarXdr_generated2['default'].AssetUpdateRequest(attrs);
 
-	            return ManageAssetBuilder._createManageAssetOp(opts, new _generatedStellarXdr_generated2['default'].ManageAssetOpRequest.manageAssetCreateAssetUpdateRequest(assetUpdateRequest));
+	            return ManageAssetBuilder._createManageAssetOp(opts, new _generatedStellarXdr_generated2['default'].ManageAssetOpRequest.createAssetUpdateRequest(assetUpdateRequest));
 	        }
 
 	        /**
@@ -43745,7 +43745,7 @@ var StellarBase =
 	            };
 	            var cancelAssetRequest = new _generatedStellarXdr_generated2['default'].CancelAssetRequest(attrs);
 
-	            return ManageAssetBuilder._createManageAssetOp(opts, new _generatedStellarXdr_generated2['default'].ManageAssetOpRequest.manageAssetCancelAssetRequest(cancelAssetRequest));
+	            return ManageAssetBuilder._createManageAssetOp(opts, new _generatedStellarXdr_generated2['default'].ManageAssetOpRequest.cancelAssetRequest(cancelAssetRequest));
 	        }
 	    }, {
 	        key: '_createUpdateAttrs',
@@ -43799,7 +43799,7 @@ var StellarBase =
 	            result.requestID = attrs.requestId().toString();
 	            result.requestType = attrs.request()['switch']().name;
 	            switch (attrs.request()['switch']().name) {
-	                case "manageAssetCreateAssetCreationRequest":
+	                case "createAssetCreationRequest":
 	                    {
 	                        var request = attrs.request().createAsset();
 	                        result.code = request.code();
@@ -43811,7 +43811,7 @@ var StellarBase =
 	                        result.maxIssuanceAmount = _base_operation.BaseOperation._fromXDRAmount(request.maxIssuanceAmount());
 	                        break;
 	                    }
-	                case "manageAssetCreateAssetUpdateRequest":
+	                case "createAssetUpdateRequest":
 	                    {
 	                        var request = attrs.request().updateAsset();
 	                        result.code = request.code();

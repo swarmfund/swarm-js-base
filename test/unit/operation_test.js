@@ -643,7 +643,7 @@ describe('Operation', function () {
             let operationType = StellarBase.xdr.OperationType.manageBalance();
             var opts = {
                 destination: account.accountId(),
-                action: StellarBase.xdr.ManageBalanceAction.manageBalanceCreate(),
+                action: StellarBase.xdr.ManageBalanceAction.create(),
                 balanceId,
                 asset,
             };
@@ -654,14 +654,14 @@ describe('Operation', function () {
             expect(obj.type).to.be.equal("manageBalance");
             expect(obj.destination).to.be.equal(account.accountId());
             expect(obj.balanceId).to.be.equal(balanceId);
-            expect(obj.action).to.be.equal(StellarBase.xdr.ManageBalanceAction.manageBalanceCreate());
+            expect(obj.action).to.be.equal(StellarBase.xdr.ManageBalanceAction.create());
         });
 
 
         it("fails to create manageBalance operation with an invalid account", function () {
             var opts = {
                 destination: account,
-                action: StellarBase.xdr.ManageBalanceAction.manageBalanceCreate(),
+                action: StellarBase.xdr.ManageBalanceAction.create(),
                 balanceId,
                 asset,
             };
@@ -683,7 +683,7 @@ describe('Operation', function () {
             let operationType = StellarBase.xdr.OperationType.manageAccount();
             var opts = {
                 destination: account.accountId(),
-                action: StellarBase.xdr.ManageBalanceAction.manageBalanceCreate(),
+                action: StellarBase.xdr.ManageBalanceAction.create(),
                 balanceId: 123,
                 asset,
             };
@@ -693,7 +693,7 @@ describe('Operation', function () {
             let operationType = StellarBase.xdr.OperationType.manageAccount();
             var opts = {
                 destination: account.accountId(),
-                action: StellarBase.xdr.ManageBalanceAction.manageBalanceCreate(),
+                action: StellarBase.xdr.ManageBalanceAction.create(),
                 balanceId,
                 asset: 123,
             };
@@ -788,7 +788,7 @@ describe('Operation', function () {
         let maxPriceStep = "200.1";
         it("valid manageAssetPair", function () {
             var opts = {
-                action: StellarBase.xdr.ManageAssetPairAction.manageAssetPairCreate(),
+                action: StellarBase.xdr.ManageAssetPairAction.create(),
                 quote,
                 base,
                 physicalPriceCorrection,
@@ -802,7 +802,7 @@ describe('Operation', function () {
             expect(obj.type).to.be.equal("manageAssetPair");
             expect(obj.base).to.be.equal(base);
             expect(obj.quote).to.be.equal(quote);
-            expect(obj.action).to.be.equal(StellarBase.xdr.ManageAssetPairAction.manageAssetPairCreate());
+            expect(obj.action).to.be.equal(StellarBase.xdr.ManageAssetPairAction.create());
             expect(operation.body().value().physicalPriceCorrection().toString()).to.be.equal('122000');
             expect(operation.body().value().maxPriceStep().toString()).to.be.equal('2001000');
             expect(obj.physicalPriceCorrection).to.be.equal(physicalPriceCorrection);

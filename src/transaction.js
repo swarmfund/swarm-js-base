@@ -76,7 +76,7 @@ export class Transaction {
     signatureBase() {
         return Buffer.concat([
             Network.current().networkId(),
-            xdr.EnvelopeType.envelopeTypeTx().toXDR(),
+            xdr.EnvelopeType.tx().toXDR(),
             this.tx.toXDR()
         ]);
     }

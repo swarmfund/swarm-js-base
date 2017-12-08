@@ -43,7 +43,7 @@ export class ManageAssetBuilder {
         attrs.ext = new xdr.AssetCreationRequestExt(xdr.LedgerVersion.emptyVersion());
 
         let assetCreationRequest = new xdr.AssetCreationRequest(attrs);
-        return ManageAssetBuilder._createManageAssetOp(opts, new xdr.ManageAssetOpRequest.manageAssetCreateAssetCreationRequest(assetCreationRequest));
+        return ManageAssetBuilder._createManageAssetOp(opts, new xdr.ManageAssetOpRequest.createAssetCreationRequest(assetCreationRequest));
     }
 
     /**
@@ -62,7 +62,7 @@ export class ManageAssetBuilder {
         attrs.ext = new xdr.AssetUpdateRequestExt(xdr.LedgerVersion.emptyVersion());
         let assetUpdateRequest = new xdr.AssetUpdateRequest(attrs);
 
-        return ManageAssetBuilder._createManageAssetOp(opts, new xdr.ManageAssetOpRequest.manageAssetCreateAssetUpdateRequest(assetUpdateRequest));
+        return ManageAssetBuilder._createManageAssetOp(opts, new xdr.ManageAssetOpRequest.createAssetUpdateRequest(assetUpdateRequest));
     }
 
     /**
@@ -78,7 +78,7 @@ export class ManageAssetBuilder {
         };
         let cancelAssetRequest = new xdr.CancelAssetRequest(attrs);
 
-        return ManageAssetBuilder._createManageAssetOp(opts, new xdr.ManageAssetOpRequest.manageAssetCancelAssetRequest(cancelAssetRequest));
+        return ManageAssetBuilder._createManageAssetOp(opts, new xdr.ManageAssetOpRequest.cancelAssetRequest(cancelAssetRequest));
     }
 
     static _createUpdateAttrs(opts) {
@@ -130,7 +130,7 @@ export class ManageAssetBuilder {
         result.requestID = attrs.requestId().toString();
         result.requestType = attrs.request().switch().name;
         switch (attrs.request().switch().name) {
-            case "manageAssetCreateAssetCreationRequest":
+            case "createAssetCreationRequest":
                 {
                     let request = attrs.request().createAsset();
                     result.code = request.code();
@@ -142,7 +142,7 @@ export class ManageAssetBuilder {
                     result.maxIssuanceAmount = BaseOperation._fromXDRAmount(request.maxIssuanceAmount());
                     break;
                 }
-            case "manageAssetCreateAssetUpdateRequest":
+            case "createAssetUpdateRequest":
                 {
                     let request = attrs.request().updateAsset();
                     result.code = request.code();

@@ -20,7 +20,7 @@ describe('ManageAsset', function () {
             var obj = StellarBase.Operation.operationToObject(operation);
             expect(obj.type).to.be.equal("manageAsset");
             expect(obj.requestID).to.be.equal(opts.requestID);
-            expect(obj.requestType).to.be.equal("manageAssetCreateAssetCreationRequest");
+            expect(obj.requestType).to.be.equal("createAssetCreationRequest");
             expect(obj.code).to.be.equal(opts.code);
             expect(obj.name).to.be.equal(opts.name);
             expect(obj.preissuedAssetSigner).to.be.equal(opts.preissuedAssetSigner);
@@ -46,7 +46,7 @@ describe('ManageAsset', function () {
             var obj = StellarBase.Operation.operationToObject(operation);
             expect(obj.type).to.be.equal("manageAsset");
             expect(obj.requestID).to.be.equal(opts.requestID);
-            expect(obj.requestType).to.be.equal("manageAssetCreateAssetUpdateRequest");
+            expect(obj.requestType).to.be.equal("createAssetUpdateRequest");
             expect(obj.code).to.be.equal(opts.code);
             expect(obj.description).to.be.equal(opts.description);
             expect(obj.externalResourceLink).to.be.equal(opts.externalResourceLink);
@@ -65,7 +65,7 @@ describe('ManageAsset', function () {
             var obj = StellarBase.Operation.operationToObject(operation);
             expect(obj.type).to.be.equal("manageAsset");
             expect(obj.requestID).to.be.equal(opts.requestID);
-            expect(obj.requestType).to.be.equal("manageAssetCancelAssetRequest");
+            expect(obj.requestType).to.be.equal("cancelAssetRequest");
         });
     });
 });
