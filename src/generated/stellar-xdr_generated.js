@@ -1,4 +1,4 @@
-// Automatically generated on 2017-12-08T18:16:19+02:00
+// Automatically generated on 2017-12-09T21:06:43+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -356,7 +356,7 @@ xdr.union("AccountEntryExt", {
 //       
 //       // Referral marketing
 //       AccountID* referrer;     // parent account
-//       int64 shareForReferrer; // share of fee to pay parent
+//   
 //   	int32 policies;
 //   
 //       // reserved for future use
@@ -377,7 +377,6 @@ xdr.struct("AccountEntry", [
   ["blockReasons", xdr.lookup("Uint32")],
   ["accountType", xdr.lookup("AccountType")],
   ["referrer", xdr.option(xdr.lookup("AccountId"))],
-  ["shareForReferrer", xdr.lookup("Int64")],
   ["policies", xdr.lookup("Int32")],
   ["ext", xdr.lookup("AccountEntryExt")],
 ]);
@@ -503,6 +502,7 @@ xdr.union("AssetEntryExt", {
 //   	uint64 availableForIssueance;
 //   	uint64 issued;
 //       uint32 policies;
+//       longstring logoID;
 //   
 //       // reserved for future use
 //       union switch (LedgerVersion v)
@@ -525,6 +525,7 @@ xdr.struct("AssetEntry", [
   ["availableForIssueance", xdr.lookup("Uint64")],
   ["issued", xdr.lookup("Uint64")],
   ["policies", xdr.lookup("Uint32")],
+  ["logoId", xdr.lookup("Longstring")],
   ["ext", xdr.lookup("AssetEntryExt")],
 ]);
 
@@ -639,19 +640,17 @@ xdr.struct("ExternalSystemAccountId", [
 //   enum FeeType
 //   {
 //       PAYMENT_FEE = 0,
-//       REFERRAL_FEE = 1,
-//   	OFFER_FEE = 2,
-//       FORFEIT_FEE = 3,
-//       EMISSION_FEE = 4
+//   	OFFER_FEE = 1,
+//       FORFEIT_FEE = 2,
+//       EMISSION_FEE = 3
 //   };
 //
 // ===========================================================================
 xdr.enum("FeeType", {
   paymentFee: 0,
-  referralFee: 1,
-  offerFee: 2,
-  forfeitFee: 3,
-  emissionFee: 4,
+  offerFee: 1,
+  forfeitFee: 2,
+  emissionFee: 3,
 });
 
 // === xdr source ============================================================
@@ -2763,7 +2762,6 @@ xdr.union("CreateAccountSuccessExt", {
 //   struct CreateAccountSuccess
 //   {
 //   	ExternalSystemAccountID externalSystemIDs<>;
-//   	int64 referrerFee;
 //   	 // reserved for future use
 //       union switch (LedgerVersion v)
 //       {
@@ -2776,7 +2774,6 @@ xdr.union("CreateAccountSuccessExt", {
 // ===========================================================================
 xdr.struct("CreateAccountSuccess", [
   ["externalSystemIDs", xdr.varArray(xdr.lookup("ExternalSystemAccountId"), 2147483647)],
-  ["referrerFee", xdr.lookup("Int64")],
   ["ext", xdr.lookup("CreateAccountSuccessExt")],
 ]);
 
@@ -6106,6 +6103,7 @@ xdr.union("AssetCreationRequestExt", {
 //   	string256 externalResourceLink;
 //   	uint64 maxIssuanceAmount;
 //       uint32 policies;
+//       longstring logoID;
 //   
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
@@ -6125,6 +6123,7 @@ xdr.struct("AssetCreationRequest", [
   ["externalResourceLink", xdr.lookup("String256")],
   ["maxIssuanceAmount", xdr.lookup("Uint64")],
   ["policies", xdr.lookup("Uint32")],
+  ["logoId", xdr.lookup("Longstring")],
   ["ext", xdr.lookup("AssetCreationRequestExt")],
 ]);
 
@@ -6154,6 +6153,7 @@ xdr.union("AssetUpdateRequestExt", {
 //   	longstring description;
 //   	string256 externalResourceLink;
 //   	uint32 policies;
+//       longstring logoID;
 //   
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
@@ -6170,6 +6170,7 @@ xdr.struct("AssetUpdateRequest", [
   ["description", xdr.lookup("Longstring")],
   ["externalResourceLink", xdr.lookup("String256")],
   ["policies", xdr.lookup("Uint32")],
+  ["logoId", xdr.lookup("Longstring")],
   ["ext", xdr.lookup("AssetUpdateRequestExt")],
 ]);
 

@@ -261,7 +261,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2017-12-08T18:16:19+02:00
+	// Automatically generated on 2017-12-09T21:06:43+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -478,7 +478,7 @@ var StellarBase =
 	//       
 	//       // Referral marketing
 	//       AccountID* referrer;     // parent account
-	//       int64 shareForReferrer; // share of fee to pay parent
+	//   
 	//   	int32 policies;
 	//   
 	//       // reserved for future use
@@ -491,7 +491,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("AccountEntry",[["accountId",xdr.lookup("AccountId")],["thresholds",xdr.lookup("Thresholds")],["signers",xdr.varArray(xdr.lookup("Signer"),2147483647)],["limits",xdr.option(xdr.lookup("Limits"))],["blockReasons",xdr.lookup("Uint32")],["accountType",xdr.lookup("AccountType")],["referrer",xdr.option(xdr.lookup("AccountId"))],["shareForReferrer",xdr.lookup("Int64")],["policies",xdr.lookup("Int32")],["ext",xdr.lookup("AccountEntryExt")]]); // === xdr source ============================================================
+	xdr.struct("AccountEntry",[["accountId",xdr.lookup("AccountId")],["thresholds",xdr.lookup("Thresholds")],["signers",xdr.varArray(xdr.lookup("Signer"),2147483647)],["limits",xdr.option(xdr.lookup("Limits"))],["blockReasons",xdr.lookup("Uint32")],["accountType",xdr.lookup("AccountType")],["referrer",xdr.option(xdr.lookup("AccountId"))],["policies",xdr.lookup("Int32")],["ext",xdr.lookup("AccountEntryExt")]]); // === xdr source ============================================================
 	//
 	//   enum AssetPairPolicy
 	//   {
@@ -569,6 +569,7 @@ var StellarBase =
 	//   	uint64 availableForIssueance;
 	//   	uint64 issued;
 	//       uint32 policies;
+	//       longstring logoID;
 	//   
 	//       // reserved for future use
 	//       union switch (LedgerVersion v)
@@ -580,7 +581,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("AssetEntry",[["code",xdr.lookup("AssetCode")],["owner",xdr.lookup("AccountId")],["name",xdr.lookup("String64")],["preissuedAssetSigner",xdr.lookup("AccountId")],["description",xdr.lookup("Longstring")],["externalResourceLink",xdr.lookup("String256")],["maxIssuanceAmount",xdr.lookup("Uint64")],["availableForIssueance",xdr.lookup("Uint64")],["issued",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["ext",xdr.lookup("AssetEntryExt")]]); // === xdr source ============================================================
+	xdr.struct("AssetEntry",[["code",xdr.lookup("AssetCode")],["owner",xdr.lookup("AccountId")],["name",xdr.lookup("String64")],["preissuedAssetSigner",xdr.lookup("AccountId")],["description",xdr.lookup("Longstring")],["externalResourceLink",xdr.lookup("String256")],["maxIssuanceAmount",xdr.lookup("Uint64")],["availableForIssueance",xdr.lookup("Uint64")],["issued",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["logoId",xdr.lookup("Longstring")],["ext",xdr.lookup("AssetEntryExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -650,14 +651,13 @@ var StellarBase =
 	//   enum FeeType
 	//   {
 	//       PAYMENT_FEE = 0,
-	//       REFERRAL_FEE = 1,
-	//   	OFFER_FEE = 2,
-	//       FORFEIT_FEE = 3,
-	//       EMISSION_FEE = 4
+	//   	OFFER_FEE = 1,
+	//       FORFEIT_FEE = 2,
+	//       EMISSION_FEE = 3
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("FeeType",{paymentFee:0,referralFee:1,offerFee:2,forfeitFee:3,emissionFee:4}); // === xdr source ============================================================
+	xdr["enum"]("FeeType",{paymentFee:0,offerFee:1,forfeitFee:2,emissionFee:3}); // === xdr source ============================================================
 	//
 	//   enum EmissionFeeType
 	//   {
@@ -1969,7 +1969,6 @@ var StellarBase =
 	//   struct CreateAccountSuccess
 	//   {
 	//   	ExternalSystemAccountID externalSystemIDs<>;
-	//   	int64 referrerFee;
 	//   	 // reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -1980,7 +1979,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("CreateAccountSuccess",[["externalSystemIDs",xdr.varArray(xdr.lookup("ExternalSystemAccountId"),2147483647)],["referrerFee",xdr.lookup("Int64")],["ext",xdr.lookup("CreateAccountSuccessExt")]]); // === xdr source ============================================================
+	xdr.struct("CreateAccountSuccess",[["externalSystemIDs",xdr.varArray(xdr.lookup("ExternalSystemAccountId"),2147483647)],["ext",xdr.lookup("CreateAccountSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union CreateAccountResult switch (CreateAccountResultCode code)
 	//   {
@@ -3982,6 +3981,7 @@ var StellarBase =
 	//   	string256 externalResourceLink;
 	//   	uint64 maxIssuanceAmount;
 	//       uint32 policies;
+	//       longstring logoID;
 	//   
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
@@ -3993,7 +3993,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("AssetCreationRequest",[["code",xdr.lookup("AssetCode")],["name",xdr.lookup("String64")],["preissuedAssetSigner",xdr.lookup("AccountId")],["description",xdr.lookup("Longstring")],["externalResourceLink",xdr.lookup("String256")],["maxIssuanceAmount",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["ext",xdr.lookup("AssetCreationRequestExt")]]); // === xdr source ============================================================
+	xdr.struct("AssetCreationRequest",[["code",xdr.lookup("AssetCode")],["name",xdr.lookup("String64")],["preissuedAssetSigner",xdr.lookup("AccountId")],["description",xdr.lookup("Longstring")],["externalResourceLink",xdr.lookup("String256")],["maxIssuanceAmount",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["logoId",xdr.lookup("Longstring")],["ext",xdr.lookup("AssetCreationRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4009,6 +4009,7 @@ var StellarBase =
 	//   	longstring description;
 	//   	string256 externalResourceLink;
 	//   	uint32 policies;
+	//       longstring logoID;
 	//   
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
@@ -4020,7 +4021,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("AssetUpdateRequest",[["code",xdr.lookup("AssetCode")],["description",xdr.lookup("Longstring")],["externalResourceLink",xdr.lookup("String256")],["policies",xdr.lookup("Uint32")],["ext",xdr.lookup("AssetUpdateRequestExt")]]); // === xdr source ============================================================
+	xdr.struct("AssetUpdateRequest",[["code",xdr.lookup("AssetCode")],["description",xdr.lookup("Longstring")],["externalResourceLink",xdr.lookup("String256")],["policies",xdr.lookup("Uint32")],["logoId",xdr.lookup("Longstring")],["ext",xdr.lookup("AssetUpdateRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
