@@ -13,7 +13,7 @@ describe('ManageAsset', function () {
                 maxIssuanceAmount: "1000.1211",
                 policies: 12,
                 requestID: "0",
-                logoId: "12323233",
+                logoId: "112",
             }
             let op = StellarBase.ManageAssetBuilder.assetCreationRequest(opts);
             var xdr = op.toXDR("hex");

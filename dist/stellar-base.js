@@ -43865,6 +43865,10 @@ var StellarBase =
 	                throw new Error("opts.policies must be nonnegative number");
 	            }
 
+	            if ((0, _lodashIsUndefined2['default'])(opts.logoId)) {
+	                throw new Error("opts.logoId is invalid");
+	            }
+
 	            var attrs = {
 	                code: opts.code,
 	                description: opts.description,
