@@ -43681,6 +43681,7 @@ var StellarBase =
 	         * @param {string} opts.externalResourceLink - Link to external resource link
 	         * @param {string} opts.maxIssuanceAmount - max amount can be issued of that asset
 	         * @param {number} opts.policies - asset policies
+	         * @param {string} opts.logoId - logo id for asset picture
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageAssetOp}
 	         */
@@ -43718,6 +43719,7 @@ var StellarBase =
 	         * @param {string} opts.description - desciption of the asset
 	         * @param {string} opts.externalResourceLink - Link to external resource link
 	         * @param {number} opts.policies - asset policies
+	         * @param {string} opts.logoId - logo id for asset picture
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageAssetOp}
 	         */
@@ -43767,11 +43769,16 @@ var StellarBase =
 	                throw new Error("opts.policies must be nonnegative number");
 	            }
 
+	            if ((0, _lodashIsUndefined2['default'])(opts.logoId)) {
+	                throw new Error("opts.logoId is invalid");
+	            }
+
 	            var attrs = {
 	                code: opts.code,
 	                description: opts.description,
 	                externalResourceLink: opts.externalResourceLink,
-	                policies: opts.policies
+	                policies: opts.policies,
+	                logoId: opts.logoId
 	            };
 
 	            return attrs;
@@ -43809,6 +43816,7 @@ var StellarBase =
 	                        result.description = request.description();
 	                        result.externalResourceLink = request.externalResourceLink();
 	                        result.policies = request.policies();
+	                        result.logoId = request.logoId();
 	                        result.maxIssuanceAmount = _base_operation.BaseOperation._fromXDRAmount(request.maxIssuanceAmount());
 	                        break;
 	                    }
@@ -43819,6 +43827,7 @@ var StellarBase =
 	                        result.description = request.description();
 	                        result.externalResourceLink = request.externalResourceLink();
 	                        result.policies = request.policies();
+	                        result.logoId = request.logoId();
 	                        break;
 	                    }
 	                case "manageAssetCancelAssetRequest":
