@@ -13,6 +13,7 @@ describe('ManageAsset', function () {
                 maxIssuanceAmount: "1000.1211",
                 policies: 12,
                 requestID: "0",
+                logoId: "12323233",
             }
             let op = StellarBase.ManageAssetBuilder.assetCreationRequest(opts);
             var xdr = op.toXDR("hex");
@@ -28,6 +29,7 @@ describe('ManageAsset', function () {
             expect(obj.externalResourceLink).to.be.equal(opts.externalResourceLink);
             expect(obj.maxIssuanceAmount).to.be.equal(opts.maxIssuanceAmount);
             expect(obj.policies).to.be.equal(opts.policies);
+            expect(obj.logoId).to.be.equal(opts.logoId);
         });
     });
 
@@ -39,6 +41,7 @@ describe('ManageAsset', function () {
                 externalResourceLink: "https://usdt.com",
                 policies: 12,
                 requestID: "0",
+                logoId: "123234"
             }
             let op = StellarBase.ManageAssetBuilder.assetUpdateRequest(opts);
             var xdr = op.toXDR("hex");
@@ -51,6 +54,7 @@ describe('ManageAsset', function () {
             expect(obj.description).to.be.equal(opts.description);
             expect(obj.externalResourceLink).to.be.equal(opts.externalResourceLink);
             expect(obj.policies).to.be.equal(opts.policies);
+            expect(obj.logoId).to.be.equal(opts.logoId);
         });
     });
 
