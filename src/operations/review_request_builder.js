@@ -31,7 +31,8 @@ export class ReviewRequestBuilder {
             throw new Error("opts.requestType is invalid");
         }
 
-        attrs.requestType = xdr.ReviewableRequestType._byValue.get(opts.requestType);
+        let requestType = xdr.ReviewableRequestType._byValue.get(opts.requestType);
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails(requestType);
 
         if (isUndefined(opts.action) || !xdr.ReviewRequestOpAction._byValue.has(opts.action)) {
             throw new Error("opts.action is invalid");
@@ -57,7 +58,15 @@ export class ReviewRequestBuilder {
     static reviewRequestToObject(result, attrs) {
         result.requestID = attrs.requestId().toString();
         result.requestHash = attrs.requestHash().toString('hex');
-        result.requestType = attrs.requestType().value;
+        result.requestType = attrs.requestDetails().switch().value;
+        switch (attrs.requestDetails().switch()) {
+            case xdr.ReviewableRequestType.withdraw(): {
+                result.withdraw = {
+                    externalDetails: attrs.requestDetails().withdraw().externalDetails(),
+                };
+                break;
+            }
+        }
         result.action = attrs.action().value;
         result.reason = attrs.reason();
         

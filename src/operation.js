@@ -18,6 +18,7 @@ import { ManageAssetBuilder } from './operations/manage_asset_builder';
 import { ReviewRequestBuilder } from './operations/review_request_builder';
 import { PreIssuanceRequestOpBuilder } from './operations/pre_issuance_request_op_builder';
 import { CreateIssuanceRequestBuilder } from './operations/create_issuance_request_builder';
+import { CreateWithdrawRequestBuilder } from './operations/create_withdraw_request_builder';
 
 /**
  * When set using `{@link Operation.setOptions}` option, requires the issuing account to
@@ -177,50 +178,6 @@ export class Operation extends BaseOperation {
 
         let opAttributes = {};
         opAttributes.body = xdr.OperationBody.directDebit(directDebit);
-        Operation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
-    }
-
-
-    /**
-     * Create a manage forfeit request.
-     * @param {object} opts
-     * @param {string} opts.balance - The target balance ID.
-     * @param {string} opts.amount - The amount to forfeit.
-     * @param {string} reviewer - The master account to review forfeit request
-     * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-     * @returns {xdr.ManageForfeitRequestOp}
-     */
-    static manageForfeitRequest(opts) {
-        if (!Keypair.isValidBalanceKey(opts.balance)) {
-            throw new Error("balance is invalid");
-        }
-        if (!Operation.isValidAmount(opts.amount)) {
-            throw new TypeError('amount argument must be of type String and represent a positive number');
-        }
-        if (!Operation.isValidAmount(opts.totalFee, true)) {
-            throw new TypeError('totalFee must be of type String and represent a positive number or zero');
-        }
-        if (!this.isValidString(opts.details, 0, 4096)) {
-            throw new Error("details are invalid");
-        }
-        if (!Keypair.isValidPublicKey(opts.reviewer)) {
-            throw new Error("Reviewer is invalid");
-        }
-
-        let attributes = {
-            ext: new xdr.ManageForfeitRequestOpExt(xdr.LedgerVersion.emptyVersion()),
-        };
-
-        attributes.amount = Operation._toXDRAmount(opts.amount);
-        attributes.totalFee = Operation._toXDRAmount(opts.totalFee);
-        attributes.balance = Keypair.fromBalanceId(opts.balance).xdrBalanceId();
-        attributes.details = opts.details;
-        attributes.reviewer = Keypair.fromAccountId(opts.reviewer).xdrAccountId();
-        let manageRequest = new xdr.ManageForfeitRequestOp(attributes);
-
-        let opAttributes = {};
-        opAttributes.body = xdr.OperationBody.manageForfeitRequest(manageRequest);
         Operation.setSourceAccount(opAttributes, opts);
         return new xdr.Operation(opAttributes);
     }
@@ -872,13 +829,6 @@ export class Operation extends BaseOperation {
                 result.blockReasonsToRemove = attrs.blockReasonsToRemove();
                 result.accountType = attrs.accountType().value;
                 break;
-            case "manageForfeitRequest":
-                result.amount = Operation._fromXDRAmount(attrs.amount());
-                result.totalFee = Operation._fromXDRAmount(attrs.totalFee());
-                result.balance = balanceIdtoString(attrs.balance());
-                result.details = attrs.details();
-                result.reviewer = accountIdtoAddress(attrs.reviewer());
-                break;
             case "recover":
                 result.account = accountIdtoAddress(attrs.account());
                 result.oldSigner = accountIdtoAddress(attrs.oldSigner());
@@ -950,6 +900,9 @@ export class Operation extends BaseOperation {
                 break;
             case "createIssuanceRequest":
                 CreateIssuanceRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
+                break;
+            case "createWithdrawalRequest":
+                CreateWithdrawRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");

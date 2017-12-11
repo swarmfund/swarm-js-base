@@ -1,4 +1,4 @@
-// Automatically generated on 2017-12-09T21:06:43+02:00
+// Automatically generated on 2017-12-11T15:09:00+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -459,7 +459,8 @@ xdr.struct("AssetPairEntry", [
 //   {
 //   	TRANSFERABLE = 1,
 //   	BASE_ASSET = 2,
-//   	STATS_QUOTE_ASSET = 4
+//   	STATS_QUOTE_ASSET = 4,
+//   	WITHDRAWABLE = 8
 //   };
 //
 // ===========================================================================
@@ -467,6 +468,7 @@ xdr.enum("AssetPolicy", {
   transferable: 1,
   baseAsset: 2,
   statsQuoteAsset: 4,
+  withdrawable: 8,
 });
 
 // === xdr source ============================================================
@@ -641,7 +643,7 @@ xdr.struct("ExternalSystemAccountId", [
 //   {
 //       PAYMENT_FEE = 0,
 //   	OFFER_FEE = 1,
-//       FORFEIT_FEE = 2,
+//       WITHDRAWAL_FEE = 2,
 //       EMISSION_FEE = 3
 //   };
 //
@@ -649,7 +651,7 @@ xdr.struct("ExternalSystemAccountId", [
 xdr.enum("FeeType", {
   paymentFee: 0,
   offerFee: 1,
-  forfeitFee: 2,
+  withdrawalFee: 2,
   emissionFee: 3,
 });
 
@@ -984,7 +986,8 @@ xdr.struct("ReferenceEntry", [
 //       ASSET_CREATE = 0,
 //   	ASSET_UPDATE = 1,
 //   	PRE_ISSUANCE_CREATE = 2,
-//   	ISSUANCE_CREATE = 3
+//   	ISSUANCE_CREATE = 3,
+//   	WITHDRAW = 4
 //   
 //   };
 //
@@ -994,6 +997,7 @@ xdr.enum("ReviewableRequestType", {
   assetUpdate: 1,
   preIssuanceCreate: 2,
   issuanceCreate: 3,
+  withdraw: 4,
 });
 
 // === xdr source ============================================================
@@ -1007,6 +1011,8 @@ xdr.enum("ReviewableRequestType", {
 //   			PreIssuanceRequest preIssuanceRequest;
 //   		case ISSUANCE_CREATE:
 //   			IssuanceRequest issuanceRequest;
+//   		case WITHDRAW:
+//   			WithdrawalRequest withdrawalRequest;
 //   	}
 //
 // ===========================================================================
@@ -1018,12 +1024,14 @@ xdr.union("ReviewableRequestEntryBody", {
     ["assetUpdate", "assetUpdateRequest"],
     ["preIssuanceCreate", "preIssuanceRequest"],
     ["issuanceCreate", "issuanceRequest"],
+    ["withdraw", "withdrawalRequest"],
   ],
   arms: {
     assetCreationRequest: xdr.lookup("AssetCreationRequest"),
     assetUpdateRequest: xdr.lookup("AssetUpdateRequest"),
     preIssuanceRequest: xdr.lookup("PreIssuanceRequest"),
     issuanceRequest: xdr.lookup("IssuanceRequest"),
+    withdrawalRequest: xdr.lookup("WithdrawalRequest"),
   },
 });
 
@@ -1065,6 +1073,8 @@ xdr.union("ReviewableRequestEntryExt", {
 //   			PreIssuanceRequest preIssuanceRequest;
 //   		case ISSUANCE_CREATE:
 //   			IssuanceRequest issuanceRequest;
+//   		case WITHDRAW:
+//   			WithdrawalRequest withdrawalRequest;
 //   	} body;
 //   
 //   	// reserved for future use
@@ -3081,6 +3091,142 @@ xdr.union("CreatePreIssuanceRequestResult", {
 //       }
 //
 // ===========================================================================
+xdr.union("CreateWithdrawalRequestOpExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct CreateWithdrawalRequestOp
+//   {
+//       WithdrawalRequest request;
+//   
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   
+//   };
+//
+// ===========================================================================
+xdr.struct("CreateWithdrawalRequestOp", [
+  ["request", xdr.lookup("WithdrawalRequest")],
+  ["ext", xdr.lookup("CreateWithdrawalRequestOpExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   enum CreateWithdrawalRequestResultCode
+//   {
+//       // codes considered as "success" for the operation
+//       SUCCESS = 0,
+//   
+//       // codes considered as "failure" for the operation
+//   	INVALID_AMOUNT = -1, // amount is 0
+//       INVALID_EXTERNAL_DETAILS = -2, // external details size exceeds max allowed
+//   	BALANCE_NOT_FOUND = -3, // balance not found
+//   	ASSET_IS_NOT_WITHDRAWABLE = -4, // asset is not withdrawable
+//   	CONVERSION_PRICE_IS_NOT_AVAILABLE = -5, // failed to find conversion price - conversion is not allowed
+//   	FEE_MISMATCHED = -6, // expected fee does not match calculated fee
+//   	CONVERSION_OVERFLOW = -7, // overflow during converting source asset to dest asset
+//   	CONVERTED_AMOUNT_MISMATCHED = -8, // expected converted amount passed by user, does not match calculated
+//   	BALANCE_LOCK_OVERFLOW = -9, // overflow while tried to lock amount
+//   	UNDERFUNDED = -10 // insufficient balance to perform operation
+//   };
+//
+// ===========================================================================
+xdr.enum("CreateWithdrawalRequestResultCode", {
+  success: 0,
+  invalidAmount: -1,
+  invalidExternalDetail: -2,
+  balanceNotFound: -3,
+  assetIsNotWithdrawable: -4,
+  conversionPriceIsNotAvailable: -5,
+  feeMismatched: -6,
+  conversionOverflow: -7,
+  convertedAmountMismatched: -8,
+  balanceLockOverflow: -9,
+  underfunded: -10,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("CreateWithdrawalSuccessExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct CreateWithdrawalSuccess {
+//   	uint64 requestID;
+//   
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("CreateWithdrawalSuccess", [
+  ["requestId", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("CreateWithdrawalSuccessExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union CreateWithdrawalRequestResult switch (CreateWithdrawalRequestResultCode code)
+//   {
+//       case SUCCESS:
+//           CreateWithdrawalSuccess success;
+//       default:
+//           void;
+//   };
+//
+// ===========================================================================
+xdr.union("CreateWithdrawalRequestResult", {
+  switchOn: xdr.lookup("CreateWithdrawalRequestResultCode"),
+  switchName: "code",
+  switches: [
+    ["success", "success"],
+  ],
+  arms: {
+    success: xdr.lookup("CreateWithdrawalSuccess"),
+  },
+  defaultArm: xdr.void(),
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
 xdr.union("DirectDebitOpExt", {
   switchOn: xdr.lookup("LedgerVersion"),
   switchName: "v",
@@ -3874,159 +4020,6 @@ xdr.union("ManageBalanceResult", {
   ],
   arms: {
     success: xdr.lookup("ManageBalanceSuccess"),
-  },
-  defaultArm: xdr.void(),
-});
-
-// === xdr source ============================================================
-//
-//   union switch (LedgerVersion v)
-//       {
-//       case EMPTY_VERSION:
-//           void;
-//       }
-//
-// ===========================================================================
-xdr.union("ManageForfeitRequestOpExt", {
-  switchOn: xdr.lookup("LedgerVersion"),
-  switchName: "v",
-  switches: [
-    ["emptyVersion", xdr.void()],
-  ],
-  arms: {
-  },
-});
-
-// === xdr source ============================================================
-//
-//   struct ManageForfeitRequestOp
-//   {
-//       BalanceID balance;
-//       int64 amount;
-//   	int64 totalFee;
-//       string details<>;
-//   	AccountID reviewer;
-//   
-//   	union switch (LedgerVersion v)
-//       {
-//       case EMPTY_VERSION:
-//           void;
-//       }
-//       ext;
-//   
-//   };
-//
-// ===========================================================================
-xdr.struct("ManageForfeitRequestOp", [
-  ["balance", xdr.lookup("BalanceId")],
-  ["amount", xdr.lookup("Int64")],
-  ["totalFee", xdr.lookup("Int64")],
-  ["details", xdr.string()],
-  ["reviewer", xdr.lookup("AccountId")],
-  ["ext", xdr.lookup("ManageForfeitRequestOpExt")],
-]);
-
-// === xdr source ============================================================
-//
-//   enum ManageForfeitRequestResultCode
-//   {
-//       // codes considered as "success" for the operation
-//       SUCCESS = 0,
-//   
-//       // codes considered as "failure" for the operation
-//   	UNDERFUNDED = -1,
-//       INVALID_AMOUNT = -2,
-//       LINE_FULL = -3,
-//       BALANCE_MISMATCH = -4,
-//       STATS_OVERFLOW = -5,
-//       LIMITS_EXCEEDED = -6,
-//       REVIEWER_NOT_FOUND = -7,
-//       INVALID_DETAILS = -8,
-//   	FEE_MISMATCH = -9 // fee is not equal to expected fee
-//   };
-//
-// ===========================================================================
-xdr.enum("ManageForfeitRequestResultCode", {
-  success: 0,
-  underfunded: -1,
-  invalidAmount: -2,
-  lineFull: -3,
-  balanceMismatch: -4,
-  statsOverflow: -5,
-  limitsExceeded: -6,
-  reviewerNotFound: -7,
-  invalidDetail: -8,
-  feeMismatch: -9,
-});
-
-// === xdr source ============================================================
-//
-//   union switch (LedgerVersion v)
-//               {
-//               case EMPTY_VERSION:
-//                   void;
-//               }
-//
-// ===========================================================================
-xdr.union("ManageForfeitRequestResultSuccessExt", {
-  switchOn: xdr.lookup("LedgerVersion"),
-  switchName: "v",
-  switches: [
-    ["emptyVersion", xdr.void()],
-  ],
-  arms: {
-  },
-});
-
-// === xdr source ============================================================
-//
-//   struct
-//           {
-//               uint64 paymentID;
-//   
-//               union switch (LedgerVersion v)
-//               {
-//               case EMPTY_VERSION:
-//                   void;
-//               }
-//               ext;
-//           }
-//
-// ===========================================================================
-xdr.struct("ManageForfeitRequestResultSuccess", [
-  ["paymentId", xdr.lookup("Uint64")],
-  ["ext", xdr.lookup("ManageForfeitRequestResultSuccessExt")],
-]);
-
-// === xdr source ============================================================
-//
-//   union ManageForfeitRequestResult switch (ManageForfeitRequestResultCode code)
-//   {
-//       case SUCCESS:
-//           struct
-//           {
-//               uint64 paymentID;
-//   
-//               union switch (LedgerVersion v)
-//               {
-//               case EMPTY_VERSION:
-//                   void;
-//               }
-//               ext;
-//           } success;
-//       default:
-//           void;
-//   };
-//
-// ===========================================================================
-xdr.union("ManageForfeitRequestResult", {
-  switchOn: xdr.lookup("ManageForfeitRequestResultCode"),
-  switchName: "code",
-  switches: [
-    ["success", "success"],
-  ],
-  arms: {
-    success: xdr.lookup("ManageForfeitRequestResultSuccess"),
   },
   defaultArm: xdr.void(),
 });
@@ -5132,6 +5125,66 @@ xdr.enum("ReviewRequestOpAction", {
 //       }
 //
 // ===========================================================================
+xdr.union("WithdrawalDetailsExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct WithdrawalDetails {
+//   	string externalDetails<>;
+//   	// reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("WithdrawalDetails", [
+  ["externalDetails", xdr.string()],
+  ["ext", xdr.lookup("WithdrawalDetailsExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch(ReviewableRequestType requestType) {
+//   	case WITHDRAW:
+//   		WithdrawalDetails withdrawal;
+//   	default:
+//   		void;
+//   	}
+//
+// ===========================================================================
+xdr.union("ReviewRequestOpRequestDetails", {
+  switchOn: xdr.lookup("ReviewableRequestType"),
+  switchName: "requestType",
+  switches: [
+    ["withdraw", "withdrawal"],
+  ],
+  arms: {
+    withdrawal: xdr.lookup("WithdrawalDetails"),
+  },
+  defaultArm: xdr.void(),
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
 xdr.union("ReviewRequestOpExt", {
   switchOn: xdr.lookup("LedgerVersion"),
   switchName: "v",
@@ -5148,7 +5201,12 @@ xdr.union("ReviewRequestOpExt", {
 //   {
 //   	uint64 requestID;
 //   	Hash requestHash;
-//   	ReviewableRequestType requestType;
+//   	union switch(ReviewableRequestType requestType) {
+//   	case WITHDRAW:
+//   		WithdrawalDetails withdrawal;
+//   	default:
+//   		void;
+//   	} requestDetails;
 //   	ReviewRequestOpAction action;
 //   	string256 reason;
 //   	// reserved for future use
@@ -5164,7 +5222,7 @@ xdr.union("ReviewRequestOpExt", {
 xdr.struct("ReviewRequestOp", [
   ["requestId", xdr.lookup("Uint64")],
   ["requestHash", xdr.lookup("Hash")],
-  ["requestType", xdr.lookup("ReviewableRequestType")],
+  ["requestDetails", xdr.lookup("ReviewRequestOpRequestDetails")],
   ["action", xdr.lookup("ReviewRequestOpAction")],
   ["reason", xdr.lookup("String256")],
   ["ext", xdr.lookup("ReviewRequestOpExt")],
@@ -6264,6 +6322,125 @@ xdr.struct("IssuanceRequest", [
 
 // === xdr source ============================================================
 //
+//   enum WithdrawalType {
+//   	AUTO_CONVERSION = 0
+//   };
+//
+// ===========================================================================
+xdr.enum("WithdrawalType", {
+  autoConversion: 0,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("AutoConversionWithdrawalDetailsExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct AutoConversionWithdrawalDetails {
+//   	AssetCode destAsset; // asset in which withdrawal will be converted
+//   	uint64 expectedAmount; // expected amount to be received in specified asset
+//   
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("AutoConversionWithdrawalDetails", [
+  ["destAsset", xdr.lookup("AssetCode")],
+  ["expectedAmount", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("AutoConversionWithdrawalDetailsExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (WithdrawalType withdrawalType) {
+//   	case AUTO_CONVERSION:
+//   		AutoConversionWithdrawalDetails autoConversion;
+//   	}
+//
+// ===========================================================================
+xdr.union("WithdrawalRequestDetails", {
+  switchOn: xdr.lookup("WithdrawalType"),
+  switchName: "withdrawalType",
+  switches: [
+    ["autoConversion", "autoConversion"],
+  ],
+  arms: {
+    autoConversion: xdr.lookup("AutoConversionWithdrawalDetails"),
+  },
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("WithdrawalRequestExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct WithdrawalRequest {
+//   	BalanceID balance; // balance id from which withdrawal will be performed
+//       uint64 amount; // amount to be withdrawn
+//   	Fee fee; // expected fee to be paid
+//       string externalDetails<>; // details of the withdrawal (External system id, etc.)
+//   	union switch (WithdrawalType withdrawalType) {
+//   	case AUTO_CONVERSION:
+//   		AutoConversionWithdrawalDetails autoConversion;
+//   	} details;
+//   
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("WithdrawalRequest", [
+  ["balance", xdr.lookup("BalanceId")],
+  ["amount", xdr.lookup("Uint64")],
+  ["fee", xdr.lookup("Fee")],
+  ["externalDetails", xdr.string()],
+  ["details", xdr.lookup("WithdrawalRequestDetails")],
+  ["ext", xdr.lookup("WithdrawalRequestExt")],
+]);
+
+// === xdr source ============================================================
+//
 //   typedef opaque Value<>;
 //
 // ===========================================================================
@@ -6521,8 +6698,8 @@ xdr.struct("ScpQuorumSet", [
 //           SetFeesOp setFeesOp;
 //   	case MANAGE_ACCOUNT:
 //   		ManageAccountOp manageAccountOp;
-//   	case MANAGE_FORFEIT_REQUEST:
-//   		ManageForfeitRequestOp manageForfeitRequestOp;
+//   	case CREATE_WITHDRAWAL_REQUEST:
+//   		CreateWithdrawalRequestOp createWithdrawalRequestOp;
 //   	case RECOVER:
 //   		RecoverOp recoverOp;
 //   	case MANAGE_BALANCE:
@@ -6558,7 +6735,7 @@ xdr.union("OperationBody", {
     ["createIssuanceRequest", "createIssuanceRequestOp"],
     ["setFee", "setFeesOp"],
     ["manageAccount", "manageAccountOp"],
-    ["manageForfeitRequest", "manageForfeitRequestOp"],
+    ["createWithdrawalRequest", "createWithdrawalRequestOp"],
     ["recover", "recoverOp"],
     ["manageBalance", "manageBalanceOp"],
     ["reviewPaymentRequest", "reviewPaymentRequestOp"],
@@ -6578,7 +6755,7 @@ xdr.union("OperationBody", {
     createIssuanceRequestOp: xdr.lookup("CreateIssuanceRequestOp"),
     setFeesOp: xdr.lookup("SetFeesOp"),
     manageAccountOp: xdr.lookup("ManageAccountOp"),
-    manageForfeitRequestOp: xdr.lookup("ManageForfeitRequestOp"),
+    createWithdrawalRequestOp: xdr.lookup("CreateWithdrawalRequestOp"),
     recoverOp: xdr.lookup("RecoverOp"),
     manageBalanceOp: xdr.lookup("ManageBalanceOp"),
     reviewPaymentRequestOp: xdr.lookup("ReviewPaymentRequestOp"),
@@ -6616,8 +6793,8 @@ xdr.union("OperationBody", {
 //           SetFeesOp setFeesOp;
 //   	case MANAGE_ACCOUNT:
 //   		ManageAccountOp manageAccountOp;
-//   	case MANAGE_FORFEIT_REQUEST:
-//   		ManageForfeitRequestOp manageForfeitRequestOp;
+//   	case CREATE_WITHDRAWAL_REQUEST:
+//   		CreateWithdrawalRequestOp createWithdrawalRequestOp;
 //   	case RECOVER:
 //   		RecoverOp recoverOp;
 //   	case MANAGE_BALANCE:
@@ -6832,8 +7009,8 @@ xdr.enum("OperationResultCode", {
 //           SetFeesResult setFeesResult;
 //   	case MANAGE_ACCOUNT:
 //   		ManageAccountResult manageAccountResult;
-//       case MANAGE_FORFEIT_REQUEST:
-//   		ManageForfeitRequestResult manageForfeitRequestResult;
+//       case CREATE_WITHDRAWAL_REQUEST:
+//   		CreateWithdrawalRequestResult createWithdrawalRequestResult;
 //       case RECOVER:
 //   		RecoverResult recoverResult;
 //       case MANAGE_BALANCE:
@@ -6869,7 +7046,7 @@ xdr.union("OperationResultTr", {
     ["createIssuanceRequest", "createIssuanceRequestResult"],
     ["setFee", "setFeesResult"],
     ["manageAccount", "manageAccountResult"],
-    ["manageForfeitRequest", "manageForfeitRequestResult"],
+    ["createWithdrawalRequest", "createWithdrawalRequestResult"],
     ["recover", "recoverResult"],
     ["manageBalance", "manageBalanceResult"],
     ["reviewPaymentRequest", "reviewPaymentRequestResult"],
@@ -6889,7 +7066,7 @@ xdr.union("OperationResultTr", {
     createIssuanceRequestResult: xdr.lookup("CreateIssuanceRequestResult"),
     setFeesResult: xdr.lookup("SetFeesResult"),
     manageAccountResult: xdr.lookup("ManageAccountResult"),
-    manageForfeitRequestResult: xdr.lookup("ManageForfeitRequestResult"),
+    createWithdrawalRequestResult: xdr.lookup("CreateWithdrawalRequestResult"),
     recoverResult: xdr.lookup("RecoverResult"),
     manageBalanceResult: xdr.lookup("ManageBalanceResult"),
     reviewPaymentRequestResult: xdr.lookup("ReviewPaymentRequestResult"),
@@ -6923,8 +7100,8 @@ xdr.union("OperationResultTr", {
 //           SetFeesResult setFeesResult;
 //   	case MANAGE_ACCOUNT:
 //   		ManageAccountResult manageAccountResult;
-//       case MANAGE_FORFEIT_REQUEST:
-//   		ManageForfeitRequestResult manageForfeitRequestResult;
+//       case CREATE_WITHDRAWAL_REQUEST:
+//   		CreateWithdrawalRequestResult createWithdrawalRequestResult;
 //       case RECOVER:
 //   		RecoverResult recoverResult;
 //       case MANAGE_BALANCE:
@@ -7323,6 +7500,19 @@ xdr.typedef("DataValue", xdr.varOpaque(64));
 
 // === xdr source ============================================================
 //
+//   struct Fee {
+//   	uint64 fixed;
+//   	uint64 percent;
+//   };
+//
+// ===========================================================================
+xdr.struct("Fee", [
+  ["fixed", xdr.lookup("Uint64")],
+  ["percent", xdr.lookup("Uint64")],
+]);
+
+// === xdr source ============================================================
+//
 //   enum OperationType
 //   {
 //       CREATE_ACCOUNT = 0,
@@ -7331,7 +7521,7 @@ xdr.typedef("DataValue", xdr.varOpaque(64));
 //       CREATE_ISSUANCE_REQUEST = 3,
 //       SET_FEES = 5,
 //   	MANAGE_ACCOUNT = 6,
-//       MANAGE_FORFEIT_REQUEST = 7,
+//       CREATE_WITHDRAWAL_REQUEST = 7,
 //       RECOVER = 8,
 //       MANAGE_BALANCE = 9,
 //       REVIEW_PAYMENT_REQUEST = 10,
@@ -7353,7 +7543,7 @@ xdr.enum("OperationType", {
   createIssuanceRequest: 3,
   setFee: 5,
   manageAccount: 6,
-  manageForfeitRequest: 7,
+  createWithdrawalRequest: 7,
   recover: 8,
   manageBalance: 9,
   reviewPaymentRequest: 10,
