@@ -100,6 +100,10 @@ export class ManageAssetBuilder {
             throw new Error("opts.policies must be nonnegative number");
         }
 
+        if (isUndefined(opts.logoId)) {
+            throw new Error("opts.logoId is invalid");
+        }
+
         let attrs = {
             code: opts.code,
             description: opts.description,
