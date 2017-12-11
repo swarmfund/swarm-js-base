@@ -43991,13 +43991,7 @@ var StellarBase =
 	         * @returns {xdr.ReviewRequestOp}
 	         */
 	        value: function reviewRequest(opts) {
-	            var attrs = {};
-	            if ((0, _lodashIsUndefined2['default'])(opts.requestID) || opts.requestID == "0") {
-	                throw new Error("opts.requestID is invalid");
-	            }
-
-	            attrs.requestId = _jsXdr.UnsignedHyper.fromString(opts.requestID);
-	            attrs.requestHash = _utilHasher.Hasher.hash(opts.requestHash);
+	            var attrs = ReviewRequestBuilder._prepareAttrs(opts);
 
 	            if ((0, _lodashIsUndefined2['default'])(opts.requestType) || !_generatedStellarXdr_generated2['default'].ReviewableRequestType._byValue.has(opts.requestType)) {
 	                throw new Error("opts.requestType is invalid");
@@ -44005,6 +43999,28 @@ var StellarBase =
 
 	            var requestType = _generatedStellarXdr_generated2['default'].ReviewableRequestType._byValue.get(opts.requestType);
 	            attrs.requestDetails = new _generatedStellarXdr_generated2['default'].ReviewRequestOpRequestDetails(requestType);
+
+	            return ReviewRequestBuilder._createOp(opts, attrs);
+	        }
+	    }, {
+	        key: '_createOp',
+	        value: function _createOp(opts, attrs) {
+	            var reviewRequestOp = new _generatedStellarXdr_generated2['default'].ReviewRequestOp(attrs);
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.reviewRequest(reviewRequestOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
+	        }
+	    }, {
+	        key: '_prepareAttrs',
+	        value: function _prepareAttrs(opts) {
+	            var attrs = {};
+	            if ((0, _lodashIsUndefined2['default'])(opts.requestID) || opts.requestID == "0") {
+	                throw new Error("opts.requestID is invalid");
+	            }
+
+	            attrs.requestId = _jsXdr.UnsignedHyper.fromString(opts.requestID);
+	            attrs.requestHash = _utilHasher.Hasher.hash(opts.requestHash);
 
 	            if ((0, _lodashIsUndefined2['default'])(opts.action) || !_generatedStellarXdr_generated2['default'].ReviewRequestOpAction._byValue.has(opts.action)) {
 	                throw new Error("opts.action is invalid");
@@ -44019,11 +44035,35 @@ var StellarBase =
 	            attrs.reason = opts.reason;
 	            attrs.ext = new _generatedStellarXdr_generated2['default'].ReviewRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
 
-	            var reviewRequestOp = new _generatedStellarXdr_generated2['default'].ReviewRequestOp(attrs);
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.reviewRequest(reviewRequestOp);
-	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
+	            return attrs;
+	        }
+
+	        /**
+	         * Creates operation to review withdraw request
+	         * @param {object} opts
+	         * @param {string} opts.requestID - request ID
+	         * @param {string} opts.requestHash - Hash of the request to be reviewed
+	         * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
+	         * @param {string} opts.reason - Reject reason
+	         * @param {string} opts.externalDetails - External System details
+	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * @returns {xdr.ReviewRequestOp}
+	         */
+	    }, {
+	        key: 'reviewWithdrawRequest',
+	        value: function reviewWithdrawRequest(opts) {
+	            if ((0, _lodashIsUndefined2['default'])(opts.externalDetails)) {
+	                throw new Error("opts.externalDetails is invalid");
+	            }
+
+	            var attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+	            attrs.requestDetails = new _generatedStellarXdr_generated2['default'].ReviewRequestOpRequestDetails.withdraw(new _generatedStellarXdr_generated2['default'].WithdrawalDetails({
+	                ext: new _generatedStellarXdr_generated2['default'].WithdrawalDetailsExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion()),
+	                externalDetails: opts.externalDetails
+	            }));
+
+	            return ReviewRequestBuilder._createOp(opts, attrs);
 	        }
 	    }, {
 	        key: 'reviewRequestToObject',
@@ -44034,8 +44074,8 @@ var StellarBase =
 	            switch (attrs.requestDetails()['switch']()) {
 	                case _generatedStellarXdr_generated2['default'].ReviewableRequestType.withdraw():
 	                    {
-	                        result.withdraw = {
-	                            externalDetails: attrs.requestDetails().withdraw().externalDetails()
+	                        result.withdrawal = {
+	                            externalDetails: attrs.requestDetails().withdrawal().externalDetails()
 	                        };
 	                        break;
 	                    }
