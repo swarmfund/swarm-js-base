@@ -700,6 +700,7 @@ describe('Operation', function () {
         let policies = 1;
         let physicalPriceCorrection = "12.2";
         let maxPriceStep = "200.1";
+        let physicalPrice ="12.12";
         it("valid manageAssetPair", function () {
             var opts = {
                 action: StellarBase.xdr.ManageAssetPairAction.create(),
@@ -707,7 +708,8 @@ describe('Operation', function () {
                 base,
                 physicalPriceCorrection,
                 maxPriceStep,
-                policies
+                policies,
+                physicalPrice
             };
             let op = StellarBase.Operation.manageAssetPair(opts);
             var xdr = op.toXDR("hex");
@@ -719,6 +721,7 @@ describe('Operation', function () {
             expect(obj.action).to.be.equal(StellarBase.xdr.ManageAssetPairAction.create());
             expect(operation.body().value().physicalPriceCorrection().toString()).to.be.equal('122000');
             expect(operation.body().value().maxPriceStep().toString()).to.be.equal('2001000');
+            expect(operation.body().value().physicalPrice().toString()).to.be.equal('121200');
             expect(obj.physicalPriceCorrection).to.be.equal(physicalPriceCorrection);
             expect(obj.maxPriceStep).to.be.equal(maxPriceStep);
         });
