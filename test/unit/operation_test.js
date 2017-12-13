@@ -637,14 +637,12 @@ describe('Operation', function () {
 
     describe(".manageBalance", function () {
         let account = StellarBase.Keypair.random();
-        let balanceId = StellarBase.Keypair.random().balanceId();
         let asset = 'ETH';
         it("valid manageBalance", function () {
             let operationType = StellarBase.xdr.OperationType.manageBalance();
             var opts = {
                 destination: account.accountId(),
                 action: StellarBase.xdr.ManageBalanceAction.create(),
-                balanceId,
                 asset,
             };
             let op = StellarBase.Operation.manageBalance(opts);
@@ -653,7 +651,6 @@ describe('Operation', function () {
             var obj = StellarBase.Operation.operationToObject(operation);
             expect(obj.type).to.be.equal("manageBalance");
             expect(obj.destination).to.be.equal(account.accountId());
-            expect(obj.balanceId).to.be.equal(balanceId);
             expect(obj.action).to.be.equal(StellarBase.xdr.ManageBalanceAction.create());
         });
 
@@ -662,7 +659,6 @@ describe('Operation', function () {
             var opts = {
                 destination: account,
                 action: StellarBase.xdr.ManageBalanceAction.create(),
-                balanceId,
                 asset,
             };
             expect(() => StellarBase.Operation.manageBalance(opts)).to.throw(/account is invalid/)
@@ -673,28 +669,16 @@ describe('Operation', function () {
             var opts = {
                 destination: account.accountId(),
                 action: 1,
-                balanceId,
                 asset,
             };
             expect(() => StellarBase.Operation.manageBalance(opts)).to.throw(/action argument should be value of xdr.ManageBalanceAction enum/)
         });
 
-        it("fails to create manageBalance operation with an invalid balanceId", function () {
-            let operationType = StellarBase.xdr.OperationType.manageAccount();
-            var opts = {
-                destination: account.accountId(),
-                action: StellarBase.xdr.ManageBalanceAction.create(),
-                balanceId: 123,
-                asset,
-            };
-            expect(() => StellarBase.Operation.manageBalance(opts)).to.throw(/balanceId is invalid/)
-        });
         it("fails to create manageBalance operation with an invalid asset", function () {
             let operationType = StellarBase.xdr.OperationType.manageAccount();
             var opts = {
                 destination: account.accountId(),
                 action: StellarBase.xdr.ManageBalanceAction.create(),
-                balanceId,
                 asset: 123,
             };
             expect(() => StellarBase.Operation.manageBalance(opts)).to.throw(/asset is invalid/)

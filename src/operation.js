@@ -503,7 +503,6 @@ export class Operation extends BaseOperation {
     /**
      * Returns an XDR ManageBalanceOp. A "manage account" operations creates|deletes balance for account.
      * @param {object} opts
-     * @param {string} opts.balanceId - Id of balance in case of delete.
      * @param {string} opts.destination - Account to create account for.
      * @param {xdr.ManageBalanceAction} – Delete or create
      * @returns {xdr.ManageBalanceOp}
@@ -516,9 +515,6 @@ export class Operation extends BaseOperation {
         if (!Keypair.isValidPublicKey(opts.destination)) {
             throw new Error("account is invalid");
         }
-        if (!Keypair.isValidBalanceKey(opts.balanceId)) {
-            throw new Error("balanceId is invalid");
-        }
         if (!(opts.action instanceof xdr.ManageBalanceAction)) {
             throw new TypeError('action argument should be value of xdr.ManageBalanceAction enum');
         }
@@ -527,7 +523,6 @@ export class Operation extends BaseOperation {
         }
 
         attributes.destination = Keypair.fromAccountId(opts.destination).xdrAccountId();
-        attributes.balanceId = Keypair.fromBalanceId(opts.balanceId).xdrBalanceId();
         attributes.action = opts.action;
         attributes.asset = opts.asset;
 
@@ -892,7 +887,6 @@ export class Operation extends BaseOperation {
                 break;
             case "manageBalance":
                 result.action = attrs.action();
-                result.balanceId = balanceIdtoString(attrs.balanceId());
                 result.destination = accountIdtoAddress(attrs.destination());
                 result.asset = attrs.asset();
                 break;
