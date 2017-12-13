@@ -1,4 +1,4 @@
-// Automatically generated on 2017-12-11T15:09:00+02:00
+// Automatically generated on 2017-12-13T21:20:08+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -3799,7 +3799,8 @@ xdr.struct("ManageAssetOp", [
 //   	INVALID_POLICIES = -7,            // asset policies (has flag which does not belong to AssetPolicies enum)
 //   	ASSET_NOT_FOUND = -8,             // asset does not exists
 //   	REQUEST_ALREADY_EXISTS = -9,      // request for creation of unique entry already exists
-//   	STATS_ASSET_ALREADY_EXISTS = -10
+//   	STATS_ASSET_ALREADY_EXISTS = -10, // statistics quote asset already exists
+//   	INITIAL_PREISSUED_EXCEEDS_MAX_ISSUANCE = -11 // initial pre issued amount exceeds max issuance amount
 //   };
 //
 // ===========================================================================
@@ -3814,6 +3815,7 @@ xdr.enum("ManageAssetResultCode", {
   assetNotFound: -8,
   requestAlreadyExist: -9,
   statsAssetAlreadyExist: -10,
+  initialPreissuedExceedsMaxIssuance: -11,
 });
 
 // === xdr source ============================================================
@@ -3917,7 +3919,6 @@ xdr.union("ManageBalanceOpExt", {
 //
 //   struct ManageBalanceOp
 //   {
-//       BalanceID balanceID;
 //       ManageBalanceAction action;
 //       AccountID destination;
 //       AssetCode asset;
@@ -3931,7 +3932,6 @@ xdr.union("ManageBalanceOpExt", {
 //
 // ===========================================================================
 xdr.struct("ManageBalanceOp", [
-  ["balanceId", xdr.lookup("BalanceId")],
   ["action", xdr.lookup("ManageBalanceAction")],
   ["destination", xdr.lookup("AccountId")],
   ["asset", xdr.lookup("AssetCode")],
@@ -3949,9 +3949,8 @@ xdr.struct("ManageBalanceOp", [
 //       MALFORMED = -1,       // invalid destination
 //       NOT_FOUND = -2,
 //       DESTINATION_NOT_FOUND = -3,
-//       ALREADY_EXISTS = -4,
-//       ASSET_NOT_FOUND = -5,
-//       INVALID_ASSET = -6
+//       ASSET_NOT_FOUND = -4,
+//       INVALID_ASSET = -5
 //   };
 //
 // ===========================================================================
@@ -3960,9 +3959,8 @@ xdr.enum("ManageBalanceResultCode", {
   malformed: -1,
   notFound: -2,
   destinationNotFound: -3,
-  alreadyExist: -4,
-  assetNotFound: -5,
-  invalidAsset: -6,
+  assetNotFound: -4,
+  invalidAsset: -5,
 });
 
 // === xdr source ============================================================
@@ -3987,6 +3985,7 @@ xdr.union("ManageBalanceSuccessExt", {
 // === xdr source ============================================================
 //
 //   struct ManageBalanceSuccess {
+//   	BalanceID balanceID;
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
 //       {
@@ -3998,6 +3997,7 @@ xdr.union("ManageBalanceSuccessExt", {
 //
 // ===========================================================================
 xdr.struct("ManageBalanceSuccess", [
+  ["balanceId", xdr.lookup("BalanceId")],
   ["ext", xdr.lookup("ManageBalanceSuccessExt")],
 ]);
 
@@ -6160,6 +6160,7 @@ xdr.union("AssetCreationRequestExt", {
 //   	longstring description;
 //   	string256 externalResourceLink;
 //   	uint64 maxIssuanceAmount;
+//   	uint64 initialPreissuedAmount;
 //       uint32 policies;
 //       longstring logoID;
 //   
@@ -6180,6 +6181,7 @@ xdr.struct("AssetCreationRequest", [
   ["description", xdr.lookup("Longstring")],
   ["externalResourceLink", xdr.lookup("String256")],
   ["maxIssuanceAmount", xdr.lookup("Uint64")],
+  ["initialPreissuedAmount", xdr.lookup("Uint64")],
   ["policies", xdr.lookup("Uint32")],
   ["logoId", xdr.lookup("Longstring")],
   ["ext", xdr.lookup("AssetCreationRequestExt")],

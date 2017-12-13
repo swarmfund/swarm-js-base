@@ -270,7 +270,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2017-12-11T15:09:00+02:00
+	// Automatically generated on 2017-12-13T21:01:38+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -2600,11 +2600,12 @@ var StellarBase =
 	//   	INVALID_POLICIES = -7,            // asset policies (has flag which does not belong to AssetPolicies enum)
 	//   	ASSET_NOT_FOUND = -8,             // asset does not exists
 	//   	REQUEST_ALREADY_EXISTS = -9,      // request for creation of unique entry already exists
-	//   	STATS_ASSET_ALREADY_EXISTS = -10
+	//   	STATS_ASSET_ALREADY_EXISTS = -10, // statistics quote asset already exists
+	//   	INITIAL_PREISSUED_EXCEEDS_MAX_ISSUANCE = -11 // initial pre issued amount exceeds max issuance amount
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageAssetResultCode",{success:0,requestNotFound:-1,assetAlreadyExist:-3,invalidMaxIssuanceAmount:-4,invalidCode:-5,invalidName:-6,invalidPolicy:-7,assetNotFound:-8,requestAlreadyExist:-9,statsAssetAlreadyExist:-10}); // === xdr source ============================================================
+	xdr["enum"]("ManageAssetResultCode",{success:0,requestNotFound:-1,assetAlreadyExist:-3,invalidMaxIssuanceAmount:-4,invalidCode:-5,invalidName:-6,invalidPolicy:-7,assetNotFound:-8,requestAlreadyExist:-9,statsAssetAlreadyExist:-10,initialPreissuedExceedsMaxIssuance:-11}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2662,7 +2663,6 @@ var StellarBase =
 	//
 	//   struct ManageBalanceOp
 	//   {
-	//       BalanceID balanceID;
 	//       ManageBalanceAction action;
 	//       AccountID destination;
 	//       AssetCode asset;
@@ -2675,7 +2675,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("ManageBalanceOp",[["balanceId",xdr.lookup("BalanceId")],["action",xdr.lookup("ManageBalanceAction")],["destination",xdr.lookup("AccountId")],["asset",xdr.lookup("AssetCode")],["ext",xdr.lookup("ManageBalanceOpExt")]]); // === xdr source ============================================================
+	xdr.struct("ManageBalanceOp",[["action",xdr.lookup("ManageBalanceAction")],["destination",xdr.lookup("AccountId")],["asset",xdr.lookup("AssetCode")],["ext",xdr.lookup("ManageBalanceOpExt")]]); // === xdr source ============================================================
 	//
 	//   enum ManageBalanceResultCode
 	//   {
@@ -2686,13 +2686,12 @@ var StellarBase =
 	//       MALFORMED = -1,       // invalid destination
 	//       NOT_FOUND = -2,
 	//       DESTINATION_NOT_FOUND = -3,
-	//       ALREADY_EXISTS = -4,
-	//       ASSET_NOT_FOUND = -5,
-	//       INVALID_ASSET = -6
+	//       ASSET_NOT_FOUND = -4,
+	//       INVALID_ASSET = -5
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageBalanceResultCode",{success:0,malformed:-1,notFound:-2,destinationNotFound:-3,alreadyExist:-4,assetNotFound:-5,invalidAsset:-6}); // === xdr source ============================================================
+	xdr["enum"]("ManageBalanceResultCode",{success:0,malformed:-1,notFound:-2,destinationNotFound:-3,assetNotFound:-4,invalidAsset:-5}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2704,6 +2703,7 @@ var StellarBase =
 	xdr.union("ManageBalanceSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct ManageBalanceSuccess {
+	//   	BalanceID balanceID;
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -2714,7 +2714,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("ManageBalanceSuccess",[["ext",xdr.lookup("ManageBalanceSuccessExt")]]); // === xdr source ============================================================
+	xdr.struct("ManageBalanceSuccess",[["balanceId",xdr.lookup("BalanceId")],["ext",xdr.lookup("ManageBalanceSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union ManageBalanceResult switch (ManageBalanceResultCode code)
 	//   {
@@ -4019,6 +4019,7 @@ var StellarBase =
 	//   	longstring description;
 	//   	string256 externalResourceLink;
 	//   	uint64 maxIssuanceAmount;
+	//   	uint64 initialPreissuedAmount;
 	//       uint32 policies;
 	//       longstring logoID;
 	//   
@@ -4032,7 +4033,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("AssetCreationRequest",[["code",xdr.lookup("AssetCode")],["name",xdr.lookup("String64")],["preissuedAssetSigner",xdr.lookup("AccountId")],["description",xdr.lookup("Longstring")],["externalResourceLink",xdr.lookup("String256")],["maxIssuanceAmount",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["logoId",xdr.lookup("Longstring")],["ext",xdr.lookup("AssetCreationRequestExt")]]); // === xdr source ============================================================
+	xdr.struct("AssetCreationRequest",[["code",xdr.lookup("AssetCode")],["name",xdr.lookup("String64")],["preissuedAssetSigner",xdr.lookup("AccountId")],["description",xdr.lookup("Longstring")],["externalResourceLink",xdr.lookup("String256")],["maxIssuanceAmount",xdr.lookup("Uint64")],["initialPreissuedAmount",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["logoId",xdr.lookup("Longstring")],["ext",xdr.lookup("AssetCreationRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -33320,7 +33321,6 @@ var StellarBase =
 	        /**
 	         * Returns an XDR ManageBalanceOp. A "manage account" operations creates|deletes balance for account.
 	         * @param {object} opts
-	         * @param {string} opts.balanceId - Id of balance in case of delete.
 	         * @param {string} opts.destination - Account to create account for.
 	         * @param {xdr.ManageBalanceAction} – Delete or create
 	         * @returns {xdr.ManageBalanceOp}
@@ -33335,9 +33335,6 @@ var StellarBase =
 	            if (!_keypair.Keypair.isValidPublicKey(opts.destination)) {
 	                throw new Error("account is invalid");
 	            }
-	            if (!_keypair.Keypair.isValidBalanceKey(opts.balanceId)) {
-	                throw new Error("balanceId is invalid");
-	            }
 	            if (!(opts.action instanceof _generatedStellarXdr_generated2["default"].ManageBalanceAction)) {
 	                throw new TypeError('action argument should be value of xdr.ManageBalanceAction enum');
 	            }
@@ -33346,7 +33343,6 @@ var StellarBase =
 	            }
 
 	            attributes.destination = _keypair.Keypair.fromAccountId(opts.destination).xdrAccountId();
-	            attributes.balanceId = _keypair.Keypair.fromBalanceId(opts.balanceId).xdrBalanceId();
 	            attributes.action = opts.action;
 	            attributes.asset = opts.asset;
 
@@ -33715,7 +33711,6 @@ var StellarBase =
 	                    break;
 	                case "manageBalance":
 	                    result.action = attrs.action();
-	                    result.balanceId = balanceIdtoString(attrs.balanceId());
 	                    result.destination = accountIdtoAddress(attrs.destination());
 	                    result.asset = attrs.asset();
 	                    break;
