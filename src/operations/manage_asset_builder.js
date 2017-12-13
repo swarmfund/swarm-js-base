@@ -88,14 +88,6 @@ export class ManageAssetBuilder {
             throw new Error("opts.code is invalid");
         }
 
-        if (isUndefined(opts.description)) {
-            throw new Error("opts.description is invalid");
-        }
-
-        if (!BaseOperation.isValidString(opts.externalResourceLink, 1, 64)) {
-            throw new Error("opts.externalResourceLink is invalid");
-        }
-
         if (isUndefined(opts.policies) || opts.policies < 0) {
             throw new Error("opts.policies must be nonnegative number");
         }
@@ -106,8 +98,8 @@ export class ManageAssetBuilder {
 
         let attrs = {
             code: opts.code,
-            description: opts.description,
-            externalResourceLink: opts.externalResourceLink,
+            description: '',
+            externalResourceLink: '',
             policies: opts.policies,
             logoId: opts.logoId,
         };
