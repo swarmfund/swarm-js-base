@@ -284,92 +284,6 @@ describe('Operation', function () {
 
     });
 
-
-    describe(".manageForfeitRequest()", function () {
-        it("creates a manageForfeitRequestOp with reviewer", function () {
-            var amount = "1000";
-            var totalFee = "0";
-            var balance = StellarBase.Keypair.random().balanceId();
-            var reviewer = StellarBase.Keypair.random().accountId();
-            var details = "";
-            let op = StellarBase.Operation.manageForfeitRequest({
-                balance, amount, details, reviewer, totalFee
-            });
-            var xdr = op.toXDR("hex");
-            var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
-            var obj = StellarBase.Operation.operationToObject(operation);
-            expect(operation.body().value().amount().toString()).to.be.equal('10000000');
-            expect(obj.amount).to.be.equal(amount);
-            expect(obj.totalFee).to.be.equal(totalFee);
-            expect(obj.balance).to.be.equal(balance);
-            expect(obj.details).to.be.equal(details);
-            expect(obj.reviewer).to.be.equal(reviewer);
-        });
-
-        it("fails to create a manageForfeitRequestOp without reviewer", function () {
-            let opts = {
-                amount: "1000",
-                balance: StellarBase.Keypair.random().balanceId(),
-                details: "",
-                totalFee: "0"
-            };
-            expect(() => StellarBase.Operation.manageForfeitRequest(opts)).to.throw(/Reviewer is invalid/);
-        });
-
-        it("fails to create a manage forfeit request operation with invalid reviewer", function () {
-            let opts = {
-                amount: "100",
-                totalFee: "0",
-                balance: StellarBase.Keypair.random().balanceId(),
-                reviewer: "JS",
-                details: ""
-            };
-            expect(() => StellarBase.Operation.manageForfeitRequest(opts)).to.throw(/Reviewer is invalid/);
-        });
-
-        it("fails to create manage forfeit request operation without amount", function () {
-            let opts = {
-                totalFee: "0",
-                balance: StellarBase.Keypair.random().balanceId(),
-                details: "123",
-                reviewer: StellarBase.Keypair.random().accountId()
-            };
-            expect(() => StellarBase.Operation.manageForfeitRequest(opts)).to.throw(/amount argument must be of type String and represent a positive number/)
-        });
-
-        it("fails to create manage forfeit request operation with invalid balance", function () {
-            let opts = {
-                balance: '123',
-                totalFee: '1',
-                amount: '3',
-                details: '123',
-                reviewer: StellarBase.Keypair.random().accountId()
-            };
-            expect(() => StellarBase.Operation.manageForfeitRequest(opts)).to.throw(/balance is invalid/)
-        });
-
-        it("fails to create manage forfeit request operation with invalid details", function () {
-            let opts = {
-                balance: StellarBase.Keypair.random().balanceId(),
-                amount: '3',
-                totalFee: '0',
-                reviewer: StellarBase.Keypair.random().accountId()
-            };
-            expect(() => StellarBase.Operation.manageForfeitRequest(opts)).to.throw(/details are invalid/)
-        });
-
-        it("fails to create manage forfeit request operation with invalid totalFee", function() {
-            let opts = {
-                balance: StellarBase.Keypair.random().balanceId(),
-                amount: '100',
-                reviewer: StellarBase.Keypair.random().accountId(),
-                details: ""
-            };
-            expect(() => StellarBase.Operation.manageForfeitRequest(opts)).to.throw(/totalFee must be of type String and represent a positive number or zero/);
-        })
-
-    });
-
     describe(".setOptions()", function () {
 
         it("creates a setOptionsOp", function () {
@@ -770,6 +684,7 @@ describe('Operation', function () {
         let policies = 1;
         let physicalPriceCorrection = "12.2";
         let maxPriceStep = "200.1";
+        let physicalPrice ="12.12";
         it("valid manageAssetPair", function () {
             var opts = {
                 action: StellarBase.xdr.ManageAssetPairAction.create(),
@@ -777,7 +692,8 @@ describe('Operation', function () {
                 base,
                 physicalPriceCorrection,
                 maxPriceStep,
-                policies
+                policies,
+                physicalPrice
             };
             let op = StellarBase.Operation.manageAssetPair(opts);
             var xdr = op.toXDR("hex");
@@ -789,6 +705,7 @@ describe('Operation', function () {
             expect(obj.action).to.be.equal(StellarBase.xdr.ManageAssetPairAction.create());
             expect(operation.body().value().physicalPriceCorrection().toString()).to.be.equal('122000');
             expect(operation.body().value().maxPriceStep().toString()).to.be.equal('2001000');
+            expect(operation.body().value().physicalPrice().toString()).to.be.equal('121200');
             expect(obj.physicalPriceCorrection).to.be.equal(physicalPriceCorrection);
             expect(obj.maxPriceStep).to.be.equal(maxPriceStep);
         });

@@ -32,7 +32,19 @@ export class BaseOperation {
     }
 
     static isValidString(value, minSize, maxSize) {
-        return isString(value) && value.length >= minSize && value.length <= maxSize;
+        if (!isString(value)) {
+            return false;
+        }
+
+        if (!isUndefined(minSize) && value.length < minSize) {
+            return false;
+        }
+
+        if (!isUndefined(maxSize) && value.length > maxSize) {
+            return false;
+        }
+        
+        return true;
     }
 
     static isValidSubject(value) {
@@ -246,6 +258,19 @@ export class BaseOperation {
         }
 
         return xdr.AccountType._byValue.get(rawAccountType);
+    }
+
+    static isFeeValid(fee) {
+        return BaseOperation.isValidAmount(fee.fixed, true) && BaseOperation.isValidAmount(fee.percent, true);
+    }
+
+    static feeToXdr(fee) {
+        let attrs = {
+                fixed: BaseOperation._toUnsignedXDRAmount(fee.fixed),
+                percent: BaseOperation._toUnsignedXDRAmount(fee.percent)
+        };
+
+        return new xdr.Fee(attrs);
     }
 
     static _requestTypeFromNumber(rawRequestType) {

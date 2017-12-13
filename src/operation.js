@@ -18,6 +18,7 @@ import { ManageAssetBuilder } from './operations/manage_asset_builder';
 import { ReviewRequestBuilder } from './operations/review_request_builder';
 import { PreIssuanceRequestOpBuilder } from './operations/pre_issuance_request_op_builder';
 import { CreateIssuanceRequestBuilder } from './operations/create_issuance_request_builder';
+import { CreateWithdrawRequestBuilder } from './operations/create_withdraw_request_builder';
 
 /**
  * When set using `{@link Operation.setOptions}` option, requires the issuing account to
@@ -177,50 +178,6 @@ export class Operation extends BaseOperation {
 
         let opAttributes = {};
         opAttributes.body = xdr.OperationBody.directDebit(directDebit);
-        Operation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
-    }
-
-
-    /**
-     * Create a manage forfeit request.
-     * @param {object} opts
-     * @param {string} opts.balance - The target balance ID.
-     * @param {string} opts.amount - The amount to forfeit.
-     * @param {string} reviewer - The master account to review forfeit request
-     * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-     * @returns {xdr.ManageForfeitRequestOp}
-     */
-    static manageForfeitRequest(opts) {
-        if (!Keypair.isValidBalanceKey(opts.balance)) {
-            throw new Error("balance is invalid");
-        }
-        if (!Operation.isValidAmount(opts.amount)) {
-            throw new TypeError('amount argument must be of type String and represent a positive number');
-        }
-        if (!Operation.isValidAmount(opts.totalFee, true)) {
-            throw new TypeError('totalFee must be of type String and represent a positive number or zero');
-        }
-        if (!this.isValidString(opts.details, 0, 4096)) {
-            throw new Error("details are invalid");
-        }
-        if (!Keypair.isValidPublicKey(opts.reviewer)) {
-            throw new Error("Reviewer is invalid");
-        }
-
-        let attributes = {
-            ext: new xdr.ManageForfeitRequestOpExt(xdr.LedgerVersion.emptyVersion()),
-        };
-
-        attributes.amount = Operation._toXDRAmount(opts.amount);
-        attributes.totalFee = Operation._toXDRAmount(opts.totalFee);
-        attributes.balance = Keypair.fromBalanceId(opts.balance).xdrBalanceId();
-        attributes.details = opts.details;
-        attributes.reviewer = Keypair.fromAccountId(opts.reviewer).xdrAccountId();
-        let manageRequest = new xdr.ManageForfeitRequestOp(attributes);
-
-        let opAttributes = {};
-        opAttributes.body = xdr.OperationBody.manageForfeitRequest(manageRequest);
         Operation.setSourceAccount(opAttributes, opts);
         return new xdr.Operation(opAttributes);
     }
@@ -570,6 +527,7 @@ export class Operation extends BaseOperation {
      * @param {number|string} opts.policies - asset pair policies
      * @param {number|string} opts.physicalPriceCorrection - correction of physical price in percents. If physical price is set and restriction by physical price set, mininal price for offer for this pair will be physicalPrice * physicalPriceCorrection
      * @param {number|string} opts.maxPriceStep - max price step in percent. User is allowed to set offer with price < (1 - maxPriceStep)*currentPrice and > (1 + maxPriceStep)*currentPrice
+     * @param {number|string} opts.physicalPrice - physical price
      * @param {xdr.ManageAssetPairAction} – Create or update
      * @returns {xdr.ManageBalanceOp}
      */
@@ -601,13 +559,17 @@ export class Operation extends BaseOperation {
             throw new TypeError('maxPriceStep argument must be of type String and represent a positive number or zero');
         }
 
+        if (!Operation.isValidAmount(opts.physicalPrice, true)) {
+            throw new TypeError('physicalPrice argument must be of type String and represent a positive number or zero');
+        }
+
         attributes.base = opts.base;
         attributes.quote = opts.quote;
         attributes.policies = opts.policies;
         attributes.action = opts.action;
         attributes.physicalPriceCorrection = Operation._toXDRAmount(opts.physicalPriceCorrection);
         // won't be updated
-        attributes.physicalPrice = Operation._toXDRAmount("0");
+        attributes.physicalPrice = Operation._toXDRAmount(opts.physicalPrice);
         attributes.maxPriceStep = Operation._toXDRAmount(opts.maxPriceStep);
 
         let manageAssetPairOp = new xdr.ManageAssetPairOp(attributes);
@@ -867,13 +829,6 @@ export class Operation extends BaseOperation {
                 result.blockReasonsToRemove = attrs.blockReasonsToRemove();
                 result.accountType = attrs.accountType().value;
                 break;
-            case "manageForfeitRequest":
-                result.amount = Operation._fromXDRAmount(attrs.amount());
-                result.totalFee = Operation._fromXDRAmount(attrs.totalFee());
-                result.balance = balanceIdtoString(attrs.balance());
-                result.details = attrs.details();
-                result.reviewer = accountIdtoAddress(attrs.reviewer());
-                break;
             case "recover":
                 result.account = accountIdtoAddress(attrs.account());
                 result.oldSigner = accountIdtoAddress(attrs.oldSigner());
@@ -944,6 +899,9 @@ export class Operation extends BaseOperation {
                 break;
             case "createIssuanceRequest":
                 CreateIssuanceRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
+                break;
+            case "createWithdrawalRequest":
+                CreateWithdrawRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");

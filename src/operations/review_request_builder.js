@@ -19,6 +19,27 @@ export class ReviewRequestBuilder {
      * @returns {xdr.ReviewRequestOp}
      */
     static reviewRequest(opts) {
+        let attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+        if (isUndefined(opts.requestType) || !xdr.ReviewableRequestType._byValue.has(opts.requestType)) {
+            throw new Error("opts.requestType is invalid");
+        }
+
+        let requestType = xdr.ReviewableRequestType._byValue.get(opts.requestType);
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails(requestType);
+
+        return ReviewRequestBuilder._createOp(opts, attrs);
+    }
+
+    static _createOp(opts, attrs) {
+        let reviewRequestOp = new xdr.ReviewRequestOp(attrs);
+        let opAttributes = {};
+        opAttributes.body = xdr.OperationBody.reviewRequest(reviewRequestOp);
+        BaseOperation.setSourceAccount(opAttributes, opts);
+        return new xdr.Operation(opAttributes);
+    }
+
+    static _prepareAttrs(opts) {
         let attrs = {};
         if (isUndefined(opts.requestID) || opts.requestID == "0") {
             throw new Error("opts.requestID is invalid");
@@ -26,12 +47,6 @@ export class ReviewRequestBuilder {
 
         attrs.requestId = UnsignedHyper.fromString(opts.requestID);
         attrs.requestHash = Hasher.hash(opts.requestHash);
-
-        if (isUndefined(opts.requestType) || !xdr.ReviewableRequestType._byValue.has(opts.requestType)) {
-            throw new Error("opts.requestType is invalid");
-        }
-
-        attrs.requestType = xdr.ReviewableRequestType._byValue.get(opts.requestType);
 
         if (isUndefined(opts.action) || !xdr.ReviewRequestOpAction._byValue.has(opts.action)) {
             throw new Error("opts.action is invalid");
@@ -46,18 +61,47 @@ export class ReviewRequestBuilder {
         attrs.reason = opts.reason;
         attrs.ext = new xdr.ReviewRequestOpExt(xdr.LedgerVersion.emptyVersion());
 
-        let reviewRequestOp = new xdr.ReviewRequestOp(attrs);
-        let opAttributes = {};
-        opAttributes.body = xdr.OperationBody.reviewRequest(reviewRequestOp);
-        BaseOperation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
+        return attrs;
     }
 
+    /**
+     * Creates operation to review withdraw request
+     * @param {object} opts
+     * @param {string} opts.requestID - request ID
+     * @param {string} opts.requestHash - Hash of the request to be reviewed
+     * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
+     * @param {string} opts.reason - Reject reason
+     * @param {string} opts.externalDetails - External System details
+     * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+     * @returns {xdr.ReviewRequestOp}
+     */
+    static reviewWithdrawRequest(opts) {
+        if (isUndefined(opts.externalDetails)) {
+            throw new Error("opts.externalDetails is invalid");
+        }
+
+        let attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.withdraw(new xdr.WithdrawalDetails({
+            ext: new xdr.WithdrawalDetailsExt(xdr.LedgerVersion.emptyVersion()),
+            externalDetails: opts.externalDetails,
+        }));
+
+        return ReviewRequestBuilder._createOp(opts, attrs);
+    }
 
     static reviewRequestToObject(result, attrs) {
         result.requestID = attrs.requestId().toString();
         result.requestHash = attrs.requestHash().toString('hex');
-        result.requestType = attrs.requestType().value;
+        result.requestType = attrs.requestDetails().switch().value;
+        switch (attrs.requestDetails().switch()) {
+            case xdr.ReviewableRequestType.withdraw(): {
+                result.withdrawal = {
+                    externalDetails: attrs.requestDetails().withdrawal().externalDetails(),
+                };
+                break;
+            }
+        }
         result.action = attrs.action().value;
         result.reason = attrs.reason();
         
