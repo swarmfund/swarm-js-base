@@ -43858,14 +43858,6 @@ var StellarBase =
 	                throw new Error("opts.code is invalid");
 	            }
 
-	            if ((0, _lodashIsUndefined2['default'])(opts.description)) {
-	                throw new Error("opts.description is invalid");
-	            }
-
-	            if (!_base_operation.BaseOperation.isValidString(opts.externalResourceLink, 1, 64)) {
-	                throw new Error("opts.externalResourceLink is invalid");
-	            }
-
 	            if ((0, _lodashIsUndefined2['default'])(opts.policies) || opts.policies < 0) {
 	                throw new Error("opts.policies must be nonnegative number");
 	            }
@@ -43876,8 +43868,8 @@ var StellarBase =
 
 	            var attrs = {
 	                code: opts.code,
-	                description: opts.description,
-	                externalResourceLink: opts.externalResourceLink,
+	                description: '',
+	                externalResourceLink: '',
 	                policies: opts.policies,
 	                logoId: opts.logoId
 	            };
