@@ -36,7 +36,7 @@ export class ManageAssetBuilder {
 
         attrs.preissuedAssetSigner = Keypair.fromAccountId(opts.preissuedAssetSigner).xdrAccountId();
 
-        if (!BaseOperation.isValidAmount(opts.maxIssuanceAmount)) {
+        if (!BaseOperation.isValidAmount(opts.maxIssuanceAmount, true)) {
             throw new Error("opts.maxIssuanceAmount is invalid");
         }
 

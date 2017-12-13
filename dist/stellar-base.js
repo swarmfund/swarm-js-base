@@ -43801,7 +43801,7 @@ var StellarBase =
 
 	            attrs.preissuedAssetSigner = _keypair.Keypair.fromAccountId(opts.preissuedAssetSigner).xdrAccountId();
 
-	            if (!_base_operation.BaseOperation.isValidAmount(opts.maxIssuanceAmount)) {
+	            if (!_base_operation.BaseOperation.isValidAmount(opts.maxIssuanceAmount, true)) {
 	                throw new Error("opts.maxIssuanceAmount is invalid");
 	            }
 
