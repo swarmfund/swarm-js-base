@@ -1,4 +1,4 @@
-// Automatically generated on 2017-12-13T13:34:04+02:00
+// Automatically generated on 2017-12-15T16:17:15+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -3919,7 +3919,6 @@ xdr.union("ManageBalanceOpExt", {
 //
 //   struct ManageBalanceOp
 //   {
-//       BalanceID balanceID;
 //       ManageBalanceAction action;
 //       AccountID destination;
 //       AssetCode asset;
@@ -3933,7 +3932,6 @@ xdr.union("ManageBalanceOpExt", {
 //
 // ===========================================================================
 xdr.struct("ManageBalanceOp", [
-  ["balanceId", xdr.lookup("BalanceId")],
   ["action", xdr.lookup("ManageBalanceAction")],
   ["destination", xdr.lookup("AccountId")],
   ["asset", xdr.lookup("AssetCode")],
@@ -3951,9 +3949,8 @@ xdr.struct("ManageBalanceOp", [
 //       MALFORMED = -1,       // invalid destination
 //       NOT_FOUND = -2,
 //       DESTINATION_NOT_FOUND = -3,
-//       ALREADY_EXISTS = -4,
-//       ASSET_NOT_FOUND = -5,
-//       INVALID_ASSET = -6
+//       ASSET_NOT_FOUND = -4,
+//       INVALID_ASSET = -5
 //   };
 //
 // ===========================================================================
@@ -3962,9 +3959,8 @@ xdr.enum("ManageBalanceResultCode", {
   malformed: -1,
   notFound: -2,
   destinationNotFound: -3,
-  alreadyExist: -4,
-  assetNotFound: -5,
-  invalidAsset: -6,
+  assetNotFound: -4,
+  invalidAsset: -5,
 });
 
 // === xdr source ============================================================
@@ -3989,6 +3985,7 @@ xdr.union("ManageBalanceSuccessExt", {
 // === xdr source ============================================================
 //
 //   struct ManageBalanceSuccess {
+//   	BalanceID balanceID;
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
 //       {
@@ -4000,6 +3997,7 @@ xdr.union("ManageBalanceSuccessExt", {
 //
 // ===========================================================================
 xdr.struct("ManageBalanceSuccess", [
+  ["balanceId", xdr.lookup("BalanceId")],
   ["ext", xdr.lookup("ManageBalanceSuccessExt")],
 ]);
 
