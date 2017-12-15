@@ -1,4 +1,4 @@
-// Automatically generated on 2017-12-11T15:09:00+02:00
+// Automatically generated on 2017-12-13T13:34:04+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -3799,7 +3799,8 @@ xdr.struct("ManageAssetOp", [
 //   	INVALID_POLICIES = -7,            // asset policies (has flag which does not belong to AssetPolicies enum)
 //   	ASSET_NOT_FOUND = -8,             // asset does not exists
 //   	REQUEST_ALREADY_EXISTS = -9,      // request for creation of unique entry already exists
-//   	STATS_ASSET_ALREADY_EXISTS = -10
+//   	STATS_ASSET_ALREADY_EXISTS = -10, // statistics quote asset already exists
+//   	INITIAL_PREISSUED_EXCEEDS_MAX_ISSUANCE = -11 // initial pre issued amount exceeds max issuance amount
 //   };
 //
 // ===========================================================================
@@ -3814,6 +3815,7 @@ xdr.enum("ManageAssetResultCode", {
   assetNotFound: -8,
   requestAlreadyExist: -9,
   statsAssetAlreadyExist: -10,
+  initialPreissuedExceedsMaxIssuance: -11,
 });
 
 // === xdr source ============================================================
@@ -6160,6 +6162,7 @@ xdr.union("AssetCreationRequestExt", {
 //   	longstring description;
 //   	string256 externalResourceLink;
 //   	uint64 maxIssuanceAmount;
+//   	uint64 initialPreissuedAmount;
 //       uint32 policies;
 //       longstring logoID;
 //   
@@ -6180,6 +6183,7 @@ xdr.struct("AssetCreationRequest", [
   ["description", xdr.lookup("Longstring")],
   ["externalResourceLink", xdr.lookup("String256")],
   ["maxIssuanceAmount", xdr.lookup("Uint64")],
+  ["initialPreissuedAmount", xdr.lookup("Uint64")],
   ["policies", xdr.lookup("Uint32")],
   ["logoId", xdr.lookup("Longstring")],
   ["ext", xdr.lookup("AssetCreationRequestExt")],

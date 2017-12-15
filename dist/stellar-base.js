@@ -270,7 +270,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2017-12-11T15:09:00+02:00
+	// Automatically generated on 2017-12-13T13:34:04+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -2600,11 +2600,12 @@ var StellarBase =
 	//   	INVALID_POLICIES = -7,            // asset policies (has flag which does not belong to AssetPolicies enum)
 	//   	ASSET_NOT_FOUND = -8,             // asset does not exists
 	//   	REQUEST_ALREADY_EXISTS = -9,      // request for creation of unique entry already exists
-	//   	STATS_ASSET_ALREADY_EXISTS = -10
+	//   	STATS_ASSET_ALREADY_EXISTS = -10, // statistics quote asset already exists
+	//   	INITIAL_PREISSUED_EXCEEDS_MAX_ISSUANCE = -11 // initial pre issued amount exceeds max issuance amount
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageAssetResultCode",{success:0,requestNotFound:-1,assetAlreadyExist:-3,invalidMaxIssuanceAmount:-4,invalidCode:-5,invalidName:-6,invalidPolicy:-7,assetNotFound:-8,requestAlreadyExist:-9,statsAssetAlreadyExist:-10}); // === xdr source ============================================================
+	xdr["enum"]("ManageAssetResultCode",{success:0,requestNotFound:-1,assetAlreadyExist:-3,invalidMaxIssuanceAmount:-4,invalidCode:-5,invalidName:-6,invalidPolicy:-7,assetNotFound:-8,requestAlreadyExist:-9,statsAssetAlreadyExist:-10,initialPreissuedExceedsMaxIssuance:-11}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4019,6 +4020,7 @@ var StellarBase =
 	//   	longstring description;
 	//   	string256 externalResourceLink;
 	//   	uint64 maxIssuanceAmount;
+	//   	uint64 initialPreissuedAmount;
 	//       uint32 policies;
 	//       longstring logoID;
 	//   
@@ -4032,7 +4034,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("AssetCreationRequest",[["code",xdr.lookup("AssetCode")],["name",xdr.lookup("String64")],["preissuedAssetSigner",xdr.lookup("AccountId")],["description",xdr.lookup("Longstring")],["externalResourceLink",xdr.lookup("String256")],["maxIssuanceAmount",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["logoId",xdr.lookup("Longstring")],["ext",xdr.lookup("AssetCreationRequestExt")]]); // === xdr source ============================================================
+	xdr.struct("AssetCreationRequest",[["code",xdr.lookup("AssetCode")],["name",xdr.lookup("String64")],["preissuedAssetSigner",xdr.lookup("AccountId")],["description",xdr.lookup("Longstring")],["externalResourceLink",xdr.lookup("String256")],["maxIssuanceAmount",xdr.lookup("Uint64")],["initialPreissuedAmount",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["logoId",xdr.lookup("Longstring")],["ext",xdr.lookup("AssetCreationRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -43783,6 +43785,7 @@ var StellarBase =
 	         * @param {string} opts.maxIssuanceAmount - max amount can be issued of that asset
 	         * @param {number} opts.policies - asset policies
 	         * @param {string} opts.logoId - logo id for asset picture
+	         * @param {string} opts.initialPreissuedAmount - amount of pre issued tokens available after creation of the asset
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageAssetOp}
 	         */
@@ -43806,6 +43809,17 @@ var StellarBase =
 	            }
 
 	            attrs.maxIssuanceAmount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.maxIssuanceAmount);
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.initialPreissuedAmount)) {
+	                opts.initialPreissuedAmount = "0";
+	            }
+
+	            if (!_base_operation.BaseOperation.isValidAmount(opts.initialPreissuedAmount, true)) {
+	                throw new Error("opts.initialPreissuedAmount is invalid");
+	            }
+
+	            attrs.initialPreissuedAmount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.initialPreissuedAmount);
+
 	            attrs.ext = new _generatedStellarXdr_generated2['default'].AssetCreationRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
 
 	            var assetCreationRequest = new _generatedStellarXdr_generated2['default'].AssetCreationRequest(attrs);
@@ -43911,6 +43925,7 @@ var StellarBase =
 	                        result.policies = request.policies();
 	                        result.logoId = request.logoId();
 	                        result.maxIssuanceAmount = _base_operation.BaseOperation._fromXDRAmount(request.maxIssuanceAmount());
+	                        result.initialPreissuedAmount = _base_operation.BaseOperation._fromXDRAmount(request.initialPreissuedAmount());
 	                        break;
 	                    }
 	                case "createAssetUpdateRequest":
