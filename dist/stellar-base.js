@@ -270,7 +270,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2017-12-13T21:01:38+02:00
+	// Automatically generated on 2017-12-13T13:34:04+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -2663,6 +2663,7 @@ var StellarBase =
 	//
 	//   struct ManageBalanceOp
 	//   {
+	//       BalanceID balanceID;
 	//       ManageBalanceAction action;
 	//       AccountID destination;
 	//       AssetCode asset;
@@ -2675,7 +2676,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("ManageBalanceOp",[["action",xdr.lookup("ManageBalanceAction")],["destination",xdr.lookup("AccountId")],["asset",xdr.lookup("AssetCode")],["ext",xdr.lookup("ManageBalanceOpExt")]]); // === xdr source ============================================================
+	xdr.struct("ManageBalanceOp",[["balanceId",xdr.lookup("BalanceId")],["action",xdr.lookup("ManageBalanceAction")],["destination",xdr.lookup("AccountId")],["asset",xdr.lookup("AssetCode")],["ext",xdr.lookup("ManageBalanceOpExt")]]); // === xdr source ============================================================
 	//
 	//   enum ManageBalanceResultCode
 	//   {
@@ -2686,12 +2687,13 @@ var StellarBase =
 	//       MALFORMED = -1,       // invalid destination
 	//       NOT_FOUND = -2,
 	//       DESTINATION_NOT_FOUND = -3,
-	//       ASSET_NOT_FOUND = -4,
-	//       INVALID_ASSET = -5
+	//       ALREADY_EXISTS = -4,
+	//       ASSET_NOT_FOUND = -5,
+	//       INVALID_ASSET = -6
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageBalanceResultCode",{success:0,malformed:-1,notFound:-2,destinationNotFound:-3,assetNotFound:-4,invalidAsset:-5}); // === xdr source ============================================================
+	xdr["enum"]("ManageBalanceResultCode",{success:0,malformed:-1,notFound:-2,destinationNotFound:-3,alreadyExist:-4,assetNotFound:-5,invalidAsset:-6}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2703,7 +2705,6 @@ var StellarBase =
 	xdr.union("ManageBalanceSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct ManageBalanceSuccess {
-	//   	BalanceID balanceID;
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -2714,7 +2715,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("ManageBalanceSuccess",[["balanceId",xdr.lookup("BalanceId")],["ext",xdr.lookup("ManageBalanceSuccessExt")]]); // === xdr source ============================================================
+	xdr.struct("ManageBalanceSuccess",[["ext",xdr.lookup("ManageBalanceSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union ManageBalanceResult switch (ManageBalanceResultCode code)
 	//   {
@@ -33321,6 +33322,7 @@ var StellarBase =
 	        /**
 	         * Returns an XDR ManageBalanceOp. A "manage account" operations creates|deletes balance for account.
 	         * @param {object} opts
+	         * @param {string} opts.balanceId - Id of balance in case of delete.
 	         * @param {string} opts.destination - Account to create account for.
 	         * @param {xdr.ManageBalanceAction} – Delete or create
 	         * @returns {xdr.ManageBalanceOp}
@@ -33335,6 +33337,9 @@ var StellarBase =
 	            if (!_keypair.Keypair.isValidPublicKey(opts.destination)) {
 	                throw new Error("account is invalid");
 	            }
+	            if (!_keypair.Keypair.isValidBalanceKey(opts.balanceId)) {
+	                throw new Error("balanceId is invalid");
+	            }
 	            if (!(opts.action instanceof _generatedStellarXdr_generated2["default"].ManageBalanceAction)) {
 	                throw new TypeError('action argument should be value of xdr.ManageBalanceAction enum');
 	            }
@@ -33343,6 +33348,7 @@ var StellarBase =
 	            }
 
 	            attributes.destination = _keypair.Keypair.fromAccountId(opts.destination).xdrAccountId();
+	            attributes.balanceId = _keypair.Keypair.fromBalanceId(opts.balanceId).xdrBalanceId();
 	            attributes.action = opts.action;
 	            attributes.asset = opts.asset;
 
@@ -33711,6 +33717,7 @@ var StellarBase =
 	                    break;
 	                case "manageBalance":
 	                    result.action = attrs.action();
+	                    result.balanceId = balanceIdtoString(attrs.balanceId());
 	                    result.destination = accountIdtoAddress(attrs.destination());
 	                    result.asset = attrs.asset();
 	                    break;
@@ -43778,6 +43785,7 @@ var StellarBase =
 	         * @param {string} opts.maxIssuanceAmount - max amount can be issued of that asset
 	         * @param {number} opts.policies - asset policies
 	         * @param {string} opts.logoId - logo id for asset picture
+	         * @param {string} opts.initialPreissuedAmount - amount of pre issued tokens available after creation of the asset
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageAssetOp}
 	         */
@@ -43801,6 +43809,17 @@ var StellarBase =
 	            }
 
 	            attrs.maxIssuanceAmount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.maxIssuanceAmount);
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.initialPreissuedAmount)) {
+	                opts.initialPreissuedAmount = "0";
+	            }
+
+	            if (!_base_operation.BaseOperation.isValidAmount(opts.initialPreissuedAmount, true)) {
+	                throw new Error("opts.initialPreissuedAmount is invalid");
+	            }
+
+	            attrs.initialPreissuedAmount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.initialPreissuedAmount);
+
 	            attrs.ext = new _generatedStellarXdr_generated2['default'].AssetCreationRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
 
 	            var assetCreationRequest = new _generatedStellarXdr_generated2['default'].AssetCreationRequest(attrs);
@@ -43906,6 +43925,7 @@ var StellarBase =
 	                        result.policies = request.policies();
 	                        result.logoId = request.logoId();
 	                        result.maxIssuanceAmount = _base_operation.BaseOperation._fromXDRAmount(request.maxIssuanceAmount());
+	                        result.initialPreissuedAmount = _base_operation.BaseOperation._fromXDRAmount(request.initialPreissuedAmount());
 	                        break;
 	                    }
 	                case "createAssetUpdateRequest":

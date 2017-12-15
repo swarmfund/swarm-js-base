@@ -18,6 +18,7 @@ export class ManageAssetBuilder {
      * @param {string} opts.maxIssuanceAmount - max amount can be issued of that asset
      * @param {number} opts.policies - asset policies
      * @param {string} opts.logoId - logo id for asset picture
+     * @param {string} opts.initialPreissuedAmount - amount of pre issued tokens available after creation of the asset
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
      * @returns {xdr.ManageAssetOp}
      */
@@ -41,6 +42,17 @@ export class ManageAssetBuilder {
         }
 
         attrs.maxIssuanceAmount = BaseOperation._toUnsignedXDRAmount(opts.maxIssuanceAmount);
+
+        if (isUndefined(opts.initialPreissuedAmount)) {
+            opts.initialPreissuedAmount = "0";
+        }
+
+        if (!BaseOperation.isValidAmount(opts.initialPreissuedAmount, true)) {
+            throw new Error("opts.initialPreissuedAmount is invalid");
+        }
+
+        attrs.initialPreissuedAmount = BaseOperation._toUnsignedXDRAmount(opts.initialPreissuedAmount);
+
         attrs.ext = new xdr.AssetCreationRequestExt(xdr.LedgerVersion.emptyVersion());
 
         let assetCreationRequest = new xdr.AssetCreationRequest(attrs);
@@ -140,6 +152,7 @@ export class ManageAssetBuilder {
                     result.policies = request.policies();
                     result.logoId = request.logoId();
                     result.maxIssuanceAmount = BaseOperation._fromXDRAmount(request.maxIssuanceAmount());
+                    result.initialPreissuedAmount = BaseOperation._fromXDRAmount(request.initialPreissuedAmount());
                     break;
                 }
             case "createAssetUpdateRequest":
