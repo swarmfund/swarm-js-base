@@ -14,6 +14,7 @@ describe('ManageAsset', function () {
                 policies: 12,
                 requestID: "0",
                 logoId: "112",
+                initialPreissuedAmount: "12.14",
             }
             let op = StellarBase.ManageAssetBuilder.assetCreationRequest(opts);
             var xdr = op.toXDR("hex");
@@ -30,6 +31,7 @@ describe('ManageAsset', function () {
             expect(obj.maxIssuanceAmount).to.be.equal(opts.maxIssuanceAmount);
             expect(obj.policies).to.be.equal(opts.policies);
             expect(obj.logoId).to.be.equal(opts.logoId);
+            expect(obj.initialPreissuedAmount).to.be.equal(opts.initialPreissuedAmount);
         });
     });
 
