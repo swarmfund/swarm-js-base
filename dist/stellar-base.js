@@ -270,7 +270,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2017-12-16T13:05:54+02:00
+	// Automatically generated on 2017-12-16T19:35:32+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -44554,7 +44554,6 @@ var StellarBase =
 	         * @param {object} opts
 	         * @param {string} opts.balance - Balance ID from which withdraw will be perfromed
 	         * @param {string} opts.amount - amount to be withdrawn
-	         * @param {string} opts.universalAmount - amount in stats units. set it to zero
 	         * @param {object} opts.fee - fee to be charged
 	         * @param {string} opts.fee.fixed - fixed fee to be charged
 	         * @param {string} opts.fee.percent - percent fee to be charged
@@ -44577,12 +44576,8 @@ var StellarBase =
 	                throw new Error("opts.amount is invalid");
 	            }
 
-	            if (!_base_operation.BaseOperation.isValidAmount(opts.universalAmount, true, 0)) {
-	                throw new Error("opts.universalAmount is invalid");
-	            }
-
 	            attrs.amount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.amount);
-	            attrs.universalAmount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.universalAmount);
+	            attrs.universalAmount = _base_operation.BaseOperation._toUnsignedXDRAmount("0");
 
 	            if (!_base_operation.BaseOperation.isFeeValid(opts.fee)) {
 	                throw new Error("opts.fee is invalid");

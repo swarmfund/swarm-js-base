@@ -11,7 +11,6 @@ export class CreateWithdrawRequestBuilder {
      * @param {object} opts
      * @param {string} opts.balance - Balance ID from which withdraw will be perfromed
      * @param {string} opts.amount - amount to be withdrawn
-     * @param {string} opts.universalAmount - amount in stats units. set it to zero
      * @param {object} opts.fee - fee to be charged
      * @param {string} opts.fee.fixed - fixed fee to be charged
      * @param {string} opts.fee.percent - percent fee to be charged
@@ -34,12 +33,8 @@ export class CreateWithdrawRequestBuilder {
             throw new Error("opts.amount is invalid");
         }
 
-        if (!BaseOperation.isValidAmount(opts.universalAmount, true, 0)) {
-            throw new Error("opts.universalAmount is invalid");
-        }
-
         attrs.amount = BaseOperation._toUnsignedXDRAmount(opts.amount);
-        attrs.universalAmount = BaseOperation._toUnsignedXDRAmount(opts.universalAmount);
+        attrs.universalAmount = BaseOperation._toUnsignedXDRAmount("0");
 
         if (!BaseOperation.isFeeValid(opts.fee)) {
             throw new Error("opts.fee is invalid");

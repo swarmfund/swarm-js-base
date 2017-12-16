@@ -15,7 +15,6 @@ describe('Withdraw request op', function () {
         let op = StellarBase.CreateWithdrawRequestBuilder.createWithdrawWithAutoConversion({
             balance: balance,
             amount: amount,
-            universalAmount: "0",
             fee: fee,
             externalDetails: externalDetails,
             destAsset: destAsset,
