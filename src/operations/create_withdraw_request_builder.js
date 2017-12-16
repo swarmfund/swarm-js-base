@@ -34,6 +34,7 @@ export class CreateWithdrawRequestBuilder {
         }
 
         attrs.amount = BaseOperation._toUnsignedXDRAmount(opts.amount);
+        attrs.universalAmount = BaseOperation._toUnsignedXDRAmount("0");
 
         if (!BaseOperation.isFeeValid(opts.fee)) {
             throw new Error("opts.fee is invalid");
