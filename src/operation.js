@@ -254,7 +254,7 @@ export class Operation extends BaseOperation {
                 opts.fee.period = '0'; //<<clear
             }
             if (isUndefined(opts.fee.subtype)) {
-                opts.fee.subtype = 0;
+                opts.fee.subtype = '0';
             }
             if (isUndefined(opts.fee.lowerBound)) {
                 opts.fee.lowerBound = '0';

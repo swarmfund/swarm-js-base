@@ -33117,7 +33117,7 @@ var StellarBase =
 	                    opts.fee.period = '0'; //<<clear
 	                }
 	                if ((0, _lodashIsUndefined2["default"])(opts.fee.subtype)) {
-	                    opts.fee.subtype = 0;
+	                    opts.fee.subtype = '0';
 	                }
 	                if ((0, _lodashIsUndefined2["default"])(opts.fee.lowerBound)) {
 	                    opts.fee.lowerBound = '0';
