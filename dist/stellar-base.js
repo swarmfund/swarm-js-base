@@ -43733,6 +43733,16 @@ var StellarBase =
 	                opAttributes.sourceAccount = _keypair.Keypair.fromAccountId(opts.source).xdrAccountId();
 	            }
 	        }
+	    }, {
+	        key: "MAX_INT64",
+	        get: function get() {
+	            return MAX_INT64;
+	        }
+	    }, {
+	        key: "MAX_INT64_AMOUNT",
+	        get: function get() {
+	            return MAX_INT64_AMOUNT;
+	        }
 	    }]);
 
 	    return BaseOperation;

@@ -1,6 +1,6 @@
 {
   "name": "swarm-js-base",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "Low level stellar support library",
   "main": "lib/index.js",
   "scripts": {
