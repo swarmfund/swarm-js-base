@@ -270,7 +270,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2017-12-19T17:44:10+02:00
+	// Automatically generated on 2017-12-19T17:50:58+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -33144,7 +33144,7 @@ var StellarBase =
 	                    opts.fee.period = '0'; //<<clear
 	                }
 	                if ((0, _lodashIsUndefined2["default"])(opts.fee.subtype)) {
-	                    opts.fee.subtype = 0;
+	                    opts.fee.subtype = '0';
 	                }
 	                if ((0, _lodashIsUndefined2["default"])(opts.fee.lowerBound)) {
 	                    opts.fee.lowerBound = '0';
@@ -43754,6 +43754,16 @@ var StellarBase =
 	                opAttributes.sourceAccount = _keypair.Keypair.fromAccountId(opts.source).xdrAccountId();
 	            }
 	        }
+	    }, {
+	        key: "MAX_INT64",
+	        get: function get() {
+	            return MAX_INT64;
+	        }
+	    }, {
+	        key: "MAX_INT64_AMOUNT",
+	        get: function get() {
+	            return MAX_INT64_AMOUNT;
+	        }
 	    }]);
 
 	    return BaseOperation;
@@ -44598,6 +44608,7 @@ var StellarBase =
 	            }
 
 	            attrs.amount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.amount);
+	            attrs.universalAmount = _base_operation.BaseOperation._toUnsignedXDRAmount("0");
 
 	            if (!_base_operation.BaseOperation.isFeeValid(opts.fee)) {
 	                throw new Error("opts.fee is invalid");

@@ -20,6 +20,14 @@ const MAX_INT64_AMOUNT = '922337203685477.5807';
 
 export class BaseOperation {
 
+    static get MAX_INT64() {
+        return MAX_INT64;
+    }
+
+    static get MAX_INT64_AMOUNT() {
+        return MAX_INT64_AMOUNT;
+    }
+
     static isPayment(op) {
         if (!(op instanceof xdr.Operation)) {
             throw new Error('should be used for operations');
@@ -43,7 +51,7 @@ export class BaseOperation {
         if (!isUndefined(maxSize) && value.length > maxSize) {
             return false;
         }
-        
+
         return true;
     }
 
