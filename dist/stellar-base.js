@@ -33803,7 +33803,7 @@ var StellarBase =
 	                    _operationsCreate_issuance_request_builder.CreateIssuanceRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
 	                    break;
 	                case "createWithdrawalRequest":
-	                    _operationsCreate_withdraw_request_builder.CreateWithdrawRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
+	                    _operationsCreate_withdraw_request_builder.CreateWithdrawRequestBuilder.createWithdrawRequestOpToObject(result, attrs);
 	                    break;
 	                default:
 	                    throw new Error("Unknown operation");
@@ -44487,6 +44487,7 @@ var StellarBase =
 	         * @param {string} opts.amount - amount to be issued
 	         * @param {string} opts.receiver - balance ID of the receiver
 	         * @param {string} opts.reference - Reference of the request
+	         * @param {string} opts.externalDetails - External details needed for PSIM to process withdraw operation
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         * @returns {xdr.CreateIssuanceRequestOp}
 	         */
@@ -44514,11 +44515,18 @@ var StellarBase =
 	                throw new Error("opts.reference is invalid");
 	            }
 
+	            if (!_base_operation.BaseOperation.isValidString(opts.externalDetails)) {
+	                throw new Error("opts.externalDetails is invalid");
+	            }
+
+	            attrs.externalDetails = opts.externalDetails;
+
 	            attrs.ext = new _generatedStellarXdr_generated2['default'].IssuanceRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
 	            var request = new _generatedStellarXdr_generated2['default'].IssuanceRequest(attrs);
 	            var issuanceRequestOp = new _generatedStellarXdr_generated2['default'].CreateIssuanceRequestOp({
 	                request: request,
 	                reference: opts.reference,
+	                externalDetails: request.externalDetails(),
 	                ext: new _generatedStellarXdr_generated2['default'].CreateIssuanceRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
 	            });
 	            var opAttributes = {};
@@ -44534,6 +44542,7 @@ var StellarBase =
 	            result.asset = request.asset();
 	            result.amount = _base_operation.BaseOperation._fromXDRAmount(request.amount());
 	            result.receiver = _base_operation.BaseOperation.balanceIdtoString(request.receiver());
+	            result.externalDetails = request.externalDetails();
 	        }
 	    }]);
 
@@ -44650,8 +44659,8 @@ var StellarBase =
 	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
 	        }
 	    }, {
-	        key: 'createIssuanceRequestOpToObject',
-	        value: function createIssuanceRequestOpToObject(result, attrs) {
+	        key: 'createWithdrawRequestOpToObject',
+	        value: function createWithdrawRequestOpToObject(result, attrs) {
 	            var request = attrs.request();
 	            result.balance = _base_operation.BaseOperation.balanceIdtoString(request.balance());
 	            result.amount = _base_operation.BaseOperation._fromXDRAmount(request.amount());

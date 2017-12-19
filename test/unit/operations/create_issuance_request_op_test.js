@@ -7,11 +7,13 @@ describe('Issuance request op', function () {
         let reference = "test";
         let asset = "BLC";
         let receiver = StellarBase.Keypair.random().balanceId();
+        let externalDetails = "External details";
         let op = StellarBase.CreateIssuanceRequestBuilder.createIssuanceRequest({
             asset: asset,
             amount: amount,
             reference: reference,
             receiver: receiver,
+            externalDetails: externalDetails,
         });
         var xdr = op.toXDR("hex");
         var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));

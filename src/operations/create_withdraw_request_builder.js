@@ -76,7 +76,7 @@ export class CreateWithdrawRequestBuilder {
         return new xdr.Operation(opAttributes);
     }
 
-    static createIssuanceRequestOpToObject(result, attrs) {
+    static createWithdrawRequestOpToObject(result, attrs) {
         let request = attrs.request();
         result.balance = BaseOperation.balanceIdtoString(request.balance());
         result.amount = BaseOperation._fromXDRAmount(request.amount());

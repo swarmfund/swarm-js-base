@@ -901,7 +901,7 @@ export class Operation extends BaseOperation {
                 CreateIssuanceRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
                 break;
             case "createWithdrawalRequest":
-                CreateWithdrawRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
+                CreateWithdrawRequestBuilder.createWithdrawRequestOpToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");
