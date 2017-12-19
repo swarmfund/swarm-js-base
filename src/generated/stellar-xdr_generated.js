@@ -1,4 +1,4 @@
-// Automatically generated on 2017-12-15T16:17:15+02:00
+// Automatically generated on 2017-12-19T17:44:10+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -1063,6 +1063,7 @@ xdr.union("ReviewableRequestEntryExt", {
 //   	string256 rejectReason;
 //   	AccountID reviewer;
 //   	string64* reference; // reference for request which will act as an unique key for the request (will reject request with the same reference from same requestor)
+//   	int64 createdAt; // when request was created
 //   
 //   	union switch (ReviewableRequestType type) {
 //   		case ASSET_CREATE:
@@ -1094,6 +1095,7 @@ xdr.struct("ReviewableRequestEntry", [
   ["rejectReason", xdr.lookup("String256")],
   ["reviewer", xdr.lookup("AccountId")],
   ["reference", xdr.option(xdr.lookup("String64"))],
+  ["createdAt", xdr.lookup("Int64")],
   ["body", xdr.lookup("ReviewableRequestEntryBody")],
   ["ext", xdr.lookup("ReviewableRequestEntryExt")],
 ]);
@@ -2865,7 +2867,8 @@ xdr.struct("CreateIssuanceRequestOp", [
 //   	NO_COUNTERPARTY = -4,
 //   	NOT_AUTHORIZED = -5,
 //   	EXCEEDS_MAX_ISSUANCE_AMOUNT = -6,
-//   	RECEIVER_FULL_LINE = -7
+//   	RECEIVER_FULL_LINE = -7,
+//   	INVALID_EXTERNAL_DETAILS = -8 // external details size exceeds max allowed
 //   };
 //
 // ===========================================================================
@@ -2878,6 +2881,7 @@ xdr.enum("CreateIssuanceRequestResultCode", {
   notAuthorized: -5,
   exceedsMaxIssuanceAmount: -6,
   receiverFullLine: -7,
+  invalidExternalDetail: -8,
 });
 
 // === xdr source ============================================================
@@ -3139,7 +3143,10 @@ xdr.struct("CreateWithdrawalRequestOp", [
 //   	CONVERSION_OVERFLOW = -7, // overflow during converting source asset to dest asset
 //   	CONVERTED_AMOUNT_MISMATCHED = -8, // expected converted amount passed by user, does not match calculated
 //   	BALANCE_LOCK_OVERFLOW = -9, // overflow while tried to lock amount
-//   	UNDERFUNDED = -10 // insufficient balance to perform operation
+//   	UNDERFUNDED = -10, // insufficient balance to perform operation
+//   	INVALID_UNIVERSAL_AMOUNT = -11, // non-zero universal amount
+//   	STATS_OVERFLOW = -12, // statistics overflowed by the operation
+//       LIMITS_EXCEEDED = -13 // withdraw exceeds limits for source account
 //   };
 //
 // ===========================================================================
@@ -3155,6 +3162,9 @@ xdr.enum("CreateWithdrawalRequestResultCode", {
   convertedAmountMismatched: -8,
   balanceLockOverflow: -9,
   underfunded: -10,
+  invalidUniversalAmount: -11,
+  statsOverflow: -12,
+  limitsExceeded: -13,
 });
 
 // === xdr source ============================================================
@@ -5156,9 +5166,49 @@ xdr.struct("WithdrawalDetails", [
 
 // === xdr source ============================================================
 //
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("IssuanceDetailsExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct IssuanceDetails {
+//   	string externalDetails<>;
+//   	// reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("IssuanceDetails", [
+  ["externalDetails", xdr.string()],
+  ["ext", xdr.lookup("IssuanceDetailsExt")],
+]);
+
+// === xdr source ============================================================
+//
 //   union switch(ReviewableRequestType requestType) {
 //   	case WITHDRAW:
 //   		WithdrawalDetails withdrawal;
+//   	case ISSUANCE_CREATE:
+//   		IssuanceDetails issuance;
 //   	default:
 //   		void;
 //   	}
@@ -5169,9 +5219,11 @@ xdr.union("ReviewRequestOpRequestDetails", {
   switchName: "requestType",
   switches: [
     ["withdraw", "withdrawal"],
+    ["issuanceCreate", "issuance"],
   ],
   arms: {
     withdrawal: xdr.lookup("WithdrawalDetails"),
+    issuance: xdr.lookup("IssuanceDetails"),
   },
   defaultArm: xdr.void(),
 });
@@ -5204,6 +5256,8 @@ xdr.union("ReviewRequestOpExt", {
 //   	union switch(ReviewableRequestType requestType) {
 //   	case WITHDRAW:
 //   		WithdrawalDetails withdrawal;
+//   	case ISSUANCE_CREATE:
+//   		IssuanceDetails issuance;
 //   	default:
 //   		void;
 //   	} requestDetails;
@@ -6256,7 +6310,6 @@ xdr.union("PreIssuanceRequestExt", {
 // === xdr source ============================================================
 //
 //   struct PreIssuanceRequest {
-//   
 //   	AssetCode asset;
 //   	uint64 amount;
 //   	DecoratedSignature signature;
@@ -6305,6 +6358,7 @@ xdr.union("IssuanceRequestExt", {
 //   	AssetCode asset;
 //   	uint64 amount;
 //   	BalanceID receiver;
+//   	string externalDetails<>; // details of the issuance (External system id, etc.)
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
 //       {
@@ -6319,6 +6373,7 @@ xdr.struct("IssuanceRequest", [
   ["asset", xdr.lookup("AssetCode")],
   ["amount", xdr.lookup("Uint64")],
   ["receiver", xdr.lookup("BalanceId")],
+  ["externalDetails", xdr.string()],
   ["ext", xdr.lookup("IssuanceRequestExt")],
 ]);
 
@@ -6416,6 +6471,7 @@ xdr.union("WithdrawalRequestExt", {
 //   struct WithdrawalRequest {
 //   	BalanceID balance; // balance id from which withdrawal will be performed
 //       uint64 amount; // amount to be withdrawn
+//       uint64 universalAmount; // amount in stats asset
 //   	Fee fee; // expected fee to be paid
 //       string externalDetails<>; // details of the withdrawal (External system id, etc.)
 //   	union switch (WithdrawalType withdrawalType) {
@@ -6435,6 +6491,7 @@ xdr.union("WithdrawalRequestExt", {
 xdr.struct("WithdrawalRequest", [
   ["balance", xdr.lookup("BalanceId")],
   ["amount", xdr.lookup("Uint64")],
+  ["universalAmount", xdr.lookup("Uint64")],
   ["fee", xdr.lookup("Fee")],
   ["externalDetails", xdr.string()],
   ["details", xdr.lookup("WithdrawalRequestDetails")],
