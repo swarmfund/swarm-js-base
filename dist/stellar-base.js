@@ -270,7 +270,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2017-12-16T19:35:32+02:00
+	// Automatically generated on 2017-12-20T20:20:12+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -614,13 +614,30 @@ var StellarBase =
 	// ===========================================================================
 	xdr.typedef("DataValue",xdr.varOpaque(64)); // === xdr source ============================================================
 	//
+	//   union switch(LedgerVersion v)
+	//       {
+	//           case EMPTY_VERSION:
+	//               void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("FeeExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
 	//   struct Fee {
 	//   	uint64 fixed;
 	//   	uint64 percent;
+	//   
+	//       // reserved for future use
+	//       union switch(LedgerVersion v)
+	//       {
+	//           case EMPTY_VERSION:
+	//               void;
+	//       }
+	//       ext;
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("Fee",[["fixed",xdr.lookup("Uint64")],["percent",xdr.lookup("Uint64")]]); // === xdr source ============================================================
+	xdr.struct("Fee",[["fixed",xdr.lookup("Uint64")],["percent",xdr.lookup("Uint64")],["ext",xdr.lookup("FeeExt")]]); // === xdr source ============================================================
 	//
 	//   enum OperationType
 	//   {
@@ -3248,11 +3265,11 @@ var StellarBase =
 	//       PAYMENT_FEE = 0,
 	//   	OFFER_FEE = 1,
 	//       WITHDRAWAL_FEE = 2,
-	//       EMISSION_FEE = 3
+	//       ISSUANCE_FEE = 3
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("FeeType",{paymentFee:0,offerFee:1,withdrawalFee:2,emissionFee:3}); // === xdr source ============================================================
+	xdr["enum"]("FeeType",{paymentFee:0,offerFee:1,withdrawalFee:2,issuanceFee:3}); // === xdr source ============================================================
 	//
 	//   enum EmissionFeeType
 	//   {
@@ -3935,11 +3952,12 @@ var StellarBase =
 	//   	NO_COUNTERPARTY = -4,
 	//   	NOT_AUTHORIZED = -5,
 	//   	EXCEEDS_MAX_ISSUANCE_AMOUNT = -6,
-	//   	RECEIVER_FULL_LINE = -7
+	//   	RECEIVER_FULL_LINE = -7,
+	//   	FEE_EXCEEDS_AMOUNT = -8 // fee more than amount to issue
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("CreateIssuanceRequestResultCode",{success:0,assetNotFound:-1,invalidAmount:-2,referenceDuplication:-3,noCounterparty:-4,notAuthorized:-5,exceedsMaxIssuanceAmount:-6,receiverFullLine:-7}); // === xdr source ============================================================
+	xdr["enum"]("CreateIssuanceRequestResultCode",{success:0,assetNotFound:-1,invalidAmount:-2,referenceDuplication:-3,noCounterparty:-4,notAuthorized:-5,exceedsMaxIssuanceAmount:-6,receiverFullLine:-7,feeExceedsAmount:-8}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   	{
@@ -3954,6 +3972,7 @@ var StellarBase =
 	//   	uint64 requestID;
 	//   	AccountID receiver;
 	//   	bool fulfilled;
+	//   	Fee fee;
 	//   	union switch (LedgerVersion v)
 	//   	{
 	//   	case EMPTY_VERSION:
@@ -3963,7 +3982,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("CreateIssuanceRequestSuccess",[["requestId",xdr.lookup("Uint64")],["receiver",xdr.lookup("AccountId")],["fulfilled",xdr.bool()],["ext",xdr.lookup("CreateIssuanceRequestSuccessExt")]]); // === xdr source ============================================================
+	xdr.struct("CreateIssuanceRequestSuccess",[["requestId",xdr.lookup("Uint64")],["receiver",xdr.lookup("AccountId")],["fulfilled",xdr.bool()],["fee",xdr.lookup("Fee")],["ext",xdr.lookup("CreateIssuanceRequestSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union CreateIssuanceRequestResult switch (CreateIssuanceRequestResultCode code)
 	//   {
@@ -4905,6 +4924,7 @@ var StellarBase =
 	//   	AssetCode asset;
 	//   	uint64 amount;
 	//   	BalanceID receiver;
+	//   	Fee fee; //totalFee to be payed (calculated automatically)
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -4915,7 +4935,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("IssuanceRequest",[["asset",xdr.lookup("AssetCode")],["amount",xdr.lookup("Uint64")],["receiver",xdr.lookup("BalanceId")],["ext",xdr.lookup("IssuanceRequestExt")]]);});exports["default"] = types;module.exports = exports["default"];
+	xdr.struct("IssuanceRequest",[["asset",xdr.lookup("AssetCode")],["amount",xdr.lookup("Uint64")],["receiver",xdr.lookup("BalanceId")],["fee",xdr.lookup("Fee")],["ext",xdr.lookup("IssuanceRequestExt")]]);});exports["default"] = types;module.exports = exports["default"];
 
 /***/ }),
 /* 3 */
@@ -43683,7 +43703,8 @@ var StellarBase =
 	        value: function feeToXdr(fee) {
 	            var attrs = {
 	                fixed: BaseOperation._toUnsignedXDRAmount(fee.fixed),
-	                percent: BaseOperation._toUnsignedXDRAmount(fee.percent)
+	                percent: BaseOperation._toUnsignedXDRAmount(fee.percent),
+	                ext: new _generatedStellarXdr_generated2["default"].FeeExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
 	            };
 
 	            return new _generatedStellarXdr_generated2["default"].Fee(attrs);
@@ -44492,6 +44513,12 @@ var StellarBase =
 	            if (!_base_operation.BaseOperation.isValidString(opts.reference, 1, 64)) {
 	                throw new Error("opts.reference is invalid");
 	            }
+
+	            var fee = {
+	                fixed: "0",
+	                percent: "0"
+	            };
+	            attrs.fee = _base_operation.BaseOperation.feeToXdr(fee);
 
 	            attrs.ext = new _generatedStellarXdr_generated2['default'].IssuanceRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
 	            var request = new _generatedStellarXdr_generated2['default'].IssuanceRequest(attrs);

@@ -1,4 +1,4 @@
-// Automatically generated on 2017-12-16T19:35:32+02:00
+// Automatically generated on 2017-12-20T20:20:12+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -544,15 +544,43 @@ xdr.typedef("DataValue", xdr.varOpaque(64));
 
 // === xdr source ============================================================
 //
+//   union switch(LedgerVersion v)
+//       {
+//           case EMPTY_VERSION:
+//               void;
+//       }
+//
+// ===========================================================================
+xdr.union("FeeExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
 //   struct Fee {
 //   	uint64 fixed;
 //   	uint64 percent;
+//   
+//       // reserved for future use
+//       union switch(LedgerVersion v)
+//       {
+//           case EMPTY_VERSION:
+//               void;
+//       }
+//       ext;
 //   };
 //
 // ===========================================================================
 xdr.struct("Fee", [
   ["fixed", xdr.lookup("Uint64")],
   ["percent", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("FeeExt")],
 ]);
 
 // === xdr source ============================================================
@@ -4818,7 +4846,7 @@ xdr.struct("ScpQuorumSet", [
 //       PAYMENT_FEE = 0,
 //   	OFFER_FEE = 1,
 //       WITHDRAWAL_FEE = 2,
-//       EMISSION_FEE = 3
+//       ISSUANCE_FEE = 3
 //   };
 //
 // ===========================================================================
@@ -4826,7 +4854,7 @@ xdr.enum("FeeType", {
   paymentFee: 0,
   offerFee: 1,
   withdrawalFee: 2,
-  emissionFee: 3,
+  issuanceFee: 3,
 });
 
 // === xdr source ============================================================
@@ -5964,7 +5992,8 @@ xdr.struct("CreateIssuanceRequestOp", [
 //   	NO_COUNTERPARTY = -4,
 //   	NOT_AUTHORIZED = -5,
 //   	EXCEEDS_MAX_ISSUANCE_AMOUNT = -6,
-//   	RECEIVER_FULL_LINE = -7
+//   	RECEIVER_FULL_LINE = -7,
+//   	FEE_EXCEEDS_AMOUNT = -8 // fee more than amount to issue
 //   };
 //
 // ===========================================================================
@@ -5977,6 +6006,7 @@ xdr.enum("CreateIssuanceRequestResultCode", {
   notAuthorized: -5,
   exceedsMaxIssuanceAmount: -6,
   receiverFullLine: -7,
+  feeExceedsAmount: -8,
 });
 
 // === xdr source ============================================================
@@ -6004,6 +6034,7 @@ xdr.union("CreateIssuanceRequestSuccessExt", {
 //   	uint64 requestID;
 //   	AccountID receiver;
 //   	bool fulfilled;
+//   	Fee fee;
 //   	union switch (LedgerVersion v)
 //   	{
 //   	case EMPTY_VERSION:
@@ -6017,6 +6048,7 @@ xdr.struct("CreateIssuanceRequestSuccess", [
   ["requestId", xdr.lookup("Uint64")],
   ["receiver", xdr.lookup("AccountId")],
   ["fulfilled", xdr.bool()],
+  ["fee", xdr.lookup("Fee")],
   ["ext", xdr.lookup("CreateIssuanceRequestSuccessExt")],
 ]);
 
@@ -7568,6 +7600,7 @@ xdr.union("IssuanceRequestExt", {
 //   	AssetCode asset;
 //   	uint64 amount;
 //   	BalanceID receiver;
+//   	Fee fee; //totalFee to be payed (calculated automatically)
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
 //       {
@@ -7582,6 +7615,7 @@ xdr.struct("IssuanceRequest", [
   ["asset", xdr.lookup("AssetCode")],
   ["amount", xdr.lookup("Uint64")],
   ["receiver", xdr.lookup("BalanceId")],
+  ["fee", xdr.lookup("Fee")],
   ["ext", xdr.lookup("IssuanceRequestExt")],
 ]);
 

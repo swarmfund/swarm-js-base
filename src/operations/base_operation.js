@@ -275,7 +275,8 @@ export class BaseOperation {
     static feeToXdr(fee) {
         let attrs = {
                 fixed: BaseOperation._toUnsignedXDRAmount(fee.fixed),
-                percent: BaseOperation._toUnsignedXDRAmount(fee.percent)
+                percent: BaseOperation._toUnsignedXDRAmount(fee.percent),
+                ext: new xdr.FeeExt(xdr.LedgerVersion.emptyVersion())
         };
 
         return new xdr.Fee(attrs);
