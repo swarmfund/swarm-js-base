@@ -22,13 +22,13 @@ describe('ManageAsset', function () {
             expect(obj.requestID).to.be.equal(opts.requestID);
             expect(obj.requestType).to.be.equal("createAssetCreationRequest");
             expect(obj.code).to.be.equal(opts.code);
-            expect(obj.name).to.be.equal(opts.name);
+            expect(obj.details.name).to.be.equal(opts.name);
             expect(obj.preissuedAssetSigner).to.be.equal(opts.preissuedAssetSigner);
-            expect(obj.description).to.be.equal('');
-            expect(obj.externalResourceLink).to.be.equal('');
+            expect(obj.details.description).to.be.equal('');
+            expect(obj.details.external_resource_link).to.be.equal('');
             expect(obj.maxIssuanceAmount).to.be.equal(opts.maxIssuanceAmount);
             expect(obj.policies).to.be.equal(opts.policies);
-            expect(obj.logoId).to.be.equal(opts.logoId);
+            expect(obj.details.logo_id).to.be.equal(opts.logoId);
             expect(obj.initialPreissuedAmount).to.be.equal(opts.initialPreissuedAmount);
         });
     });
@@ -39,7 +39,8 @@ describe('ManageAsset', function () {
                 code: "USD",
                 policies: 12,
                 requestID: "0",
-                logoId: "123234"
+                logoId: "123234",
+                description: "descp"
             }
             let op = StellarBase.ManageAssetBuilder.assetUpdateRequest(opts);
             var xdr = op.toXDR("hex");
@@ -49,10 +50,10 @@ describe('ManageAsset', function () {
             expect(obj.requestID).to.be.equal(opts.requestID);
             expect(obj.requestType).to.be.equal("createAssetUpdateRequest");
             expect(obj.code).to.be.equal(opts.code);
-            expect(obj.description).to.be.equal('');
-            expect(obj.externalResourceLink).to.be.equal('');
             expect(obj.policies).to.be.equal(opts.policies);
-            expect(obj.logoId).to.be.equal(opts.logoId);
+            expect(obj.details.logo_id).to.be.equal(opts.logoId);
+            expect(obj.details.description).to.be.equal(opts.description);
+            expect(obj.details.external_resource_link).to.be.equal('');
         });
     });
 
