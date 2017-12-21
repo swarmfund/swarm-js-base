@@ -1,4 +1,4 @@
-// Automatically generated on 2017-12-21T15:02:35+02:00
+// Automatically generated on 2017-12-21T21:13:26+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -640,7 +640,7 @@ xdr.struct("ExternalSystemAccountId", [
 //       PAYMENT_FEE = 0,
 //   	OFFER_FEE = 1,
 //       WITHDRAWAL_FEE = 2,
-//       EMISSION_FEE = 3
+//       ISSUANCE_FEE = 3
 //   };
 //
 // ===========================================================================
@@ -648,7 +648,7 @@ xdr.enum("FeeType", {
   paymentFee: 0,
   offerFee: 1,
   withdrawalFee: 2,
-  emissionFee: 3,
+  issuanceFee: 3,
 });
 
 // === xdr source ============================================================
@@ -2988,7 +2988,8 @@ xdr.struct("CreateIssuanceRequestOp", [
 //   	NO_COUNTERPARTY = -4,
 //   	NOT_AUTHORIZED = -5,
 //   	EXCEEDS_MAX_ISSUANCE_AMOUNT = -6,
-//   	RECEIVER_FULL_LINE = -7
+//   	RECEIVER_FULL_LINE = -7,
+//   	FEE_EXCEEDS_AMOUNT = -8 // fee more than amount to issue
 //   };
 //
 // ===========================================================================
@@ -3001,6 +3002,7 @@ xdr.enum("CreateIssuanceRequestResultCode", {
   notAuthorized: -5,
   exceedsMaxIssuanceAmount: -6,
   receiverFullLine: -7,
+  feeExceedsAmount: -8,
 });
 
 // === xdr source ============================================================
@@ -3028,6 +3030,7 @@ xdr.union("CreateIssuanceRequestSuccessExt", {
 //   	uint64 requestID;
 //   	AccountID receiver;
 //   	bool fulfilled;
+//   	Fee fee;
 //   	union switch (LedgerVersion v)
 //   	{
 //   	case EMPTY_VERSION:
@@ -3041,6 +3044,7 @@ xdr.struct("CreateIssuanceRequestSuccess", [
   ["requestId", xdr.lookup("Uint64")],
   ["receiver", xdr.lookup("AccountId")],
   ["fulfilled", xdr.bool()],
+  ["fee", xdr.lookup("Fee")],
   ["ext", xdr.lookup("CreateIssuanceRequestSuccessExt")],
 ]);
 
@@ -3158,6 +3162,7 @@ xdr.union("CreatePreIssuanceRequestResultSuccessExt", {
 //
 //   struct {
 //   		uint64 requestID;
+//   		bool fulfilled;
 //   		// reserved for future use
 //   		union switch (LedgerVersion v)
 //   		{
@@ -3170,6 +3175,7 @@ xdr.union("CreatePreIssuanceRequestResultSuccessExt", {
 // ===========================================================================
 xdr.struct("CreatePreIssuanceRequestResultSuccess", [
   ["requestId", xdr.lookup("Uint64")],
+  ["fulfilled", xdr.bool()],
   ["ext", xdr.lookup("CreatePreIssuanceRequestResultSuccessExt")],
 ]);
 
@@ -3180,6 +3186,7 @@ xdr.struct("CreatePreIssuanceRequestResultSuccess", [
 //   case SUCCESS:
 //       struct {
 //   		uint64 requestID;
+//   		bool fulfilled;
 //   		// reserved for future use
 //   		union switch (LedgerVersion v)
 //   		{
@@ -4184,7 +4191,6 @@ xdr.union("ManageBalanceOpExt", {
 //
 //   struct ManageBalanceOp
 //   {
-//       BalanceID balanceID;
 //       ManageBalanceAction action;
 //       AccountID destination;
 //       AssetCode asset;
@@ -4198,7 +4204,6 @@ xdr.union("ManageBalanceOpExt", {
 //
 // ===========================================================================
 xdr.struct("ManageBalanceOp", [
-  ["balanceId", xdr.lookup("BalanceId")],
   ["action", xdr.lookup("ManageBalanceAction")],
   ["destination", xdr.lookup("AccountId")],
   ["asset", xdr.lookup("AssetCode")],
@@ -4216,9 +4221,8 @@ xdr.struct("ManageBalanceOp", [
 //       MALFORMED = -1,       // invalid destination
 //       NOT_FOUND = -2,
 //       DESTINATION_NOT_FOUND = -3,
-//       ALREADY_EXISTS = -4,
-//       ASSET_NOT_FOUND = -5,
-//       INVALID_ASSET = -6
+//       ASSET_NOT_FOUND = -4,
+//       INVALID_ASSET = -5
 //   };
 //
 // ===========================================================================
@@ -4227,9 +4231,8 @@ xdr.enum("ManageBalanceResultCode", {
   malformed: -1,
   notFound: -2,
   destinationNotFound: -3,
-  alreadyExist: -4,
-  assetNotFound: -5,
-  invalidAsset: -6,
+  assetNotFound: -4,
+  invalidAsset: -5,
 });
 
 // === xdr source ============================================================
@@ -4254,6 +4257,7 @@ xdr.union("ManageBalanceSuccessExt", {
 // === xdr source ============================================================
 //
 //   struct ManageBalanceSuccess {
+//   	BalanceID balanceID;
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
 //       {
@@ -4265,6 +4269,7 @@ xdr.union("ManageBalanceSuccessExt", {
 //
 // ===========================================================================
 xdr.struct("ManageBalanceSuccess", [
+  ["balanceId", xdr.lookup("BalanceId")],
   ["ext", xdr.lookup("ManageBalanceSuccessExt")],
 ]);
 
@@ -6570,6 +6575,7 @@ xdr.union("IssuanceRequestExt", {
 //   	AssetCode asset;
 //   	uint64 amount;
 //   	BalanceID receiver;
+//   	Fee fee; //totalFee to be payed (calculated automatically)
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
 //       {
@@ -6584,6 +6590,7 @@ xdr.struct("IssuanceRequest", [
   ["asset", xdr.lookup("AssetCode")],
   ["amount", xdr.lookup("Uint64")],
   ["receiver", xdr.lookup("BalanceId")],
+  ["fee", xdr.lookup("Fee")],
   ["ext", xdr.lookup("IssuanceRequestExt")],
 ]);
 
@@ -7833,15 +7840,43 @@ xdr.typedef("DataValue", xdr.varOpaque(64));
 
 // === xdr source ============================================================
 //
+//   union switch(LedgerVersion v)
+//       {
+//           case EMPTY_VERSION:
+//               void;
+//       }
+//
+// ===========================================================================
+xdr.union("FeeExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
 //   struct Fee {
 //   	uint64 fixed;
 //   	uint64 percent;
+//   
+//       // reserved for future use
+//       union switch(LedgerVersion v)
+//       {
+//           case EMPTY_VERSION:
+//               void;
+//       }
+//       ext;
 //   };
 //
 // ===========================================================================
 xdr.struct("Fee", [
   ["fixed", xdr.lookup("Uint64")],
   ["percent", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("FeeExt")],
 ]);
 
 // === xdr source ============================================================

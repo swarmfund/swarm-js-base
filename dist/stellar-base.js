@@ -279,7 +279,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2017-12-20T13:22:48+02:00
+	// Automatically generated on 2017-12-21T21:13:26+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -580,16 +580,13 @@ var StellarBase =
 	//   {
 	//       AssetCode code;
 	//   	AccountID owner;
-	//       string64 name;
 	//   	AccountID preissuedAssetSigner; // signer of pre issuance tokens
-	//   	longstring description;
-	//   	string256 externalResourceLink;
+	//   	longstring details;
 	//   	uint64 maxIssuanceAmount; // max number of tokens to be issued
 	//   	uint64 availableForIssueance; // pre issued tokens available for issuance
 	//   	uint64 issued; // number of issued tokens
 	//   	uint64 lockedIssuance; // number of tokens locked for entries like token sale. lockedIssuance + issued can not be > maxIssuanceAmount
 	//       uint32 policies;
-	//       longstring logoID;
 	//   
 	//       // reserved for future use
 	//       union switch (LedgerVersion v)
@@ -601,7 +598,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("AssetEntry",[["code",xdr.lookup("AssetCode")],["owner",xdr.lookup("AccountId")],["name",xdr.lookup("String64")],["preissuedAssetSigner",xdr.lookup("AccountId")],["description",xdr.lookup("Longstring")],["externalResourceLink",xdr.lookup("String256")],["maxIssuanceAmount",xdr.lookup("Uint64")],["availableForIssueance",xdr.lookup("Uint64")],["issued",xdr.lookup("Uint64")],["lockedIssuance",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["logoId",xdr.lookup("Longstring")],["ext",xdr.lookup("AssetEntryExt")]]); // === xdr source ============================================================
+	xdr.struct("AssetEntry",[["code",xdr.lookup("AssetCode")],["owner",xdr.lookup("AccountId")],["preissuedAssetSigner",xdr.lookup("AccountId")],["details",xdr.lookup("Longstring")],["maxIssuanceAmount",xdr.lookup("Uint64")],["availableForIssueance",xdr.lookup("Uint64")],["issued",xdr.lookup("Uint64")],["lockedIssuance",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["ext",xdr.lookup("AssetEntryExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -673,11 +670,11 @@ var StellarBase =
 	//       PAYMENT_FEE = 0,
 	//   	OFFER_FEE = 1,
 	//       WITHDRAWAL_FEE = 2,
-	//       EMISSION_FEE = 3
+	//       ISSUANCE_FEE = 3
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("FeeType",{paymentFee:0,offerFee:1,withdrawalFee:2,emissionFee:3}); // === xdr source ============================================================
+	xdr["enum"]("FeeType",{paymentFee:0,offerFee:1,withdrawalFee:2,issuanceFee:3}); // === xdr source ============================================================
 	//
 	//   enum EmissionFeeType
 	//   {
@@ -969,7 +966,6 @@ var StellarBase =
 	//   	AccountID ownerID;
 	//       AssetCode baseAsset; // asset for which sale will be performed
 	//   	AssetCode quoteAsset; // asset in which participation will be accepted
-	//   	string256 name; // name of the sale
 	//   	uint64 startTime; // start time of the sale
 	//   	uint64 endTime; // close time of the sale
 	//   	uint64 price; // price for 1 baseAsset in terms of quote asset
@@ -988,7 +984,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("SaleEntry",[["saleId",xdr.lookup("Uint64")],["ownerId",xdr.lookup("AccountId")],["baseAsset",xdr.lookup("AssetCode")],["quoteAsset",xdr.lookup("AssetCode")],["name",xdr.lookup("String256")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["price",xdr.lookup("Uint64")],["softCap",xdr.lookup("Uint64")],["hardCap",xdr.lookup("Uint64")],["details",xdr.lookup("Longstring")],["currentCap",xdr.lookup("Uint64")],["ext",xdr.lookup("SaleEntryExt")]]); // === xdr source ============================================================
+	xdr.struct("SaleEntry",[["saleId",xdr.lookup("Uint64")],["ownerId",xdr.lookup("AccountId")],["baseAsset",xdr.lookup("AssetCode")],["quoteAsset",xdr.lookup("AssetCode")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["price",xdr.lookup("Uint64")],["softCap",xdr.lookup("Uint64")],["hardCap",xdr.lookup("Uint64")],["details",xdr.lookup("Longstring")],["currentCap",xdr.lookup("Uint64")],["ext",xdr.lookup("SaleEntryExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2133,11 +2129,12 @@ var StellarBase =
 	//   	NO_COUNTERPARTY = -4,
 	//   	NOT_AUTHORIZED = -5,
 	//   	EXCEEDS_MAX_ISSUANCE_AMOUNT = -6,
-	//   	RECEIVER_FULL_LINE = -7
+	//   	RECEIVER_FULL_LINE = -7,
+	//   	FEE_EXCEEDS_AMOUNT = -8 // fee more than amount to issue
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("CreateIssuanceRequestResultCode",{success:0,assetNotFound:-1,invalidAmount:-2,referenceDuplication:-3,noCounterparty:-4,notAuthorized:-5,exceedsMaxIssuanceAmount:-6,receiverFullLine:-7}); // === xdr source ============================================================
+	xdr["enum"]("CreateIssuanceRequestResultCode",{success:0,assetNotFound:-1,invalidAmount:-2,referenceDuplication:-3,noCounterparty:-4,notAuthorized:-5,exceedsMaxIssuanceAmount:-6,receiverFullLine:-7,feeExceedsAmount:-8}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   	{
@@ -2152,6 +2149,7 @@ var StellarBase =
 	//   	uint64 requestID;
 	//   	AccountID receiver;
 	//   	bool fulfilled;
+	//   	Fee fee;
 	//   	union switch (LedgerVersion v)
 	//   	{
 	//   	case EMPTY_VERSION:
@@ -2161,7 +2159,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("CreateIssuanceRequestSuccess",[["requestId",xdr.lookup("Uint64")],["receiver",xdr.lookup("AccountId")],["fulfilled",xdr.bool()],["ext",xdr.lookup("CreateIssuanceRequestSuccessExt")]]); // === xdr source ============================================================
+	xdr.struct("CreateIssuanceRequestSuccess",[["requestId",xdr.lookup("Uint64")],["receiver",xdr.lookup("AccountId")],["fulfilled",xdr.bool()],["fee",xdr.lookup("Fee")],["ext",xdr.lookup("CreateIssuanceRequestSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union CreateIssuanceRequestResult switch (CreateIssuanceRequestResultCode code)
 	//   {
@@ -2227,6 +2225,7 @@ var StellarBase =
 	//
 	//   struct {
 	//   		uint64 requestID;
+	//   		bool fulfilled;
 	//   		// reserved for future use
 	//   		union switch (LedgerVersion v)
 	//   		{
@@ -2237,13 +2236,14 @@ var StellarBase =
 	//   	}
 	//
 	// ===========================================================================
-	xdr.struct("CreatePreIssuanceRequestResultSuccess",[["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("CreatePreIssuanceRequestResultSuccessExt")]]); // === xdr source ============================================================
+	xdr.struct("CreatePreIssuanceRequestResultSuccess",[["requestId",xdr.lookup("Uint64")],["fulfilled",xdr.bool()],["ext",xdr.lookup("CreatePreIssuanceRequestResultSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union CreatePreIssuanceRequestResult switch (CreatePreIssuanceRequestResultCode code)
 	//   {
 	//   case SUCCESS:
 	//       struct {
 	//   		uint64 requestID;
+	//   		bool fulfilled;
 	//   		// reserved for future use
 	//   		union switch (LedgerVersion v)
 	//   		{
@@ -2769,7 +2769,6 @@ var StellarBase =
 	//   	ASSET_ALREADY_EXISTS = -3,			   // asset with such code already exist
 	//       INVALID_MAX_ISSUANCE_AMOUNT = -4, // max issuance amount is 0
 	//   	INVALID_CODE = -5,                // asset code is invalid (empty or contains space)
-	//   	INVALID_NAME = -6,                // asset name is invalid (empty)
 	//   	INVALID_POLICIES = -7,            // asset policies (has flag which does not belong to AssetPolicies enum)
 	//   	ASSET_NOT_FOUND = -8,             // asset does not exists
 	//   	REQUEST_ALREADY_EXISTS = -9,      // request for creation of unique entry already exists
@@ -2778,7 +2777,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageAssetResultCode",{success:0,requestNotFound:-1,assetAlreadyExist:-3,invalidMaxIssuanceAmount:-4,invalidCode:-5,invalidName:-6,invalidPolicy:-7,assetNotFound:-8,requestAlreadyExist:-9,statsAssetAlreadyExist:-10,initialPreissuedExceedsMaxIssuance:-11}); // === xdr source ============================================================
+	xdr["enum"]("ManageAssetResultCode",{success:0,requestNotFound:-1,assetAlreadyExist:-3,invalidMaxIssuanceAmount:-4,invalidCode:-5,invalidPolicy:-7,assetNotFound:-8,requestAlreadyExist:-9,statsAssetAlreadyExist:-10,initialPreissuedExceedsMaxIssuance:-11}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2836,7 +2835,6 @@ var StellarBase =
 	//
 	//   struct ManageBalanceOp
 	//   {
-	//       BalanceID balanceID;
 	//       ManageBalanceAction action;
 	//       AccountID destination;
 	//       AssetCode asset;
@@ -2849,7 +2847,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("ManageBalanceOp",[["balanceId",xdr.lookup("BalanceId")],["action",xdr.lookup("ManageBalanceAction")],["destination",xdr.lookup("AccountId")],["asset",xdr.lookup("AssetCode")],["ext",xdr.lookup("ManageBalanceOpExt")]]); // === xdr source ============================================================
+	xdr.struct("ManageBalanceOp",[["action",xdr.lookup("ManageBalanceAction")],["destination",xdr.lookup("AccountId")],["asset",xdr.lookup("AssetCode")],["ext",xdr.lookup("ManageBalanceOpExt")]]); // === xdr source ============================================================
 	//
 	//   enum ManageBalanceResultCode
 	//   {
@@ -2860,13 +2858,12 @@ var StellarBase =
 	//       MALFORMED = -1,       // invalid destination
 	//       NOT_FOUND = -2,
 	//       DESTINATION_NOT_FOUND = -3,
-	//       ALREADY_EXISTS = -4,
-	//       ASSET_NOT_FOUND = -5,
-	//       INVALID_ASSET = -6
+	//       ASSET_NOT_FOUND = -4,
+	//       INVALID_ASSET = -5
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageBalanceResultCode",{success:0,malformed:-1,notFound:-2,destinationNotFound:-3,alreadyExist:-4,assetNotFound:-5,invalidAsset:-6}); // === xdr source ============================================================
+	xdr["enum"]("ManageBalanceResultCode",{success:0,malformed:-1,notFound:-2,destinationNotFound:-3,assetNotFound:-4,invalidAsset:-5}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2878,6 +2875,7 @@ var StellarBase =
 	xdr.union("ManageBalanceSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct ManageBalanceSuccess {
+	//   	BalanceID balanceID;
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -2888,7 +2886,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("ManageBalanceSuccess",[["ext",xdr.lookup("ManageBalanceSuccessExt")]]); // === xdr source ============================================================
+	xdr.struct("ManageBalanceSuccess",[["balanceId",xdr.lookup("BalanceId")],["ext",xdr.lookup("ManageBalanceSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union ManageBalanceResult switch (ManageBalanceResultCode code)
 	//   {
@@ -4193,14 +4191,11 @@ var StellarBase =
 	//   struct AssetCreationRequest {
 	//   
 	//   	AssetCode code;
-	//   	string64 name;
 	//   	AccountID preissuedAssetSigner;
-	//   	longstring description;
-	//   	string256 externalResourceLink;
 	//   	uint64 maxIssuanceAmount;
 	//   	uint64 initialPreissuedAmount;
 	//       uint32 policies;
-	//       longstring logoID;
+	//       longstring details;
 	//   
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
@@ -4212,7 +4207,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("AssetCreationRequest",[["code",xdr.lookup("AssetCode")],["name",xdr.lookup("String64")],["preissuedAssetSigner",xdr.lookup("AccountId")],["description",xdr.lookup("Longstring")],["externalResourceLink",xdr.lookup("String256")],["maxIssuanceAmount",xdr.lookup("Uint64")],["initialPreissuedAmount",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["logoId",xdr.lookup("Longstring")],["ext",xdr.lookup("AssetCreationRequestExt")]]); // === xdr source ============================================================
+	xdr.struct("AssetCreationRequest",[["code",xdr.lookup("AssetCode")],["preissuedAssetSigner",xdr.lookup("AccountId")],["maxIssuanceAmount",xdr.lookup("Uint64")],["initialPreissuedAmount",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["details",xdr.lookup("Longstring")],["ext",xdr.lookup("AssetCreationRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4225,10 +4220,8 @@ var StellarBase =
 	//
 	//   struct AssetUpdateRequest {
 	//   	AssetCode code;
-	//   	longstring description;
-	//   	string256 externalResourceLink;
+	//   	longstring details;
 	//   	uint32 policies;
-	//       longstring logoID;
 	//   
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
@@ -4240,7 +4233,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("AssetUpdateRequest",[["code",xdr.lookup("AssetCode")],["description",xdr.lookup("Longstring")],["externalResourceLink",xdr.lookup("String256")],["policies",xdr.lookup("Uint32")],["logoId",xdr.lookup("Longstring")],["ext",xdr.lookup("AssetUpdateRequestExt")]]); // === xdr source ============================================================
+	xdr.struct("AssetUpdateRequest",[["code",xdr.lookup("AssetCode")],["details",xdr.lookup("Longstring")],["policies",xdr.lookup("Uint32")],["ext",xdr.lookup("AssetUpdateRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4283,6 +4276,7 @@ var StellarBase =
 	//   	AssetCode asset;
 	//   	uint64 amount;
 	//   	BalanceID receiver;
+	//   	Fee fee; //totalFee to be payed (calculated automatically)
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -4293,7 +4287,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("IssuanceRequest",[["asset",xdr.lookup("AssetCode")],["amount",xdr.lookup("Uint64")],["receiver",xdr.lookup("BalanceId")],["ext",xdr.lookup("IssuanceRequestExt")]]); // === xdr source ============================================================
+	xdr.struct("IssuanceRequest",[["asset",xdr.lookup("AssetCode")],["amount",xdr.lookup("Uint64")],["receiver",xdr.lookup("BalanceId")],["fee",xdr.lookup("Fee")],["ext",xdr.lookup("IssuanceRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4307,7 +4301,6 @@ var StellarBase =
 	//   struct SaleCreationRequest {
 	//   	AssetCode baseAsset; // asset for which sale will be performed
 	//   	AssetCode quoteAsset; // asset in which participation will be accepted
-	//   	string256 name; // name of the sale
 	//   	uint64 startTime; // start time of the sale
 	//   	uint64 endTime; // close time of the sale
 	//   	uint64 price; // price for 1 baseAsset in terms of quote asset
@@ -4324,7 +4317,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("SaleCreationRequest",[["baseAsset",xdr.lookup("AssetCode")],["quoteAsset",xdr.lookup("AssetCode")],["name",xdr.lookup("String256")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["price",xdr.lookup("Uint64")],["softCap",xdr.lookup("Uint64")],["hardCap",xdr.lookup("Uint64")],["details",xdr.lookup("Longstring")],["ext",xdr.lookup("SaleCreationRequestExt")]]); // === xdr source ============================================================
+	xdr.struct("SaleCreationRequest",[["baseAsset",xdr.lookup("AssetCode")],["quoteAsset",xdr.lookup("AssetCode")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["price",xdr.lookup("Uint64")],["softCap",xdr.lookup("Uint64")],["hardCap",xdr.lookup("Uint64")],["details",xdr.lookup("Longstring")],["ext",xdr.lookup("SaleCreationRequestExt")]]); // === xdr source ============================================================
 	//
 	//   enum WithdrawalType {
 	//   	AUTO_CONVERSION = 0
@@ -5088,13 +5081,30 @@ var StellarBase =
 	// ===========================================================================
 	xdr.typedef("DataValue",xdr.varOpaque(64)); // === xdr source ============================================================
 	//
+	//   union switch(LedgerVersion v)
+	//       {
+	//           case EMPTY_VERSION:
+	//               void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("FeeExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
 	//   struct Fee {
 	//   	uint64 fixed;
 	//   	uint64 percent;
+	//   
+	//       // reserved for future use
+	//       union switch(LedgerVersion v)
+	//       {
+	//           case EMPTY_VERSION:
+	//               void;
+	//       }
+	//       ext;
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("Fee",[["fixed",xdr.lookup("Uint64")],["percent",xdr.lookup("Uint64")]]); // === xdr source ============================================================
+	xdr.struct("Fee",[["fixed",xdr.lookup("Uint64")],["percent",xdr.lookup("Uint64")],["ext",xdr.lookup("FeeExt")]]); // === xdr source ============================================================
 	//
 	//   enum OperationType
 	//   {
@@ -33543,7 +33553,6 @@ var StellarBase =
 	        /**
 	         * Returns an XDR ManageBalanceOp. A "manage account" operations creates|deletes balance for account.
 	         * @param {object} opts
-	         * @param {string} opts.balanceId - Id of balance in case of delete.
 	         * @param {string} opts.destination - Account to create account for.
 	         * @param {xdr.ManageBalanceAction} – Delete or create
 	         * @returns {xdr.ManageBalanceOp}
@@ -33558,9 +33567,6 @@ var StellarBase =
 	            if (!_keypair.Keypair.isValidPublicKey(opts.destination)) {
 	                throw new Error("account is invalid");
 	            }
-	            if (!_keypair.Keypair.isValidBalanceKey(opts.balanceId)) {
-	                throw new Error("balanceId is invalid");
-	            }
 	            if (!(opts.action instanceof _generatedStellarXdr_generated2["default"].ManageBalanceAction)) {
 	                throw new TypeError('action argument should be value of xdr.ManageBalanceAction enum');
 	            }
@@ -33569,7 +33575,6 @@ var StellarBase =
 	            }
 
 	            attributes.destination = _keypair.Keypair.fromAccountId(opts.destination).xdrAccountId();
-	            attributes.balanceId = _keypair.Keypair.fromBalanceId(opts.balanceId).xdrBalanceId();
 	            attributes.action = opts.action;
 	            attributes.asset = opts.asset;
 
@@ -33932,7 +33937,6 @@ var StellarBase =
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].OperationType.manageBalance():
 	                    result.action = attrs.action();
-	                    result.balanceId = balanceIdtoString(attrs.balanceId());
 	                    result.destination = accountIdtoAddress(attrs.destination());
 	                    result.asset = attrs.asset();
 	                    break;
@@ -43896,7 +43900,8 @@ var StellarBase =
 	        value: function feeToXdr(fee) {
 	            var attrs = {
 	                fixed: BaseOperation._toUnsignedXDRAmount(fee.fixed),
-	                percent: BaseOperation._toUnsignedXDRAmount(fee.percent)
+	                percent: BaseOperation._toUnsignedXDRAmount(fee.percent),
+	                ext: new _generatedStellarXdr_generated2["default"].FeeExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
 	            };
 
 	            return new _generatedStellarXdr_generated2["default"].Fee(attrs);
@@ -44006,25 +44011,19 @@ var StellarBase =
 	         * @param {object} opts
 	         * @param {string} opts.requestID - request ID, if 0 - creates new, updates otherwise
 	         * @param {string} opts.code - Asset code
-	         * @param {string} opts.name - Name of the asset
 	         * @param {string} opts.preissuedAssetSigner - accountID of keypair which will sign request for asset to be authrorized to be issued
-	         * @param {string} opts.description - desciption of the asset
-	         * @param {string} opts.externalResourceLink - Link to external resource link
 	         * @param {string} opts.maxIssuanceAmount - max amount can be issued of that asset
 	         * @param {number} opts.policies - asset policies
-	         * @param {string} opts.logoId - logo id for asset picture
 	         * @param {string} opts.initialPreissuedAmount - amount of pre issued tokens available after creation of the asset
+	         * @param {string} opts.name - Name of the asset
+	         * @param {string} opts.logoId - logo id for asset picture
+	         * @param {string} opts.description - desciption of the asset
+	         * @param {string} opts.externalResourceLink - Link to external resource link
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageAssetOp}
 	         */
 	        value: function assetCreationRequest(opts) {
 	            var attrs = ManageAssetBuilder._createUpdateAttrs(opts);
-
-	            if (!_base_operation.BaseOperation.isValidString(opts.name, 1, 64)) {
-	                throw new Error("opts.name is invalid");
-	            }
-
-	            attrs.name = opts.name;
 
 	            if (!_keypair.Keypair.isValidPublicKey(opts.preissuedAssetSigner)) {
 	                throw new Error("opts.preissuedAssetSigner is invalid");
@@ -44059,6 +44058,7 @@ var StellarBase =
 	         * @param {object} opts
 	         * @param {string} opts.requestID - request ID, if 0 - creates new, updates otherwise
 	         * @param {string} opts.code - Asset code
+	         * @param {string} opts.name - Name of the asset
 	         * @param {string} opts.description - desciption of the asset
 	         * @param {string} opts.externalResourceLink - Link to external resource link
 	         * @param {number} opts.policies - asset policies
@@ -44094,6 +44094,32 @@ var StellarBase =
 	            return ManageAssetBuilder._createManageAssetOp(opts, new _generatedStellarXdr_generated2['default'].ManageAssetOpRequest.cancelAssetRequest(cancelAssetRequest));
 	        }
 	    }, {
+	        key: '_getValidDetails',
+	        value: function _getValidDetails(opts) {
+	            if ((0, _lodashIsUndefined2['default'])(opts.logoId)) {
+	                opts.logoId = "";
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.name)) {
+	                opts.name = "";
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.description)) {
+	                opts.description = "";
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.externalResourceLink)) {
+	                opts.externalResourceLink = "";
+	            }
+
+	            return {
+	                logo_id: opts.logoId,
+	                name: opts.name,
+	                description: opts.description,
+	                external_resource_link: opts.externalResourceLink
+	            };
+	        }
+	    }, {
 	        key: '_createUpdateAttrs',
 	        value: function _createUpdateAttrs(opts) {
 	            if (!_base_operation.BaseOperation.isValidAsset(opts.code)) {
@@ -44104,16 +44130,12 @@ var StellarBase =
 	                throw new Error("opts.policies must be nonnegative number");
 	            }
 
-	            if ((0, _lodashIsUndefined2['default'])(opts.logoId)) {
-	                throw new Error("opts.logoId is invalid");
-	            }
+	            var details = ManageAssetBuilder._getValidDetails(opts);
 
 	            var attrs = {
 	                code: opts.code,
-	                description: '',
-	                externalResourceLink: '',
 	                policies: opts.policies,
-	                logoId: opts.logoId
+	                details: JSON.stringify(details)
 	            };
 
 	            return attrs;
@@ -44141,32 +44163,27 @@ var StellarBase =
 	        value: function manageAssetToObject(result, attrs) {
 	            result.requestID = attrs.requestId().toString();
 	            result.requestType = attrs.request()['switch']().name;
-	            switch (attrs.request()['switch']().name) {
-	                case "createAssetCreationRequest":
+	            switch (attrs.request()['switch']()) {
+	                case _generatedStellarXdr_generated2['default'].ManageAssetAction.createAssetCreationRequest():
 	                    {
 	                        var request = attrs.request().createAsset();
 	                        result.code = request.code();
-	                        result.name = request.name();
 	                        result.preissuedAssetSigner = _base_operation.BaseOperation.accountIdtoAddress(request.preissuedAssetSigner());
-	                        result.description = request.description();
-	                        result.externalResourceLink = request.externalResourceLink();
 	                        result.policies = request.policies();
-	                        result.logoId = request.logoId();
 	                        result.maxIssuanceAmount = _base_operation.BaseOperation._fromXDRAmount(request.maxIssuanceAmount());
 	                        result.initialPreissuedAmount = _base_operation.BaseOperation._fromXDRAmount(request.initialPreissuedAmount());
+	                        result.details = JSON.parse(request.details());
 	                        break;
 	                    }
-	                case "createAssetUpdateRequest":
+	                case _generatedStellarXdr_generated2['default'].ManageAssetAction.createAssetUpdateRequest():
 	                    {
 	                        var request = attrs.request().updateAsset();
 	                        result.code = request.code();
-	                        result.description = request.description();
-	                        result.externalResourceLink = request.externalResourceLink();
 	                        result.policies = request.policies();
-	                        result.logoId = request.logoId();
+	                        result.details = JSON.parse(request.details());
 	                        break;
 	                    }
-	                case "manageAssetCancelAssetRequest":
+	                case _generatedStellarXdr_generated2['default'].ManageAssetAction.cancelAssetRequest():
 	                    {
 	                        // nothing to do here
 	                    }
@@ -44706,6 +44723,12 @@ var StellarBase =
 	                throw new Error("opts.reference is invalid");
 	            }
 
+	            var fee = {
+	                fixed: "0",
+	                percent: "0"
+	            };
+	            attrs.fee = _base_operation.BaseOperation.feeToXdr(fee);
+
 	            attrs.ext = new _generatedStellarXdr_generated2['default'].IssuanceRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
 	            var request = new _generatedStellarXdr_generated2['default'].IssuanceRequest(attrs);
 	            var issuanceRequestOp = new _generatedStellarXdr_generated2['default'].CreateIssuanceRequestOp({
@@ -44911,14 +44934,16 @@ var StellarBase =
 	         * @param {string} opts.requestID - ID of the request. 0 - to create new;
 	         * @param {string} opts.baseAsset - asset for which sale will be performed
 	         * @param {string} opts.quoteAsset - asset in which participation will be accepted
-	         * @param {object} opts.name - name of the sale
 	         * @param {string} opts.startTime - start time of the sale
 	         * @param {string} opts.endTime - close time of the sale
 	         * @param {string} opts.price - price for 1 baseAsset in terms of quote asset
 	         * @param {string} opts.softCap - minimum amount of quote asset to be received at which sale will be considered a successful
 	         * @param {string} opts.hardCap - max amount of quote asset to be received
 	         * @param {object} opts.details - sale specific details
-	         * @param {string} opts.details.description - description of the sale
+	         * @param {object} opts.details.name - name of the sale
+	         * @param {object} opts.details.short_description - short description of the sale
+	         * @param {object} opts.details.desciption - sale specific details
+	         * @param {object} opts.details.logo - details of the logo
 	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
 	         * @returns {xdr.CreateSaleCreationRequestOp}
 	         */
@@ -44934,11 +44959,6 @@ var StellarBase =
 	                throw new Error("opts.quoteAsset is invalid");
 	            }
 	            attrs.quoteAsset = opts.quoteAsset;
-
-	            if (!_base_operation.BaseOperation.isValidString(opts.name, 1, 64)) {
-	                throw new Error("opts.name is invalid");
-	            }
-	            attrs.name = opts.name;
 
 	            if ((0, _lodashIsUndefined2['default'])(opts.startTime)) {
 	                throw new Error("opts.startTime is invalid");
@@ -44965,9 +44985,7 @@ var StellarBase =
 	            }
 	            attrs.hardCap = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.hardCap);
 
-	            if ((0, _lodashIsUndefined2['default'])(opts.details)) {
-	                throw new Error("opts.details is invalid");
-	            }
+	            SaleRequestBuilder.validateDetail(opts.details);
 	            attrs.details = JSON.stringify(opts.details);
 	            attrs.ext = new _generatedStellarXdr_generated2['default'].SaleCreationRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
 	            var request = new _generatedStellarXdr_generated2['default'].SaleCreationRequest(attrs);
@@ -44987,13 +45005,35 @@ var StellarBase =
 	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
 	        }
 	    }, {
+	        key: 'validateDetail',
+	        value: function validateDetail(details) {
+	            if ((0, _lodashIsUndefined2['default'])(details)) {
+	                throw new Error("details is invalid");
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(details.short_description)) {
+	                throw new Error("details.short_description is invalid");
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(details.description)) {
+	                throw new Error("details.description is invalid");
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(details.logo)) {
+	                throw new Error("details.logo is invalid");
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(details.name)) {
+	                throw new Error("details.name is invalid");
+	            }
+	        }
+	    }, {
 	        key: 'crateSaleCreationRequestToObject',
 	        value: function crateSaleCreationRequestToObject(result, attrs) {
 	            result.requestID = attrs.requestId().toString();
 	            var request = attrs.request();
 	            result.baseAsset = request.baseAsset();
 	            result.quoteAsset = request.quoteAsset();
-	            result.name = request.name();
 	            result.startTime = request.startTime().toString();
 	            result.endTime = request.endTime().toString();
 	            result.price = _base_operation.BaseOperation._fromXDRAmount(request.price());
