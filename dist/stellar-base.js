@@ -270,7 +270,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2017-12-20T20:20:12+02:00
+	// Automatically generated on 2017-12-21T14:06:02+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -3062,6 +3062,7 @@ var StellarBase =
 	//
 	//   struct {
 	//   		uint64 requestID;
+	//   		bool fulfilled;
 	//   		// reserved for future use
 	//   		union switch (LedgerVersion v)
 	//   		{
@@ -3072,13 +3073,14 @@ var StellarBase =
 	//   	}
 	//
 	// ===========================================================================
-	xdr.struct("CreatePreIssuanceRequestResultSuccess",[["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("CreatePreIssuanceRequestResultSuccessExt")]]); // === xdr source ============================================================
+	xdr.struct("CreatePreIssuanceRequestResultSuccess",[["requestId",xdr.lookup("Uint64")],["fulfilled",xdr.bool()],["ext",xdr.lookup("CreatePreIssuanceRequestResultSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union CreatePreIssuanceRequestResult switch (CreatePreIssuanceRequestResultCode code)
 	//   {
 	//   case SUCCESS:
 	//       struct {
 	//   		uint64 requestID;
+	//   		bool fulfilled;
 	//   		// reserved for future use
 	//   		union switch (LedgerVersion v)
 	//   		{

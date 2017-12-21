@@ -1,4 +1,4 @@
-// Automatically generated on 2017-12-20T20:20:12+02:00
+// Automatically generated on 2017-12-21T14:06:02+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -4549,6 +4549,7 @@ xdr.union("CreatePreIssuanceRequestResultSuccessExt", {
 //
 //   struct {
 //   		uint64 requestID;
+//   		bool fulfilled;
 //   		// reserved for future use
 //   		union switch (LedgerVersion v)
 //   		{
@@ -4561,6 +4562,7 @@ xdr.union("CreatePreIssuanceRequestResultSuccessExt", {
 // ===========================================================================
 xdr.struct("CreatePreIssuanceRequestResultSuccess", [
   ["requestId", xdr.lookup("Uint64")],
+  ["fulfilled", xdr.bool()],
   ["ext", xdr.lookup("CreatePreIssuanceRequestResultSuccessExt")],
 ]);
 
@@ -4571,6 +4573,7 @@ xdr.struct("CreatePreIssuanceRequestResultSuccess", [
 //   case SUCCESS:
 //       struct {
 //   		uint64 requestID;
+//   		bool fulfilled;
 //   		// reserved for future use
 //   		union switch (LedgerVersion v)
 //   		{
