@@ -41,11 +41,11 @@ export class CreateIssuanceRequestBuilder {
             throw new Error("opts.reference is invalid");
         }
 
-        if (!BaseOperation.isValidString(opts.externalDetails)) {
-            throw new Error("opts.externalDetails is invalid");
+        if (isUndefined(opts.externalDetails)) {
+            throw new Error("externalDetails is invalid");
         }
 
-        attrs.externalDetails = opts.externalDetails;
+        attrs.externalDetails = JSON.stringify(opts.externalDetails);
 
         let fee = {
             fixed: "0",
@@ -73,6 +73,6 @@ export class CreateIssuanceRequestBuilder {
         result.asset = request.asset();
         result.amount = BaseOperation._fromXDRAmount(request.amount());
         result.receiver = BaseOperation.balanceIdtoString(request.receiver());
-        result.externalDetails = request.externalDetails();
+        result.externalDetails = JSON.parse(request.externalDetails());
     }
 }

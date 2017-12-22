@@ -725,8 +725,8 @@ export class Operation extends BaseOperation {
 
         let attrs = operation.body().value();
         result.type = operation.body().switch().name;
-        switch (operation.body().switch().name) {
-            case "createAccount":
+        switch (operation.body().switch()) {
+            case xdr.OperationType.createAccount():
                 result.destination = accountIdtoAddress(attrs.destination());
                 result.accountType = attrs.accountType().value;
                 result.policies = attrs.policies();
@@ -735,7 +735,7 @@ export class Operation extends BaseOperation {
                     result.referrer = accountIdtoAddress(attrs.referrer());
                 }
                 break;
-            case "payment":
+            case xdr.OperationType.payment():
                 result.amount = Operation._fromXDRAmount(attrs.amount());
                 result.feeFromSource = attrs.feeFromSource;
                 result.sourceBalanceId = balanceIdtoString(attrs.sourceBalanceId());
@@ -760,7 +760,7 @@ export class Operation extends BaseOperation {
                     };
                 }
                 break;
-            case "directDebit":
+            case xdr.OperationType.directDebit():
                 let paymentOp = attrs.paymentOp();
                 result.amount = Operation._fromXDRAmount(paymentOp.amount());
                 result.feeFromSource = paymentOp.feeFromSource;
@@ -781,7 +781,7 @@ export class Operation extends BaseOperation {
                     sourcePaysForDest: paymentOp.feeData().sourcePaysForDest()
                 };
                 break;
-            case "setOption":
+            case xdr.OperationType.setOption():
                 result.masterWeight = attrs.masterWeight();
                 result.lowThreshold = attrs.lowThreshold();
                 result.medThreshold = attrs.medThreshold();
@@ -805,7 +805,7 @@ export class Operation extends BaseOperation {
                     result.trustData = trustData;
                 }
                 break;
-            case "setFee":
+            case xdr.OperationType.setFee():
                 if (!isUndefined(attrs.fee())) {
                     result.fee = {};
                     result.fee.fixedFee = Operation._fromXDRAmount(attrs.fee().fixedFee());
@@ -824,42 +824,36 @@ export class Operation extends BaseOperation {
                     result.fee.hash = attrs.fee().hash();
                 }
                 break;
-            case "manageAccount":
+            case xdr.OperationType.manageAccount():
                 result.account = accountIdtoAddress(attrs.account());
                 result.blockReasonsToAdd = attrs.blockReasonsToAdd();
                 result.blockReasonsToRemove = attrs.blockReasonsToRemove();
                 result.accountType = attrs.accountType().value;
                 break;
-            case "recover":
+            case xdr.OperationType.recover():
                 result.account = accountIdtoAddress(attrs.account());
                 result.oldSigner = accountIdtoAddress(attrs.oldSigner());
                 result.newSigner = accountIdtoAddress(attrs.newSigner());
                 break;
-            case "reviewRecoveryRequest":
-                result.accept = attrs.accept();
-                result.requestId = attrs.requestId().toString();
-                result.oldAccount = accountIdtoAddress(attrs.oldAccount());
-                result.newAccount = accountIdtoAddress(attrs.newAccount());
-                break;
-            case "manageBalance":
+            case xdr.OperationType.manageBalance():
                 result.action = attrs.action();
                 result.destination = accountIdtoAddress(attrs.destination());
                 result.asset = attrs.asset();
                 break;
-            case "reviewPaymentRequest":
+            case xdr.OperationType.reviewPaymentRequest():
                 result.accept = attrs.accept();
                 result.paymentId = attrs.paymentId().toString();
                 if (attrs.rejectReason()) {
                     result.rejectReason = attrs.rejectReason();
                 }
                 break;
-            case "manageAsset":
+            case xdr.OperationType.manageAsset():
                 ManageAssetBuilder.manageAssetToObject(result, attrs);
                 break;
-            case "createPreissuanceRequest":
+            case xdr.OperationType.createPreissuanceRequest():
                 PreIssuanceRequestOpBuilder.preIssuanceRequestOpToObject(result, attrs);
                 break;
-            case "setLimit":
+            case xdr.OperationType.setLimit():
                 if (attrs.account()) {
                     result.account = accountIdtoAddress(attrs.account());
                 }
@@ -872,7 +866,7 @@ export class Operation extends BaseOperation {
                 result.limits.monthlyOut = Operation._fromXDRAmount(attrs.limits().monthlyOut());
                 result.limits.annualOut = Operation._fromXDRAmount(attrs.limits().annualOut());
                 break;
-            case "manageOffer":
+            case xdr.OperationType.manageOffer():
                 result.amount = Operation._fromXDRAmount(attrs.amount());
                 result.price = Operation._fromXDRAmount(attrs.price());
                 result.fee = Operation._fromXDRAmount(attrs.fee());
@@ -881,13 +875,13 @@ export class Operation extends BaseOperation {
                 result.quoteBalance = balanceIdtoString(attrs.quoteBalance());
                 result.offerID = attrs.offerId().toString();
                 break;
-            case "manageInvoice":
+            case xdr.OperationType.manageInvoice():
                 result.amount = Operation._fromXDRAmount(attrs.amount());
                 result.sender = accountIdtoAddress(attrs.sender());
                 result.receiverBalance = balanceIdtoString(attrs.receiverBalance());
                 result.invoiceId = attrs.invoiceId().toString();
                 break;
-            case "manageAssetPair":
+            case xdr.OperationType.manageAssetPair():
                 result.action = attrs.action();
                 result.base = attrs.base();
                 result.quote = attrs.quote();
@@ -895,16 +889,16 @@ export class Operation extends BaseOperation {
                 result.physicalPriceCorrection = Operation._fromXDRAmount(attrs.physicalPriceCorrection());
                 result.maxPriceStep = Operation._fromXDRAmount(attrs.maxPriceStep());
                 break;
-            case "reviewRequest":
+            case xdr.OperationType.reviewRequest():
                 ReviewRequestBuilder.reviewRequestToObject(result, attrs);
                 break;
-            case "createIssuanceRequest":
+            case xdr.OperationType.createIssuanceRequest():
                 CreateIssuanceRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
                 break;
-            case "createWithdrawalRequest":
-                CreateWithdrawRequestBuilder.createWithdrawRequestOpToObject(result, attrs);
+            case xdr.OperationType.createWithdrawalRequest():
+                CreateWithdrawRequestBuilder.createWithdrawalRequestOpToObject(result, attrs);
                 break;
-            case "createSaleRequest":
+            case xdr.OperationType.createSaleRequest():
                 SaleRequestBuilder.crateSaleCreationRequestToObject(result, attrs);
                 break;
             default:

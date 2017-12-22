@@ -1,4 +1,4 @@
-// Automatically generated on 2017-12-22T18:34:53+02:00
+// Automatically generated on 2017-12-22T21:39:13+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -5430,49 +5430,9 @@ xdr.struct("WithdrawalDetails", [
 
 // === xdr source ============================================================
 //
-//   union switch (LedgerVersion v)
-//       {
-//       case EMPTY_VERSION:
-//           void;
-//       }
-//
-// ===========================================================================
-xdr.union("IssuanceDetailsExt", {
-  switchOn: xdr.lookup("LedgerVersion"),
-  switchName: "v",
-  switches: [
-    ["emptyVersion", xdr.void()],
-  ],
-  arms: {
-  },
-});
-
-// === xdr source ============================================================
-//
-//   struct IssuanceDetails {
-//   	string externalDetails<>;
-//   	// reserved for future use
-//       union switch (LedgerVersion v)
-//       {
-//       case EMPTY_VERSION:
-//           void;
-//       }
-//       ext;
-//   };
-//
-// ===========================================================================
-xdr.struct("IssuanceDetails", [
-  ["externalDetails", xdr.string()],
-  ["ext", xdr.lookup("IssuanceDetailsExt")],
-]);
-
-// === xdr source ============================================================
-//
 //   union switch(ReviewableRequestType requestType) {
 //   	case WITHDRAW:
 //   		WithdrawalDetails withdrawal;
-//   	case ISSUANCE_CREATE:
-//   		IssuanceDetails issuance;
 //   	default:
 //   		void;
 //   	}
@@ -5483,11 +5443,9 @@ xdr.union("ReviewRequestOpRequestDetails", {
   switchName: "requestType",
   switches: [
     ["withdraw", "withdrawal"],
-    ["issuanceCreate", "issuance"],
   ],
   arms: {
     withdrawal: xdr.lookup("WithdrawalDetails"),
-    issuance: xdr.lookup("IssuanceDetails"),
   },
   defaultArm: xdr.void(),
 });
@@ -5520,8 +5478,6 @@ xdr.union("ReviewRequestOpExt", {
 //   	union switch(ReviewableRequestType requestType) {
 //   	case WITHDRAW:
 //   		WithdrawalDetails withdrawal;
-//   	case ISSUANCE_CREATE:
-//   		IssuanceDetails issuance;
 //   	default:
 //   		void;
 //   	} requestDetails;
@@ -6620,7 +6576,7 @@ xdr.union("IssuanceRequestExt", {
 //   	AssetCode asset;
 //   	uint64 amount;
 //   	BalanceID receiver;
-//   	string externalDetails<>; // details of the issuance (External system id, etc.)
+//   	longstring externalDetails; // details of the issuance (External system id, etc.)
 //   	Fee fee; //totalFee to be payed (calculated automatically)
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
@@ -6636,7 +6592,7 @@ xdr.struct("IssuanceRequest", [
   ["asset", xdr.lookup("AssetCode")],
   ["amount", xdr.lookup("Uint64")],
   ["receiver", xdr.lookup("BalanceId")],
-  ["externalDetails", xdr.string()],
+  ["externalDetails", xdr.lookup("Longstring")],
   ["fee", xdr.lookup("Fee")],
   ["ext", xdr.lookup("IssuanceRequestExt")],
 ]);
