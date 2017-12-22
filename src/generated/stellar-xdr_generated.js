@@ -1,4 +1,4 @@
-// Automatically generated on 2017-12-19T19:38:39+02:00
+// Automatically generated on 2017-12-22T17:19:51+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -496,15 +496,13 @@ xdr.union("AssetEntryExt", {
 //   {
 //       AssetCode code;
 //   	AccountID owner;
-//       string64 name;
-//   	AccountID preissuedAssetSigner;
-//   	longstring description;
-//   	string256 externalResourceLink;
-//   	uint64 maxIssuanceAmount;
-//   	uint64 availableForIssueance;
-//   	uint64 issued;
+//   	AccountID preissuedAssetSigner; // signer of pre issuance tokens
+//   	longstring details;
+//   	uint64 maxIssuanceAmount; // max number of tokens to be issued
+//   	uint64 availableForIssueance; // pre issued tokens available for issuance
+//   	uint64 issued; // number of issued tokens
+//   	uint64 lockedIssuance; // number of tokens locked for entries like token sale. lockedIssuance + issued can not be > maxIssuanceAmount
 //       uint32 policies;
-//       longstring logoID;
 //   
 //       // reserved for future use
 //       union switch (LedgerVersion v)
@@ -519,15 +517,13 @@ xdr.union("AssetEntryExt", {
 xdr.struct("AssetEntry", [
   ["code", xdr.lookup("AssetCode")],
   ["owner", xdr.lookup("AccountId")],
-  ["name", xdr.lookup("String64")],
   ["preissuedAssetSigner", xdr.lookup("AccountId")],
-  ["description", xdr.lookup("Longstring")],
-  ["externalResourceLink", xdr.lookup("String256")],
+  ["details", xdr.lookup("Longstring")],
   ["maxIssuanceAmount", xdr.lookup("Uint64")],
   ["availableForIssueance", xdr.lookup("Uint64")],
   ["issued", xdr.lookup("Uint64")],
+  ["lockedIssuance", xdr.lookup("Uint64")],
   ["policies", xdr.lookup("Uint32")],
-  ["logoId", xdr.lookup("Longstring")],
   ["ext", xdr.lookup("AssetEntryExt")],
 ]);
 
@@ -644,7 +640,7 @@ xdr.struct("ExternalSystemAccountId", [
 //       PAYMENT_FEE = 0,
 //   	OFFER_FEE = 1,
 //       WITHDRAWAL_FEE = 2,
-//       EMISSION_FEE = 3
+//       ISSUANCE_FEE = 3
 //   };
 //
 // ===========================================================================
@@ -652,7 +648,7 @@ xdr.enum("FeeType", {
   paymentFee: 0,
   offerFee: 1,
   withdrawalFee: 2,
-  emissionFee: 3,
+  issuanceFee: 3,
 });
 
 // === xdr source ============================================================
@@ -987,7 +983,8 @@ xdr.struct("ReferenceEntry", [
 //   	ASSET_UPDATE = 1,
 //   	PRE_ISSUANCE_CREATE = 2,
 //   	ISSUANCE_CREATE = 3,
-//   	WITHDRAW = 4
+//   	WITHDRAW = 4,
+//   	SALE = 5
 //   
 //   };
 //
@@ -998,6 +995,7 @@ xdr.enum("ReviewableRequestType", {
   preIssuanceCreate: 2,
   issuanceCreate: 3,
   withdraw: 4,
+  sale: 5,
 });
 
 // === xdr source ============================================================
@@ -1013,6 +1011,8 @@ xdr.enum("ReviewableRequestType", {
 //   			IssuanceRequest issuanceRequest;
 //   		case WITHDRAW:
 //   			WithdrawalRequest withdrawalRequest;
+//   		case SALE:
+//   			SaleCreationRequest saleCreationRequest;
 //   	}
 //
 // ===========================================================================
@@ -1025,6 +1025,7 @@ xdr.union("ReviewableRequestEntryBody", {
     ["preIssuanceCreate", "preIssuanceRequest"],
     ["issuanceCreate", "issuanceRequest"],
     ["withdraw", "withdrawalRequest"],
+    ["sale", "saleCreationRequest"],
   ],
   arms: {
     assetCreationRequest: xdr.lookup("AssetCreationRequest"),
@@ -1032,6 +1033,7 @@ xdr.union("ReviewableRequestEntryBody", {
     preIssuanceRequest: xdr.lookup("PreIssuanceRequest"),
     issuanceRequest: xdr.lookup("IssuanceRequest"),
     withdrawalRequest: xdr.lookup("WithdrawalRequest"),
+    saleCreationRequest: xdr.lookup("SaleCreationRequest"),
   },
 });
 
@@ -1076,6 +1078,8 @@ xdr.union("ReviewableRequestEntryExt", {
 //   			IssuanceRequest issuanceRequest;
 //   		case WITHDRAW:
 //   			WithdrawalRequest withdrawalRequest;
+//   		case SALE:
+//   			SaleCreationRequest saleCreationRequest;
 //   	} body;
 //   
 //   	// reserved for future use
@@ -1098,6 +1102,66 @@ xdr.struct("ReviewableRequestEntry", [
   ["createdAt", xdr.lookup("Int64")],
   ["body", xdr.lookup("ReviewableRequestEntryBody")],
   ["ext", xdr.lookup("ReviewableRequestEntryExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("SaleEntryExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct SaleEntry
+//   {
+//   	uint64 saleID;
+//   	AccountID ownerID;
+//       AssetCode baseAsset; // asset for which sale will be performed
+//   	AssetCode quoteAsset; // asset in which participation will be accepted
+//   	uint64 startTime; // start time of the sale
+//   	uint64 endTime; // close time of the sale
+//   	uint64 price; // price for 1 baseAsset in terms of quote asset
+//   	uint64 softCap; // minimum amount of quote asset to be received at which sale will be considered a successful
+//   	uint64 hardCap; // max amount of quote asset to be received
+//   	longstring details; // sale specific details
+//   
+//   	uint64 currentCap; // current capitalization
+//   
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("SaleEntry", [
+  ["saleId", xdr.lookup("Uint64")],
+  ["ownerId", xdr.lookup("AccountId")],
+  ["baseAsset", xdr.lookup("AssetCode")],
+  ["quoteAsset", xdr.lookup("AssetCode")],
+  ["startTime", xdr.lookup("Uint64")],
+  ["endTime", xdr.lookup("Uint64")],
+  ["price", xdr.lookup("Uint64")],
+  ["softCap", xdr.lookup("Uint64")],
+  ["hardCap", xdr.lookup("Uint64")],
+  ["details", xdr.lookup("Longstring")],
+  ["currentCap", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("SaleEntryExt")],
 ]);
 
 // === xdr source ============================================================
@@ -1188,7 +1252,8 @@ xdr.enum("ThresholdIndices", {
 //   	OFFER_ENTRY = 13,
 //       INVOICE = 14,
 //   	REVIEWABLE_REQUEST = 15,
-//   	EXTERNAL_SYSTEM_ACCOUNT_ID = 16
+//   	EXTERNAL_SYSTEM_ACCOUNT_ID = 16,
+//   	SALE = 17
 //   };
 //
 // ===========================================================================
@@ -1208,6 +1273,7 @@ xdr.enum("LedgerEntryType", {
   invoice: 14,
   reviewableRequest: 15,
   externalSystemAccountId: 16,
+  sale: 17,
 });
 
 // === xdr source ============================================================
@@ -1244,6 +1310,8 @@ xdr.enum("LedgerEntryType", {
 //   		ReviewableRequestEntry reviewableRequest;
 //   	case EXTERNAL_SYSTEM_ACCOUNT_ID:
 //   		ExternalSystemAccountID externalSystemAccountID;
+//   	case SALE:
+//   		SaleEntry sale;
 //       }
 //
 // ===========================================================================
@@ -1266,6 +1334,7 @@ xdr.union("LedgerEntryData", {
     ["invoice", "invoice"],
     ["reviewableRequest", "reviewableRequest"],
     ["externalSystemAccountId", "externalSystemAccountId"],
+    ["sale", "sale"],
   ],
   arms: {
     account: xdr.lookup("AccountEntry"),
@@ -1283,6 +1352,7 @@ xdr.union("LedgerEntryData", {
     invoice: xdr.lookup("InvoiceEntry"),
     reviewableRequest: xdr.lookup("ReviewableRequestEntry"),
     externalSystemAccountId: xdr.lookup("ExternalSystemAccountId"),
+    sale: xdr.lookup("SaleEntry"),
   },
 });
 
@@ -1343,6 +1413,8 @@ xdr.union("LedgerEntryExt", {
 //   		ReviewableRequestEntry reviewableRequest;
 //   	case EXTERNAL_SYSTEM_ACCOUNT_ID:
 //   		ExternalSystemAccountID externalSystemAccountID;
+//   	case SALE:
+//   		SaleEntry sale;
 //       }
 //       data;
 //   
@@ -2135,6 +2207,43 @@ xdr.struct("LedgerKeyExternalSystemAccountId", [
 
 // === xdr source ============================================================
 //
+//   union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//
+// ===========================================================================
+xdr.union("LedgerKeySaleExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct {
+//   		uint64 saleID;
+//   		union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//   		ext;
+//   	}
+//
+// ===========================================================================
+xdr.struct("LedgerKeySale", [
+  ["saleId", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("LedgerKeySaleExt")],
+]);
+
+// === xdr source ============================================================
+//
 //   union LedgerKey switch (LedgerEntryType type)
 //   {
 //   case ACCOUNT:
@@ -2293,6 +2402,16 @@ xdr.struct("LedgerKeyExternalSystemAccountId", [
 //   		}
 //   		ext;
 //   	} externalSystemAccountID;
+//   case SALE:
+//   	struct {
+//   		uint64 saleID;
+//   		union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//   		ext;
+//   	} sale;
 //   };
 //
 // ===========================================================================
@@ -2315,6 +2434,7 @@ xdr.union("LedgerKey", {
     ["invoice", "invoice"],
     ["reviewableRequest", "reviewableRequest"],
     ["externalSystemAccountId", "externalSystemAccountId"],
+    ["sale", "sale"],
   ],
   arms: {
     account: xdr.lookup("LedgerKeyAccount"),
@@ -2332,6 +2452,7 @@ xdr.union("LedgerKey", {
     invoice: xdr.lookup("LedgerKeyInvoice"),
     reviewableRequest: xdr.lookup("LedgerKeyReviewableRequest"),
     externalSystemAccountId: xdr.lookup("LedgerKeyExternalSystemAccountId"),
+    sale: xdr.lookup("LedgerKeySale"),
   },
 });
 
@@ -2868,7 +2989,8 @@ xdr.struct("CreateIssuanceRequestOp", [
 //   	NOT_AUTHORIZED = -5,
 //   	EXCEEDS_MAX_ISSUANCE_AMOUNT = -6,
 //   	RECEIVER_FULL_LINE = -7,
-//   	INVALID_EXTERNAL_DETAILS = -8 // external details size exceeds max allowed
+//   	INVALID_EXTERNAL_DETAILS = -8, // external details size exceeds max allowed
+//   	FEE_EXCEEDS_AMOUNT = -9 // fee more than amount to issue
 //   };
 //
 // ===========================================================================
@@ -2882,6 +3004,7 @@ xdr.enum("CreateIssuanceRequestResultCode", {
   exceedsMaxIssuanceAmount: -6,
   receiverFullLine: -7,
   invalidExternalDetail: -8,
+  feeExceedsAmount: -9,
 });
 
 // === xdr source ============================================================
@@ -2909,6 +3032,7 @@ xdr.union("CreateIssuanceRequestSuccessExt", {
 //   	uint64 requestID;
 //   	AccountID receiver;
 //   	bool fulfilled;
+//   	Fee fee;
 //   	union switch (LedgerVersion v)
 //   	{
 //   	case EMPTY_VERSION:
@@ -2922,6 +3046,7 @@ xdr.struct("CreateIssuanceRequestSuccess", [
   ["requestId", xdr.lookup("Uint64")],
   ["receiver", xdr.lookup("AccountId")],
   ["fulfilled", xdr.bool()],
+  ["fee", xdr.lookup("Fee")],
   ["ext", xdr.lookup("CreateIssuanceRequestSuccessExt")],
 ]);
 
@@ -3039,6 +3164,7 @@ xdr.union("CreatePreIssuanceRequestResultSuccessExt", {
 //
 //   struct {
 //   		uint64 requestID;
+//   		bool fulfilled;
 //   		// reserved for future use
 //   		union switch (LedgerVersion v)
 //   		{
@@ -3051,6 +3177,7 @@ xdr.union("CreatePreIssuanceRequestResultSuccessExt", {
 // ===========================================================================
 xdr.struct("CreatePreIssuanceRequestResultSuccess", [
   ["requestId", xdr.lookup("Uint64")],
+  ["fulfilled", xdr.bool()],
   ["ext", xdr.lookup("CreatePreIssuanceRequestResultSuccessExt")],
 ]);
 
@@ -3061,6 +3188,7 @@ xdr.struct("CreatePreIssuanceRequestResultSuccess", [
 //   case SUCCESS:
 //       struct {
 //   		uint64 requestID;
+//   		bool fulfilled;
 //   		// reserved for future use
 //   		union switch (LedgerVersion v)
 //   		{
@@ -3082,6 +3210,144 @@ xdr.union("CreatePreIssuanceRequestResult", {
   ],
   arms: {
     success: xdr.lookup("CreatePreIssuanceRequestResultSuccess"),
+  },
+  defaultArm: xdr.void(),
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("CreateSaleCreationRequestOpExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct CreateSaleCreationRequestOp
+//   {
+//   	uint64 requestID;
+//       SaleCreationRequest request;
+//   
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   
+//   };
+//
+// ===========================================================================
+xdr.struct("CreateSaleCreationRequestOp", [
+  ["requestId", xdr.lookup("Uint64")],
+  ["request", xdr.lookup("SaleCreationRequest")],
+  ["ext", xdr.lookup("CreateSaleCreationRequestOpExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   enum CreateSaleCreationRequestResultCode
+//   {
+//       // codes considered as "success" for the operation
+//       SUCCESS = 0,
+//   
+//       // codes considered as "failure" for the operation
+//   	REQUEST_NOT_FOUND = -1, // trying to update reviewable request which does not exists
+//   	BASE_ASSET_OR_ASSET_REQUEST_NOT_FOUND = -2, // failed to find asset or asset request for sale
+//   	QUOTE_ASSET_NOT_FOUND = -3, // failed to find quote asset
+//   	START_END_INVALID = -4, // sale ends before start
+//   	INVALID_END = -5, // end date is in the past
+//   	INVALID_PRICE = -6, // price can not be 0
+//   	INVALID_CAP = -7, // hard cap is < soft cap
+//   	INSUFFICIENT_MAX_ISSUANCE = -8, // max number of tokens is less then number of tokens required for soft cap
+//   	INVALID_ASSET_PAIR = -9, // one of the assets has invalid code or base asset is equal to quote asset
+//   	REQUEST_OR_SALE_ALREADY_EXISTS = -10
+//   };
+//
+// ===========================================================================
+xdr.enum("CreateSaleCreationRequestResultCode", {
+  success: 0,
+  requestNotFound: -1,
+  baseAssetOrAssetRequestNotFound: -2,
+  quoteAssetNotFound: -3,
+  startEndInvalid: -4,
+  invalidEnd: -5,
+  invalidPrice: -6,
+  invalidCap: -7,
+  insufficientMaxIssuance: -8,
+  invalidAssetPair: -9,
+  requestOrSaleAlreadyExist: -10,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("CreateSaleCreationSuccessExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct CreateSaleCreationSuccess {
+//   	uint64 requestID;
+//   
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("CreateSaleCreationSuccess", [
+  ["requestId", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("CreateSaleCreationSuccessExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union CreateSaleCreationRequestResult switch (CreateSaleCreationRequestResultCode code)
+//   {
+//       case SUCCESS:
+//           CreateSaleCreationSuccess success;
+//       default:
+//           void;
+//   };
+//
+// ===========================================================================
+xdr.union("CreateSaleCreationRequestResult", {
+  switchOn: xdr.lookup("CreateSaleCreationRequestResultCode"),
+  switchName: "code",
+  switches: [
+    ["success", "success"],
+  ],
+  arms: {
+    success: xdr.lookup("CreateSaleCreationSuccess"),
   },
   defaultArm: xdr.void(),
 });
@@ -3805,7 +4071,6 @@ xdr.struct("ManageAssetOp", [
 //   	ASSET_ALREADY_EXISTS = -3,			   // asset with such code already exist
 //       INVALID_MAX_ISSUANCE_AMOUNT = -4, // max issuance amount is 0
 //   	INVALID_CODE = -5,                // asset code is invalid (empty or contains space)
-//   	INVALID_NAME = -6,                // asset name is invalid (empty)
 //   	INVALID_POLICIES = -7,            // asset policies (has flag which does not belong to AssetPolicies enum)
 //   	ASSET_NOT_FOUND = -8,             // asset does not exists
 //   	REQUEST_ALREADY_EXISTS = -9,      // request for creation of unique entry already exists
@@ -3820,7 +4085,6 @@ xdr.enum("ManageAssetResultCode", {
   assetAlreadyExist: -3,
   invalidMaxIssuanceAmount: -4,
   invalidCode: -5,
-  invalidName: -6,
   invalidPolicy: -7,
   assetNotFound: -8,
   requestAlreadyExist: -9,
@@ -5304,7 +5568,12 @@ xdr.struct("ReviewRequestOp", [
 //   	// Issuance requests
 //   	MAX_ISSUANCE_AMOUNT_EXCEEDED = -40,
 //   	INSUFFICIENT_AVAILABLE_FOR_ISSUANCE_AMOUNT = -41,
-//   	FULL_LINE = -42 // can't fund balance - total funds exceed UINT64_MAX
+//   	FULL_LINE = -42, // can't fund balance - total funds exceed UINT64_MAX
+//   
+//   	// sale creation reuqests
+//   	QUOTE_ASSET_DOES_NOT_EXISTS = -50,
+//   	BASE_ASSET_DOES_NOT_EXISTS = -51,
+//   	SOFT_CAP_WILL_EXCEED_MAX_ISSUANCE = -52
 //   	
 //   };
 //
@@ -5322,6 +5591,9 @@ xdr.enum("ReviewRequestResultCode", {
   maxIssuanceAmountExceeded: -40,
   insufficientAvailableForIssuanceAmount: -41,
   fullLine: -42,
+  quoteAssetDoesNotExist: -50,
+  baseAssetDoesNotExist: -51,
+  softCapWillExceedMaxIssuance: -52,
 });
 
 // === xdr source ============================================================
@@ -6209,14 +6481,11 @@ xdr.union("AssetCreationRequestExt", {
 //   struct AssetCreationRequest {
 //   
 //   	AssetCode code;
-//   	string64 name;
 //   	AccountID preissuedAssetSigner;
-//   	longstring description;
-//   	string256 externalResourceLink;
 //   	uint64 maxIssuanceAmount;
 //   	uint64 initialPreissuedAmount;
 //       uint32 policies;
-//       longstring logoID;
+//       longstring details;
 //   
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
@@ -6230,14 +6499,11 @@ xdr.union("AssetCreationRequestExt", {
 // ===========================================================================
 xdr.struct("AssetCreationRequest", [
   ["code", xdr.lookup("AssetCode")],
-  ["name", xdr.lookup("String64")],
   ["preissuedAssetSigner", xdr.lookup("AccountId")],
-  ["description", xdr.lookup("Longstring")],
-  ["externalResourceLink", xdr.lookup("String256")],
   ["maxIssuanceAmount", xdr.lookup("Uint64")],
   ["initialPreissuedAmount", xdr.lookup("Uint64")],
   ["policies", xdr.lookup("Uint32")],
-  ["logoId", xdr.lookup("Longstring")],
+  ["details", xdr.lookup("Longstring")],
   ["ext", xdr.lookup("AssetCreationRequestExt")],
 ]);
 
@@ -6264,10 +6530,8 @@ xdr.union("AssetUpdateRequestExt", {
 //
 //   struct AssetUpdateRequest {
 //   	AssetCode code;
-//   	longstring description;
-//   	string256 externalResourceLink;
+//   	longstring details;
 //   	uint32 policies;
-//       longstring logoID;
 //   
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
@@ -6281,10 +6545,8 @@ xdr.union("AssetUpdateRequestExt", {
 // ===========================================================================
 xdr.struct("AssetUpdateRequest", [
   ["code", xdr.lookup("AssetCode")],
-  ["description", xdr.lookup("Longstring")],
-  ["externalResourceLink", xdr.lookup("String256")],
+  ["details", xdr.lookup("Longstring")],
   ["policies", xdr.lookup("Uint32")],
-  ["logoId", xdr.lookup("Longstring")],
   ["ext", xdr.lookup("AssetUpdateRequestExt")],
 ]);
 
@@ -6359,6 +6621,7 @@ xdr.union("IssuanceRequestExt", {
 //   	uint64 amount;
 //   	BalanceID receiver;
 //   	string externalDetails<>; // details of the issuance (External system id, etc.)
+//   	Fee fee; //totalFee to be payed (calculated automatically)
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
 //       {
@@ -6374,7 +6637,60 @@ xdr.struct("IssuanceRequest", [
   ["amount", xdr.lookup("Uint64")],
   ["receiver", xdr.lookup("BalanceId")],
   ["externalDetails", xdr.string()],
+  ["fee", xdr.lookup("Fee")],
   ["ext", xdr.lookup("IssuanceRequestExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("SaleCreationRequestExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct SaleCreationRequest {
+//   	AssetCode baseAsset; // asset for which sale will be performed
+//   	AssetCode quoteAsset; // asset in which participation will be accepted
+//   	uint64 startTime; // start time of the sale
+//   	uint64 endTime; // close time of the sale
+//   	uint64 price; // price for 1 baseAsset in terms of quote asset
+//   	uint64 softCap; // minimum amount of quote asset to be received at which sale will be considered a successful
+//   	uint64 hardCap; // max amount of quote asset to be received
+//   	longstring details; // sale specific details
+//   
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("SaleCreationRequest", [
+  ["baseAsset", xdr.lookup("AssetCode")],
+  ["quoteAsset", xdr.lookup("AssetCode")],
+  ["startTime", xdr.lookup("Uint64")],
+  ["endTime", xdr.lookup("Uint64")],
+  ["price", xdr.lookup("Uint64")],
+  ["softCap", xdr.lookup("Uint64")],
+  ["hardCap", xdr.lookup("Uint64")],
+  ["details", xdr.lookup("Longstring")],
+  ["ext", xdr.lookup("SaleCreationRequestExt")],
 ]);
 
 // === xdr source ============================================================
@@ -6473,7 +6789,7 @@ xdr.union("WithdrawalRequestExt", {
 //       uint64 amount; // amount to be withdrawn
 //       uint64 universalAmount; // amount in stats asset
 //   	Fee fee; // expected fee to be paid
-//       string externalDetails<>; // details of the withdrawal (External system id, etc.)
+//       longstring externalDetails; // details of the withdrawal (External system id, etc.)
 //   	union switch (WithdrawalType withdrawalType) {
 //   	case AUTO_CONVERSION:
 //   		AutoConversionWithdrawalDetails autoConversion;
@@ -6493,7 +6809,7 @@ xdr.struct("WithdrawalRequest", [
   ["amount", xdr.lookup("Uint64")],
   ["universalAmount", xdr.lookup("Uint64")],
   ["fee", xdr.lookup("Fee")],
-  ["externalDetails", xdr.string()],
+  ["externalDetails", xdr.lookup("Longstring")],
   ["details", xdr.lookup("WithdrawalRequestDetails")],
   ["ext", xdr.lookup("WithdrawalRequestExt")],
 ]);
@@ -6781,6 +7097,8 @@ xdr.struct("ScpQuorumSet", [
 //           ManageInvoiceOp manageInvoiceOp;
 //   	case REVIEW_REQUEST:
 //   		ReviewRequestOp reviewRequestOp;
+//   	case CREATE_SALE_REQUEST:
+//   		CreateSaleCreationRequestOp createSaleCreationRequestOp;
 //       }
 //
 // ===========================================================================
@@ -6806,6 +7124,7 @@ xdr.union("OperationBody", {
     ["manageOffer", "manageOfferOp"],
     ["manageInvoice", "manageInvoiceOp"],
     ["reviewRequest", "reviewRequestOp"],
+    ["createSaleRequest", "createSaleCreationRequestOp"],
   ],
   arms: {
     createAccountOp: xdr.lookup("CreateAccountOp"),
@@ -6826,6 +7145,7 @@ xdr.union("OperationBody", {
     manageOfferOp: xdr.lookup("ManageOfferOp"),
     manageInvoiceOp: xdr.lookup("ManageInvoiceOp"),
     reviewRequestOp: xdr.lookup("ReviewRequestOp"),
+    createSaleCreationRequestOp: xdr.lookup("CreateSaleCreationRequestOp"),
   },
 });
 
@@ -6876,6 +7196,8 @@ xdr.union("OperationBody", {
 //           ManageInvoiceOp manageInvoiceOp;
 //   	case REVIEW_REQUEST:
 //   		ReviewRequestOp reviewRequestOp;
+//   	case CREATE_SALE_REQUEST:
+//   		CreateSaleCreationRequestOp createSaleCreationRequestOp;
 //       }
 //       body;
 //   };
@@ -7092,6 +7414,8 @@ xdr.enum("OperationResultCode", {
 //   		ManageInvoiceResult manageInvoiceResult;
 //   	case REVIEW_REQUEST:
 //   		ReviewRequestResult reviewRequestResult;
+//   	case CREATE_SALE_REQUEST:
+//   		CreateSaleCreationRequestResult createSaleCreationRequestResult;
 //       }
 //
 // ===========================================================================
@@ -7117,6 +7441,7 @@ xdr.union("OperationResultTr", {
     ["manageOffer", "manageOfferResult"],
     ["manageInvoice", "manageInvoiceResult"],
     ["reviewRequest", "reviewRequestResult"],
+    ["createSaleRequest", "createSaleCreationRequestResult"],
   ],
   arms: {
     createAccountResult: xdr.lookup("CreateAccountResult"),
@@ -7137,6 +7462,7 @@ xdr.union("OperationResultTr", {
     manageOfferResult: xdr.lookup("ManageOfferResult"),
     manageInvoiceResult: xdr.lookup("ManageInvoiceResult"),
     reviewRequestResult: xdr.lookup("ReviewRequestResult"),
+    createSaleCreationRequestResult: xdr.lookup("CreateSaleCreationRequestResult"),
   },
 });
 
@@ -7183,6 +7509,8 @@ xdr.union("OperationResultTr", {
 //   		ManageInvoiceResult manageInvoiceResult;
 //   	case REVIEW_REQUEST:
 //   		ReviewRequestResult reviewRequestResult;
+//   	case CREATE_SALE_REQUEST:
+//   		CreateSaleCreationRequestResult createSaleCreationRequestResult;
 //       }
 //       tr;
 //   default:
@@ -7559,15 +7887,43 @@ xdr.typedef("DataValue", xdr.varOpaque(64));
 
 // === xdr source ============================================================
 //
+//   union switch(LedgerVersion v)
+//       {
+//           case EMPTY_VERSION:
+//               void;
+//       }
+//
+// ===========================================================================
+xdr.union("FeeExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
 //   struct Fee {
 //   	uint64 fixed;
 //   	uint64 percent;
+//   
+//       // reserved for future use
+//       union switch(LedgerVersion v)
+//       {
+//           case EMPTY_VERSION:
+//               void;
+//       }
+//       ext;
 //   };
 //
 // ===========================================================================
 xdr.struct("Fee", [
   ["fixed", xdr.lookup("Uint64")],
   ["percent", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("FeeExt")],
 ]);
 
 // === xdr source ============================================================
@@ -7591,7 +7947,8 @@ xdr.struct("Fee", [
 //   	MANAGE_ASSET_PAIR = 15,
 //   	MANAGE_OFFER = 16,
 //       MANAGE_INVOICE = 17,
-//   	REVIEW_REQUEST = 18
+//   	REVIEW_REQUEST = 18,
+//   	CREATE_SALE_REQUEST = 19
 //   };
 //
 // ===========================================================================
@@ -7614,6 +7971,7 @@ xdr.enum("OperationType", {
   manageOffer: 16,
   manageInvoice: 17,
   reviewRequest: 18,
+  createSaleRequest: 19,
 });
 
 // === xdr source ============================================================
