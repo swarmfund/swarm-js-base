@@ -47,6 +47,12 @@ export class CreateIssuanceRequestBuilder {
 
         attrs.externalDetails = opts.externalDetails;
 
+        let fee = {
+            fixed: "0",
+            percent: "0"
+        };
+        attrs.fee = BaseOperation.feeToXdr(fee);
+
         attrs.ext = new xdr.IssuanceRequestExt(xdr.LedgerVersion.emptyVersion());
         let request = new xdr.IssuanceRequest(attrs);
         let issuanceRequestOp = new xdr.CreateIssuanceRequestOp({

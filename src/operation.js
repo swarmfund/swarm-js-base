@@ -19,6 +19,7 @@ import { ReviewRequestBuilder } from './operations/review_request_builder';
 import { PreIssuanceRequestOpBuilder } from './operations/pre_issuance_request_op_builder';
 import { CreateIssuanceRequestBuilder } from './operations/create_issuance_request_builder';
 import { CreateWithdrawRequestBuilder } from './operations/create_withdraw_request_builder';
+import { SaleRequestBuilder } from './operations/sale_request_builder';
 
 /**
  * When set using `{@link Operation.setOptions}` option, requires the issuing account to
@@ -900,8 +901,11 @@ export class Operation extends BaseOperation {
             case "createIssuanceRequest":
                 CreateIssuanceRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
                 break;
-            case "createWithdrawalRequest":
-                CreateWithdrawRequestBuilder.createWithdrawRequestOpToObject(result, attrs);
+            case xdr.OperationType.createWithdrawalRequest():
+                CreateWithdrawRequestBuilder.createWithdrawalRequestOpToObject(result, attrs);
+                break;
+            case xdr.OperationType.createSaleRequest():
+                SaleRequestBuilder.crateSaleCreationRequestToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");

@@ -11,25 +11,19 @@ export class ManageAssetBuilder {
      * @param {object} opts
      * @param {string} opts.requestID - request ID, if 0 - creates new, updates otherwise
      * @param {string} opts.code - Asset code
-     * @param {string} opts.name - Name of the asset
      * @param {string} opts.preissuedAssetSigner - accountID of keypair which will sign request for asset to be authrorized to be issued
-     * @param {string} opts.description - desciption of the asset
-     * @param {string} opts.externalResourceLink - Link to external resource link
      * @param {string} opts.maxIssuanceAmount - max amount can be issued of that asset
      * @param {number} opts.policies - asset policies
-     * @param {string} opts.logoId - logo id for asset picture
      * @param {string} opts.initialPreissuedAmount - amount of pre issued tokens available after creation of the asset
+     * @param {string} opts.name - Name of the asset
+     * @param {string} opts.logoId - logo id for asset picture
+     * @param {string} opts.description - desciption of the asset
+     * @param {string} opts.externalResourceLink - Link to external resource link
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
      * @returns {xdr.ManageAssetOp}
      */
     static assetCreationRequest(opts) {
         let attrs = ManageAssetBuilder._createUpdateAttrs(opts);
-
-        if (!BaseOperation.isValidString(opts.name, 1, 64)) {
-            throw new Error("opts.name is invalid");
-        }
-
-        attrs.name = opts.name;
 
         if (!Keypair.isValidPublicKey(opts.preissuedAssetSigner)) {
             throw new Error("opts.preissuedAssetSigner is invalid");
@@ -64,6 +58,7 @@ export class ManageAssetBuilder {
      * @param {object} opts
      * @param {string} opts.requestID - request ID, if 0 - creates new, updates otherwise
      * @param {string} opts.code - Asset code
+     * @param {string} opts.name - Name of the asset
      * @param {string} opts.description - desciption of the asset
      * @param {string} opts.externalResourceLink - Link to external resource link
      * @param {number} opts.policies - asset policies
@@ -95,6 +90,31 @@ export class ManageAssetBuilder {
         return ManageAssetBuilder._createManageAssetOp(opts, new xdr.ManageAssetOpRequest.cancelAssetRequest(cancelAssetRequest));
     }
 
+    static _getValidDetails(opts) {
+        if (isUndefined(opts.logoId)) {
+            opts.logoId = "";
+        }
+
+        if (isUndefined(opts.name)) {
+            opts.name = "";
+        }
+
+        if (isUndefined(opts.description)) {
+            opts.description = "";
+        }
+
+        if (isUndefined(opts.externalResourceLink)) {
+            opts.externalResourceLink = "";
+        }
+
+        return {
+            logo_id: opts.logoId,
+            name: opts.name,
+            description: opts.description,
+            external_resource_link: opts.externalResourceLink,
+        };
+    }
+
     static _createUpdateAttrs(opts) {
         if (!BaseOperation.isValidAsset(opts.code)) {
             throw new Error("opts.code is invalid");
@@ -104,16 +124,12 @@ export class ManageAssetBuilder {
             throw new Error("opts.policies must be nonnegative number");
         }
 
-        if (isUndefined(opts.logoId)) {
-            throw new Error("opts.logoId is invalid");
-        }
+        var details = ManageAssetBuilder._getValidDetails(opts);
 
         let attrs = {
             code: opts.code,
-            description: '',
-            externalResourceLink: '',
             policies: opts.policies,
-            logoId: opts.logoId,
+            details: JSON.stringify(details),
         };
 
         return attrs;
@@ -140,32 +156,27 @@ export class ManageAssetBuilder {
     static manageAssetToObject(result, attrs) {
         result.requestID = attrs.requestId().toString();
         result.requestType = attrs.request().switch().name;
-        switch (attrs.request().switch().name) {
-            case "createAssetCreationRequest":
+        switch (attrs.request().switch()) {
+            case xdr.ManageAssetAction.createAssetCreationRequest():
                 {
                     let request = attrs.request().createAsset();
                     result.code = request.code();
-                    result.name = request.name();
                     result.preissuedAssetSigner = BaseOperation.accountIdtoAddress(request.preissuedAssetSigner());
-                    result.description = request.description();
-                    result.externalResourceLink = request.externalResourceLink();
                     result.policies = request.policies();
-                    result.logoId = request.logoId();
                     result.maxIssuanceAmount = BaseOperation._fromXDRAmount(request.maxIssuanceAmount());
                     result.initialPreissuedAmount = BaseOperation._fromXDRAmount(request.initialPreissuedAmount());
+                    result.details = JSON.parse(request.details());
                     break;
                 }
-            case "createAssetUpdateRequest":
+            case xdr.ManageAssetAction.createAssetUpdateRequest():
                 {
                     let request = attrs.request().updateAsset();
                     result.code = request.code();
-                    result.description = request.description();
-                    result.externalResourceLink = request.externalResourceLink();
                     result.policies = request.policies();
-                    result.logoId = request.logoId();
+                    result.details = JSON.parse(request.details());
                     break;
                 }
-            case "manageAssetCancelAssetRequest":
+            case xdr.ManageAssetAction.cancelAssetRequest():
             {
                 // nothing to do here
             }
