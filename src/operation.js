@@ -901,10 +901,10 @@ export class Operation extends BaseOperation {
             case "createIssuanceRequest":
                 CreateIssuanceRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
                 break;
-            case xdr.OperationType.createWithdrawalRequest():
-                CreateWithdrawRequestBuilder.createWithdrawalRequestOpToObject(result, attrs);
+            case "createWithdrawalRequest":
+                CreateWithdrawRequestBuilder.createWithdrawRequestOpToObject(result, attrs);
                 break;
-            case xdr.OperationType.createSaleRequest():
+            case "createSaleRequest":
                 SaleRequestBuilder.crateSaleCreationRequestToObject(result, attrs);
                 break;
             default:
