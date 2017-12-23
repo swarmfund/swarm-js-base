@@ -7,7 +7,7 @@ describe('Issuance request op', function () {
         let reference = "test";
         let asset = "BLC";
         let receiver = StellarBase.Keypair.random().balanceId();
-        let externalDetails = "External details";
+        let externalDetails = {a: "some details"};
         let op = StellarBase.CreateIssuanceRequestBuilder.createIssuanceRequest({
             asset: asset,
             amount: amount,
@@ -23,5 +23,6 @@ describe('Issuance request op', function () {
         expect(amount).to.be.equal(obj.amount);
         expect(asset).to.be.equal(obj.asset);
         expect(receiver).to.be.equal(obj.receiver);
+        expect(JSON.stringify(externalDetails)).to.be.equal(JSON.stringify(obj.externalDetails));
     });
 });

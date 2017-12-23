@@ -44841,11 +44841,11 @@ var StellarBase =
 
 	            attrs.fee = _base_operation.BaseOperation.feeToXdr(opts.fee);
 
-	            if (!_base_operation.BaseOperation.isValidString(opts.externalDetails)) {
-	                throw new Error("opts.externalDetails is invalid");
+	            if ((0, _lodashIsUndefined2['default'])(opts.externalDetails)) {
+	                throw new Error("externalDetails is invalid");
 	            }
 
-	            attrs.externalDetails = opts.externalDetails;
+	            attrs.externalDetails = JSON.stringify(opts.externalDetails);
 
 	            if (!_base_operation.BaseOperation.isValidAsset(opts.destAsset)) {
 	                throw new Error("opts.destAsset is invalid");
@@ -44884,7 +44884,7 @@ var StellarBase =
 	                fixed: _base_operation.BaseOperation._fromXDRAmount(request.fee().fixed()),
 	                percent: _base_operation.BaseOperation._fromXDRAmount(request.fee().percent())
 	            };
-	            result.externalDetails = request.externalDetails();
+	            result.externalDetails = JSON.parse(request.externalDetails());
 	            result.details = {
 	                type: request.details()['switch'](),
 	                autoConversion: {

@@ -9,7 +9,7 @@ describe('Withdraw request op', function () {
             percent: "0.5"
         };
         let balance = StellarBase.Keypair.random().balanceId();
-        let externalDetails = "External details";
+        let externalDetails = {a: "some details"};
         let destAsset = "USD";
         let expectedDestAssetAmount= "33333.12";
         let op = StellarBase.CreateWithdrawRequestBuilder.createWithdrawWithAutoConversion({
@@ -28,7 +28,7 @@ describe('Withdraw request op', function () {
         expect(amount).to.be.equal(obj.amount);
         expect(fee.fixed).to.be.equal(obj.fee.fixed);
         expect(fee.percent).to.be.equal(obj.fee.percent);
-        expect(externalDetails).to.be.equal(obj.externalDetails);
+        expect(JSON.stringify(externalDetails)).to.be.equal(JSON.stringify(obj.externalDetails));
         expect(StellarBase.xdr.WithdrawalType.autoConversion()).to.be.equal(obj.details.type);
         expect(destAsset).to.be.equal(obj.details.autoConversion.destAsset);
         expect(expectedDestAssetAmount).to.be.equal(obj.details.autoConversion.expectedAmount);
