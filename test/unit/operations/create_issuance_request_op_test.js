@@ -4,10 +4,10 @@ import { Hyper } from "js-xdr";
 describe('Issuance request op', function () {
     it("Success", function () {
         let amount = "200.123";
-        let reference = "test";
+        let reference = StellarBase.Keypair.random().accountId();
         let asset = "BLC";
         let receiver = StellarBase.Keypair.random().balanceId();
-        let externalDetails = {a: "some details"};
+        let externalDetails = { a: "some external details" };
         let op = StellarBase.CreateIssuanceRequestBuilder.createIssuanceRequest({
             asset: asset,
             amount: amount,

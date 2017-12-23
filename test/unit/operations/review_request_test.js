@@ -25,7 +25,7 @@ describe('ReviewRequest', function () {
         var opts = {
             requestID: "1",
             requestHash: "b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9",
-            externalDetails: "External details",
+            externalDetails: { a: "external details" },
             action: StellarBase.xdr.ReviewRequestOpAction.reject().value,
             reason: "Something is invalid"
         }
@@ -38,6 +38,6 @@ describe('ReviewRequest', function () {
         expect(obj.requestHash).to.be.equal(opts.requestHash);
         expect(obj.action).to.be.equal(opts.action);
         expect(obj.reason).to.be.equal(opts.reason);
-        expect(obj.withdrawal.externalDetails).to.be.equal(opts.externalDetails);
+        expect(JSON.stringify(obj.withdrawal.externalDetails)).to.be.equal(JSON.stringify(opts.externalDetails));
     });
 });
