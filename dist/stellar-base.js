@@ -279,7 +279,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2017-12-22T21:39:13+02:00
+	// Automatically generated on 2017-12-23T16:06:06+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -44697,7 +44697,7 @@ var StellarBase =
 	         * @param {string} opts.amount - amount to be issued
 	         * @param {string} opts.receiver - balance ID of the receiver
 	         * @param {string} opts.reference - Reference of the request
-	         * @param {string} opts.externalDetails - External details needed for PSIM to process withdraw operation
+	         * @param {object} opts.externalDetails - External details needed for PSIM to process withdraw operation
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         * @returns {xdr.CreateIssuanceRequestOp}
 	         */
@@ -44813,7 +44813,7 @@ var StellarBase =
 	         * @param {object} opts.fee - fee to be charged
 	         * @param {string} opts.fee.fixed - fixed fee to be charged
 	         * @param {string} opts.fee.percent - percent fee to be charged
-	         * @param {string} opts.externalDetails - External details needed for PSIM to process withdraw operation
+	         * @param {object} opts.externalDetails - External details needed for PSIM to process withdraw operation
 	         * @param {string} opts.destAsset - Asset in which specifed amount will be autoconverted
 	         * @param {string} opts.expectedDestAssetAmount - Expected dest asset amount
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
