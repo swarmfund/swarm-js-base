@@ -14,7 +14,7 @@ export class CreateWithdrawRequestBuilder {
      * @param {object} opts.fee - fee to be charged
      * @param {string} opts.fee.fixed - fixed fee to be charged
      * @param {string} opts.fee.percent - percent fee to be charged
-     * @param {string} opts.externalDetails - External details needed for PSIM to process withdraw operation
+     * @param {object} opts.externalDetails - External details needed for PSIM to process withdraw operation
      * @param {string} opts.destAsset - Asset in which specifed amount will be autoconverted
      * @param {string} opts.expectedDestAssetAmount - Expected dest asset amount
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
@@ -42,11 +42,11 @@ export class CreateWithdrawRequestBuilder {
 
         attrs.fee = BaseOperation.feeToXdr(opts.fee);
 
-        if (!BaseOperation.isValidString(opts.externalDetails)) {
-            throw new Error("opts.externalDetails is invalid");
+        if (isUndefined(opts.externalDetails)) {
+            throw new Error("externalDetails is invalid");
         }
 
-        attrs.externalDetails = opts.externalDetails;
+        attrs.externalDetails = JSON.stringify(opts.externalDetails);
 
         if (!BaseOperation.isValidAsset(opts.destAsset)) {
             throw new Error("opts.destAsset is invalid");
@@ -84,7 +84,7 @@ export class CreateWithdrawRequestBuilder {
             fixed: BaseOperation._fromXDRAmount(request.fee().fixed()),
             percent: BaseOperation._fromXDRAmount(request.fee().percent()),
         };
-        result.externalDetails = request.externalDetails();
+        result.externalDetails = JSON.parse(request.externalDetails());
         result.details = {
             type: request.details().switch(),
             autoConversion: {

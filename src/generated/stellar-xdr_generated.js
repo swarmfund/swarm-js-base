@@ -1,4 +1,4 @@
-// Automatically generated on 2017-12-21T21:13:26+02:00
+// Automatically generated on 2017-12-25T13:41:50+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -2989,7 +2989,8 @@ xdr.struct("CreateIssuanceRequestOp", [
 //   	NOT_AUTHORIZED = -5,
 //   	EXCEEDS_MAX_ISSUANCE_AMOUNT = -6,
 //   	RECEIVER_FULL_LINE = -7,
-//   	FEE_EXCEEDS_AMOUNT = -8 // fee more than amount to issue
+//   	INVALID_EXTERNAL_DETAILS = -8, // external details size exceeds max allowed
+//   	FEE_EXCEEDS_AMOUNT = -9 // fee more than amount to issue
 //   };
 //
 // ===========================================================================
@@ -3002,7 +3003,8 @@ xdr.enum("CreateIssuanceRequestResultCode", {
   notAuthorized: -5,
   exceedsMaxIssuanceAmount: -6,
   receiverFullLine: -7,
-  feeExceedsAmount: -8,
+  invalidExternalDetail: -8,
+  feeExceedsAmount: -9,
 });
 
 // === xdr source ============================================================
@@ -6526,7 +6528,6 @@ xdr.union("PreIssuanceRequestExt", {
 // === xdr source ============================================================
 //
 //   struct PreIssuanceRequest {
-//   
 //   	AssetCode asset;
 //   	uint64 amount;
 //   	DecoratedSignature signature;
@@ -6575,6 +6576,7 @@ xdr.union("IssuanceRequestExt", {
 //   	AssetCode asset;
 //   	uint64 amount;
 //   	BalanceID receiver;
+//   	longstring externalDetails; // details of the issuance (External system id, etc.)
 //   	Fee fee; //totalFee to be payed (calculated automatically)
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
@@ -6590,6 +6592,7 @@ xdr.struct("IssuanceRequest", [
   ["asset", xdr.lookup("AssetCode")],
   ["amount", xdr.lookup("Uint64")],
   ["receiver", xdr.lookup("BalanceId")],
+  ["externalDetails", xdr.lookup("Longstring")],
   ["fee", xdr.lookup("Fee")],
   ["ext", xdr.lookup("IssuanceRequestExt")],
 ]);
