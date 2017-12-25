@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Hyper } from "js-xdr";
+import isEqual from "lodash/isEqual";
 
 describe('Issuance request op', function () {
     it("Success", function () {
@@ -23,6 +24,6 @@ describe('Issuance request op', function () {
         expect(amount).to.be.equal(obj.amount);
         expect(asset).to.be.equal(obj.asset);
         expect(receiver).to.be.equal(obj.receiver);
-        expect(JSON.stringify(externalDetails)).to.be.equal(JSON.stringify(obj.externalDetails));
+        expect(isEqual(externalDetails, obj.externalDetails)).to.be.true;
     });
 });

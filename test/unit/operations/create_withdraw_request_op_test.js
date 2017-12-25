@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Hyper } from "js-xdr";
+import isEqual from "lodash/isEqual";
 
 describe('Withdraw request op', function () {
     it("Success", function () {
@@ -28,7 +29,7 @@ describe('Withdraw request op', function () {
         expect(amount).to.be.equal(obj.amount);
         expect(fee.fixed).to.be.equal(obj.fee.fixed);
         expect(fee.percent).to.be.equal(obj.fee.percent);
-        expect(JSON.stringify(externalDetails)).to.be.equal(JSON.stringify(obj.externalDetails));
+        expect(isEqual(externalDetails, obj.externalDetails)).to.be.true;
         expect(StellarBase.xdr.WithdrawalType.autoConversion()).to.be.equal(obj.details.type);
         expect(destAsset).to.be.equal(obj.details.autoConversion.destAsset);
         expect(expectedDestAssetAmount).to.be.equal(obj.details.autoConversion.expectedAmount);
