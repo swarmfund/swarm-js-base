@@ -44011,14 +44011,15 @@ var StellarBase =
 	         * @param {object} opts
 	         * @param {string} opts.requestID - request ID, if 0 - creates new, updates otherwise
 	         * @param {string} opts.code - Asset code
-	         * @param {string} opts.preissuedAssetSigner - accountID of keypair which will sign request for asset to be authrorized to be issued
-	         * @param {string} opts.maxIssuanceAmount - max amount can be issued of that asset
-	         * @param {number} opts.policies - asset policies
-	         * @param {string} opts.initialPreissuedAmount - amount of pre issued tokens available after creation of the asset
-	         * @param {string} opts.name - Name of the asset
-	         * @param {string} opts.logoId - logo id for asset picture
-	         * @param {string} opts.description - desciption of the asset
-	         * @param {string} opts.externalResourceLink - Link to external resource link
+	         * @param {string} opts.preissuedAssetSigner - AccountID of keypair which will sign request for asset to be authrorized to be issued
+	         * @param {string} opts.maxIssuanceAmount - Max amount can be issued of that asset
+	         * @param {number} opts.policies - Asset policies
+	         * @param {string} opts.initialPreissuedAmount - Amount of pre issued tokens available after creation of the asset
+	         * @param {object} opts.details - Additional details about asset
+	         * @param {string} opts.details.name - Name of the asset
+	         * @param {string} opts.details.logoId - Logo id for asset picture
+	         * @param {string} opts.details.logoContentType - Content type of logo id picture
+	         * @param {array} opts.details.documents - Documents attached to asset
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageAssetOp}
 	         */
@@ -44058,11 +44059,13 @@ var StellarBase =
 	         * @param {object} opts
 	         * @param {string} opts.requestID - request ID, if 0 - creates new, updates otherwise
 	         * @param {string} opts.code - Asset code
-	         * @param {string} opts.name - Name of the asset
-	         * @param {string} opts.description - desciption of the asset
-	         * @param {string} opts.externalResourceLink - Link to external resource link
 	         * @param {number} opts.policies - asset policies
-	         * @param {string} opts.logoId - logo id for asset picture
+	         *
+	         * @param {object} opts.details - Additional details about asset
+	         * @param {string} opts.details.name - Name of the asset
+	         * @param {string} opts.details.logoId - logo id for asset picture
+	         * @param {string} opts.details.logoContentType - Content type of logo id picture
+	         * @param {array} opts.details.documents - Documents attached to asset
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageAssetOp}
 	         */
@@ -44096,27 +44099,33 @@ var StellarBase =
 	    }, {
 	        key: '_getValidDetails',
 	        value: function _getValidDetails(opts) {
-	            if ((0, _lodashIsUndefined2['default'])(opts.logoId)) {
-	                opts.logoId = "";
+	            var details = opts.details;
+
+	            if ((0, _lodashIsUndefined2['default'])(details)) {
+	                details = {};
 	            }
 
-	            if ((0, _lodashIsUndefined2['default'])(opts.name)) {
-	                opts.name = "";
+	            if ((0, _lodashIsUndefined2['default'])(details.name)) {
+	                details.name = "";
 	            }
 
-	            if ((0, _lodashIsUndefined2['default'])(opts.description)) {
-	                opts.description = "";
+	            if ((0, _lodashIsUndefined2['default'])(details.logoId)) {
+	                details.logoId = "";
 	            }
 
-	            if ((0, _lodashIsUndefined2['default'])(opts.externalResourceLink)) {
-	                opts.externalResourceLink = "";
+	            if ((0, _lodashIsUndefined2['default'])(details.documents)) {
+	                details.documents = "";
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(details.logoContentType)) {
+	                details.logoContentType = "";
 	            }
 
 	            return {
-	                logo_id: opts.logoId,
-	                name: opts.name,
-	                description: opts.description,
-	                external_resource_link: opts.externalResourceLink
+	                name: details.name,
+	                logo_id: details.logoId,
+	                documents: details.documents,
+	                logo_content_type: details.logoContentType
 	            };
 	        }
 	    }, {
