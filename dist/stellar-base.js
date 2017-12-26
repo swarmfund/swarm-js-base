@@ -44009,18 +44009,23 @@ var StellarBase =
 	        /**
 	         * Creates operation to create asset creation request
 	         * @param {object} opts
+	         *
 	         * @param {string} opts.requestID - request ID, if 0 - creates new, updates otherwise
 	         * @param {string} opts.code - Asset code
 	         * @param {string} opts.preissuedAssetSigner - AccountID of keypair which will sign request for asset to be authrorized to be issued
 	         * @param {string} opts.maxIssuanceAmount - Max amount can be issued of that asset
 	         * @param {number} opts.policies - Asset policies
 	         * @param {string} opts.initialPreissuedAmount - Amount of pre issued tokens available after creation of the asset
+	         *
 	         * @param {object} opts.details - Additional details about asset
 	         * @param {string} opts.details.name - Name of the asset
-	         * @param {string} opts.details.logoId - Logo id for asset picture
-	         * @param {string} opts.details.logoContentType - Content type of logo id picture
-	         * @param {array} opts.details.documents - Documents attached to asset
+	         * @param {array}  opts.details.documents - Documents attached to asset
+	         * @param {string} opts.details.logo - Asset picture
+	         * @param {string} opts.details.logo.url - Url where to get asset picture
+	         * @param {string} opts.details.logo.type - Content type for asset picture
+	         *
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         *
 	         * @returns {xdr.ManageAssetOp}
 	         */
 	        value: function assetCreationRequest(opts) {
@@ -44057,16 +44062,20 @@ var StellarBase =
 	        /**
 	         * Creates operation to create asset update request
 	         * @param {object} opts
+	         *
 	         * @param {string} opts.requestID - request ID, if 0 - creates new, updates otherwise
 	         * @param {string} opts.code - Asset code
 	         * @param {number} opts.policies - asset policies
 	         *
 	         * @param {object} opts.details - Additional details about asset
 	         * @param {string} opts.details.name - Name of the asset
-	         * @param {string} opts.details.logoId - logo id for asset picture
-	         * @param {string} opts.details.logoContentType - Content type of logo id picture
-	         * @param {array} opts.details.documents - Documents attached to asset
+	         * @param {array}  opts.details.documents - Documents attached to asset
+	         * @param {string} opts.details.logo - Asset picture
+	         * @param {string} opts.details.logo.url - Url where to get asset picture
+	         * @param {string} opts.details.logo.type - Content type for asset picture
+	         *
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         *
 	         * @returns {xdr.ManageAssetOp}
 	         */
 	    }, {
@@ -44109,23 +44118,26 @@ var StellarBase =
 	                details.name = "";
 	            }
 
-	            if ((0, _lodashIsUndefined2['default'])(details.logoId)) {
-	                details.logoId = "";
-	            }
-
 	            if ((0, _lodashIsUndefined2['default'])(details.documents)) {
 	                details.documents = "";
 	            }
 
-	            if ((0, _lodashIsUndefined2['default'])(details.logoContentType)) {
-	                details.logoContentType = "";
+	            if ((0, _lodashIsUndefined2['default'])(details.logo)) {
+	                details.logo = {};
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(details.logo.url)) {
+	                details.logo.url = "";
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(details.logo.type)) {
+	                details.logo.type = "";
 	            }
 
 	            return {
 	                name: details.name,
-	                logo_id: details.logoId,
-	                documents: details.documents,
-	                logo_content_type: details.logoContentType
+	                logo: details.logo,
+	                documents: details.documents
 	            };
 	        }
 	    }, {
