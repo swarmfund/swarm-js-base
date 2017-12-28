@@ -810,6 +810,9 @@ export class Operation extends BaseOperation {
             case xdr.OperationType.createSaleRequest():
                 SaleRequestBuilder.crateSaleCreationRequestToObject(result, attrs);
                 break;
+            case xdr.OperationType.checkSaleState():
+                SaleRequestBuilder.checkSaleStateToObject(result, attrs);
+                break;
             default:
                 throw new Error("Unknown operation");
 

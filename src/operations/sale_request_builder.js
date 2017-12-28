@@ -117,4 +117,26 @@ export class SaleRequestBuilder {
         result.hardCap = BaseOperation._fromXDRAmount(request.hardCap());
         result.details = JSON.parse(request.details());
     }
+
+    /**
+     * Creates operation to check sale state
+     * @param {object} opts
+     * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
+     * @returns {xdr.CheckSaleStateOp}
+     */
+    static checkSaleState(opts) {
+        let attrs = {};
+
+        let checkSaleStateOp = new xdr.CheckSaleStateOp({
+            ext: new xdr.CheckSaleStateOpExt(xdr.LedgerVersion.emptyVersion())
+        });
+        let opAttributes = {};
+        opAttributes.body = xdr.OperationBody.checkSaleState(checkSaleStateOp);
+        BaseOperation.setSourceAccount(opAttributes, opts);
+        return new xdr.Operation(opAttributes);
+    }
+
+    static checkSaleStateToObject(result, attrs) {
+       // nothing to add here
+    }
 }

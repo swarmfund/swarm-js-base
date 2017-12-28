@@ -1,6 +1,6 @@
 {
   "name": "swarm-js-base",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "description": "Low level stellar support library",
   "main": "lib/index.js",
   "scripts": {
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stellar/js-stellar-base.git"
+    "url": "git+https://github.com/swarmfund/swarm-js-base.git"
   },
   "author": "Scott Fleckenstein <scott@stellar.org>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/stellar/js-stellar-base/issues"
+    "url": "https://github.com/swarmfund/swarm-js-base/issues"
   },
-  "homepage": "https://github.com/stellar/js-stellar-base",
+  "homepage": "https://github.com/swarmfund/swarm-js-base",
   "devDependencies": {
     "babel": "~5.8.23",
     "babel-core": "~5.8.25",
