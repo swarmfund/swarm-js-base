@@ -9,17 +9,23 @@ export class ManageAssetBuilder {
     /**
      * Creates operation to create asset creation request
      * @param {object} opts
+     *
      * @param {string} opts.requestID - request ID, if 0 - creates new, updates otherwise
      * @param {string} opts.code - Asset code
-     * @param {string} opts.preissuedAssetSigner - accountID of keypair which will sign request for asset to be authrorized to be issued
-     * @param {string} opts.maxIssuanceAmount - max amount can be issued of that asset
-     * @param {number} opts.policies - asset policies
-     * @param {string} opts.initialPreissuedAmount - amount of pre issued tokens available after creation of the asset
-     * @param {string} opts.name - Name of the asset
-     * @param {string} opts.logoId - logo id for asset picture
-     * @param {string} opts.description - desciption of the asset
-     * @param {string} opts.externalResourceLink - Link to external resource link
+     * @param {string} opts.preissuedAssetSigner - AccountID of keypair which will sign request for asset to be authrorized to be issued
+     * @param {string} opts.maxIssuanceAmount - Max amount can be issued of that asset
+     * @param {number} opts.policies - Asset policies
+     * @param {string} opts.initialPreissuedAmount - Amount of pre issued tokens available after creation of the asset
+     *
+     * @param {object} opts.details - Additional details about asset
+     * @param {string} opts.details.name - Name of the asset
+     * @param {array}  opts.details.documents - Documents attached to asset
+     * @param {string} opts.details.logo - Asset picture
+     * @param {string} opts.details.logo.url - Url where to get asset picture
+     * @param {string} opts.details.logo.type - Content type for asset picture
+     *
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+     *
      * @returns {xdr.ManageAssetOp}
      */
     static assetCreationRequest(opts) {
@@ -56,14 +62,20 @@ export class ManageAssetBuilder {
     /**
      * Creates operation to create asset update request
      * @param {object} opts
+     *
      * @param {string} opts.requestID - request ID, if 0 - creates new, updates otherwise
      * @param {string} opts.code - Asset code
-     * @param {string} opts.name - Name of the asset
-     * @param {string} opts.description - desciption of the asset
-     * @param {string} opts.externalResourceLink - Link to external resource link
      * @param {number} opts.policies - asset policies
-     * @param {string} opts.logoId - logo id for asset picture
+     *
+     * @param {object} opts.details - Additional details about asset
+     * @param {string} opts.details.name - Name of the asset
+     * @param {array}  opts.details.documents - Documents attached to asset
+     * @param {string} opts.details.logo - Asset picture
+     * @param {string} opts.details.logo.url - Url where to get asset picture
+     * @param {string} opts.details.logo.type - Content type for asset picture
+     *
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+     *
      * @returns {xdr.ManageAssetOp}
      */
     static assetUpdateRequest(opts) {
@@ -91,27 +103,36 @@ export class ManageAssetBuilder {
     }
 
     static _getValidDetails(opts) {
-        if (isUndefined(opts.logoId)) {
-            opts.logoId = "";
+        let details = opts.details;
+
+        if (isUndefined(details)) {
+            details = {};
         }
 
-        if (isUndefined(opts.name)) {
-            opts.name = "";
+        if (isUndefined(details.name)) {
+            details.name = "";
         }
 
-        if (isUndefined(opts.description)) {
-            opts.description = "";
+        if (isUndefined(details.documents)) {
+            details.documents = "";
         }
 
-        if (isUndefined(opts.externalResourceLink)) {
-            opts.externalResourceLink = "";
+        if (isUndefined(details.logo)) {
+            details.logo = {};
+        }
+
+        if (isUndefined(details.logo.url)) {
+            details.logo.url = "";
+        }
+
+        if (isUndefined(details.logo.type)) {
+            details.logo.type = "";
         }
 
         return {
-            logo_id: opts.logoId,
-            name: opts.name,
-            description: opts.description,
-            external_resource_link: opts.externalResourceLink,
+          name: details.name,
+          logo: details.logo,
+          documents: details.documents
         };
     }
 
@@ -151,7 +172,6 @@ export class ManageAssetBuilder {
         BaseOperation.setSourceAccount(opAttributes, opts);
         return new xdr.Operation(opAttributes);
     }
-
 
     static manageAssetToObject(result, attrs) {
         result.requestID = attrs.requestId().toString();
