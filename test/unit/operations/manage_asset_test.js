@@ -6,13 +6,14 @@ describe('ManageAsset', function () {
         it("Success", function () {
             var opts = {
                 code: "USD",
-                name: "USD Name",
                 preissuedAssetSigner: "GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ",
                 maxIssuanceAmount: "1000.1211",
                 policies: 12,
                 requestID: "0",
-                logoId: "112",
                 initialPreissuedAmount: "12.14",
+                details: {
+                    name: "USD Name",
+                }
             }
             let op = StellarBase.ManageAssetBuilder.assetCreationRequest(opts);
             var xdr = op.toXDR("hex");
@@ -22,13 +23,10 @@ describe('ManageAsset', function () {
             expect(obj.requestID).to.be.equal(opts.requestID);
             expect(obj.requestType).to.be.equal("createAssetCreationRequest");
             expect(obj.code).to.be.equal(opts.code);
-            expect(obj.details.name).to.be.equal(opts.name);
+            expect(obj.details.name).to.be.equal(opts.details.name);
             expect(obj.preissuedAssetSigner).to.be.equal(opts.preissuedAssetSigner);
-            expect(obj.details.description).to.be.equal('');
-            expect(obj.details.external_resource_link).to.be.equal('');
             expect(obj.maxIssuanceAmount).to.be.equal(opts.maxIssuanceAmount);
             expect(obj.policies).to.be.equal(opts.policies);
-            expect(obj.details.logo_id).to.be.equal(opts.logoId);
             expect(obj.initialPreissuedAmount).to.be.equal(opts.initialPreissuedAmount);
         });
     });
@@ -39,8 +37,6 @@ describe('ManageAsset', function () {
                 code: "USD",
                 policies: 12,
                 requestID: "0",
-                logoId: "123234",
-                description: "descp"
             }
             let op = StellarBase.ManageAssetBuilder.assetUpdateRequest(opts);
             var xdr = op.toXDR("hex");
@@ -51,9 +47,6 @@ describe('ManageAsset', function () {
             expect(obj.requestType).to.be.equal("createAssetUpdateRequest");
             expect(obj.code).to.be.equal(opts.code);
             expect(obj.policies).to.be.equal(opts.policies);
-            expect(obj.details.logo_id).to.be.equal(opts.logoId);
-            expect(obj.details.description).to.be.equal(opts.description);
-            expect(obj.details.external_resource_link).to.be.equal('');
         });
     });
 

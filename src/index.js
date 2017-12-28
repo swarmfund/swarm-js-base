@@ -19,6 +19,7 @@ export {PreIssuanceRequestOpBuilder} from './operations/pre_issuance_request_op_
 export {CreateIssuanceRequestBuilder} from './operations/create_issuance_request_builder';
 export { CreateWithdrawRequestBuilder } from './operations/create_withdraw_request_builder';
 export { SaleRequestBuilder } from './operations/sale_request_builder';
+export { ManageOfferBuilder } from './operations/manage_offer_builder';
 
 export * from "./strkey";
 

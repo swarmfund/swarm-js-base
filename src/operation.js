@@ -20,32 +20,8 @@ import { PreIssuanceRequestOpBuilder } from './operations/pre_issuance_request_o
 import { CreateIssuanceRequestBuilder } from './operations/create_issuance_request_builder';
 import { CreateWithdrawRequestBuilder } from './operations/create_withdraw_request_builder';
 import { SaleRequestBuilder } from './operations/sale_request_builder';
+import { ManageOfferBuilder } from './operations/manage_offer_builder';
 
-/**
- * When set using `{@link Operation.setOptions}` option, requires the issuing account to
- * give other accounts permission before they can hold the issuing account’s credit.
- * @constant
- * @see [Account flags](https://www.stellar.org/developers/guides/concepts/accounts.html#flags)
- */
-export const AuthRequiredFlag = 1 << 0;
-/**
- * When set using `{@link Operation.setOptions}` option, allows the issuing account to
- * revoke its credit held by other accounts.
- * @constant
- * @see [Account flags](https://www.stellar.org/developers/guides/concepts/accounts.html#flags)
- */
-export const AuthRevocableFlag = 1 << 1;
-/**
- * When set using `{@link Operation.setOptions}` option, then none of the authorization flags
- * can be set and the account can never be deleted.
- * @constant
- * @see [Account flags](https://www.stellar.org/developers/guides/concepts/accounts.html#flags)
- */
-export const AuthImmutableFlag = 1 << 2;
-
-/**
- * `Operation` class represents [operations](https://www.stellar.org/developers/learn/concepts/operations.html) in Stellar network.
- */
 export class Operation extends BaseOperation {
 
     /**
@@ -581,67 +557,6 @@ export class Operation extends BaseOperation {
         return new xdr.Operation(opAttributes);
     }
 
-    /**
-     * Returns an XDR ManageOffer. A "manage offer" operations creates|deletes offer.
-     * @param {object} opts
-     * @param {string} opts.baseBalance
-     * @param {string} opts.quoteBalance
-     * @param {boolean} opts.isBuy - if true - buys base asset, false - sells base asset
-     * @param {number|string} opts.amount - Amount of the base asset
-     * @param {number|string} opts.price - Price of the offer
-     * @param [number|string] opts.offerID - offer id, 0 to create new offer. Else deletes offer.
-     * @returns {xdr.ManageBalanceOp}
-     */
-    static manageOffer(opts) {
-        let attributes = {
-            ext: new xdr.ManageOfferOpExt(xdr.LedgerVersion.emptyVersion())
-        };
-        if (!Keypair.isValidBalanceKey(opts.baseBalance)) {
-            throw new Error("baseBalance is invalid");
-        }
-
-        if (!Keypair.isValidBalanceKey(opts.quoteBalance)) {
-            throw new Error("quoteBalance is invalid");
-        }
-
-        if (typeof (opts.isBuy) !== "boolean") {
-            throw new Error("isBuy must be boolean");
-        }
-
-        if (!Operation.isValidAmount(opts.amount, true)) {
-            throw new TypeError('amount argument must be of type String and represent a positive number or zero');
-        }
-        attributes.amount = Operation._toXDRAmount(opts.amount);
-
-        if (!Operation.isValidAmount(opts.price, true)) {
-            throw new TypeError('price argument must be of type String and represent a positive number or zero');
-        }
-        attributes.price = Operation._toXDRAmount(opts.price);
-
-        if (!Operation.isValidAmount(opts.fee, true)) {
-            throw new TypeError('fee argument must be of type String and represent a positive number or zero');
-        }
-        attributes.fee = Operation._toXDRAmount(opts.fee);
-
-
-        if (isUndefined(opts.offerID)) {
-            throw new TypeError('offerID must be specified');
-        }
-
-        attributes.offerId = UnsignedHyper.fromString(opts.offerID);
-        attributes.baseBalance = Keypair.fromBalanceId(opts.baseBalance).xdrBalanceId();
-        attributes.quoteBalance = Keypair.fromBalanceId(opts.quoteBalance).xdrBalanceId();
-        attributes.isBuy = opts.isBuy;
-        attributes.action = opts.action;
-
-        let manageOfferOp = new xdr.ManageOfferOp(attributes);
-
-        let opAttributes = {};
-        opAttributes.body = xdr.OperationBody.manageOffer(manageOfferOp);
-        Operation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
-    }
-
 
     static manageInvoice(opts) {
         let attributes = {
@@ -867,13 +782,7 @@ export class Operation extends BaseOperation {
                 result.limits.annualOut = Operation._fromXDRAmount(attrs.limits().annualOut());
                 break;
             case xdr.OperationType.manageOffer():
-                result.amount = Operation._fromXDRAmount(attrs.amount());
-                result.price = Operation._fromXDRAmount(attrs.price());
-                result.fee = Operation._fromXDRAmount(attrs.fee());
-                result.isBuy = attrs.isBuy();
-                result.baseBalance = balanceIdtoString(attrs.baseBalance());
-                result.quoteBalance = balanceIdtoString(attrs.quoteBalance());
-                result.offerID = attrs.offerId().toString();
+                ManageOfferBuilder.manageOfferOpToObject(result, attrs);
                 break;
             case xdr.OperationType.manageInvoice():
                 result.amount = Operation._fromXDRAmount(attrs.amount());
