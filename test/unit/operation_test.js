@@ -712,35 +712,6 @@ describe('Operation', function () {
 
     });
 
-    describe(".manageOffer()", function () {
-        it("creates a manageOffer", function () {
-            var baseBalance = StellarBase.Keypair.random().balanceId();
-            var quoteBalance = StellarBase.Keypair.random().balanceId();
-            var amount = "1000";
-            var price = "12.5";
-            var fee = "0.01";
-            var isBuy = true;
-            var offerID = "0";
-            let op = StellarBase.Operation.manageOffer({
-                baseBalance, quoteBalance,
-                amount, price, isBuy, offerID, fee
-            });
-            var xdr = op.toXDR("hex");
-            var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
-            var obj = StellarBase.Operation.operationToObject(operation);
-            expect(obj.type).to.be.equal("manageOffer");
-            expect(obj.baseBalance).to.be.equal(baseBalance);
-            expect(obj.quoteBalance).to.be.equal(quoteBalance);
-            expect(operation.body().value().amount().toString()).to.be.equal('10000000');
-            expect(operation.body().value().price().toString()).to.be.equal('125000');
-            expect(obj.amount).to.be.equal(amount);
-            expect(obj.price).to.be.equal(price);
-            expect(obj.fee).to.be.equal(fee);
-            expect(obj.offerID).to.be.equal(offerID);
-            expect(obj.isBuy).to.be.equal(isBuy);
-        });
-    });
-
     describe(".manageInvoice()", function () {
         it("creates a manageInvoice", function () {
             var sender = StellarBase.Keypair.random().accountId();
