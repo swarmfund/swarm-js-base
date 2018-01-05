@@ -45283,7 +45283,6 @@ var StellarBase =
 	        key: 'cancelOffer',
 	        value: function cancelOffer(opts) {
 	            opts.isBuy = true;
-	            opts.price = "1";
 	            opts.amount = "0";
 	            opts.fee = "0";
 	            return ManageOfferBuilder.manageOffer(opts);
