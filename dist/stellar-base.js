@@ -288,7 +288,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2017-12-28T20:43:06+02:00
+	// Automatically generated on 2018-01-10T16:20:47+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -2095,16 +2095,42 @@ var StellarBase =
 	// ===========================================================================
 	xdr.struct("SaleCanceled",[["ext",xdr.lookup("SaleCanceledExt")]]); // === xdr source ============================================================
 	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("CheckSaleClosedResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct CheckSaleClosedResult {
+	//   	AccountID saleOwner;
+	//   	BalanceID saleBaseBalance;
+	//   	BalanceID saleQuoteBalance;
+	//   	ManageOfferSuccessResult saleDetails;
+	//   	 // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("CheckSaleClosedResult",[["saleOwner",xdr.lookup("AccountId")],["saleBaseBalance",xdr.lookup("BalanceId")],["saleQuoteBalance",xdr.lookup("BalanceId")],["saleDetails",xdr.lookup("ManageOfferSuccessResult")],["ext",xdr.lookup("CheckSaleClosedResultExt")]]); // === xdr source ============================================================
+	//
 	//   union switch (CheckSaleStateEffect effect)
 	//       {
 	//       case CANCELED:
 	//           SaleCanceled saleCanceled;
 	//   	case CLOSED:
-	//   		ManageOfferSuccessResult saleClosed;
+	//   		CheckSaleClosedResult saleClosed;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("CheckSaleStateSuccessEffect",{switchOn:xdr.lookup("CheckSaleStateEffect"),switchName:"effect",switches:[["canceled","saleCanceled"],["closed","saleClosed"]],arms:{saleCanceled:xdr.lookup("SaleCanceled"),saleClosed:xdr.lookup("ManageOfferSuccessResult")}}); // === xdr source ============================================================
+	xdr.union("CheckSaleStateSuccessEffect",{switchOn:xdr.lookup("CheckSaleStateEffect"),switchName:"effect",switches:[["canceled","saleCanceled"],["closed","saleClosed"]],arms:{saleCanceled:xdr.lookup("SaleCanceled"),saleClosed:xdr.lookup("CheckSaleClosedResult")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2123,7 +2149,7 @@ var StellarBase =
 	//       case CANCELED:
 	//           SaleCanceled saleCanceled;
 	//   	case CLOSED:
-	//   		ManageOfferSuccessResult saleClosed;
+	//   		CheckSaleClosedResult saleClosed;
 	//       }
 	//       effect;
 	//   	 // reserved for future use
@@ -2188,11 +2214,12 @@ var StellarBase =
 	//   	TYPE_NOT_ALLOWED = -3, // master or commission account types are not allowed
 	//       NAME_DUPLICATION = -4,
 	//       REFERRER_NOT_FOUND = -5,
-	//   	INVALID_ACCOUNT_VERSION = -6 // if account version is higher than ledger version
+	//   	INVALID_ACCOUNT_VERSION = -6, // if account version is higher than ledger version
+	//   	NOT_VERIFIED_CANNOT_HAVE_POLICIES = -7
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("CreateAccountResultCode",{success:0,malformed:-1,accountTypeMismatched:-2,typeNotAllowed:-3,nameDuplication:-4,referrerNotFound:-5,invalidAccountVersion:-6}); // === xdr source ============================================================
+	xdr["enum"]("CreateAccountResultCode",{success:0,malformed:-1,accountTypeMismatched:-2,typeNotAllowed:-3,nameDuplication:-4,referrerNotFound:-5,invalidAccountVersion:-6,notVerifiedCannotHavePolicy:-7}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3181,11 +3208,16 @@ var StellarBase =
 	//   	ORDER_VIOLATES_HARD_CAP = -16, // currentcap + order will exceed hard cap
 	//   	CANT_PARTICIPATE_OWN_SALE = -17, // it's not allowed to participate in own sale
 	//   	ASSET_MISMATCHED = -18, // sale assets does not match assets for specified balances
-	//   	PRICE_DOES_NOT_MATCH = -19 // price does not match sale price
+	//   	PRICE_DOES_NOT_MATCH = -19, // price does not match sale price
+	//   	PRICE_IS_INVALID = -20, // price must be positive
+	//   	UPDATE_IS_NOT_ALLOWED = -21, // update of the offer is not allowed
+	//   	INVALID_AMOUNT = -22, // amount must be positive 
+	//   	SALE_IS_NOT_ACTIVE = -23
+	//   
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageOfferResultCode",{success:0,malformed:-1,pairNotTraded:-2,balanceNotFound:-3,underfunded:-4,crossSelf:-5,offerOverflow:-6,assetPairNotTradable:-7,physicalPriceRestriction:-8,currentPriceRestriction:-9,notFound:-10,invalidPercentFee:-11,insufficientPrice:-12,orderBookDoesNotExist:-13,saleIsNotStartedYet:-14,saleAlreadyEnded:-15,orderViolatesHardCap:-16,cantParticipateOwnSale:-17,assetMismatched:-18,priceDoesNotMatch:-19}); // === xdr source ============================================================
+	xdr["enum"]("ManageOfferResultCode",{success:0,malformed:-1,pairNotTraded:-2,balanceNotFound:-3,underfunded:-4,crossSelf:-5,offerOverflow:-6,assetPairNotTradable:-7,physicalPriceRestriction:-8,currentPriceRestriction:-9,notFound:-10,invalidPercentFee:-11,insufficientPrice:-12,orderBookDoesNotExist:-13,saleIsNotStartedYet:-14,saleAlreadyEnded:-15,orderViolatesHardCap:-16,cantParticipateOwnSale:-17,assetMismatched:-18,priceDoesNotMatch:-19,priceIsInvalid:-20,updateIsNotAllowed:-21,invalidAmount:-22,saleIsNotActive:-23}); // === xdr source ============================================================
 	//
 	//   enum ManageOfferEffect
 	//   {
