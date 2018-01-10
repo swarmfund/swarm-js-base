@@ -21,7 +21,7 @@ export class ManageAssetBuilder {
      * @param {string} opts.details.name - Name of the asset
      * @param {array}  opts.details.documents - Documents attached to asset
      * @param {string} opts.details.logo - Asset picture
-     * @param {string} opts.details.logo.url - Url where to get asset picture
+     * @param {string} opts.details.logo.key - Key to compose asset picture url
      * @param {string} opts.details.logo.type - Content type for asset picture
      *
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
@@ -71,7 +71,7 @@ export class ManageAssetBuilder {
      * @param {string} opts.details.name - Name of the asset
      * @param {array}  opts.details.documents - Documents attached to asset
      * @param {string} opts.details.logo - Asset picture
-     * @param {string} opts.details.logo.url - Url where to get asset picture
+     * @param {string} opts.details.logo.key - Key to compose asset picture url
      * @param {string} opts.details.logo.type - Content type for asset picture
      *
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
@@ -121,8 +121,8 @@ export class ManageAssetBuilder {
             details.logo = {};
         }
 
-        if (isUndefined(details.logo.url)) {
-            details.logo.url = "";
+        if (isUndefined(details.logo.key)) {
+            details.logo.key = "";
         }
 
         if (isUndefined(details.logo.type)) {

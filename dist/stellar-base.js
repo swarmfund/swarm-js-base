@@ -44085,7 +44085,7 @@ var StellarBase =
 	         * @param {string} opts.details.name - Name of the asset
 	         * @param {array}  opts.details.documents - Documents attached to asset
 	         * @param {string} opts.details.logo - Asset picture
-	         * @param {string} opts.details.logo.url - Url where to get asset picture
+	         * @param {string} opts.details.logo.key - Key to compose asset picture url
 	         * @param {string} opts.details.logo.type - Content type for asset picture
 	         *
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
@@ -44135,7 +44135,7 @@ var StellarBase =
 	         * @param {string} opts.details.name - Name of the asset
 	         * @param {array}  opts.details.documents - Documents attached to asset
 	         * @param {string} opts.details.logo - Asset picture
-	         * @param {string} opts.details.logo.url - Url where to get asset picture
+	         * @param {string} opts.details.logo.key - Key to compose asset picture url
 	         * @param {string} opts.details.logo.type - Content type for asset picture
 	         *
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
@@ -44190,8 +44190,8 @@ var StellarBase =
 	                details.logo = {};
 	            }
 
-	            if ((0, _lodashIsUndefined2['default'])(details.logo.url)) {
-	                details.logo.url = "";
+	            if ((0, _lodashIsUndefined2['default'])(details.logo.key)) {
+	                details.logo.key = "";
 	            }
 
 	            if ((0, _lodashIsUndefined2['default'])(details.logo.type)) {
@@ -45275,6 +45275,7 @@ var StellarBase =
 	         * @param {object} opts
 	         * @param {string} opts.baseBalance
 	         * @param {string} opts.quoteBalance
+	         * @param {string} opts.price
 	         * @param {number|string} opts.offerID - offer id
 	         * @param {number|string} opts.orderBookID - 0 - for secondary market, otherwise to participate in sale
 	         * @returns {xdr.ManageBalanceOp}
@@ -45283,7 +45284,6 @@ var StellarBase =
 	        key: 'cancelOffer',
 	        value: function cancelOffer(opts) {
 	            opts.isBuy = true;
-	            opts.price = "1";
 	            opts.amount = "0";
 	            opts.fee = "0";
 	            return ManageOfferBuilder.manageOffer(opts);

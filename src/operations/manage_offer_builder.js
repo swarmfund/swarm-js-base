@@ -77,13 +77,13 @@ export class ManageOfferBuilder {
      * @param {object} opts
      * @param {string} opts.baseBalance
      * @param {string} opts.quoteBalance
+     * @param {string} opts.price
      * @param {number|string} opts.offerID - offer id
      * @param {number|string} opts.orderBookID - 0 - for secondary market, otherwise to participate in sale
      * @returns {xdr.ManageBalanceOp}
      */
     static cancelOffer(opts) {
         opts.isBuy = true;
-        opts.price = "1";
         opts.amount = "0";
         opts.fee = "0";
         return ManageOfferBuilder.manageOffer(opts);
