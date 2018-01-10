@@ -1,4 +1,4 @@
-// Automatically generated on 2017-12-28T20:43:06+02:00
+// Automatically generated on 2018-01-10T16:20:47+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -2919,12 +2919,56 @@ xdr.struct("SaleCanceled", [
 
 // === xdr source ============================================================
 //
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("CheckSaleClosedResultExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct CheckSaleClosedResult {
+//   	AccountID saleOwner;
+//   	BalanceID saleBaseBalance;
+//   	BalanceID saleQuoteBalance;
+//   	ManageOfferSuccessResult saleDetails;
+//   	 // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("CheckSaleClosedResult", [
+  ["saleOwner", xdr.lookup("AccountId")],
+  ["saleBaseBalance", xdr.lookup("BalanceId")],
+  ["saleQuoteBalance", xdr.lookup("BalanceId")],
+  ["saleDetails", xdr.lookup("ManageOfferSuccessResult")],
+  ["ext", xdr.lookup("CheckSaleClosedResultExt")],
+]);
+
+// === xdr source ============================================================
+//
 //   union switch (CheckSaleStateEffect effect)
 //       {
 //       case CANCELED:
 //           SaleCanceled saleCanceled;
 //   	case CLOSED:
-//   		ManageOfferSuccessResult saleClosed;
+//   		CheckSaleClosedResult saleClosed;
 //       }
 //
 // ===========================================================================
@@ -2937,7 +2981,7 @@ xdr.union("CheckSaleStateSuccessEffect", {
   ],
   arms: {
     saleCanceled: xdr.lookup("SaleCanceled"),
-    saleClosed: xdr.lookup("ManageOfferSuccessResult"),
+    saleClosed: xdr.lookup("CheckSaleClosedResult"),
   },
 });
 
@@ -2970,7 +3014,7 @@ xdr.union("CheckSaleStateSuccessExt", {
 //       case CANCELED:
 //           SaleCanceled saleCanceled;
 //   	case CLOSED:
-//   		ManageOfferSuccessResult saleClosed;
+//   		CheckSaleClosedResult saleClosed;
 //       }
 //       effect;
 //   	 // reserved for future use
@@ -3071,7 +3115,8 @@ xdr.struct("CreateAccountOp", [
 //   	TYPE_NOT_ALLOWED = -3, // master or commission account types are not allowed
 //       NAME_DUPLICATION = -4,
 //       REFERRER_NOT_FOUND = -5,
-//   	INVALID_ACCOUNT_VERSION = -6 // if account version is higher than ledger version
+//   	INVALID_ACCOUNT_VERSION = -6, // if account version is higher than ledger version
+//   	NOT_VERIFIED_CANNOT_HAVE_POLICIES = -7
 //   };
 //
 // ===========================================================================
@@ -3083,6 +3128,7 @@ xdr.enum("CreateAccountResultCode", {
   nameDuplication: -4,
   referrerNotFound: -5,
   invalidAccountVersion: -6,
+  notVerifiedCannotHavePolicy: -7,
 });
 
 // === xdr source ============================================================
@@ -4738,7 +4784,12 @@ xdr.struct("ManageOfferOp", [
 //   	ORDER_VIOLATES_HARD_CAP = -16, // currentcap + order will exceed hard cap
 //   	CANT_PARTICIPATE_OWN_SALE = -17, // it's not allowed to participate in own sale
 //   	ASSET_MISMATCHED = -18, // sale assets does not match assets for specified balances
-//   	PRICE_DOES_NOT_MATCH = -19 // price does not match sale price
+//   	PRICE_DOES_NOT_MATCH = -19, // price does not match sale price
+//   	PRICE_IS_INVALID = -20, // price must be positive
+//   	UPDATE_IS_NOT_ALLOWED = -21, // update of the offer is not allowed
+//   	INVALID_AMOUNT = -22, // amount must be positive 
+//   	SALE_IS_NOT_ACTIVE = -23
+//   
 //   };
 //
 // ===========================================================================
@@ -4763,6 +4814,10 @@ xdr.enum("ManageOfferResultCode", {
   cantParticipateOwnSale: -17,
   assetMismatched: -18,
   priceDoesNotMatch: -19,
+  priceIsInvalid: -20,
+  updateIsNotAllowed: -21,
+  invalidAmount: -22,
+  saleIsNotActive: -23,
 });
 
 // === xdr source ============================================================
