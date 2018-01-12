@@ -28,7 +28,7 @@ export class Operation extends BaseOperation {
      * Create and fund a non existent account.
      * @param {object} opts
      * @param {string} opts.destination - Destination account ID to create an account for.
-     * @param {string} opts.KYCdata - KYC data for account to be created.
+     * @param {string} opts.recoveryKey - AccountID of recovery signer.
      * @param {string} opts.accountType - Type of the account to be created.
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
      * * @param {string} opts.accountPolicies - The policies of the account.
@@ -38,8 +38,12 @@ export class Operation extends BaseOperation {
         if (!Keypair.isValidPublicKey(opts.destination)) {
             throw new Error("destination is invalid");
         }
+        if (!Keypair.isValidPublicKey(opts.recoveryKey)) {
+            throw new Error("recoveryKey is invalid");
+        }
         let attributes = {};
         attributes.destination = Keypair.fromAccountId(opts.destination).xdrAccountId();
+        attributes.recoveryKey = Keypair.fromAccountId(opts.recoveryKey).xdrAccountId();
         attributes.accountType = Operation._accountTypeFromNumber(opts.accountType);
 
         if (!isUndefined(opts.accountPolicies)) {
@@ -643,6 +647,7 @@ export class Operation extends BaseOperation {
         switch (operation.body().switch()) {
             case xdr.OperationType.createAccount():
                 result.destination = accountIdtoAddress(attrs.destination());
+                result.recoveryKey = accountIdtoAddress(attrs.recoveryKey());
                 result.accountType = attrs.accountType().value;
                 result.policies = attrs.policies();
 
