@@ -33658,6 +33658,8 @@ var StellarBase =
 	         * @param {number|string} [opts.signer.signerType] - The type of the new signer
 	         * @param {number|string} [opts.signer.identity] - The identity of the new signer
 	         * * @param {string} [opts.signer.name] - Name of the signer
+	         * @param {object} [opts.limitsUpdateRequestData] - required data for LimitsUpdateRequest creation
+	         * * @param {string} [opts.limitsUpdateRequestData.documentHash] - hash of the document to review
 	         * @param {string} [opts.source] - The source account (defaults to transaction source).
 	         * @returns {xdr.SetOptionsOp}
 	         * @see [Account flags](https://www.stellar.org/developers/guides/concepts/accounts.html#flags)
@@ -33741,6 +33743,17 @@ var StellarBase =
 	                    trust: trust,
 	                    action: opts.trustData.action,
 	                    ext: new _generatedStellarXdr_generated2["default"].TrustDataExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	                });
+	            }
+
+	            if (opts.limitsUpdateRequestData) {
+	                if ((0, _lodashIsUndefined2["default"])(opts.limitsUpdateRequestData.documentHash)) {
+	                    throw new Error("limitsUpdateRequestData.documentHash is not defined");
+	                }
+
+	                attributes.limitsUpdateRequestData = new _generatedStellarXdr_generated2["default"].LimitsUpdateRequestData({
+	                    documentHash: opts.limitsUpdateRequestData.documentHash,
+	                    ext: new _generatedStellarXdr_generated2["default"].LimitsUpdateRequestDataExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
 	                });
 	            }
 
@@ -34085,6 +34098,11 @@ var StellarBase =
 	                        trustData.balanceToUse = balanceIdtoString(attrs.trustData().trust().balanceToUse());
 	                        trustData.action = attrs.trustData().action();
 	                        result.trustData = trustData;
+	                    }
+	                    if (attrs.limitsUpdateRequestData()) {
+	                        var limitsUpdateRequestData = {};
+	                        limitsUpdateRequestData.documentHash = attrs.limitsUpdateRequestData().documentHash();
+	                        result.limitsUpdateRequestData = limitsUpdateRequestData;
 	                    }
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].OperationType.setFee():

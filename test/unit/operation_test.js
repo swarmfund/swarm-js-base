@@ -309,6 +309,13 @@ describe('Operation', function () {
                 balanceToUse
             }
 
+            let documentData = "Some data in document";
+            let documentHash = StellarBase.hash(documentData);
+
+            opts.limitsUpdateRequestData = {
+                documentHash: documentHash
+            }
+
             let op = StellarBase.Operation.setOptions(opts);
             var xdr = op.toXDR("hex");
             var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
@@ -329,7 +336,7 @@ describe('Operation', function () {
             expect(obj.trustData.allowedAccount).to.be.equal(allowedAccount);
             expect(obj.trustData.balanceToUse).to.be.equal(balanceToUse);
             expect(obj.trustData.action).to.be.equal(StellarBase.xdr.ManageTrustAction.trustAdd());
-
+            expect(obj.limitsUpdateRequestData.documentHash.toString()).to.be.equal(documentHash.toString());
         });
 
         it("fails to create setOptions operation with an invalid signer address", function () {
