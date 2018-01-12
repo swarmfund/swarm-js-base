@@ -4,6 +4,7 @@ import { BaseOperation } from './base_operation';
 import { Keypair } from "../keypair";
 import { UnsignedHyper, Hyper } from "js-xdr";
 import {Hasher} from '../util/hasher';
+import {Operation} from "../operation";
 
 export class ReviewRequestBuilder {
 
@@ -90,6 +91,27 @@ export class ReviewRequestBuilder {
         return ReviewRequestBuilder._createOp(opts, attrs);
     }
 
+    static reviewLimitsUpdateRequest(opts) {
+        if (isUndefined(opts.newLimits)) {
+            throw new Error("opts.newLimits is invalid");
+        }
+
+        let attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.limitsUpdate(new xdr.LimitsUpdateDetails({
+            newLimits: new xdr.Limits({
+                dailyOut: Operation._toXDRAmount(opts.newLimits.dailyOut),
+                weeklyOut: Operation._toXDRAmount(opts.newLimits.weeklyOut),
+                monthlyOut: Operation._toXDRAmount(opts.newLimits.monthlyOut),
+                annualOut: Operation._toXDRAmount(opts.newLimits.annualOut),
+                ext: new xdr.LimitsExt(xdr.LedgerVersion.emptyVersion())
+            }),
+            ext: new xdr.LimitsUpdateDetailsExt(xdr.LedgerVersion.emptyVersion())
+        }));
+
+        return ReviewRequestBuilder._createOp(opts, attrs);
+    }
+
     static reviewRequestToObject(result, attrs) {
         result.requestID = attrs.requestId().toString();
         result.requestHash = attrs.requestHash().toString('hex');
@@ -98,6 +120,17 @@ export class ReviewRequestBuilder {
             case xdr.ReviewableRequestType.withdraw(): {
                 result.withdrawal = {
                     externalDetails: attrs.requestDetails().withdrawal().externalDetails(),
+                };
+                break;
+            }
+            case xdr.ReviewableRequestType.limitsUpdate(): {
+                result.limitsUpdate = {
+                    newLimits: {
+                        dailyOut: Operation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().dailyOut()),
+                        weeklyOut: Operation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().weeklyOut()),
+                        monthlyOut: Operation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().monthlyOut()),
+                        annualOut: Operation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().annualOut())
+                    }
                 };
                 break;
             }
