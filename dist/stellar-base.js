@@ -44446,6 +44446,8 @@ var StellarBase =
 
 	var _utilHasher = __webpack_require__(217);
 
+	var _operation = __webpack_require__(128);
+
 	var ReviewRequestBuilder = (function () {
 	    function ReviewRequestBuilder() {
 	        _classCallCheck(this, ReviewRequestBuilder);
@@ -44541,6 +44543,28 @@ var StellarBase =
 	            return ReviewRequestBuilder._createOp(opts, attrs);
 	        }
 	    }, {
+	        key: 'reviewLimitsUpdateRequest',
+	        value: function reviewLimitsUpdateRequest(opts) {
+	            if ((0, _lodashIsUndefined2['default'])(opts.newLimits)) {
+	                throw new Error("opts.newLimits is invalid");
+	            }
+
+	            var attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+	            attrs.requestDetails = new _generatedStellarXdr_generated2['default'].ReviewRequestOpRequestDetails.limitsUpdate(new _generatedStellarXdr_generated2['default'].LimitsUpdateDetails({
+	                newLimits: new _generatedStellarXdr_generated2['default'].Limits({
+	                    dailyOut: _base_operation.BaseOperation._toXDRAmount(opts.newLimits.dailyOut),
+	                    weeklyOut: _base_operation.BaseOperation._toXDRAmount(opts.newLimits.weeklyOut),
+	                    monthlyOut: _base_operation.BaseOperation._toXDRAmount(opts.newLimits.monthlyOut),
+	                    annualOut: _base_operation.BaseOperation._toXDRAmount(opts.newLimits.annualOut),
+	                    ext: new _generatedStellarXdr_generated2['default'].LimitsExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	                }),
+	                ext: new _generatedStellarXdr_generated2['default'].LimitsUpdateDetailsExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            }));
+
+	            return ReviewRequestBuilder._createOp(opts, attrs);
+	        }
+	    }, {
 	        key: 'reviewRequestToObject',
 	        value: function reviewRequestToObject(result, attrs) {
 	            result.requestID = attrs.requestId().toString();
@@ -44551,6 +44575,18 @@ var StellarBase =
 	                    {
 	                        result.withdrawal = {
 	                            externalDetails: attrs.requestDetails().withdrawal().externalDetails()
+	                        };
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ReviewableRequestType.limitsUpdate():
+	                    {
+	                        result.limitsUpdate = {
+	                            newLimits: {
+	                                dailyOut: _base_operation.BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().dailyOut()),
+	                                weeklyOut: _base_operation.BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().weeklyOut()),
+	                                monthlyOut: _base_operation.BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().monthlyOut()),
+	                                annualOut: _base_operation.BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().annualOut())
+	                            }
 	                        };
 	                        break;
 	                    }
