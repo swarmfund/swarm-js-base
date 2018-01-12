@@ -100,10 +100,10 @@ export class ReviewRequestBuilder {
 
         attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.limitsUpdate(new xdr.LimitsUpdateDetails({
             newLimits: new xdr.Limits({
-                dailyOut: Operation._toXDRAmount(opts.newLimits.dailyOut),
-                weeklyOut: Operation._toXDRAmount(opts.newLimits.weeklyOut),
-                monthlyOut: Operation._toXDRAmount(opts.newLimits.monthlyOut),
-                annualOut: Operation._toXDRAmount(opts.newLimits.annualOut),
+                dailyOut: BaseOperation._toXDRAmount(opts.newLimits.dailyOut),
+                weeklyOut: BaseOperation._toXDRAmount(opts.newLimits.weeklyOut),
+                monthlyOut: BaseOperation._toXDRAmount(opts.newLimits.monthlyOut),
+                annualOut: BaseOperation._toXDRAmount(opts.newLimits.annualOut),
                 ext: new xdr.LimitsExt(xdr.LedgerVersion.emptyVersion())
             }),
             ext: new xdr.LimitsUpdateDetailsExt(xdr.LedgerVersion.emptyVersion())
@@ -126,10 +126,10 @@ export class ReviewRequestBuilder {
             case xdr.ReviewableRequestType.limitsUpdate(): {
                 result.limitsUpdate = {
                     newLimits: {
-                        dailyOut: Operation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().dailyOut()),
-                        weeklyOut: Operation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().weeklyOut()),
-                        monthlyOut: Operation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().monthlyOut()),
-                        annualOut: Operation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().annualOut())
+                        dailyOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().dailyOut()),
+                        weeklyOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().weeklyOut()),
+                        monthlyOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().monthlyOut()),
+                        annualOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().annualOut())
                     }
                 };
                 break;
