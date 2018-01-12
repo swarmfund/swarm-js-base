@@ -301,7 +301,17 @@ export class Operation extends BaseOperation {
      * @param {number|string} [opts.signer.weight] - The weight of the new signer (0 to delete or 1-255)
      * @param {number|string} [opts.signer.signerType] - The type of the new signer
      * @param {number|string} [opts.signer.identity] - The identity of the new signer
-     * * @param {string} [opts.signer.name] - Name of the signer
+     * @param {string} [opts.signer.name] - Name of the signer
+     *
+     * @param {object} [opts.trustData] - The structure for manipulating trust entry
+     * @param {number} [opts.trustData.action] - Action to perform
+     * @param {string} [opts.trustData.allowedAccount] - Allowed account
+     * @param {string} [opts.trustData.balanceToUse] - The balance of source account which will be used.
+     *
+     * @param {object} [opts.updateKYCData] - The structure for manipulating updateKYC request.
+     * @param {number|string} [opts.updateKYCData.requestID] - set to zero for creating new request
+     * @param {object} [opts.updateKYCData.KYCData] - string containing json with KYC data fields
+     *
      * @param {string} [opts.source] - The source account (defaults to transaction source).
      * @returns {xdr.SetOptionsOp}
      * @see [Account flags](https://www.stellar.org/developers/guides/concepts/accounts.html#flags)
@@ -383,6 +393,21 @@ export class Operation extends BaseOperation {
                 trust,
                 action: opts.trustData.action,
                 ext: new xdr.TrustDataExt(xdr.LedgerVersion.emptyVersion()),
+            });
+        }
+
+        if (opts.updateKYCData) {
+            if (isUndefined(opts.updateKYCData.requestID)) {
+                opts.updateKYCData.requestID = "0";
+            }
+            let requestID = UnsignedHyper.fromString(opts.updateKYCData.requestID);
+
+            let KYCData = JSON.stringify(opts.updateKYCData.KYCData);
+
+            attributes.updateKycData = new xdr.UpdateKycData({
+                requestId:  requestID,
+                dataKyc:    KYCData,
+                ext:        new xdr.UpdateKycDataExt(xdr.LedgerVersion.emptyVersion()),
             });
         }
 
@@ -718,6 +743,12 @@ export class Operation extends BaseOperation {
                     trustData.balanceToUse = balanceIdtoString(attrs.trustData().trust().balanceToUse());
                     trustData.action = attrs.trustData().action();
                     result.trustData = trustData;
+                }
+                if (attrs.updateKycData()) {
+                    let updateKYCData = {};
+                    updateKYCData.KYCData = JSON.parse(attrs.updateKycData().dataKyc());
+                    updateKYCData.requestID = attrs.updateKycData().requestId().toString();
+                    result.updateKYCData = updateKYCData;
                 }
                 break;
             case xdr.OperationType.setFee():

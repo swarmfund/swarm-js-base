@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { Hyper } from "js-xdr";
+import isEqual from "lodash/isEqual";
 
 describe('Operation', function () {
 
@@ -307,7 +308,12 @@ describe('Operation', function () {
                 action: StellarBase.xdr.ManageTrustAction.trustAdd(),
                 allowedAccount,
                 balanceToUse
-            }
+            };
+
+            opts.updateKYCData = {
+                requestID: '0',
+                KYCData: {"hash" : "bb36c7c58c4c32d98947c8781c91c7bb797c3647"}
+            };
 
             let op = StellarBase.Operation.setOptions(opts);
             var xdr = op.toXDR("hex");
@@ -329,6 +335,9 @@ describe('Operation', function () {
             expect(obj.trustData.allowedAccount).to.be.equal(allowedAccount);
             expect(obj.trustData.balanceToUse).to.be.equal(balanceToUse);
             expect(obj.trustData.action).to.be.equal(StellarBase.xdr.ManageTrustAction.trustAdd());
+
+            expect(obj.updateKYCData.requestID).to.be.equal(opts.updateKYCData.requestID);
+            expect(isEqual(obj.updateKYCData.KYCData, opts.updateKYCData.KYCData)).to.be.equal(true);
 
         });
 
