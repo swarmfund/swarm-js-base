@@ -750,11 +750,6 @@ export class Operation extends BaseOperation {
                 result.blockReasonsToRemove = attrs.blockReasonsToRemove();
                 result.accountType = attrs.accountType().value;
                 break;
-            case xdr.OperationType.recover():
-                result.account = accountIdtoAddress(attrs.account());
-                result.oldSigner = accountIdtoAddress(attrs.oldSigner());
-                result.newSigner = accountIdtoAddress(attrs.newSigner());
-                break;
             case xdr.OperationType.manageBalance():
                 result.action = attrs.action();
                 result.destination = accountIdtoAddress(attrs.destination());

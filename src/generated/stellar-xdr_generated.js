@@ -1,4 +1,4 @@
-// Automatically generated on 2018-01-12T19:29:38+02:00
+// Automatically generated on 2018-01-12T20:04:09+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -604,7 +604,6 @@ xdr.struct("Fee", [
 //       SET_FEES = 5,
 //   	MANAGE_ACCOUNT = 6,
 //       CREATE_WITHDRAWAL_REQUEST = 7,
-//       RECOVER = 8,
 //       MANAGE_BALANCE = 9,
 //       REVIEW_PAYMENT_REQUEST = 10,
 //       MANAGE_ASSET = 11,
@@ -628,7 +627,6 @@ xdr.enum("OperationType", {
   setFee: 5,
   manageAccount: 6,
   createWithdrawalRequest: 7,
-  recover: 8,
   manageBalance: 9,
   reviewPaymentRequest: 10,
   manageAsset: 11,
