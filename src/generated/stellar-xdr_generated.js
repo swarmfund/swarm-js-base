@@ -1,4 +1,4 @@
-// Automatically generated on 2018-01-11T15:37:19+02:00
+// Automatically generated on 2018-01-13T16:29:56+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -1417,6 +1417,7 @@ xdr.union("CreateAccountOpExt", {
 //   struct CreateAccountOp
 //   {
 //       AccountID destination; // account to create
+//       AccountID recoveryKey; // recovery signer's public key
 //       AccountID* referrer;     // parent account
 //   	AccountType accountType;
 //   	uint32 policies;
@@ -1433,6 +1434,7 @@ xdr.union("CreateAccountOpExt", {
 // ===========================================================================
 xdr.struct("CreateAccountOp", [
   ["destination", xdr.lookup("AccountId")],
+  ["recoveryKey", xdr.lookup("AccountId")],
   ["referrer", xdr.option(xdr.lookup("AccountId"))],
   ["accountType", xdr.lookup("AccountType")],
   ["policies", xdr.lookup("Uint32")],
@@ -2110,7 +2112,6 @@ xdr.struct("Fee", [
 //       SET_FEES = 5,
 //   	MANAGE_ACCOUNT = 6,
 //       CREATE_WITHDRAWAL_REQUEST = 7,
-//       RECOVER = 8,
 //       MANAGE_BALANCE = 9,
 //       REVIEW_PAYMENT_REQUEST = 10,
 //       MANAGE_ASSET = 11,
@@ -2134,7 +2135,6 @@ xdr.enum("OperationType", {
   setFee: 5,
   manageAccount: 6,
   createWithdrawalRequest: 7,
-  recover: 8,
   manageBalance: 9,
   reviewPaymentRequest: 10,
   manageAsset: 11,
@@ -2165,138 +2165,6 @@ xdr.struct("DecoratedSignature", [
 
 // === xdr source ============================================================
 //
-//   union switch (LedgerVersion v)
-//       {
-//       case EMPTY_VERSION:
-//           void;
-//       }
-//
-// ===========================================================================
-xdr.union("RecoverOpExt", {
-  switchOn: xdr.lookup("LedgerVersion"),
-  switchName: "v",
-  switches: [
-    ["emptyVersion", xdr.void()],
-  ],
-  arms: {
-  },
-});
-
-// === xdr source ============================================================
-//
-//   struct RecoverOp
-//   {
-//       AccountID account;
-//       PublicKey oldSigner;
-//       PublicKey newSigner;
-//   	// reserved for future use
-//       union switch (LedgerVersion v)
-//       {
-//       case EMPTY_VERSION:
-//           void;
-//       }
-//       ext;
-//   };
-//
-// ===========================================================================
-xdr.struct("RecoverOp", [
-  ["account", xdr.lookup("AccountId")],
-  ["oldSigner", xdr.lookup("PublicKey")],
-  ["newSigner", xdr.lookup("PublicKey")],
-  ["ext", xdr.lookup("RecoverOpExt")],
-]);
-
-// === xdr source ============================================================
-//
-//   enum RecoverResultCode
-//   {
-//       // codes considered as "success" for the operation
-//       SUCCESS = 0,
-//   
-//       // codes considered as "failure" for the operation
-//   
-//       MALFORMED = -1,
-//       OLD_SIGNER_NOT_FOUND = -2,
-//       SIGNER_ALREADY_EXISTS = -3
-//   };
-//
-// ===========================================================================
-xdr.enum("RecoverResultCode", {
-  success: 0,
-  malformed: -1,
-  oldSignerNotFound: -2,
-  signerAlreadyExist: -3,
-});
-
-// === xdr source ============================================================
-//
-//   union switch (LedgerVersion v)
-//   		{
-//   		case EMPTY_VERSION:
-//   			void;
-//   		}
-//
-// ===========================================================================
-xdr.union("RecoverResultSuccessExt", {
-  switchOn: xdr.lookup("LedgerVersion"),
-  switchName: "v",
-  switches: [
-    ["emptyVersion", xdr.void()],
-  ],
-  arms: {
-  },
-});
-
-// === xdr source ============================================================
-//
-//   struct {
-//   		// reserved for future use
-//   		union switch (LedgerVersion v)
-//   		{
-//   		case EMPTY_VERSION:
-//   			void;
-//   		}
-//   		ext;
-//   	}
-//
-// ===========================================================================
-xdr.struct("RecoverResultSuccess", [
-  ["ext", xdr.lookup("RecoverResultSuccessExt")],
-]);
-
-// === xdr source ============================================================
-//
-//   union RecoverResult switch (RecoverResultCode code)
-//   {
-//   case SUCCESS:
-//       struct {
-//   		// reserved for future use
-//   		union switch (LedgerVersion v)
-//   		{
-//   		case EMPTY_VERSION:
-//   			void;
-//   		}
-//   		ext;
-//   	} success;
-//   default:
-//       void;
-//   };
-//
-// ===========================================================================
-xdr.union("RecoverResult", {
-  switchOn: xdr.lookup("RecoverResultCode"),
-  switchName: "code",
-  switches: [
-    ["success", "success"],
-  ],
-  arms: {
-    success: xdr.lookup("RecoverResultSuccess"),
-  },
-  defaultArm: xdr.void(),
-});
-
-// === xdr source ============================================================
-//
 //   union switch (OperationType type)
 //       {
 //       case CREATE_ACCOUNT:
@@ -2313,8 +2181,6 @@ xdr.union("RecoverResult", {
 //   		ManageAccountOp manageAccountOp;
 //   	case CREATE_WITHDRAWAL_REQUEST:
 //   		CreateWithdrawalRequestOp createWithdrawalRequestOp;
-//   	case RECOVER:
-//   		RecoverOp recoverOp;
 //   	case MANAGE_BALANCE:
 //   		ManageBalanceOp manageBalanceOp;
 //   	case REVIEW_PAYMENT_REQUEST:
@@ -2353,7 +2219,6 @@ xdr.union("OperationBody", {
     ["setFee", "setFeesOp"],
     ["manageAccount", "manageAccountOp"],
     ["createWithdrawalRequest", "createWithdrawalRequestOp"],
-    ["recover", "recoverOp"],
     ["manageBalance", "manageBalanceOp"],
     ["reviewPaymentRequest", "reviewPaymentRequestOp"],
     ["manageAsset", "manageAssetOp"],
@@ -2375,7 +2240,6 @@ xdr.union("OperationBody", {
     setFeesOp: xdr.lookup("SetFeesOp"),
     manageAccountOp: xdr.lookup("ManageAccountOp"),
     createWithdrawalRequestOp: xdr.lookup("CreateWithdrawalRequestOp"),
-    recoverOp: xdr.lookup("RecoverOp"),
     manageBalanceOp: xdr.lookup("ManageBalanceOp"),
     reviewPaymentRequestOp: xdr.lookup("ReviewPaymentRequestOp"),
     manageAssetOp: xdr.lookup("ManageAssetOp"),
@@ -2416,8 +2280,6 @@ xdr.union("OperationBody", {
 //   		ManageAccountOp manageAccountOp;
 //   	case CREATE_WITHDRAWAL_REQUEST:
 //   		CreateWithdrawalRequestOp createWithdrawalRequestOp;
-//   	case RECOVER:
-//   		RecoverOp recoverOp;
 //   	case MANAGE_BALANCE:
 //   		ManageBalanceOp manageBalanceOp;
 //   	case REVIEW_PAYMENT_REQUEST:
@@ -2636,8 +2498,6 @@ xdr.enum("OperationResultCode", {
 //   		ManageAccountResult manageAccountResult;
 //       case CREATE_WITHDRAWAL_REQUEST:
 //   		CreateWithdrawalRequestResult createWithdrawalRequestResult;
-//       case RECOVER:
-//   		RecoverResult recoverResult;
 //       case MANAGE_BALANCE:
 //           ManageBalanceResult manageBalanceResult;
 //       case REVIEW_PAYMENT_REQUEST:
@@ -2676,7 +2536,6 @@ xdr.union("OperationResultTr", {
     ["setFee", "setFeesResult"],
     ["manageAccount", "manageAccountResult"],
     ["createWithdrawalRequest", "createWithdrawalRequestResult"],
-    ["recover", "recoverResult"],
     ["manageBalance", "manageBalanceResult"],
     ["reviewPaymentRequest", "reviewPaymentRequestResult"],
     ["manageAsset", "manageAssetResult"],
@@ -2698,7 +2557,6 @@ xdr.union("OperationResultTr", {
     setFeesResult: xdr.lookup("SetFeesResult"),
     manageAccountResult: xdr.lookup("ManageAccountResult"),
     createWithdrawalRequestResult: xdr.lookup("CreateWithdrawalRequestResult"),
-    recoverResult: xdr.lookup("RecoverResult"),
     manageBalanceResult: xdr.lookup("ManageBalanceResult"),
     reviewPaymentRequestResult: xdr.lookup("ReviewPaymentRequestResult"),
     manageAssetResult: xdr.lookup("ManageAssetResult"),
@@ -2735,8 +2593,6 @@ xdr.union("OperationResultTr", {
 //   		ManageAccountResult manageAccountResult;
 //       case CREATE_WITHDRAWAL_REQUEST:
 //   		CreateWithdrawalRequestResult createWithdrawalRequestResult;
-//       case RECOVER:
-//   		RecoverResult recoverResult;
 //       case MANAGE_BALANCE:
 //           ManageBalanceResult manageBalanceResult;
 //       case REVIEW_PAYMENT_REQUEST:
@@ -5367,6 +5223,7 @@ xdr.union("AccountEntryExt", {
 //   struct AccountEntry
 //   {
 //       AccountID accountID;      // master public key for this account
+//       AccountID recoveryID;
 //   
 //       // fields used for signatures
 //       // thresholds stores unsigned bytes: [weight of master|low|medium|high]
@@ -5395,6 +5252,7 @@ xdr.union("AccountEntryExt", {
 // ===========================================================================
 xdr.struct("AccountEntry", [
   ["accountId", xdr.lookup("AccountId")],
+  ["recoveryId", xdr.lookup("AccountId")],
   ["thresholds", xdr.lookup("Thresholds")],
   ["signers", xdr.varArray(xdr.lookup("Signer"), 2147483647)],
   ["limits", xdr.option(xdr.lookup("Limits"))],
