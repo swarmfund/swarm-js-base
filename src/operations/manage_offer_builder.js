@@ -86,6 +86,7 @@ export class ManageOfferBuilder {
         opts.isBuy = true;
         opts.amount = "0";
         opts.fee = "0";
+        opts.price = "1";
         return ManageOfferBuilder.manageOffer(opts);
     }
 

@@ -6,13 +6,15 @@ describe('Operation', function () {
     describe(".createAccount()", function () {
         it("creates a createAccountOp general", function () {
             var destination = "GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ";
+            var recoveryKey = "GDZXNSOUESYZMHRC3TZRN4VXSIOT47MDDUVD6U7CWXHTDLXVVGU64LVV";
             var accountType = StellarBase.xdr.AccountType.general().value;
-            let op = StellarBase.Operation.createAccount({ destination, accountType});
+            let op = StellarBase.Operation.createAccount({ destination, recoveryKey, accountType});
             var xdr = op.toXDR("hex");
             var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
             var obj = StellarBase.Operation.operationToObject(operation);
             expect(obj.type).to.be.equal("createAccount");
             expect(obj.destination).to.be.equal(destination);
+            expect(obj.recoveryKey).to.be.equal(recoveryKey);
             expect(obj.accountType).to.be.equal(accountType);
         });
 
@@ -25,9 +27,19 @@ describe('Operation', function () {
             expect(() => StellarBase.Operation.createAccount(opts)).to.throw(/destination is invalid/)
         });
 
+        it("fails to create createAccount operation with an invalid recovery address", function () {
+            let opts = {
+                destination: "GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ",
+                recoveryKey: "GCEZ",
+                accountType: StellarBase.xdr.AccountType.general().value,
+            };
+            expect(() => StellarBase.Operation.createAccount(opts)).to.throw(/recoveryKey is invalid/)
+        })
+
         it("fails to create createAccount operation with an invalid source address", function () {
             let opts = {
                 destination: 'GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ',
+                recoveryKey: "GDZXNSOUESYZMHRC3TZRN4VXSIOT47MDDUVD6U7CWXHTDLXVVGU64LVV",
                 accountType: StellarBase.xdr.AccountType.general().value,
                 source: 'GCEZ',
             };
@@ -36,6 +48,7 @@ describe('Operation', function () {
         it("fails to create createAccount operation with an invalid account type", function () {
             let opts = {
                 destination: 'GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ',
+                recoveryKey: "GDZXNSOUESYZMHRC3TZRN4VXSIOT47MDDUVD6U7CWXHTDLXVVGU64LVV",
                 source: 'GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ',
             };
             expect(() => StellarBase.Operation.createAccount(opts)).to.throw(/XDR Read Error: Unknown AccountType member for value undefined/)
@@ -44,6 +57,7 @@ describe('Operation', function () {
             let opts = {
                 destination: "GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ",
                 source: "GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ",
+                recoveryKey: "GDZXNSOUESYZMHRC3TZRN4VXSIOT47MDDUVD6U7CWXHTDLXVVGU64LVV",
                 accountType: StellarBase.xdr.AccountType.general().value,
                 accountPolicies: -1,
             };
@@ -368,46 +382,6 @@ describe('Operation', function () {
                 highThreshold: 400,
             };
             expect(() => StellarBase.Operation.setOptions(opts)).to.throw(/highThreshold value must be between 0 and 255/)
-        });
-    });
-
-    describe(".recover()", function () {
-        let account = StellarBase.Keypair.random().accountId();
-        let oldSigner = StellarBase.Keypair.random().accountId();
-        let newSigner = StellarBase.Keypair.random().accountId();
-        it("creates a recoverOp", function () {
-            let op = StellarBase.Operation.recover({ account, oldSigner, newSigner });
-            var xdr = op.toXDR("hex");
-            var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
-            var obj = StellarBase.Operation.operationToObject(operation);
-            expect(obj.type).to.be.equal("recover");
-            expect(obj.account).to.be.equal(account);
-            expect(obj.oldSigner).to.be.equal(oldSigner);
-            expect(obj.newSigner).to.be.equal(newSigner);
-        });
-        it("fails to create recover operation with an invalid account", function () {
-            let opts = {
-                account: 'GCEZW',
-                oldSigner,
-                newSigner,
-            };
-            expect(() => StellarBase.Operation.recover(opts)).to.throw(/account is invalid/)
-        });
-        it("fails to create recover operation with an invalid account", function () {
-            let opts = {
-                account,
-                oldSigner: '123',
-                newSigner,
-            };
-            expect(() => StellarBase.Operation.recover(opts)).to.throw(/oldSigner is invalid/)
-        });
-        it("fails to create recover operation with an invalid account", function () {
-            let opts = {
-                account,
-                oldSigner,
-                newSigner: 123,
-            };
-            expect(() => StellarBase.Operation.recover(opts)).to.throw(/newSigner is invalid/)
         });
     });
 
