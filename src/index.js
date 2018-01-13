@@ -20,6 +20,7 @@ export {CreateIssuanceRequestBuilder} from './operations/create_issuance_request
 export { CreateWithdrawRequestBuilder } from './operations/create_withdraw_request_builder';
 export { SaleRequestBuilder } from './operations/sale_request_builder';
 export { ManageOfferBuilder } from './operations/manage_offer_builder';
+export { SetOptionsBuilder } from './operations/set_options_builder';
 
 export * from "./strkey";
 
