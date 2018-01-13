@@ -33299,7 +33299,7 @@ var StellarBase =
 	         * Create and fund a non existent account.
 	         * @param {object} opts
 	         * @param {string} opts.destination - Destination account ID to create an account for.
-	         * @param {string} opts.KYCdata - KYC data for account to be created.
+	         * @param {string} opts.recoveryKey - AccountID of recovery signer.
 	         * @param {string} opts.accountType - Type of the account to be created.
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         * * @param {string} opts.accountPolicies - The policies of the account.
@@ -33309,8 +33309,12 @@ var StellarBase =
 	            if (!_keypair.Keypair.isValidPublicKey(opts.destination)) {
 	                throw new Error("destination is invalid");
 	            }
+	            if (!_keypair.Keypair.isValidPublicKey(opts.recoveryKey)) {
+	                throw new Error("recoveryKey is invalid");
+	            }
 	            var attributes = {};
 	            attributes.destination = _keypair.Keypair.fromAccountId(opts.destination).xdrAccountId();
+	            attributes.recoveryKey = _keypair.Keypair.fromAccountId(opts.recoveryKey).xdrAccountId();
 	            attributes.accountType = Operation._accountTypeFromNumber(opts.accountType);
 
 	            if (!(0, _lodashIsUndefined2["default"])(opts.accountPolicies)) {
@@ -33817,6 +33821,7 @@ var StellarBase =
 	            switch (operation.body()["switch"]()) {
 	                case _generatedStellarXdr_generated2["default"].OperationType.createAccount():
 	                    result.destination = accountIdtoAddress(attrs.destination());
+	                    result.recoveryKey = accountIdtoAddress(attrs.recoveryKey());
 	                    result.accountType = attrs.accountType().value;
 	                    result.policies = attrs.policies();
 
@@ -33897,11 +33902,6 @@ var StellarBase =
 	                    result.blockReasonsToAdd = attrs.blockReasonsToAdd();
 	                    result.blockReasonsToRemove = attrs.blockReasonsToRemove();
 	                    result.accountType = attrs.accountType().value;
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.recover():
-	                    result.account = accountIdtoAddress(attrs.account());
-	                    result.oldSigner = accountIdtoAddress(attrs.oldSigner());
-	                    result.newSigner = accountIdtoAddress(attrs.newSigner());
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].OperationType.manageBalance():
 	                    result.action = attrs.action();
