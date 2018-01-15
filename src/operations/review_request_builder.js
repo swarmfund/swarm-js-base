@@ -85,7 +85,7 @@ export class ReviewRequestBuilder {
 
         attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.withdraw(new xdr.WithdrawalDetails({
             ext: new xdr.WithdrawalDetailsExt(xdr.LedgerVersion.emptyVersion()),
-            externalDetails: opts.externalDetails,
+            externalDetails: JSON.stringify(opts.externalDetails),
         }));
 
         return ReviewRequestBuilder._createOp(opts, attrs);
