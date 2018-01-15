@@ -43579,9 +43579,9 @@ var StellarBase =
 
 	var _crypto2 = _interopRequireDefault(_crypto);
 
-	var ONE = 10000;
+	var ONE = 1000000;
 	var MAX_INT64 = '9223372036854775807';
-	var MAX_INT64_AMOUNT = '922337203685477.5807';
+	var MAX_INT64_AMOUNT = '9223372036854.775807';
 
 	var BaseOperation = (function () {
 	    function BaseOperation() {
