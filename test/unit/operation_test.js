@@ -97,7 +97,7 @@ describe('Operation', function () {
             var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
             var obj = StellarBase.Operation.operationToObject(operation);
             expect(obj.type).to.be.equal("payment");
-            expect(operation.body().value().amount().toString()).to.be.equal('10000000');
+            expect(operation.body().value().amount().toString()).to.be.equal('1000000000');
             expect(obj.amount).to.be.equal(amount);
             expect(obj.subject).to.be.equal('subj');
             expect(obj.reference).to.be.equal('ref');
@@ -590,9 +590,9 @@ describe('Operation', function () {
             expect(obj.base).to.be.equal(base);
             expect(obj.quote).to.be.equal(quote);
             expect(obj.action).to.be.equal(StellarBase.xdr.ManageAssetPairAction.create());
-            expect(operation.body().value().physicalPriceCorrection().toString()).to.be.equal('122000');
-            expect(operation.body().value().maxPriceStep().toString()).to.be.equal('2001000');
-            expect(operation.body().value().physicalPrice().toString()).to.be.equal('121200');
+            expect(operation.body().value().physicalPriceCorrection().toString()).to.be.equal('12200000');
+            expect(operation.body().value().maxPriceStep().toString()).to.be.equal('200100000');
+            expect(operation.body().value().physicalPrice().toString()).to.be.equal('12120000');
             expect(obj.physicalPriceCorrection).to.be.equal(physicalPriceCorrection);
             expect(obj.maxPriceStep).to.be.equal(maxPriceStep);
         });
@@ -615,7 +615,7 @@ describe('Operation', function () {
             expect(obj.type).to.be.equal("manageInvoice");
             expect(obj.sender).to.be.equal(sender);
             expect(obj.receiverBalance).to.be.equal(receiverBalance);
-            expect(operation.body().value().amount().toString()).to.be.equal('10000000');
+            expect(operation.body().value().amount().toString()).to.be.equal('1000000000');
             expect(obj.amount).to.be.equal(amount);
             expect(obj.invoiceId).to.be.equal(invoiceId);
         });
