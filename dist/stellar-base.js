@@ -44118,7 +44118,10 @@ var StellarBase =
 	         * @param {array}  opts.details.documents - Documents attached to asset
 	         * @param {string} opts.details.logo - Asset picture
 	         * @param {string} opts.details.logo.key - Key to compose asset picture url
-	         * @param {string} opts.details.logo.type - Content type for asset picture
+	         * @param {string} opts.details.logo.type - Content type of asset logo
+	         * @param {string} opts.details.terms - Asset terms
+	         * @param {string} opts.details.terms.type - Content type of terms document
+	         * @param {string} opts.details.terms.name - Name of terms document
 	         *
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         *
@@ -44165,10 +44168,12 @@ var StellarBase =
 	         *
 	         * @param {object} opts.details - Additional details about asset
 	         * @param {string} opts.details.name - Name of the asset
-	         * @param {array}  opts.details.documents - Documents attached to asset
 	         * @param {string} opts.details.logo - Asset picture
 	         * @param {string} opts.details.logo.key - Key to compose asset picture url
-	         * @param {string} opts.details.logo.type - Content type for asset picture
+	         * @param {string} opts.details.logo.type - Content type of asset logo
+	         * @param {string} opts.details.terms - Asset terms
+	         * @param {string} opts.details.terms.type - Content type of terms document
+	         * @param {string} opts.details.terms.name - Name of terms document
 	         *
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         *
@@ -44214,8 +44219,20 @@ var StellarBase =
 	                details.name = "";
 	            }
 
-	            if ((0, _lodashIsUndefined2['default'])(details.documents)) {
-	                details.documents = "";
+	            if ((0, _lodashIsUndefined2['default'])(details.terms)) {
+	                details.terms = {};
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(details.terms.key)) {
+	                details.terms.key = "";
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(details.terms.type)) {
+	                details.terms.type = "";
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(details.terms.name)) {
+	                details.terms.name = "";
 	            }
 
 	            if ((0, _lodashIsUndefined2['default'])(details.logo)) {
@@ -44233,7 +44250,7 @@ var StellarBase =
 	            return {
 	                name: details.name,
 	                logo: details.logo,
-	                documents: details.documents
+	                terms: details.terms
 	            };
 	        }
 	    }, {
