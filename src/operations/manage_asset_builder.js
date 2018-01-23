@@ -22,7 +22,10 @@ export class ManageAssetBuilder {
      * @param {array}  opts.details.documents - Documents attached to asset
      * @param {string} opts.details.logo - Asset picture
      * @param {string} opts.details.logo.key - Key to compose asset picture url
-     * @param {string} opts.details.logo.type - Content type for asset picture
+     * @param {string} opts.details.logo.type - Content type of asset logo
+     * @param {string} opts.details.terms - Asset terms
+     * @param {string} opts.details.terms.type - Content type of terms document
+     * @param {string} opts.details.terms.name - Name of terms document
      *
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
      *
@@ -69,10 +72,12 @@ export class ManageAssetBuilder {
      *
      * @param {object} opts.details - Additional details about asset
      * @param {string} opts.details.name - Name of the asset
-     * @param {array}  opts.details.documents - Documents attached to asset
      * @param {string} opts.details.logo - Asset picture
      * @param {string} opts.details.logo.key - Key to compose asset picture url
-     * @param {string} opts.details.logo.type - Content type for asset picture
+     * @param {string} opts.details.logo.type - Content type of asset logo
+     * @param {string} opts.details.terms - Asset terms
+     * @param {string} opts.details.terms.type - Content type of terms document
+     * @param {string} opts.details.terms.name - Name of terms document
      *
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
      *
@@ -113,8 +118,20 @@ export class ManageAssetBuilder {
             details.name = "";
         }
 
-        if (isUndefined(details.documents)) {
-            details.documents = "";
+        if (isUndefined(details.terms)) {
+            details.terms = {};
+        }
+
+        if (isUndefined(details.terms.key)) {
+            details.terms.key = "";
+        }
+
+        if (isUndefined(details.terms.type)) {
+            details.terms.type = "";
+        }
+
+        if (isUndefined(details.terms.name)) {
+            details.terms.name = "";
         }
 
         if (isUndefined(details.logo)) {
@@ -132,7 +149,7 @@ export class ManageAssetBuilder {
         return {
           name: details.name,
           logo: details.logo,
-          documents: details.documents
+          terms: details.terms
         };
     }
 

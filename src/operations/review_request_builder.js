@@ -91,6 +91,32 @@ export class ReviewRequestBuilder {
         return ReviewRequestBuilder._createOp(opts, attrs);
     }
 
+    /**
+     * Creates operation to review two step withdraw request
+     * @param {object} opts
+     * @param {string} opts.requestID - request ID
+     * @param {string} opts.requestHash - Hash of the request to be reviewed
+     * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
+     * @param {string} opts.reason - Reject reason
+     * @param {string} opts.externalDetails - External System details
+     * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+     * @returns {xdr.ReviewRequestOp}
+     */
+    static reviewTwoStepWithdrawRequest(opts) {
+        if (isUndefined(opts.externalDetails)) {
+            throw new Error("opts.externalDetails is invalid");
+        }
+
+        let attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.twoStepWithdrawal(new xdr.WithdrawalDetails({
+            ext: new xdr.WithdrawalDetailsExt(xdr.LedgerVersion.emptyVersion()),
+            externalDetails: JSON.stringify(opts.externalDetails),
+        }));
+
+        return ReviewRequestBuilder._createOp(opts, attrs);
+    }
+
     static reviewLimitsUpdateRequest(opts) {
         if (isUndefined(opts.newLimits)) {
             throw new Error("opts.newLimits is invalid");
@@ -131,6 +157,12 @@ export class ReviewRequestBuilder {
                         monthlyOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().monthlyOut()),
                         annualOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().annualOut())
                     }
+                };
+                break;
+            }
+            case xdr.ReviewableRequestType.twoStepWithdrawal(): {
+                result.twoStepWithdrawal = {
+                    externalDetails: attrs.requestDetails().twoStepWithdrawal().externalDetails(),
                 };
                 break;
             }
