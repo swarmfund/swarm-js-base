@@ -25,6 +25,10 @@ export class BaseOperation {
         return MAX_INT64;
     }
 
+    static get ONE() {
+        return ONE;
+    }
+
     static get MAX_INT64_AMOUNT() {
         return MAX_INT64_AMOUNT;
     }
