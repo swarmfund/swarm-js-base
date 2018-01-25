@@ -15,6 +15,7 @@ import isFinite from 'lodash/isFinite';
 import crypto from 'crypto';
 
 const ONE = 1000000;
+const DECIMAL_PLACES = 6;
 const MAX_INT64 = '9223372036854775807';
 const MAX_INT64_AMOUNT = '9223372036854.775807';
 
@@ -146,8 +147,8 @@ export class BaseOperation {
             return false;
         }
 
-        // Decimal places (max 4)
-        if (amount.decimalPlaces() > 4) {
+        // Decimal places
+        if (amount.decimalPlaces() > DECIMAL_PLACES) {
             return false;
         }
 

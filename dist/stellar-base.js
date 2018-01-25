@@ -297,7 +297,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-01-23T15:38:15+02:00
+	// Automatically generated on 2018-01-24T19:05:12+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -43607,6 +43607,7 @@ var StellarBase =
 	var _crypto2 = _interopRequireDefault(_crypto);
 
 	var ONE = 1000000;
+	var DECIMAL_PLACES = 6;
 	var MAX_INT64 = '9223372036854775807';
 	var MAX_INT64_AMOUNT = '9223372036854.775807';
 
@@ -43746,8 +43747,8 @@ var StellarBase =
 	                return false;
 	            }
 
-	            // Decimal places (max 4)
-	            if (amount.decimalPlaces() > 4) {
+	            // Decimal places
+	            if (amount.decimalPlaces() > DECIMAL_PLACES) {
 	                return false;
 	            }
 
