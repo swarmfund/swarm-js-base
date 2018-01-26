@@ -1,4 +1,4 @@
-// Automatically generated on 2018-01-24T19:05:12+02:00
+// Automatically generated on 2018-01-26T14:39:25+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -471,7 +471,8 @@ xdr.struct("AssetPairEntry", [
 //   	BASE_ASSET = 2,
 //   	STATS_QUOTE_ASSET = 4,
 //   	WITHDRAWABLE = 8,
-//   	TWO_STEP_WITHDRAWAL = 16
+//   	TWO_STEP_WITHDRAWAL = 16,
+//   	REQUIRES_KYC = 32
 //   };
 //
 // ===========================================================================
@@ -481,6 +482,7 @@ xdr.enum("AssetPolicy", {
   statsQuoteAsset: 4,
   withdrawable: 8,
   twoStepWithdrawal: 16,
+  requiresKyc: 32,
 });
 
 // === xdr source ============================================================
@@ -1156,6 +1158,49 @@ xdr.struct("ReviewableRequestEntry", [
 //       }
 //
 // ===========================================================================
+xdr.union("SaleQuoteAssetExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct SaleQuoteAsset {
+//   	AssetCode quoteAsset; // asset in which participation will be accepted
+//   	uint64 price; // price for 1 baseAsset in terms of quote asset
+//   	BalanceID quoteBalance;
+//   	uint64 currentCap; // current capitalization
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("SaleQuoteAsset", [
+  ["quoteAsset", xdr.lookup("AssetCode")],
+  ["price", xdr.lookup("Uint64")],
+  ["quoteBalance", xdr.lookup("BalanceId")],
+  ["currentCap", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("SaleQuoteAssetExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
 xdr.union("SaleEntryExt", {
   switchOn: xdr.lookup("LedgerVersion"),
   switchName: "v",
@@ -1173,18 +1218,15 @@ xdr.union("SaleEntryExt", {
 //   	uint64 saleID;
 //   	AccountID ownerID;
 //       AssetCode baseAsset; // asset for which sale will be performed
-//   	AssetCode quoteAsset; // asset in which participation will be accepted
 //   	uint64 startTime; // start time of the sale
 //   	uint64 endTime; // close time of the sale
-//   	uint64 price; // price for 1 baseAsset in terms of quote asset
+//   	AssetCode defaultQuoteAsset; // asset for soft and hard cap
 //   	uint64 softCap; // minimum amount of quote asset to be received at which sale will be considered a successful
 //   	uint64 hardCap; // max amount of quote asset to be received
 //   	longstring details; // sale specific details
+//   	SaleQuoteAsset quoteAssets<100>;
 //   
 //   	BalanceID baseBalance;
-//   	BalanceID quoteBalance;
-//   
-//   	uint64 currentCap; // current capitalization
 //   
 //   	union switch (LedgerVersion v)
 //       {
@@ -1199,16 +1241,14 @@ xdr.struct("SaleEntry", [
   ["saleId", xdr.lookup("Uint64")],
   ["ownerId", xdr.lookup("AccountId")],
   ["baseAsset", xdr.lookup("AssetCode")],
-  ["quoteAsset", xdr.lookup("AssetCode")],
   ["startTime", xdr.lookup("Uint64")],
   ["endTime", xdr.lookup("Uint64")],
-  ["price", xdr.lookup("Uint64")],
+  ["defaultQuoteAsset", xdr.lookup("AssetCode")],
   ["softCap", xdr.lookup("Uint64")],
   ["hardCap", xdr.lookup("Uint64")],
   ["details", xdr.lookup("Longstring")],
+  ["quoteAssets", xdr.varArray(xdr.lookup("SaleQuoteAsset"), 100)],
   ["baseBalance", xdr.lookup("BalanceId")],
-  ["quoteBalance", xdr.lookup("BalanceId")],
-  ["currentCap", xdr.lookup("Uint64")],
   ["ext", xdr.lookup("SaleEntryExt")],
 ]);
 
@@ -2869,7 +2909,7 @@ xdr.union("CheckSaleStateOpExt", {
 //
 //   struct CheckSaleStateOp
 //   {
-//   
+//   	uint64 saleID;
 //   	 // reserved for future use
 //       union switch (LedgerVersion v)
 //       {
@@ -2881,6 +2921,7 @@ xdr.union("CheckSaleStateOpExt", {
 //
 // ===========================================================================
 xdr.struct("CheckSaleStateOp", [
+  ["saleId", xdr.lookup("Uint64")],
   ["ext", xdr.lookup("CheckSaleStateOpExt")],
 ]);
 
@@ -2892,13 +2933,15 @@ xdr.struct("CheckSaleStateOp", [
 //       SUCCESS = 0, // sale was processed
 //   
 //       // codes considered as "failure" for the operation
-//       NO_SALES_FOUND = -1 // no sales were found to meet specified conditions
+//       NOT_FOUND = -1, // sale was not found
+//   	NOT_READY = -2 // sale is not ready to be closed or canceled
 //   };
 //
 // ===========================================================================
 xdr.enum("CheckSaleStateResultCode", {
   success: 0,
-  noSalesFound: -1,
+  notFound: -1,
+  notReady: -2,
 });
 
 // === xdr source ============================================================
@@ -2959,6 +3002,48 @@ xdr.struct("SaleCanceled", [
 //       }
 //
 // ===========================================================================
+xdr.union("CheckSubSaleClosedResultExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct CheckSubSaleClosedResult {
+//   	BalanceID saleBaseBalance;
+//   	BalanceID saleQuoteBalance;
+//   	ManageOfferSuccessResult saleDetails;
+//   	 // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("CheckSubSaleClosedResult", [
+  ["saleBaseBalance", xdr.lookup("BalanceId")],
+  ["saleQuoteBalance", xdr.lookup("BalanceId")],
+  ["saleDetails", xdr.lookup("ManageOfferSuccessResult")],
+  ["ext", xdr.lookup("CheckSubSaleClosedResultExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
 xdr.union("CheckSaleClosedResultExt", {
   switchOn: xdr.lookup("LedgerVersion"),
   switchName: "v",
@@ -2973,9 +3058,7 @@ xdr.union("CheckSaleClosedResultExt", {
 //
 //   struct CheckSaleClosedResult {
 //   	AccountID saleOwner;
-//   	BalanceID saleBaseBalance;
-//   	BalanceID saleQuoteBalance;
-//   	ManageOfferSuccessResult saleDetails;
+//   	CheckSubSaleClosedResult results<>;
 //   	 // reserved for future use
 //       union switch (LedgerVersion v)
 //       {
@@ -2988,9 +3071,7 @@ xdr.union("CheckSaleClosedResultExt", {
 // ===========================================================================
 xdr.struct("CheckSaleClosedResult", [
   ["saleOwner", xdr.lookup("AccountId")],
-  ["saleBaseBalance", xdr.lookup("BalanceId")],
-  ["saleQuoteBalance", xdr.lookup("BalanceId")],
-  ["saleDetails", xdr.lookup("ManageOfferSuccessResult")],
+  ["results", xdr.varArray(xdr.lookup("CheckSubSaleClosedResult"), 2147483647)],
   ["ext", xdr.lookup("CheckSaleClosedResultExt")],
 ]);
 
@@ -3295,7 +3376,8 @@ xdr.struct("CreateIssuanceRequestOp", [
 //   	EXCEEDS_MAX_ISSUANCE_AMOUNT = -6,
 //   	RECEIVER_FULL_LINE = -7,
 //   	INVALID_EXTERNAL_DETAILS = -8, // external details size exceeds max allowed
-//   	FEE_EXCEEDS_AMOUNT = -9 // fee more than amount to issue
+//   	FEE_EXCEEDS_AMOUNT = -9, // fee more than amount to issue
+//       REQUIRES_KYC = -10 // asset requires receiver to have KYC
 //   };
 //
 // ===========================================================================
@@ -3310,6 +3392,7 @@ xdr.enum("CreateIssuanceRequestResultCode", {
   receiverFullLine: -7,
   invalidExternalDetail: -8,
   feeExceedsAmount: -9,
+  requiresKyc: -10,
 });
 
 // === xdr source ============================================================
@@ -4839,7 +4922,8 @@ xdr.struct("ManageOfferOp", [
 //   	PRICE_IS_INVALID = -20, // price must be positive
 //   	UPDATE_IS_NOT_ALLOWED = -21, // update of the offer is not allowed
 //   	INVALID_AMOUNT = -22, // amount must be positive 
-//   	SALE_IS_NOT_ACTIVE = -23
+//   	SALE_IS_NOT_ACTIVE = -23,
+//   	REQUIRES_KYC = -24 // source must have KYC in order to participate
 //   
 //   };
 //
@@ -4869,6 +4953,7 @@ xdr.enum("ManageOfferResultCode", {
   updateIsNotAllowed: -21,
   invalidAmount: -22,
   saleIsNotActive: -23,
+  requiresKyc: -24,
 });
 
 // === xdr source ============================================================
@@ -6949,6 +7034,45 @@ xdr.struct("LimitsUpdateRequest", [
 //       }
 //
 // ===========================================================================
+xdr.union("SaleCreationRequestQuoteAssetExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct SaleCreationRequestQuoteAsset {
+//   	AssetCode quoteAsset; // asset in which participation will be accepted
+//   	uint64 price; // price for 1 baseAsset in terms of quote asset
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("SaleCreationRequestQuoteAsset", [
+  ["quoteAsset", xdr.lookup("AssetCode")],
+  ["price", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("SaleCreationRequestQuoteAssetExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
 xdr.union("SaleCreationRequestExt", {
   switchOn: xdr.lookup("LedgerVersion"),
   switchName: "v",
@@ -6963,13 +7087,14 @@ xdr.union("SaleCreationRequestExt", {
 //
 //   struct SaleCreationRequest {
 //   	AssetCode baseAsset; // asset for which sale will be performed
-//   	AssetCode quoteAsset; // asset in which participation will be accepted
+//   	AssetCode defaultQuoteAsset; // asset for soft and hard cap
 //   	uint64 startTime; // start time of the sale
 //   	uint64 endTime; // close time of the sale
-//   	uint64 price; // price for 1 baseAsset in terms of quote asset
 //   	uint64 softCap; // minimum amount of quote asset to be received at which sale will be considered a successful
 //   	uint64 hardCap; // max amount of quote asset to be received
 //   	longstring details; // sale specific details
+//   
+//   	SaleCreationRequestQuoteAsset quoteAssets<100>;
 //   
 //   	union switch (LedgerVersion v)
 //       {
@@ -6982,13 +7107,13 @@ xdr.union("SaleCreationRequestExt", {
 // ===========================================================================
 xdr.struct("SaleCreationRequest", [
   ["baseAsset", xdr.lookup("AssetCode")],
-  ["quoteAsset", xdr.lookup("AssetCode")],
+  ["defaultQuoteAsset", xdr.lookup("AssetCode")],
   ["startTime", xdr.lookup("Uint64")],
   ["endTime", xdr.lookup("Uint64")],
-  ["price", xdr.lookup("Uint64")],
   ["softCap", xdr.lookup("Uint64")],
   ["hardCap", xdr.lookup("Uint64")],
   ["details", xdr.lookup("Longstring")],
+  ["quoteAssets", xdr.varArray(xdr.lookup("SaleCreationRequestQuoteAsset"), 100)],
   ["ext", xdr.lookup("SaleCreationRequestExt")],
 ]);
 
