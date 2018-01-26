@@ -306,7 +306,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-01-25T15:20:55+02:00
+	// Automatically generated on 2018-01-26T21:41:22+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -677,7 +677,7 @@ var StellarBase =
 	//
 	//   struct CheckSaleStateOp
 	//   {
-	//   
+	//   	uint64 saleID;
 	//   	 // reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -688,7 +688,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("CheckSaleStateOp",[["ext",xdr.lookup("CheckSaleStateOpExt")]]); // === xdr source ============================================================
+	xdr.struct("CheckSaleStateOp",[["saleId",xdr.lookup("Uint64")],["ext",xdr.lookup("CheckSaleStateOpExt")]]); // === xdr source ============================================================
 	//
 	//   enum CheckSaleStateResultCode
 	//   {
@@ -696,11 +696,12 @@ var StellarBase =
 	//       SUCCESS = 0, // sale was processed
 	//   
 	//       // codes considered as "failure" for the operation
-	//       NO_SALES_FOUND = -1 // no sales were found to meet specified conditions
+	//       NOT_FOUND = -1, // sale was not found
+	//   	NOT_READY = -2 // sale is not ready to be closed or canceled
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("CheckSaleStateResultCode",{success:0,noSalesFound:-1}); // === xdr source ============================================================
+	xdr["enum"]("CheckSaleStateResultCode",{success:0,notFound:-1,notReady:-2}); // === xdr source ============================================================
 	//
 	//   enum CheckSaleStateEffect {
 	//   	CANCELED = 1, // sale did not managed to go over soft cap in time
@@ -739,10 +740,9 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("CheckSaleClosedResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	xdr.union("CheckSubSaleClosedResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
-	//   struct CheckSaleClosedResult {
-	//   	AccountID saleOwner;
+	//   struct CheckSubSaleClosedResult {
 	//   	BalanceID saleBaseBalance;
 	//   	BalanceID saleQuoteBalance;
 	//   	ManageOfferSuccessResult saleDetails;
@@ -756,7 +756,31 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("CheckSaleClosedResult",[["saleOwner",xdr.lookup("AccountId")],["saleBaseBalance",xdr.lookup("BalanceId")],["saleQuoteBalance",xdr.lookup("BalanceId")],["saleDetails",xdr.lookup("ManageOfferSuccessResult")],["ext",xdr.lookup("CheckSaleClosedResultExt")]]); // === xdr source ============================================================
+	xdr.struct("CheckSubSaleClosedResult",[["saleBaseBalance",xdr.lookup("BalanceId")],["saleQuoteBalance",xdr.lookup("BalanceId")],["saleDetails",xdr.lookup("ManageOfferSuccessResult")],["ext",xdr.lookup("CheckSubSaleClosedResultExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("CheckSaleClosedResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct CheckSaleClosedResult {
+	//   	AccountID saleOwner;
+	//   	CheckSubSaleClosedResult results<>;
+	//   	 // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("CheckSaleClosedResult",[["saleOwner",xdr.lookup("AccountId")],["results",xdr.varArray(xdr.lookup("CheckSubSaleClosedResult"),2147483647)],["ext",xdr.lookup("CheckSaleClosedResultExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (CheckSaleStateEffect effect)
 	//       {
@@ -969,12 +993,13 @@ var StellarBase =
 	//   	PRICE_IS_INVALID = -20, // price must be positive
 	//   	UPDATE_IS_NOT_ALLOWED = -21, // update of the offer is not allowed
 	//   	INVALID_AMOUNT = -22, // amount must be positive 
-	//   	SALE_IS_NOT_ACTIVE = -23
+	//   	SALE_IS_NOT_ACTIVE = -23,
+	//   	REQUIRES_KYC = -24 // source must have KYC in order to participate
 	//   
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageOfferResultCode",{success:0,malformed:-1,pairNotTraded:-2,balanceNotFound:-3,underfunded:-4,crossSelf:-5,offerOverflow:-6,assetPairNotTradable:-7,physicalPriceRestriction:-8,currentPriceRestriction:-9,notFound:-10,invalidPercentFee:-11,insufficientPrice:-12,orderBookDoesNotExist:-13,saleIsNotStartedYet:-14,saleAlreadyEnded:-15,orderViolatesHardCap:-16,cantParticipateOwnSale:-17,assetMismatched:-18,priceDoesNotMatch:-19,priceIsInvalid:-20,updateIsNotAllowed:-21,invalidAmount:-22,saleIsNotActive:-23}); // === xdr source ============================================================
+	xdr["enum"]("ManageOfferResultCode",{success:0,malformed:-1,pairNotTraded:-2,balanceNotFound:-3,underfunded:-4,crossSelf:-5,offerOverflow:-6,assetPairNotTradable:-7,physicalPriceRestriction:-8,currentPriceRestriction:-9,notFound:-10,invalidPercentFee:-11,insufficientPrice:-12,orderBookDoesNotExist:-13,saleIsNotStartedYet:-14,saleAlreadyEnded:-15,orderViolatesHardCap:-16,cantParticipateOwnSale:-17,assetMismatched:-18,priceDoesNotMatch:-19,priceIsInvalid:-20,updateIsNotAllowed:-21,invalidAmount:-22,saleIsNotActive:-23,requiresKyc:-24}); // === xdr source ============================================================
 	//
 	//   enum ManageOfferEffect
 	//   {
@@ -2161,6 +2186,31 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
+	xdr.union("SaleQuoteAssetExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct SaleQuoteAsset {
+	//   	AssetCode quoteAsset; // asset in which participation will be accepted
+	//   	uint64 price; // price for 1 baseAsset in terms of quote asset
+	//   	BalanceID quoteBalance;
+	//   	uint64 currentCap; // current capitalization
+	//   	union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("SaleQuoteAsset",[["quoteAsset",xdr.lookup("AssetCode")],["price",xdr.lookup("Uint64")],["quoteBalance",xdr.lookup("BalanceId")],["currentCap",xdr.lookup("Uint64")],["ext",xdr.lookup("SaleQuoteAssetExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
 	xdr.union("SaleEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct SaleEntry
@@ -2168,18 +2218,15 @@ var StellarBase =
 	//   	uint64 saleID;
 	//   	AccountID ownerID;
 	//       AssetCode baseAsset; // asset for which sale will be performed
-	//   	AssetCode quoteAsset; // asset in which participation will be accepted
 	//   	uint64 startTime; // start time of the sale
 	//   	uint64 endTime; // close time of the sale
-	//   	uint64 price; // price for 1 baseAsset in terms of quote asset
+	//   	AssetCode defaultQuoteAsset; // asset for soft and hard cap
 	//   	uint64 softCap; // minimum amount of quote asset to be received at which sale will be considered a successful
 	//   	uint64 hardCap; // max amount of quote asset to be received
 	//   	longstring details; // sale specific details
+	//   	SaleQuoteAsset quoteAssets<100>;
 	//   
 	//   	BalanceID baseBalance;
-	//   	BalanceID quoteBalance;
-	//   
-	//   	uint64 currentCap; // current capitalization
 	//   
 	//   	union switch (LedgerVersion v)
 	//       {
@@ -2190,7 +2237,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("SaleEntry",[["saleId",xdr.lookup("Uint64")],["ownerId",xdr.lookup("AccountId")],["baseAsset",xdr.lookup("AssetCode")],["quoteAsset",xdr.lookup("AssetCode")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["price",xdr.lookup("Uint64")],["softCap",xdr.lookup("Uint64")],["hardCap",xdr.lookup("Uint64")],["details",xdr.lookup("Longstring")],["baseBalance",xdr.lookup("BalanceId")],["quoteBalance",xdr.lookup("BalanceId")],["currentCap",xdr.lookup("Uint64")],["ext",xdr.lookup("SaleEntryExt")]]); // === xdr source ============================================================
+	xdr.struct("SaleEntry",[["saleId",xdr.lookup("Uint64")],["ownerId",xdr.lookup("AccountId")],["baseAsset",xdr.lookup("AssetCode")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["defaultQuoteAsset",xdr.lookup("AssetCode")],["softCap",xdr.lookup("Uint64")],["hardCap",xdr.lookup("Uint64")],["details",xdr.lookup("Longstring")],["quoteAssets",xdr.varArray(xdr.lookup("SaleQuoteAsset"),100)],["baseBalance",xdr.lookup("BalanceId")],["ext",xdr.lookup("SaleEntryExt")]]); // === xdr source ============================================================
 	//
 	//   enum ManageBalanceAction
 	//   {
@@ -2848,17 +2895,41 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
+	xdr.union("SaleCreationRequestQuoteAssetExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct SaleCreationRequestQuoteAsset {
+	//   	AssetCode quoteAsset; // asset in which participation will be accepted
+	//   	uint64 price; // price for 1 baseAsset in terms of quote asset
+	//   	union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("SaleCreationRequestQuoteAsset",[["quoteAsset",xdr.lookup("AssetCode")],["price",xdr.lookup("Uint64")],["ext",xdr.lookup("SaleCreationRequestQuoteAssetExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
 	xdr.union("SaleCreationRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct SaleCreationRequest {
 	//   	AssetCode baseAsset; // asset for which sale will be performed
-	//   	AssetCode quoteAsset; // asset in which participation will be accepted
+	//   	AssetCode defaultQuoteAsset; // asset for soft and hard cap
 	//   	uint64 startTime; // start time of the sale
 	//   	uint64 endTime; // close time of the sale
-	//   	uint64 price; // price for 1 baseAsset in terms of quote asset
 	//   	uint64 softCap; // minimum amount of quote asset to be received at which sale will be considered a successful
 	//   	uint64 hardCap; // max amount of quote asset to be received
 	//   	longstring details; // sale specific details
+	//   
+	//   	SaleCreationRequestQuoteAsset quoteAssets<100>;
 	//   
 	//   	union switch (LedgerVersion v)
 	//       {
@@ -2869,7 +2940,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("SaleCreationRequest",[["baseAsset",xdr.lookup("AssetCode")],["quoteAsset",xdr.lookup("AssetCode")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["price",xdr.lookup("Uint64")],["softCap",xdr.lookup("Uint64")],["hardCap",xdr.lookup("Uint64")],["details",xdr.lookup("Longstring")],["ext",xdr.lookup("SaleCreationRequestExt")]]); // === xdr source ============================================================
+	xdr.struct("SaleCreationRequest",[["baseAsset",xdr.lookup("AssetCode")],["defaultQuoteAsset",xdr.lookup("AssetCode")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["softCap",xdr.lookup("Uint64")],["hardCap",xdr.lookup("Uint64")],["details",xdr.lookup("Longstring")],["quoteAssets",xdr.varArray(xdr.lookup("SaleCreationRequestQuoteAsset"),100)],["ext",xdr.lookup("SaleCreationRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2910,11 +2981,12 @@ var StellarBase =
 	//   	EXCEEDS_MAX_ISSUANCE_AMOUNT = -6,
 	//   	RECEIVER_FULL_LINE = -7,
 	//   	INVALID_EXTERNAL_DETAILS = -8, // external details size exceeds max allowed
-	//   	FEE_EXCEEDS_AMOUNT = -9 // fee more than amount to issue
+	//   	FEE_EXCEEDS_AMOUNT = -9, // fee more than amount to issue
+	//       REQUIRES_KYC = -10 // asset requires receiver to have KYC
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("CreateIssuanceRequestResultCode",{success:0,assetNotFound:-1,invalidAmount:-2,referenceDuplication:-3,noCounterparty:-4,notAuthorized:-5,exceedsMaxIssuanceAmount:-6,receiverFullLine:-7,invalidExternalDetail:-8,feeExceedsAmount:-9}); // === xdr source ============================================================
+	xdr["enum"]("CreateIssuanceRequestResultCode",{success:0,assetNotFound:-1,invalidAmount:-2,referenceDuplication:-3,noCounterparty:-4,notAuthorized:-5,exceedsMaxIssuanceAmount:-6,receiverFullLine:-7,invalidExternalDetail:-8,feeExceedsAmount:-9,requiresKyc:-10}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   	{
@@ -4866,11 +4938,12 @@ var StellarBase =
 	//   	BASE_ASSET = 2,
 	//   	STATS_QUOTE_ASSET = 4,
 	//   	WITHDRAWABLE = 8,
-	//   	TWO_STEP_WITHDRAWAL = 16
+	//   	TWO_STEP_WITHDRAWAL = 16,
+	//   	REQUIRES_KYC = 32
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("AssetPolicy",{transferable:1,baseAsset:2,statsQuoteAsset:4,withdrawable:8,twoStepWithdrawal:16}); // === xdr source ============================================================
+	xdr["enum"]("AssetPolicy",{transferable:1,baseAsset:2,statsQuoteAsset:4,withdrawable:8,twoStepWithdrawal:16,requiresKyc:32}); // === xdr source ============================================================
 	//
 	//   enum AssetSystemPolicies
 	//   {
@@ -43741,6 +43814,7 @@ var StellarBase =
 	var _crypto2 = _interopRequireDefault(_crypto);
 
 	var ONE = 1000000;
+	var DECIMAL_PLACES = 6;
 	var MAX_INT64 = '9223372036854775807';
 	var MAX_INT64_AMOUNT = '9223372036854.775807';
 
@@ -43880,8 +43954,8 @@ var StellarBase =
 	                return false;
 	            }
 
-	            // Decimal places (max 4)
-	            if (amount.decimalPlaces() > 4) {
+	            // Decimal places
+	            if (amount.decimalPlaces() > DECIMAL_PLACES) {
 	                return false;
 	            }
 
@@ -44081,6 +44155,11 @@ var StellarBase =
 	        key: "MAX_INT64",
 	        get: function get() {
 	            return MAX_INT64;
+	        }
+	    }, {
+	        key: "ONE",
+	        get: function get() {
+	            return ONE;
 	        }
 	    }, {
 	        key: "MAX_INT64_AMOUNT",
@@ -45178,10 +45257,9 @@ var StellarBase =
 	         * @param {object} opts
 	         * @param {string} opts.requestID - ID of the request. 0 - to create new;
 	         * @param {string} opts.baseAsset - asset for which sale will be performed
-	         * @param {string} opts.quoteAsset - asset in which participation will be accepted
+	         * @param {string} opts.defaultQuoteAsset - asset in which hardcap/soft cap will be calculated
 	         * @param {string} opts.startTime - start time of the sale
 	         * @param {string} opts.endTime - close time of the sale
-	         * @param {string} opts.price - price for 1 baseAsset in terms of quote asset
 	         * @param {string} opts.softCap - minimum amount of quote asset to be received at which sale will be considered a successful
 	         * @param {string} opts.hardCap - max amount of quote asset to be received
 	         * @param {object} opts.details - sale specific details
@@ -45189,6 +45267,9 @@ var StellarBase =
 	         * @param {object} opts.details.short_description - short description of the sale
 	         * @param {object} opts.details.desciption - sale specific details
 	         * @param {object} opts.details.logo - details of the logo
+	         * @param {array} opts.quoteAssets - accepted assets
+	         * @param {object} opts.quoteAssets.price - price for 1 baseAsset in terms of quote asset 
+	         * @param {object} opts.quoteAssets.asset - asset code of the quote asset
 	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
 	         * @returns {xdr.CreateSaleCreationRequestOp}
 	         */
@@ -45200,10 +45281,10 @@ var StellarBase =
 	            }
 	            attrs.baseAsset = opts.baseAsset;
 
-	            if (!_base_operation.BaseOperation.isValidAsset(opts.quoteAsset)) {
-	                throw new Error("opts.quoteAsset is invalid");
+	            if (!_base_operation.BaseOperation.isValidAsset(opts.defaultQuoteAsset)) {
+	                throw new Error("opts.defaultQuoteAsset is invalid");
 	            }
-	            attrs.quoteAsset = opts.quoteAsset;
+	            attrs.defaultQuoteAsset = opts.defaultQuoteAsset;
 
 	            if ((0, _lodashIsUndefined2['default'])(opts.startTime)) {
 	                throw new Error("opts.startTime is invalid");
@@ -45215,13 +45296,8 @@ var StellarBase =
 	            }
 	            attrs.endTime = _jsXdr.UnsignedHyper.fromString(opts.endTime);
 
-	            if (!_base_operation.BaseOperation.isValidAmount(opts.price, false)) {
-	                throw new Error("opts.price is invalid");
-	            }
-	            attrs.price = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.price);
-
 	            if (!_base_operation.BaseOperation.isValidAmount(opts.softCap, true)) {
-	                throw new Error("opts.price is invalid");
+	                throw new Error("opts.softCap is invalid");
 	            }
 	            attrs.softCap = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.softCap);
 
@@ -45237,6 +45313,28 @@ var StellarBase =
 
 	            if ((0, _lodashIsUndefined2['default'])(opts.requestID)) {
 	                opts.requestID = "0";
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.quoteAssets) || opts.quoteAssets.length == 0) {
+	                throw new Error("opts.quoteAssets is invalid");
+	            }
+
+	            attrs.quoteAssets = [];
+	            for (var i = 0; i < opts.quoteAssets.length; i++) {
+	                var quoteAsset = opts.quoteAssets[i];
+	                if (!_base_operation.BaseOperation.isValidAmount(quoteAsset.price, false)) {
+	                    throw new Error("opts.quoteAssets[i].price is invalid");
+	                }
+
+	                if ((0, _lodashIsUndefined2['default'])(quoteAsset.asset)) {
+	                    throw new Error("opts.quoteAssets[i].asset is invalid");
+	                }
+
+	                attrs.quoteAssets.push(new _generatedStellarXdr_generated2['default'].SaleCreationRequestQuoteAsset({
+	                    price: _base_operation.BaseOperation._toUnsignedXDRAmount(quoteAsset.price),
+	                    quoteAsset: quoteAsset.asset,
+	                    ext: new _generatedStellarXdr_generated2['default'].SaleCreationRequestQuoteAssetExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	                }));
 	            }
 
 	            var withdrawRequestOp = new _generatedStellarXdr_generated2['default'].CreateSaleCreationRequestOp({
@@ -45278,18 +45376,25 @@ var StellarBase =
 	            result.requestID = attrs.requestId().toString();
 	            var request = attrs.request();
 	            result.baseAsset = request.baseAsset();
-	            result.quoteAsset = request.quoteAsset();
+	            result.defaultQuoteAsset = request.defaultQuoteAsset();
 	            result.startTime = request.startTime().toString();
 	            result.endTime = request.endTime().toString();
-	            result.price = _base_operation.BaseOperation._fromXDRAmount(request.price());
 	            result.softCap = _base_operation.BaseOperation._fromXDRAmount(request.softCap());
 	            result.hardCap = _base_operation.BaseOperation._fromXDRAmount(request.hardCap());
 	            result.details = JSON.parse(request.details());
+	            result.quoteAssets = [];
+	            for (var i = 0; i < request.quoteAssets().length; i++) {
+	                result.quoteAssets.push({
+	                    price: _base_operation.BaseOperation._fromXDRAmount(request.quoteAssets()[i].price()),
+	                    asset: request.quoteAssets()[i].quoteAsset()
+	                });
+	            }
 	        }
 
 	        /**
 	         * Creates operation to check sale state
 	         * @param {object} opts
+	         * @param {string} saleID - id of the sale to check
 	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
 	         * @returns {xdr.CheckSaleStateOp}
 	         */
@@ -45298,7 +45403,12 @@ var StellarBase =
 	        value: function checkSaleState(opts) {
 	            var attrs = {};
 
+	            if ((0, _lodashIsUndefined2['default'])(opts.saleID)) {
+	                throw new Error("Invalid opts.saleID");
+	            }
+
 	            var checkSaleStateOp = new _generatedStellarXdr_generated2['default'].CheckSaleStateOp({
+	                saleId: _jsXdr.UnsignedHyper.fromString(opts.saleID),
 	                ext: new _generatedStellarXdr_generated2['default'].CheckSaleStateOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
 	            });
 	            var opAttributes = {};
@@ -45309,7 +45419,7 @@ var StellarBase =
 	    }, {
 	        key: 'checkSaleStateToObject',
 	        value: function checkSaleStateToObject(result, attrs) {
-	            // nothing to add here
+	            result.saleID = attrs.saleId().toString();
 	        }
 	    }]);
 

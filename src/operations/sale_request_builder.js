@@ -11,10 +11,9 @@ export class SaleRequestBuilder {
      * @param {object} opts
      * @param {string} opts.requestID - ID of the request. 0 - to create new;
      * @param {string} opts.baseAsset - asset for which sale will be performed
-     * @param {string} opts.quoteAsset - asset in which participation will be accepted
+     * @param {string} opts.defaultQuoteAsset - asset in which hardcap/soft cap will be calculated
      * @param {string} opts.startTime - start time of the sale
      * @param {string} opts.endTime - close time of the sale
-     * @param {string} opts.price - price for 1 baseAsset in terms of quote asset
      * @param {string} opts.softCap - minimum amount of quote asset to be received at which sale will be considered a successful
      * @param {string} opts.hardCap - max amount of quote asset to be received
      * @param {object} opts.details - sale specific details
@@ -22,6 +21,9 @@ export class SaleRequestBuilder {
      * @param {object} opts.details.short_description - short description of the sale
      * @param {object} opts.details.desciption - sale specific details
      * @param {object} opts.details.logo - details of the logo
+     * @param {array} opts.quoteAssets - accepted assets
+     * @param {object} opts.quoteAssets.price - price for 1 baseAsset in terms of quote asset 
+     * @param {object} opts.quoteAssets.asset - asset code of the quote asset
      * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
      * @returns {xdr.CreateSaleCreationRequestOp}
      */
@@ -33,10 +35,10 @@ export class SaleRequestBuilder {
         }
         attrs.baseAsset = opts.baseAsset;
 
-        if (!BaseOperation.isValidAsset(opts.quoteAsset)) {
-            throw new Error("opts.quoteAsset is invalid");
+        if (!BaseOperation.isValidAsset(opts.defaultQuoteAsset)) {
+            throw new Error("opts.defaultQuoteAsset is invalid");
         }
-        attrs.quoteAsset = opts.quoteAsset;
+        attrs.defaultQuoteAsset = opts.defaultQuoteAsset;
 
         if (isUndefined(opts.startTime)) {
             throw new Error("opts.startTime is invalid");
@@ -48,13 +50,8 @@ export class SaleRequestBuilder {
         }
         attrs.endTime = UnsignedHyper.fromString(opts.endTime);
 
-        if (!BaseOperation.isValidAmount(opts.price, false)) {
-            throw new Error("opts.price is invalid");
-        }
-        attrs.price = BaseOperation._toUnsignedXDRAmount(opts.price);
-
         if (!BaseOperation.isValidAmount(opts.softCap, true)) {
-            throw new Error("opts.price is invalid");
+            throw new Error("opts.softCap is invalid");
         }
         attrs.softCap = BaseOperation._toUnsignedXDRAmount(opts.softCap);
 
@@ -70,6 +67,28 @@ export class SaleRequestBuilder {
 
         if (isUndefined(opts.requestID)) {
             opts.requestID = "0";
+        }
+
+        if (isUndefined(opts.quoteAssets) || opts.quoteAssets.length == 0) {
+            throw new Error("opts.quoteAssets is invalid");
+        }
+
+        attrs.quoteAssets = [];
+        for (var i = 0; i < opts.quoteAssets.length; i++) {
+            let quoteAsset = opts.quoteAssets[i];
+            if (!BaseOperation.isValidAmount(quoteAsset.price, false)) {
+                throw new Error("opts.quoteAssets[i].price is invalid");
+            }
+
+            if (isUndefined(quoteAsset.asset)) {
+                throw new Error("opts.quoteAssets[i].asset is invalid");
+            }
+
+            attrs.quoteAssets.push(new xdr.SaleCreationRequestQuoteAsset({
+                price: BaseOperation._toUnsignedXDRAmount(quoteAsset.price),
+                quoteAsset: quoteAsset.asset,
+                ext: new xdr.SaleCreationRequestQuoteAssetExt(xdr.LedgerVersion.emptyVersion()),
+            }));
         }
 
         let withdrawRequestOp = new xdr.CreateSaleCreationRequestOp({
@@ -109,25 +128,37 @@ export class SaleRequestBuilder {
         result.requestID = attrs.requestId().toString();
         let request = attrs.request();
         result.baseAsset = request.baseAsset();
-        result.quoteAsset = request.quoteAsset();
+        result.defaultQuoteAsset = request.defaultQuoteAsset();
         result.startTime = request.startTime().toString();
         result.endTime = request.endTime().toString();
-        result.price = BaseOperation._fromXDRAmount(request.price());
         result.softCap = BaseOperation._fromXDRAmount(request.softCap());
         result.hardCap = BaseOperation._fromXDRAmount(request.hardCap());
         result.details = JSON.parse(request.details());
+        result.quoteAssets = [];
+        for (var i = 0; i < request.quoteAssets().length; i++) {
+            result.quoteAssets.push({
+                price: BaseOperation._fromXDRAmount(request.quoteAssets()[i].price()),
+                asset: request.quoteAssets()[i].quoteAsset(),
+            });
+        }
     }
 
     /**
      * Creates operation to check sale state
      * @param {object} opts
+     * @param {string} saleID - id of the sale to check
      * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
      * @returns {xdr.CheckSaleStateOp}
      */
     static checkSaleState(opts) {
         let attrs = {};
 
+        if (isUndefined(opts.saleID)) {
+            throw new Error("Invalid opts.saleID");
+        }
+
         let checkSaleStateOp = new xdr.CheckSaleStateOp({
+            saleId: UnsignedHyper.fromString(opts.saleID),
             ext: new xdr.CheckSaleStateOpExt(xdr.LedgerVersion.emptyVersion())
         });
         let opAttributes = {};
@@ -137,6 +168,6 @@ export class SaleRequestBuilder {
     }
 
     static checkSaleStateToObject(result, attrs) {
-       // nothing to add here
+        result.saleID = attrs.saleId().toString();
     }
 }
