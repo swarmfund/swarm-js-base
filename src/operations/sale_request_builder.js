@@ -24,6 +24,7 @@ export class SaleRequestBuilder {
      * @param {array} opts.quoteAssets - accepted assets
      * @param {object} opts.quoteAssets.price - price for 1 baseAsset in terms of quote asset 
      * @param {object} opts.quoteAssets.asset - asset code of the quote asset
+     * @param {object} opts.isCrowdfunding - states if sale type is crowd funding
      * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
      * @returns {xdr.CreateSaleCreationRequestOp}
      */
@@ -63,6 +64,20 @@ export class SaleRequestBuilder {
         SaleRequestBuilder.validateDetail(opts.details);
         attrs.details = JSON.stringify(opts.details);
         attrs.ext = new xdr.SaleCreationRequestExt(xdr.LedgerVersion.emptyVersion());
+
+        let isCrowdfunding = !isUndefined(opts.isCrowdfunding) && opts.isCrowdfunding;
+        if (isCrowdfunding) {
+
+            let crowdFundingSale = new xdr.CrowdFundingSale({
+                ext: new xdr.CrowdFundingSaleExt(xdr.LedgerVersion.emptyVersion()),
+            });
+            let saleTypeExtTypedSale = xdr.SaleTypeExtTypedSale.crowdFunding(crowdFundingSale);
+            let saleTypeExt = new xdr.SaleTypeExt({
+                typedSale: saleTypeExtTypedSale,
+            });
+
+            attrs.ext = xdr.SaleCreationRequestExt.typedSale(saleTypeExt);
+        }
         let request = new xdr.SaleCreationRequest(attrs);
 
         if (isUndefined(opts.requestID)) {
@@ -76,8 +91,14 @@ export class SaleRequestBuilder {
         attrs.quoteAssets = [];
         for (var i = 0; i < opts.quoteAssets.length; i++) {
             let quoteAsset = opts.quoteAssets[i];
-            if (!BaseOperation.isValidAmount(quoteAsset.price, false)) {
-                throw new Error("opts.quoteAssets[i].price is invalid");
+            var minAmount, maxAmount;
+            if (isCrowdfunding) {
+                minAmount = 1;
+                maxAmount = 1;
+            }
+
+            if (!BaseOperation.isValidAmount(quoteAsset.price, false, minAmount, maxAmount)) {
+                throw new Error("opts.quoteAssets[i].price is invalid: " + quoteAsset.price);
             }
 
             if (isUndefined(quoteAsset.asset)) {

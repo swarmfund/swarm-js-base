@@ -120,7 +120,7 @@ export class BaseOperation {
     }
 
 
-    static isValidAmount(value, allowZero = false, max = undefined) {
+    static isValidAmount(value, allowZero = false, max = undefined, min = undefined) {
         if (!isString(value)) {
             return false;
         }
@@ -148,6 +148,10 @@ export class BaseOperation {
         }
 
         if (max && amount.greaterThan(new BigNumber(max).toString())) {
+            return false;
+        }
+
+        if (min && new BigNumber(min).greaterThan(amount.toString())) {
             return false;
         }
 
