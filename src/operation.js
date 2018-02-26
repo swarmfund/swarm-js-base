@@ -23,6 +23,7 @@ import { SaleRequestBuilder } from './operations/sale_request_builder';
 import { ManageOfferBuilder } from './operations/manage_offer_builder';
 import { SetOptionsBuilder} from "./operations/set_options_builder";
 import { ManageExternalSystemAccountIdPoolEntryBuilder } from "./operations/manage_external_system_account_id_pool_entry_builder";
+import {BindExternalSystemAccountIdBuilder} from "./operations/bind_external_system_account_id_builder";
 
 export class Operation extends BaseOperation {
 
@@ -683,6 +684,9 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.manageExternalSystemAccountIdPoolEntry():
                 ManageExternalSystemAccountIdPoolEntryBuilder.manageExternalSystemAccountIdPoolEntryToObject(result, attrs);
+                break;
+            case xdr.OperationType.bindExternalSystemAccountId():
+                BindExternalSystemAccountIdBuilder.bindExternalSystemAccountIdToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");

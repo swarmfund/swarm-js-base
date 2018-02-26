@@ -1,5 +1,6 @@
 
 import {default as xdr} from "./generated/stellar-xdr_generated";
+import {BindExternalSystemAccountIdBuilder} from "./operations/bind_external_system_account_id_builder";
 
 export {xdr};
 export {hash} from "./hashing";
@@ -22,6 +23,7 @@ export { SaleRequestBuilder } from './operations/sale_request_builder';
 export { ManageOfferBuilder } from './operations/manage_offer_builder';
 export { SetOptionsBuilder } from './operations/set_options_builder';
 export { ManageExternalSystemAccountIdPoolEntryBuilder } from './operations/manage_external_system_account_id_pool_entry_builder';
+export { BindExternalSystemAccountIdBuilder } from './operations/bind_external_system_account_id_builder';
 
 export * from "./strkey";
 
