@@ -277,6 +277,14 @@ export class BaseOperation {
         return xdr.AccountType._byValue.get(rawAccountType);
     }
 
+    static _ExternalSystemTypeFromNumber(rawExternalSystemType) {
+        if (!BaseOperation._isValidExternalSystemType(rawExternalSystemType)) {
+            throw new Error(`XDR Read Error: Unknown ExternalSystemType member for value ${rawExternalSystemType}`);
+        }
+
+        return xdr.ExternalSystemType._byValue.get(rawExternalSystemType);
+    }
+
     static isFeeValid(fee) {
         return BaseOperation.isValidAmount(fee.fixed, true) && BaseOperation.isValidAmount(fee.percent, true);
     }
@@ -302,6 +310,10 @@ export class BaseOperation {
 
     static _isValidAccountType(rawAccountType) {
         return xdr.AccountType._byValue.has(rawAccountType);
+    }
+
+    static _isValidExternalSystemType(rawExternalSystemType) {
+        return xdr.ExternalSystemType._byValue.has(rawExternalSystemType);
     }
 
     static _isValidRequestType(rawRequestType) {
