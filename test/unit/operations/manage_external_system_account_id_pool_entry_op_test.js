@@ -4,7 +4,7 @@ import { Hyper } from "js-xdr";
 describe('ManageExternalSystemAccountIdPoolEntry', function () {
     describe('Create external system account id pool entry', function () {
         it("Success", function () {
-            let externalSystemType = StellarBase.xdr.ExternalSystemType.bitcoin().value;
+            let externalSystemType = StellarBase.xdr.ExternalSystemType.erc20Token().value;
             let data = "Some data";
             let opts = {
                 externalSystemType: externalSystemType,
