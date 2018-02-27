@@ -2,7 +2,7 @@ import { Hyper } from "js-xdr";
 
 describe("BindExternalSystemAccountId", function () {
    describe('Success', function () {
-       let externalSystemType = StellarBase.xdr.ExternalSystemType.bitcoin().value;
+       let externalSystemType = StellarBase.xdr.ExternalSystemType.erc20Token().value;
        let opts = {
            externalSystemType: externalSystemType,
        };
