@@ -297,7 +297,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-02-21T18:33:00+02:00
+	// Automatically generated on 2018-02-28T20:32:08+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -590,11 +590,12 @@ var StellarBase =
 	//   	STATS_QUOTE_ASSET = 4,
 	//   	WITHDRAWABLE = 8,
 	//   	TWO_STEP_WITHDRAWAL = 16,
-	//   	REQUIRES_KYC = 32
+	//   	REQUIRES_KYC = 32,
+	//   	ISSUANCE_MANUAL_REVIEW_REQUIRED = 64
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("AssetPolicy",{transferable:1,baseAsset:2,statsQuoteAsset:4,withdrawable:8,twoStepWithdrawal:16,requiresKyc:32}); // === xdr source ============================================================
+	xdr["enum"]("AssetPolicy",{transferable:1,baseAsset:2,statsQuoteAsset:4,withdrawable:8,twoStepWithdrawal:16,requiresKyc:32,issuanceManualReviewRequired:64}); // === xdr source ============================================================
 	//
 	//   enum AssetSystemPolicies
 	//   {
@@ -3185,11 +3186,12 @@ var StellarBase =
 	//   enum ManageBalanceAction
 	//   {
 	//       CREATE = 0,
-	//       DELETE_BALANCE = 1
+	//       DELETE_BALANCE = 1,
+	//   	CREATE_UNIQUE = 2 // ensures that balance will not be created if one for such asset and account exists
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageBalanceAction",{create:0,deleteBalance:1}); // === xdr source ============================================================
+	xdr["enum"]("ManageBalanceAction",{create:0,deleteBalance:1,createUnique:2}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3226,11 +3228,13 @@ var StellarBase =
 	//       NOT_FOUND = -2,
 	//       DESTINATION_NOT_FOUND = -3,
 	//       ASSET_NOT_FOUND = -4,
-	//       INVALID_ASSET = -5
+	//       INVALID_ASSET = -5,
+	//   	BALANCE_ALREADY_EXISTS = -6,
+	//   	VERSION_IS_NOT_SUPPORTED_YET = -7 // version specified in request is not supported yet
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageBalanceResultCode",{success:0,malformed:-1,notFound:-2,destinationNotFound:-3,assetNotFound:-4,invalidAsset:-5}); // === xdr source ============================================================
+	xdr["enum"]("ManageBalanceResultCode",{success:0,malformed:-1,notFound:-2,destinationNotFound:-3,assetNotFound:-4,invalidAsset:-5,balanceAlreadyExist:-6,versionIsNotSupportedYet:-7}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5390,11 +5394,12 @@ var StellarBase =
 	//   	PASS_EXTERNAL_SYS_ACC_ID_IN_CREATE_ACC = 1,
 	//   	DETAILED_LEDGER_CHANGES = 2, // write more all ledger changes to transaction meta
 	//   	NEW_SIGNER_TYPES = 3, // use more comprehensive list of signer types
-	//   	TYPED_SALE = 4 // sales can have type
+	//   	TYPED_SALE = 4, // sales can have type
+	//   	UNIQUE_BALANCE_CREATION = 5 // allows to specify in manage balance that balance should not be created if one for such asset and account exists
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4}); // === xdr source ============================================================
+	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5}); // === xdr source ============================================================
 	//
 	//   typedef opaque Signature<64>;
 	//
@@ -45267,7 +45272,6 @@ var StellarBase =
 	         * @returns {xdr.CreateSaleCreationRequestOp}
 	         */
 	        value: function createSaleCreationRequest(opts) {
-	            console.log(opts);
 	            var attrs = {};
 
 	            if (!_base_operation.BaseOperation.isValidAsset(opts.baseAsset)) {
