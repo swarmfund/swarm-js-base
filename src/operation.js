@@ -22,6 +22,7 @@ import { CreateWithdrawRequestBuilder } from './operations/create_withdraw_reque
 import { SaleRequestBuilder } from './operations/sale_request_builder';
 import { ManageOfferBuilder } from './operations/manage_offer_builder';
 import { SetOptionsBuilder} from "./operations/set_options_builder";
+import { CreateKYCRequestBuilder } from "./operations/create_kyc_request_builder";
 
 export class Operation extends BaseOperation {
 
@@ -679,6 +680,9 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.checkSaleState():
                 SaleRequestBuilder.checkSaleStateToObject(result, attrs);
+                break;
+            case xdr.OperationType.createKycRequest():
+                CreateKYCRequestBuilder.createKYCRequestOpToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");

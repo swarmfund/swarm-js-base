@@ -21,6 +21,7 @@ export { CreateWithdrawRequestBuilder } from './operations/create_withdraw_reque
 export { SaleRequestBuilder } from './operations/sale_request_builder';
 export { ManageOfferBuilder } from './operations/manage_offer_builder';
 export { SetOptionsBuilder } from './operations/set_options_builder';
+export { CreateKYCRequestBuilder } from './operations/create_kyc_request_builder';
 
 export * from "./strkey";
 
