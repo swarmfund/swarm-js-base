@@ -14,14 +14,19 @@ import isNumber from 'lodash/isNumber';
 import isFinite from 'lodash/isFinite';
 import crypto from 'crypto';
 
-const ONE = 10000;
+const ONE = 1000000;
+const DECIMAL_PLACES = 6;
 const MAX_INT64 = '9223372036854775807';
-const MAX_INT64_AMOUNT = '922337203685477.5807';
+const MAX_INT64_AMOUNT = '9223372036854.775807';
 
 export class BaseOperation {
 
     static get MAX_INT64() {
         return MAX_INT64;
+    }
+
+    static get ONE() {
+        return ONE;
     }
 
     static get MAX_INT64_AMOUNT() {
@@ -115,7 +120,7 @@ export class BaseOperation {
     }
 
 
-    static isValidAmount(value, allowZero = false, max = undefined) {
+    static isValidAmount(value, allowZero = false, max = undefined, min = undefined) {
         if (!isString(value)) {
             return false;
         }
@@ -146,8 +151,12 @@ export class BaseOperation {
             return false;
         }
 
-        // Decimal places (max 4)
-        if (amount.decimalPlaces() > 4) {
+        if (min && new BigNumber(min).greaterThan(amount.toString())) {
+            return false;
+        }
+
+        // Decimal places
+        if (amount.decimalPlaces() > DECIMAL_PLACES) {
             return false;
         }
 

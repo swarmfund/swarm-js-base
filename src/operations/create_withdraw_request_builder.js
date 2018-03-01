@@ -65,6 +65,7 @@ export class CreateWithdrawRequestBuilder {
         attrs.details = new xdr.WithdrawalRequestDetails.autoConversion(autoConversionDetails);
         attrs.ext = new xdr.WithdrawalRequestExt(xdr.LedgerVersion.emptyVersion());
 
+        attrs.preConfirmationDetails = "";
         let request = new xdr.WithdrawalRequest(attrs);
         let withdrawRequestOp = new xdr.CreateWithdrawalRequestOp({
             request: request,

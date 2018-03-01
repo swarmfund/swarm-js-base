@@ -21,6 +21,7 @@ import { CreateIssuanceRequestBuilder } from './operations/create_issuance_reque
 import { CreateWithdrawRequestBuilder } from './operations/create_withdraw_request_builder';
 import { SaleRequestBuilder } from './operations/sale_request_builder';
 import { ManageOfferBuilder } from './operations/manage_offer_builder';
+import { SetOptionsBuilder} from "./operations/set_options_builder";
 
 export class Operation extends BaseOperation {
 
@@ -28,7 +29,7 @@ export class Operation extends BaseOperation {
      * Create and fund a non existent account.
      * @param {object} opts
      * @param {string} opts.destination - Destination account ID to create an account for.
-     * @param {string} opts.KYCdata - KYC data for account to be created.
+     * @param {string} opts.recoveryKey - AccountID of recovery signer.
      * @param {string} opts.accountType - Type of the account to be created.
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
      * * @param {string} opts.accountPolicies - The policies of the account.
@@ -38,8 +39,12 @@ export class Operation extends BaseOperation {
         if (!Keypair.isValidPublicKey(opts.destination)) {
             throw new Error("destination is invalid");
         }
+        if (!Keypair.isValidPublicKey(opts.recoveryKey)) {
+            throw new Error("recoveryKey is invalid");
+        }
         let attributes = {};
         attributes.destination = Keypair.fromAccountId(opts.destination).xdrAccountId();
+        attributes.recoveryKey = Keypair.fromAccountId(opts.recoveryKey).xdrAccountId();
         attributes.accountType = Operation._accountTypeFromNumber(opts.accountType);
 
         if (!isUndefined(opts.accountPolicies)) {
@@ -277,144 +282,6 @@ export class Operation extends BaseOperation {
         let setfees = new xdr.SetFeesOp(attributes);
         let opAttributes = {};
         opAttributes.body = xdr.OperationBody.setFee(setfees);
-        Operation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
-    }
-
-    /**
-     * Returns an XDR SetOptionsOp. A "set options" operations set or clear account flags,
-     * set the account's inflation destination, and/or add new signers to the account.
-     * The flags used in `opts.clearFlags` and `opts.setFlags` can be the following:
-     *   - `{@link AuthRequiredFlag}`
-     *   - `{@link AuthRevocableFlag}`
-     *   - `{@link AuthImmutableFlag}`
-     *
-     * It's possible to set/clear multiple flags at once using logical or.
-     * @param {object} opts
-     * @param {number|string} [opts.masterWeight] - The master key weight.
-     * @param {number|string} [opts.lowThreshold] - The sum weight for the low threshold.
-     * @param {number|string} [opts.medThreshold] - The sum weight for the medium threshold.
-     * @param {number|string} [opts.highThreshold] - The sum weight for the high threshold.
-     * @param {object} [opts.signer] - Add or remove a signer from the account. The signer is
-     *                                 deleted if the weight is 0.
-     * @param {string} [opts.signer.pubKey] - The public key of the new signer (old `address` field name is deprecated).
-     * @param {number|string} [opts.signer.weight] - The weight of the new signer (0 to delete or 1-255)
-     * @param {number|string} [opts.signer.signerType] - The type of the new signer
-     * @param {number|string} [opts.signer.identity] - The identity of the new signer
-     * @param {string} [opts.signer.name] - Name of the signer
-     *
-     * @param {object} [opts.trustData] - The structure for manipulating trust entry
-     * @param {number} [opts.trustData.action] - Action to perform
-     * @param {string} [opts.trustData.allowedAccount] - Allowed account
-     * @param {string} [opts.trustData.balanceToUse] - The balance of source account which will be used.
-     *
-     * @param {object} [opts.updateKYCData] - The structure for manipulating updateKYC request.
-     * @param {number|string} [opts.updateKYCData.requestID] - set to zero for creating new request
-     * @param {object} [opts.updateKYCData.KYCData] - string containing json with KYC data fields
-     *
-     * @param {string} [opts.source] - The source account (defaults to transaction source).
-     * @returns {xdr.SetOptionsOp}
-     * @see [Account flags](https://www.stellar.org/developers/guides/concepts/accounts.html#flags)
-     */
-    static setOptions(opts) {
-        let attributes = {
-            ext: new xdr.SetOptionsOpExt(xdr.LedgerVersion.emptyVersion()),
-        };
-
-        let weightCheckFunction = (value, name) => {
-            if (value >= 0 && value <= 255) {
-                return true;
-            } else {
-                throw new Error(`${name} value must be between 0 and 255`);
-            }
-        };
-        attributes.masterWeight = Operation._checkUnsignedIntValue("masterWeight", opts.masterWeight, weightCheckFunction);
-        attributes.lowThreshold = Operation._checkUnsignedIntValue("lowThreshold", opts.lowThreshold, weightCheckFunction);
-        attributes.medThreshold = Operation._checkUnsignedIntValue("medThreshold", opts.medThreshold, weightCheckFunction);
-        attributes.highThreshold = Operation._checkUnsignedIntValue("highThreshold", opts.highThreshold, weightCheckFunction);
-
-        if (opts.signer) {
-            if (opts.signer.address) {
-                console.warn("signer.address is deprecated. Use signer.pubKey instead.");
-                opts.signer.pubKey = opts.signer.address;
-            }
-
-            if (!Keypair.isValidPublicKey(opts.signer.pubKey)) {
-                throw new Error("signer.pubKey is invalid");
-            }
-
-            opts.signer.weight = Operation._checkUnsignedIntValue("signer.weight", opts.signer.weight, weightCheckFunction);
-            opts.signer.signerType = Operation._checkUnsignedIntValue("signer.signerType", opts.signer.signerType);
-            if (isUndefined(opts.signer.signerType)) {
-                throw new Error("signer.signerType is invalid");
-            }
-
-            opts.signer.identity = Operation._checkUnsignedIntValue("signer.identity", opts.signer.identity);
-            if (isUndefined(opts.signer.identity)) {
-                throw new Error("signer.identity is invalid");
-            }
-
-            let signerName = "";
-            if (!isUndefined(opts.signer.name) && opts.signer.name.length > 0) {
-                if (opts.signer.name.length > 256) {
-                    throw new Error("Signer name must be less that 256 chars");
-                }
-                signerName = opts.signer.name;
-            }
-
-            let signerExt = new xdr.SignerExt(xdr.LedgerVersion.emptyVersion());
-            attributes.signer = new xdr.Signer({
-                pubKey: Keypair.fromAccountId(opts.signer.pubKey).xdrAccountId(),
-                weight: opts.signer.weight,
-                signerType: opts.signer.signerType,
-                identity: opts.signer.identity,
-                name: signerName,
-                ext: signerExt,
-            });
-        }
-
-        if (opts.trustData) {
-            if (isUndefined(opts.trustData.action)) {
-                throw new Error("trustData.action is not defined");
-            }
-            if (!Keypair.isValidPublicKey(opts.trustData.allowedAccount)) {
-                throw new Error("trustData.allowedAccount is invalid");
-            }
-            if (!Keypair.isValidBalanceKey(opts.trustData.balanceToUse)) {
-                throw new Error("trustData.balanceToUse is invalid");
-            }
-            let trust = new xdr.TrustEntry({
-                allowedAccount: Keypair.fromAccountId(opts.trustData.allowedAccount).xdrAccountId(),
-                balanceToUse: Keypair.fromBalanceId(opts.trustData.balanceToUse).xdrBalanceId(),
-                ext: new xdr.TrustEntryExt(xdr.LedgerVersion.emptyVersion()),
-            });
-
-            attributes.trustData = new xdr.TrustData({
-                trust,
-                action: opts.trustData.action,
-                ext: new xdr.TrustDataExt(xdr.LedgerVersion.emptyVersion()),
-            });
-        }
-
-        if (opts.updateKYCData) {
-            if (isUndefined(opts.updateKYCData.requestID)) {
-                opts.updateKYCData.requestID = "0";
-            }
-            let requestID = UnsignedHyper.fromString(opts.updateKYCData.requestID);
-
-            let KYCData = JSON.stringify(opts.updateKYCData.KYCData);
-
-            attributes.updateKycData = new xdr.UpdateKycData({
-                requestId:  requestID,
-                dataKyc:    KYCData,
-                ext:        new xdr.UpdateKycDataExt(xdr.LedgerVersion.emptyVersion()),
-            });
-        }
-
-        let setOptionsOp = new xdr.SetOptionsOp(attributes);
-
-        let opAttributes = {};
-        opAttributes.body = xdr.OperationBody.setOption(setOptionsOp);
         Operation.setSourceAccount(opAttributes, opts);
         return new xdr.Operation(opAttributes);
     }
@@ -668,6 +535,7 @@ export class Operation extends BaseOperation {
         switch (operation.body().switch()) {
             case xdr.OperationType.createAccount():
                 result.destination = accountIdtoAddress(attrs.destination());
+                result.recoveryKey = accountIdtoAddress(attrs.recoveryKey());
                 result.accountType = attrs.accountType().value;
                 result.policies = attrs.policies();
 
@@ -722,34 +590,7 @@ export class Operation extends BaseOperation {
                 };
                 break;
             case xdr.OperationType.setOption():
-                result.masterWeight = attrs.masterWeight();
-                result.lowThreshold = attrs.lowThreshold();
-                result.medThreshold = attrs.medThreshold();
-                result.highThreshold = attrs.highThreshold();
-
-                if (attrs.signer()) {
-                    let signer = {};
-                    signer.pubKey = accountIdtoAddress(attrs.signer().pubKey());
-                    signer.weight = attrs.signer().weight();
-                    signer.signerType = attrs.signer().signerType();
-                    signer.identity = attrs.signer().identity();
-                    signer.name = attrs.signer().name();
-
-                    result.signer = signer;
-                }
-                if (attrs.trustData()) {
-                    let trustData = {};
-                    trustData.allowedAccount = accountIdtoAddress(attrs.trustData().trust().allowedAccount());
-                    trustData.balanceToUse = balanceIdtoString(attrs.trustData().trust().balanceToUse());
-                    trustData.action = attrs.trustData().action();
-                    result.trustData = trustData;
-                }
-                if (attrs.updateKycData()) {
-                    let updateKYCData = {};
-                    updateKYCData.KYCData = JSON.parse(attrs.updateKycData().dataKyc());
-                    updateKYCData.requestID = attrs.updateKycData().requestId().toString();
-                    result.updateKYCData = updateKYCData;
-                }
+                SetOptionsBuilder.setOptionsToObject(result, attrs);
                 break;
             case xdr.OperationType.setFee():
                 if (!isUndefined(attrs.fee())) {
@@ -775,11 +616,6 @@ export class Operation extends BaseOperation {
                 result.blockReasonsToAdd = attrs.blockReasonsToAdd();
                 result.blockReasonsToRemove = attrs.blockReasonsToRemove();
                 result.accountType = attrs.accountType().value;
-                break;
-            case xdr.OperationType.recover():
-                result.account = accountIdtoAddress(attrs.account());
-                result.oldSigner = accountIdtoAddress(attrs.oldSigner());
-                result.newSigner = accountIdtoAddress(attrs.newSigner());
                 break;
             case xdr.OperationType.manageBalance():
                 result.action = attrs.action();

@@ -4,6 +4,7 @@ import { BaseOperation } from './base_operation';
 import { Keypair } from "../keypair";
 import { UnsignedHyper, Hyper } from "js-xdr";
 import {Hasher} from '../util/hasher';
+import {Operation} from "../operation";
 
 export class ReviewRequestBuilder {
 
@@ -84,7 +85,54 @@ export class ReviewRequestBuilder {
 
         attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.withdraw(new xdr.WithdrawalDetails({
             ext: new xdr.WithdrawalDetailsExt(xdr.LedgerVersion.emptyVersion()),
-            externalDetails: opts.externalDetails,
+            externalDetails: JSON.stringify(opts.externalDetails),
+        }));
+
+        return ReviewRequestBuilder._createOp(opts, attrs);
+    }
+
+    /**
+     * Creates operation to review two step withdraw request
+     * @param {object} opts
+     * @param {string} opts.requestID - request ID
+     * @param {string} opts.requestHash - Hash of the request to be reviewed
+     * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
+     * @param {string} opts.reason - Reject reason
+     * @param {string} opts.externalDetails - External System details
+     * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+     * @returns {xdr.ReviewRequestOp}
+     */
+    static reviewTwoStepWithdrawRequest(opts) {
+        if (isUndefined(opts.externalDetails)) {
+            throw new Error("opts.externalDetails is invalid");
+        }
+
+        let attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.twoStepWithdrawal(new xdr.WithdrawalDetails({
+            ext: new xdr.WithdrawalDetailsExt(xdr.LedgerVersion.emptyVersion()),
+            externalDetails: JSON.stringify(opts.externalDetails),
+        }));
+
+        return ReviewRequestBuilder._createOp(opts, attrs);
+    }
+
+    static reviewLimitsUpdateRequest(opts) {
+        if (isUndefined(opts.newLimits)) {
+            throw new Error("opts.newLimits is invalid");
+        }
+
+        let attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.limitsUpdate(new xdr.LimitsUpdateDetails({
+            newLimits: new xdr.Limits({
+                dailyOut: BaseOperation._toXDRAmount(opts.newLimits.dailyOut),
+                weeklyOut: BaseOperation._toXDRAmount(opts.newLimits.weeklyOut),
+                monthlyOut: BaseOperation._toXDRAmount(opts.newLimits.monthlyOut),
+                annualOut: BaseOperation._toXDRAmount(opts.newLimits.annualOut),
+                ext: new xdr.LimitsExt(xdr.LedgerVersion.emptyVersion())
+            }),
+            ext: new xdr.LimitsUpdateDetailsExt(xdr.LedgerVersion.emptyVersion())
         }));
 
         return ReviewRequestBuilder._createOp(opts, attrs);
@@ -98,6 +146,23 @@ export class ReviewRequestBuilder {
             case xdr.ReviewableRequestType.withdraw(): {
                 result.withdrawal = {
                     externalDetails: attrs.requestDetails().withdrawal().externalDetails(),
+                };
+                break;
+            }
+            case xdr.ReviewableRequestType.limitsUpdate(): {
+                result.limitsUpdate = {
+                    newLimits: {
+                        dailyOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().dailyOut()),
+                        weeklyOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().weeklyOut()),
+                        monthlyOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().monthlyOut()),
+                        annualOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().annualOut())
+                    }
+                };
+                break;
+            }
+            case xdr.ReviewableRequestType.twoStepWithdrawal(): {
+                result.twoStepWithdrawal = {
+                    externalDetails: attrs.requestDetails().twoStepWithdrawal().externalDetails(),
                 };
                 break;
             }
