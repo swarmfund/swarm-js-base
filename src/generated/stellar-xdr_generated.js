@@ -1,4 +1,4 @@
-// Automatically generated on 2018-03-01T17:03:45+02:00
+// Automatically generated on 2018-03-02T14:18:01+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -7865,7 +7865,8 @@ xdr.union("ManageAssetPairResult", {
 //   	STATS_QUOTE_ASSET = 4,
 //   	WITHDRAWABLE = 8,
 //   	TWO_STEP_WITHDRAWAL = 16,
-//   	REQUIRES_KYC = 32
+//   	REQUIRES_KYC = 32,
+//   	ISSUANCE_MANUAL_REVIEW_REQUIRED = 64
 //   };
 //
 // ===========================================================================
@@ -7876,6 +7877,7 @@ xdr.enum("AssetPolicy", {
   withdrawable: 8,
   twoStepWithdrawal: 16,
   requiresKyc: 32,
+  issuanceManualReviewRequired: 64,
 });
 
 // === xdr source ============================================================
