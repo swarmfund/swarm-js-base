@@ -297,7 +297,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-02-28T20:32:08+02:00
+	// Automatically generated on 2018-03-02T18:37:26+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -374,11 +374,12 @@ var StellarBase =
 	//   	USER_ASSET_MANAGER = 131072, // can review sale, asset creation/update requests
 	//   	USER_ISSUANCE_MANAGER = 262144, // can review pre-issuance/issuance requests
 	//   	WITHDRAW_MANAGER = 524288, // can review withdraw requests
-	//   	FEES_MANAGER = 1048576 // can set fee
+	//   	FEES_MANAGER = 1048576, // can set fee
+	//   	TX_SENDER = 2097152 // can send tx
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("SignerType",{reader:1,notVerifiedAccManager:2,generalAccManager:4,directDebitOperator:8,assetManager:16,assetRateManager:32,balanceManager:64,issuanceManager:128,invoiceManager:256,paymentOperator:512,limitsManager:1024,accountManager:2048,commissionBalanceManager:4096,operationalBalanceManager:8192,eventsChecker:16384,exchangeAccManager:32768,syndicateAccManager:65536,userAssetManager:131072,userIssuanceManager:262144,withdrawManager:524288,feesManager:1048576}); // === xdr source ============================================================
+	xdr["enum"]("SignerType",{reader:1,notVerifiedAccManager:2,generalAccManager:4,directDebitOperator:8,assetManager:16,assetRateManager:32,balanceManager:64,issuanceManager:128,invoiceManager:256,paymentOperator:512,limitsManager:1024,accountManager:2048,commissionBalanceManager:4096,operationalBalanceManager:8192,eventsChecker:16384,exchangeAccManager:32768,syndicateAccManager:65536,userAssetManager:131072,userIssuanceManager:262144,withdrawManager:524288,feesManager:1048576,txSender:2097152}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3050,11 +3051,12 @@ var StellarBase =
 	//   {
 	//       CREATE_ASSET_CREATION_REQUEST = 0,
 	//       CREATE_ASSET_UPDATE_REQUEST = 1,
-	//   	CANCEL_ASSET_REQUEST = 2
+	//   	CANCEL_ASSET_REQUEST = 2,
+	//   	CHANGE_PREISSUED_ASSET_SIGNER = 3
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageAssetAction",{createAssetCreationRequest:0,createAssetUpdateRequest:1,cancelAssetRequest:2}); // === xdr source ============================================================
+	xdr["enum"]("ManageAssetAction",{createAssetCreationRequest:0,createAssetUpdateRequest:1,cancelAssetRequest:2,changePreissuedAssetSigner:3}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3087,10 +3089,12 @@ var StellarBase =
 	//   		AssetUpdateRequest updateAsset;
 	//   	case CANCEL_ASSET_REQUEST:
 	//   		CancelAssetRequest cancelRequest;
+	//   	case CHANGE_PREISSUED_ASSET_SIGNER:
+	//   		AssetChangePreissuedSigner changePreissuedSigner;
 	//   	}
 	//
 	// ===========================================================================
-	xdr.union("ManageAssetOpRequest",{switchOn:xdr.lookup("ManageAssetAction"),switchName:"action",switches:[["createAssetCreationRequest","createAsset"],["createAssetUpdateRequest","updateAsset"],["cancelAssetRequest","cancelRequest"]],arms:{createAsset:xdr.lookup("AssetCreationRequest"),updateAsset:xdr.lookup("AssetUpdateRequest"),cancelRequest:xdr.lookup("CancelAssetRequest")}}); // === xdr source ============================================================
+	xdr.union("ManageAssetOpRequest",{switchOn:xdr.lookup("ManageAssetAction"),switchName:"action",switches:[["createAssetCreationRequest","createAsset"],["createAssetUpdateRequest","updateAsset"],["cancelAssetRequest","cancelRequest"],["changePreissuedAssetSigner","changePreissuedSigner"]],arms:{createAsset:xdr.lookup("AssetCreationRequest"),updateAsset:xdr.lookup("AssetUpdateRequest"),cancelRequest:xdr.lookup("CancelAssetRequest"),changePreissuedSigner:xdr.lookup("AssetChangePreissuedSigner")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3112,6 +3116,8 @@ var StellarBase =
 	//   		AssetUpdateRequest updateAsset;
 	//   	case CANCEL_ASSET_REQUEST:
 	//   		CancelAssetRequest cancelRequest;
+	//   	case CHANGE_PREISSUED_ASSET_SIGNER:
+	//   		AssetChangePreissuedSigner changePreissuedSigner;
 	//   	} request;
 	//   
 	//   	// reserved for future use
@@ -4605,6 +4611,30 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
+	xdr.union("AssetChangePreissuedSignerExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct AssetChangePreissuedSigner {
+	//   	AssetCode code;
+	//   	AccountID accountID;
+	//   	// reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("AssetChangePreissuedSigner",[["code",xdr.lookup("AssetCode")],["accountId",xdr.lookup("AccountId")],["ext",xdr.lookup("AssetChangePreissuedSignerExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
 	xdr.union("PreIssuanceRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct PreIssuanceRequest {
@@ -5395,11 +5425,13 @@ var StellarBase =
 	//   	DETAILED_LEDGER_CHANGES = 2, // write more all ledger changes to transaction meta
 	//   	NEW_SIGNER_TYPES = 3, // use more comprehensive list of signer types
 	//   	TYPED_SALE = 4, // sales can have type
-	//   	UNIQUE_BALANCE_CREATION = 5 // allows to specify in manage balance that balance should not be created if one for such asset and account exists
+	//   	UNIQUE_BALANCE_CREATION = 5, // allows to specify in manage balance that balance should not be created if one for such asset and account exists
+	//   	ASSET_PREISSUER_MIGRATION = 6,
+	//   	ASSET_PREISSUER_MIGRATED = 7
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5}); // === xdr source ============================================================
+	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7}); // === xdr source ============================================================
 	//
 	//   typedef opaque Signature<64>;
 	//
@@ -44312,6 +44344,37 @@ var StellarBase =
 
 	            return ManageAssetBuilder._createManageAssetOp(opts, new _generatedStellarXdr_generated2['default'].ManageAssetOpRequest.cancelAssetRequest(cancelAssetRequest));
 	        }
+
+	        /**
+	         * Creates operation to cancel asset creation/update request
+	         * @param {object} opts
+	         * @param {string} opts.accountID - accountID to whome rights will be passed
+	         * @param {string} opts.code - asset code for which to rights will be passed
+	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageAssetOp}
+	         */
+	    }, {
+	        key: 'changeAssetPreIssuer',
+	        value: function changeAssetPreIssuer(opts) {
+	            if (!_keypair.Keypair.isValidPublicKey(opts.accountID)) {
+	                throw new Error("opts.accountID is invalid");
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.code)) {
+	                throw new Error("opts.code is invalid - must be string");
+	            }
+
+	            opts.requestID = "0";
+
+	            var attrs = {
+	                ext: new _generatedStellarXdr_generated2['default'].AssetChangePreissuedSignerExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion()),
+	                accountId: _keypair.Keypair.fromAccountId(opts.accountID).xdrAccountId(),
+	                code: opts.code
+	            };
+	            var changePreissuedSigner = new _generatedStellarXdr_generated2['default'].AssetChangePreissuedSigner(attrs);
+
+	            return ManageAssetBuilder._createManageAssetOp(opts, new _generatedStellarXdr_generated2['default'].ManageAssetOpRequest.changePreissuedAssetSigner(changePreissuedSigner));
+	        }
 	    }, {
 	        key: '_getValidDetails',
 	        value: function _getValidDetails(opts) {
@@ -44426,6 +44489,14 @@ var StellarBase =
 	                case _generatedStellarXdr_generated2['default'].ManageAssetAction.cancelAssetRequest():
 	                    {
 	                        // nothing to do here
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageAssetAction.changePreissuedAssetSigner():
+	                    {
+	                        var request = attrs.request().changePreissuedSigner();
+	                        result.code = request.code();
+	                        result.accountID = _base_operation.BaseOperation.accountIdtoAddress(request.accountId());
+	                        break;
 	                    }
 	            }
 	        }
