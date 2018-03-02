@@ -3,7 +3,6 @@ import isUndefined from 'lodash/isUndefined';
 import {BaseOperation} from './base_operation';
 import {Keypair} from "../keypair";
 import {UnsignedHyper, Hyper} from "js-xdr";
-import {Operation} from "../operation";
 
 export class CreateKYCRequestBuilder {
     /**
@@ -29,7 +28,7 @@ export class CreateKYCRequestBuilder {
         }
 
         attrs.updatedAccount = Keypair.fromAccountId(opts.updatedAccount).xdrAccountId();
-        attrs.accountTypeToSet = Operation._accountTypeFromNumber(opts.accountTypeToSet);
+        attrs.accountTypeToSet = BaseOperation._accountTypeFromNumber(opts.accountTypeToSet);
         attrs.kycLevel = opts.kycLevel;
         attrs.kycData = JSON.stringify(opts.kycData);
         attrs.ext = new xdr.ChangeKycRequestExt(xdr.LedgerVersion.emptyVersion());

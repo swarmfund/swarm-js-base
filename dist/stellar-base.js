@@ -46027,8 +46027,6 @@ var StellarBase =
 
 	var _jsXdr = __webpack_require__(3);
 
-	var _operation = __webpack_require__(128);
-
 	var CreateKYCRequestBuilder = (function () {
 	    function CreateKYCRequestBuilder() {
 	        _classCallCheck(this, CreateKYCRequestBuilder);
@@ -46060,7 +46058,7 @@ var StellarBase =
 	            }
 
 	            attrs.updatedAccount = _keypair.Keypair.fromAccountId(opts.updatedAccount).xdrAccountId();
-	            attrs.accountTypeToSet = _operation.Operation._accountTypeFromNumber(opts.accountTypeToSet);
+	            attrs.accountTypeToSet = _base_operation.BaseOperation._accountTypeFromNumber(opts.accountTypeToSet);
 	            attrs.kycLevel = opts.kycLevel;
 	            attrs.kycData = JSON.stringify(opts.kycData);
 	            attrs.ext = new _generatedStellarXdr_generated2['default'].ChangeKycRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
