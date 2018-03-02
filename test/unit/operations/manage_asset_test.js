@@ -64,4 +64,22 @@ describe('ManageAsset', function () {
             expect(obj.requestType).to.be.equal("cancelAssetRequest");
         });
     });
+
+    describe('changePreIssuedAssetSigner', function () {
+        it("Success", function () {
+            var opts = {
+                code: "USD",
+                accountID: "GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ",
+            }
+            let op = StellarBase.ManageAssetBuilder.changeAssetPreIssuer(opts);
+            var xdr = op.toXDR("hex");
+            var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
+            var obj = StellarBase.Operation.operationToObject(operation);
+            expect(obj.type).to.be.equal("manageAsset");
+            expect(obj.requestID).to.be.equal(opts.requestID);
+            expect(obj.requestType).to.be.equal("changePreissuedAssetSigner");
+            expect(obj.code).to.be.equal(opts.code);
+            expect(obj.accountID).to.be.equal(opts.accountID);
+        });
+    });
 });

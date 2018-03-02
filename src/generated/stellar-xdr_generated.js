@@ -1,4 +1,4 @@
-// Automatically generated on 2018-02-28T20:32:08+02:00
+// Automatically generated on 2018-03-02T18:37:26+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -116,7 +116,8 @@ xdr.struct("AccountTypeLimitsEntry", [
 //   	USER_ASSET_MANAGER = 131072, // can review sale, asset creation/update requests
 //   	USER_ISSUANCE_MANAGER = 262144, // can review pre-issuance/issuance requests
 //   	WITHDRAW_MANAGER = 524288, // can review withdraw requests
-//   	FEES_MANAGER = 1048576 // can set fee
+//   	FEES_MANAGER = 1048576, // can set fee
+//   	TX_SENDER = 2097152 // can send tx
 //   };
 //
 // ===========================================================================
@@ -142,6 +143,7 @@ xdr.enum("SignerType", {
   userIssuanceManager: 262144,
   withdrawManager: 524288,
   feesManager: 1048576,
+  txSender: 2097152,
 });
 
 // === xdr source ============================================================
@@ -4520,7 +4522,8 @@ xdr.union("ManageAssetPairResult", {
 //   {
 //       CREATE_ASSET_CREATION_REQUEST = 0,
 //       CREATE_ASSET_UPDATE_REQUEST = 1,
-//   	CANCEL_ASSET_REQUEST = 2
+//   	CANCEL_ASSET_REQUEST = 2,
+//   	CHANGE_PREISSUED_ASSET_SIGNER = 3
 //   };
 //
 // ===========================================================================
@@ -4528,6 +4531,7 @@ xdr.enum("ManageAssetAction", {
   createAssetCreationRequest: 0,
   createAssetUpdateRequest: 1,
   cancelAssetRequest: 2,
+  changePreissuedAssetSigner: 3,
 });
 
 // === xdr source ============================================================
@@ -4577,6 +4581,8 @@ xdr.struct("CancelAssetRequest", [
 //   		AssetUpdateRequest updateAsset;
 //   	case CANCEL_ASSET_REQUEST:
 //   		CancelAssetRequest cancelRequest;
+//   	case CHANGE_PREISSUED_ASSET_SIGNER:
+//   		AssetChangePreissuedSigner changePreissuedSigner;
 //   	}
 //
 // ===========================================================================
@@ -4587,11 +4593,13 @@ xdr.union("ManageAssetOpRequest", {
     ["createAssetCreationRequest", "createAsset"],
     ["createAssetUpdateRequest", "updateAsset"],
     ["cancelAssetRequest", "cancelRequest"],
+    ["changePreissuedAssetSigner", "changePreissuedSigner"],
   ],
   arms: {
     createAsset: xdr.lookup("AssetCreationRequest"),
     updateAsset: xdr.lookup("AssetUpdateRequest"),
     cancelRequest: xdr.lookup("CancelAssetRequest"),
+    changePreissuedSigner: xdr.lookup("AssetChangePreissuedSigner"),
   },
 });
 
@@ -4627,6 +4635,8 @@ xdr.union("ManageAssetOpExt", {
 //   		AssetUpdateRequest updateAsset;
 //   	case CANCEL_ASSET_REQUEST:
 //   		CancelAssetRequest cancelRequest;
+//   	case CHANGE_PREISSUED_ASSET_SIGNER:
+//   		AssetChangePreissuedSigner changePreissuedSigner;
 //   	} request;
 //   
 //   	// reserved for future use
@@ -7103,6 +7113,46 @@ xdr.struct("AssetUpdateRequest", [
 //       }
 //
 // ===========================================================================
+xdr.union("AssetChangePreissuedSignerExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct AssetChangePreissuedSigner {
+//   	AssetCode code;
+//   	AccountID accountID;
+//   	// reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("AssetChangePreissuedSigner", [
+  ["code", xdr.lookup("AssetCode")],
+  ["accountId", xdr.lookup("AccountId")],
+  ["ext", xdr.lookup("AssetChangePreissuedSignerExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
 xdr.union("PreIssuanceRequestExt", {
   switchOn: xdr.lookup("LedgerVersion"),
   switchName: "v",
@@ -8366,7 +8416,9 @@ xdr.union("PublicKey", {
 //   	DETAILED_LEDGER_CHANGES = 2, // write more all ledger changes to transaction meta
 //   	NEW_SIGNER_TYPES = 3, // use more comprehensive list of signer types
 //   	TYPED_SALE = 4, // sales can have type
-//   	UNIQUE_BALANCE_CREATION = 5 // allows to specify in manage balance that balance should not be created if one for such asset and account exists
+//   	UNIQUE_BALANCE_CREATION = 5, // allows to specify in manage balance that balance should not be created if one for such asset and account exists
+//   	ASSET_PREISSUER_MIGRATION = 6,
+//   	ASSET_PREISSUER_MIGRATED = 7
 //   };
 //
 // ===========================================================================
@@ -8377,6 +8429,8 @@ xdr.enum("LedgerVersion", {
   newSignerType: 3,
   typedSale: 4,
   uniqueBalanceCreation: 5,
+  assetPreissuerMigration: 6,
+  assetPreissuerMigrated: 7,
 });
 
 // === xdr source ============================================================
