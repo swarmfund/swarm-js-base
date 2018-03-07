@@ -1,4 +1,4 @@
-// Automatically generated on 2018-03-07T12:58:56+02:00
+// Automatically generated on 2018-03-07T16:46:55+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -1185,7 +1185,8 @@ xdr.struct("ManageOfferOp", [
 //   	OFFER_UPDATE_IS_NOT_ALLOWED = -21, // update of the offer is not allowed
 //   	INVALID_AMOUNT = -22, // amount must be positive 
 //   	SALE_IS_NOT_ACTIVE = -23,
-//   	REQUIRES_KYC = -24 // source must have KYC in order to participate
+//   	REQUIRES_KYC = -24, // source must have KYC in order to participate
+//   	REQUIRES_IS_BUY = -25 //offers, related to sales must have isBuy set to true
 //   };
 //
 // ===========================================================================
@@ -1215,6 +1216,7 @@ xdr.enum("ManageOfferResultCode", {
   invalidAmount: -22,
   saleIsNotActive: -23,
   requiresKyc: -24,
+  requiresIsBuy: -25,
 });
 
 // === xdr source ============================================================

@@ -297,7 +297,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-03-07T12:58:56+02:00
+	// Automatically generated on 2018-03-07T16:46:55+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -1013,11 +1013,12 @@ var StellarBase =
 	//   	OFFER_UPDATE_IS_NOT_ALLOWED = -21, // update of the offer is not allowed
 	//   	INVALID_AMOUNT = -22, // amount must be positive 
 	//   	SALE_IS_NOT_ACTIVE = -23,
-	//   	REQUIRES_KYC = -24 // source must have KYC in order to participate
+	//   	REQUIRES_KYC = -24, // source must have KYC in order to participate
+	//   	REQUIRES_IS_BUY = -25 //offers, related to sales must have isBuy set to true
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageOfferResultCode",{success:0,malformed:-1,pairNotTraded:-2,balanceNotFound:-3,underfunded:-4,crossSelf:-5,offerOverflow:-6,assetPairNotTradable:-7,physicalPriceRestriction:-8,currentPriceRestriction:-9,offerNotFound:-10,invalidPercentFee:-11,insufficientPrice:-12,orderBookDoesNotExist:-13,saleIsNotStartedYet:-14,saleAlreadyEnded:-15,orderExceedsHardCap:-16,cannotParticipateOwnSale:-17,assetMismatched:-18,priceMismatched:-19,invalidPrice:-20,offerUpdateIsNotAllowed:-21,invalidAmount:-22,saleIsNotActive:-23,requiresKyc:-24}); // === xdr source ============================================================
+	xdr["enum"]("ManageOfferResultCode",{success:0,malformed:-1,pairNotTraded:-2,balanceNotFound:-3,underfunded:-4,crossSelf:-5,offerOverflow:-6,assetPairNotTradable:-7,physicalPriceRestriction:-8,currentPriceRestriction:-9,offerNotFound:-10,invalidPercentFee:-11,insufficientPrice:-12,orderBookDoesNotExist:-13,saleIsNotStartedYet:-14,saleAlreadyEnded:-15,orderExceedsHardCap:-16,cannotParticipateOwnSale:-17,assetMismatched:-18,priceMismatched:-19,invalidPrice:-20,offerUpdateIsNotAllowed:-21,invalidAmount:-22,saleIsNotActive:-23,requiresKyc:-24,requiresIsBuy:-25}); // === xdr source ============================================================
 	//
 	//   enum ManageOfferEffect
 	//   {
