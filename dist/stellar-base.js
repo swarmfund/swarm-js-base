@@ -45659,7 +45659,7 @@ var StellarBase =
 	            }
 	            attrs.saleId = opts.saleId;
 
-	            attrs.action = _operation.Operation._manageSaleActionFromNumber(opts.action);
+	            attrs.action = _base_operation.BaseOperation._manageSaleActionFromNumber(opts.action);
 	            var manageSaleOp = new _generatedStellarXdr_generated2['default'].ManageSaleOp({
 	                saleId: _jsXdr.UnsignedHyper.fromString(attrs.saleId),
 	                action: attrs.action,

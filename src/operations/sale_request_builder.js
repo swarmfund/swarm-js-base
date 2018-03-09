@@ -200,7 +200,7 @@ export class SaleRequestBuilder {
         }
         attrs.saleId = opts.saleId;
 
-        attrs.action = Operation._manageSaleActionFromNumber(opts.action);
+        attrs.action = BaseOperation._manageSaleActionFromNumber(opts.action);
         let manageSaleOp = new xdr.ManageSaleOp({
             saleId: UnsignedHyper.fromString(attrs.saleId),
             action: attrs.action,

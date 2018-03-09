@@ -7,7 +7,7 @@ describe('Manage sale op', function () {
     it("Success", function () {
         let opts = {
             saleId: "123",
-            action: StellarBase.xdr.ManageSaleAction.delete().value
+            action: 2
         };
 
         let op = StellarBase.SaleRequestBuilder.manageSale(opts);
