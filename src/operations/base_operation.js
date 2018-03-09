@@ -276,6 +276,12 @@ export class BaseOperation {
 
         return xdr.AccountType._byValue.get(rawAccountType);
     }
+    static _manageSaleActionFromNumber(rawSaleAction) {
+        if(!BaseOperation._isValidSaleAction(rawSaleAction)) {
+            throw new Error(`XDR Read Error: Unknown SaleAction member for value ${rawSaleAction}`);
+        }
+        return xdr.ManageSaleAction._byValue.get(rawSaleAction);
+    }
 
     static isFeeValid(fee) {
         return BaseOperation.isValidAmount(fee.fixed, true) && BaseOperation.isValidAmount(fee.percent, true);
@@ -302,6 +308,9 @@ export class BaseOperation {
 
     static _isValidAccountType(rawAccountType) {
         return xdr.AccountType._byValue.has(rawAccountType);
+    }
+    static _isValidSaleAction(rawSaleAction) {
+        return xdr.ManageSaleAction._byValue.has(rawSaleAction);
     }
 
     static _isValidRequestType(rawRequestType) {

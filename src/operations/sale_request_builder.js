@@ -3,6 +3,7 @@ import isUndefined from 'lodash/isUndefined';
 import { BaseOperation } from './base_operation';
 import { Keypair } from "../keypair";
 import { UnsignedHyper, Hyper } from "js-xdr";
+import {Operation} from "../operation";
 
 export class SaleRequestBuilder {
 
@@ -190,5 +191,30 @@ export class SaleRequestBuilder {
 
     static checkSaleStateToObject(result, attrs) {
         result.saleID = attrs.saleId().toString();
+    }
+    static manageSale(opts) {
+        let attrs = {};
+
+        if (isUndefined(opts.saleId)) {
+            throw new Error("opts.saleID is invalid");
+        }
+        attrs.saleId = opts.saleId;
+
+        attrs.action = Operation._manageSaleActionFromNumber(opts.action);
+        let manageSaleOp = new xdr.ManageSaleOp({
+            saleId: UnsignedHyper.fromString(attrs.saleId),
+            action: attrs.action,
+            ext: new xdr.ManageSaleOpExt(xdr.LedgerVersion.emptyVersion())
+        });
+
+        let opAttributes = {};
+        opAttributes.body = xdr.OperationBody.manageSale(manageSaleOp);
+        BaseOperation.setSourceAccount(opAttributes, opts);
+        return new xdr.Operation(opAttributes);
+    }
+
+    static manageSaleOpToObject(result, attrs) {
+        result.saleId = attrs.saleId().toString();
+        result.action = attrs.action().value;
     }
 }

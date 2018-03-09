@@ -680,6 +680,9 @@ export class Operation extends BaseOperation {
             case xdr.OperationType.checkSaleState():
                 SaleRequestBuilder.checkSaleStateToObject(result, attrs);
                 break;
+            case xdr.OperationType.manageSale():
+                SaleRequestBuilder.manageSaleOpToObject(result,attrs);
+                break;
             default:
                 throw new Error("Unknown operation");
 
