@@ -1,4 +1,4 @@
-// Automatically generated on 2018-03-02T18:37:26+02:00
+// Automatically generated on 2018-03-19T17:59:42+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -117,7 +117,9 @@ xdr.struct("AccountTypeLimitsEntry", [
 //   	USER_ISSUANCE_MANAGER = 262144, // can review pre-issuance/issuance requests
 //   	WITHDRAW_MANAGER = 524288, // can review withdraw requests
 //   	FEES_MANAGER = 1048576, // can set fee
-//   	TX_SENDER = 2097152 // can send tx
+//   	TX_SENDER = 2097152, // can send tx
+//   	AML_ALERT_MANAGER = 4194304, // can manage AML alert request
+//   	AML_ALERT_REVIEWER = 8388608 // can review aml alert requests
 //   };
 //
 // ===========================================================================
@@ -144,6 +146,8 @@ xdr.enum("SignerType", {
   withdrawManager: 524288,
   feesManager: 1048576,
   txSender: 2097152,
+  amlAlertManager: 4194304,
+  amlAlertReviewer: 8388608,
 });
 
 // === xdr source ============================================================
@@ -1028,7 +1032,8 @@ xdr.struct("ReferenceEntry", [
 //   	WITHDRAW = 4,
 //   	SALE = 5,
 //   	LIMITS_UPDATE = 6,
-//   	TWO_STEP_WITHDRAWAL = 7
+//   	TWO_STEP_WITHDRAWAL = 7,
+//   	AML_ALERT = 8
 //   };
 //
 // ===========================================================================
@@ -1041,6 +1046,7 @@ xdr.enum("ReviewableRequestType", {
   sale: 5,
   limitsUpdate: 6,
   twoStepWithdrawal: 7,
+  amlAlert: 8,
 });
 
 // === xdr source ============================================================
@@ -1062,6 +1068,8 @@ xdr.enum("ReviewableRequestType", {
 //               LimitsUpdateRequest limitsUpdateRequest;
 //   		case TWO_STEP_WITHDRAWAL:
 //   			WithdrawalRequest twoStepWithdrawalRequest;
+//   	    case AML_ALERT:
+//   	        AMLAlertRequest amlAlertRequest;
 //   	}
 //
 // ===========================================================================
@@ -1077,6 +1085,7 @@ xdr.union("ReviewableRequestEntryBody", {
     ["sale", "saleCreationRequest"],
     ["limitsUpdate", "limitsUpdateRequest"],
     ["twoStepWithdrawal", "twoStepWithdrawalRequest"],
+    ["amlAlert", "amlAlertRequest"],
   ],
   arms: {
     assetCreationRequest: xdr.lookup("AssetCreationRequest"),
@@ -1087,6 +1096,7 @@ xdr.union("ReviewableRequestEntryBody", {
     saleCreationRequest: xdr.lookup("SaleCreationRequest"),
     limitsUpdateRequest: xdr.lookup("LimitsUpdateRequest"),
     twoStepWithdrawalRequest: xdr.lookup("WithdrawalRequest"),
+    amlAlertRequest: xdr.lookup("AmlAlertRequest"),
   },
 });
 
@@ -1137,6 +1147,8 @@ xdr.union("ReviewableRequestEntryExt", {
 //               LimitsUpdateRequest limitsUpdateRequest;
 //   		case TWO_STEP_WITHDRAWAL:
 //   			WithdrawalRequest twoStepWithdrawalRequest;
+//   	    case AML_ALERT:
+//   	        AMLAlertRequest amlAlertRequest;
 //   	} body;
 //   
 //   	// reserved for future use
@@ -3507,6 +3519,134 @@ xdr.union("CreateAccountResult", {
   ],
   arms: {
     success: xdr.lookup("CreateAccountSuccess"),
+  },
+  defaultArm: xdr.void(),
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("CreateAmlAlertRequestOpExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct CreateAMLAlertRequestOp
+//   {
+//       string64 reference;
+//       AMLAlertRequest amlAlertRequest;
+//   
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   
+//   };
+//
+// ===========================================================================
+xdr.struct("CreateAmlAlertRequestOp", [
+  ["reference", xdr.lookup("String64")],
+  ["amlAlertRequest", xdr.lookup("AmlAlertRequest")],
+  ["ext", xdr.lookup("CreateAmlAlertRequestOpExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   enum CreateAMLAlertRequestResultCode
+//   {
+//       // codes considered as "success" for the operation
+//       SUCCESS = 0,
+//       BALANCE_NOT_EXIST = 1, // balance doesn't exist
+//       INVALID_REASON = 2, //invalid reason for request
+//       UNDERFUNDED = 3, //when couldn't lock balance
+//   	REFERENCE_DUPLICATION = 4, // reference already exists
+//   	INVALID_AMOUNT = 5 // amount must be positive
+//   
+//   
+//   };
+//
+// ===========================================================================
+xdr.enum("CreateAmlAlertRequestResultCode", {
+  success: 0,
+  balanceNotExist: 1,
+  invalidReason: 2,
+  underfunded: 3,
+  referenceDuplication: 4,
+  invalidAmount: 5,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("CreateAmlAlertRequestSuccessExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct CreateAMLAlertRequestSuccess {
+//   	uint64 requestID;
+//   
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("CreateAmlAlertRequestSuccess", [
+  ["requestId", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("CreateAmlAlertRequestSuccessExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union CreateAMLAlertRequestResult switch (CreateAMLAlertRequestResultCode code)
+//   {
+//       case SUCCESS:
+//           CreateAMLAlertRequestSuccess success;
+//       default:
+//           void;
+//   };
+//
+// ===========================================================================
+xdr.union("CreateAmlAlertRequestResult", {
+  switchOn: xdr.lookup("CreateAmlAlertRequestResultCode"),
+  switchName: "code",
+  switches: [
+    ["success", "success"],
+  ],
+  arms: {
+    success: xdr.lookup("CreateAmlAlertRequestSuccess"),
   },
   defaultArm: xdr.void(),
 });
@@ -5966,6 +6106,44 @@ xdr.struct("WithdrawalDetails", [
 
 // === xdr source ============================================================
 //
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("AmlAlertDetailsExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct AMLAlertDetails {
+//   	string comment<>;
+//   	// reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("AmlAlertDetails", [
+  ["comment", xdr.string()],
+  ["ext", xdr.lookup("AmlAlertDetailsExt")],
+]);
+
+// === xdr source ============================================================
+//
 //   union switch(ReviewableRequestType requestType) {
 //   	case WITHDRAW:
 //   		WithdrawalDetails withdrawal;
@@ -5973,6 +6151,8 @@ xdr.struct("WithdrawalDetails", [
 //           LimitsUpdateDetails limitsUpdate;
 //   	case TWO_STEP_WITHDRAWAL:
 //   		WithdrawalDetails twoStepWithdrawal;
+//   	case AML_ALERT:
+//   		AMLAlertDetails amlAlertDetails;
 //   	default:
 //   		void;
 //   	}
@@ -5985,11 +6165,13 @@ xdr.union("ReviewRequestOpRequestDetails", {
     ["withdraw", "withdrawal"],
     ["limitsUpdate", "limitsUpdate"],
     ["twoStepWithdrawal", "twoStepWithdrawal"],
+    ["amlAlert", "amlAlertDetails"],
   ],
   arms: {
     withdrawal: xdr.lookup("WithdrawalDetails"),
     limitsUpdate: xdr.lookup("LimitsUpdateDetails"),
     twoStepWithdrawal: xdr.lookup("WithdrawalDetails"),
+    amlAlertDetails: xdr.lookup("AmlAlertDetails"),
   },
   defaultArm: xdr.void(),
 });
@@ -6026,6 +6208,8 @@ xdr.union("ReviewRequestOpExt", {
 //           LimitsUpdateDetails limitsUpdate;
 //   	case TWO_STEP_WITHDRAWAL:
 //   		WithdrawalDetails twoStepWithdrawal;
+//   	case AML_ALERT:
+//   		AMLAlertDetails amlAlertDetails;
 //   	default:
 //   		void;
 //   	} requestDetails;
@@ -7020,6 +7204,47 @@ xdr.union("AuthenticatedMessage", {
 //       }
 //
 // ===========================================================================
+xdr.union("AmlAlertRequestExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct AMLAlertRequest {
+//       BalanceID balanceID;
+//       uint64 amount;
+//       string256 reason;
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("AmlAlertRequest", [
+  ["balanceId", xdr.lookup("BalanceId")],
+  ["amount", xdr.lookup("Uint64")],
+  ["reason", xdr.lookup("String256")],
+  ["ext", xdr.lookup("AmlAlertRequestExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
 xdr.union("AssetCreationRequestExt", {
   switchOn: xdr.lookup("LedgerVersion"),
   switchName: "v",
@@ -7780,6 +8005,8 @@ xdr.struct("ScpQuorumSet", [
 //   		CreateSaleCreationRequestOp createSaleCreationRequestOp;
 //   	case CHECK_SALE_STATE:
 //   		CheckSaleStateOp checkSaleStateOp;
+//   	case CREATE_AML_ALERT:
+//   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 //       }
 //
 // ===========================================================================
@@ -7806,6 +8033,7 @@ xdr.union("OperationBody", {
     ["reviewRequest", "reviewRequestOp"],
     ["createSaleRequest", "createSaleCreationRequestOp"],
     ["checkSaleState", "checkSaleStateOp"],
+    ["createAmlAlert", "createAmlAlertRequestOp"],
   ],
   arms: {
     createAccountOp: xdr.lookup("CreateAccountOp"),
@@ -7827,6 +8055,7 @@ xdr.union("OperationBody", {
     reviewRequestOp: xdr.lookup("ReviewRequestOp"),
     createSaleCreationRequestOp: xdr.lookup("CreateSaleCreationRequestOp"),
     checkSaleStateOp: xdr.lookup("CheckSaleStateOp"),
+    createAmlAlertRequestOp: xdr.lookup("CreateAmlAlertRequestOp"),
   },
 });
 
@@ -7879,6 +8108,8 @@ xdr.union("OperationBody", {
 //   		CreateSaleCreationRequestOp createSaleCreationRequestOp;
 //   	case CHECK_SALE_STATE:
 //   		CheckSaleStateOp checkSaleStateOp;
+//   	case CREATE_AML_ALERT:
+//   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 //       }
 //       body;
 //   };
@@ -8097,6 +8328,8 @@ xdr.enum("OperationResultCode", {
 //   		CreateSaleCreationRequestResult createSaleCreationRequestResult;
 //   	case CHECK_SALE_STATE:
 //   		CheckSaleStateResult checkSaleStateResult;
+//   	case CREATE_AML_ALERT:
+//   	    CreateAMLAlertRequestResult createAMLAlertRequestResult;
 //       }
 //
 // ===========================================================================
@@ -8123,6 +8356,7 @@ xdr.union("OperationResultTr", {
     ["reviewRequest", "reviewRequestResult"],
     ["createSaleRequest", "createSaleCreationRequestResult"],
     ["checkSaleState", "checkSaleStateResult"],
+    ["createAmlAlert", "createAmlAlertRequestResult"],
   ],
   arms: {
     createAccountResult: xdr.lookup("CreateAccountResult"),
@@ -8144,6 +8378,7 @@ xdr.union("OperationResultTr", {
     reviewRequestResult: xdr.lookup("ReviewRequestResult"),
     createSaleCreationRequestResult: xdr.lookup("CreateSaleCreationRequestResult"),
     checkSaleStateResult: xdr.lookup("CheckSaleStateResult"),
+    createAmlAlertRequestResult: xdr.lookup("CreateAmlAlertRequestResult"),
   },
 });
 
@@ -8192,6 +8427,8 @@ xdr.union("OperationResultTr", {
 //   		CreateSaleCreationRequestResult createSaleCreationRequestResult;
 //   	case CHECK_SALE_STATE:
 //   		CheckSaleStateResult checkSaleStateResult;
+//   	case CREATE_AML_ALERT:
+//   	    CreateAMLAlertRequestResult createAMLAlertRequestResult;
 //       }
 //       tr;
 //   default:
@@ -8635,7 +8872,8 @@ xdr.struct("Fee", [
 //       MANAGE_INVOICE = 17,
 //   	REVIEW_REQUEST = 18,
 //   	CREATE_SALE_REQUEST = 19,
-//   	CHECK_SALE_STATE = 20
+//   	CHECK_SALE_STATE = 20,
+//   	CREATE_AML_ALERT = 21
 //   };
 //
 // ===========================================================================
@@ -8659,6 +8897,7 @@ xdr.enum("OperationType", {
   reviewRequest: 18,
   createSaleRequest: 19,
   checkSaleState: 20,
+  createAmlAlert: 21,
 });
 
 // === xdr source ============================================================
