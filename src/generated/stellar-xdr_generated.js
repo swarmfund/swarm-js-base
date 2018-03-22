@@ -1,4 +1,4 @@
-// Automatically generated on 2018-03-02T19:12:55+02:00
+// Automatically generated on 2018-03-22T16:54:19+02:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -1031,6 +1031,7 @@ xdr.union("CreateKycRequestResultSuccessExt", {
 //
 //   struct {
 //   		uint64 requestID;
+//   		bool fulfilled;
 //   		// reserved for future use
 //   		union switch (LedgerVersion v)
 //   		{
@@ -1043,6 +1044,7 @@ xdr.union("CreateKycRequestResultSuccessExt", {
 // ===========================================================================
 xdr.struct("CreateKycRequestResultSuccess", [
   ["requestId", xdr.lookup("Uint64")],
+  ["fulfilled", xdr.bool()],
   ["ext", xdr.lookup("CreateKycRequestResultSuccessExt")],
 ]);
 
@@ -1053,6 +1055,7 @@ xdr.struct("CreateKycRequestResultSuccess", [
 //   case SUCCESS:
 //       struct {
 //   		uint64 requestID;
+//   		bool fulfilled;
 //   		// reserved for future use
 //   		union switch (LedgerVersion v)
 //   		{

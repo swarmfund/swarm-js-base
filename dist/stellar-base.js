@@ -306,7 +306,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-03-02T19:12:55+02:00
+	// Automatically generated on 2018-03-22T16:54:19+02:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -920,6 +920,7 @@ var StellarBase =
 	//
 	//   struct {
 	//   		uint64 requestID;
+	//   		bool fulfilled;
 	//   		// reserved for future use
 	//   		union switch (LedgerVersion v)
 	//   		{
@@ -930,13 +931,14 @@ var StellarBase =
 	//   	}
 	//
 	// ===========================================================================
-	xdr.struct("CreateKycRequestResultSuccess",[["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("CreateKycRequestResultSuccessExt")]]); // === xdr source ============================================================
+	xdr.struct("CreateKycRequestResultSuccess",[["requestId",xdr.lookup("Uint64")],["fulfilled",xdr.bool()],["ext",xdr.lookup("CreateKycRequestResultSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union CreateKYCRequestResult switch (CreateKYCRequestResultCode code)
 	//   {
 	//   case SUCCESS:
 	//       struct {
 	//   		uint64 requestID;
+	//   		bool fulfilled;
 	//   		// reserved for future use
 	//   		union switch (LedgerVersion v)
 	//   		{
@@ -44554,6 +44556,37 @@ var StellarBase =
 
 	            return ManageAssetBuilder._createManageAssetOp(opts, new _generatedStellarXdr_generated2['default'].ManageAssetOpRequest.cancelAssetRequest(cancelAssetRequest));
 	        }
+
+	        /**
+	         * Creates operation to cancel asset creation/update request
+	         * @param {object} opts
+	         * @param {string} opts.accountID - accountID to whome rights will be passed
+	         * @param {string} opts.code - asset code for which to rights will be passed
+	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageAssetOp}
+	         */
+	    }, {
+	        key: 'changeAssetPreIssuer',
+	        value: function changeAssetPreIssuer(opts) {
+	            if (!_keypair.Keypair.isValidPublicKey(opts.accountID)) {
+	                throw new Error("opts.accountID is invalid");
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.code)) {
+	                throw new Error("opts.code is invalid - must be string");
+	            }
+
+	            opts.requestID = "0";
+
+	            var attrs = {
+	                ext: new _generatedStellarXdr_generated2['default'].AssetChangePreissuedSignerExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion()),
+	                accountId: _keypair.Keypair.fromAccountId(opts.accountID).xdrAccountId(),
+	                code: opts.code
+	            };
+	            var changePreissuedSigner = new _generatedStellarXdr_generated2['default'].AssetChangePreissuedSigner(attrs);
+
+	            return ManageAssetBuilder._createManageAssetOp(opts, new _generatedStellarXdr_generated2['default'].ManageAssetOpRequest.changePreissuedAssetSigner(changePreissuedSigner));
+	        }
 	    }, {
 	        key: '_getValidDetails',
 	        value: function _getValidDetails(opts) {
@@ -44668,6 +44701,14 @@ var StellarBase =
 	                case _generatedStellarXdr_generated2['default'].ManageAssetAction.cancelAssetRequest():
 	                    {
 	                        // nothing to do here
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageAssetAction.changePreissuedAssetSigner():
+	                    {
+	                        var request = attrs.request().changePreissuedSigner();
+	                        result.code = request.code();
+	                        result.accountID = _base_operation.BaseOperation.accountIdtoAddress(request.accountId());
+	                        break;
 	                    }
 	            }
 	        }
