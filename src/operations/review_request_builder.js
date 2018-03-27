@@ -92,6 +92,32 @@ export class ReviewRequestBuilder {
     }
 
     /**
+     * Creates operation to review aml alert request
+     * @param {object} opts
+     * @param {string} opts.requestID - request ID
+     * @param {string} opts.requestHash - Hash of the request to be reviewed
+     * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
+     * @param {string} opts.reason - Reject reason
+     * @param {string} opts.comment - Comment to review
+     * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+     * @returns {xdr.ReviewRequestOp}
+     */
+    static reviewAmlAlertRequest(opts) {
+        if (isUndefined(opts.comment)) {
+            throw new Error("opts.comment is invalid");
+        }
+
+        let attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.amlAlert(new xdr.AmlAlertDetails({
+            ext: new xdr.AmlAlertDetailsExt(xdr.LedgerVersion.emptyVersion()),
+            comment: opts.comment,
+        }));
+
+        return ReviewRequestBuilder._createOp(opts, attrs);
+    }
+
+    /**
      * Creates operation to review two step withdraw request
      * @param {object} opts
      * @param {string} opts.requestID - request ID
@@ -182,6 +208,12 @@ export class ReviewRequestBuilder {
                 result.updateKyc = {
                     newTasks: attrs.requestDetails().updateKyc().newTasks(),
                     externalDetails: attrs.requestDetails().updateKyc().externalDetails(),
+                };
+                break;
+            }
+            case xdr.ReviewableRequestType.amlAlert(): {
+                result.amlAlert = {
+                    comment: attrs.requestDetails().amlAlertDetails().comment(),
                 };
                 break;
             }
