@@ -287,12 +287,12 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_kyc_request_builder = __webpack_require__(225);
+	var _operationsCreate_update_kyc_request_builder = __webpack_require__(225);
 
-	Object.defineProperty(exports, "CreateKYCRequestBuilder", {
+	Object.defineProperty(exports, "CreateUpdateKYCRequestBuilder", {
 	  enumerable: true,
 	  get: function get() {
-	    return _operationsCreate_kyc_request_builder.CreateKYCRequestBuilder;
+	    return _operationsCreate_update_kyc_request_builder.CreateUpdateKYCRequestBuilder;
 	  }
 	});
 
@@ -306,7 +306,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-03-22T16:54:19+02:00
+	// Automatically generated on 2018-03-27T14:38:24+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -349,11 +349,12 @@ var StellarBase =
 	//   	SALE = 5,
 	//   	LIMITS_UPDATE = 6,
 	//   	TWO_STEP_WITHDRAWAL = 7,
-	//   	CHANGE_KYC = 8
+	//       AML_ALERT = 8,
+	//   	UPDATE_KYC = 9
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ReviewableRequestType",{assetCreate:0,assetUpdate:1,preIssuanceCreate:2,issuanceCreate:3,withdraw:4,sale:5,limitsUpdate:6,twoStepWithdrawal:7,changeKyc:8}); // === xdr source ============================================================
+	xdr["enum"]("ReviewableRequestType",{assetCreate:0,assetUpdate:1,preIssuanceCreate:2,issuanceCreate:3,withdraw:4,sale:5,limitsUpdate:6,twoStepWithdrawal:7,amlAlert:8,updateKyc:9}); // === xdr source ============================================================
 	//
 	//   union switch (ReviewableRequestType type) {
 	//   		case ASSET_CREATE:
@@ -372,12 +373,14 @@ var StellarBase =
 	//               LimitsUpdateRequest limitsUpdateRequest;
 	//   		case TWO_STEP_WITHDRAWAL:
 	//   			WithdrawalRequest twoStepWithdrawalRequest;
-	//           case CHANGE_KYC:
-	//                       ChangeKYCRequest changeKYCRequest;
+	//           case AML_ALERT:
+	//               AMLAlertRequest amlAlertRequest;
+	//           case UPDATE_KYC:
+	//               UpdateKYCRequest updateKYCRequest;
 	//   	}
 	//
 	// ===========================================================================
-	xdr.union("ReviewableRequestEntryBody",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"type",switches:[["assetCreate","assetCreationRequest"],["assetUpdate","assetUpdateRequest"],["preIssuanceCreate","preIssuanceRequest"],["issuanceCreate","issuanceRequest"],["withdraw","withdrawalRequest"],["sale","saleCreationRequest"],["limitsUpdate","limitsUpdateRequest"],["twoStepWithdrawal","twoStepWithdrawalRequest"],["changeKyc","changeKycRequest"]],arms:{assetCreationRequest:xdr.lookup("AssetCreationRequest"),assetUpdateRequest:xdr.lookup("AssetUpdateRequest"),preIssuanceRequest:xdr.lookup("PreIssuanceRequest"),issuanceRequest:xdr.lookup("IssuanceRequest"),withdrawalRequest:xdr.lookup("WithdrawalRequest"),saleCreationRequest:xdr.lookup("SaleCreationRequest"),limitsUpdateRequest:xdr.lookup("LimitsUpdateRequest"),twoStepWithdrawalRequest:xdr.lookup("WithdrawalRequest"),changeKycRequest:xdr.lookup("ChangeKycRequest")}}); // === xdr source ============================================================
+	xdr.union("ReviewableRequestEntryBody",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"type",switches:[["assetCreate","assetCreationRequest"],["assetUpdate","assetUpdateRequest"],["preIssuanceCreate","preIssuanceRequest"],["issuanceCreate","issuanceRequest"],["withdraw","withdrawalRequest"],["sale","saleCreationRequest"],["limitsUpdate","limitsUpdateRequest"],["twoStepWithdrawal","twoStepWithdrawalRequest"],["amlAlert","amlAlertRequest"],["updateKyc","updateKycRequest"]],arms:{assetCreationRequest:xdr.lookup("AssetCreationRequest"),assetUpdateRequest:xdr.lookup("AssetUpdateRequest"),preIssuanceRequest:xdr.lookup("PreIssuanceRequest"),issuanceRequest:xdr.lookup("IssuanceRequest"),withdrawalRequest:xdr.lookup("WithdrawalRequest"),saleCreationRequest:xdr.lookup("SaleCreationRequest"),limitsUpdateRequest:xdr.lookup("LimitsUpdateRequest"),twoStepWithdrawalRequest:xdr.lookup("WithdrawalRequest"),amlAlertRequest:xdr.lookup("AmlAlertRequest"),updateKycRequest:xdr.lookup("UpdateKycRequest")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -414,8 +417,10 @@ var StellarBase =
 	//               LimitsUpdateRequest limitsUpdateRequest;
 	//   		case TWO_STEP_WITHDRAWAL:
 	//   			WithdrawalRequest twoStepWithdrawalRequest;
-	//           case CHANGE_KYC:
-	//                       ChangeKYCRequest changeKYCRequest;
+	//           case AML_ALERT:
+	//               AMLAlertRequest amlAlertRequest;
+	//           case UPDATE_KYC:
+	//               UpdateKYCRequest updateKYCRequest;
 	//   	} body;
 	//   
 	//   	// reserved for future use
@@ -876,12 +881,39 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("CreateKycRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	xdr.union("UpdateKycRequestDataExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
-	//   struct CreateKYCRequestOp
-	//   {
-	//      uint64 requestID;
-	//      ChangeKYCRequest changeKYCRequest;
+	//   struct UpdateKYCRequestData {
+	//       AccountID accountToUpdateKYC;
+	//   	AccountType accountTypeToSet;
+	//   	uint32 kycLevel;
+	//       longstring kycData;
+	//   	uint32* allTasks;
+	//   
+	//   	// Reserved for future use
+	//   	union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("UpdateKycRequestData",[["accountToUpdateKyc",xdr.lookup("AccountId")],["accountTypeToSet",xdr.lookup("AccountType")],["kycLevel",xdr.lookup("Uint32")],["kycData",xdr.lookup("Longstring")],["allTasks",xdr.option(xdr.lookup("Uint32"))],["ext",xdr.lookup("UpdateKycRequestDataExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("CreateUpdateKycRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct CreateUpdateKYCRequestOp {
+	//       uint64 requestID;
+	//       UpdateKYCRequestData updateKYCRequestData;
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -891,23 +923,23 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("CreateKycRequestOp",[["requestId",xdr.lookup("Uint64")],["changeKycRequest",xdr.lookup("ChangeKycRequest")],["ext",xdr.lookup("CreateKycRequestOpExt")]]); // === xdr source ============================================================
+	xdr.struct("CreateUpdateKycRequestOp",[["requestId",xdr.lookup("Uint64")],["updateKycRequestData",xdr.lookup("UpdateKycRequestData")],["ext",xdr.lookup("CreateUpdateKycRequestOpExt")]]); // === xdr source ============================================================
 	//
-	//   enum CreateKYCRequestResultCode
+	//   enum CreateUpdateKYCRequestResultCode
 	//   {
 	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0, // account was created
+	//       SUCCESS = 0,
 	//   
 	//       // codes considered as "failure" for the operation
-	//       UPDATED_ACC_NOT_EXIST = -1,         // account does not exists
-	//       REQUEST_EXIST = -2,
-	//   	SET_TYPE_THE_SAME = -3, // if account type and kyc level the same that account have
-	//   	REQUEST_NOT_EXIST = -4
-	//   
+	//       ACC_TO_UPDATE_DOES_NOT_EXIST = -1, // account to update does not exist
+	//       REQUEST_ALREADY_EXISTS = -2,
+	//   	SAME_ACC_TYPE_TO_SET = -3,
+	//   	REQUEST_DOES_NOT_EXIST = -4,
+	//   	PENDING_REQUEST_UPDATE_NOT_ALLOWED = -5
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("CreateKycRequestResultCode",{success:0,updatedAccNotExist:-1,requestExist:-2,setTypeTheSame:-3,requestNotExist:-4}); // === xdr source ============================================================
+	xdr["enum"]("CreateUpdateKycRequestResultCode",{success:0,accToUpdateDoesNotExist:-1,requestAlreadyExist:-2,sameAccTypeToSet:-3,requestDoesNotExist:-4,pendingRequestUpdateNotAllowed:-5}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -916,12 +948,12 @@ var StellarBase =
 	//   		}
 	//
 	// ===========================================================================
-	xdr.union("CreateKycRequestResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	xdr.union("CreateUpdateKycRequestResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct {
 	//   		uint64 requestID;
 	//   		bool fulfilled;
-	//   		// reserved for future use
+	//   		// Reserved for future use
 	//   		union switch (LedgerVersion v)
 	//   		{
 	//   		case EMPTY_VERSION:
@@ -931,15 +963,15 @@ var StellarBase =
 	//   	}
 	//
 	// ===========================================================================
-	xdr.struct("CreateKycRequestResultSuccess",[["requestId",xdr.lookup("Uint64")],["fulfilled",xdr.bool()],["ext",xdr.lookup("CreateKycRequestResultSuccessExt")]]); // === xdr source ============================================================
+	xdr.struct("CreateUpdateKycRequestResultSuccess",[["requestId",xdr.lookup("Uint64")],["fulfilled",xdr.bool()],["ext",xdr.lookup("CreateUpdateKycRequestResultSuccessExt")]]); // === xdr source ============================================================
 	//
-	//   union CreateKYCRequestResult switch (CreateKYCRequestResultCode code)
+	//   union CreateUpdateKYCRequestResult switch (CreateUpdateKYCRequestResultCode code)
 	//   {
 	//   case SUCCESS:
 	//       struct {
 	//   		uint64 requestID;
 	//   		bool fulfilled;
-	//   		// reserved for future use
+	//   		// Reserved for future use
 	//   		union switch (LedgerVersion v)
 	//   		{
 	//   		case EMPTY_VERSION:
@@ -952,7 +984,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("CreateKycRequestResult",{switchOn:xdr.lookup("CreateKycRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreateKycRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("CreateUpdateKycRequestResult",{switchOn:xdr.lookup("CreateUpdateKycRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreateUpdateKycRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   enum WithdrawalType {
 	//   	AUTO_CONVERSION = 0
@@ -1781,11 +1813,12 @@ var StellarBase =
 	//   	REVIEW_REQUEST = 18,
 	//   	CREATE_SALE_REQUEST = 19,
 	//   	CHECK_SALE_STATE = 20,
-	//   	CREATE_KYC_REQUEST =21
+	//       CREATE_AML_ALERT = 21,
+	//       CREATE_KYC_REQUEST = 22
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("OperationType",{createAccount:0,payment:1,setOption:2,createIssuanceRequest:3,setFee:5,manageAccount:6,createWithdrawalRequest:7,manageBalance:9,reviewPaymentRequest:10,manageAsset:11,createPreissuanceRequest:12,setLimit:13,directDebit:14,manageAssetPair:15,manageOffer:16,manageInvoice:17,reviewRequest:18,createSaleRequest:19,checkSaleState:20,createKycRequest:21}); // === xdr source ============================================================
+	xdr["enum"]("OperationType",{createAccount:0,payment:1,setOption:2,createIssuanceRequest:3,setFee:5,manageAccount:6,createWithdrawalRequest:7,manageBalance:9,reviewPaymentRequest:10,manageAsset:11,createPreissuanceRequest:12,setLimit:13,directDebit:14,manageAssetPair:15,manageOffer:16,manageInvoice:17,reviewRequest:18,createSaleRequest:19,checkSaleState:20,createAmlAlert:21,createKycRequest:22}); // === xdr source ============================================================
 	//
 	//   struct DecoratedSignature
 	//   {
@@ -1836,12 +1869,14 @@ var StellarBase =
 	//   		CreateSaleCreationRequestOp createSaleCreationRequestOp;
 	//   	case CHECK_SALE_STATE:
 	//   		CheckSaleStateOp checkSaleStateOp;
+	//   	case CREATE_AML_ALERT:
+	//   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 	//   	case CREATE_KYC_REQUEST:
-	//   		CreateKYCRequestOp createKYCRequestOp;
+	//   		CreateUpdateKYCRequestOp createUpdateKYCRequestOp;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("OperationBody",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountOp"],["payment","paymentOp"],["setOption","setOptionsOp"],["createIssuanceRequest","createIssuanceRequestOp"],["setFee","setFeesOp"],["manageAccount","manageAccountOp"],["createWithdrawalRequest","createWithdrawalRequestOp"],["manageBalance","manageBalanceOp"],["reviewPaymentRequest","reviewPaymentRequestOp"],["manageAsset","manageAssetOp"],["createPreissuanceRequest","createPreIssuanceRequest"],["setLimit","setLimitsOp"],["directDebit","directDebitOp"],["manageAssetPair","manageAssetPairOp"],["manageOffer","manageOfferOp"],["manageInvoice","manageInvoiceOp"],["reviewRequest","reviewRequestOp"],["createSaleRequest","createSaleCreationRequestOp"],["checkSaleState","checkSaleStateOp"],["createKycRequest","createKycRequestOp"]],arms:{createAccountOp:xdr.lookup("CreateAccountOp"),paymentOp:xdr.lookup("PaymentOp"),setOptionsOp:xdr.lookup("SetOptionsOp"),createIssuanceRequestOp:xdr.lookup("CreateIssuanceRequestOp"),setFeesOp:xdr.lookup("SetFeesOp"),manageAccountOp:xdr.lookup("ManageAccountOp"),createWithdrawalRequestOp:xdr.lookup("CreateWithdrawalRequestOp"),manageBalanceOp:xdr.lookup("ManageBalanceOp"),reviewPaymentRequestOp:xdr.lookup("ReviewPaymentRequestOp"),manageAssetOp:xdr.lookup("ManageAssetOp"),createPreIssuanceRequest:xdr.lookup("CreatePreIssuanceRequestOp"),setLimitsOp:xdr.lookup("SetLimitsOp"),directDebitOp:xdr.lookup("DirectDebitOp"),manageAssetPairOp:xdr.lookup("ManageAssetPairOp"),manageOfferOp:xdr.lookup("ManageOfferOp"),manageInvoiceOp:xdr.lookup("ManageInvoiceOp"),reviewRequestOp:xdr.lookup("ReviewRequestOp"),createSaleCreationRequestOp:xdr.lookup("CreateSaleCreationRequestOp"),checkSaleStateOp:xdr.lookup("CheckSaleStateOp"),createKycRequestOp:xdr.lookup("CreateKycRequestOp")}}); // === xdr source ============================================================
+	xdr.union("OperationBody",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountOp"],["payment","paymentOp"],["setOption","setOptionsOp"],["createIssuanceRequest","createIssuanceRequestOp"],["setFee","setFeesOp"],["manageAccount","manageAccountOp"],["createWithdrawalRequest","createWithdrawalRequestOp"],["manageBalance","manageBalanceOp"],["reviewPaymentRequest","reviewPaymentRequestOp"],["manageAsset","manageAssetOp"],["createPreissuanceRequest","createPreIssuanceRequest"],["setLimit","setLimitsOp"],["directDebit","directDebitOp"],["manageAssetPair","manageAssetPairOp"],["manageOffer","manageOfferOp"],["manageInvoice","manageInvoiceOp"],["reviewRequest","reviewRequestOp"],["createSaleRequest","createSaleCreationRequestOp"],["checkSaleState","checkSaleStateOp"],["createAmlAlert","createAmlAlertRequestOp"],["createKycRequest","createUpdateKycRequestOp"]],arms:{createAccountOp:xdr.lookup("CreateAccountOp"),paymentOp:xdr.lookup("PaymentOp"),setOptionsOp:xdr.lookup("SetOptionsOp"),createIssuanceRequestOp:xdr.lookup("CreateIssuanceRequestOp"),setFeesOp:xdr.lookup("SetFeesOp"),manageAccountOp:xdr.lookup("ManageAccountOp"),createWithdrawalRequestOp:xdr.lookup("CreateWithdrawalRequestOp"),manageBalanceOp:xdr.lookup("ManageBalanceOp"),reviewPaymentRequestOp:xdr.lookup("ReviewPaymentRequestOp"),manageAssetOp:xdr.lookup("ManageAssetOp"),createPreIssuanceRequest:xdr.lookup("CreatePreIssuanceRequestOp"),setLimitsOp:xdr.lookup("SetLimitsOp"),directDebitOp:xdr.lookup("DirectDebitOp"),manageAssetPairOp:xdr.lookup("ManageAssetPairOp"),manageOfferOp:xdr.lookup("ManageOfferOp"),manageInvoiceOp:xdr.lookup("ManageInvoiceOp"),reviewRequestOp:xdr.lookup("ReviewRequestOp"),createSaleCreationRequestOp:xdr.lookup("CreateSaleCreationRequestOp"),checkSaleStateOp:xdr.lookup("CheckSaleStateOp"),createAmlAlertRequestOp:xdr.lookup("CreateAmlAlertRequestOp"),createUpdateKycRequestOp:xdr.lookup("CreateUpdateKycRequestOp")}}); // === xdr source ============================================================
 	//
 	//   struct Operation
 	//   {
@@ -1890,8 +1925,10 @@ var StellarBase =
 	//   		CreateSaleCreationRequestOp createSaleCreationRequestOp;
 	//   	case CHECK_SALE_STATE:
 	//   		CheckSaleStateOp checkSaleStateOp;
+	//   	case CREATE_AML_ALERT:
+	//   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 	//   	case CREATE_KYC_REQUEST:
-	//   		CreateKYCRequestOp createKYCRequestOp;
+	//   		CreateUpdateKYCRequestOp createUpdateKYCRequestOp;
 	//       }
 	//       body;
 	//   };
@@ -2038,12 +2075,14 @@ var StellarBase =
 	//   		CreateSaleCreationRequestResult createSaleCreationRequestResult;
 	//   	case CHECK_SALE_STATE:
 	//   		CheckSaleStateResult checkSaleStateResult;
+	//       case CREATE_AML_ALERT:
+	//           CreateAMLAlertRequestResult createAMLAlertRequestResult;
 	//   	case CREATE_KYC_REQUEST:
-	//   	    CreateKYCRequestResult createKYCRequestResult;
+	//   	    CreateUpdateKYCRequestResult createUpdateKYCRequestResult;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("OperationResultTr",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountResult"],["payment","paymentResult"],["setOption","setOptionsResult"],["createIssuanceRequest","createIssuanceRequestResult"],["setFee","setFeesResult"],["manageAccount","manageAccountResult"],["createWithdrawalRequest","createWithdrawalRequestResult"],["manageBalance","manageBalanceResult"],["reviewPaymentRequest","reviewPaymentRequestResult"],["manageAsset","manageAssetResult"],["createPreissuanceRequest","createPreIssuanceRequestResult"],["setLimit","setLimitsResult"],["directDebit","directDebitResult"],["manageAssetPair","manageAssetPairResult"],["manageOffer","manageOfferResult"],["manageInvoice","manageInvoiceResult"],["reviewRequest","reviewRequestResult"],["createSaleRequest","createSaleCreationRequestResult"],["checkSaleState","checkSaleStateResult"],["createKycRequest","createKycRequestResult"]],arms:{createAccountResult:xdr.lookup("CreateAccountResult"),paymentResult:xdr.lookup("PaymentResult"),setOptionsResult:xdr.lookup("SetOptionsResult"),createIssuanceRequestResult:xdr.lookup("CreateIssuanceRequestResult"),setFeesResult:xdr.lookup("SetFeesResult"),manageAccountResult:xdr.lookup("ManageAccountResult"),createWithdrawalRequestResult:xdr.lookup("CreateWithdrawalRequestResult"),manageBalanceResult:xdr.lookup("ManageBalanceResult"),reviewPaymentRequestResult:xdr.lookup("ReviewPaymentRequestResult"),manageAssetResult:xdr.lookup("ManageAssetResult"),createPreIssuanceRequestResult:xdr.lookup("CreatePreIssuanceRequestResult"),setLimitsResult:xdr.lookup("SetLimitsResult"),directDebitResult:xdr.lookup("DirectDebitResult"),manageAssetPairResult:xdr.lookup("ManageAssetPairResult"),manageOfferResult:xdr.lookup("ManageOfferResult"),manageInvoiceResult:xdr.lookup("ManageInvoiceResult"),reviewRequestResult:xdr.lookup("ReviewRequestResult"),createSaleCreationRequestResult:xdr.lookup("CreateSaleCreationRequestResult"),checkSaleStateResult:xdr.lookup("CheckSaleStateResult"),createKycRequestResult:xdr.lookup("CreateKycRequestResult")}}); // === xdr source ============================================================
+	xdr.union("OperationResultTr",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountResult"],["payment","paymentResult"],["setOption","setOptionsResult"],["createIssuanceRequest","createIssuanceRequestResult"],["setFee","setFeesResult"],["manageAccount","manageAccountResult"],["createWithdrawalRequest","createWithdrawalRequestResult"],["manageBalance","manageBalanceResult"],["reviewPaymentRequest","reviewPaymentRequestResult"],["manageAsset","manageAssetResult"],["createPreissuanceRequest","createPreIssuanceRequestResult"],["setLimit","setLimitsResult"],["directDebit","directDebitResult"],["manageAssetPair","manageAssetPairResult"],["manageOffer","manageOfferResult"],["manageInvoice","manageInvoiceResult"],["reviewRequest","reviewRequestResult"],["createSaleRequest","createSaleCreationRequestResult"],["checkSaleState","checkSaleStateResult"],["createAmlAlert","createAmlAlertRequestResult"],["createKycRequest","createUpdateKycRequestResult"]],arms:{createAccountResult:xdr.lookup("CreateAccountResult"),paymentResult:xdr.lookup("PaymentResult"),setOptionsResult:xdr.lookup("SetOptionsResult"),createIssuanceRequestResult:xdr.lookup("CreateIssuanceRequestResult"),setFeesResult:xdr.lookup("SetFeesResult"),manageAccountResult:xdr.lookup("ManageAccountResult"),createWithdrawalRequestResult:xdr.lookup("CreateWithdrawalRequestResult"),manageBalanceResult:xdr.lookup("ManageBalanceResult"),reviewPaymentRequestResult:xdr.lookup("ReviewPaymentRequestResult"),manageAssetResult:xdr.lookup("ManageAssetResult"),createPreIssuanceRequestResult:xdr.lookup("CreatePreIssuanceRequestResult"),setLimitsResult:xdr.lookup("SetLimitsResult"),directDebitResult:xdr.lookup("DirectDebitResult"),manageAssetPairResult:xdr.lookup("ManageAssetPairResult"),manageOfferResult:xdr.lookup("ManageOfferResult"),manageInvoiceResult:xdr.lookup("ManageInvoiceResult"),reviewRequestResult:xdr.lookup("ReviewRequestResult"),createSaleCreationRequestResult:xdr.lookup("CreateSaleCreationRequestResult"),checkSaleStateResult:xdr.lookup("CheckSaleStateResult"),createAmlAlertRequestResult:xdr.lookup("CreateAmlAlertRequestResult"),createUpdateKycRequestResult:xdr.lookup("CreateUpdateKycRequestResult")}}); // === xdr source ============================================================
 	//
 	//   union OperationResult switch (OperationResultCode code)
 	//   {
@@ -2088,8 +2127,10 @@ var StellarBase =
 	//   		CreateSaleCreationRequestResult createSaleCreationRequestResult;
 	//   	case CHECK_SALE_STATE:
 	//   		CheckSaleStateResult checkSaleStateResult;
+	//       case CREATE_AML_ALERT:
+	//           CreateAMLAlertRequestResult createAMLAlertRequestResult;
 	//   	case CREATE_KYC_REQUEST:
-	//   	    CreateKYCRequestResult createKYCRequestResult;
+	//   	    CreateUpdateKYCRequestResult createUpdateKYCRequestResult;
 	//       }
 	//       tr;
 	//   default:
@@ -2592,6 +2633,53 @@ var StellarBase =
 	// ===========================================================================
 	xdr.struct("WithdrawalDetails",[["externalDetails",xdr.string()],["ext",xdr.lookup("WithdrawalDetailsExt")]]); // === xdr source ============================================================
 	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("AmlAlertDetailsExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct AMLAlertDetails {
+	//   	string comment<>;
+	//   	// reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("AmlAlertDetails",[["comment",xdr.string()],["ext",xdr.lookup("AmlAlertDetailsExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("UpdateKycDetailsExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct UpdateKYCDetails {
+	//       uint32 newTasks;
+	//       string externalDetails<>;
+	//       // Reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("UpdateKycDetails",[["newTasks",xdr.lookup("Uint32")],["externalDetails",xdr.string()],["ext",xdr.lookup("UpdateKycDetailsExt")]]); // === xdr source ============================================================
+	//
 	//   union switch(ReviewableRequestType requestType) {
 	//   	case WITHDRAW:
 	//   		WithdrawalDetails withdrawal;
@@ -2599,12 +2687,16 @@ var StellarBase =
 	//           LimitsUpdateDetails limitsUpdate;
 	//   	case TWO_STEP_WITHDRAWAL:
 	//   		WithdrawalDetails twoStepWithdrawal;
+	//       case AML_ALERT:
+	//           AMLAlertDetails amlAlertDetails;
+	//       case UPDATE_KYC:
+	//           UpdateKYCDetails updateKYC;
 	//   	default:
 	//   		void;
 	//   	}
 	//
 	// ===========================================================================
-	xdr.union("ReviewRequestOpRequestDetails",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"requestType",switches:[["withdraw","withdrawal"],["limitsUpdate","limitsUpdate"],["twoStepWithdrawal","twoStepWithdrawal"]],arms:{withdrawal:xdr.lookup("WithdrawalDetails"),limitsUpdate:xdr.lookup("LimitsUpdateDetails"),twoStepWithdrawal:xdr.lookup("WithdrawalDetails")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("ReviewRequestOpRequestDetails",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"requestType",switches:[["withdraw","withdrawal"],["limitsUpdate","limitsUpdate"],["twoStepWithdrawal","twoStepWithdrawal"],["amlAlert","amlAlertDetails"],["updateKyc","updateKyc"]],arms:{withdrawal:xdr.lookup("WithdrawalDetails"),limitsUpdate:xdr.lookup("LimitsUpdateDetails"),twoStepWithdrawal:xdr.lookup("WithdrawalDetails"),amlAlertDetails:xdr.lookup("AmlAlertDetails"),updateKyc:xdr.lookup("UpdateKycDetails")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2626,6 +2718,10 @@ var StellarBase =
 	//           LimitsUpdateDetails limitsUpdate;
 	//   	case TWO_STEP_WITHDRAWAL:
 	//   		WithdrawalDetails twoStepWithdrawal;
+	//       case AML_ALERT:
+	//           AMLAlertDetails amlAlertDetails;
+	//       case UPDATE_KYC:
+	//           UpdateKYCDetails updateKYC;
 	//   	default:
 	//   		void;
 	//   	} requestDetails;
@@ -2645,10 +2741,10 @@ var StellarBase =
 	//
 	//   enum ReviewRequestResultCode
 	//   {
-	//       // codes considered as "success" for the operation
+	//       // Codes considered as "success" for the operation
 	//       SUCCESS = 0,
 	//   
-	//       // codes considered as "failure" for the operation
+	//       // Codes considered as "failure" for the operation
 	//       INVALID_REASON = -1,        // reason must be empty if approving and not empty if rejecting
 	//   	INVALID_ACTION = -2,
 	//   	HASH_MISMATCHED = -3,
@@ -2657,6 +2753,7 @@ var StellarBase =
 	//   	REJECT_NOT_ALLOWED = -6, // reject not allowed, use permanent reject
 	//   	INVALID_EXTERNAL_DETAILS = -7,
 	//   	REQUESTOR_IS_BLOCKED = -8,
+	//   	PERMANENT_REJECT_NOT_ALLOWED = -9, // permanent reject not allowed, use reject
 	//   
 	//   	// Asset requests
 	//   	ASSET_ALREADY_EXISTS = -20,
@@ -2667,14 +2764,14 @@ var StellarBase =
 	//   	INSUFFICIENT_AVAILABLE_FOR_ISSUANCE_AMOUNT = -41,
 	//   	FULL_LINE = -42, // can't fund balance - total funds exceed UINT64_MAX
 	//   
-	//   	// sale creation requests
+	//   	// Sale creation requests
 	//   	BASE_ASSET_DOES_NOT_EXISTS = -50,
 	//   	HARD_CAP_WILL_EXCEED_MAX_ISSUANCE = -51,
 	//   	INSUFFICIENT_PREISSUED_FOR_HARD_CAP = -52
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ReviewRequestResultCode",{success:0,invalidReason:-1,invalidAction:-2,hashMismatched:-3,notFound:-4,typeMismatched:-5,rejectNotAllowed:-6,invalidExternalDetail:-7,requestorIsBlocked:-8,assetAlreadyExist:-20,assetDoesNotExist:-21,maxIssuanceAmountExceeded:-40,insufficientAvailableForIssuanceAmount:-41,fullLine:-42,baseAssetDoesNotExist:-50,hardCapWillExceedMaxIssuance:-51,insufficientPreissuedForHardCap:-52}); // === xdr source ============================================================
+	xdr["enum"]("ReviewRequestResultCode",{success:0,invalidReason:-1,invalidAction:-2,hashMismatched:-3,notFound:-4,typeMismatched:-5,rejectNotAllowed:-6,invalidExternalDetail:-7,requestorIsBlocked:-8,permanentRejectNotAllowed:-9,assetAlreadyExist:-20,assetDoesNotExist:-21,maxIssuanceAmountExceeded:-40,insufficientAvailableForIssuanceAmount:-41,fullLine:-42,baseAssetDoesNotExist:-50,hardCapWillExceedMaxIssuance:-51,insufficientPreissuedForHardCap:-52}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -2799,6 +2896,82 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("DirectDebitResult",{switchOn:xdr.lookup("DirectDebitResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("DirectDebitSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("CreateAmlAlertRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct CreateAMLAlertRequestOp
+	//   {
+	//       string64 reference;
+	//       AMLAlertRequest amlAlertRequest;
+	//   
+	//   	union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("CreateAmlAlertRequestOp",[["reference",xdr.lookup("String64")],["amlAlertRequest",xdr.lookup("AmlAlertRequest")],["ext",xdr.lookup("CreateAmlAlertRequestOpExt")]]); // === xdr source ============================================================
+	//
+	//   enum CreateAMLAlertRequestResultCode
+	//   {
+	//       // codes considered as "success" for the operation
+	//       SUCCESS = 0,
+	//       BALANCE_NOT_EXIST = 1, // balance doesn't exist
+	//       INVALID_REASON = 2, //invalid reason for request
+	//       UNDERFUNDED = 3, //when couldn't lock balance
+	//   	REFERENCE_DUPLICATION = 4, // reference already exists
+	//   	INVALID_AMOUNT = 5 // amount must be positive
+	//   
+	//   
+	//   };
+	//
+	// ===========================================================================
+	xdr["enum"]("CreateAmlAlertRequestResultCode",{success:0,balanceNotExist:1,invalidReason:2,underfunded:3,referenceDuplication:4,invalidAmount:5}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("CreateAmlAlertRequestSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct CreateAMLAlertRequestSuccess {
+	//   	uint64 requestID;
+	//   
+	//   	union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("CreateAmlAlertRequestSuccess",[["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("CreateAmlAlertRequestSuccessExt")]]); // === xdr source ============================================================
+	//
+	//   union CreateAMLAlertRequestResult switch (CreateAMLAlertRequestResultCode code)
+	//   {
+	//       case SUCCESS:
+	//           CreateAMLAlertRequestSuccess success;
+	//       default:
+	//           void;
+	//   };
+	//
+	// ===========================================================================
+	xdr.union("CreateAmlAlertRequestResult",{switchOn:xdr.lookup("CreateAmlAlertRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreateAmlAlertRequestSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3126,6 +3299,43 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("PaymentResult",{switchOn:xdr.lookup("PaymentResultCode"),switchName:"code",switches:[["success","paymentResponse"]],arms:{paymentResponse:xdr.lookup("PaymentResponse")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("UpdateKycRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct UpdateKYCRequest {
+	//   	AccountID accountToUpdateKYC;
+	//   	AccountType accountTypeToSet;
+	//   	uint32 kycLevel;
+	//   	longstring kycData;
+	//   
+	//   	// Tasks are represented by a bit mask. Each flag(task) in mask refers to specific KYC data validity checker
+	//   	uint32 allTasks;
+	//   	uint32 pendingTasks;
+	//   
+	//   	// Sequence number increases when request is rejected
+	//   	uint32 sequenceNumber;
+	//   
+	//   	// External details vector consists of comments written by KYC data validity checkers
+	//   	longstring externalDetails<>;
+	//   
+	//   	// Reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("UpdateKycRequest",[["accountToUpdateKyc",xdr.lookup("AccountId")],["accountTypeToSet",xdr.lookup("AccountType")],["kycLevel",xdr.lookup("Uint32")],["kycData",xdr.lookup("Longstring")],["allTasks",xdr.lookup("Uint32")],["pendingTasks",xdr.lookup("Uint32")],["sequenceNumber",xdr.lookup("Uint32")],["externalDetails",xdr.varArray(xdr.lookup("Longstring"),2147483647)],["ext",xdr.lookup("UpdateKycRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3682,11 +3892,14 @@ var StellarBase =
 	//   	WITHDRAW_MANAGER = 524288, // can review withdraw requests
 	//   	FEES_MANAGER = 1048576, // can set fee
 	//   	TX_SENDER = 2097152, // can send tx
-	//   	KYC_ACC_MANAGER = 4194304 // can manage kyc
+	//       AML_ALERT_MANAGER = 4194304, // can manage AML alert request
+	//       AML_ALERT_REVIEWER = 8388608, // can review aml alert requests
+	//   	KYC_ACC_MANAGER = 16777216, // can manage kyc
+	//   	KYC_SUPER_ADMIN = 33554432
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("SignerType",{reader:1,notVerifiedAccManager:2,generalAccManager:4,directDebitOperator:8,assetManager:16,assetRateManager:32,balanceManager:64,issuanceManager:128,invoiceManager:256,paymentOperator:512,limitsManager:1024,accountManager:2048,commissionBalanceManager:4096,operationalBalanceManager:8192,eventsChecker:16384,exchangeAccManager:32768,syndicateAccManager:65536,userAssetManager:131072,userIssuanceManager:262144,withdrawManager:524288,feesManager:1048576,txSender:2097152,kycAccManager:4194304}); // === xdr source ============================================================
+	xdr["enum"]("SignerType",{reader:1,notVerifiedAccManager:2,generalAccManager:4,directDebitOperator:8,assetManager:16,assetRateManager:32,balanceManager:64,issuanceManager:128,invoiceManager:256,paymentOperator:512,limitsManager:1024,accountManager:2048,commissionBalanceManager:4096,operationalBalanceManager:8192,eventsChecker:16384,exchangeAccManager:32768,syndicateAccManager:65536,userAssetManager:131072,userIssuanceManager:262144,withdrawManager:524288,feesManager:1048576,txSender:2097152,amlAlertManager:4194304,amlAlertReviewer:8388608,kycAccManager:16777216,kycSuperAdmin:33554432}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3799,11 +4012,12 @@ var StellarBase =
 	//   {
 	//   	RECOVERY_REQUEST = 1,
 	//   	KYC_UPDATE = 2,
-	//   	SUSPICIOUS_BEHAVIOR = 4
+	//   	SUSPICIOUS_BEHAVIOR = 4,
+	//   	TOO_MANY_KYC_UPDATE_REQUESTS = 8
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("BlockReasons",{recoveryRequest:1,kycUpdate:2,suspiciousBehavior:4}); // === xdr source ============================================================
+	xdr["enum"]("BlockReasons",{recoveryRequest:1,kycUpdate:2,suspiciousBehavior:4,tooManyKycUpdateRequest:8}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3904,34 +4118,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("IssuanceRequest",[["asset",xdr.lookup("AssetCode")],["amount",xdr.lookup("Uint64")],["receiver",xdr.lookup("BalanceId")],["externalDetails",xdr.lookup("Longstring")],["fee",xdr.lookup("Fee")],["ext",xdr.lookup("IssuanceRequestExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("ChangeKycRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ChangeKYCRequest {
-	//   
-	//   	AccountID updatedAccount;
-	//   	AccountType accountTypeToSet;
-	//   	uint32 kycLevel;
-	//   	longstring kycData;
-	//   
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ChangeKycRequest",[["updatedAccount",xdr.lookup("AccountId")],["accountTypeToSet",xdr.lookup("AccountType")],["kycLevel",xdr.lookup("Uint32")],["kycData",xdr.lookup("Longstring")],["ext",xdr.lookup("ChangeKycRequestExt")]]); // === xdr source ============================================================
 	//
 	//   enum FeeType
 	//   {
@@ -5354,7 +5540,6 @@ var StellarBase =
 	//   struct AccountKYCEntry
 	//   {
 	//       AccountID accountID;
-	//   
 	//       longstring KYCData;
 	//   
 	//       // reserved for future use
@@ -5795,7 +5980,31 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("CreatePreIssuanceRequestResult",{switchOn:xdr.lookup("CreatePreIssuanceRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreatePreIssuanceRequestResultSuccess")},defaultArm:xdr["void"]()});});exports["default"] = types;module.exports = exports["default"];
+	xdr.union("CreatePreIssuanceRequestResult",{switchOn:xdr.lookup("CreatePreIssuanceRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreatePreIssuanceRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("AmlAlertRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct AMLAlertRequest {
+	//       BalanceID balanceID;
+	//       uint64 amount;
+	//       string256 reason;
+	//   	union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("AmlAlertRequest",[["balanceId",xdr.lookup("BalanceId")],["amount",xdr.lookup("Uint64")],["reason",xdr.lookup("String256")],["ext",xdr.lookup("AmlAlertRequestExt")]]);});exports["default"] = types;module.exports = exports["default"];
 
 /***/ }),
 /* 3 */
@@ -33748,7 +33957,7 @@ var StellarBase =
 
 	var _operationsSet_options_builder = __webpack_require__(224);
 
-	var _operationsCreate_kyc_request_builder = __webpack_require__(225);
+	var _operationsCreate_update_kyc_request_builder = __webpack_require__(225);
 
 	var Operation = (function (_BaseOperation) {
 	    _inherits(Operation, _BaseOperation);
@@ -34434,7 +34643,7 @@ var StellarBase =
 	                    _operationsSale_request_builder.SaleRequestBuilder.checkSaleStateToObject(result, attrs);
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].OperationType.createKycRequest():
-	                    _operationsCreate_kyc_request_builder.CreateKYCRequestBuilder.createKYCRequestOpToObject(result, attrs);
+	                    _operationsCreate_update_kyc_request_builder.CreateUpdateKYCRequestBuilder.createUpdateKYCRequestOpToObject(result, attrs);
 	                    break;
 	                default:
 	                    throw new Error("Unknown operation");
@@ -46101,46 +46310,50 @@ var StellarBase =
 
 	var _jsXdr = __webpack_require__(3);
 
-	var CreateKYCRequestBuilder = (function () {
-	    function CreateKYCRequestBuilder() {
-	        _classCallCheck(this, CreateKYCRequestBuilder);
+	var CreateUpdateKYCRequestBuilder = (function () {
+	    function CreateUpdateKYCRequestBuilder() {
+	        _classCallCheck(this, CreateUpdateKYCRequestBuilder);
 	    }
 
-	    _createClass(CreateKYCRequestBuilder, null, [{
-	        key: 'createKYCRequest',
+	    _createClass(CreateUpdateKYCRequestBuilder, null, [{
+	        key: 'createUpdateKYCRequest',
 
 	        /**
 	         * Creates operation to create KYC request
 	         * @param {object} opts
 	         * @param {number|string} opts.requestID - set to zero to create new request
-	         * @param {string} opts.updatedAccount - account for change KYC
+	         * @param {string} opts.accountToUpdateKYC
 	         * @param {string} opts.accountTypeToSet
 	         * @param {number} opts.kycLevel
 	         * @param {object} opts.kycData
+	         * @param {number|string} opts.allTasks
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * @returns {xdr.CreateKycRequestOp}
+	         * @returns {xdr.CreateUpdateKycRequestOp}
 	         */
-	        value: function createKYCRequest(opts) {
+	        value: function createUpdateKYCRequest(opts) {
 	            var attrs = {};
 
 	            if ((0, _lodashIsUndefined2['default'])(opts.requestID)) {
 	                throw new Error("opts.requestID is invalid");
 	            }
 
-	            if (!_keypair.Keypair.isValidPublicKey(opts.updatedAccount)) {
-	                throw new Error("destination is invalid");
+	            if (!_keypair.Keypair.isValidPublicKey(opts.accountToUpdateKYC)) {
+	                throw new Error("opts.accountToUpdateKYC is invalid");
 	            }
 
-	            attrs.updatedAccount = _keypair.Keypair.fromAccountId(opts.updatedAccount).xdrAccountId();
+	            attrs.accountToUpdateKyc = _keypair.Keypair.fromAccountId(opts.accountToUpdateKYC).xdrAccountId();
 	            attrs.accountTypeToSet = _base_operation.BaseOperation._accountTypeFromNumber(opts.accountTypeToSet);
 	            attrs.kycLevel = opts.kycLevel;
 	            attrs.kycData = JSON.stringify(opts.kycData);
-	            attrs.ext = new _generatedStellarXdr_generated2['default'].ChangeKycRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
-	            var request = new _generatedStellarXdr_generated2['default'].ChangeKycRequest(attrs);
-	            var kycRequestOp = new _generatedStellarXdr_generated2['default'].CreateKycRequestOp({
+	            attrs.allTasks = _base_operation.BaseOperation._checkUnsignedIntValue("allTasks", opts.allTasks);
+	            attrs.ext = new _generatedStellarXdr_generated2['default'].UpdateKycRequestDataExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
+
+	            var updateKYCRequestData = new _generatedStellarXdr_generated2['default'].UpdateKycRequestData(attrs);
+
+	            var kycRequestOp = new _generatedStellarXdr_generated2['default'].CreateUpdateKycRequestOp({
 	                requestId: _jsXdr.UnsignedHyper.fromString(opts.requestID),
-	                changeKycRequest: request,
-	                ext: new _generatedStellarXdr_generated2['default'].CreateKycRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	                updateKycRequestData: updateKYCRequestData,
+	                ext: new _generatedStellarXdr_generated2['default'].CreateUpdateKycRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
 	            });
 	            var opAttributes = {};
 	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.createKycRequest(kycRequestOp);
@@ -46148,20 +46361,21 @@ var StellarBase =
 	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
 	        }
 	    }, {
-	        key: 'createKYCRequestOpToObject',
-	        value: function createKYCRequestOpToObject(result, attrs) {
+	        key: 'createUpdateKYCRequestOpToObject',
+	        value: function createUpdateKYCRequestOpToObject(result, attrs) {
 	            result.requestID = attrs.requestId;
-	            result.updatedAccount = _base_operation.BaseOperation.accountIdtoAddress(attrs.changeKycRequest().updatedAccount());
-	            result.accountTypeToSet = attrs.changeKycRequest().accountTypeToSet().value;
-	            result.kycLevel = attrs.changeKycRequest().kycLevel();
-	            result.kycData = JSON.parse(attrs.changeKycRequest().kycData());
+	            result.accountToUpdateKYC = _base_operation.BaseOperation.accountIdtoAddress(attrs.updateKycRequestData().accountToUpdateKyc());
+	            result.accountTypeToSet = attrs.updateKycRequestData().accountTypeToSet().value;
+	            result.kycLevel = attrs.updateKycRequestData().kycLevel();
+	            result.kycData = JSON.parse(attrs.updateKycRequestData().kycData());
+	            result.allTasks = attrs.updateKycRequestData().allTasks();
 	        }
 	    }]);
 
-	    return CreateKYCRequestBuilder;
+	    return CreateUpdateKYCRequestBuilder;
 	})();
 
-	exports.CreateKYCRequestBuilder = CreateKYCRequestBuilder;
+	exports.CreateUpdateKYCRequestBuilder = CreateUpdateKYCRequestBuilder;
 
 /***/ }),
 /* 226 */

@@ -1,5 +1,6 @@
 import { Hyper } from "js-xdr";
 import isEqual from "lodash/isEqual";
+import {CreateUpdateKYCRequestBuilder} from "../../../src/operations/create_update_kyc_request_builder";
 
 describe("KYC request op", function () {
     it("Success", function () {
@@ -8,20 +9,23 @@ describe("KYC request op", function () {
         let accountType = StellarBase.xdr.AccountType.general().value;
         let kycLevel = 1;
         let kycData = {"hash" : "bb36c7c58c4c32d98947c8781c91c7bb797c3647"};
-        let op = StellarBase.CreateKYCRequestBuilder.createKYCRequest({
+        let allTasks = 3;
+        let op = StellarBase.CreateUpdateKYCRequestBuilder.createUpdateKYCRequest({
             requestID: requestID,
-            updatedAccount: accountID,
+            accountToUpdateKYC: accountID,
             accountTypeToSet: accountType,
             kycLevel: kycLevel,
             kycData: kycData,
+            allTasks: allTasks,
         });
         let xdr = op.toXDR("hex");
         let operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
         let obj = StellarBase.Operation.operationToObject(operation);
         expect(obj.type).to.be.equal("createKycRequest");
-        expect(obj.updatedAccount).to.be.equal(accountID);
+        expect(obj.accountToUpdateKYC).to.be.equal(accountID);
         expect(obj.accountTypeToSet).to.be.equal(accountType);
         expect(obj.kycLevel).to.be.equal(kycLevel);
         expect(isEqual(obj.kycData, kycData)).to.be.true;
+        expect(obj.allTasks).to.be.equal(allTasks);
     });
 });
