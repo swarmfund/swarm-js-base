@@ -45107,6 +45107,19 @@ var StellarBase =
 	            return ReviewRequestBuilder._createOp(opts, attrs);
 	        }
 	    }, {
+	        key: 'reviewUpdateKYCRequest',
+	        value: function reviewUpdateKYCRequest(opts) {
+	            var attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+	            attrs.requestDetails = new _generatedStellarXdr_generated2['default'].ReviewRequestOpRequestDetails.updateKyc(new _generatedStellarXdr_generated2['default'].UpdateKycDetails({
+	                newTasks: opts.newTasks,
+	                externalDetails: JSON.stringify(opts.externalDetails),
+	                ext: new _generatedStellarXdr_generated2['default'].UpdateKycDetailsExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            }));
+
+	            return ReviewRequestBuilder._createOp(opts, attrs);
+	        }
+	    }, {
 	        key: 'reviewRequestToObject',
 	        value: function reviewRequestToObject(result, attrs) {
 	            result.requestID = attrs.requestId().toString();
@@ -45136,6 +45149,14 @@ var StellarBase =
 	                    {
 	                        result.twoStepWithdrawal = {
 	                            externalDetails: attrs.requestDetails().twoStepWithdrawal().externalDetails()
+	                        };
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ReviewableRequestType.updateKyc():
+	                    {
+	                        result.updateKyc = {
+	                            newTasks: attrs.requestDetails().updateKyc().newTasks(),
+	                            externalDetails: attrs.requestDetails().updateKyc().externalDetails()
 	                        };
 	                        break;
 	                    }

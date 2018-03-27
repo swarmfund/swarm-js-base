@@ -1,8 +1,8 @@
-import { default as xdr } from "../generated/stellar-xdr_generated";
+import {default as xdr} from "../generated/stellar-xdr_generated";
 import isUndefined from 'lodash/isUndefined';
-import { BaseOperation } from './base_operation';
-import { Keypair } from "../keypair";
-import { UnsignedHyper, Hyper } from "js-xdr";
+import {BaseOperation} from './base_operation';
+import {Keypair} from "../keypair";
+import {UnsignedHyper, Hyper} from "js-xdr";
 import {Hasher} from '../util/hasher';
 import {Operation} from "../operation";
 
@@ -138,6 +138,18 @@ export class ReviewRequestBuilder {
         return ReviewRequestBuilder._createOp(opts, attrs);
     }
 
+    static reviewUpdateKYCRequest(opts) {
+        let attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.updateKyc(new xdr.UpdateKycDetails({
+            newTasks: opts.newTasks,
+            externalDetails: JSON.stringify(opts.externalDetails),
+            ext: new xdr.UpdateKycDetailsExt(xdr.LedgerVersion.emptyVersion())
+        }));
+
+        return ReviewRequestBuilder._createOp(opts, attrs);
+    }
+
     static reviewRequestToObject(result, attrs) {
         result.requestID = attrs.requestId().toString();
         result.requestHash = attrs.requestHash().toString('hex');
@@ -166,9 +178,16 @@ export class ReviewRequestBuilder {
                 };
                 break;
             }
+            case xdr.ReviewableRequestType.updateKyc(): {
+                result.updateKyc = {
+                    newTasks: attrs.requestDetails().updateKyc().newTasks(),
+                    externalDetails: attrs.requestDetails().updateKyc().externalDetails(),
+                };
+                break;
+            }
         }
         result.action = attrs.action().value;
         result.reason = attrs.reason();
-        
+
     }
 }
