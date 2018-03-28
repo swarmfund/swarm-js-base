@@ -315,7 +315,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-03-28T17:01:26+03:00
+	// Automatically generated on 2018-03-28T20:24:44+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -946,11 +946,12 @@ var StellarBase =
 	//   	REQUEST_DOES_NOT_EXIST = -4,
 	//   	PENDING_REQUEST_UPDATE_NOT_ALLOWED = -5,
 	//   	NOT_ALLOWED_TO_UPDATE_REQUEST = -6, // master account can update request only through review request operation
-	//   	INVALID_UPDATE_KYC_REQUEST_DATA = -7
+	//   	INVALID_UPDATE_KYC_REQUEST_DATA = -7,
+	//   	INVALID_KYC_DATA = -8
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("CreateUpdateKycRequestResultCode",{success:0,accToUpdateDoesNotExist:-1,requestAlreadyExist:-2,sameAccTypeToSet:-3,requestDoesNotExist:-4,pendingRequestUpdateNotAllowed:-5,notAllowedToUpdateRequest:-6,invalidUpdateKycRequestDatum:-7}); // === xdr source ============================================================
+	xdr["enum"]("CreateUpdateKycRequestResultCode",{success:0,accToUpdateDoesNotExist:-1,requestAlreadyExist:-2,sameAccTypeToSet:-3,requestDoesNotExist:-4,pendingRequestUpdateNotAllowed:-5,notAllowedToUpdateRequest:-6,invalidUpdateKycRequestDatum:-7,invalidKycDatum:-8}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -2677,7 +2678,8 @@ var StellarBase =
 	xdr.union("UpdateKycDetailsExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct UpdateKYCDetails {
-	//       uint32 newTasks;
+	//       uint32 tasksToAdd;
+	//       uint32 tasksToRemove;
 	//       string externalDetails<>;
 	//       // Reserved for future use
 	//       union switch (LedgerVersion v)
@@ -2689,7 +2691,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("UpdateKycDetails",[["newTasks",xdr.lookup("Uint32")],["externalDetails",xdr.string()],["ext",xdr.lookup("UpdateKycDetailsExt")]]); // === xdr source ============================================================
+	xdr.struct("UpdateKycDetails",[["tasksToAdd",xdr.lookup("Uint32")],["tasksToRemove",xdr.lookup("Uint32")],["externalDetails",xdr.string()],["ext",xdr.lookup("UpdateKycDetailsExt")]]); // === xdr source ============================================================
 	//
 	//   union switch(ReviewableRequestType requestType) {
 	//   	case WITHDRAW:
@@ -3323,7 +3325,7 @@ var StellarBase =
 	//   struct UpdateKYCRequest {
 	//   	AccountID accountToUpdateKYC;
 	//   	AccountType accountTypeToSet;
-	//   	uint32 kycLevelToSet;
+	//   	uint32 kycLevel;
 	//   	longstring kycData;
 	//   
 	//   	// Tasks are represented by a bit mask. Each flag(task) in mask refers to specific KYC data validity checker
@@ -3346,7 +3348,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("UpdateKycRequest",[["accountToUpdateKyc",xdr.lookup("AccountId")],["accountTypeToSet",xdr.lookup("AccountType")],["kycLevelToSet",xdr.lookup("Uint32")],["kycData",xdr.lookup("Longstring")],["allTasks",xdr.lookup("Uint32")],["pendingTasks",xdr.lookup("Uint32")],["sequenceNumber",xdr.lookup("Uint32")],["externalDetails",xdr.varArray(xdr.lookup("Longstring"),2147483647)],["ext",xdr.lookup("UpdateKycRequestExt")]]); // === xdr source ============================================================
+	xdr.struct("UpdateKycRequest",[["accountToUpdateKyc",xdr.lookup("AccountId")],["accountTypeToSet",xdr.lookup("AccountType")],["kycLevel",xdr.lookup("Uint32")],["kycData",xdr.lookup("Longstring")],["allTasks",xdr.lookup("Uint32")],["pendingTasks",xdr.lookup("Uint32")],["sequenceNumber",xdr.lookup("Uint32")],["externalDetails",xdr.varArray(xdr.lookup("Longstring"),2147483647)],["ext",xdr.lookup("UpdateKycRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4035,11 +4037,11 @@ var StellarBase =
 	//       case EMPTY_VERSION:
 	//           void;
 	//   	case USE_KYC_LEVEL:
-	//   		uint32 kycLevelToSet;
+	//   		uint32 kycLevel;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("AccountEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["useKycLevel","kycLevelToSet"]],arms:{kycLevelToSet:xdr.lookup("Uint32")}}); // === xdr source ============================================================
+	xdr.union("AccountEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["useKycLevel","kycLevel"]],arms:{kycLevel:xdr.lookup("Uint32")}}); // === xdr source ============================================================
 	//
 	//   struct AccountEntry
 	//   {
@@ -4067,7 +4069,7 @@ var StellarBase =
 	//       case EMPTY_VERSION:
 	//           void;
 	//   	case USE_KYC_LEVEL:
-	//   		uint32 kycLevelToSet;
+	//   		uint32 kycLevel;
 	//       }
 	//   	
 	//       ext;
@@ -45156,7 +45158,8 @@ var StellarBase =
 	            var attrs = ReviewRequestBuilder._prepareAttrs(opts);
 
 	            attrs.requestDetails = new _generatedStellarXdr_generated2['default'].ReviewRequestOpRequestDetails.updateKyc(new _generatedStellarXdr_generated2['default'].UpdateKycDetails({
-	                newTasks: opts.newTasks,
+	                tasksToAdd: opts.tasksToAdd,
+	                tasksToRemove: opts.tasksToRemove,
 	                externalDetails: JSON.stringify(opts.externalDetails),
 	                ext: new _generatedStellarXdr_generated2['default'].UpdateKycDetailsExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
 	            }));
@@ -45199,7 +45202,8 @@ var StellarBase =
 	                case _generatedStellarXdr_generated2['default'].ReviewableRequestType.updateKyc():
 	                    {
 	                        result.updateKyc = {
-	                            newTasks: attrs.requestDetails().updateKyc().newTasks(),
+	                            tasksToAdd: attrs.requestDetails().updateKyc().tasksToAdd(),
+	                            tasksToRemove: attrs.requestDetails().updateKyc().tasksToRemove(),
 	                            externalDetails: attrs.requestDetails().updateKyc().externalDetails()
 	                        };
 	                        break;

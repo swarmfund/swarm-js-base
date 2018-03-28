@@ -112,7 +112,8 @@ describe('ReviewRequest', function () {
             action: StellarBase.xdr.ReviewRequestOpAction.reject().value,
             reason: "Something is invalid",
             externalDetails: {details: "Invalid identity"},
-            newTasks: 3,
+            tasksToAdd: 3,
+            tasksToRemove: 0,
         }
         let op = StellarBase.ReviewRequestBuilder.reviewUpdateKYCRequest(opts);
         var xdr = op.toXDR("hex");
@@ -124,6 +125,7 @@ describe('ReviewRequest', function () {
         expect(obj.action).to.be.equal(opts.action);
         expect(obj.reason).to.be.equal(opts.reason);
         expect(obj.updateKyc.externalDetails).to.be.equal(JSON.stringify(opts.externalDetails));
-        expect(obj.updateKyc.newTasks).to.be.equal(opts.newTasks);
+        expect(obj.updateKyc.tasksToAdd).to.be.equal(opts.tasksToAdd);
+        expect(obj.updateKyc.tasksToRemove).to.be.equal(opts.tasksToRemove);
     })
 });

@@ -168,7 +168,8 @@ export class ReviewRequestBuilder {
         let attrs = ReviewRequestBuilder._prepareAttrs(opts);
 
         attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.updateKyc(new xdr.UpdateKycDetails({
-            newTasks: opts.newTasks,
+            tasksToAdd: opts.tasksToAdd,
+            tasksToRemove: opts.tasksToRemove,
             externalDetails: JSON.stringify(opts.externalDetails),
             ext: new xdr.UpdateKycDetailsExt(xdr.LedgerVersion.emptyVersion())
         }));
@@ -206,7 +207,8 @@ export class ReviewRequestBuilder {
             }
             case xdr.ReviewableRequestType.updateKyc(): {
                 result.updateKyc = {
-                    newTasks: attrs.requestDetails().updateKyc().newTasks(),
+                    tasksToAdd: attrs.requestDetails().updateKyc().tasksToAdd(),
+                    tasksToRemove: attrs.requestDetails().updateKyc().tasksToRemove(),
                     externalDetails: attrs.requestDetails().updateKyc().externalDetails(),
                 };
                 break;

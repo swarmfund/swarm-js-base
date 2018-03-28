@@ -1,4 +1,4 @@
-// Automatically generated on 2018-03-28T17:01:26+03:00
+// Automatically generated on 2018-03-28T20:24:44+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -1052,7 +1052,8 @@ xdr.struct("CreateUpdateKycRequestOp", [
 //   	REQUEST_DOES_NOT_EXIST = -4,
 //   	PENDING_REQUEST_UPDATE_NOT_ALLOWED = -5,
 //   	NOT_ALLOWED_TO_UPDATE_REQUEST = -6, // master account can update request only through review request operation
-//   	INVALID_UPDATE_KYC_REQUEST_DATA = -7
+//   	INVALID_UPDATE_KYC_REQUEST_DATA = -7,
+//   	INVALID_KYC_DATA = -8
 //   };
 //
 // ===========================================================================
@@ -1065,6 +1066,7 @@ xdr.enum("CreateUpdateKycRequestResultCode", {
   pendingRequestUpdateNotAllowed: -5,
   notAllowedToUpdateRequest: -6,
   invalidUpdateKycRequestDatum: -7,
+  invalidKycDatum: -8,
 });
 
 // === xdr source ============================================================
@@ -3873,7 +3875,8 @@ xdr.union("UpdateKycDetailsExt", {
 // === xdr source ============================================================
 //
 //   struct UpdateKYCDetails {
-//       uint32 newTasks;
+//       uint32 tasksToAdd;
+//       uint32 tasksToRemove;
 //       string externalDetails<>;
 //       // Reserved for future use
 //       union switch (LedgerVersion v)
@@ -3886,7 +3889,8 @@ xdr.union("UpdateKycDetailsExt", {
 //
 // ===========================================================================
 xdr.struct("UpdateKycDetails", [
-  ["newTasks", xdr.lookup("Uint32")],
+  ["tasksToAdd", xdr.lookup("Uint32")],
+  ["tasksToRemove", xdr.lookup("Uint32")],
   ["externalDetails", xdr.string()],
   ["ext", xdr.lookup("UpdateKycDetailsExt")],
 ]);
@@ -4959,7 +4963,7 @@ xdr.union("UpdateKycRequestExt", {
 //   struct UpdateKYCRequest {
 //   	AccountID accountToUpdateKYC;
 //   	AccountType accountTypeToSet;
-//   	uint32 kycLevelToSet;
+//   	uint32 kycLevel;
 //   	longstring kycData;
 //   
 //   	// Tasks are represented by a bit mask. Each flag(task) in mask refers to specific KYC data validity checker
@@ -4985,7 +4989,7 @@ xdr.union("UpdateKycRequestExt", {
 xdr.struct("UpdateKycRequest", [
   ["accountToUpdateKyc", xdr.lookup("AccountId")],
   ["accountTypeToSet", xdr.lookup("AccountType")],
-  ["kycLevelToSet", xdr.lookup("Uint32")],
+  ["kycLevel", xdr.lookup("Uint32")],
   ["kycData", xdr.lookup("Longstring")],
   ["allTasks", xdr.lookup("Uint32")],
   ["pendingTasks", xdr.lookup("Uint32")],
@@ -6143,7 +6147,7 @@ xdr.enum("BlockReasons", {
 //       case EMPTY_VERSION:
 //           void;
 //   	case USE_KYC_LEVEL:
-//   		uint32 kycLevelToSet;
+//   		uint32 kycLevel;
 //       }
 //
 // ===========================================================================
@@ -6152,10 +6156,10 @@ xdr.union("AccountEntryExt", {
   switchName: "v",
   switches: [
     ["emptyVersion", xdr.void()],
-    ["useKycLevel", "kycLevelToSet"],
+    ["useKycLevel", "kycLevel"],
   ],
   arms: {
-    kycLevelToSet: xdr.lookup("Uint32"),
+    kycLevel: xdr.lookup("Uint32"),
   },
 });
 
@@ -6187,7 +6191,7 @@ xdr.union("AccountEntryExt", {
 //       case EMPTY_VERSION:
 //           void;
 //   	case USE_KYC_LEVEL:
-//   		uint32 kycLevelToSet;
+//   		uint32 kycLevel;
 //       }
 //   	
 //       ext;
