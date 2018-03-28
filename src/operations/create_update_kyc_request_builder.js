@@ -11,7 +11,7 @@ export class CreateUpdateKYCRequestBuilder {
      * @param {number|string} opts.requestID - set to zero to create new request
      * @param {string} opts.accountToUpdateKYC
      * @param {string} opts.accountTypeToSet
-     * @param {number} opts.kycLevel
+     * @param {number} opts.kycLevelToSet
      * @param {object} opts.kycData
      * @param {number|string} opts.allTasks
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
@@ -30,7 +30,7 @@ export class CreateUpdateKYCRequestBuilder {
 
         attrs.accountToUpdateKyc = Keypair.fromAccountId(opts.accountToUpdateKYC).xdrAccountId();
         attrs.accountTypeToSet = BaseOperation._accountTypeFromNumber(opts.accountTypeToSet);
-        attrs.kycLevel = opts.kycLevel;
+        attrs.kycLevelToSet = opts.kycLevelToSet;
         attrs.kycData = JSON.stringify(opts.kycData);
         attrs.allTasks = BaseOperation._checkUnsignedIntValue("allTasks", opts.allTasks);
         attrs.ext = new xdr.UpdateKycRequestDataExt(xdr.LedgerVersion.emptyVersion());
@@ -52,7 +52,7 @@ export class CreateUpdateKYCRequestBuilder {
         result.requestID = attrs.requestId;
         result.accountToUpdateKYC = BaseOperation.accountIdtoAddress(attrs.updateKycRequestData().accountToUpdateKyc());
         result.accountTypeToSet = attrs.updateKycRequestData().accountTypeToSet().value;
-        result.kycLevel = attrs.updateKycRequestData().kycLevel();
+        result.kycLevelToSet = attrs.updateKycRequestData().kycLevelToSet();
         result.kycData = JSON.parse(attrs.updateKycRequestData().kycData());
         result.allTasks = attrs.updateKycRequestData().allTasks();
     }
