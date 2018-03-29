@@ -105,4 +105,27 @@ describe('ReviewRequest', function () {
         expect(obj.reason).to.be.equal(opts.reason);
         expect(obj.amlAlert.comment).to.be.equal(opts.comment);
     });
+    it("Update KYC request success", function () {
+        var opts = {
+            requestID: "1",
+            requestHash: "b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9",
+            action: StellarBase.xdr.ReviewRequestOpAction.reject().value,
+            reason: "Something is invalid",
+            externalDetails: {details: "Invalid identity"},
+            tasksToAdd: 3,
+            tasksToRemove: 0,
+        }
+        let op = StellarBase.ReviewRequestBuilder.reviewUpdateKYCRequest(opts);
+        var xdr = op.toXDR("hex");
+        var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
+        var obj = StellarBase.Operation.operationToObject(operation);
+        expect(obj.type).to.be.equal("reviewRequest");
+        expect(obj.requestID).to.be.equal(opts.requestID);
+        expect(obj.requestHash).to.be.equal(opts.requestHash);
+        expect(obj.action).to.be.equal(opts.action);
+        expect(obj.reason).to.be.equal(opts.reason);
+        expect(obj.updateKyc.externalDetails).to.be.equal(JSON.stringify(opts.externalDetails));
+        expect(obj.updateKyc.tasksToAdd).to.be.equal(opts.tasksToAdd);
+        expect(obj.updateKyc.tasksToRemove).to.be.equal(opts.tasksToRemove);
+    })
 });

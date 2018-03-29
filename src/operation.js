@@ -23,6 +23,7 @@ import { SaleRequestBuilder } from './operations/sale_request_builder';
 import { ManageOfferBuilder } from './operations/manage_offer_builder';
 import { SetOptionsBuilder} from "./operations/set_options_builder";
 import { CreateAMLRequestBuilder } from "./operations/create_aml_request_builder";
+import { CreateUpdateKYCRequestBuilder } from "./operations/create_update_kyc_request_builder";
 
 export class Operation extends BaseOperation {
 
@@ -683,6 +684,9 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.createAmlAlert():
                 CreateAMLRequestBuilder.createAmlAlertToObject(result, attrs);
+                break;
+            case xdr.OperationType.createKycRequest():
+                CreateUpdateKYCRequestBuilder.createUpdateKYCRequestOpToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");
