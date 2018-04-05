@@ -1,4 +1,4 @@
-// Automatically generated on 2018-03-28T20:24:44+03:00
+// Automatically generated on 2018-04-05T21:43:21+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -2230,7 +2230,8 @@ xdr.union("PublicKey", {
 //   	UNIQUE_BALANCE_CREATION = 5, // allows to specify in manage balance that balance should not be created if one for such asset and account exists
 //   	ASSET_PREISSUER_MIGRATION = 6,
 //   	ASSET_PREISSUER_MIGRATED = 7,
-//   	USE_KYC_LEVEL = 8
+//   	USE_KYC_LEVEL = 8,
+//   	ERROR_ON_NON_ZERO_TASKS_TO_REMOVE_IN_REJECT_KYC = 9
 //   };
 //
 // ===========================================================================
@@ -2244,6 +2245,7 @@ xdr.enum("LedgerVersion", {
   assetPreissuerMigration: 6,
   assetPreissuerMigrated: 7,
   useKycLevel: 8,
+  errorOnNonZeroTasksToRemoveInRejectKyc: 9,
 });
 
 // === xdr source ============================================================
@@ -4023,7 +4025,10 @@ xdr.struct("ReviewRequestOp", [
 //   	// Sale creation requests
 //   	BASE_ASSET_DOES_NOT_EXISTS = -50,
 //   	HARD_CAP_WILL_EXCEED_MAX_ISSUANCE = -51,
-//   	INSUFFICIENT_PREISSUED_FOR_HARD_CAP = -52
+//   	INSUFFICIENT_PREISSUED_FOR_HARD_CAP = -52,
+//   
+//   	// Update KYC requests
+//   	NON_ZERO_TASKS_TO_REMOVE_NOT_ALLOWED = -60
 //   };
 //
 // ===========================================================================
@@ -4046,6 +4051,7 @@ xdr.enum("ReviewRequestResultCode", {
   baseAssetDoesNotExist: -50,
   hardCapWillExceedMaxIssuance: -51,
   insufficientPreissuedForHardCap: -52,
+  nonZeroTasksToRemoveNotAllowed: -60,
 });
 
 // === xdr source ============================================================
