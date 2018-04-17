@@ -1,4 +1,4 @@
-// Automatically generated on 2018-04-04T10:49:13+03:00
+// Automatically generated on 2018-04-17T18:22:05+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -1392,7 +1392,7 @@ xdr.struct("ManageOfferOp", [
 //   	INVALID_AMOUNT = -22, // amount must be positive 
 //   	SALE_IS_NOT_ACTIVE = -23,
 //   	REQUIRES_KYC = -24, // source must have KYC in order to participate
-//   	REQUIRES_IS_BUY = -25 //offers, related to sales must have isBuy set to true
+//   	SELLING_NOT_ALLOWED = -25 // cannot create selling offers for participation in sale
 //   };
 //
 // ===========================================================================
@@ -1422,7 +1422,7 @@ xdr.enum("ManageOfferResultCode", {
   invalidAmount: -22,
   saleIsNotActive: -23,
   requiresKyc: -24,
-  requiresIsBuy: -25,
+  sellingNotAllowed: -25,
 });
 
 // === xdr source ============================================================
@@ -2276,7 +2276,10 @@ xdr.union("PublicKey", {
 //   	UNIQUE_BALANCE_CREATION = 5, // allows to specify in manage balance that balance should not be created if one for such asset and account exists
 //   	ASSET_PREISSUER_MIGRATION = 6,
 //   	ASSET_PREISSUER_MIGRATED = 7,
-//   	USE_KYC_LEVEL = 8
+//   	USE_KYC_LEVEL = 8,
+//   	ERROR_ON_NON_ZERO_TASKS_TO_REMOVE_IN_REJECT_KYC = 9,
+//   	ALLOW_ACCOUNT_MANAGER_TO_CHANGE_KYC = 10,
+//   	ALLOW_UPDATE_OFFERS = 11
 //   };
 //
 // ===========================================================================
@@ -2290,6 +2293,9 @@ xdr.enum("LedgerVersion", {
   assetPreissuerMigration: 6,
   assetPreissuerMigrated: 7,
   useKycLevel: 8,
+  errorOnNonZeroTasksToRemoveInRejectKyc: 9,
+  allowAccountManagerToChangeKyc: 10,
+  allowUpdateOffer: 11,
 });
 
 // === xdr source ============================================================
@@ -4069,7 +4075,10 @@ xdr.struct("ReviewRequestOp", [
 //   	// Sale creation requests
 //   	BASE_ASSET_DOES_NOT_EXISTS = -50,
 //   	HARD_CAP_WILL_EXCEED_MAX_ISSUANCE = -51,
-//   	INSUFFICIENT_PREISSUED_FOR_HARD_CAP = -52
+//   	INSUFFICIENT_PREISSUED_FOR_HARD_CAP = -52,
+//   
+//   	// Update KYC requests
+//   	NON_ZERO_TASKS_TO_REMOVE_NOT_ALLOWED = -60
 //   };
 //
 // ===========================================================================
@@ -4092,6 +4101,7 @@ xdr.enum("ReviewRequestResultCode", {
   baseAssetDoesNotExist: -50,
   hardCapWillExceedMaxIssuance: -51,
   insufficientPreissuedForHardCap: -52,
+  nonZeroTasksToRemoveNotAllowed: -60,
 });
 
 // === xdr source ============================================================

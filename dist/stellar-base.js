@@ -315,7 +315,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-04-04T10:49:13+03:00
+	// Automatically generated on 2018-04-17T18:22:05+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -1157,11 +1157,11 @@ var StellarBase =
 	//   	INVALID_AMOUNT = -22, // amount must be positive 
 	//   	SALE_IS_NOT_ACTIVE = -23,
 	//   	REQUIRES_KYC = -24, // source must have KYC in order to participate
-	//   	REQUIRES_IS_BUY = -25 //offers, related to sales must have isBuy set to true
+	//   	SELLING_NOT_ALLOWED = -25 // cannot create selling offers for participation in sale
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageOfferResultCode",{success:0,malformed:-1,pairNotTraded:-2,balanceNotFound:-3,underfunded:-4,crossSelf:-5,offerOverflow:-6,assetPairNotTradable:-7,physicalPriceRestriction:-8,currentPriceRestriction:-9,offerNotFound:-10,invalidPercentFee:-11,insufficientPrice:-12,orderBookDoesNotExist:-13,saleIsNotStartedYet:-14,saleAlreadyEnded:-15,orderExceedsHardCap:-16,cannotParticipateOwnSale:-17,assetMismatched:-18,priceMismatched:-19,invalidPrice:-20,offerUpdateIsNotAllowed:-21,invalidAmount:-22,saleIsNotActive:-23,requiresKyc:-24,requiresIsBuy:-25}); // === xdr source ============================================================
+	xdr["enum"]("ManageOfferResultCode",{success:0,malformed:-1,pairNotTraded:-2,balanceNotFound:-3,underfunded:-4,crossSelf:-5,offerOverflow:-6,assetPairNotTradable:-7,physicalPriceRestriction:-8,currentPriceRestriction:-9,offerNotFound:-10,invalidPercentFee:-11,insufficientPrice:-12,orderBookDoesNotExist:-13,saleIsNotStartedYet:-14,saleAlreadyEnded:-15,orderExceedsHardCap:-16,cannotParticipateOwnSale:-17,assetMismatched:-18,priceMismatched:-19,invalidPrice:-20,offerUpdateIsNotAllowed:-21,invalidAmount:-22,saleIsNotActive:-23,requiresKyc:-24,sellingNotAllowed:-25}); // === xdr source ============================================================
 	//
 	//   enum ManageOfferEffect
 	//   {
@@ -1703,11 +1703,14 @@ var StellarBase =
 	//   	UNIQUE_BALANCE_CREATION = 5, // allows to specify in manage balance that balance should not be created if one for such asset and account exists
 	//   	ASSET_PREISSUER_MIGRATION = 6,
 	//   	ASSET_PREISSUER_MIGRATED = 7,
-	//   	USE_KYC_LEVEL = 8
+	//   	USE_KYC_LEVEL = 8,
+	//   	ERROR_ON_NON_ZERO_TASKS_TO_REMOVE_IN_REJECT_KYC = 9,
+	//   	ALLOW_ACCOUNT_MANAGER_TO_CHANGE_KYC = 10,
+	//   	ALLOW_UPDATE_OFFERS = 11
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8}); // === xdr source ============================================================
+	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,allowUpdateOffer:11}); // === xdr source ============================================================
 	//
 	//   typedef opaque Signature<64>;
 	//
@@ -2807,11 +2810,14 @@ var StellarBase =
 	//   	// Sale creation requests
 	//   	BASE_ASSET_DOES_NOT_EXISTS = -50,
 	//   	HARD_CAP_WILL_EXCEED_MAX_ISSUANCE = -51,
-	//   	INSUFFICIENT_PREISSUED_FOR_HARD_CAP = -52
+	//   	INSUFFICIENT_PREISSUED_FOR_HARD_CAP = -52,
+	//   
+	//   	// Update KYC requests
+	//   	NON_ZERO_TASKS_TO_REMOVE_NOT_ALLOWED = -60
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ReviewRequestResultCode",{success:0,invalidReason:-1,invalidAction:-2,hashMismatched:-3,notFound:-4,typeMismatched:-5,rejectNotAllowed:-6,invalidExternalDetail:-7,requestorIsBlocked:-8,permanentRejectNotAllowed:-9,assetAlreadyExist:-20,assetDoesNotExist:-21,maxIssuanceAmountExceeded:-40,insufficientAvailableForIssuanceAmount:-41,fullLine:-42,baseAssetDoesNotExist:-50,hardCapWillExceedMaxIssuance:-51,insufficientPreissuedForHardCap:-52}); // === xdr source ============================================================
+	xdr["enum"]("ReviewRequestResultCode",{success:0,invalidReason:-1,invalidAction:-2,hashMismatched:-3,notFound:-4,typeMismatched:-5,rejectNotAllowed:-6,invalidExternalDetail:-7,requestorIsBlocked:-8,permanentRejectNotAllowed:-9,assetAlreadyExist:-20,assetDoesNotExist:-21,maxIssuanceAmountExceeded:-40,insufficientAvailableForIssuanceAmount:-41,fullLine:-42,baseAssetDoesNotExist:-50,hardCapWillExceedMaxIssuance:-51,insufficientPreissuedForHardCap:-52,nonZeroTasksToRemoveNotAllowed:-60}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -46080,15 +46086,17 @@ var StellarBase =
 	        key: 'manageOffer',
 
 	        /**
-	         * Returns an XDR ManageOffer. A "manage offer" operations creates offer.
+	         * Returns an XDR ManageOffer. A "manage offer" operation creates or updates offer.
 	         * @param {object} opts
 	         * @param {string} opts.baseBalance
 	         * @param {string} opts.quoteBalance
 	         * @param {boolean} opts.isBuy - if true - buys base asset, false - sells base asset
+	         * @param {number|string} opts.offerID - if not zero - update offer
 	         * @param {number|string} opts.amount - Amount of the base asset
 	         * @param {number|string} opts.price - Price of the offer
+	         * @param {number|string} opts.fee - Fee of the order
 	         * @param {number|string} opts.orderBookID - 0 - for secondary market, otherwise to participate in sale
-	         * @returns {xdr.ManageBalanceOp}
+	         * @returns {xdr.ManageOfferOp}
 	         */
 	        value: function manageOffer(opts) {
 	            var attributes = {
@@ -46145,14 +46153,14 @@ var StellarBase =
 	        }
 
 	        /**
-	         * Returns an XDR ManageOffer. A "manage offer" operations deletes offer.
+	         * Returns an XDR ManageOffer. A "delete offer" operation deletes offer.
 	         * @param {object} opts
 	         * @param {string} opts.baseBalance
 	         * @param {string} opts.quoteBalance
 	         * @param {string} opts.price
 	         * @param {number|string} opts.offerID - offer id
 	         * @param {number|string} opts.orderBookID - 0 - for secondary market, otherwise to participate in sale
-	         * @returns {xdr.ManageBalanceOp}
+	         * @returns {xdr.ManageOfferOp}
 	         */
 	    }, {
 	        key: 'cancelOffer',

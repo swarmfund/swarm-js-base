@@ -7,15 +7,17 @@ import { UnsignedHyper, Hyper } from "js-xdr";
 export class ManageOfferBuilder {
 
     /**
-     * Returns an XDR ManageOffer. A "manage offer" operations creates offer.
+     * Returns an XDR ManageOffer. A "manage offer" operation creates or updates offer.
      * @param {object} opts
      * @param {string} opts.baseBalance
      * @param {string} opts.quoteBalance
      * @param {boolean} opts.isBuy - if true - buys base asset, false - sells base asset
+     * @param {number|string} opts.offerID - if not zero - update offer
      * @param {number|string} opts.amount - Amount of the base asset
      * @param {number|string} opts.price - Price of the offer
+     * @param {number|string} opts.fee - Fee of the order
      * @param {number|string} opts.orderBookID - 0 - for secondary market, otherwise to participate in sale
-     * @returns {xdr.ManageBalanceOp}
+     * @returns {xdr.ManageOfferOp}
      */
     static manageOffer(opts) {
         let attributes = {
@@ -73,14 +75,14 @@ export class ManageOfferBuilder {
     }
 
     /**
-     * Returns an XDR ManageOffer. A "manage offer" operations deletes offer.
+     * Returns an XDR ManageOffer. A "delete offer" operation deletes offer.
      * @param {object} opts
      * @param {string} opts.baseBalance
      * @param {string} opts.quoteBalance
      * @param {string} opts.price
      * @param {number|string} opts.offerID - offer id
      * @param {number|string} opts.orderBookID - 0 - for secondary market, otherwise to participate in sale
-     * @returns {xdr.ManageBalanceOp}
+     * @returns {xdr.ManageOfferOp}
      */
     static cancelOffer(opts) {
         opts.isBuy = true;
