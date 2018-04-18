@@ -21,6 +21,7 @@ import { CreateIssuanceRequestBuilder } from './operations/create_issuance_reque
 import { CreateWithdrawRequestBuilder } from './operations/create_withdraw_request_builder';
 import { SaleRequestBuilder } from './operations/sale_request_builder';
 import { ManageOfferBuilder } from './operations/manage_offer_builder';
+import { ManageKeyValueOpBuilder } from './operations/manage_key_value_builder'
 import { SetOptionsBuilder} from "./operations/set_options_builder";
 import { CreateAMLRequestBuilder } from "./operations/create_aml_request_builder";
 import { CreateUpdateKYCRequestBuilder } from "./operations/create_update_kyc_request_builder";
@@ -74,22 +75,6 @@ export class Operation extends BaseOperation {
         return new xdr.Operation(opAttributes);
     }
 
-    static manageKeyValueOp(opts) {
-        let attributes = {};
-        attributes.key = opts.key;
-        attributes.action = new xdr.ManageKeyValueOpAction(Operation._keyValueActionFromNumber(opts.keyValueAction));
-        attributes.ext = new xdr.ManageKeyValueExt(xdr.LedgerVersion.emptyVersion());
-        if (Operation._keyValueActionFromNumber(opts.keyValueAction) === xdr.ManageKvAction.put()) {
-            attributes.action.value = new xdr.KeyValueEntry(opts.value);
-        }
-
-        let manageKV = new xdr.ManageKeyValueOp(attributes);
-
-        let opAttributes ={};
-        opAttributes.body = xdr.OperationBody.manageKeyValue(manageKV);
-        Operation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
-    }
     /**
      * Create a payment operation.
      * @param {object} opts
@@ -629,10 +614,6 @@ export class Operation extends BaseOperation {
                     result.fee.hash = attrs.fee().hash();
                 }
                 break;
-            /*case xdr.OperationType.manageKeyValueOp():
-                result.keyValue = {};
-                result.keyValue._key = attrs.key;*/
-
             case xdr.OperationType.manageAccount():
                 result.account = accountIdtoAddress(attrs.account());
                 result.blockReasonsToAdd = attrs.blockReasonsToAdd();
@@ -672,6 +653,9 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.manageOffer():
                 ManageOfferBuilder.manageOfferOpToObject(result, attrs);
+                break;
+            case xdr.OperationType.manageKeyValue():
+                ManageKeyValueOpBuilder.manageKeyValueOpToObject();
                 break;
             case xdr.OperationType.manageInvoice():
                 result.amount = Operation._fromXDRAmount(attrs.amount());
