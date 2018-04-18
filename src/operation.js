@@ -74,6 +74,22 @@ export class Operation extends BaseOperation {
         return new xdr.Operation(opAttributes);
     }
 
+    static manageKeyValueOp(opts) {
+        let attributes = {};
+        attributes.key = opts.key;
+        attributes.action = new xdr.ManageKeyValueOpAction(Operation._keyValueActionFromNumber(opts.keyValueAction));
+        attributes.ext = new xdr.ManageKeyValueExt(xdr.LedgerVersion.emptyVersion());
+        if (Operation._keyValueActionFromNumber(opts.keyValueAction) === xdr.ManageKvAction.put()) {
+            attributes.action.value = new xdr.KeyValueEntry(opts.value);
+        }
+
+        let manageKV = new xdr.ManageKeyValueOp(attributes);
+
+        let opAttributes ={};
+        opAttributes.body = xdr.OperationBody.manageKeyValue(manageKV);
+        Operation.setSourceAccount(opAttributes, opts);
+        return new xdr.Operation(opAttributes);
+    }
     /**
      * Create a payment operation.
      * @param {object} opts
@@ -613,6 +629,10 @@ export class Operation extends BaseOperation {
                     result.fee.hash = attrs.fee().hash();
                 }
                 break;
+            /*case xdr.OperationType.manageKeyValueOp():
+                result.keyValue = {};
+                result.keyValue._key = attrs.key;*/
+
             case xdr.OperationType.manageAccount():
                 result.account = accountIdtoAddress(attrs.account());
                 result.blockReasonsToAdd = attrs.blockReasonsToAdd();
