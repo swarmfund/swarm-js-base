@@ -8,8 +8,10 @@ export class ManageKeyValueOpBuilder {
         attributes.action = new xdr.ManageKeyValueOpAction(Operation._keyValueActionFromNumber(opts.keyValueAction));
         attributes.ext = new xdr.ManageKeyValueExt(xdr.LedgerVersion.emptyVersion());
         if (Operation._keyValueActionFromNumber(opts.keyValueAction) === xdr.ManageKvAction.put()) {
-            attributes.action.value = new xdr.KeyValueEntry(opts.value);
+            this.put(opts,attributes);
         }
+        else
+            this.delete(attributes);
 
         let manageKV = new xdr.ManageKeyValueOp(attributes);
 
@@ -24,11 +26,24 @@ export class ManageKeyValueOpBuilder {
         result.action = new xdr.ManageKeyValueOpAction(Operation._keyValueActionFromNumber(attrs.action));
         if(result.action === xdr.ManageKvAction.put)
         {
-            result.action.value = attrs.value;
+            this.put(attrs,result);
         }
         else
         {
-            result.action.value = xdr.void;
+            this.delete(attrs,result);
         }
+    }
+
+    put(opts, attributes){
+        let KVEntry = {};
+        KVEntry.key = opts.key;
+        KVEntry.value = new xdr.KeyValueEntryValue(Operation._keyValueTypeFromNumber(opts.kvType));
+        KVEntry.ext = new xdr.ManageKeyValueExt(xdr.LedgerVersion.emptyVersion());
+        KVEntry.value.ext = new xdr.ManageKeyValueExt(xdr.LedgerVersion.emptyVersion());
+        attributes.action.put.value = KVEntry;
+    }
+
+    delete(opts,attributes){
+        attributes.action.delete = xdr.void();
     }
 }

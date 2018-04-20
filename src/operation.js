@@ -21,7 +21,7 @@ import { CreateIssuanceRequestBuilder } from './operations/create_issuance_reque
 import { CreateWithdrawRequestBuilder } from './operations/create_withdraw_request_builder';
 import { SaleRequestBuilder } from './operations/sale_request_builder';
 import { ManageOfferBuilder } from './operations/manage_offer_builder';
-import { ManageKeyValueOpBuilder } from './operations/manage_key_value_builder'
+import { ManageKeyValueOpBuilder } from './operations/manage_key_value_op_builder'
 import { SetOptionsBuilder} from "./operations/set_options_builder";
 import { CreateAMLRequestBuilder } from "./operations/create_aml_request_builder";
 import { CreateUpdateKYCRequestBuilder } from "./operations/create_update_kyc_request_builder";
