@@ -1,4 +1,4 @@
-// Automatically generated on 2018-04-18T14:19:20+03:00
+// Automatically generated on 2018-04-25T18:35:04+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -770,57 +770,20 @@ xdr.union("CreateIssuanceRequestResult", {
 //
 //   enum KeyValueEntryType
 //       {
-//           KYC_SETTINGS = 1
+//           UINT32 = 1
 //       };
 //
 // ===========================================================================
 xdr.enum("KeyValueEntryType", {
-  kycSetting: 1,
+  uint32: 1,
 });
-
-// === xdr source ============================================================
-//
-//   union switch (LedgerVersion v)
-//           {
-//               case EMPTY_VERSION:
-//                   void;
-//           }
-//
-// ===========================================================================
-xdr.union("KycSettingsExt", {
-  switchOn: xdr.lookup("LedgerVersion"),
-  switchName: "v",
-  switches: [
-    ["emptyVersion", xdr.void()],
-  ],
-  arms: {
-  },
-});
-
-// === xdr source ============================================================
-//
-//   struct KYCSettings
-//       {
-//           // reserved for future use
-//           union switch (LedgerVersion v)
-//           {
-//               case EMPTY_VERSION:
-//                   void;
-//           }
-//           ext;
-//       };
-//
-// ===========================================================================
-xdr.struct("KycSettings", [
-  ["ext", xdr.lookup("KycSettingsExt")],
-]);
 
 // === xdr source ============================================================
 //
 //   union switch (KeyValueEntryType type)
 //           {
-//                case KYC_SETTINGS:
-//                   KYCSettings kycSettings;
+//                case UINT32:
+//                   uint32 defaultMask;
 //           }
 //
 // ===========================================================================
@@ -828,10 +791,10 @@ xdr.union("KeyValueEntryValue", {
   switchOn: xdr.lookup("KeyValueEntryType"),
   switchName: "type",
   switches: [
-    ["kycSetting", "kycSettings"],
+    ["uint32", "defaultMask"],
   ],
   arms: {
-    kycSettings: xdr.lookup("KycSettings"),
+    defaultMask: xdr.lookup("Uint32"),
   },
 });
 
@@ -858,13 +821,13 @@ xdr.union("KeyValueEntryExt", {
 //
 //   struct KeyValueEntry
 //       {
-//           string256 key;
+//           longstring key;
 //   
 //   
 //           union switch (KeyValueEntryType type)
 //           {
-//                case KYC_SETTINGS:
-//                   KYCSettings kycSettings;
+//                case UINT32:
+//                   uint32 defaultMask;
 //           }
 //           value;
 //   
@@ -879,7 +842,7 @@ xdr.union("KeyValueEntryExt", {
 //
 // ===========================================================================
 xdr.struct("KeyValueEntry", [
-  ["key", xdr.lookup("String256")],
+  ["key", xdr.lookup("Longstring")],
   ["value", xdr.lookup("KeyValueEntryValue")],
   ["ext", xdr.lookup("KeyValueEntryExt")],
 ]);
@@ -1963,6 +1926,8 @@ xdr.struct("FeeEntry", [
 //   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 //   	case MANAGE_KEY_VALUE:
 //   	    ManageKeyValueOp manageKeyValueOp;
+//   	case CREATE_KYC_REQUEST:
+//   		CreateUpdateKYCRequestOp createUpdateKYCRequestOp;
 //       }
 //
 // ===========================================================================
@@ -1991,6 +1956,7 @@ xdr.union("OperationBody", {
     ["checkSaleState", "checkSaleStateOp"],
     ["createAmlAlert", "createAmlAlertRequestOp"],
     ["manageKeyValue", "manageKeyValueOp"],
+    ["createKycRequest", "createUpdateKycRequestOp"],
   ],
   arms: {
     createAccountOp: xdr.lookup("CreateAccountOp"),
@@ -2014,6 +1980,7 @@ xdr.union("OperationBody", {
     checkSaleStateOp: xdr.lookup("CheckSaleStateOp"),
     createAmlAlertRequestOp: xdr.lookup("CreateAmlAlertRequestOp"),
     manageKeyValueOp: xdr.lookup("ManageKeyValueOp"),
+    createUpdateKycRequestOp: xdr.lookup("CreateUpdateKycRequestOp"),
   },
 });
 
@@ -2070,6 +2037,8 @@ xdr.union("OperationBody", {
 //   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 //   	case MANAGE_KEY_VALUE:
 //   	    ManageKeyValueOp manageKeyValueOp;
+//   	case CREATE_KYC_REQUEST:
+//   		CreateUpdateKYCRequestOp createUpdateKYCRequestOp;
 //       }
 //       body;
 //   };
@@ -2292,6 +2261,8 @@ xdr.enum("OperationResultCode", {
 //   	    CreateAMLAlertRequestResult createAMLAlertRequestResult;
 //   	case MANAGE_KEY_VALUE:
 //   	    ManageKeyValueResult manageKeyValueResult;
+//   	case CREATE_KYC_REQUEST:
+//   	    CreateUpdateKYCRequestResult createUpdateKYCRequestResult;
 //       }
 //
 // ===========================================================================
@@ -2320,6 +2291,7 @@ xdr.union("OperationResultTr", {
     ["checkSaleState", "checkSaleStateResult"],
     ["createAmlAlert", "createAmlAlertRequestResult"],
     ["manageKeyValue", "manageKeyValueResult"],
+    ["createKycRequest", "createUpdateKycRequestResult"],
   ],
   arms: {
     createAccountResult: xdr.lookup("CreateAccountResult"),
@@ -2343,6 +2315,7 @@ xdr.union("OperationResultTr", {
     checkSaleStateResult: xdr.lookup("CheckSaleStateResult"),
     createAmlAlertRequestResult: xdr.lookup("CreateAmlAlertRequestResult"),
     manageKeyValueResult: xdr.lookup("ManageKeyValueResult"),
+    createUpdateKycRequestResult: xdr.lookup("CreateUpdateKycRequestResult"),
   },
 });
 
@@ -2395,6 +2368,8 @@ xdr.union("OperationResultTr", {
 //   	    CreateAMLAlertRequestResult createAMLAlertRequestResult;
 //   	case MANAGE_KEY_VALUE:
 //   	    ManageKeyValueResult manageKeyValueResult;
+//   	case CREATE_KYC_REQUEST:
+//   	    CreateUpdateKYCRequestResult createUpdateKYCRequestResult;
 //       }
 //       tr;
 //   default:
@@ -2655,6 +2630,48 @@ xdr.struct("AmlAlertDetails", [
 
 // === xdr source ============================================================
 //
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("UpdateKycDetailsExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct UpdateKYCDetails {
+//       uint32 tasksToAdd;
+//       uint32 tasksToRemove;
+//       string externalDetails<>;
+//       // Reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("UpdateKycDetails", [
+  ["tasksToAdd", xdr.lookup("Uint32")],
+  ["tasksToRemove", xdr.lookup("Uint32")],
+  ["externalDetails", xdr.string()],
+  ["ext", xdr.lookup("UpdateKycDetailsExt")],
+]);
+
+// === xdr source ============================================================
+//
 //   union switch(ReviewableRequestType requestType) {
 //   	case WITHDRAW:
 //   		WithdrawalDetails withdrawal;
@@ -2662,8 +2679,10 @@ xdr.struct("AmlAlertDetails", [
 //           LimitsUpdateDetails limitsUpdate;
 //   	case TWO_STEP_WITHDRAWAL:
 //   		WithdrawalDetails twoStepWithdrawal;
-//   	case AML_ALERT:
-//   		AMLAlertDetails amlAlertDetails;
+//       case AML_ALERT:
+//           AMLAlertDetails amlAlertDetails;
+//       case UPDATE_KYC:
+//           UpdateKYCDetails updateKYC;
 //   	default:
 //   		void;
 //   	}
@@ -2677,12 +2696,14 @@ xdr.union("ReviewRequestOpRequestDetails", {
     ["limitsUpdate", "limitsUpdate"],
     ["twoStepWithdrawal", "twoStepWithdrawal"],
     ["amlAlert", "amlAlertDetails"],
+    ["updateKyc", "updateKyc"],
   ],
   arms: {
     withdrawal: xdr.lookup("WithdrawalDetails"),
     limitsUpdate: xdr.lookup("LimitsUpdateDetails"),
     twoStepWithdrawal: xdr.lookup("WithdrawalDetails"),
     amlAlertDetails: xdr.lookup("AmlAlertDetails"),
+    updateKyc: xdr.lookup("UpdateKycDetails"),
   },
   defaultArm: xdr.void(),
 });
@@ -2719,8 +2740,10 @@ xdr.union("ReviewRequestOpExt", {
 //           LimitsUpdateDetails limitsUpdate;
 //   	case TWO_STEP_WITHDRAWAL:
 //   		WithdrawalDetails twoStepWithdrawal;
-//   	case AML_ALERT:
-//   		AMLAlertDetails amlAlertDetails;
+//       case AML_ALERT:
+//           AMLAlertDetails amlAlertDetails;
+//       case UPDATE_KYC:
+//           UpdateKYCDetails updateKYC;
 //   	default:
 //   		void;
 //   	} requestDetails;
@@ -2749,10 +2772,10 @@ xdr.struct("ReviewRequestOp", [
 //
 //   enum ReviewRequestResultCode
 //   {
-//       // codes considered as "success" for the operation
+//       // Codes considered as "success" for the operation
 //       SUCCESS = 0,
 //   
-//       // codes considered as "failure" for the operation
+//       // Codes considered as "failure" for the operation
 //       INVALID_REASON = -1,        // reason must be empty if approving and not empty if rejecting
 //   	INVALID_ACTION = -2,
 //   	HASH_MISMATCHED = -3,
@@ -2761,6 +2784,7 @@ xdr.struct("ReviewRequestOp", [
 //   	REJECT_NOT_ALLOWED = -6, // reject not allowed, use permanent reject
 //   	INVALID_EXTERNAL_DETAILS = -7,
 //   	REQUESTOR_IS_BLOCKED = -8,
+//   	PERMANENT_REJECT_NOT_ALLOWED = -9, // permanent reject not allowed, use reject
 //   
 //   	// Asset requests
 //   	ASSET_ALREADY_EXISTS = -20,
@@ -2771,10 +2795,13 @@ xdr.struct("ReviewRequestOp", [
 //   	INSUFFICIENT_AVAILABLE_FOR_ISSUANCE_AMOUNT = -41,
 //   	FULL_LINE = -42, // can't fund balance - total funds exceed UINT64_MAX
 //   
-//   	// sale creation requests
+//   	// Sale creation requests
 //   	BASE_ASSET_DOES_NOT_EXISTS = -50,
 //   	HARD_CAP_WILL_EXCEED_MAX_ISSUANCE = -51,
-//   	INSUFFICIENT_PREISSUED_FOR_HARD_CAP = -52
+//   	INSUFFICIENT_PREISSUED_FOR_HARD_CAP = -52,
+//   
+//   	// Update KYC requests
+//   	NON_ZERO_TASKS_TO_REMOVE_NOT_ALLOWED = -60
 //   };
 //
 // ===========================================================================
@@ -2788,6 +2815,7 @@ xdr.enum("ReviewRequestResultCode", {
   rejectNotAllowed: -6,
   invalidExternalDetail: -7,
   requestorIsBlocked: -8,
+  permanentRejectNotAllowed: -9,
   assetAlreadyExist: -20,
   assetDoesNotExist: -21,
   maxIssuanceAmountExceeded: -40,
@@ -2796,6 +2824,7 @@ xdr.enum("ReviewRequestResultCode", {
   baseAssetDoesNotExist: -50,
   hardCapWillExceedMaxIssuance: -51,
   insufficientPreissuedForHardCap: -52,
+  nonZeroTasksToRemoveNotAllowed: -60,
 });
 
 // === xdr source ============================================================
@@ -3317,6 +3346,65 @@ xdr.struct("AmlAlertRequest", [
   ["amount", xdr.lookup("Uint64")],
   ["reason", xdr.lookup("String256")],
   ["ext", xdr.lookup("AmlAlertRequestExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("UpdateKycRequestExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct UpdateKYCRequest {
+//   	AccountID accountToUpdateKYC;
+//   	AccountType accountTypeToSet;
+//   	uint32 kycLevel;
+//   	longstring kycData;
+//   
+//   	// Tasks are represented by a bit mask. Each flag(task) in mask refers to specific KYC data validity checker
+//   	uint32 allTasks;
+//   	uint32 pendingTasks;
+//   
+//   	// Sequence number increases when request is rejected
+//   	uint32 sequenceNumber;
+//   
+//   	// External details vector consists of comments written by KYC data validity checkers
+//   	longstring externalDetails<>;
+//   
+//   	// Reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("UpdateKycRequest", [
+  ["accountToUpdateKyc", xdr.lookup("AccountId")],
+  ["accountTypeToSet", xdr.lookup("AccountType")],
+  ["kycLevel", xdr.lookup("Uint32")],
+  ["kycData", xdr.lookup("Longstring")],
+  ["allTasks", xdr.lookup("Uint32")],
+  ["pendingTasks", xdr.lookup("Uint32")],
+  ["sequenceNumber", xdr.lookup("Uint32")],
+  ["externalDetails", xdr.varArray(xdr.lookup("Longstring"), 2147483647)],
+  ["ext", xdr.lookup("UpdateKycRequestExt")],
 ]);
 
 // === xdr source ============================================================
@@ -4401,7 +4489,8 @@ xdr.struct("ReferenceEntry", [
 //   	SALE = 5,
 //   	LIMITS_UPDATE = 6,
 //   	TWO_STEP_WITHDRAWAL = 7,
-//   	AML_ALERT = 8
+//       AML_ALERT = 8,
+//   	UPDATE_KYC = 9
 //   };
 //
 // ===========================================================================
@@ -4415,6 +4504,7 @@ xdr.enum("ReviewableRequestType", {
   limitsUpdate: 6,
   twoStepWithdrawal: 7,
   amlAlert: 8,
+  updateKyc: 9,
 });
 
 // === xdr source ============================================================
@@ -4436,8 +4526,10 @@ xdr.enum("ReviewableRequestType", {
 //               LimitsUpdateRequest limitsUpdateRequest;
 //   		case TWO_STEP_WITHDRAWAL:
 //   			WithdrawalRequest twoStepWithdrawalRequest;
-//   	    case AML_ALERT:
-//   	        AMLAlertRequest amlAlertRequest;
+//           case AML_ALERT:
+//               AMLAlertRequest amlAlertRequest;
+//           case UPDATE_KYC:
+//               UpdateKYCRequest updateKYCRequest;
 //   	}
 //
 // ===========================================================================
@@ -4454,6 +4546,7 @@ xdr.union("ReviewableRequestEntryBody", {
     ["limitsUpdate", "limitsUpdateRequest"],
     ["twoStepWithdrawal", "twoStepWithdrawalRequest"],
     ["amlAlert", "amlAlertRequest"],
+    ["updateKyc", "updateKycRequest"],
   ],
   arms: {
     assetCreationRequest: xdr.lookup("AssetCreationRequest"),
@@ -4465,6 +4558,7 @@ xdr.union("ReviewableRequestEntryBody", {
     limitsUpdateRequest: xdr.lookup("LimitsUpdateRequest"),
     twoStepWithdrawalRequest: xdr.lookup("WithdrawalRequest"),
     amlAlertRequest: xdr.lookup("AmlAlertRequest"),
+    updateKycRequest: xdr.lookup("UpdateKycRequest"),
   },
 });
 
@@ -4515,8 +4609,10 @@ xdr.union("ReviewableRequestEntryExt", {
 //               LimitsUpdateRequest limitsUpdateRequest;
 //   		case TWO_STEP_WITHDRAWAL:
 //   			WithdrawalRequest twoStepWithdrawalRequest;
-//   	    case AML_ALERT:
-//   	        AMLAlertRequest amlAlertRequest;
+//           case AML_ALERT:
+//               AMLAlertRequest amlAlertRequest;
+//           case UPDATE_KYC:
+//               UpdateKYCRequest updateKYCRequest;
 //   	} body;
 //   
 //   	// reserved for future use
@@ -4919,6 +5015,198 @@ xdr.union("ManageAssetPairResult", {
   ],
   arms: {
     success: xdr.lookup("ManageAssetPairSuccess"),
+  },
+  defaultArm: xdr.void(),
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("UpdateKycRequestDataExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct UpdateKYCRequestData {
+//       AccountID accountToUpdateKYC;
+//   	AccountType accountTypeToSet;
+//   	uint32 kycLevelToSet;
+//       longstring kycData;
+//   	uint32* allTasks;
+//   
+//   	// Reserved for future use
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("UpdateKycRequestData", [
+  ["accountToUpdateKyc", xdr.lookup("AccountId")],
+  ["accountTypeToSet", xdr.lookup("AccountType")],
+  ["kycLevelToSet", xdr.lookup("Uint32")],
+  ["kycData", xdr.lookup("Longstring")],
+  ["allTasks", xdr.option(xdr.lookup("Uint32"))],
+  ["ext", xdr.lookup("UpdateKycRequestDataExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("CreateUpdateKycRequestOpExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct CreateUpdateKYCRequestOp {
+//       uint64 requestID;
+//       UpdateKYCRequestData updateKYCRequestData;
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("CreateUpdateKycRequestOp", [
+  ["requestId", xdr.lookup("Uint64")],
+  ["updateKycRequestData", xdr.lookup("UpdateKycRequestData")],
+  ["ext", xdr.lookup("CreateUpdateKycRequestOpExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   enum CreateUpdateKYCRequestResultCode
+//   {
+//       // codes considered as "success" for the operation
+//       SUCCESS = 0,
+//   
+//       // codes considered as "failure" for the operation
+//       ACC_TO_UPDATE_DOES_NOT_EXIST = -1, // account to update does not exist
+//       REQUEST_ALREADY_EXISTS = -2,
+//   	SAME_ACC_TYPE_TO_SET = -3,
+//   	REQUEST_DOES_NOT_EXIST = -4,
+//   	PENDING_REQUEST_UPDATE_NOT_ALLOWED = -5,
+//   	NOT_ALLOWED_TO_UPDATE_REQUEST = -6, // master account can update request only through review request operation
+//   	INVALID_UPDATE_KYC_REQUEST_DATA = -7,
+//   	INVALID_KYC_DATA = -8,
+//   	KYC_RULE_NOT_FOUND = -9
+//   };
+//
+// ===========================================================================
+xdr.enum("CreateUpdateKycRequestResultCode", {
+  success: 0,
+  accToUpdateDoesNotExist: -1,
+  requestAlreadyExist: -2,
+  sameAccTypeToSet: -3,
+  requestDoesNotExist: -4,
+  pendingRequestUpdateNotAllowed: -5,
+  notAllowedToUpdateRequest: -6,
+  invalidUpdateKycRequestDatum: -7,
+  invalidKycDatum: -8,
+  kycRuleNotFound: -9,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//
+// ===========================================================================
+xdr.union("CreateUpdateKycRequestResultSuccessExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct {
+//   		uint64 requestID;
+//   		bool fulfilled;
+//   		// Reserved for future use
+//   		union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//   		ext;
+//   	}
+//
+// ===========================================================================
+xdr.struct("CreateUpdateKycRequestResultSuccess", [
+  ["requestId", xdr.lookup("Uint64")],
+  ["fulfilled", xdr.bool()],
+  ["ext", xdr.lookup("CreateUpdateKycRequestResultSuccessExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union CreateUpdateKYCRequestResult switch (CreateUpdateKYCRequestResultCode code)
+//   {
+//   case SUCCESS:
+//       struct {
+//   		uint64 requestID;
+//   		bool fulfilled;
+//   		// Reserved for future use
+//   		union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//   		ext;
+//   	} success;
+//   default:
+//       void;
+//   };
+//
+// ===========================================================================
+xdr.union("CreateUpdateKycRequestResult", {
+  switchOn: xdr.lookup("CreateUpdateKycRequestResultCode"),
+  switchName: "code",
+  switches: [
+    ["success", "success"],
+  ],
+  arms: {
+    success: xdr.lookup("CreateUpdateKycRequestResultSuccess"),
   },
   defaultArm: xdr.void(),
 });
@@ -5587,7 +5875,8 @@ xdr.enum("ThresholdIndices", {
 //   	REVIEWABLE_REQUEST = 15,
 //   	EXTERNAL_SYSTEM_ACCOUNT_ID = 16,
 //   	SALE = 17,
-//   	KEY_VALUE = 18
+//   	ACCOUNT_KYC = 18,
+//   	KEY_VALUE = 19
 //   };
 //
 // ===========================================================================
@@ -5608,7 +5897,8 @@ xdr.enum("LedgerEntryType", {
   reviewableRequest: 15,
   externalSystemAccountId: 16,
   sale: 17,
-  keyValue: 18,
+  accountKyc: 18,
+  keyValue: 19,
 });
 
 // === xdr source ============================================================
@@ -5649,6 +5939,8 @@ xdr.enum("LedgerEntryType", {
 //   		SaleEntry sale;
 //   	case KEY_VALUE:
 //   	    KeyValueEntry keyValue;
+//   	case ACCOUNT_KYC:
+//           AccountKYCEntry accountKYC;
 //       }
 //
 // ===========================================================================
@@ -5673,6 +5965,7 @@ xdr.union("LedgerEntryData", {
     ["externalSystemAccountId", "externalSystemAccountId"],
     ["sale", "sale"],
     ["keyValue", "keyValue"],
+    ["accountKyc", "accountKyc"],
   ],
   arms: {
     account: xdr.lookup("AccountEntry"),
@@ -5692,6 +5985,7 @@ xdr.union("LedgerEntryData", {
     externalSystemAccountId: xdr.lookup("ExternalSystemAccountId"),
     sale: xdr.lookup("SaleEntry"),
     keyValue: xdr.lookup("KeyValueEntry"),
+    accountKyc: xdr.lookup("AccountKycEntry"),
   },
 });
 
@@ -5756,6 +6050,8 @@ xdr.union("LedgerEntryExt", {
 //   		SaleEntry sale;
 //   	case KEY_VALUE:
 //   	    KeyValueEntry keyValue;
+//   	case ACCOUNT_KYC:
+//           AccountKYCEntry accountKYC;
 //       }
 //       data;
 //   
@@ -6670,6 +6966,43 @@ xdr.struct("LedgerKeyKeyValue", [
 
 // === xdr source ============================================================
 //
+//   union switch(LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           }
+//
+// ===========================================================================
+xdr.union("LedgerKeyAccountKycExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct {
+//           AccountID accountID;
+//           union switch(LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           }
+//           ext;
+//       }
+//
+// ===========================================================================
+xdr.struct("LedgerKeyAccountKyc", [
+  ["accountId", xdr.lookup("AccountId")],
+  ["ext", xdr.lookup("LedgerKeyAccountKycExt")],
+]);
+
+// === xdr source ============================================================
+//
 //   union LedgerKey switch (LedgerEntryType type)
 //   {
 //   case ACCOUNT:
@@ -6848,6 +7181,16 @@ xdr.struct("LedgerKeyKeyValue", [
 //           }
 //           ext;
 //       } keyValue;
+//   case ACCOUNT_KYC:
+//       struct {
+//           AccountID accountID;
+//           union switch(LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           }
+//           ext;
+//       } accountKYC;
 //   };
 //
 // ===========================================================================
@@ -6872,6 +7215,7 @@ xdr.union("LedgerKey", {
     ["externalSystemAccountId", "externalSystemAccountId"],
     ["sale", "sale"],
     ["keyValue", "keyValue"],
+    ["accountKyc", "accountKyc"],
   ],
   arms: {
     account: xdr.lookup("LedgerKeyAccount"),
@@ -6891,6 +7235,7 @@ xdr.union("LedgerKey", {
     externalSystemAccountId: xdr.lookup("LedgerKeyExternalSystemAccountId"),
     sale: xdr.lookup("LedgerKeySale"),
     keyValue: xdr.lookup("LedgerKeyKeyValue"),
+    accountKyc: xdr.lookup("LedgerKeyAccountKyc"),
   },
 });
 
@@ -7502,7 +7847,9 @@ xdr.union("ManageAssetResult", {
 //   	TX_SENDER = 2097152, // can send tx
 //   	AML_ALERT_MANAGER = 4194304, // can manage AML alert request
 //   	AML_ALERT_REVIEWER = 8388608, // can review aml alert requests
-//   	KEY_VALUE_MANAGER = 16777216 // can manage keyValue
+//   	KYC_ACC_MANAGER = 16777216, // can manage kyc
+//   	KYC_SUPER_ADMIN = 33554432,
+//   	KEY_VALUE_MANAGER = 67108864 // can manage keyValue
 //   };
 //
 // ===========================================================================
@@ -7531,7 +7878,9 @@ xdr.enum("SignerType", {
   txSender: 2097152,
   amlAlertManager: 4194304,
   amlAlertReviewer: 8388608,
-  keyValueManager: 16777216,
+  kycAccManager: 16777216,
+  kycSuperAdmin: 33554432,
+  keyValueManager: 67108864,
 });
 
 // === xdr source ============================================================
@@ -7715,7 +8064,8 @@ xdr.enum("AccountType", {
 //   {
 //   	RECOVERY_REQUEST = 1,
 //   	KYC_UPDATE = 2,
-//   	SUSPICIOUS_BEHAVIOR = 4
+//   	SUSPICIOUS_BEHAVIOR = 4,
+//   	TOO_MANY_KYC_UPDATE_REQUESTS = 8
 //   };
 //
 // ===========================================================================
@@ -7723,6 +8073,7 @@ xdr.enum("BlockReasons", {
   recoveryRequest: 1,
   kycUpdate: 2,
   suspiciousBehavior: 4,
+  tooManyKycUpdateRequest: 8,
 });
 
 // === xdr source ============================================================
@@ -7731,6 +8082,8 @@ xdr.enum("BlockReasons", {
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//   	case USE_KYC_LEVEL:
+//   		uint32 kycLevel;
 //       }
 //
 // ===========================================================================
@@ -7739,8 +8092,10 @@ xdr.union("AccountEntryExt", {
   switchName: "v",
   switches: [
     ["emptyVersion", xdr.void()],
+    ["useKycLevel", "kycLevel"],
   ],
   arms: {
+    kycLevel: xdr.lookup("Uint32"),
   },
 });
 
@@ -7771,7 +8126,10 @@ xdr.union("AccountEntryExt", {
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//   	case USE_KYC_LEVEL:
+//   		uint32 kycLevel;
 //       }
+//   	
 //       ext;
 //   };
 //
@@ -8312,6 +8670,48 @@ xdr.union("CreateAmlAlertRequestResult", {
   },
   defaultArm: xdr.void(),
 });
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("AccountKycEntryExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct AccountKYCEntry
+//   {
+//       AccountID accountID;
+//       longstring KYCData;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("AccountKycEntry", [
+  ["accountId", xdr.lookup("AccountId")],
+  ["kycData", xdr.lookup("Longstring")],
+  ["ext", xdr.lookup("AccountKycEntryExt")],
+]);
 
 // === xdr source ============================================================
 //
@@ -8856,7 +9256,13 @@ xdr.union("PublicKey", {
 //   	TYPED_SALE = 4, // sales can have type
 //   	UNIQUE_BALANCE_CREATION = 5, // allows to specify in manage balance that balance should not be created if one for such asset and account exists
 //   	ASSET_PREISSUER_MIGRATION = 6,
-//   	ASSET_PREISSUER_MIGRATED = 7
+//   	ASSET_PREISSUER_MIGRATED = 7,
+//   	USE_KYC_LEVEL = 8,
+//   	ERROR_ON_NON_ZERO_TASKS_TO_REMOVE_IN_REJECT_KYC = 9,
+//   	ALLOW_ACCOUNT_MANAGER_TO_CHANGE_KYC = 10,
+//   	CHANGE_ASSET_ISSUER_BAD_AUTH_EXTRA_FIXED = 11,
+//   	AUTO_CREATE_COMMISSION_BALANCE_ON_TRANSFER = 12,
+//   	KYC_RULES = 13
 //   };
 //
 // ===========================================================================
@@ -8869,6 +9275,12 @@ xdr.enum("LedgerVersion", {
   uniqueBalanceCreation: 5,
   assetPreissuerMigration: 6,
   assetPreissuerMigrated: 7,
+  useKycLevel: 8,
+  errorOnNonZeroTasksToRemoveInRejectKyc: 9,
+  allowAccountManagerToChangeKyc: 10,
+  changeAssetIssuerBadAuthExtraFixed: 11,
+  autoCreateCommissionBalanceOnTransfer: 12,
+  kycRule: 13,
 });
 
 // === xdr source ============================================================
@@ -9075,7 +9487,8 @@ xdr.struct("Fee", [
 //   	CREATE_SALE_REQUEST = 19,
 //   	CHECK_SALE_STATE = 20,
 //   	CREATE_AML_ALERT = 21,
-//   	MANAGE_KEY_VALUE = 22
+//       CREATE_KYC_REQUEST = 22,
+//       MANAGE_KEY_VALUE = 23
 //   };
 //
 // ===========================================================================
@@ -9100,7 +9513,8 @@ xdr.enum("OperationType", {
   createSaleRequest: 19,
   checkSaleState: 20,
   createAmlAlert: 21,
-  manageKeyValue: 22,
+  createKycRequest: 22,
+  manageKeyValue: 23,
 });
 
 // === xdr source ============================================================

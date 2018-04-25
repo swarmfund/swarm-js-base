@@ -1,6 +1,6 @@
 export class KeyValue {
     /**
-     * Create a new Account object.
+     * Create a new KeyValue object.
      *
      * `KeyValue` represents a single KeyValue in Stellar network and it's key.
      * @constructor
