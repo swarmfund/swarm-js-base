@@ -10,7 +10,7 @@ var StellarBase =
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
 
-/******/ 		// Create a new module (and put it into the cache)
+/******/ 		// Create a new module (and putKV it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
@@ -42542,7 +42542,7 @@ var StellarBase =
 	  return chunk;
 	}
 
-	// if we're already writing something, then just put this
+	// if we're already writing something, then just putKV this
 	// in the queue, and wait our turn.  Otherwise, call _write
 	// If we return false, then we need a drain event, so set that flag.
 	function writeOrBuffer(stream, state, isBuf, chunk, encoding, cb) {
@@ -43613,7 +43613,7 @@ var StellarBase =
 	// to the readable side.  You may call 'push' zero or more times.
 	//
 	// Call `cb(err)` when you are done with this chunk.  If you pass
-	// an error, then that'll put the hurt on the whole operation.  If you
+	// an error, then that'll putKV the hurt on the whole operation.  If you
 	// never call cb(), then you'll never get another chunk.
 	Transform.prototype._transform = function (chunk, encoding, cb) {
 	  throw new Error('_transform() is not implemented');
