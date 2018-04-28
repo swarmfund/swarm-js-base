@@ -18,8 +18,8 @@ export class ManageKeyValueOpBuilder {
         attributes.action = new xdr.ManageKeyValueOpAction(Operation._keyValueActionFromNumber(opts.action));
         attributes.ext = new xdr.ManageKeyValueExt(xdr.LedgerVersion.emptyVersion());
 
-        if (Operation._keyValueActionFromNumber(opts.action) === xdr.ManageKvAction.put) {
-            putKV(opts,attributes);
+        if (opts.action === xdr.ManageKvAction.put()) {
+            ManageKeyValueOpBuilder.putKV(opts,attributes);
         }
 
         let manageKV = new xdr.ManageKeyValueOp(attributes);
@@ -51,9 +51,9 @@ export class ManageKeyValueOpBuilder {
         }
 
         KVEntry.value = new xdr.KeyValueEntryValue(opts.KvType);
-        KVEntry.value.defaultMask = opts.value;
+        KVEntry.value().defaultMask= opts.value;
 
-        attributes.action.value = new xdr.KeyValueEntry(KVEntry);
+        attributes.action().value = new xdr.KeyValueEntry(KVEntry);
     }
 
 }
