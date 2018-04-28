@@ -4,18 +4,23 @@ import {default as xdr} from "../generated/stellar-xdr_generated";
 export class ManageKeyValueOpBuilder {
     static manageKeyValueOp(opts) {
         let attributes = {};
-        if(isUndefined(opts.action))
+        if(isUndefined(opts.action) || !xdr.ManageKvAction._byValue.has(opts.action))
         {
-            throw new Error("action for KV isn`t defined");
+            throw new Error("key-value action is invalid");
         }
+
+        if(isUndefined(opts.key))
+        {
+            throw new Error("key-value key must be defined");
+        }
+
         attributes.key = opts.key;
-        attributes.action = new xdr.ManageKeyValueOpAction(Operation._keyValueActionFromNumber(opts.keyValueAction));
+        attributes.action = new xdr.ManageKeyValueOpAction(Operation._keyValueActionFromNumber(opts.action));
         attributes.ext = new xdr.ManageKeyValueExt(xdr.LedgerVersion.emptyVersion());
-        if (Operation._keyValueActionFromNumber(opts.keyValueAction) === xdr.ManageKvAction.put()) {
-            this.putKV(opts,attributes);
+
+        if (Operation._keyValueActionFromNumber(opts.action) === xdr.ManageKvAction.put) {
+            putKV(opts,attributes);
         }
-        else
-            this.deleteKV(attributes);
 
         let manageKV = new xdr.ManageKeyValueOp(attributes);
 
@@ -32,23 +37,23 @@ export class ManageKeyValueOpBuilder {
         {
             this.putKV(attrs,result);
         }
-        else
+    }
+
+    static putKV(opts, attributes){
+        let KVEntry = new xdr.KeyValueEntry({
+            key : opts.key,
+            ext : new xdr.ManageKeyValueExt(xdr.LedgerVersion.emptyVersion())
+        });
+
+        if(isUndefined(opts.KvType) || !xdr.KeyValueEntryType._byValue.has(opts.KvType))
         {
-            this.deleteKV(attrs,result);
+            throw new Error("key-value type is invalid");
         }
+
+        KVEntry.value = new xdr.KeyValueEntryValue(opts.KvType);
+        KVEntry.value.defaultMask = opts.value;
+
+        attributes.action.value = new xdr.KeyValueEntry(KVEntry);
     }
 
-    putKV(opts, attributes){
-        let KVEntry = {};
-        KVEntry.key = opts.key;
-        KVEntry.value.type = new xdr.KeyValueEntryValue(Operation._keyValueTypeFromNumber(opts.kvType));
-        KvEntry.value.value = opts.value;
-        KVEntry.ext = new xdr.ManageKeyValueExt(xdr.LedgerVersion.emptyVersion());
-        KVEntry.value.ext = new xdr.ManageKeyValueExt(xdr.LedgerVersion.emptyVersion());
-        attributes.action.put.value = KVEntry;
-    }
-
-    deleteKV(opts,attributes){
-        attributes.action.delete.value = xdr.void();
-    }
 }
