@@ -654,9 +654,6 @@ export class Operation extends BaseOperation {
             case xdr.OperationType.manageOffer():
                 ManageOfferBuilder.manageOfferOpToObject(result, attrs);
                 break;
-            case xdr.OperationType.manageKeyValue():
-                ManageKeyValueOpBuilder.manageKeyValueOpToObject();
-                break;
             case xdr.OperationType.manageInvoice():
                 result.amount = Operation._fromXDRAmount(attrs.amount());
                 result.sender = accountIdtoAddress(attrs.sender());
@@ -688,6 +685,9 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.createAmlAlert():
                 CreateAMLRequestBuilder.createAmlAlertToObject(result, attrs);
+                break;
+            case xdr.OperationType.manageKeyValue():
+                ManageKeyValueOpBuilder.manageKeyValueOpToObject();
                 break;
             case xdr.OperationType.createKycRequest():
                 CreateUpdateKYCRequestBuilder.createUpdateKYCRequestOpToObject(result, attrs);

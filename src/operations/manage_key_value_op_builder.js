@@ -1,5 +1,6 @@
 import {Operation} from "../operation";
 import {default as xdr} from "../generated/stellar-xdr_generated";
+import isUndefined from 'lodash/isUndefined';
 
 export class ManageKeyValueOpBuilder {
     static manageKeyValueOp(opts) {

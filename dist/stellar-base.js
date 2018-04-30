@@ -72,9 +72,11 @@ var StellarBase =
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
+	var _operationsManage_key_value_op_builder = __webpack_require__(41);
+
 	exports.xdr = _generatedStellarXdr_generated2["default"];
 
-	var _hashing = __webpack_require__(41);
+	var _hashing = __webpack_require__(45);
 
 	Object.defineProperty(exports, "hash", {
 	  enumerable: true,
@@ -83,7 +85,7 @@ var StellarBase =
 	  }
 	});
 
-	var _signing = __webpack_require__(52);
+	var _signing = __webpack_require__(56);
 
 	Object.defineProperty(exports, "sign", {
 	  enumerable: true,
@@ -104,7 +106,7 @@ var StellarBase =
 	  }
 	});
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
 	Object.defineProperty(exports, "Keypair", {
 	  enumerable: true,
@@ -128,7 +130,7 @@ var StellarBase =
 	  }
 	});
 
-	var _transaction = __webpack_require__(118);
+	var _transaction = __webpack_require__(218);
 
 	Object.defineProperty(exports, "Transaction", {
 	  enumerable: true,
@@ -155,7 +157,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operation = __webpack_require__(119);
+	var _operation = __webpack_require__(42);
 
 	Object.defineProperty(exports, "Operation", {
 	  enumerable: true,
@@ -200,7 +202,7 @@ var StellarBase =
 	  }
 	});
 
-	var _network = __webpack_require__(56);
+	var _network = __webpack_require__(44);
 
 	Object.defineProperty(exports, "Network", {
 	  enumerable: true,
@@ -278,7 +280,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsSet_options_builder = __webpack_require__(216);
+	var _operationsSet_options_builder = __webpack_require__(215);
 
 	Object.defineProperty(exports, "SetOptionsBuilder", {
 	  enumerable: true,
@@ -287,7 +289,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_aml_request_builder = __webpack_require__(217);
+	var _operationsCreate_aml_request_builder = __webpack_require__(216);
 
 	Object.defineProperty(exports, "CreateAMLRequestBuilder", {
 	  enumerable: true,
@@ -295,8 +297,14 @@ var StellarBase =
 	    return _operationsCreate_aml_request_builder.CreateAMLRequestBuilder;
 	  }
 	});
+	Object.defineProperty(exports, "ManageKeyValueOpBuilder", {
+	  enumerable: true,
+	  get: function get() {
+	    return _operationsManage_key_value_op_builder.ManageKeyValueOpBuilder;
+	  }
+	});
 
-	var _operationsCreate_update_kyc_request_builder = __webpack_require__(218);
+	var _operationsCreate_update_kyc_request_builder = __webpack_require__(217);
 
 	Object.defineProperty(exports, "CreateUpdateKYCRequestBuilder", {
 	  enumerable: true,
@@ -305,7 +313,7 @@ var StellarBase =
 	  }
 	});
 
-	var _strkey = __webpack_require__(61);
+	var _strkey = __webpack_require__(63);
 
 	_defaults(exports, _interopExportWildcard(_strkey, _defaults));
 
@@ -24860,11 +24868,1394 @@ var StellarBase =
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var _operation = __webpack_require__(42);
+
+	var _generatedStellarXdr_generated = __webpack_require__(2);
+
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
+
+	var _lodashIsUndefined = __webpack_require__(61);
+
+	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
+
+	var ManageKeyValueOpBuilder = (function () {
+	    function ManageKeyValueOpBuilder() {
+	        _classCallCheck(this, ManageKeyValueOpBuilder);
+	    }
+
+	    _createClass(ManageKeyValueOpBuilder, null, [{
+	        key: "manageKeyValueOp",
+	        value: function manageKeyValueOp(opts) {
+	            var attributes = {};
+	            if ((0, _lodashIsUndefined2["default"])(opts.action) || !_generatedStellarXdr_generated2["default"].ManageKvAction._byValue.has(opts.action)) {
+	                throw new Error("key-value action is invalid");
+	            }
+
+	            if ((0, _lodashIsUndefined2["default"])(opts.key)) {
+	                throw new Error("key-value key must be defined");
+	            }
+
+	            attributes.key = opts.key;
+	            attributes.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_operation.Operation._keyValueActionFromNumber(opts.action));
+	            attributes.ext = new _generatedStellarXdr_generated2["default"].ManageKeyValueExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion());
+
+	            if (opts.action === _generatedStellarXdr_generated2["default"].ManageKvAction.put()) {
+	                ManageKeyValueOpBuilder.putKV(opts, attributes);
+	            }
+
+	            var manageKV = new _generatedStellarXdr_generated2["default"].ManageKeyValueOp(attributes);
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.manageKeyValue(manageKV);
+	            _operation.Operation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
+	        }
+	    }, {
+	        key: "manageKeyValueOpToObject",
+	        value: function manageKeyValueOpToObject(result, attrs) {
+	            result.key = attrs.key;
+	            result.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_operation.Operation._keyValueActionFromNumber(attrs.action));
+	            if (result.action === _generatedStellarXdr_generated2["default"].ManageKvAction.put) {
+	                this.putKV(attrs, result);
+	            }
+	        }
+	    }, {
+	        key: "putKV",
+	        value: function putKV(opts, attributes) {
+	            var KVEntry = new _generatedStellarXdr_generated2["default"].KeyValueEntry({
+	                key: opts.key,
+	                ext: new _generatedStellarXdr_generated2["default"].ManageKeyValueExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	            });
+
+	            if ((0, _lodashIsUndefined2["default"])(opts.KvType) || !_generatedStellarXdr_generated2["default"].KeyValueEntryType._byValue.has(opts.KvType)) {
+	                throw new Error("key-value type is invalid");
+	            }
+
+	            KVEntry.value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue(opts.KvType);
+	            KVEntry.value().defaultMask = opts.value;
+
+	            attributes.action().value = new _generatedStellarXdr_generated2["default"].KeyValueEntry(KVEntry);
+	        }
+	    }]);
+
+	    return ManageKeyValueOpBuilder;
+	})();
+
+	exports.ManageKeyValueOpBuilder = ManageKeyValueOpBuilder;
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _generatedStellarXdr_generated = __webpack_require__(2);
+
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
+
+	var _keypair = __webpack_require__(43);
+
+	var _jsXdr = __webpack_require__(3);
+
+	var _hashing = __webpack_require__(45);
+
+	var _strkey = __webpack_require__(63);
+
+	var _bignumberJs = __webpack_require__(120);
+
+	var _bignumberJs2 = _interopRequireDefault(_bignumberJs);
+
+	var _utilContinued_fraction = __webpack_require__(121);
+
+	var _lodashPadEnd = __webpack_require__(122);
+
+	var _lodashPadEnd2 = _interopRequireDefault(_lodashPadEnd);
+
+	var _lodashTrimEnd = __webpack_require__(137);
+
+	var _lodashTrimEnd2 = _interopRequireDefault(_lodashTrimEnd);
+
+	var _lodashIsEmpty = __webpack_require__(139);
+
+	var _lodashIsEmpty2 = _interopRequireDefault(_lodashIsEmpty);
+
+	var _lodashIsUndefined = __webpack_require__(61);
+
+	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
+
+	var _lodashIsString = __webpack_require__(94);
+
+	var _lodashIsString2 = _interopRequireDefault(_lodashIsString);
+
+	var _lodashIsNumber = __webpack_require__(152);
+
+	var _lodashIsNumber2 = _interopRequireDefault(_lodashIsNumber);
+
+	var _lodashIsFinite = __webpack_require__(153);
+
+	var _lodashIsFinite2 = _interopRequireDefault(_lodashIsFinite);
+
+	var _crypto = __webpack_require__(154);
+
+	var _crypto2 = _interopRequireDefault(_crypto);
+
+	var _operationsBase_operation = __webpack_require__(205);
+
+	var _operationsManage_asset_builder = __webpack_require__(206);
+
+	var _operationsReview_request_builder = __webpack_require__(207);
+
+	var _operationsPre_issuance_request_op_builder = __webpack_require__(209);
+
+	var _operationsCreate_issuance_request_builder = __webpack_require__(211);
+
+	var _operationsCreate_withdraw_request_builder = __webpack_require__(212);
+
+	var _operationsSale_request_builder = __webpack_require__(213);
+
+	var _operationsManage_offer_builder = __webpack_require__(214);
+
+	var _operationsManage_key_value_op_builder = __webpack_require__(41);
+
+	var _operationsSet_options_builder = __webpack_require__(215);
+
+	var _operationsCreate_aml_request_builder = __webpack_require__(216);
+
+	var _operationsCreate_update_kyc_request_builder = __webpack_require__(217);
+
+	var Operation = (function (_BaseOperation) {
+	    _inherits(Operation, _BaseOperation);
+
+	    function Operation() {
+	        _classCallCheck(this, Operation);
+
+	        _get(Object.getPrototypeOf(Operation.prototype), "constructor", this).apply(this, arguments);
+	    }
+
+	    _createClass(Operation, null, [{
+	        key: "createAccount",
+
+	        /**
+	         * Create and fund a non existent account.
+	         * @param {object} opts
+	         * @param {string} opts.destination - Destination account ID to create an account for.
+	         * @param {string} opts.recoveryKey - AccountID of recovery signer.
+	         * @param {string} opts.accountType - Type of the account to be created.
+	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * * @param {string} opts.accountPolicies - The policies of the account.
+	         * @returns {xdr.CreateAccountOp}
+	         */
+	        value: function createAccount(opts) {
+	            if (!_keypair.Keypair.isValidPublicKey(opts.destination)) {
+	                throw new Error("destination is invalid");
+	            }
+	            if (!_keypair.Keypair.isValidPublicKey(opts.recoveryKey)) {
+	                throw new Error("recoveryKey is invalid");
+	            }
+	            var attributes = {};
+	            attributes.destination = _keypair.Keypair.fromAccountId(opts.destination).xdrAccountId();
+	            attributes.recoveryKey = _keypair.Keypair.fromAccountId(opts.recoveryKey).xdrAccountId();
+	            attributes.accountType = Operation._accountTypeFromNumber(opts.accountType);
+
+	            if (!(0, _lodashIsUndefined2["default"])(opts.accountPolicies)) {
+	                if (opts.accountPolicies < 0) {
+	                    throw new TypeError('accountPolicies should be positive or zero');
+	                }
+	                attributes.policies = opts.accountPolicies;
+	            } else {
+	                attributes.policies = 0; //default no_permissions
+	            }
+
+	            if (opts.referrer) {
+	                if (!_keypair.Keypair.isValidPublicKey(opts.referrer)) {
+	                    throw new TypeError('referrer is invalid');
+	                }
+	                attributes.referrer = _keypair.Keypair.fromAccountId(opts.referrer).xdrAccountId();
+	            }
+
+	            attributes.ext = new _generatedStellarXdr_generated2["default"].CreateAccountOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion());
+	            var createAccount = new _generatedStellarXdr_generated2["default"].CreateAccountOp(attributes);
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.createAccount(createAccount);
+	            Operation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
+	        }
+
+	        /**
+	         * Create a payment operation.
+	         * @param {object} opts
+	         * @param {string} opts.sourceBalanceId - The balance id of source.
+	         * @param {string} opts.destinationBalanceId - The destination balance ID.
+	         * @param {boolean} opts.feeFromSource - if true - fee charged from source account, if false - from destination
+	         * @param {string} opts.amount - The amount to send.
+	         * @param {string} opts.paymentFee - The payment fee.
+	         * @param {string} opts.fixedFee - The fixed fee.
+	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * @returns {xdr.PaymentOp}
+	         */
+	    }, {
+	        key: "payment",
+	        value: function payment(opts) {
+	            var attributes = {};
+	            if (!Operation.isValidAmount(opts.amount)) {
+	                throw new TypeError('amount argument must be of type String and represent a positive number');
+	            }
+	            if (!_keypair.Keypair.isValidBalanceKey(opts.sourceBalanceId)) {
+	                throw new TypeError('sourceBalanceId is invalid');
+	            }
+	            if (!_keypair.Keypair.isValidBalanceKey(opts.destinationBalanceId)) {
+	                throw new TypeError('destinationBalanceId is invalid');
+	            }
+	            if (!Operation.isValidSubject(opts.subject)) {
+	                throw new Error("subject argument must be of type String 0-256 long");
+	            }
+
+	            if (!(0, _lodashIsUndefined2["default"])(opts.feeData)) {
+	                var sourceFee = new _generatedStellarXdr_generated2["default"].FeeData({
+	                    paymentFee: Operation._toXDRAmount(opts.feeData.sourceFee.paymentFee),
+	                    fixedFee: Operation._toXDRAmount(opts.feeData.sourceFee.fixedFee),
+	                    ext: new _generatedStellarXdr_generated2["default"].FeeDataExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	                });
+	                var destinationFee = new _generatedStellarXdr_generated2["default"].FeeData({
+	                    paymentFee: Operation._toXDRAmount(opts.feeData.destinationFee.paymentFee),
+	                    fixedFee: Operation._toXDRAmount(opts.feeData.destinationFee.fixedFee),
+	                    ext: new _generatedStellarXdr_generated2["default"].FeeDataExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	                });
+	                attributes.feeData = new _generatedStellarXdr_generated2["default"].PaymentFeeData({
+	                    sourceFee: sourceFee,
+	                    destinationFee: destinationFee,
+	                    sourcePaysForDest: opts.feeData.sourcePaysForDest,
+	                    ext: new _generatedStellarXdr_generated2["default"].PaymentFeeDataExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	                });
+	            } else {
+	                throw new Error("feeData argument must be defined");
+	            }
+
+	            if ((0, _lodashIsUndefined2["default"])(opts.reference)) {
+	                opts.reference = '';
+	            }
+
+	            if (!(0, _lodashIsUndefined2["default"])(opts.invoiceReference)) {
+	                var invoiceReference = new _generatedStellarXdr_generated2["default"].InvoiceReference({
+	                    invoiceId: _jsXdr.UnsignedHyper.fromString(opts.invoiceReference.invoiceId),
+	                    accept: opts.invoiceReference.accept,
+	                    ext: new _generatedStellarXdr_generated2["default"].InvoiceReferenceExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	                });
+	                attributes.invoiceReference = invoiceReference;
+	            }
+
+	            attributes.amount = Operation._toXDRAmount(opts.amount);
+	            attributes.sourceBalanceId = _keypair.Keypair.fromBalanceId(opts.sourceBalanceId).xdrBalanceId();
+	            attributes.destinationBalanceId = _keypair.Keypair.fromBalanceId(opts.destinationBalanceId).xdrBalanceId();
+	            attributes.subject = opts.subject;
+	            attributes.reference = opts.reference;
+	            attributes.ext = new _generatedStellarXdr_generated2["default"].PaymentOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion());
+	            var payment = new _generatedStellarXdr_generated2["default"].PaymentOp(attributes);
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.payment(payment);
+	            Operation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
+	        }
+	    }, {
+	        key: "directDebit",
+	        value: function directDebit(opts) {
+	            if (!_keypair.Keypair.isValidPublicKey(opts.from)) {
+	                throw new TypeError('from is invalid');
+	            }
+
+	            var attributes = {};
+	            attributes.from = _keypair.Keypair.fromAccountId(opts.from).xdrAccountId();
+	            attributes.paymentOp = Operation.payment(opts.paymentOp).body().value();
+	            attributes.ext = new _generatedStellarXdr_generated2["default"].DirectDebitOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion());
+	            var directDebit = new _generatedStellarXdr_generated2["default"].DirectDebitOp(attributes);
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.directDebit(directDebit);
+	            Operation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
+	        }
+
+	        /**
+	         * Create a recovery op.
+	         * @param {object} opts
+	         * @param {string} opts.account - The target account to recover
+	         * @param {string} opts.oldSigner - Signer to recover.
+	         * @param {string} opts.newSigner - Signer to recover to.
+	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * @returns {xdr.RecoverOp}
+	         */
+	    }, {
+	        key: "recover",
+	        value: function recover(opts) {
+	            if (!_keypair.Keypair.isValidPublicKey(opts.account)) {
+	                throw new TypeError('account is invalid');
+	            }
+	            if (!_keypair.Keypair.isValidPublicKey(opts.oldSigner)) {
+	                throw new TypeError('oldSigner is invalid');
+	            }
+	            if (!_keypair.Keypair.isValidPublicKey(opts.newSigner)) {
+	                throw new TypeError('newSigner is invalid');
+	            }
+
+	            var attributes = {
+	                ext: new _generatedStellarXdr_generated2["default"].RecoverOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	            };
+	            attributes.account = _keypair.Keypair.fromAccountId(opts.account).xdrAccountId();
+	            attributes.oldSigner = _keypair.Keypair.fromAccountId(opts.oldSigner).xdrAccountId();
+	            attributes.newSigner = _keypair.Keypair.fromAccountId(opts.newSigner).xdrAccountId();
+	            attributes.action = opts.action;
+
+	            var recover = new _generatedStellarXdr_generated2["default"].RecoverOp(attributes);
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.recover(recover);
+	            Operation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
+	        }
+
+	        /**
+	         * Set Fees to the ledger
+	         * @param {object} opts
+	         * @param {string} opts.destination - Destination account ID to create an account for.
+	         * @param {Object} [opts.fee] - Amount in XLM the account should be funded for.
+	         * @param {string} opts.fee.feeType - feeType
+	         * @param {string} opts.fee.feeAmount - fee amount
+	         * @param {bool} [opts.isDelete] - isDelete - true for remove fee
+	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * @returns {xdr.SetFeesOp}
+	         */
+	    }, {
+	        key: "setFees",
+	        value: function setFees(opts) {
+	            var attributes = {
+	                ext: new _generatedStellarXdr_generated2["default"].SetFeesOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	            };
+
+	            if (!(0, _lodashIsUndefined2["default"])(opts.fee)) {
+	                if (!Operation.isValidAmount(opts.fee.fixedFee, true)) {
+	                    throw new TypeError('fixedFee argument must be of type String and represent a non-negative number');
+	                }
+	                if (!Operation.isValidAmount(opts.fee.percentFee, true, 100)) {
+	                    throw new TypeError('percentFee argument must be of type String and represent a non-negative number less than 100');
+	                }
+	                if ((0, _lodashIsUndefined2["default"])(opts.fee.feeType)) {
+	                    throw new TypeError('feeType must be defined');
+	                }
+	                if (!(opts.fee.feeType instanceof _generatedStellarXdr_generated2["default"].FeeType)) {
+	                    throw new TypeError('feeType must be xdr.FeeType');
+	                }
+	                if (!Operation.isValidAsset(opts.fee.asset)) {
+	                    throw new TypeError('Asset is invalid');
+	                }
+	                if ((0, _lodashIsUndefined2["default"])(opts.fee.period)) {
+	                    opts.fee.period = '0'; //<<clear
+	                }
+	                if ((0, _lodashIsUndefined2["default"])(opts.fee.subtype)) {
+	                    opts.fee.subtype = '0';
+	                }
+	                if ((0, _lodashIsUndefined2["default"])(opts.fee.lowerBound)) {
+	                    opts.fee.lowerBound = '0';
+	                }
+	                if ((0, _lodashIsUndefined2["default"])(opts.fee.upperBound)) {
+	                    opts.fee.upperBound = _operationsBase_operation.BaseOperation.MAX_INT64_AMOUNT;
+	                }
+
+	                var feeData = {
+	                    fixedFee: Operation._toXDRAmount(opts.fee.fixedFee),
+	                    percentFee: Operation._toXDRAmount(opts.fee.percentFee),
+	                    feeType: opts.fee.feeType,
+	                    asset: opts.fee.asset,
+	                    subtype: _jsXdr.Hyper.fromString(opts.fee.subtype),
+	                    lowerBound: Operation._toXDRAmount(opts.fee.lowerBound),
+	                    upperBound: Operation._toXDRAmount(opts.fee.upperBound),
+	                    ext: new _generatedStellarXdr_generated2["default"].FeeEntryExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	                };
+	                var data = "type:" + opts.fee.feeType.value + "asset:" + opts.fee.asset + "subtype:" + opts.fee.subtype.toString();
+	                if (opts.fee.accountId) {
+	                    if (!_keypair.Keypair.isValidPublicKey(opts.fee.accountId)) {
+	                        throw new TypeError('accountId is invalid');
+	                    } else {
+	                        feeData.accountId = _keypair.Keypair.fromAccountId(opts.fee.accountId).xdrAccountId();
+	                        data += "accountID:" + opts.fee.accountId;
+	                    }
+	                }
+	                if (opts.fee.accountType) {
+	                    feeData.accountType = Operation._accountTypeFromNumber(opts.fee.accountType);
+	                    data += "accountType:" + opts.fee.accountType;
+	                }
+	                feeData.hash = (0, _hashing.hash)(data);
+	                var entry = new _generatedStellarXdr_generated2["default"].FeeEntry(feeData);
+	                attributes.fee = entry;
+	            }
+
+	            if ((0, _lodashIsUndefined2["default"])(opts.isDelete)) {
+	                attributes.isDelete = false;
+	            } else {
+	                attributes.isDelete = opts.isDelete;
+	            }
+
+	            var setfees = new _generatedStellarXdr_generated2["default"].SetFeesOp(attributes);
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.setFee(setfees);
+	            Operation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
+	        }
+
+	        /**
+	         * Returns an XDR ManageAccountOp. A "manage account" operations block|ublocks account.
+	         * @param {object} opts
+	         * @param {string} opts.account - Account to be managed.
+	         * @param {boolean} [opts.block] - True to block account.
+	         * @returns {xdr.ManageAccountOp}
+	         */
+	    }, {
+	        key: "manageAccount",
+	        value: function manageAccount(opts) {
+	            var attributes = {
+	                ext: new _generatedStellarXdr_generated2["default"].ManageAccountOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	            };
+
+	            if (!_keypair.Keypair.isValidPublicKey(opts.account)) {
+	                throw new Error("account is invalid");
+	            }
+
+	            attributes.account = _keypair.Keypair.fromAccountId(opts.account).xdrAccountId();
+	            if ((0, _lodashIsUndefined2["default"])(opts.blockReasonsToAdd)) {
+	                opts.blockReasonsToAdd = 0;
+	            }
+	            if ((0, _lodashIsUndefined2["default"])(opts.blockReasonsToRemove)) {
+	                opts.blockReasonsToRemove = 0;
+	            }
+
+	            if ((0, _lodashIsUndefined2["default"])(opts.accountType)) {
+	                throw new Error("accountType should be defined");
+	            }
+
+	            attributes.accountType = Operation._accountTypeFromNumber(opts.accountType);
+	            attributes.blockReasonsToAdd = opts.blockReasonsToAdd;
+	            attributes.blockReasonsToRemove = opts.blockReasonsToRemove;
+
+	            var manageAccountOp = new _generatedStellarXdr_generated2["default"].ManageAccountOp(attributes);
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.manageAccount(manageAccountOp);
+	            Operation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
+	        }
+
+	        /**
+	         * Returns an XDR ManageBalanceOp. A "manage account" operations creates|deletes balance for account.
+	         * @param {object} opts
+	         * @param {string} opts.destination - Account to create account for.
+	         * @param {xdr.ManageBalanceAction} – Delete or create
+	         * @returns {xdr.ManageBalanceOp}
+	         */
+	    }, {
+	        key: "manageBalance",
+	        value: function manageBalance(opts) {
+	            var attributes = {
+	                ext: new _generatedStellarXdr_generated2["default"].ManageBalanceOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	            };
+
+	            if (!_keypair.Keypair.isValidPublicKey(opts.destination)) {
+	                throw new Error("account is invalid");
+	            }
+	            if (!(opts.action instanceof _generatedStellarXdr_generated2["default"].ManageBalanceAction)) {
+	                throw new TypeError('action argument should be value of xdr.ManageBalanceAction enum');
+	            }
+	            if (!Operation.isValidAsset(opts.asset)) {
+	                throw new TypeError('asset is invalid');
+	            }
+
+	            attributes.destination = _keypair.Keypair.fromAccountId(opts.destination).xdrAccountId();
+	            attributes.action = opts.action;
+	            attributes.asset = opts.asset;
+
+	            var manageBalanceOp = new _generatedStellarXdr_generated2["default"].ManageBalanceOp(attributes);
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.manageBalance(manageBalanceOp);
+	            Operation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
+	        }
+	    }, {
+	        key: "reviewPaymentRequest",
+	        value: function reviewPaymentRequest(opts) {
+	            var attributes = {
+	                ext: new _generatedStellarXdr_generated2["default"].ReviewPaymentRequestOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	            };
+
+	            if ((0, _lodashIsUndefined2["default"])(opts.paymentId)) {
+	                throw new Error("paymentId should be defined");
+	            }
+	            if ((0, _lodashIsUndefined2["default"])(opts.accept)) {
+	                throw new TypeError('accept should be defined');
+	            }
+
+	            if (!(0, _lodashIsUndefined2["default"])(opts.rejectReason)) {
+	                attributes.rejectReason = opts.rejectReason;
+	            }
+
+	            attributes.paymentId = _jsXdr.UnsignedHyper.fromString(opts.paymentId);
+	            attributes.accept = opts.accept;
+
+	            var reviewPaymentRequestOp = new _generatedStellarXdr_generated2["default"].ReviewPaymentRequestOp(attributes);
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.reviewPaymentRequest(reviewPaymentRequestOp);
+	            Operation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
+	        }
+
+	        /**
+	         * Returns an XDR ManageAssetPairOp. A "manage asset pair" operations creates|updates asset pair.
+	         * @param {object} opts
+	         * @param {string} opts.base - base asset
+	         * @param {string} opts.quote - quote asset
+	         * @param {number|string} opts.policies - asset pair policies
+	         * @param {number|string} opts.physicalPriceCorrection - correction of physical price in percents. If physical price is set and restriction by physical price set, mininal price for offer for this pair will be physicalPrice * physicalPriceCorrection
+	         * @param {number|string} opts.maxPriceStep - max price step in percent. User is allowed to set offer with price < (1 - maxPriceStep)*currentPrice and > (1 + maxPriceStep)*currentPrice
+	         * @param {number|string} opts.physicalPrice - physical price
+	         * @param {xdr.ManageAssetPairAction} – Create or update
+	         * @returns {xdr.ManageBalanceOp}
+	         */
+	    }, {
+	        key: "manageAssetPair",
+	        value: function manageAssetPair(opts) {
+	            var attributes = {
+	                ext: new _generatedStellarXdr_generated2["default"].ManageAssetPairOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	            };
+	            if (!Operation.isValidAsset(opts.base)) {
+	                throw new TypeError('base is invalid');
+	            }
+
+	            if (!Operation.isValidAsset(opts.quote)) {
+	                throw new TypeError('quote is invalid');
+	            }
+
+	            if (!(opts.action instanceof _generatedStellarXdr_generated2["default"].ManageAssetPairAction)) {
+	                throw new TypeError('action argument should be value of xdr.ManageAssetPairAction enum');
+	            }
+
+	            if ((0, _lodashIsUndefined2["default"])(opts.policies)) {
+	                throw new TypeError('policies are not defined');
+	            }
+
+	            if (!Operation.isValidAmount(opts.physicalPriceCorrection, true)) {
+	                throw new TypeError('physicalPriceCorrection argument must be of type String and represent a positive number or zero');
+	            }
+
+	            if (!Operation.isValidAmount(opts.maxPriceStep, true)) {
+	                throw new TypeError('maxPriceStep argument must be of type String and represent a positive number or zero');
+	            }
+
+	            if (!Operation.isValidAmount(opts.physicalPrice, true)) {
+	                throw new TypeError('physicalPrice argument must be of type String and represent a positive number or zero');
+	            }
+
+	            attributes.base = opts.base;
+	            attributes.quote = opts.quote;
+	            attributes.policies = opts.policies;
+	            attributes.action = opts.action;
+	            attributes.physicalPriceCorrection = Operation._toXDRAmount(opts.physicalPriceCorrection);
+	            // won't be updated
+	            attributes.physicalPrice = Operation._toXDRAmount(opts.physicalPrice);
+	            attributes.maxPriceStep = Operation._toXDRAmount(opts.maxPriceStep);
+
+	            var manageAssetPairOp = new _generatedStellarXdr_generated2["default"].ManageAssetPairOp(attributes);
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.manageAssetPair(manageAssetPairOp);
+	            Operation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
+	        }
+	    }, {
+	        key: "manageInvoice",
+	        value: function manageInvoice(opts) {
+	            var attributes = {
+	                ext: new _generatedStellarXdr_generated2["default"].ManageInvoiceOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	            };
+	            if (!_keypair.Keypair.isValidPublicKey(opts.sender)) {
+	                throw new Error("sender is invalid");
+	            }
+	            if (!_keypair.Keypair.isValidBalanceKey(opts.receiverBalance)) {
+	                throw new Error("receiverBalance is invalid");
+	            }
+	            if (!Operation.isValidAmount(opts.amount, true)) {
+	                throw new TypeError('amount argument must be of type String and represent a positive number or zero');
+	            }
+	            attributes.amount = Operation._toXDRAmount(opts.amount);
+
+	            if ((0, _lodashIsUndefined2["default"])(opts.invoiceId)) {
+	                throw new TypeError('invoiceId must be specified');
+	            }
+
+	            attributes.invoiceId = _jsXdr.UnsignedHyper.fromString(opts.invoiceId);
+	            attributes.sender = _keypair.Keypair.fromAccountId(opts.sender).xdrAccountId();
+	            attributes.receiverBalance = _keypair.Keypair.fromBalanceId(opts.receiverBalance).xdrBalanceId();
+
+	            var manageInvoiceOp = new _generatedStellarXdr_generated2["default"].ManageInvoiceOp(attributes);
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.manageInvoice(manageInvoiceOp);
+	            Operation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
+	        }
+	    }, {
+	        key: "setLimits",
+	        value: function setLimits() {
+	            var opts = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+	            var attributes = {
+	                ext: new _generatedStellarXdr_generated2["default"].SetLimitsOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion()),
+	                limits: new _generatedStellarXdr_generated2["default"].Limits({
+	                    dailyOut: Operation._toXDRAmount(opts.limits.dailyOut),
+	                    weeklyOut: Operation._toXDRAmount(opts.limits.weeklyOut),
+	                    monthlyOut: Operation._toXDRAmount(opts.limits.monthlyOut),
+	                    annualOut: Operation._toXDRAmount(opts.limits.annualOut),
+	                    ext: new _generatedStellarXdr_generated2["default"].LimitsExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	                })
+	            };
+	            if (opts.account) {
+	                if (!_keypair.Keypair.isValidPublicKey(opts.account)) {
+	                    throw new Error("account is invalid");
+	                }
+	                attributes.account = _keypair.Keypair.fromAccountId(opts.account).xdrAccountId();
+	            } else if (opts.accountType) {
+	                attributes.accountType = Operation._accountTypeFromNumber(opts.accountType);
+	            }
+	            var setLimitsOp = new _generatedStellarXdr_generated2["default"].SetLimitsOp(attributes);
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.setLimit(setLimitsOp);
+	            Operation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
+	        }
+
+	        /**
+	         * Converts the XDR Operation object to the opts object used to create the XDR
+	         * operation.
+	         * @param {xdr.Operation} operation - An XDR Operation.
+	         * @return {Operation}
+	         */
+	    }, {
+	        key: "operationToObject",
+	        value: function operationToObject(operation) {
+	            function accountIdtoAddress(accountId) {
+	                return (0, _strkey.encodeCheck)("accountId", accountId.ed25519());
+	            }
+
+	            function balanceIdtoString(balanceId) {
+	                return (0, _strkey.encodeCheck)("balanceId", balanceId.ed25519());
+	            }
+
+	            var result = {};
+	            if (operation.sourceAccount()) {
+	                result.source = accountIdtoAddress(operation.sourceAccount());
+	            }
+
+	            var attrs = operation.body().value();
+	            result.type = operation.body()["switch"]().name;
+	            switch (operation.body()["switch"]()) {
+	                case _generatedStellarXdr_generated2["default"].OperationType.createAccount():
+	                    result.destination = accountIdtoAddress(attrs.destination());
+	                    result.recoveryKey = accountIdtoAddress(attrs.recoveryKey());
+	                    result.accountType = attrs.accountType().value;
+	                    result.policies = attrs.policies();
+
+	                    if (attrs.referrer()) {
+	                        result.referrer = accountIdtoAddress(attrs.referrer());
+	                    }
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.payment():
+	                    result.amount = Operation._fromXDRAmount(attrs.amount());
+	                    result.feeFromSource = attrs.feeFromSource;
+	                    result.sourceBalanceId = balanceIdtoString(attrs.sourceBalanceId());
+	                    result.destinationBalanceId = balanceIdtoString(attrs.destinationBalanceId());
+	                    result.subject = attrs.subject();
+	                    result.reference = attrs.reference();
+	                    result.feeData = {
+	                        sourceFee: {
+	                            paymentFee: Operation._fromXDRAmount(attrs.feeData().sourceFee().paymentFee()),
+	                            fixedFee: Operation._fromXDRAmount(attrs.feeData().sourceFee().fixedFee())
+	                        },
+	                        destinationFee: {
+	                            paymentFee: Operation._fromXDRAmount(attrs.feeData().destinationFee().paymentFee()),
+	                            fixedFee: Operation._fromXDRAmount(attrs.feeData().destinationFee().fixedFee())
+	                        },
+	                        sourcePaysForDest: attrs.feeData().sourcePaysForDest()
+	                    };
+	                    if (attrs.invoiceReference()) {
+	                        result.invoiceReference = {
+	                            invoiceId: attrs.invoiceReference().invoiceId().toString(),
+	                            accept: attrs.invoiceReference().accept()
+	                        };
+	                    }
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.directDebit():
+	                    var paymentOp = attrs.paymentOp();
+	                    result.amount = Operation._fromXDRAmount(paymentOp.amount());
+	                    result.feeFromSource = paymentOp.feeFromSource;
+	                    result.sourceBalanceId = balanceIdtoString(paymentOp.sourceBalanceId());
+	                    result.destinationBalanceId = balanceIdtoString(paymentOp.destinationBalanceId());
+	                    result.subject = paymentOp.subject();
+	                    result.reference = paymentOp.reference();
+	                    result.from = accountIdtoAddress(attrs.from());
+	                    result.feeData = {
+	                        sourceFee: {
+	                            paymentFee: Operation._fromXDRAmount(paymentOp.feeData().sourceFee().paymentFee()),
+	                            fixedFee: Operation._fromXDRAmount(paymentOp.feeData().sourceFee().fixedFee())
+	                        },
+	                        destinationFee: {
+	                            paymentFee: Operation._fromXDRAmount(paymentOp.feeData().destinationFee().paymentFee()),
+	                            fixedFee: Operation._fromXDRAmount(paymentOp.feeData().destinationFee().fixedFee())
+	                        },
+	                        sourcePaysForDest: paymentOp.feeData().sourcePaysForDest()
+	                    };
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.setOption():
+	                    _operationsSet_options_builder.SetOptionsBuilder.setOptionsToObject(result, attrs);
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.setFee():
+	                    if (!(0, _lodashIsUndefined2["default"])(attrs.fee())) {
+	                        result.fee = {};
+	                        result.fee.fixedFee = Operation._fromXDRAmount(attrs.fee().fixedFee());
+	                        result.fee.percentFee = Operation._fromXDRAmount(attrs.fee().percentFee());
+	                        result.fee.feeType = attrs.fee().feeType();
+	                        result.fee.asset = attrs.fee().asset();
+	                        result.fee.subtype = attrs.fee().subtype().toString();
+	                        result.fee.lowerBound = Operation._fromXDRAmount(attrs.fee().lowerBound());
+	                        result.fee.upperBound = Operation._fromXDRAmount(attrs.fee().upperBound());
+	                        if (attrs.fee().accountId()) {
+	                            result.fee.accountId = accountIdtoAddress(attrs.fee().accountId());
+	                        }
+	                        if (attrs.fee().accountType()) {
+	                            result.fee.accountType = attrs.fee().accountType();
+	                        }
+	                        result.fee.hash = attrs.fee().hash();
+	                    }
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.manageAccount():
+	                    result.account = accountIdtoAddress(attrs.account());
+	                    result.blockReasonsToAdd = attrs.blockReasonsToAdd();
+	                    result.blockReasonsToRemove = attrs.blockReasonsToRemove();
+	                    result.accountType = attrs.accountType().value;
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.manageBalance():
+	                    result.action = attrs.action();
+	                    result.destination = accountIdtoAddress(attrs.destination());
+	                    result.asset = attrs.asset();
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.reviewPaymentRequest():
+	                    result.accept = attrs.accept();
+	                    result.paymentId = attrs.paymentId().toString();
+	                    if (attrs.rejectReason()) {
+	                        result.rejectReason = attrs.rejectReason();
+	                    }
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.manageAsset():
+	                    _operationsManage_asset_builder.ManageAssetBuilder.manageAssetToObject(result, attrs);
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.createPreissuanceRequest():
+	                    _operationsPre_issuance_request_op_builder.PreIssuanceRequestOpBuilder.preIssuanceRequestOpToObject(result, attrs);
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.setLimit():
+	                    if (attrs.account()) {
+	                        result.account = accountIdtoAddress(attrs.account());
+	                    }
+	                    if (attrs.accountType()) {
+	                        result.accountType = attrs.accountType().value;
+	                    }
+	                    result.limits = {};
+	                    result.limits.dailyOut = Operation._fromXDRAmount(attrs.limits().dailyOut());
+	                    result.limits.weeklyOut = Operation._fromXDRAmount(attrs.limits().weeklyOut());
+	                    result.limits.monthlyOut = Operation._fromXDRAmount(attrs.limits().monthlyOut());
+	                    result.limits.annualOut = Operation._fromXDRAmount(attrs.limits().annualOut());
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.manageOffer():
+	                    _operationsManage_offer_builder.ManageOfferBuilder.manageOfferOpToObject(result, attrs);
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.manageInvoice():
+	                    result.amount = Operation._fromXDRAmount(attrs.amount());
+	                    result.sender = accountIdtoAddress(attrs.sender());
+	                    result.receiverBalance = balanceIdtoString(attrs.receiverBalance());
+	                    result.invoiceId = attrs.invoiceId().toString();
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.manageAssetPair():
+	                    result.action = attrs.action();
+	                    result.base = attrs.base();
+	                    result.quote = attrs.quote();
+	                    result.policies = attrs.policies();
+	                    result.physicalPriceCorrection = Operation._fromXDRAmount(attrs.physicalPriceCorrection());
+	                    result.maxPriceStep = Operation._fromXDRAmount(attrs.maxPriceStep());
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.reviewRequest():
+	                    _operationsReview_request_builder.ReviewRequestBuilder.reviewRequestToObject(result, attrs);
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.createIssuanceRequest():
+	                    _operationsCreate_issuance_request_builder.CreateIssuanceRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.createWithdrawalRequest():
+	                    _operationsCreate_withdraw_request_builder.CreateWithdrawRequestBuilder.createWithdrawalRequestOpToObject(result, attrs);
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.createSaleRequest():
+	                    _operationsSale_request_builder.SaleRequestBuilder.crateSaleCreationRequestToObject(result, attrs);
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.checkSaleState():
+	                    _operationsSale_request_builder.SaleRequestBuilder.checkSaleStateToObject(result, attrs);
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.createAmlAlert():
+	                    _operationsCreate_aml_request_builder.CreateAMLRequestBuilder.createAmlAlertToObject(result, attrs);
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.manageKeyValue():
+	                    _operationsManage_key_value_op_builder.ManageKeyValueOpBuilder.manageKeyValueOpToObject();
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.createKycRequest():
+	                    _operationsCreate_update_kyc_request_builder.CreateUpdateKYCRequestBuilder.createUpdateKYCRequestOpToObject(result, attrs);
+	                    break;
+	                default:
+	                    throw new Error("Unknown operation");
+
+	            }
+	            return result;
+	        }
+	    }]);
+
+	    return Operation;
+	})(_operationsBase_operation.BaseOperation);
+
+	exports.Operation = Operation;
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj["default"] = obj; return newObj; } }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var _network = __webpack_require__(44);
+
+	var _signing = __webpack_require__(56);
+
+	var _base58 = __webpack_require__(59);
+
+	var base58 = _interopRequireWildcard(_base58);
+
+	var _strkey = __webpack_require__(63);
+
+	var strkey = _interopRequireWildcard(_strkey);
+
+	var _generatedStellarXdr_generated = __webpack_require__(2);
+
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
+
+	var nacl = __webpack_require__(57);
+
+	var Keypair = (function () {
+	  /**
+	   * `Keypair` represents public (and secret) keys of the account.
+	   *
+	   * Use more convenient methods to create `Keypair` object:
+	   * * `{@link Keypair.fromAccountId}`
+	   * * `{@link Keypair.fromSecret}`
+	   * * `{@link Keypair.random}`
+	   *
+	   * @constructor
+	   * @param {object} keys
+	   * @param {string} keys.publicKey Raw public key
+	   * @param {string} [keys.secretSeed] Raw secret key seed.
+	   */
+
+	  function Keypair(keys) {
+	    _classCallCheck(this, Keypair);
+
+	    this._publicKey = new Buffer(keys.publicKey);
+
+	    if (keys.secretSeed) {
+	      this._secretSeed = new Buffer(keys.secretSeed);
+	      this._secretKey = new Buffer(keys.secretKey);
+	    }
+	  }
+
+	  /**
+	   * @param {string} seed Secret key seed
+	   * @deprecated Use {@link Keypair.fromSecret}
+	   * @returns {Keypair}
+	   */
+
+	  _createClass(Keypair, [{
+	    key: "xdrAccountId",
+	    value: function xdrAccountId() {
+	      return new _generatedStellarXdr_generated2["default"].AccountId.keyTypeEd25519(this._publicKey);
+	    }
+	  }, {
+	    key: "xdrBalanceId",
+	    value: function xdrBalanceId() {
+	      return new _generatedStellarXdr_generated2["default"].BalanceId.keyTypeEd25519(this._publicKey);
+	    }
+	  }, {
+	    key: "xdrPublicKey",
+	    value: function xdrPublicKey() {
+	      return new _generatedStellarXdr_generated2["default"].PublicKey.keyTypeEd25519(this._publicKey);
+	    }
+
+	    /**
+	     * Returns raw public key
+	     * @returns {Buffer}
+	     */
+	  }, {
+	    key: "rawPublicKey",
+	    value: function rawPublicKey() {
+	      return this._publicKey;
+	    }
+	  }, {
+	    key: "signatureHint",
+	    value: function signatureHint() {
+	      var a = this.xdrAccountId().toXDR();
+
+	      return a.slice(a.length - 4);
+	    }
+
+	    /**
+	     * Returns account ID associated with this `Keypair` object.
+	     * @returns {string}
+	     */
+	  }, {
+	    key: "accountId",
+	    value: function accountId() {
+	      return strkey.encodeCheck("accountId", this._publicKey);
+	    }
+	  }, {
+	    key: "balanceId",
+	    value: function balanceId() {
+	      return strkey.encodeCheck("balanceId", this._publicKey);
+	    }
+
+	    /**
+	     * @deprecated Use {@link Keypair.secret}
+	     * @returns {string}
+	     */
+	  }, {
+	    key: "seed",
+	    value: function seed() {
+	      console.log('Keypair.seed() is deprecated. Use Keypair.secret().');
+	      return this.secret();
+	    }
+
+	    /**
+	     * Returns secret key associated with this `Keypair` object
+	     * @returns {string}
+	     */
+	  }, {
+	    key: "secret",
+	    value: function secret() {
+	      return strkey.encodeCheck("seed", this._secretSeed);
+	    }
+
+	    /**
+	     * Returns raw secret key seed.
+	     * @deprecated
+	     * @returns {Buffer}
+	     */
+	  }, {
+	    key: "rawSeed",
+	    value: function rawSeed() {
+	      console.log('Keypair.rawSeed() is deprecated.');
+	      return this._secretSeed;
+	    }
+
+	    /**
+	     * Returns raw secret key.
+	     * @returns {Buffer}
+	     */
+	  }, {
+	    key: "rawSecretKey",
+	    value: function rawSecretKey() {
+	      return this._secretKey;
+	    }
+
+	    /**
+	     * Returns `true` if this `Keypair` object contains secret key and can sign.
+	     * @returns {boolean}
+	     */
+	  }, {
+	    key: "canSign",
+	    value: function canSign() {
+	      return !!this._secretKey;
+	    }
+
+	    /**
+	     * Signs data.
+	     * @param {Buffer} data Data to sign
+	     * @returns {Buffer}
+	     */
+	  }, {
+	    key: "sign",
+	    value: function sign(data) {
+	      if (!this.canSign()) {
+	        throw new Error("cannot sign: no secret key available");
+	      }
+
+	      return (0, _signing.sign)(data, this._secretKey);
+	    }
+
+	    /**
+	     * Verifies if `signature` for `data` is valid.
+	     * @param {Buffer} data Signed data
+	     * @param {Buffer} signature Signature
+	     * @returns {boolean}
+	     */
+	  }, {
+	    key: "verify",
+	    value: function verify(data, signature) {
+	      return (0, _signing.verify)(data, signature, this._publicKey);
+	    }
+	  }, {
+	    key: "signDecorated",
+	    value: function signDecorated(data) {
+	      var signature = this.sign(data);
+	      var hint = this.signatureHint();
+
+	      return new _generatedStellarXdr_generated2["default"].DecoratedSignature({ hint: hint, signature: signature });
+	    }
+	  }], [{
+	    key: "fromSeed",
+	    value: function fromSeed(seed) {
+	      console.log('Keypair.fromSeed() is deprecated. Use Keypair.fromSecret().');
+	      return Keypair.fromSecret(seed);
+	    }
+
+	    /**
+	     * Creates a new `Keypair` instance from secret key.
+	     * @param {string} secretKey Secret key
+	     * @returns {Keypair}
+	     */
+	  }, {
+	    key: "fromSecret",
+	    value: function fromSecret(secretKey) {
+	      var rawSeed = strkey.decodeCheck("seed", secretKey);
+	      return this.fromRawSeed(rawSeed);
+	    }
+
+	    /**
+	     * Base58 address encoding is **DEPRECATED**! Use this method only for transition to strkey encoding.
+	     * @param {string} seed Base58 secret seed
+	     * @deprecated Use {@link Keypair.fromSecret}
+	     * @returns {Keypair}
+	     */
+	  }, {
+	    key: "fromBase58Seed",
+	    value: function fromBase58Seed(seed) {
+	      var rawSeed = base58.decodeBase58Check("seed", seed);
+	      return this.fromRawSeed(rawSeed);
+	    }
+
+	    /**
+	     * Creates a new `Keypair` object from secret seed raw bytes.
+	     *
+	     * @param {Buffer} rawSeed Buffer containing secret seed
+	     * @returns {Keypair}
+	     */
+	  }, {
+	    key: "fromRawSeed",
+	    value: function fromRawSeed(rawSeed) {
+	      rawSeed = new Buffer(rawSeed);
+	      var rawSeedU8 = new Uint8Array(rawSeed);
+	      var keys = nacl.sign.keyPair.fromSeed(rawSeedU8);
+	      keys.secretSeed = rawSeed;
+
+	      return new this(keys);
+	    }
+
+	    /**
+	     * Returns `Keypair` object representing network master key.
+	     * @returns {Keypair}
+	     */
+	  }, {
+	    key: "master",
+	    value: function master() {
+	      return this.fromRawSeed(_network.Network.current().networkId());
+	    }
+
+	    /**
+	     * Creates a new `Keypair` object from account ID.
+	     * @param {string} accountId account ID (ex. `GB3KJPLFUYN5VL6R3GU3EGCGVCKFDSD7BEDX42HWG5BWFKB3KQGJJRMA`)
+	     * @returns {Keypair}
+	     */
+	  }, {
+	    key: "fromAccountId",
+	    value: function fromAccountId(accountId) {
+	      var publicKey = strkey.decodeCheck("accountId", accountId);
+	      if (publicKey.length !== 32) {
+	        throw new Error('Invalid Stellar accountId');
+	      }
+	      return new this({ publicKey: publicKey });
+	    }
+	  }, {
+	    key: "fromBalanceId",
+	    value: function fromBalanceId(balanceId) {
+	      var publicKey = strkey.decodeCheck("balanceId", balanceId);
+	      if (publicKey.length !== 32) {
+	        throw new Error('Invalid Stellar balanceId');
+	      }
+	      return new this({ publicKey: publicKey });
+	    }
+
+	    /**
+	     * Create a random `Keypair` object.
+	     * @returns {Keypair}
+	     */
+	  }, {
+	    key: "random",
+	    value: function random() {
+	      var seed = nacl.randomBytes(32);
+	      return this.fromRawSeed(seed);
+	    }
+
+	    /**
+	     * Returns true if the given Stellar public key is valid.
+	     * @param {string} publicKey public key to check
+	     * @returns {boolean}
+	     */
+	  }, {
+	    key: "isValidPublicKey",
+	    value: function isValidPublicKey(publicKey) {
+	      if (publicKey && publicKey.length != 56) {
+	        return false;
+	      }
+
+	      try {
+	        var decoded = strkey.decodeCheck("accountId", publicKey);
+	        if (decoded.length !== 32) {
+	          return false;
+	        }
+	      } catch (err) {
+	        return false;
+	      }
+	      return true;
+	    }
+	  }, {
+	    key: "isValidBalanceKey",
+	    value: function isValidBalanceKey(publicKey) {
+	      if (publicKey && publicKey.length != 56) {
+	        return false;
+	      }
+
+	      try {
+	        var decoded = strkey.decodeCheck("balanceId", publicKey);
+	        if (decoded.length !== 32) {
+	          return false;
+	        }
+	      } catch (err) {
+	        return false;
+	      }
+	      return true;
+	    }
+
+	    /**
+	     * Returns true if the given Stellar secret key is valid.
+	     * @param {string} secretKey secret key to check
+	     * @returns {boolean}
+	     */
+	  }, {
+	    key: "isValidSecretKey",
+	    value: function isValidSecretKey(secretKey) {
+	      if (secretKey && secretKey.length != 56) {
+	        return false;
+	      }
+
+	      try {
+	        var decoded = strkey.decodeCheck("seed", secretKey);
+	        if (decoded.length !== 32) {
+	          return false;
+	        }
+	      } catch (err) {
+	        return false;
+	      }
+	      return true;
+	    }
+	  }]);
+
+	  return Keypair;
+	})();
+
+	exports.Keypair = Keypair;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9).Buffer))
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var _hashing = __webpack_require__(45);
+
+	/**
+	 * Contains passphrases for common networks:
+	 * * `Networks.PUBLIC`: `Public Global Stellar Network ; September 2015`
+	 * * `Networks.TESTNET`: `Test SDF Network ; September 2015`
+	 * @type {{PUBLIC: string, TESTNET: string}}
+	 */
+	var Networks = {
+		PUBLIC: "Public Global Stellar Network ; September 2015",
+		TESTNET: "Test SDF Network ; September 2015"
+	};
+
+	exports.Networks = Networks;
+	var _current;
+
+	var Network = (function () {
+		/**
+	   * The Network class provides helper methods to get the passphrase or id for different
+	   * stellar networks.  It also provides the {@link Network.current} class method that returns the network
+	   * that will be used by this process for the purposes of generating signatures.
+	   *
+	   * The test network is the default, but you can also override the default by using the `use`,
+	   * `usePublicNetwork` and `useTestNetwork` helper methods.
+	   *
+	  * Creates a new `Network` object.
+	  * @constructor
+	  * @param {string} networkPassphrase Network passphrase
+	  */
+
+		function Network(networkPassphrase) {
+			_classCallCheck(this, Network);
+
+			this._networkPassphrase = networkPassphrase;
+		}
+
+		/**
+	  * Use default network (right now default network is `testnet`).
+	  */
+
+		_createClass(Network, [{
+			key: "networkPassphrase",
+
+			/**
+	   * Returns network passphrase.
+	   * @returns {string}
+	   */
+			value: function networkPassphrase() {
+				return this._networkPassphrase;
+			}
+
+			/**
+	   * Returns Network ID. Network ID is SHA-256 hash of network passphrase.
+	   * @returns {string}
+	   */
+		}, {
+			key: "networkId",
+			value: function networkId() {
+				return (0, _hashing.hash)(this.networkPassphrase());
+			}
+		}], [{
+			key: "useDefault",
+			value: function useDefault() {
+				this.useTestNetwork();
+			}
+
+			/**
+	   * Use Stellar Public Network
+	   */
+		}, {
+			key: "usePublicNetwork",
+			value: function usePublicNetwork() {
+				this.use(new Network(Networks.PUBLIC));
+			}
+
+			/**
+	   * Use test network.
+	   */
+		}, {
+			key: "useTestNetwork",
+			value: function useTestNetwork() {
+				this.use(new Network(Networks.TESTNET));
+			}
+
+			/**
+	   * Use network defined by Network object.
+	   * @param {Network} network Network to use
+	   */
+		}, {
+			key: "use",
+			value: function use(network) {
+				_current = network;
+			}
+
+			/**
+	   * Returns currently selected network.
+	   * @returns {Network}
+	   */
+		}, {
+			key: "current",
+			value: function current() {
+				return _current;
+			}
+		}]);
+
+		return Network;
+	})();
+
+	exports.Network = Network;
+
+	Network.useDefault();
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.hash = hash;
 
-	var _shaJs = __webpack_require__(42);
+	var _shaJs = __webpack_require__(46);
 
 	function hash(data) {
 	  var hasher = new _shaJs.sha256();
@@ -24873,7 +26264,7 @@ var StellarBase =
 	}
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var exports = module.exports = function SHA (algorithm) {
@@ -24885,16 +26276,16 @@ var StellarBase =
 	  return new Algorithm()
 	}
 
-	exports.sha = __webpack_require__(43)
-	exports.sha1 = __webpack_require__(47)
-	exports.sha224 = __webpack_require__(48)
-	exports.sha256 = __webpack_require__(49)
-	exports.sha384 = __webpack_require__(50)
-	exports.sha512 = __webpack_require__(51)
+	exports.sha = __webpack_require__(47)
+	exports.sha1 = __webpack_require__(51)
+	exports.sha224 = __webpack_require__(52)
+	exports.sha256 = __webpack_require__(53)
+	exports.sha384 = __webpack_require__(54)
+	exports.sha512 = __webpack_require__(55)
 
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
@@ -24905,9 +26296,9 @@ var StellarBase =
 	 * operation was added.
 	 */
 
-	var inherits = __webpack_require__(44)
-	var Hash = __webpack_require__(45)
-	var Buffer = __webpack_require__(46).Buffer
+	var inherits = __webpack_require__(48)
+	var Hash = __webpack_require__(49)
+	var Buffer = __webpack_require__(50).Buffer
 
 	var K = [
 	  0x5a827999, 0x6ed9eba1, 0x8f1bbcdc | 0, 0xca62c1d6 | 0
@@ -24994,7 +26385,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, exports) {
 
 	if (typeof Object.create === 'function') {
@@ -25023,10 +26414,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Buffer = __webpack_require__(46).Buffer
+	var Buffer = __webpack_require__(50).Buffer
 
 	// prototype class for hash functions
 	function Hash (blockSize, finalSize) {
@@ -25110,7 +26501,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 46 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* eslint-disable node/no-deprecated-api */
@@ -25178,7 +26569,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 47 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
@@ -25190,9 +26581,9 @@ var StellarBase =
 	 * See http://pajhome.org.uk/crypt/md5 for details.
 	 */
 
-	var inherits = __webpack_require__(44)
-	var Hash = __webpack_require__(45)
-	var Buffer = __webpack_require__(46).Buffer
+	var inherits = __webpack_require__(48)
+	var Hash = __webpack_require__(49)
+	var Buffer = __webpack_require__(50).Buffer
 
 	var K = [
 	  0x5a827999, 0x6ed9eba1, 0x8f1bbcdc | 0, 0xca62c1d6 | 0
@@ -25283,7 +26674,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 48 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -25294,10 +26685,10 @@ var StellarBase =
 	 *
 	 */
 
-	var inherits = __webpack_require__(44)
-	var Sha256 = __webpack_require__(49)
-	var Hash = __webpack_require__(45)
-	var Buffer = __webpack_require__(46).Buffer
+	var inherits = __webpack_require__(48)
+	var Sha256 = __webpack_require__(53)
+	var Hash = __webpack_require__(49)
+	var Buffer = __webpack_require__(50).Buffer
 
 	var W = new Array(64)
 
@@ -25342,7 +26733,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 49 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -25353,9 +26744,9 @@ var StellarBase =
 	 *
 	 */
 
-	var inherits = __webpack_require__(44)
-	var Hash = __webpack_require__(45)
-	var Buffer = __webpack_require__(46).Buffer
+	var inherits = __webpack_require__(48)
+	var Hash = __webpack_require__(49)
+	var Buffer = __webpack_require__(50).Buffer
 
 	var K = [
 	  0x428A2F98, 0x71374491, 0xB5C0FBCF, 0xE9B5DBA5,
@@ -25483,13 +26874,13 @@ var StellarBase =
 
 
 /***/ }),
-/* 50 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var inherits = __webpack_require__(44)
-	var SHA512 = __webpack_require__(51)
-	var Hash = __webpack_require__(45)
-	var Buffer = __webpack_require__(46).Buffer
+	var inherits = __webpack_require__(48)
+	var SHA512 = __webpack_require__(55)
+	var Hash = __webpack_require__(49)
+	var Buffer = __webpack_require__(50).Buffer
 
 	var W = new Array(160)
 
@@ -25546,12 +26937,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 51 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var inherits = __webpack_require__(44)
-	var Hash = __webpack_require__(45)
-	var Buffer = __webpack_require__(46).Buffer
+	var inherits = __webpack_require__(48)
+	var Hash = __webpack_require__(49)
+	var Buffer = __webpack_require__(50).Buffer
 
 	var K = [
 	  0x428a2f98, 0xd728ae22, 0x71374491, 0x23ef65cd,
@@ -25812,7 +27203,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 52 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {//  This module provides the signing functionality used by the stellar network
@@ -25886,7 +27277,7 @@ var StellarBase =
 	    (function () {
 	      // fallback to tweetnacl.js if we're in the browser or
 	      // if there was a failure installing ed25519
-	      var nacl = __webpack_require__(53);
+	      var nacl = __webpack_require__(57);
 
 	      actualMethods.sign = function (data, secretKey) {
 	        data = new Buffer(data);
@@ -25914,7 +27305,7 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9).Buffer))
 
 /***/ }),
-/* 53 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {(function(nacl) {
@@ -28323,7 +29714,7 @@ var StellarBase =
 	    }
 	  } else if (true) {
 	    // Node.js.
-	    crypto = __webpack_require__(54);
+	    crypto = __webpack_require__(58);
 	    if (crypto) {
 	      nacl.setPRNG(function(x, n) {
 	        var i, v = crypto.randomBytes(n);
@@ -28339,506 +29730,13 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9).Buffer))
 
 /***/ }),
-/* 54 */
+/* 58 */
 /***/ (function(module, exports) {
 
 	/* (ignored) */
 
 /***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj["default"] = obj; return newObj; } }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var _network = __webpack_require__(56);
-
-	var _signing = __webpack_require__(52);
-
-	var _base58 = __webpack_require__(57);
-
-	var base58 = _interopRequireWildcard(_base58);
-
-	var _strkey = __webpack_require__(61);
-
-	var strkey = _interopRequireWildcard(_strkey);
-
-	var _generatedStellarXdr_generated = __webpack_require__(2);
-
-	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
-
-	var nacl = __webpack_require__(53);
-
-	var Keypair = (function () {
-	  /**
-	   * `Keypair` represents public (and secret) keys of the account.
-	   *
-	   * Use more convenient methods to create `Keypair` object:
-	   * * `{@link Keypair.fromAccountId}`
-	   * * `{@link Keypair.fromSecret}`
-	   * * `{@link Keypair.random}`
-	   *
-	   * @constructor
-	   * @param {object} keys
-	   * @param {string} keys.publicKey Raw public key
-	   * @param {string} [keys.secretSeed] Raw secret key seed.
-	   */
-
-	  function Keypair(keys) {
-	    _classCallCheck(this, Keypair);
-
-	    this._publicKey = new Buffer(keys.publicKey);
-
-	    if (keys.secretSeed) {
-	      this._secretSeed = new Buffer(keys.secretSeed);
-	      this._secretKey = new Buffer(keys.secretKey);
-	    }
-	  }
-
-	  /**
-	   * @param {string} seed Secret key seed
-	   * @deprecated Use {@link Keypair.fromSecret}
-	   * @returns {Keypair}
-	   */
-
-	  _createClass(Keypair, [{
-	    key: "xdrAccountId",
-	    value: function xdrAccountId() {
-	      return new _generatedStellarXdr_generated2["default"].AccountId.keyTypeEd25519(this._publicKey);
-	    }
-	  }, {
-	    key: "xdrBalanceId",
-	    value: function xdrBalanceId() {
-	      return new _generatedStellarXdr_generated2["default"].BalanceId.keyTypeEd25519(this._publicKey);
-	    }
-	  }, {
-	    key: "xdrPublicKey",
-	    value: function xdrPublicKey() {
-	      return new _generatedStellarXdr_generated2["default"].PublicKey.keyTypeEd25519(this._publicKey);
-	    }
-
-	    /**
-	     * Returns raw public key
-	     * @returns {Buffer}
-	     */
-	  }, {
-	    key: "rawPublicKey",
-	    value: function rawPublicKey() {
-	      return this._publicKey;
-	    }
-	  }, {
-	    key: "signatureHint",
-	    value: function signatureHint() {
-	      var a = this.xdrAccountId().toXDR();
-
-	      return a.slice(a.length - 4);
-	    }
-
-	    /**
-	     * Returns account ID associated with this `Keypair` object.
-	     * @returns {string}
-	     */
-	  }, {
-	    key: "accountId",
-	    value: function accountId() {
-	      return strkey.encodeCheck("accountId", this._publicKey);
-	    }
-	  }, {
-	    key: "balanceId",
-	    value: function balanceId() {
-	      return strkey.encodeCheck("balanceId", this._publicKey);
-	    }
-
-	    /**
-	     * @deprecated Use {@link Keypair.secret}
-	     * @returns {string}
-	     */
-	  }, {
-	    key: "seed",
-	    value: function seed() {
-	      console.log('Keypair.seed() is deprecated. Use Keypair.secret().');
-	      return this.secret();
-	    }
-
-	    /**
-	     * Returns secret key associated with this `Keypair` object
-	     * @returns {string}
-	     */
-	  }, {
-	    key: "secret",
-	    value: function secret() {
-	      return strkey.encodeCheck("seed", this._secretSeed);
-	    }
-
-	    /**
-	     * Returns raw secret key seed.
-	     * @deprecated
-	     * @returns {Buffer}
-	     */
-	  }, {
-	    key: "rawSeed",
-	    value: function rawSeed() {
-	      console.log('Keypair.rawSeed() is deprecated.');
-	      return this._secretSeed;
-	    }
-
-	    /**
-	     * Returns raw secret key.
-	     * @returns {Buffer}
-	     */
-	  }, {
-	    key: "rawSecretKey",
-	    value: function rawSecretKey() {
-	      return this._secretKey;
-	    }
-
-	    /**
-	     * Returns `true` if this `Keypair` object contains secret key and can sign.
-	     * @returns {boolean}
-	     */
-	  }, {
-	    key: "canSign",
-	    value: function canSign() {
-	      return !!this._secretKey;
-	    }
-
-	    /**
-	     * Signs data.
-	     * @param {Buffer} data Data to sign
-	     * @returns {Buffer}
-	     */
-	  }, {
-	    key: "sign",
-	    value: function sign(data) {
-	      if (!this.canSign()) {
-	        throw new Error("cannot sign: no secret key available");
-	      }
-
-	      return (0, _signing.sign)(data, this._secretKey);
-	    }
-
-	    /**
-	     * Verifies if `signature` for `data` is valid.
-	     * @param {Buffer} data Signed data
-	     * @param {Buffer} signature Signature
-	     * @returns {boolean}
-	     */
-	  }, {
-	    key: "verify",
-	    value: function verify(data, signature) {
-	      return (0, _signing.verify)(data, signature, this._publicKey);
-	    }
-	  }, {
-	    key: "signDecorated",
-	    value: function signDecorated(data) {
-	      var signature = this.sign(data);
-	      var hint = this.signatureHint();
-
-	      return new _generatedStellarXdr_generated2["default"].DecoratedSignature({ hint: hint, signature: signature });
-	    }
-	  }], [{
-	    key: "fromSeed",
-	    value: function fromSeed(seed) {
-	      console.log('Keypair.fromSeed() is deprecated. Use Keypair.fromSecret().');
-	      return Keypair.fromSecret(seed);
-	    }
-
-	    /**
-	     * Creates a new `Keypair` instance from secret key.
-	     * @param {string} secretKey Secret key
-	     * @returns {Keypair}
-	     */
-	  }, {
-	    key: "fromSecret",
-	    value: function fromSecret(secretKey) {
-	      var rawSeed = strkey.decodeCheck("seed", secretKey);
-	      return this.fromRawSeed(rawSeed);
-	    }
-
-	    /**
-	     * Base58 address encoding is **DEPRECATED**! Use this method only for transition to strkey encoding.
-	     * @param {string} seed Base58 secret seed
-	     * @deprecated Use {@link Keypair.fromSecret}
-	     * @returns {Keypair}
-	     */
-	  }, {
-	    key: "fromBase58Seed",
-	    value: function fromBase58Seed(seed) {
-	      var rawSeed = base58.decodeBase58Check("seed", seed);
-	      return this.fromRawSeed(rawSeed);
-	    }
-
-	    /**
-	     * Creates a new `Keypair` object from secret seed raw bytes.
-	     *
-	     * @param {Buffer} rawSeed Buffer containing secret seed
-	     * @returns {Keypair}
-	     */
-	  }, {
-	    key: "fromRawSeed",
-	    value: function fromRawSeed(rawSeed) {
-	      rawSeed = new Buffer(rawSeed);
-	      var rawSeedU8 = new Uint8Array(rawSeed);
-	      var keys = nacl.sign.keyPair.fromSeed(rawSeedU8);
-	      keys.secretSeed = rawSeed;
-
-	      return new this(keys);
-	    }
-
-	    /**
-	     * Returns `Keypair` object representing network master key.
-	     * @returns {Keypair}
-	     */
-	  }, {
-	    key: "master",
-	    value: function master() {
-	      return this.fromRawSeed(_network.Network.current().networkId());
-	    }
-
-	    /**
-	     * Creates a new `Keypair` object from account ID.
-	     * @param {string} accountId account ID (ex. `GB3KJPLFUYN5VL6R3GU3EGCGVCKFDSD7BEDX42HWG5BWFKB3KQGJJRMA`)
-	     * @returns {Keypair}
-	     */
-	  }, {
-	    key: "fromAccountId",
-	    value: function fromAccountId(accountId) {
-	      var publicKey = strkey.decodeCheck("accountId", accountId);
-	      if (publicKey.length !== 32) {
-	        throw new Error('Invalid Stellar accountId');
-	      }
-	      return new this({ publicKey: publicKey });
-	    }
-	  }, {
-	    key: "fromBalanceId",
-	    value: function fromBalanceId(balanceId) {
-	      var publicKey = strkey.decodeCheck("balanceId", balanceId);
-	      if (publicKey.length !== 32) {
-	        throw new Error('Invalid Stellar balanceId');
-	      }
-	      return new this({ publicKey: publicKey });
-	    }
-
-	    /**
-	     * Create a random `Keypair` object.
-	     * @returns {Keypair}
-	     */
-	  }, {
-	    key: "random",
-	    value: function random() {
-	      var seed = nacl.randomBytes(32);
-	      return this.fromRawSeed(seed);
-	    }
-
-	    /**
-	     * Returns true if the given Stellar public key is valid.
-	     * @param {string} publicKey public key to check
-	     * @returns {boolean}
-	     */
-	  }, {
-	    key: "isValidPublicKey",
-	    value: function isValidPublicKey(publicKey) {
-	      if (publicKey && publicKey.length != 56) {
-	        return false;
-	      }
-
-	      try {
-	        var decoded = strkey.decodeCheck("accountId", publicKey);
-	        if (decoded.length !== 32) {
-	          return false;
-	        }
-	      } catch (err) {
-	        return false;
-	      }
-	      return true;
-	    }
-	  }, {
-	    key: "isValidBalanceKey",
-	    value: function isValidBalanceKey(publicKey) {
-	      if (publicKey && publicKey.length != 56) {
-	        return false;
-	      }
-
-	      try {
-	        var decoded = strkey.decodeCheck("balanceId", publicKey);
-	        if (decoded.length !== 32) {
-	          return false;
-	        }
-	      } catch (err) {
-	        return false;
-	      }
-	      return true;
-	    }
-
-	    /**
-	     * Returns true if the given Stellar secret key is valid.
-	     * @param {string} secretKey secret key to check
-	     * @returns {boolean}
-	     */
-	  }, {
-	    key: "isValidSecretKey",
-	    value: function isValidSecretKey(secretKey) {
-	      if (secretKey && secretKey.length != 56) {
-	        return false;
-	      }
-
-	      try {
-	        var decoded = strkey.decodeCheck("seed", secretKey);
-	        if (decoded.length !== 32) {
-	          return false;
-	        }
-	      } catch (err) {
-	        return false;
-	      }
-	      return true;
-	    }
-	  }]);
-
-	  return Keypair;
-	})();
-
-	exports.Keypair = Keypair;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9).Buffer))
-
-/***/ }),
-/* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var _hashing = __webpack_require__(41);
-
-	/**
-	 * Contains passphrases for common networks:
-	 * * `Networks.PUBLIC`: `Public Global Stellar Network ; September 2015`
-	 * * `Networks.TESTNET`: `Test SDF Network ; September 2015`
-	 * @type {{PUBLIC: string, TESTNET: string}}
-	 */
-	var Networks = {
-		PUBLIC: "Public Global Stellar Network ; September 2015",
-		TESTNET: "Test SDF Network ; September 2015"
-	};
-
-	exports.Networks = Networks;
-	var _current;
-
-	var Network = (function () {
-		/**
-	   * The Network class provides helper methods to get the passphrase or id for different
-	   * stellar networks.  It also provides the {@link Network.current} class method that returns the network
-	   * that will be used by this process for the purposes of generating signatures.
-	   *
-	   * The test network is the default, but you can also override the default by using the `use`,
-	   * `usePublicNetwork` and `useTestNetwork` helper methods.
-	   *
-	  * Creates a new `Network` object.
-	  * @constructor
-	  * @param {string} networkPassphrase Network passphrase
-	  */
-
-		function Network(networkPassphrase) {
-			_classCallCheck(this, Network);
-
-			this._networkPassphrase = networkPassphrase;
-		}
-
-		/**
-	  * Use default network (right now default network is `testnet`).
-	  */
-
-		_createClass(Network, [{
-			key: "networkPassphrase",
-
-			/**
-	   * Returns network passphrase.
-	   * @returns {string}
-	   */
-			value: function networkPassphrase() {
-				return this._networkPassphrase;
-			}
-
-			/**
-	   * Returns Network ID. Network ID is SHA-256 hash of network passphrase.
-	   * @returns {string}
-	   */
-		}, {
-			key: "networkId",
-			value: function networkId() {
-				return (0, _hashing.hash)(this.networkPassphrase());
-			}
-		}], [{
-			key: "useDefault",
-			value: function useDefault() {
-				this.useTestNetwork();
-			}
-
-			/**
-	   * Use Stellar Public Network
-	   */
-		}, {
-			key: "usePublicNetwork",
-			value: function usePublicNetwork() {
-				this.use(new Network(Networks.PUBLIC));
-			}
-
-			/**
-	   * Use test network.
-	   */
-		}, {
-			key: "useTestNetwork",
-			value: function useTestNetwork() {
-				this.use(new Network(Networks.TESTNET));
-			}
-
-			/**
-	   * Use network defined by Network object.
-	   * @param {Network} network Network to use
-	   */
-		}, {
-			key: "use",
-			value: function use(network) {
-				_current = network;
-			}
-
-			/**
-	   * Returns currently selected network.
-	   * @returns {Network}
-	   */
-		}, {
-			key: "current",
-			value: function current() {
-				return _current;
-			}
-		}]);
-
-		return Network;
-	})();
-
-	exports.Network = Network;
-
-	Network.useDefault();
-
-/***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
@@ -28853,21 +29751,21 @@ var StellarBase =
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-	var _vendorBs58 = __webpack_require__(58);
+	var _vendorBs58 = __webpack_require__(60);
 
 	var _vendorBs582 = _interopRequireDefault(_vendorBs58);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
-	var _lodashIsNull = __webpack_require__(60);
+	var _lodashIsNull = __webpack_require__(62);
 
 	var _lodashIsNull2 = _interopRequireDefault(_lodashIsNull);
 
-	var _hashing = __webpack_require__(41);
+	var _hashing = __webpack_require__(45);
 
-	var nacl = __webpack_require__(53);
+	var nacl = __webpack_require__(57);
 
 	var versionBytes = {
 	  "accountId": 0x00, // decimal 0
@@ -28964,7 +29862,7 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9).Buffer))
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports) {
 
 	// vendored from http://cryptocoinjs.com/modules/misc/bs58/
@@ -29063,7 +29961,7 @@ var StellarBase =
 	};
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports) {
 
 	/**
@@ -29091,7 +29989,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ (function(module, exports) {
 
 	/**
@@ -29119,7 +30017,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
@@ -29132,27 +30030,27 @@ var StellarBase =
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-	var _base32Js = __webpack_require__(62);
+	var _base32Js = __webpack_require__(64);
 
 	var _base32Js2 = _interopRequireDefault(_base32Js);
 
-	var _crc = __webpack_require__(63);
+	var _crc = __webpack_require__(65);
 
 	var _crc2 = _interopRequireDefault(_crc);
 
-	var _lodashIncludes = __webpack_require__(77);
+	var _lodashIncludes = __webpack_require__(79);
 
 	var _lodashIncludes2 = _interopRequireDefault(_lodashIncludes);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
-	var _lodashIsNull = __webpack_require__(60);
+	var _lodashIsNull = __webpack_require__(62);
 
 	var _lodashIsNull2 = _interopRequireDefault(_lodashIsNull);
 
-	var _lodashIsString = __webpack_require__(92);
+	var _lodashIsString = __webpack_require__(94);
 
 	var _lodashIsString2 = _interopRequireDefault(_lodashIsString);
 
@@ -29244,7 +30142,7 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9).Buffer))
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -29562,38 +30460,38 @@ var StellarBase =
 
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = {
-	  crc1: __webpack_require__(64),
-	  crc8: __webpack_require__(67),
-	  crc81wire: __webpack_require__(68),
-	  crc16: __webpack_require__(69),
-	  crc16ccitt: __webpack_require__(70),
-	  crc16modbus: __webpack_require__(71),
-	  crc16xmodem: __webpack_require__(72),
-	  crc16kermit: __webpack_require__(73),
-	  crc24: __webpack_require__(74),
-	  crc32: __webpack_require__(75),
-	  crcjam: __webpack_require__(76)
+	  crc1: __webpack_require__(66),
+	  crc8: __webpack_require__(69),
+	  crc81wire: __webpack_require__(70),
+	  crc16: __webpack_require__(71),
+	  crc16ccitt: __webpack_require__(72),
+	  crc16modbus: __webpack_require__(73),
+	  crc16xmodem: __webpack_require__(74),
+	  crc16kermit: __webpack_require__(75),
+	  crc24: __webpack_require__(76),
+	  crc32: __webpack_require__(77),
+	  crcjam: __webpack_require__(78)
 	};
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _buffer = __webpack_require__(9);
 
-	var _create_buffer = __webpack_require__(65);
+	var _create_buffer = __webpack_require__(67);
 
 	var _create_buffer2 = _interopRequireDefault(_create_buffer);
 
-	var _define_crc = __webpack_require__(66);
+	var _define_crc = __webpack_require__(68);
 
 	var _define_crc2 = _interopRequireDefault(_define_crc);
 
@@ -29615,7 +30513,7 @@ var StellarBase =
 	});
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29636,7 +30534,7 @@ var StellarBase =
 	exports.default = createBuffer;
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -29657,18 +30555,18 @@ var StellarBase =
 	};
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _buffer = __webpack_require__(9);
 
-	var _create_buffer = __webpack_require__(65);
+	var _create_buffer = __webpack_require__(67);
 
 	var _create_buffer2 = _interopRequireDefault(_create_buffer);
 
-	var _define_crc = __webpack_require__(66);
+	var _define_crc = __webpack_require__(68);
 
 	var _define_crc2 = _interopRequireDefault(_define_crc);
 
@@ -29693,18 +30591,18 @@ var StellarBase =
 	});
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _buffer = __webpack_require__(9);
 
-	var _create_buffer = __webpack_require__(65);
+	var _create_buffer = __webpack_require__(67);
 
 	var _create_buffer2 = _interopRequireDefault(_create_buffer);
 
-	var _define_crc = __webpack_require__(66);
+	var _define_crc = __webpack_require__(68);
 
 	var _define_crc2 = _interopRequireDefault(_define_crc);
 
@@ -29729,18 +30627,18 @@ var StellarBase =
 	});
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _buffer = __webpack_require__(9);
 
-	var _create_buffer = __webpack_require__(65);
+	var _create_buffer = __webpack_require__(67);
 
 	var _create_buffer2 = _interopRequireDefault(_create_buffer);
 
-	var _define_crc = __webpack_require__(66);
+	var _define_crc = __webpack_require__(68);
 
 	var _define_crc2 = _interopRequireDefault(_define_crc);
 
@@ -29765,18 +30663,18 @@ var StellarBase =
 	});
 
 /***/ }),
-/* 70 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _buffer = __webpack_require__(9);
 
-	var _create_buffer = __webpack_require__(65);
+	var _create_buffer = __webpack_require__(67);
 
 	var _create_buffer2 = _interopRequireDefault(_create_buffer);
 
-	var _define_crc = __webpack_require__(66);
+	var _define_crc = __webpack_require__(68);
 
 	var _define_crc2 = _interopRequireDefault(_define_crc);
 
@@ -29801,18 +30699,18 @@ var StellarBase =
 	});
 
 /***/ }),
-/* 71 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _buffer = __webpack_require__(9);
 
-	var _create_buffer = __webpack_require__(65);
+	var _create_buffer = __webpack_require__(67);
 
 	var _create_buffer2 = _interopRequireDefault(_create_buffer);
 
-	var _define_crc = __webpack_require__(66);
+	var _define_crc = __webpack_require__(68);
 
 	var _define_crc2 = _interopRequireDefault(_define_crc);
 
@@ -29837,18 +30735,18 @@ var StellarBase =
 	});
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _buffer = __webpack_require__(9);
 
-	var _create_buffer = __webpack_require__(65);
+	var _create_buffer = __webpack_require__(67);
 
 	var _create_buffer2 = _interopRequireDefault(_create_buffer);
 
-	var _define_crc = __webpack_require__(66);
+	var _define_crc = __webpack_require__(68);
 
 	var _define_crc2 = _interopRequireDefault(_define_crc);
 
@@ -29877,18 +30775,18 @@ var StellarBase =
 	});
 
 /***/ }),
-/* 73 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _buffer = __webpack_require__(9);
 
-	var _create_buffer = __webpack_require__(65);
+	var _create_buffer = __webpack_require__(67);
 
 	var _create_buffer2 = _interopRequireDefault(_create_buffer);
 
-	var _define_crc = __webpack_require__(66);
+	var _define_crc = __webpack_require__(68);
 
 	var _define_crc2 = _interopRequireDefault(_define_crc);
 
@@ -29913,18 +30811,18 @@ var StellarBase =
 	});
 
 /***/ }),
-/* 74 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _buffer = __webpack_require__(9);
 
-	var _create_buffer = __webpack_require__(65);
+	var _create_buffer = __webpack_require__(67);
 
 	var _create_buffer2 = _interopRequireDefault(_create_buffer);
 
-	var _define_crc = __webpack_require__(66);
+	var _define_crc = __webpack_require__(68);
 
 	var _define_crc2 = _interopRequireDefault(_define_crc);
 
@@ -29949,18 +30847,18 @@ var StellarBase =
 	});
 
 /***/ }),
-/* 75 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _buffer = __webpack_require__(9);
 
-	var _create_buffer = __webpack_require__(65);
+	var _create_buffer = __webpack_require__(67);
 
 	var _create_buffer2 = _interopRequireDefault(_create_buffer);
 
-	var _define_crc = __webpack_require__(66);
+	var _define_crc = __webpack_require__(68);
 
 	var _define_crc2 = _interopRequireDefault(_define_crc);
 
@@ -29985,18 +30883,18 @@ var StellarBase =
 	});
 
 /***/ }),
-/* 76 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _buffer = __webpack_require__(9);
 
-	var _create_buffer = __webpack_require__(65);
+	var _create_buffer = __webpack_require__(67);
 
 	var _create_buffer2 = _interopRequireDefault(_create_buffer);
 
-	var _define_crc = __webpack_require__(66);
+	var _define_crc = __webpack_require__(68);
 
 	var _define_crc2 = _interopRequireDefault(_define_crc);
 
@@ -30023,14 +30921,14 @@ var StellarBase =
 	});
 
 /***/ }),
-/* 77 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIndexOf = __webpack_require__(78),
-	    isArrayLike = __webpack_require__(82),
-	    isString = __webpack_require__(92),
-	    toInteger = __webpack_require__(95),
-	    values = __webpack_require__(99);
+	var baseIndexOf = __webpack_require__(80),
+	    isArrayLike = __webpack_require__(84),
+	    isString = __webpack_require__(94),
+	    toInteger = __webpack_require__(97),
+	    values = __webpack_require__(101);
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeMax = Math.max;
@@ -30082,12 +30980,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 78 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseFindIndex = __webpack_require__(79),
-	    baseIsNaN = __webpack_require__(80),
-	    strictIndexOf = __webpack_require__(81);
+	var baseFindIndex = __webpack_require__(81),
+	    baseIsNaN = __webpack_require__(82),
+	    strictIndexOf = __webpack_require__(83);
 
 	/**
 	 * The base implementation of `_.indexOf` without `fromIndex` bounds checks.
@@ -30108,7 +31006,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 79 */
+/* 81 */
 /***/ (function(module, exports) {
 
 	/**
@@ -30138,7 +31036,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 80 */
+/* 82 */
 /***/ (function(module, exports) {
 
 	/**
@@ -30156,7 +31054,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 81 */
+/* 83 */
 /***/ (function(module, exports) {
 
 	/**
@@ -30185,11 +31083,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 82 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(83),
-	    isLength = __webpack_require__(91);
+	var isFunction = __webpack_require__(85),
+	    isLength = __webpack_require__(93);
 
 	/**
 	 * Checks if `value` is array-like. A value is considered array-like if it's
@@ -30224,11 +31122,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(84),
-	    isObject = __webpack_require__(90);
+	var baseGetTag = __webpack_require__(86),
+	    isObject = __webpack_require__(92);
 
 	/** `Object#toString` result references. */
 	var asyncTag = '[object AsyncFunction]',
@@ -30267,12 +31165,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 84 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(85),
-	    getRawTag = __webpack_require__(88),
-	    objectToString = __webpack_require__(89);
+	var Symbol = __webpack_require__(87),
+	    getRawTag = __webpack_require__(90),
+	    objectToString = __webpack_require__(91);
 
 	/** `Object#toString` result references. */
 	var nullTag = '[object Null]',
@@ -30301,10 +31199,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 85 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var root = __webpack_require__(86);
+	var root = __webpack_require__(88);
 
 	/** Built-in value references. */
 	var Symbol = root.Symbol;
@@ -30313,10 +31211,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 86 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var freeGlobal = __webpack_require__(87);
+	var freeGlobal = __webpack_require__(89);
 
 	/** Detect free variable `self`. */
 	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -30328,7 +31226,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 87 */
+/* 89 */
 /***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
@@ -30339,10 +31237,10 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 88 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(85);
+	var Symbol = __webpack_require__(87);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -30391,7 +31289,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 89 */
+/* 91 */
 /***/ (function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -30419,7 +31317,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 90 */
+/* 92 */
 /***/ (function(module, exports) {
 
 	/**
@@ -30456,7 +31354,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 91 */
+/* 93 */
 /***/ (function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
@@ -30497,12 +31395,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 92 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(84),
-	    isArray = __webpack_require__(93),
-	    isObjectLike = __webpack_require__(94);
+	var baseGetTag = __webpack_require__(86),
+	    isArray = __webpack_require__(95),
+	    isObjectLike = __webpack_require__(96);
 
 	/** `Object#toString` result references. */
 	var stringTag = '[object String]';
@@ -30533,7 +31431,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 93 */
+/* 95 */
 /***/ (function(module, exports) {
 
 	/**
@@ -30565,7 +31463,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 94 */
+/* 96 */
 /***/ (function(module, exports) {
 
 	/**
@@ -30600,10 +31498,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 95 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var toFinite = __webpack_require__(96);
+	var toFinite = __webpack_require__(98);
 
 	/**
 	 * Converts `value` to an integer.
@@ -30642,10 +31540,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 96 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var toNumber = __webpack_require__(97);
+	var toNumber = __webpack_require__(99);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0,
@@ -30690,11 +31588,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 97 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(90),
-	    isSymbol = __webpack_require__(98);
+	var isObject = __webpack_require__(92),
+	    isSymbol = __webpack_require__(100);
 
 	/** Used as references for various `Number` constants. */
 	var NAN = 0 / 0;
@@ -30762,11 +31660,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 98 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(84),
-	    isObjectLike = __webpack_require__(94);
+	var baseGetTag = __webpack_require__(86),
+	    isObjectLike = __webpack_require__(96);
 
 	/** `Object#toString` result references. */
 	var symbolTag = '[object Symbol]';
@@ -30797,11 +31695,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 99 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseValues = __webpack_require__(100),
-	    keys = __webpack_require__(102);
+	var baseValues = __webpack_require__(102),
+	    keys = __webpack_require__(104);
 
 	/**
 	 * Creates an array of the own enumerable string keyed property values of `object`.
@@ -30837,10 +31735,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 100 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayMap = __webpack_require__(101);
+	var arrayMap = __webpack_require__(103);
 
 	/**
 	 * The base implementation of `_.values` and `_.valuesIn` which creates an
@@ -30862,7 +31760,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 101 */
+/* 103 */
 /***/ (function(module, exports) {
 
 	/**
@@ -30889,12 +31787,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 102 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayLikeKeys = __webpack_require__(103),
-	    baseKeys = __webpack_require__(114),
-	    isArrayLike = __webpack_require__(82);
+	var arrayLikeKeys = __webpack_require__(105),
+	    baseKeys = __webpack_require__(116),
+	    isArrayLike = __webpack_require__(84);
 
 	/**
 	 * Creates an array of the own enumerable property names of `object`.
@@ -30932,15 +31830,15 @@ var StellarBase =
 
 
 /***/ }),
-/* 103 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseTimes = __webpack_require__(104),
-	    isArguments = __webpack_require__(105),
-	    isArray = __webpack_require__(93),
-	    isBuffer = __webpack_require__(107),
-	    isIndex = __webpack_require__(109),
-	    isTypedArray = __webpack_require__(110);
+	var baseTimes = __webpack_require__(106),
+	    isArguments = __webpack_require__(107),
+	    isArray = __webpack_require__(95),
+	    isBuffer = __webpack_require__(109),
+	    isIndex = __webpack_require__(111),
+	    isTypedArray = __webpack_require__(112);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -30987,7 +31885,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 104 */
+/* 106 */
 /***/ (function(module, exports) {
 
 	/**
@@ -31013,11 +31911,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 105 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsArguments = __webpack_require__(106),
-	    isObjectLike = __webpack_require__(94);
+	var baseIsArguments = __webpack_require__(108),
+	    isObjectLike = __webpack_require__(96);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -31055,11 +31953,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 106 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(84),
-	    isObjectLike = __webpack_require__(94);
+	var baseGetTag = __webpack_require__(86),
+	    isObjectLike = __webpack_require__(96);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]';
@@ -31079,11 +31977,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 107 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(86),
-	    stubFalse = __webpack_require__(108);
+	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(88),
+	    stubFalse = __webpack_require__(110);
 
 	/** Detect free variable `exports`. */
 	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -31124,7 +32022,7 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(module, exports) {
 
 	/**
@@ -31148,7 +32046,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 109 */
+/* 111 */
 /***/ (function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
@@ -31179,12 +32077,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 110 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsTypedArray = __webpack_require__(111),
-	    baseUnary = __webpack_require__(112),
-	    nodeUtil = __webpack_require__(113);
+	var baseIsTypedArray = __webpack_require__(113),
+	    baseUnary = __webpack_require__(114),
+	    nodeUtil = __webpack_require__(115);
 
 	/* Node.js helper references. */
 	var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
@@ -31212,12 +32110,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(84),
-	    isLength = __webpack_require__(91),
-	    isObjectLike = __webpack_require__(94);
+	var baseGetTag = __webpack_require__(86),
+	    isLength = __webpack_require__(93),
+	    isObjectLike = __webpack_require__(96);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]',
@@ -31278,7 +32176,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ (function(module, exports) {
 
 	/**
@@ -31298,10 +32196,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 113 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(87);
+	/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(89);
 
 	/** Detect free variable `exports`. */
 	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -31335,11 +32233,11 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
-/* 114 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isPrototype = __webpack_require__(115),
-	    nativeKeys = __webpack_require__(116);
+	var isPrototype = __webpack_require__(117),
+	    nativeKeys = __webpack_require__(118);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -31371,7 +32269,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 115 */
+/* 117 */
 /***/ (function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -31395,10 +32293,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 116 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(117);
+	var overArg = __webpack_require__(119);
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeKeys = overArg(Object.keys, Object);
@@ -31407,7 +32305,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 117 */
+/* 119 */
 /***/ (function(module, exports) {
 
 	/**
@@ -31426,948 +32324,6 @@ var StellarBase =
 
 	module.exports = overArg;
 
-
-/***/ }),
-/* 118 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var _index = __webpack_require__(1);
-
-	var _strkey = __webpack_require__(61);
-
-	var _operation = __webpack_require__(119);
-
-	var _network = __webpack_require__(56);
-
-	var _lodashMap = __webpack_require__(219);
-
-	var _lodashMap2 = _interopRequireDefault(_lodashMap);
-
-	var _lodashEach = __webpack_require__(295);
-
-	var _lodashEach2 = _interopRequireDefault(_lodashEach);
-
-	var MIN_LEDGER = 0;
-	var MAX_LEDGER = 0xFFFFFFFF; // max uint32
-
-	var Transaction = (function () {
-	    /**
-	    * A new Transaction object is created from a transaction envelope or via {@link TransactionBuilder}.
-	    * Once a Transaction has been created from an envelope, its attributes and operations
-	    * should not be changed. You should only add signers (using {@link Transaction#sign}) to a Transaction object before
-	    * submitting to the network or forwarding on to additional signers.
-	    * @constructor
-	    * @param {string|xdr.TransactionEnvelope} envelope - The transaction envelope object or base64 encoded string.
-	    */
-
-	    function Transaction(envelope) {
-	        _classCallCheck(this, Transaction);
-
-	        if (typeof envelope === "string") {
-	            var buffer = new Buffer(envelope, "base64");
-	            envelope = _index.xdr.TransactionEnvelope.fromXDR(buffer);
-	        }
-	        // since this transaction is immutable, save the tx
-	        this.tx = envelope.tx();
-	        this.source = (0, _strkey.encodeCheck)("accountId", envelope.tx().sourceAccount().ed25519());
-	        this.memo = this.tx.memo();
-	        this.salt = this.tx.salt().toString();
-	        var timeBounds = this.tx.timeBounds();
-	        this.timeBounds = {
-	            minTime: timeBounds.minTime().toString(),
-	            maxTime: timeBounds.maxTime().toString()
-	        };
-
-	        var operations = this.tx.operations() || [];
-	        this.operations = (0, _lodashMap2["default"])(operations, function (op) {
-	            return _operation.Operation.operationToObject(op);
-	        });
-
-	        var signatures = envelope.signatures() || [];
-	        this.signatures = (0, _lodashMap2["default"])(signatures, function (s) {
-	            return s;
-	        });
-	    }
-
-	    /**
-	     * Signs the transaction with the given {@link Keypair}.
-	     * @param {...Keypair} keypairs Keypairs of signers
-	     * @returns {void}
-	     */
-
-	    _createClass(Transaction, [{
-	        key: "sign",
-	        value: function sign() {
-	            var _this = this;
-
-	            var txHash = this.hash();
-
-	            for (var _len = arguments.length, keypairs = Array(_len), _key = 0; _key < _len; _key++) {
-	                keypairs[_key] = arguments[_key];
-	            }
-
-	            var newSigs = (0, _lodashEach2["default"])(keypairs, function (kp) {
-	                var sig = kp.signDecorated(txHash);
-	                _this.signatures.push(sig);
-	            });
-	        }
-
-	        /**
-	         * Returns a hash for this transaction, suitable for signing.
-	         * @returns {Buffer}
-	         */
-	    }, {
-	        key: "hash",
-	        value: function hash() {
-	            return (0, _index.hash)(this.signatureBase());
-	        }
-
-	        /**
-	         * Returns the "signature base" of this transaction, which is the value
-	         * that, when hashed, should be signed to create a signature that
-	         * validators on the Stellar Network will accept.
-	         *
-	         * It is composed of a 4 prefix bytes followed by the xdr-encoded form
-	         * of this transaction.
-	         * @returns {Buffer}
-	         */
-	    }, {
-	        key: "signatureBase",
-	        value: function signatureBase() {
-	            return Buffer.concat([_network.Network.current().networkId(), _index.xdr.EnvelopeType.tx().toXDR(), this.tx.toXDR()]);
-	        }
-
-	        /**
-	         * To envelope returns a xdr.TransactionEnvelope which can be submitted to the network.
-	         * @returns {xdr.TransactionEnvelope}
-	         */
-	    }, {
-	        key: "toEnvelope",
-	        value: function toEnvelope() {
-	            var tx = this.tx;
-	            var signatures = this.signatures;
-	            var envelope = new _index.xdr.TransactionEnvelope({ tx: tx, signatures: signatures });
-
-	            return envelope;
-	        }
-	    }]);
-
-	    return Transaction;
-	})();
-
-	exports.Transaction = Transaction;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9).Buffer))
-
-/***/ }),
-/* 119 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _generatedStellarXdr_generated = __webpack_require__(2);
-
-	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
-
-	var _keypair = __webpack_require__(55);
-
-	var _jsXdr = __webpack_require__(3);
-
-	var _hashing = __webpack_require__(41);
-
-	var _strkey = __webpack_require__(61);
-
-	var _bignumberJs = __webpack_require__(120);
-
-	var _bignumberJs2 = _interopRequireDefault(_bignumberJs);
-
-	var _utilContinued_fraction = __webpack_require__(121);
-
-	var _lodashPadEnd = __webpack_require__(122);
-
-	var _lodashPadEnd2 = _interopRequireDefault(_lodashPadEnd);
-
-	var _lodashTrimEnd = __webpack_require__(137);
-
-	var _lodashTrimEnd2 = _interopRequireDefault(_lodashTrimEnd);
-
-	var _lodashIsEmpty = __webpack_require__(139);
-
-	var _lodashIsEmpty2 = _interopRequireDefault(_lodashIsEmpty);
-
-	var _lodashIsUndefined = __webpack_require__(59);
-
-	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
-
-	var _lodashIsString = __webpack_require__(92);
-
-	var _lodashIsString2 = _interopRequireDefault(_lodashIsString);
-
-	var _lodashIsNumber = __webpack_require__(152);
-
-	var _lodashIsNumber2 = _interopRequireDefault(_lodashIsNumber);
-
-	var _lodashIsFinite = __webpack_require__(153);
-
-	var _lodashIsFinite2 = _interopRequireDefault(_lodashIsFinite);
-
-	var _crypto = __webpack_require__(154);
-
-	var _crypto2 = _interopRequireDefault(_crypto);
-
-	var _operationsBase_operation = __webpack_require__(205);
-
-	var _operationsManage_asset_builder = __webpack_require__(206);
-
-	var _operationsReview_request_builder = __webpack_require__(207);
-
-	var _operationsPre_issuance_request_op_builder = __webpack_require__(209);
-
-	var _operationsCreate_issuance_request_builder = __webpack_require__(211);
-
-	var _operationsCreate_withdraw_request_builder = __webpack_require__(212);
-
-	var _operationsSale_request_builder = __webpack_require__(213);
-
-	var _operationsManage_offer_builder = __webpack_require__(214);
-
-	var _operationsManage_key_value_op_builder = __webpack_require__(215);
-
-	var _operationsSet_options_builder = __webpack_require__(216);
-
-	var _operationsCreate_aml_request_builder = __webpack_require__(217);
-
-	var _operationsCreate_update_kyc_request_builder = __webpack_require__(218);
-
-	var Operation = (function (_BaseOperation) {
-	    _inherits(Operation, _BaseOperation);
-
-	    function Operation() {
-	        _classCallCheck(this, Operation);
-
-	        _get(Object.getPrototypeOf(Operation.prototype), "constructor", this).apply(this, arguments);
-	    }
-
-	    _createClass(Operation, null, [{
-	        key: "createAccount",
-
-	        /**
-	         * Create and fund a non existent account.
-	         * @param {object} opts
-	         * @param {string} opts.destination - Destination account ID to create an account for.
-	         * @param {string} opts.recoveryKey - AccountID of recovery signer.
-	         * @param {string} opts.accountType - Type of the account to be created.
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * * @param {string} opts.accountPolicies - The policies of the account.
-	         * @returns {xdr.CreateAccountOp}
-	         */
-	        value: function createAccount(opts) {
-	            if (!_keypair.Keypair.isValidPublicKey(opts.destination)) {
-	                throw new Error("destination is invalid");
-	            }
-	            if (!_keypair.Keypair.isValidPublicKey(opts.recoveryKey)) {
-	                throw new Error("recoveryKey is invalid");
-	            }
-	            var attributes = {};
-	            attributes.destination = _keypair.Keypair.fromAccountId(opts.destination).xdrAccountId();
-	            attributes.recoveryKey = _keypair.Keypair.fromAccountId(opts.recoveryKey).xdrAccountId();
-	            attributes.accountType = Operation._accountTypeFromNumber(opts.accountType);
-
-	            if (!(0, _lodashIsUndefined2["default"])(opts.accountPolicies)) {
-	                if (opts.accountPolicies < 0) {
-	                    throw new TypeError('accountPolicies should be positive or zero');
-	                }
-	                attributes.policies = opts.accountPolicies;
-	            } else {
-	                attributes.policies = 0; //default no_permissions
-	            }
-
-	            if (opts.referrer) {
-	                if (!_keypair.Keypair.isValidPublicKey(opts.referrer)) {
-	                    throw new TypeError('referrer is invalid');
-	                }
-	                attributes.referrer = _keypair.Keypair.fromAccountId(opts.referrer).xdrAccountId();
-	            }
-
-	            attributes.ext = new _generatedStellarXdr_generated2["default"].CreateAccountOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion());
-	            var createAccount = new _generatedStellarXdr_generated2["default"].CreateAccountOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.createAccount(createAccount);
-	            Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
-
-	        /**
-	         * Create a payment operation.
-	         * @param {object} opts
-	         * @param {string} opts.sourceBalanceId - The balance id of source.
-	         * @param {string} opts.destinationBalanceId - The destination balance ID.
-	         * @param {boolean} opts.feeFromSource - if true - fee charged from source account, if false - from destination
-	         * @param {string} opts.amount - The amount to send.
-	         * @param {string} opts.paymentFee - The payment fee.
-	         * @param {string} opts.fixedFee - The fixed fee.
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * @returns {xdr.PaymentOp}
-	         */
-	    }, {
-	        key: "payment",
-	        value: function payment(opts) {
-	            var attributes = {};
-	            if (!Operation.isValidAmount(opts.amount)) {
-	                throw new TypeError('amount argument must be of type String and represent a positive number');
-	            }
-	            if (!_keypair.Keypair.isValidBalanceKey(opts.sourceBalanceId)) {
-	                throw new TypeError('sourceBalanceId is invalid');
-	            }
-	            if (!_keypair.Keypair.isValidBalanceKey(opts.destinationBalanceId)) {
-	                throw new TypeError('destinationBalanceId is invalid');
-	            }
-	            if (!Operation.isValidSubject(opts.subject)) {
-	                throw new Error("subject argument must be of type String 0-256 long");
-	            }
-
-	            if (!(0, _lodashIsUndefined2["default"])(opts.feeData)) {
-	                var sourceFee = new _generatedStellarXdr_generated2["default"].FeeData({
-	                    paymentFee: Operation._toXDRAmount(opts.feeData.sourceFee.paymentFee),
-	                    fixedFee: Operation._toXDRAmount(opts.feeData.sourceFee.fixedFee),
-	                    ext: new _generatedStellarXdr_generated2["default"].FeeDataExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	                });
-	                var destinationFee = new _generatedStellarXdr_generated2["default"].FeeData({
-	                    paymentFee: Operation._toXDRAmount(opts.feeData.destinationFee.paymentFee),
-	                    fixedFee: Operation._toXDRAmount(opts.feeData.destinationFee.fixedFee),
-	                    ext: new _generatedStellarXdr_generated2["default"].FeeDataExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	                });
-	                attributes.feeData = new _generatedStellarXdr_generated2["default"].PaymentFeeData({
-	                    sourceFee: sourceFee,
-	                    destinationFee: destinationFee,
-	                    sourcePaysForDest: opts.feeData.sourcePaysForDest,
-	                    ext: new _generatedStellarXdr_generated2["default"].PaymentFeeDataExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	                });
-	            } else {
-	                throw new Error("feeData argument must be defined");
-	            }
-
-	            if ((0, _lodashIsUndefined2["default"])(opts.reference)) {
-	                opts.reference = '';
-	            }
-
-	            if (!(0, _lodashIsUndefined2["default"])(opts.invoiceReference)) {
-	                var invoiceReference = new _generatedStellarXdr_generated2["default"].InvoiceReference({
-	                    invoiceId: _jsXdr.UnsignedHyper.fromString(opts.invoiceReference.invoiceId),
-	                    accept: opts.invoiceReference.accept,
-	                    ext: new _generatedStellarXdr_generated2["default"].InvoiceReferenceExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	                });
-	                attributes.invoiceReference = invoiceReference;
-	            }
-
-	            attributes.amount = Operation._toXDRAmount(opts.amount);
-	            attributes.sourceBalanceId = _keypair.Keypair.fromBalanceId(opts.sourceBalanceId).xdrBalanceId();
-	            attributes.destinationBalanceId = _keypair.Keypair.fromBalanceId(opts.destinationBalanceId).xdrBalanceId();
-	            attributes.subject = opts.subject;
-	            attributes.reference = opts.reference;
-	            attributes.ext = new _generatedStellarXdr_generated2["default"].PaymentOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion());
-	            var payment = new _generatedStellarXdr_generated2["default"].PaymentOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.payment(payment);
-	            Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
-	    }, {
-	        key: "directDebit",
-	        value: function directDebit(opts) {
-	            if (!_keypair.Keypair.isValidPublicKey(opts.from)) {
-	                throw new TypeError('from is invalid');
-	            }
-
-	            var attributes = {};
-	            attributes.from = _keypair.Keypair.fromAccountId(opts.from).xdrAccountId();
-	            attributes.paymentOp = Operation.payment(opts.paymentOp).body().value();
-	            attributes.ext = new _generatedStellarXdr_generated2["default"].DirectDebitOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion());
-	            var directDebit = new _generatedStellarXdr_generated2["default"].DirectDebitOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.directDebit(directDebit);
-	            Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
-
-	        /**
-	         * Create a recovery op.
-	         * @param {object} opts
-	         * @param {string} opts.account - The target account to recover
-	         * @param {string} opts.oldSigner - Signer to recover.
-	         * @param {string} opts.newSigner - Signer to recover to.
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * @returns {xdr.RecoverOp}
-	         */
-	    }, {
-	        key: "recover",
-	        value: function recover(opts) {
-	            if (!_keypair.Keypair.isValidPublicKey(opts.account)) {
-	                throw new TypeError('account is invalid');
-	            }
-	            if (!_keypair.Keypair.isValidPublicKey(opts.oldSigner)) {
-	                throw new TypeError('oldSigner is invalid');
-	            }
-	            if (!_keypair.Keypair.isValidPublicKey(opts.newSigner)) {
-	                throw new TypeError('newSigner is invalid');
-	            }
-
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].RecoverOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            };
-	            attributes.account = _keypair.Keypair.fromAccountId(opts.account).xdrAccountId();
-	            attributes.oldSigner = _keypair.Keypair.fromAccountId(opts.oldSigner).xdrAccountId();
-	            attributes.newSigner = _keypair.Keypair.fromAccountId(opts.newSigner).xdrAccountId();
-	            attributes.action = opts.action;
-
-	            var recover = new _generatedStellarXdr_generated2["default"].RecoverOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.recover(recover);
-	            Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
-
-	        /**
-	         * Set Fees to the ledger
-	         * @param {object} opts
-	         * @param {string} opts.destination - Destination account ID to create an account for.
-	         * @param {Object} [opts.fee] - Amount in XLM the account should be funded for.
-	         * @param {string} opts.fee.feeType - feeType
-	         * @param {string} opts.fee.feeAmount - fee amount
-	         * @param {bool} [opts.isDelete] - isDelete - true for remove fee
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * @returns {xdr.SetFeesOp}
-	         */
-	    }, {
-	        key: "setFees",
-	        value: function setFees(opts) {
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].SetFeesOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            };
-
-	            if (!(0, _lodashIsUndefined2["default"])(opts.fee)) {
-	                if (!Operation.isValidAmount(opts.fee.fixedFee, true)) {
-	                    throw new TypeError('fixedFee argument must be of type String and represent a non-negative number');
-	                }
-	                if (!Operation.isValidAmount(opts.fee.percentFee, true, 100)) {
-	                    throw new TypeError('percentFee argument must be of type String and represent a non-negative number less than 100');
-	                }
-	                if ((0, _lodashIsUndefined2["default"])(opts.fee.feeType)) {
-	                    throw new TypeError('feeType must be defined');
-	                }
-	                if (!(opts.fee.feeType instanceof _generatedStellarXdr_generated2["default"].FeeType)) {
-	                    throw new TypeError('feeType must be xdr.FeeType');
-	                }
-	                if (!Operation.isValidAsset(opts.fee.asset)) {
-	                    throw new TypeError('Asset is invalid');
-	                }
-	                if ((0, _lodashIsUndefined2["default"])(opts.fee.period)) {
-	                    opts.fee.period = '0'; //<<clear
-	                }
-	                if ((0, _lodashIsUndefined2["default"])(opts.fee.subtype)) {
-	                    opts.fee.subtype = '0';
-	                }
-	                if ((0, _lodashIsUndefined2["default"])(opts.fee.lowerBound)) {
-	                    opts.fee.lowerBound = '0';
-	                }
-	                if ((0, _lodashIsUndefined2["default"])(opts.fee.upperBound)) {
-	                    opts.fee.upperBound = _operationsBase_operation.BaseOperation.MAX_INT64_AMOUNT;
-	                }
-
-	                var feeData = {
-	                    fixedFee: Operation._toXDRAmount(opts.fee.fixedFee),
-	                    percentFee: Operation._toXDRAmount(opts.fee.percentFee),
-	                    feeType: opts.fee.feeType,
-	                    asset: opts.fee.asset,
-	                    subtype: _jsXdr.Hyper.fromString(opts.fee.subtype),
-	                    lowerBound: Operation._toXDRAmount(opts.fee.lowerBound),
-	                    upperBound: Operation._toXDRAmount(opts.fee.upperBound),
-	                    ext: new _generatedStellarXdr_generated2["default"].FeeEntryExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	                };
-	                var data = "type:" + opts.fee.feeType.value + "asset:" + opts.fee.asset + "subtype:" + opts.fee.subtype.toString();
-	                if (opts.fee.accountId) {
-	                    if (!_keypair.Keypair.isValidPublicKey(opts.fee.accountId)) {
-	                        throw new TypeError('accountId is invalid');
-	                    } else {
-	                        feeData.accountId = _keypair.Keypair.fromAccountId(opts.fee.accountId).xdrAccountId();
-	                        data += "accountID:" + opts.fee.accountId;
-	                    }
-	                }
-	                if (opts.fee.accountType) {
-	                    feeData.accountType = Operation._accountTypeFromNumber(opts.fee.accountType);
-	                    data += "accountType:" + opts.fee.accountType;
-	                }
-	                feeData.hash = (0, _hashing.hash)(data);
-	                var entry = new _generatedStellarXdr_generated2["default"].FeeEntry(feeData);
-	                attributes.fee = entry;
-	            }
-
-	            if ((0, _lodashIsUndefined2["default"])(opts.isDelete)) {
-	                attributes.isDelete = false;
-	            } else {
-	                attributes.isDelete = opts.isDelete;
-	            }
-
-	            var setfees = new _generatedStellarXdr_generated2["default"].SetFeesOp(attributes);
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.setFee(setfees);
-	            Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
-
-	        /**
-	         * Returns an XDR ManageAccountOp. A "manage account" operations block|ublocks account.
-	         * @param {object} opts
-	         * @param {string} opts.account - Account to be managed.
-	         * @param {boolean} [opts.block] - True to block account.
-	         * @returns {xdr.ManageAccountOp}
-	         */
-	    }, {
-	        key: "manageAccount",
-	        value: function manageAccount(opts) {
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].ManageAccountOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            };
-
-	            if (!_keypair.Keypair.isValidPublicKey(opts.account)) {
-	                throw new Error("account is invalid");
-	            }
-
-	            attributes.account = _keypair.Keypair.fromAccountId(opts.account).xdrAccountId();
-	            if ((0, _lodashIsUndefined2["default"])(opts.blockReasonsToAdd)) {
-	                opts.blockReasonsToAdd = 0;
-	            }
-	            if ((0, _lodashIsUndefined2["default"])(opts.blockReasonsToRemove)) {
-	                opts.blockReasonsToRemove = 0;
-	            }
-
-	            if ((0, _lodashIsUndefined2["default"])(opts.accountType)) {
-	                throw new Error("accountType should be defined");
-	            }
-
-	            attributes.accountType = Operation._accountTypeFromNumber(opts.accountType);
-	            attributes.blockReasonsToAdd = opts.blockReasonsToAdd;
-	            attributes.blockReasonsToRemove = opts.blockReasonsToRemove;
-
-	            var manageAccountOp = new _generatedStellarXdr_generated2["default"].ManageAccountOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.manageAccount(manageAccountOp);
-	            Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
-
-	        /**
-	         * Returns an XDR ManageBalanceOp. A "manage account" operations creates|deletes balance for account.
-	         * @param {object} opts
-	         * @param {string} opts.destination - Account to create account for.
-	         * @param {xdr.ManageBalanceAction} – Delete or create
-	         * @returns {xdr.ManageBalanceOp}
-	         */
-	    }, {
-	        key: "manageBalance",
-	        value: function manageBalance(opts) {
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].ManageBalanceOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            };
-
-	            if (!_keypair.Keypair.isValidPublicKey(opts.destination)) {
-	                throw new Error("account is invalid");
-	            }
-	            if (!(opts.action instanceof _generatedStellarXdr_generated2["default"].ManageBalanceAction)) {
-	                throw new TypeError('action argument should be value of xdr.ManageBalanceAction enum');
-	            }
-	            if (!Operation.isValidAsset(opts.asset)) {
-	                throw new TypeError('asset is invalid');
-	            }
-
-	            attributes.destination = _keypair.Keypair.fromAccountId(opts.destination).xdrAccountId();
-	            attributes.action = opts.action;
-	            attributes.asset = opts.asset;
-
-	            var manageBalanceOp = new _generatedStellarXdr_generated2["default"].ManageBalanceOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.manageBalance(manageBalanceOp);
-	            Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
-	    }, {
-	        key: "reviewPaymentRequest",
-	        value: function reviewPaymentRequest(opts) {
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].ReviewPaymentRequestOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            };
-
-	            if ((0, _lodashIsUndefined2["default"])(opts.paymentId)) {
-	                throw new Error("paymentId should be defined");
-	            }
-	            if ((0, _lodashIsUndefined2["default"])(opts.accept)) {
-	                throw new TypeError('accept should be defined');
-	            }
-
-	            if (!(0, _lodashIsUndefined2["default"])(opts.rejectReason)) {
-	                attributes.rejectReason = opts.rejectReason;
-	            }
-
-	            attributes.paymentId = _jsXdr.UnsignedHyper.fromString(opts.paymentId);
-	            attributes.accept = opts.accept;
-
-	            var reviewPaymentRequestOp = new _generatedStellarXdr_generated2["default"].ReviewPaymentRequestOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.reviewPaymentRequest(reviewPaymentRequestOp);
-	            Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
-
-	        /**
-	         * Returns an XDR ManageAssetPairOp. A "manage asset pair" operations creates|updates asset pair.
-	         * @param {object} opts
-	         * @param {string} opts.base - base asset
-	         * @param {string} opts.quote - quote asset
-	         * @param {number|string} opts.policies - asset pair policies
-	         * @param {number|string} opts.physicalPriceCorrection - correction of physical price in percents. If physical price is set and restriction by physical price set, mininal price for offer for this pair will be physicalPrice * physicalPriceCorrection
-	         * @param {number|string} opts.maxPriceStep - max price step in percent. User is allowed to set offer with price < (1 - maxPriceStep)*currentPrice and > (1 + maxPriceStep)*currentPrice
-	         * @param {number|string} opts.physicalPrice - physical price
-	         * @param {xdr.ManageAssetPairAction} – Create or update
-	         * @returns {xdr.ManageBalanceOp}
-	         */
-	    }, {
-	        key: "manageAssetPair",
-	        value: function manageAssetPair(opts) {
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].ManageAssetPairOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            };
-	            if (!Operation.isValidAsset(opts.base)) {
-	                throw new TypeError('base is invalid');
-	            }
-
-	            if (!Operation.isValidAsset(opts.quote)) {
-	                throw new TypeError('quote is invalid');
-	            }
-
-	            if (!(opts.action instanceof _generatedStellarXdr_generated2["default"].ManageAssetPairAction)) {
-	                throw new TypeError('action argument should be value of xdr.ManageAssetPairAction enum');
-	            }
-
-	            if ((0, _lodashIsUndefined2["default"])(opts.policies)) {
-	                throw new TypeError('policies are not defined');
-	            }
-
-	            if (!Operation.isValidAmount(opts.physicalPriceCorrection, true)) {
-	                throw new TypeError('physicalPriceCorrection argument must be of type String and represent a positive number or zero');
-	            }
-
-	            if (!Operation.isValidAmount(opts.maxPriceStep, true)) {
-	                throw new TypeError('maxPriceStep argument must be of type String and represent a positive number or zero');
-	            }
-
-	            if (!Operation.isValidAmount(opts.physicalPrice, true)) {
-	                throw new TypeError('physicalPrice argument must be of type String and represent a positive number or zero');
-	            }
-
-	            attributes.base = opts.base;
-	            attributes.quote = opts.quote;
-	            attributes.policies = opts.policies;
-	            attributes.action = opts.action;
-	            attributes.physicalPriceCorrection = Operation._toXDRAmount(opts.physicalPriceCorrection);
-	            // won't be updated
-	            attributes.physicalPrice = Operation._toXDRAmount(opts.physicalPrice);
-	            attributes.maxPriceStep = Operation._toXDRAmount(opts.maxPriceStep);
-
-	            var manageAssetPairOp = new _generatedStellarXdr_generated2["default"].ManageAssetPairOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.manageAssetPair(manageAssetPairOp);
-	            Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
-	    }, {
-	        key: "manageInvoice",
-	        value: function manageInvoice(opts) {
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].ManageInvoiceOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            };
-	            if (!_keypair.Keypair.isValidPublicKey(opts.sender)) {
-	                throw new Error("sender is invalid");
-	            }
-	            if (!_keypair.Keypair.isValidBalanceKey(opts.receiverBalance)) {
-	                throw new Error("receiverBalance is invalid");
-	            }
-	            if (!Operation.isValidAmount(opts.amount, true)) {
-	                throw new TypeError('amount argument must be of type String and represent a positive number or zero');
-	            }
-	            attributes.amount = Operation._toXDRAmount(opts.amount);
-
-	            if ((0, _lodashIsUndefined2["default"])(opts.invoiceId)) {
-	                throw new TypeError('invoiceId must be specified');
-	            }
-
-	            attributes.invoiceId = _jsXdr.UnsignedHyper.fromString(opts.invoiceId);
-	            attributes.sender = _keypair.Keypair.fromAccountId(opts.sender).xdrAccountId();
-	            attributes.receiverBalance = _keypair.Keypair.fromBalanceId(opts.receiverBalance).xdrBalanceId();
-
-	            var manageInvoiceOp = new _generatedStellarXdr_generated2["default"].ManageInvoiceOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.manageInvoice(manageInvoiceOp);
-	            Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
-	    }, {
-	        key: "setLimits",
-	        value: function setLimits() {
-	            var opts = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].SetLimitsOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion()),
-	                limits: new _generatedStellarXdr_generated2["default"].Limits({
-	                    dailyOut: Operation._toXDRAmount(opts.limits.dailyOut),
-	                    weeklyOut: Operation._toXDRAmount(opts.limits.weeklyOut),
-	                    monthlyOut: Operation._toXDRAmount(opts.limits.monthlyOut),
-	                    annualOut: Operation._toXDRAmount(opts.limits.annualOut),
-	                    ext: new _generatedStellarXdr_generated2["default"].LimitsExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	                })
-	            };
-	            if (opts.account) {
-	                if (!_keypair.Keypair.isValidPublicKey(opts.account)) {
-	                    throw new Error("account is invalid");
-	                }
-	                attributes.account = _keypair.Keypair.fromAccountId(opts.account).xdrAccountId();
-	            } else if (opts.accountType) {
-	                attributes.accountType = Operation._accountTypeFromNumber(opts.accountType);
-	            }
-	            var setLimitsOp = new _generatedStellarXdr_generated2["default"].SetLimitsOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.setLimit(setLimitsOp);
-	            Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
-
-	        /**
-	         * Converts the XDR Operation object to the opts object used to create the XDR
-	         * operation.
-	         * @param {xdr.Operation} operation - An XDR Operation.
-	         * @return {Operation}
-	         */
-	    }, {
-	        key: "operationToObject",
-	        value: function operationToObject(operation) {
-	            function accountIdtoAddress(accountId) {
-	                return (0, _strkey.encodeCheck)("accountId", accountId.ed25519());
-	            }
-
-	            function balanceIdtoString(balanceId) {
-	                return (0, _strkey.encodeCheck)("balanceId", balanceId.ed25519());
-	            }
-
-	            var result = {};
-	            if (operation.sourceAccount()) {
-	                result.source = accountIdtoAddress(operation.sourceAccount());
-	            }
-
-	            var attrs = operation.body().value();
-	            result.type = operation.body()["switch"]().name;
-	            switch (operation.body()["switch"]()) {
-	                case _generatedStellarXdr_generated2["default"].OperationType.createAccount():
-	                    result.destination = accountIdtoAddress(attrs.destination());
-	                    result.recoveryKey = accountIdtoAddress(attrs.recoveryKey());
-	                    result.accountType = attrs.accountType().value;
-	                    result.policies = attrs.policies();
-
-	                    if (attrs.referrer()) {
-	                        result.referrer = accountIdtoAddress(attrs.referrer());
-	                    }
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.payment():
-	                    result.amount = Operation._fromXDRAmount(attrs.amount());
-	                    result.feeFromSource = attrs.feeFromSource;
-	                    result.sourceBalanceId = balanceIdtoString(attrs.sourceBalanceId());
-	                    result.destinationBalanceId = balanceIdtoString(attrs.destinationBalanceId());
-	                    result.subject = attrs.subject();
-	                    result.reference = attrs.reference();
-	                    result.feeData = {
-	                        sourceFee: {
-	                            paymentFee: Operation._fromXDRAmount(attrs.feeData().sourceFee().paymentFee()),
-	                            fixedFee: Operation._fromXDRAmount(attrs.feeData().sourceFee().fixedFee())
-	                        },
-	                        destinationFee: {
-	                            paymentFee: Operation._fromXDRAmount(attrs.feeData().destinationFee().paymentFee()),
-	                            fixedFee: Operation._fromXDRAmount(attrs.feeData().destinationFee().fixedFee())
-	                        },
-	                        sourcePaysForDest: attrs.feeData().sourcePaysForDest()
-	                    };
-	                    if (attrs.invoiceReference()) {
-	                        result.invoiceReference = {
-	                            invoiceId: attrs.invoiceReference().invoiceId().toString(),
-	                            accept: attrs.invoiceReference().accept()
-	                        };
-	                    }
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.directDebit():
-	                    var paymentOp = attrs.paymentOp();
-	                    result.amount = Operation._fromXDRAmount(paymentOp.amount());
-	                    result.feeFromSource = paymentOp.feeFromSource;
-	                    result.sourceBalanceId = balanceIdtoString(paymentOp.sourceBalanceId());
-	                    result.destinationBalanceId = balanceIdtoString(paymentOp.destinationBalanceId());
-	                    result.subject = paymentOp.subject();
-	                    result.reference = paymentOp.reference();
-	                    result.from = accountIdtoAddress(attrs.from());
-	                    result.feeData = {
-	                        sourceFee: {
-	                            paymentFee: Operation._fromXDRAmount(paymentOp.feeData().sourceFee().paymentFee()),
-	                            fixedFee: Operation._fromXDRAmount(paymentOp.feeData().sourceFee().fixedFee())
-	                        },
-	                        destinationFee: {
-	                            paymentFee: Operation._fromXDRAmount(paymentOp.feeData().destinationFee().paymentFee()),
-	                            fixedFee: Operation._fromXDRAmount(paymentOp.feeData().destinationFee().fixedFee())
-	                        },
-	                        sourcePaysForDest: paymentOp.feeData().sourcePaysForDest()
-	                    };
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.setOption():
-	                    _operationsSet_options_builder.SetOptionsBuilder.setOptionsToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.setFee():
-	                    if (!(0, _lodashIsUndefined2["default"])(attrs.fee())) {
-	                        result.fee = {};
-	                        result.fee.fixedFee = Operation._fromXDRAmount(attrs.fee().fixedFee());
-	                        result.fee.percentFee = Operation._fromXDRAmount(attrs.fee().percentFee());
-	                        result.fee.feeType = attrs.fee().feeType();
-	                        result.fee.asset = attrs.fee().asset();
-	                        result.fee.subtype = attrs.fee().subtype().toString();
-	                        result.fee.lowerBound = Operation._fromXDRAmount(attrs.fee().lowerBound());
-	                        result.fee.upperBound = Operation._fromXDRAmount(attrs.fee().upperBound());
-	                        if (attrs.fee().accountId()) {
-	                            result.fee.accountId = accountIdtoAddress(attrs.fee().accountId());
-	                        }
-	                        if (attrs.fee().accountType()) {
-	                            result.fee.accountType = attrs.fee().accountType();
-	                        }
-	                        result.fee.hash = attrs.fee().hash();
-	                    }
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageAccount():
-	                    result.account = accountIdtoAddress(attrs.account());
-	                    result.blockReasonsToAdd = attrs.blockReasonsToAdd();
-	                    result.blockReasonsToRemove = attrs.blockReasonsToRemove();
-	                    result.accountType = attrs.accountType().value;
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageBalance():
-	                    result.action = attrs.action();
-	                    result.destination = accountIdtoAddress(attrs.destination());
-	                    result.asset = attrs.asset();
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.reviewPaymentRequest():
-	                    result.accept = attrs.accept();
-	                    result.paymentId = attrs.paymentId().toString();
-	                    if (attrs.rejectReason()) {
-	                        result.rejectReason = attrs.rejectReason();
-	                    }
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageAsset():
-	                    _operationsManage_asset_builder.ManageAssetBuilder.manageAssetToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.createPreissuanceRequest():
-	                    _operationsPre_issuance_request_op_builder.PreIssuanceRequestOpBuilder.preIssuanceRequestOpToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.setLimit():
-	                    if (attrs.account()) {
-	                        result.account = accountIdtoAddress(attrs.account());
-	                    }
-	                    if (attrs.accountType()) {
-	                        result.accountType = attrs.accountType().value;
-	                    }
-	                    result.limits = {};
-	                    result.limits.dailyOut = Operation._fromXDRAmount(attrs.limits().dailyOut());
-	                    result.limits.weeklyOut = Operation._fromXDRAmount(attrs.limits().weeklyOut());
-	                    result.limits.monthlyOut = Operation._fromXDRAmount(attrs.limits().monthlyOut());
-	                    result.limits.annualOut = Operation._fromXDRAmount(attrs.limits().annualOut());
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageOffer():
-	                    _operationsManage_offer_builder.ManageOfferBuilder.manageOfferOpToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageKeyValue():
-	                    _operationsManage_key_value_op_builder.ManageKeyValueOpBuilder.manageKeyValueOpToObject();
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageInvoice():
-	                    result.amount = Operation._fromXDRAmount(attrs.amount());
-	                    result.sender = accountIdtoAddress(attrs.sender());
-	                    result.receiverBalance = balanceIdtoString(attrs.receiverBalance());
-	                    result.invoiceId = attrs.invoiceId().toString();
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageAssetPair():
-	                    result.action = attrs.action();
-	                    result.base = attrs.base();
-	                    result.quote = attrs.quote();
-	                    result.policies = attrs.policies();
-	                    result.physicalPriceCorrection = Operation._fromXDRAmount(attrs.physicalPriceCorrection());
-	                    result.maxPriceStep = Operation._fromXDRAmount(attrs.maxPriceStep());
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.reviewRequest():
-	                    _operationsReview_request_builder.ReviewRequestBuilder.reviewRequestToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.createIssuanceRequest():
-	                    _operationsCreate_issuance_request_builder.CreateIssuanceRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.createWithdrawalRequest():
-	                    _operationsCreate_withdraw_request_builder.CreateWithdrawRequestBuilder.createWithdrawalRequestOpToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.createSaleRequest():
-	                    _operationsSale_request_builder.SaleRequestBuilder.crateSaleCreationRequestToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.checkSaleState():
-	                    _operationsSale_request_builder.SaleRequestBuilder.checkSaleStateToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.createAmlAlert():
-	                    _operationsCreate_aml_request_builder.CreateAMLRequestBuilder.createAmlAlertToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.createKycRequest():
-	                    _operationsCreate_update_kyc_request_builder.CreateUpdateKYCRequestBuilder.createUpdateKYCRequestOpToObject(result, attrs);
-	                    break;
-	                default:
-	                    throw new Error("Unknown operation");
-
-	            }
-	            return result;
-	        }
-	    }]);
-
-	    return Operation;
-	})(_operationsBase_operation.BaseOperation);
-
-	exports.Operation = Operation;
 
 /***/ }),
 /* 120 */
@@ -35185,7 +35141,7 @@ var StellarBase =
 
 	var createPadding = __webpack_require__(123),
 	    stringSize = __webpack_require__(129),
-	    toInteger = __webpack_require__(95),
+	    toInteger = __webpack_require__(97),
 	    toString = __webpack_require__(136);
 
 	/**
@@ -35308,10 +35264,10 @@ var StellarBase =
 /* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(85),
-	    arrayMap = __webpack_require__(101),
-	    isArray = __webpack_require__(93),
-	    isSymbol = __webpack_require__(98);
+	var Symbol = __webpack_require__(87),
+	    arrayMap = __webpack_require__(103),
+	    isArray = __webpack_require__(95),
+	    isSymbol = __webpack_require__(100);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0;
@@ -35727,7 +35683,7 @@ var StellarBase =
 /* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIndexOf = __webpack_require__(78);
+	var baseIndexOf = __webpack_require__(80);
 
 	/**
 	 * Used by `_.trim` and `_.trimEnd` to get the index of the last string symbol
@@ -35752,14 +35708,14 @@ var StellarBase =
 /* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseKeys = __webpack_require__(114),
+	var baseKeys = __webpack_require__(116),
 	    getTag = __webpack_require__(140),
-	    isArguments = __webpack_require__(105),
-	    isArray = __webpack_require__(93),
-	    isArrayLike = __webpack_require__(82),
-	    isBuffer = __webpack_require__(107),
-	    isPrototype = __webpack_require__(115),
-	    isTypedArray = __webpack_require__(110);
+	    isArguments = __webpack_require__(107),
+	    isArray = __webpack_require__(95),
+	    isArrayLike = __webpack_require__(84),
+	    isBuffer = __webpack_require__(109),
+	    isPrototype = __webpack_require__(117),
+	    isTypedArray = __webpack_require__(112);
 
 	/** `Object#toString` result references. */
 	var mapTag = '[object Map]',
@@ -35840,7 +35796,7 @@ var StellarBase =
 	    Promise = __webpack_require__(149),
 	    Set = __webpack_require__(150),
 	    WeakMap = __webpack_require__(151),
-	    baseGetTag = __webpack_require__(84),
+	    baseGetTag = __webpack_require__(86),
 	    toSource = __webpack_require__(146);
 
 	/** `Object#toString` result references. */
@@ -35900,7 +35856,7 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(142),
-	    root = __webpack_require__(86);
+	    root = __webpack_require__(88);
 
 	/* Built-in method references that are verified to be native. */
 	var DataView = getNative(root, 'DataView');
@@ -35935,9 +35891,9 @@ var StellarBase =
 /* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(83),
+	var isFunction = __webpack_require__(85),
 	    isMasked = __webpack_require__(144),
-	    isObject = __webpack_require__(90),
+	    isObject = __webpack_require__(92),
 	    toSource = __webpack_require__(146);
 
 	/**
@@ -36014,7 +35970,7 @@ var StellarBase =
 /* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var root = __webpack_require__(86);
+	var root = __webpack_require__(88);
 
 	/** Used to detect overreaching core-js shims. */
 	var coreJsData = root['__core-js_shared__'];
@@ -36078,7 +36034,7 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(142),
-	    root = __webpack_require__(86);
+	    root = __webpack_require__(88);
 
 	/* Built-in method references that are verified to be native. */
 	var Map = getNative(root, 'Map');
@@ -36091,7 +36047,7 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(142),
-	    root = __webpack_require__(86);
+	    root = __webpack_require__(88);
 
 	/* Built-in method references that are verified to be native. */
 	var Promise = getNative(root, 'Promise');
@@ -36104,7 +36060,7 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(142),
-	    root = __webpack_require__(86);
+	    root = __webpack_require__(88);
 
 	/* Built-in method references that are verified to be native. */
 	var Set = getNative(root, 'Set');
@@ -36117,7 +36073,7 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(142),
-	    root = __webpack_require__(86);
+	    root = __webpack_require__(88);
 
 	/* Built-in method references that are verified to be native. */
 	var WeakMap = getNative(root, 'WeakMap');
@@ -36129,8 +36085,8 @@ var StellarBase =
 /* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(84),
-	    isObjectLike = __webpack_require__(94);
+	var baseGetTag = __webpack_require__(86),
+	    isObjectLike = __webpack_require__(96);
 
 	/** `Object#toString` result references. */
 	var numberTag = '[object Number]';
@@ -36173,7 +36129,7 @@ var StellarBase =
 /* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var root = __webpack_require__(86);
+	var root = __webpack_require__(88);
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeIsFinite = root.isFinite;
@@ -37591,7 +37547,7 @@ var StellarBase =
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(171);
 	var Transform = __webpack_require__(172);
-	var inherits = __webpack_require__(44);
+	var inherits = __webpack_require__(48);
 	var modes = __webpack_require__(195);
 	var ebtk = __webpack_require__(196);
 	var StreamCipher = __webpack_require__(197);
@@ -37907,7 +37863,7 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {var Transform = __webpack_require__(173).Transform;
-	var inherits = __webpack_require__(44);
+	var inherits = __webpack_require__(48);
 
 	module.exports = CipherBase;
 	inherits(CipherBase, Transform);
@@ -37968,7 +37924,7 @@ var StellarBase =
 	module.exports = Stream;
 
 	var EE = __webpack_require__(174).EventEmitter;
-	var inherits = __webpack_require__(44);
+	var inherits = __webpack_require__(48);
 
 	inherits(Stream, EE);
 	Stream.Readable = __webpack_require__(175);
@@ -38453,7 +38409,7 @@ var StellarBase =
 	// TODO(bmeurer): Change this back to const once hole checks are
 	// properly optimized away early in Ignition+TurboFan.
 	/*<replacement>*/
-	var Buffer = __webpack_require__(46).Buffer;
+	var Buffer = __webpack_require__(50).Buffer;
 	var OurUint8Array = global.Uint8Array || function () {};
 	function _uint8ArrayToBuffer(chunk) {
 	  return Buffer.from(chunk);
@@ -38465,7 +38421,7 @@ var StellarBase =
 
 	/*<replacement>*/
 	var util = __webpack_require__(179);
-	util.inherits = __webpack_require__(44);
+	util.inherits = __webpack_require__(48);
 	/*</replacement>*/
 
 	/*<replacement>*/
@@ -39594,7 +39550,7 @@ var StellarBase =
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var Buffer = __webpack_require__(46).Buffer;
+	var Buffer = __webpack_require__(50).Buffer;
 	/*</replacement>*/
 
 	function copyBuffer(src, target, offset) {
@@ -39790,7 +39746,7 @@ var StellarBase =
 
 	/*<replacement>*/
 	var util = __webpack_require__(179);
-	util.inherits = __webpack_require__(44);
+	util.inherits = __webpack_require__(48);
 	/*</replacement>*/
 
 	var Readable = __webpack_require__(176);
@@ -39940,7 +39896,7 @@ var StellarBase =
 
 	/*<replacement>*/
 	var util = __webpack_require__(179);
-	util.inherits = __webpack_require__(44);
+	util.inherits = __webpack_require__(48);
 	/*</replacement>*/
 
 	/*<replacement>*/
@@ -39954,7 +39910,7 @@ var StellarBase =
 	/*</replacement>*/
 
 	/*<replacement>*/
-	var Buffer = __webpack_require__(46).Buffer;
+	var Buffer = __webpack_require__(50).Buffer;
 	var OurUint8Array = global.Uint8Array || function () {};
 	function _uint8ArrayToBuffer(chunk) {
 	  return Buffer.from(chunk);
@@ -40871,7 +40827,7 @@ var StellarBase =
 
 	'use strict';
 
-	var Buffer = __webpack_require__(46).Buffer;
+	var Buffer = __webpack_require__(50).Buffer;
 
 	var isEncoding = Buffer.isEncoding || function (encoding) {
 	  encoding = '' + encoding;
@@ -41217,7 +41173,7 @@ var StellarBase =
 
 	/*<replacement>*/
 	var util = __webpack_require__(179);
-	util.inherits = __webpack_require__(44);
+	util.inherits = __webpack_require__(48);
 	/*</replacement>*/
 
 	util.inherits(Transform, Duplex);
@@ -41398,7 +41354,7 @@ var StellarBase =
 
 	/*<replacement>*/
 	var util = __webpack_require__(179);
-	util.inherits = __webpack_require__(44);
+	util.inherits = __webpack_require__(48);
 	/*</replacement>*/
 
 	util.inherits(PassThrough, Transform);
@@ -41623,7 +41579,7 @@ var StellarBase =
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(171);
 	var Transform = __webpack_require__(172);
-	var inherits = __webpack_require__(44);
+	var inherits = __webpack_require__(48);
 
 	inherits(StreamCipher, Transform);
 	module.exports = StreamCipher;
@@ -41785,7 +41741,7 @@ var StellarBase =
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(171);
 	var Transform = __webpack_require__(172);
-	var inherits = __webpack_require__(44);
+	var inherits = __webpack_require__(48);
 	var modes = __webpack_require__(195);
 	var StreamCipher = __webpack_require__(197);
 	var ebtk = __webpack_require__(196);
@@ -41923,13 +41879,13 @@ var StellarBase =
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
 	var _jsXdr = __webpack_require__(3);
 
-	var _hashing = __webpack_require__(41);
+	var _hashing = __webpack_require__(45);
 
-	var _strkey = __webpack_require__(61);
+	var _strkey = __webpack_require__(63);
 
 	var _bignumberJs = __webpack_require__(120);
 
@@ -41949,11 +41905,11 @@ var StellarBase =
 
 	var _lodashIsEmpty2 = _interopRequireDefault(_lodashIsEmpty);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
-	var _lodashIsString = __webpack_require__(92);
+	var _lodashIsString = __webpack_require__(94);
 
 	var _lodashIsString2 = _interopRequireDefault(_lodashIsString);
 
@@ -42382,13 +42338,13 @@ var StellarBase =
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
 	var _base_operation = __webpack_require__(205);
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
 	var _jsXdr = __webpack_require__(3);
 
@@ -42687,19 +42643,19 @@ var StellarBase =
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
 	var _base_operation = __webpack_require__(205);
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
 	var _jsXdr = __webpack_require__(3);
 
 	var _utilHasher = __webpack_require__(208);
 
-	var _operation = __webpack_require__(119);
+	var _operation = __webpack_require__(42);
 
 	var ReviewRequestBuilder = (function () {
 	    function ReviewRequestBuilder() {
@@ -42967,15 +42923,15 @@ var StellarBase =
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
-	var _lodashIsNull = __webpack_require__(60);
+	var _lodashIsNull = __webpack_require__(62);
 
 	var _lodashIsNull2 = _interopRequireDefault(_lodashIsNull);
 
-	var _lodashIsString = __webpack_require__(92);
+	var _lodashIsString = __webpack_require__(94);
 
 	var _lodashIsString2 = _interopRequireDefault(_lodashIsString);
 
@@ -43068,13 +43024,13 @@ var StellarBase =
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
 	var _base_operation = __webpack_require__(205);
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
 	var _jsXdr = __webpack_require__(3);
 
@@ -43136,9 +43092,9 @@ var StellarBase =
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
-	var _operation = __webpack_require__(119);
+	var _operation = __webpack_require__(42);
 
 	var _operationsBase_operation = __webpack_require__(205);
 
@@ -43150,9 +43106,9 @@ var StellarBase =
 
 	var _bignumberJs2 = _interopRequireDefault(_bignumberJs);
 
-	var _hashing = __webpack_require__(41);
+	var _hashing = __webpack_require__(45);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
@@ -43271,13 +43227,13 @@ var StellarBase =
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
 	var _base_operation = __webpack_require__(205);
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
 	var _jsXdr = __webpack_require__(3);
 
@@ -43386,13 +43342,13 @@ var StellarBase =
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
 	var _base_operation = __webpack_require__(205);
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
 	var _jsXdr = __webpack_require__(3);
 
@@ -43520,13 +43476,13 @@ var StellarBase =
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
 	var _base_operation = __webpack_require__(205);
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
 	var _jsXdr = __webpack_require__(3);
 
@@ -43755,13 +43711,13 @@ var StellarBase =
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
 	var _base_operation = __webpack_require__(205);
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
 	var _jsXdr = __webpack_require__(3);
 
@@ -43880,93 +43836,6 @@ var StellarBase =
 /* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var _operation = __webpack_require__(119);
-
-	var _generatedStellarXdr_generated = __webpack_require__(2);
-
-	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
-
-	var ManageKeyValueOpBuilder = (function () {
-	    function ManageKeyValueOpBuilder() {
-	        _classCallCheck(this, ManageKeyValueOpBuilder);
-	    }
-
-	    _createClass(ManageKeyValueOpBuilder, null, [{
-	        key: "manageKeyValueOp",
-	        value: function manageKeyValueOp(opts) {
-	            var attributes = {};
-	            if (isUndefined(opts.action) || !_generatedStellarXdr_generated2["default"].ManageKvAction._byValue.has(opts.action)) {
-	                throw new Error("key-value action is invalid");
-	            }
-
-	            if (isUndefined(opts.key)) {
-	                throw new Error("key-value key must be defined");
-	            }
-
-	            attributes.key = opts.key;
-	            attributes.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_operation.Operation._keyValueActionFromNumber(opts.action));
-	            attributes.ext = new _generatedStellarXdr_generated2["default"].ManageKeyValueExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion());
-
-	            if (opts.action === _generatedStellarXdr_generated2["default"].ManageKvAction.put()) {
-	                ManageKeyValueOpBuilder.putKV(opts, attributes);
-	            }
-
-	            var manageKV = new _generatedStellarXdr_generated2["default"].ManageKeyValueOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.manageKeyValue(manageKV);
-	            _operation.Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
-	    }, {
-	        key: "manageKeyValueOpToObject",
-	        value: function manageKeyValueOpToObject(result, attrs) {
-	            result.key = attrs.key;
-	            result.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_operation.Operation._keyValueActionFromNumber(attrs.action));
-	            if (result.action === _generatedStellarXdr_generated2["default"].ManageKvAction.put) {
-	                this.putKV(attrs, result);
-	            }
-	        }
-	    }, {
-	        key: "putKV",
-	        value: function putKV(opts, attributes) {
-	            var KVEntry = new _generatedStellarXdr_generated2["default"].KeyValueEntry({
-	                key: opts.key,
-	                ext: new _generatedStellarXdr_generated2["default"].ManageKeyValueExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            });
-
-	            if (isUndefined(opts.KvType) || !_generatedStellarXdr_generated2["default"].KeyValueEntryType._byValue.has(opts.KvType)) {
-	                throw new Error("key-value type is invalid");
-	            }
-
-	            KVEntry.value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue(opts.KvType);
-	            KVEntry.value().defaultMask = opts.value;
-
-	            attributes.action().value = new _generatedStellarXdr_generated2["default"].KeyValueEntry(KVEntry);
-	        }
-	    }]);
-
-	    return ManageKeyValueOpBuilder;
-	})();
-
-	exports.ManageKeyValueOpBuilder = ManageKeyValueOpBuilder;
-
-/***/ }),
-/* 216 */
-/***/ (function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
@@ -43983,13 +43852,13 @@ var StellarBase =
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
 	var _base_operation = __webpack_require__(205);
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
 	var _jsXdr = __webpack_require__(3);
 
@@ -44165,7 +44034,7 @@ var StellarBase =
 	exports.SetOptionsBuilder = SetOptionsBuilder;
 
 /***/ }),
-/* 217 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44184,13 +44053,13 @@ var StellarBase =
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
 	var _base_operation = __webpack_require__(205);
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
 	var _jsXdr = __webpack_require__(3);
 
@@ -44260,7 +44129,7 @@ var StellarBase =
 	exports.CreateAMLRequestBuilder = CreateAMLRequestBuilder;
 
 /***/ }),
-/* 218 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44279,13 +44148,13 @@ var StellarBase =
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
 	var _base_operation = __webpack_require__(205);
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
 	var _jsXdr = __webpack_require__(3);
 
@@ -44357,13 +44226,156 @@ var StellarBase =
 	exports.CreateUpdateKYCRequestBuilder = CreateUpdateKYCRequestBuilder;
 
 /***/ }),
+/* 218 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var _index = __webpack_require__(1);
+
+	var _strkey = __webpack_require__(63);
+
+	var _operation = __webpack_require__(42);
+
+	var _network = __webpack_require__(44);
+
+	var _lodashMap = __webpack_require__(219);
+
+	var _lodashMap2 = _interopRequireDefault(_lodashMap);
+
+	var _lodashEach = __webpack_require__(295);
+
+	var _lodashEach2 = _interopRequireDefault(_lodashEach);
+
+	var MIN_LEDGER = 0;
+	var MAX_LEDGER = 0xFFFFFFFF; // max uint32
+
+	var Transaction = (function () {
+	    /**
+	    * A new Transaction object is created from a transaction envelope or via {@link TransactionBuilder}.
+	    * Once a Transaction has been created from an envelope, its attributes and operations
+	    * should not be changed. You should only add signers (using {@link Transaction#sign}) to a Transaction object before
+	    * submitting to the network or forwarding on to additional signers.
+	    * @constructor
+	    * @param {string|xdr.TransactionEnvelope} envelope - The transaction envelope object or base64 encoded string.
+	    */
+
+	    function Transaction(envelope) {
+	        _classCallCheck(this, Transaction);
+
+	        if (typeof envelope === "string") {
+	            var buffer = new Buffer(envelope, "base64");
+	            envelope = _index.xdr.TransactionEnvelope.fromXDR(buffer);
+	        }
+	        // since this transaction is immutable, save the tx
+	        this.tx = envelope.tx();
+	        this.source = (0, _strkey.encodeCheck)("accountId", envelope.tx().sourceAccount().ed25519());
+	        this.memo = this.tx.memo();
+	        this.salt = this.tx.salt().toString();
+	        var timeBounds = this.tx.timeBounds();
+	        this.timeBounds = {
+	            minTime: timeBounds.minTime().toString(),
+	            maxTime: timeBounds.maxTime().toString()
+	        };
+
+	        var operations = this.tx.operations() || [];
+	        this.operations = (0, _lodashMap2["default"])(operations, function (op) {
+	            return _operation.Operation.operationToObject(op);
+	        });
+
+	        var signatures = envelope.signatures() || [];
+	        this.signatures = (0, _lodashMap2["default"])(signatures, function (s) {
+	            return s;
+	        });
+	    }
+
+	    /**
+	     * Signs the transaction with the given {@link Keypair}.
+	     * @param {...Keypair} keypairs Keypairs of signers
+	     * @returns {void}
+	     */
+
+	    _createClass(Transaction, [{
+	        key: "sign",
+	        value: function sign() {
+	            var _this = this;
+
+	            var txHash = this.hash();
+
+	            for (var _len = arguments.length, keypairs = Array(_len), _key = 0; _key < _len; _key++) {
+	                keypairs[_key] = arguments[_key];
+	            }
+
+	            var newSigs = (0, _lodashEach2["default"])(keypairs, function (kp) {
+	                var sig = kp.signDecorated(txHash);
+	                _this.signatures.push(sig);
+	            });
+	        }
+
+	        /**
+	         * Returns a hash for this transaction, suitable for signing.
+	         * @returns {Buffer}
+	         */
+	    }, {
+	        key: "hash",
+	        value: function hash() {
+	            return (0, _index.hash)(this.signatureBase());
+	        }
+
+	        /**
+	         * Returns the "signature base" of this transaction, which is the value
+	         * that, when hashed, should be signed to create a signature that
+	         * validators on the Stellar Network will accept.
+	         *
+	         * It is composed of a 4 prefix bytes followed by the xdr-encoded form
+	         * of this transaction.
+	         * @returns {Buffer}
+	         */
+	    }, {
+	        key: "signatureBase",
+	        value: function signatureBase() {
+	            return Buffer.concat([_network.Network.current().networkId(), _index.xdr.EnvelopeType.tx().toXDR(), this.tx.toXDR()]);
+	        }
+
+	        /**
+	         * To envelope returns a xdr.TransactionEnvelope which can be submitted to the network.
+	         * @returns {xdr.TransactionEnvelope}
+	         */
+	    }, {
+	        key: "toEnvelope",
+	        value: function toEnvelope() {
+	            var tx = this.tx;
+	            var signatures = this.signatures;
+	            var envelope = new _index.xdr.TransactionEnvelope({ tx: tx, signatures: signatures });
+
+	            return envelope;
+	        }
+	    }]);
+
+	    return Transaction;
+	})();
+
+	exports.Transaction = Transaction;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9).Buffer))
+
+/***/ }),
 /* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayMap = __webpack_require__(101),
+	var arrayMap = __webpack_require__(103),
 	    baseIteratee = __webpack_require__(220),
 	    baseMap = __webpack_require__(289),
-	    isArray = __webpack_require__(93);
+	    isArray = __webpack_require__(95);
 
 	/**
 	 * Creates an array of values by running each element in `collection` thru
@@ -44422,7 +44434,7 @@ var StellarBase =
 	var baseMatches = __webpack_require__(221),
 	    baseMatchesProperty = __webpack_require__(274),
 	    identity = __webpack_require__(286),
-	    isArray = __webpack_require__(93),
+	    isArray = __webpack_require__(95),
 	    property = __webpack_require__(287);
 
 	/**
@@ -45352,7 +45364,7 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var baseIsEqualDeep = __webpack_require__(253),
-	    isObjectLike = __webpack_require__(94);
+	    isObjectLike = __webpack_require__(96);
 
 	/**
 	 * The base implementation of `_.isEqual` which supports partial comparisons
@@ -45390,9 +45402,9 @@ var StellarBase =
 	    equalByTag = __webpack_require__(260),
 	    equalObjects = __webpack_require__(264),
 	    getTag = __webpack_require__(140),
-	    isArray = __webpack_require__(93),
-	    isBuffer = __webpack_require__(107),
-	    isTypedArray = __webpack_require__(110);
+	    isArray = __webpack_require__(95),
+	    isBuffer = __webpack_require__(109),
+	    isTypedArray = __webpack_require__(112);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1;
@@ -45689,7 +45701,7 @@ var StellarBase =
 /* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(85),
+	var Symbol = __webpack_require__(87),
 	    Uint8Array = __webpack_require__(261),
 	    eq = __webpack_require__(228),
 	    equalArrays = __webpack_require__(254),
@@ -45807,7 +45819,7 @@ var StellarBase =
 /* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var root = __webpack_require__(86);
+	var root = __webpack_require__(88);
 
 	/** Built-in value references. */
 	var Uint8Array = root.Uint8Array;
@@ -45964,7 +45976,7 @@ var StellarBase =
 
 	var baseGetAllKeys = __webpack_require__(266),
 	    getSymbols = __webpack_require__(268),
-	    keys = __webpack_require__(102);
+	    keys = __webpack_require__(104);
 
 	/**
 	 * Creates an array of own enumerable property names and symbols of `object`.
@@ -45985,7 +45997,7 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var arrayPush = __webpack_require__(267),
-	    isArray = __webpack_require__(93);
+	    isArray = __webpack_require__(95);
 
 	/**
 	 * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
@@ -46133,7 +46145,7 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isStrictComparable = __webpack_require__(272),
-	    keys = __webpack_require__(102);
+	    keys = __webpack_require__(104);
 
 	/**
 	 * Gets the property names, values, and compare flags of `object`.
@@ -46162,7 +46174,7 @@ var StellarBase =
 /* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(90);
+	var isObject = __webpack_require__(92);
 
 	/**
 	 * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
@@ -46317,7 +46329,7 @@ var StellarBase =
 /* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(93),
+	var isArray = __webpack_require__(95),
 	    isKey = __webpack_require__(278),
 	    stringToPath = __webpack_require__(279),
 	    toString = __webpack_require__(136);
@@ -46344,8 +46356,8 @@ var StellarBase =
 /* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(93),
-	    isSymbol = __webpack_require__(98);
+	var isArray = __webpack_require__(95),
+	    isSymbol = __webpack_require__(100);
 
 	/** Used to match property names within property paths. */
 	var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
@@ -46523,7 +46535,7 @@ var StellarBase =
 /* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isSymbol = __webpack_require__(98);
+	var isSymbol = __webpack_require__(100);
 
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0;
@@ -46610,10 +46622,10 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var castPath = __webpack_require__(277),
-	    isArguments = __webpack_require__(105),
-	    isArray = __webpack_require__(93),
-	    isIndex = __webpack_require__(109),
-	    isLength = __webpack_require__(91),
+	    isArguments = __webpack_require__(107),
+	    isArray = __webpack_require__(95),
+	    isIndex = __webpack_require__(111),
+	    isLength = __webpack_require__(93),
 	    toKey = __webpack_require__(282);
 
 	/**
@@ -46742,7 +46754,7 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var baseEach = __webpack_require__(290),
-	    isArrayLike = __webpack_require__(82);
+	    isArrayLike = __webpack_require__(84);
 
 	/**
 	 * The base implementation of `_.map` without support for iteratee shorthands.
@@ -46790,7 +46802,7 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var baseFor = __webpack_require__(292),
-	    keys = __webpack_require__(102);
+	    keys = __webpack_require__(104);
 
 	/**
 	 * The base implementation of `_.forOwn` without support for iteratee shorthands.
@@ -46864,7 +46876,7 @@ var StellarBase =
 /* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isArrayLike = __webpack_require__(82);
+	var isArrayLike = __webpack_require__(84);
 
 	/**
 	 * Creates a `baseEach` or `baseEachRight` function.
@@ -46912,7 +46924,7 @@ var StellarBase =
 	var arrayEach = __webpack_require__(297),
 	    baseEach = __webpack_require__(290),
 	    castFunction = __webpack_require__(298),
-	    isArray = __webpack_require__(93);
+	    isArray = __webpack_require__(95);
 
 	/**
 	 * Iterates over elements of `collection` and invokes `iteratee` for each element.
@@ -47024,15 +47036,15 @@ var StellarBase =
 
 	var _jsXdr = __webpack_require__(3);
 
-	var _hashing = __webpack_require__(41);
+	var _hashing = __webpack_require__(45);
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
 	var _account = __webpack_require__(300);
 
-	var _operation = __webpack_require__(119);
+	var _operation = __webpack_require__(42);
 
-	var _transaction = __webpack_require__(118);
+	var _transaction = __webpack_require__(218);
 
 	var _memo = __webpack_require__(301);
 
@@ -47048,7 +47060,7 @@ var StellarBase =
 
 	var _lodashMap2 = _interopRequireDefault(_lodashMap);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
@@ -47214,13 +47226,13 @@ var StellarBase =
 
 	var _bignumberJs2 = _interopRequireDefault(_bignumberJs);
 
-	var _lodashIsString = __webpack_require__(92);
+	var _lodashIsString = __webpack_require__(94);
 
 	var _lodashIsString2 = _interopRequireDefault(_lodashIsString);
 
-	var _keypair = __webpack_require__(55);
+	var _keypair = __webpack_require__(43);
 
-	var _strkey = __webpack_require__(61);
+	var _strkey = __webpack_require__(63);
 
 	var Account = (function () {
 	    /**
@@ -47302,15 +47314,15 @@ var StellarBase =
 
 	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
-	var _lodashIsUndefined = __webpack_require__(59);
+	var _lodashIsUndefined = __webpack_require__(61);
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
-	var _lodashIsNull = __webpack_require__(60);
+	var _lodashIsNull = __webpack_require__(62);
 
 	var _lodashIsNull2 = _interopRequireDefault(_lodashIsNull);
 
-	var _lodashIsString = __webpack_require__(92);
+	var _lodashIsString = __webpack_require__(94);
 
 	var _lodashIsString2 = _interopRequireDefault(_lodashIsString);
 
@@ -47522,12 +47534,12 @@ var StellarBase =
 	    initCloneArray = __webpack_require__(320),
 	    initCloneByTag = __webpack_require__(321),
 	    initCloneObject = __webpack_require__(327),
-	    isArray = __webpack_require__(93),
-	    isBuffer = __webpack_require__(107),
+	    isArray = __webpack_require__(95),
+	    isBuffer = __webpack_require__(109),
 	    isMap = __webpack_require__(329),
-	    isObject = __webpack_require__(90),
+	    isObject = __webpack_require__(92),
 	    isSet = __webpack_require__(331),
-	    keys = __webpack_require__(102);
+	    keys = __webpack_require__(104);
 
 	/** Used to compose bitmasks for cloning. */
 	var CLONE_DEEP_FLAG = 1,
@@ -47767,7 +47779,7 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var copyObject = __webpack_require__(308),
-	    keys = __webpack_require__(102);
+	    keys = __webpack_require__(104);
 
 	/**
 	 * The base implementation of `_.assign` without support for multiple sources
@@ -47858,9 +47870,9 @@ var StellarBase =
 /* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayLikeKeys = __webpack_require__(103),
+	var arrayLikeKeys = __webpack_require__(105),
 	    baseKeysIn = __webpack_require__(311),
-	    isArrayLike = __webpack_require__(82);
+	    isArrayLike = __webpack_require__(84);
 
 	/**
 	 * Creates an array of the own and inherited enumerable property names of `object`.
@@ -47896,8 +47908,8 @@ var StellarBase =
 /* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(90),
-	    isPrototype = __webpack_require__(115),
+	var isObject = __webpack_require__(92),
+	    isPrototype = __webpack_require__(117),
 	    nativeKeysIn = __webpack_require__(312);
 
 	/** Used for built-in method references. */
@@ -47961,7 +47973,7 @@ var StellarBase =
 /* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(86);
+	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(88);
 
 	/** Detect free variable `exports`. */
 	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -48104,7 +48116,7 @@ var StellarBase =
 /* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(117);
+	var overArg = __webpack_require__(119);
 
 	/** Built-in value references. */
 	var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -48321,7 +48333,7 @@ var StellarBase =
 /* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(85);
+	var Symbol = __webpack_require__(87);
 
 	/** Used to convert symbols to primitives and strings. */
 	var symbolProto = Symbol ? Symbol.prototype : undefined,
@@ -48369,7 +48381,7 @@ var StellarBase =
 
 	var baseCreate = __webpack_require__(328),
 	    getPrototype = __webpack_require__(318),
-	    isPrototype = __webpack_require__(115);
+	    isPrototype = __webpack_require__(117);
 
 	/**
 	 * Initializes an object clone.
@@ -48391,7 +48403,7 @@ var StellarBase =
 /* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(90);
+	var isObject = __webpack_require__(92);
 
 	/** Built-in value references. */
 	var objectCreate = Object.create;
@@ -48428,8 +48440,8 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var baseIsMap = __webpack_require__(330),
-	    baseUnary = __webpack_require__(112),
-	    nodeUtil = __webpack_require__(113);
+	    baseUnary = __webpack_require__(114),
+	    nodeUtil = __webpack_require__(115);
 
 	/* Node.js helper references. */
 	var nodeIsMap = nodeUtil && nodeUtil.isMap;
@@ -48461,7 +48473,7 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getTag = __webpack_require__(140),
-	    isObjectLike = __webpack_require__(94);
+	    isObjectLike = __webpack_require__(96);
 
 	/** `Object#toString` result references. */
 	var mapTag = '[object Map]';
@@ -48485,8 +48497,8 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var baseIsSet = __webpack_require__(332),
-	    baseUnary = __webpack_require__(112),
-	    nodeUtil = __webpack_require__(113);
+	    baseUnary = __webpack_require__(114),
+	    nodeUtil = __webpack_require__(115);
 
 	/* Node.js helper references. */
 	var nodeIsSet = nodeUtil && nodeUtil.isSet;
@@ -48518,7 +48530,7 @@ var StellarBase =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getTag = __webpack_require__(140),
-	    isObjectLike = __webpack_require__(94);
+	    isObjectLike = __webpack_require__(96);
 
 	/** `Object#toString` result references. */
 	var setTag = '[object Set]';

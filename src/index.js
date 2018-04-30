@@ -1,5 +1,6 @@
 
 import {default as xdr} from "./generated/stellar-xdr_generated";
+import {ManageKeyValueOpBuilder} from "./operations/manage_key_value_op_builder";
 
 export {xdr};
 export {hash} from "./hashing";
@@ -22,6 +23,7 @@ export { SaleRequestBuilder } from './operations/sale_request_builder';
 export { ManageOfferBuilder } from './operations/manage_offer_builder';
 export { SetOptionsBuilder } from './operations/set_options_builder';
 export {CreateAMLRequestBuilder} from "./operations/create_aml_request_builder";
+export { ManageKeyValueOpBuilder } from './operations/manage_key_value_op_builder';
 export { CreateUpdateKYCRequestBuilder } from './operations/create_update_kyc_request_builder';
 
 export * from "./strkey";
