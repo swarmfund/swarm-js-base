@@ -16,4 +16,4 @@ export class KeyValue {
     keyValueKey() {
         return this._key;
     }
-};
+}
