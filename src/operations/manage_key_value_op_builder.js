@@ -1,4 +1,4 @@
-import {BaseOperation} from "../operation";
+import {BaseOperation} from "./base_operation";
 import {default as xdr} from "../generated/stellar-xdr_generated";
 import isUndefined from 'lodash/isUndefined';
 

@@ -43901,7 +43901,7 @@ var StellarBase =
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var _operation = __webpack_require__(119);
+	var _base_operation = __webpack_require__(205);
 
 	var _generatedStellarXdr_generated = __webpack_require__(2);
 
@@ -43929,7 +43929,7 @@ var StellarBase =
 	            }
 
 	            attributes.key = opts.key;
-	            attributes.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_operation.BaseOperation._keyValueActionFromNumber(opts.action));
+	            attributes.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_base_operation.BaseOperation._keyValueActionFromNumber(opts.action));
 	            attributes.ext = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion());
 
 	            if (opts.action === _generatedStellarXdr_generated2["default"].ManageKvAction.put()) {
@@ -43940,14 +43940,14 @@ var StellarBase =
 
 	            var opAttributes = {};
 	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.manageKeyValue(manageKV);
-	            _operation.BaseOperation.setSourceAccount(opAttributes, opts);
+	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
 	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
 	        }
 	    }, {
 	        key: "manageKeyValueOpToObject",
 	        value: function manageKeyValueOpToObject(result, attrs) {
 	            result.key = attrs.key;
-	            result.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_operation.BaseOperation._keyValueActionFromNumber(attrs.action));
+	            result.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_base_operation.BaseOperation._keyValueActionFromNumber(attrs.action));
 	            if (result.action === _generatedStellarXdr_generated2["default"].ManageKvAction.put()) {
 	                this.putKV(attrs, result);
 	            }
