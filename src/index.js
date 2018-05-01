@@ -1,6 +1,5 @@
 
 import {default as xdr} from "./generated/stellar-xdr_generated";
-import {ManageKeyValueOpBuilder} from "./operations/manage_key_value_op_builder";
 
 export {xdr};
 export {hash} from "./hashing";
