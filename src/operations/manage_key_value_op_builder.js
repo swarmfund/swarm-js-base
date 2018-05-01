@@ -3,7 +3,7 @@ import {default as xdr} from "../generated/stellar-xdr_generated";
 import isUndefined from 'lodash/isUndefined';
 
 export class  ManageKeyValueOpBuilder {
-    static manageKeyValueOp(opts) {
+    static createManageKeyValueOp(opts) {
         let attributes = {};
         if(isUndefined(opts.action) || !xdr.ManageKvAction._byValue.has(opts.action))
         {
@@ -34,7 +34,7 @@ export class  ManageKeyValueOpBuilder {
     static manageKeyValueOpToObject(result, attrs) {
         result.key = attrs.key;
         result.action = new xdr.ManageKeyValueOpAction(Operation._keyValueActionFromNumber(attrs.action));
-        if(result.action === xdr.ManageKvAction.put)
+        if(result.action === xdr.ManageKvAction.put())
         {
             this.putKV(attrs,result);
         }

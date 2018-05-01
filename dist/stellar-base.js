@@ -1493,13 +1493,13 @@ var StellarBase =
 	//   	case CREATE_AML_ALERT:
 	//   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 	//   	case MANAGE_KEY_VALUE:
-	//   	    ManageKeyValueOp manageKeyValueOp;
+	//   	    ManageKeyValueOp createManageKeyValueOp;
 	//   	case CREATE_KYC_REQUEST:
 	//   		CreateUpdateKYCRequestOp createUpdateKYCRequestOp;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("OperationBody",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountOp"],["payment","paymentOp"],["setOption","setOptionsOp"],["createIssuanceRequest","createIssuanceRequestOp"],["setFee","setFeesOp"],["manageAccount","manageAccountOp"],["createWithdrawalRequest","createWithdrawalRequestOp"],["manageBalance","manageBalanceOp"],["reviewPaymentRequest","reviewPaymentRequestOp"],["manageAsset","manageAssetOp"],["createPreissuanceRequest","createPreIssuanceRequest"],["setLimit","setLimitsOp"],["directDebit","directDebitOp"],["manageAssetPair","manageAssetPairOp"],["manageOffer","manageOfferOp"],["manageInvoice","manageInvoiceOp"],["reviewRequest","reviewRequestOp"],["createSaleRequest","createSaleCreationRequestOp"],["checkSaleState","checkSaleStateOp"],["createAmlAlert","createAmlAlertRequestOp"],["manageKeyValue","manageKeyValueOp"],["createKycRequest","createUpdateKycRequestOp"]],arms:{createAccountOp:xdr.lookup("CreateAccountOp"),paymentOp:xdr.lookup("PaymentOp"),setOptionsOp:xdr.lookup("SetOptionsOp"),createIssuanceRequestOp:xdr.lookup("CreateIssuanceRequestOp"),setFeesOp:xdr.lookup("SetFeesOp"),manageAccountOp:xdr.lookup("ManageAccountOp"),createWithdrawalRequestOp:xdr.lookup("CreateWithdrawalRequestOp"),manageBalanceOp:xdr.lookup("ManageBalanceOp"),reviewPaymentRequestOp:xdr.lookup("ReviewPaymentRequestOp"),manageAssetOp:xdr.lookup("ManageAssetOp"),createPreIssuanceRequest:xdr.lookup("CreatePreIssuanceRequestOp"),setLimitsOp:xdr.lookup("SetLimitsOp"),directDebitOp:xdr.lookup("DirectDebitOp"),manageAssetPairOp:xdr.lookup("ManageAssetPairOp"),manageOfferOp:xdr.lookup("ManageOfferOp"),manageInvoiceOp:xdr.lookup("ManageInvoiceOp"),reviewRequestOp:xdr.lookup("ReviewRequestOp"),createSaleCreationRequestOp:xdr.lookup("CreateSaleCreationRequestOp"),checkSaleStateOp:xdr.lookup("CheckSaleStateOp"),createAmlAlertRequestOp:xdr.lookup("CreateAmlAlertRequestOp"),manageKeyValueOp:xdr.lookup("ManageKeyValueOp"),createUpdateKycRequestOp:xdr.lookup("CreateUpdateKycRequestOp")}}); // === xdr source ============================================================
+	xdr.union("OperationBody",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountOp"],["payment","paymentOp"],["setOption","setOptionsOp"],["createIssuanceRequest","createIssuanceRequestOp"],["setFee","setFeesOp"],["manageAccount","manageAccountOp"],["createWithdrawalRequest","createWithdrawalRequestOp"],["manageBalance","manageBalanceOp"],["reviewPaymentRequest","reviewPaymentRequestOp"],["manageAsset","manageAssetOp"],["createPreissuanceRequest","createPreIssuanceRequest"],["setLimit","setLimitsOp"],["directDebit","directDebitOp"],["manageAssetPair","manageAssetPairOp"],["manageOffer","manageOfferOp"],["manageInvoice","manageInvoiceOp"],["reviewRequest","reviewRequestOp"],["createSaleRequest","createSaleCreationRequestOp"],["checkSaleState","checkSaleStateOp"],["createAmlAlert","createAmlAlertRequestOp"],["manageKeyValue","createManageKeyValueOp"],["createKycRequest","createUpdateKycRequestOp"]],arms:{createAccountOp:xdr.lookup("CreateAccountOp"),paymentOp:xdr.lookup("PaymentOp"),setOptionsOp:xdr.lookup("SetOptionsOp"),createIssuanceRequestOp:xdr.lookup("CreateIssuanceRequestOp"),setFeesOp:xdr.lookup("SetFeesOp"),manageAccountOp:xdr.lookup("ManageAccountOp"),createWithdrawalRequestOp:xdr.lookup("CreateWithdrawalRequestOp"),manageBalanceOp:xdr.lookup("ManageBalanceOp"),reviewPaymentRequestOp:xdr.lookup("ReviewPaymentRequestOp"),manageAssetOp:xdr.lookup("ManageAssetOp"),createPreIssuanceRequest:xdr.lookup("CreatePreIssuanceRequestOp"),setLimitsOp:xdr.lookup("SetLimitsOp"),directDebitOp:xdr.lookup("DirectDebitOp"),manageAssetPairOp:xdr.lookup("ManageAssetPairOp"),manageOfferOp:xdr.lookup("ManageOfferOp"),manageInvoiceOp:xdr.lookup("ManageInvoiceOp"),reviewRequestOp:xdr.lookup("ReviewRequestOp"),createSaleCreationRequestOp:xdr.lookup("CreateSaleCreationRequestOp"),checkSaleStateOp:xdr.lookup("CheckSaleStateOp"),createAmlAlertRequestOp:xdr.lookup("CreateAmlAlertRequestOp"),manageKeyValueOp:xdr.lookup("ManageKeyValueOp"),createUpdateKycRequestOp:xdr.lookup("CreateUpdateKycRequestOp")}}); // === xdr source ============================================================
 	//
 	//   struct Operation
 	//   {
@@ -1551,7 +1551,7 @@ var StellarBase =
 	//   	case CREATE_AML_ALERT:
 	//   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 	//   	case MANAGE_KEY_VALUE:
-	//   	    ManageKeyValueOp manageKeyValueOp;
+	//   	    ManageKeyValueOp createManageKeyValueOp;
 	//   	case CREATE_KYC_REQUEST:
 	//   		CreateUpdateKYCRequestOp createUpdateKYCRequestOp;
 	//       }
@@ -24893,8 +24893,8 @@ var StellarBase =
 	    }
 
 	    _createClass(ManageKeyValueOpBuilder, null, [{
-	        key: "manageKeyValueOp",
-	        value: function manageKeyValueOp(opts) {
+	        key: "createManageKeyValueOp",
+	        value: function createManageKeyValueOp(opts) {
 	            var attributes = {};
 	            if ((0, _lodashIsUndefined2["default"])(opts.action) || !_generatedStellarXdr_generated2["default"].ManageKvAction._byValue.has(opts.action)) {
 	                throw new Error("key-value action is invalid");
@@ -24924,7 +24924,7 @@ var StellarBase =
 	        value: function manageKeyValueOpToObject(result, attrs) {
 	            result.key = attrs.key;
 	            result.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_operation.Operation._keyValueActionFromNumber(attrs.action));
-	            if (result.action === _generatedStellarXdr_generated2["default"].ManageKvAction.put) {
+	            if (result.action === _generatedStellarXdr_generated2["default"].ManageKvAction.put()) {
 	                this.putKV(attrs, result);
 	            }
 	        }
