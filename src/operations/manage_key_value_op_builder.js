@@ -33,16 +33,15 @@ export class  ManageKeyValueOpBuilder {
 
     static manageKeyValueOpToObject(result, attrs) {
         result.key = attrs.key;
-        let action  = attrs.action.value();
-        switch (attrs.action.switch())
-        {
+        var action = attrs.action().value();
+        switch (attrs.action().switch()) {
             case xdr.ManageKvAction.put():
                 result.action = new xdr.ManageKvAction.put().value;
-                result.value = action.value().value();
+                result.value = action.value();
                 break;
-            case xdr.ManageKvAction.delete():
-                result.action = new xdr.ManageKvAction.delete().value;
-                result.value = xdr.void();
+            case xdr.ManageKvAction["delete"]():
+                result.action = new xdr.ManageKvAction["delete"]().value;
+                result.value = xdr["void"]();
                 break;
             default:
                 throw new Error("invalid KV action type");
@@ -60,10 +59,9 @@ export class  ManageKeyValueOpBuilder {
             throw new Error("key-value type is invalid");
         }
 
-        KVEntry.value = new xdr.KeyValueEntryValue(opts.KvType);
-        KVEntry.value().defaultMask= opts.value;
+        KVEntry.value = new xdr.KeyValueEntryValue.uint32(opts.value);
 
-        attributes.action().value = new xdr.KeyValueEntry(KVEntry);
+        attributes.action().value(xdr.KeyValueEntry(KVEntry));
     }
 
 }

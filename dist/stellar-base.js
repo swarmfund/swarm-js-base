@@ -43948,10 +43948,10 @@ var StellarBase =
 	        value: function manageKeyValueOpToObject(result, attrs) {
 	            result.key = attrs.key;
 	            var action = attrs.action.value();
-	            switch (attrs.action["switch"]()) {
+	            switch (attrs.action()["switch"]()) {
 	                case _generatedStellarXdr_generated2["default"].ManageKvAction.put():
 	                    result.action = new _generatedStellarXdr_generated2["default"].ManageKvAction.put().value;
-	                    result.value = action.value().value();
+	                    result.value = action.value();
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].ManageKvAction["delete"]():
 	                    result.action = new _generatedStellarXdr_generated2["default"].ManageKvAction["delete"]().value;
@@ -43973,10 +43973,9 @@ var StellarBase =
 	                throw new Error("key-value type is invalid");
 	            }
 
-	            KVEntry.value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue(opts.KvType);
-	            KVEntry.value().defaultMask = opts.value;
+	            KVEntry.value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue.uint32(opts.value);
 
-	            attributes.action().value = new _generatedStellarXdr_generated2["default"].KeyValueEntry(KVEntry);
+	            attributes.action().value(_generatedStellarXdr_generated2["default"].KeyValueEntry(KVEntry));
 	        }
 	    }]);
 
