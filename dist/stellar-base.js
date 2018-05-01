@@ -324,7 +324,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-05-01T13:04:10+03:00
+	// Automatically generated on 2018-05-01T14:34:38+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -3686,7 +3686,7 @@ var StellarBase =
 	//
 	//   struct ManageKeyValueOp
 	//       {
-	//           string256 key;
+	//           longstring key;
 	//           union switch(ManageKVAction action)
 	//           {
 	//               case PUT:
@@ -3706,7 +3706,7 @@ var StellarBase =
 	//       };
 	//
 	// ===========================================================================
-	xdr.struct("ManageKeyValueOp",[["key",xdr.lookup("String256")],["action",xdr.lookup("ManageKeyValueOpAction")],["ext",xdr.lookup("ManageKeyValueOpExt")]]); // === xdr source ============================================================
+	xdr.struct("ManageKeyValueOp",[["key",xdr.lookup("Longstring")],["action",xdr.lookup("ManageKeyValueOpAction")],["ext",xdr.lookup("ManageKeyValueOpExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//           {
@@ -43947,8 +43947,8 @@ var StellarBase =
 	        key: "manageKeyValueOpToObject",
 	        value: function manageKeyValueOpToObject(result, attrs) {
 	            result.key = attrs.key;
-	            var action = attrs.action().value();
-	            switch (attrs.action()["switch"]()) {
+	            var action = attrs.action.value();
+	            switch (attrs.action["switch"]()) {
 	                case _generatedStellarXdr_generated2["default"].ManageKvAction.put():
 	                    result.action = new _generatedStellarXdr_generated2["default"].ManageKvAction.put().value;
 	                    result.value = action.value().value();

@@ -33,8 +33,8 @@ export class  ManageKeyValueOpBuilder {
 
     static manageKeyValueOpToObject(result, attrs) {
         result.key = attrs.key;
-        let action  = attrs.action().value();
-        switch (attrs.action().switch())
+        let action  = attrs.action.value();
+        switch (attrs.action.switch())
         {
             case xdr.ManageKvAction.put():
                 result.action = new xdr.ManageKvAction.put().value;

@@ -1,4 +1,4 @@
-// Automatically generated on 2018-05-01T13:04:10+03:00
+// Automatically generated on 2018-05-01T14:34:38+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -5555,7 +5555,7 @@ xdr.union("ManageKeyValueOpExt", {
 //
 //   struct ManageKeyValueOp
 //       {
-//           string256 key;
+//           longstring key;
 //           union switch(ManageKVAction action)
 //           {
 //               case PUT:
@@ -5576,7 +5576,7 @@ xdr.union("ManageKeyValueOpExt", {
 //
 // ===========================================================================
 xdr.struct("ManageKeyValueOp", [
-  ["key", xdr.lookup("String256")],
+  ["key", xdr.lookup("Longstring")],
   ["action", xdr.lookup("ManageKeyValueOpAction")],
   ["ext", xdr.lookup("ManageKeyValueOpExt")],
 ]);
