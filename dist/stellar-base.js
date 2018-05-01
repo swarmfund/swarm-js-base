@@ -43947,9 +43947,18 @@ var StellarBase =
 	        key: "manageKeyValueOpToObject",
 	        value: function manageKeyValueOpToObject(result, attrs) {
 	            result.key = attrs.key;
-	            result.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_base_operation.BaseOperation._keyValueActionFromNumber(attrs.action().value()));
-	            if (result.action === _generatedStellarXdr_generated2["default"].ManageKvAction.put()) {
-	                this.putKV(attrs, result);
+	            var action = attrs.action().value();
+	            switch (attrs.action()["switch"]()) {
+	                case _generatedStellarXdr_generated2["default"].ManageKvAction.put():
+	                    result.action = new _generatedStellarXdr_generated2["default"].ManageKvAction.put().value;
+	                    result.value = action.value().value();
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].ManageKvAction["delete"]():
+	                    result.action = new _generatedStellarXdr_generated2["default"].ManageKvAction["delete"]().value;
+	                    result.value = _generatedStellarXdr_generated2["default"]["void"]();
+	                    break;
+	                default:
+	                    throw new Error("invalid KV action type");
 	            }
 	        }
 	    }, {

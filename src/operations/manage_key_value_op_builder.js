@@ -33,10 +33,19 @@ export class  ManageKeyValueOpBuilder {
 
     static manageKeyValueOpToObject(result, attrs) {
         result.key = attrs.key;
-        result.action = new xdr.ManageKeyValueOpAction(BaseOperation._keyValueActionFromNumber(attrs.action().value()));
-        if(result.action === xdr.ManageKvAction.put())
+        let action  = attrs.action().value();
+        switch (attrs.action().switch())
         {
-            this.putKV(attrs,result);
+            case xdr.ManageKvAction.put():
+                result.action = new xdr.ManageKvAction.put().value;
+                result.value = action.value().value();
+                break;
+            case xdr.ManageKvAction.delete():
+                result.action = new xdr.ManageKvAction.delete().value;
+                result.value = xdr.void();
+                break;
+            default:
+                throw new Error("invalid KV action type");
         }
     }
 
