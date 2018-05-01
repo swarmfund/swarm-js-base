@@ -687,7 +687,7 @@ export class Operation extends BaseOperation {
                 CreateAMLRequestBuilder.createAmlAlertToObject(result, attrs);
                 break;
             case xdr.OperationType.manageKeyValue():
-                ManageKeyValueOpBuilder.manageKeyValueOpToObject();
+                ManageKeyValueOpBuilder.manageKeyValueOpToObject(result, attrs);
                 break;
             case xdr.OperationType.createKycRequest():
                 CreateUpdateKYCRequestBuilder.createUpdateKYCRequestOpToObject(result, attrs);

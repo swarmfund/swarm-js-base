@@ -24906,7 +24906,7 @@ var StellarBase =
 
 	            attributes.key = opts.key;
 	            attributes.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_operation.Operation._keyValueActionFromNumber(opts.action));
-	            attributes.ext = new _generatedStellarXdr_generated2["default"].ManageKeyValueExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion());
+	            attributes.ext = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion());
 
 	            if (opts.action === _generatedStellarXdr_generated2["default"].ManageKvAction.put()) {
 	                ManageKeyValueOpBuilder.putKV(opts, attributes);
@@ -25733,7 +25733,7 @@ var StellarBase =
 	                    _operationsCreate_aml_request_builder.CreateAMLRequestBuilder.createAmlAlertToObject(result, attrs);
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].OperationType.manageKeyValue():
-	                    _operationsManage_key_value_op_builder.ManageKeyValueOpBuilder.manageKeyValueOpToObject();
+	                    _operationsManage_key_value_op_builder.ManageKeyValueOpBuilder.manageKeyValueOpToObject(result, attrs);
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].OperationType.createKycRequest():
 	                    _operationsCreate_update_kyc_request_builder.CreateUpdateKYCRequestBuilder.createUpdateKYCRequestOpToObject(result, attrs);
