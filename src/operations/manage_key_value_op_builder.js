@@ -33,7 +33,7 @@ export class  ManageKeyValueOpBuilder {
 
     static manageKeyValueOpToObject(result, attrs) {
         result.key = attrs.key;
-        result.action = new xdr.ManageKeyValueOpAction(BaseOperation._keyValueActionFromNumber(attrs.action));
+        result.action = new xdr.ManageKeyValueOpAction(BaseOperation._keyValueActionFromNumber(attrs.action().value()));
         if(result.action === xdr.ManageKvAction.put())
         {
             this.putKV(attrs,result);

@@ -43947,7 +43947,7 @@ var StellarBase =
 	        key: "manageKeyValueOpToObject",
 	        value: function manageKeyValueOpToObject(result, attrs) {
 	            result.key = attrs.key;
-	            result.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_base_operation.BaseOperation._keyValueActionFromNumber(attrs.action));
+	            result.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_base_operation.BaseOperation._keyValueActionFromNumber(attrs.action().value()));
 	            if (result.action === _generatedStellarXdr_generated2["default"].ManageKvAction.put()) {
 	                this.putKV(attrs, result);
 	            }
