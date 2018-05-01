@@ -24,6 +24,8 @@ export { ManageOfferBuilder } from './operations/manage_offer_builder';
 export { SetOptionsBuilder } from './operations/set_options_builder';
 export { ManageExternalSystemAccountIdPoolEntryBuilder } from './operations/manage_external_system_account_id_pool_entry_builder';
 export { BindExternalSystemAccountIdBuilder } from './operations/bind_external_system_account_id_builder';
+export {CreateAMLRequestBuilder} from "./operations/create_aml_request_builder";
+export { CreateUpdateKYCRequestBuilder } from './operations/create_update_kyc_request_builder';
 
 export * from "./strkey";
 

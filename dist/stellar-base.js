@@ -139,7 +139,7 @@ var StellarBase =
 	  }
 	});
 
-	var _transaction_builder = __webpack_require__(307);
+	var _transaction_builder = __webpack_require__(309);
 
 	Object.defineProperty(exports, "TransactionBuilder", {
 	  enumerable: true,
@@ -184,7 +184,7 @@ var StellarBase =
 	  }
 	});
 
-	var _memo = __webpack_require__(309);
+	var _memo = __webpack_require__(311);
 
 	Object.defineProperty(exports, "Memo", {
 	  enumerable: true,
@@ -193,7 +193,7 @@ var StellarBase =
 	  }
 	});
 
-	var _account = __webpack_require__(308);
+	var _account = __webpack_require__(310);
 
 	Object.defineProperty(exports, "Account", {
 	  enumerable: true,
@@ -304,6 +304,24 @@ var StellarBase =
 	  }
 	});
 
+	var _operationsCreate_aml_request_builder = __webpack_require__(227);
+
+	Object.defineProperty(exports, "CreateAMLRequestBuilder", {
+	  enumerable: true,
+	  get: function get() {
+	    return _operationsCreate_aml_request_builder.CreateAMLRequestBuilder;
+	  }
+	});
+
+	var _operationsCreate_update_kyc_request_builder = __webpack_require__(228);
+
+	Object.defineProperty(exports, "CreateUpdateKYCRequestBuilder", {
+	  enumerable: true,
+	  get: function get() {
+	    return _operationsCreate_update_kyc_request_builder.CreateUpdateKYCRequestBuilder;
+	  }
+	});
+
 	var _strkey = __webpack_require__(72);
 
 	_defaults(exports, _interopExportWildcard(_strkey, _defaults));
@@ -314,7 +332,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-05-01T16:56:47+03:00
+	// Automatically generated on 2018-05-01T19:58:14+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -44118,11 +44136,11 @@ var StellarBase =
 
 	var _network = __webpack_require__(53);
 
-	var _lodashMap = __webpack_require__(227);
+	var _lodashMap = __webpack_require__(229);
 
 	var _lodashMap2 = _interopRequireDefault(_lodashMap);
 
-	var _lodashEach = __webpack_require__(303);
+	var _lodashEach = __webpack_require__(305);
 
 	var _lodashEach2 = _interopRequireDefault(_lodashEach);
 
@@ -44328,6 +44346,10 @@ var StellarBase =
 	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(226);
 
 	var _operationsBind_external_system_account_id_builder = __webpack_require__(50);
+
+	var _operationsCreate_aml_request_builder = __webpack_require__(227);
+
+	var _operationsCreate_update_kyc_request_builder = __webpack_require__(228);
 
 	var Operation = (function (_BaseOperation) {
 	    _inherits(Operation, _BaseOperation);
@@ -45018,6 +45040,12 @@ var StellarBase =
 	                case _generatedStellarXdr_generated2["default"].OperationType.bindExternalSystemAccountId():
 	                    _operationsBind_external_system_account_id_builder.BindExternalSystemAccountIdBuilder.bindExternalSystemAccountIdToObject(result, attrs);
 	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.createAmlAlert():
+	                    _operationsCreate_aml_request_builder.CreateAMLRequestBuilder.createAmlAlertToObject(result, attrs);
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.createKycRequest():
+	                    _operationsCreate_update_kyc_request_builder.CreateUpdateKYCRequestBuilder.createUpdateKYCRequestOpToObject(result, attrs);
+	                    break;
 	                default:
 	                    throw new Error("Unknown operation");
 
@@ -45173,6 +45201,37 @@ var StellarBase =
 
 	            return ManageAssetBuilder._createManageAssetOp(opts, new _generatedStellarXdr_generated2['default'].ManageAssetOpRequest.cancelAssetRequest(cancelAssetRequest));
 	        }
+
+	        /**
+	         * Creates operation to cancel asset creation/update request
+	         * @param {object} opts
+	         * @param {string} opts.accountID - accountID to whome rights will be passed
+	         * @param {string} opts.code - asset code for which to rights will be passed
+	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageAssetOp}
+	         */
+	    }, {
+	        key: 'changeAssetPreIssuer',
+	        value: function changeAssetPreIssuer(opts) {
+	            if (!_keypair.Keypair.isValidPublicKey(opts.accountID)) {
+	                throw new Error("opts.accountID is invalid");
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.code)) {
+	                throw new Error("opts.code is invalid - must be string");
+	            }
+
+	            opts.requestID = "0";
+
+	            var attrs = {
+	                ext: new _generatedStellarXdr_generated2['default'].AssetChangePreissuedSignerExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion()),
+	                accountId: _keypair.Keypair.fromAccountId(opts.accountID).xdrAccountId(),
+	                code: opts.code
+	            };
+	            var changePreissuedSigner = new _generatedStellarXdr_generated2['default'].AssetChangePreissuedSigner(attrs);
+
+	            return ManageAssetBuilder._createManageAssetOp(opts, new _generatedStellarXdr_generated2['default'].ManageAssetOpRequest.changePreissuedAssetSigner(changePreissuedSigner));
+	        }
 	    }, {
 	        key: '_getValidDetails',
 	        value: function _getValidDetails(opts) {
@@ -45287,6 +45346,14 @@ var StellarBase =
 	                case _generatedStellarXdr_generated2['default'].ManageAssetAction.cancelAssetRequest():
 	                    {
 	                        // nothing to do here
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageAssetAction.changePreissuedAssetSigner():
+	                    {
+	                        var request = attrs.request().changePreissuedSigner();
+	                        result.code = request.code();
+	                        result.accountID = _base_operation.BaseOperation.accountIdtoAddress(request.accountId());
+	                        break;
 	                    }
 	            }
 	        }
@@ -45427,6 +45494,34 @@ var StellarBase =
 	        }
 
 	        /**
+	         * Creates operation to review aml alert request
+	         * @param {object} opts
+	         * @param {string} opts.requestID - request ID
+	         * @param {string} opts.requestHash - Hash of the request to be reviewed
+	         * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
+	         * @param {string} opts.reason - Reject reason
+	         * @param {string} opts.comment - Comment to review
+	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * @returns {xdr.ReviewRequestOp}
+	         */
+	    }, {
+	        key: 'reviewAmlAlertRequest',
+	        value: function reviewAmlAlertRequest(opts) {
+	            if ((0, _lodashIsUndefined2['default'])(opts.comment)) {
+	                throw new Error("opts.comment is invalid");
+	            }
+
+	            var attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+	            attrs.requestDetails = new _generatedStellarXdr_generated2['default'].ReviewRequestOpRequestDetails.amlAlert(new _generatedStellarXdr_generated2['default'].AmlAlertDetails({
+	                ext: new _generatedStellarXdr_generated2['default'].AmlAlertDetailsExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion()),
+	                comment: opts.comment
+	            }));
+
+	            return ReviewRequestBuilder._createOp(opts, attrs);
+	        }
+
+	        /**
 	         * Creates operation to review two step withdraw request
 	         * @param {object} opts
 	         * @param {string} opts.requestID - request ID
@@ -45476,6 +45571,20 @@ var StellarBase =
 	            return ReviewRequestBuilder._createOp(opts, attrs);
 	        }
 	    }, {
+	        key: 'reviewUpdateKYCRequest',
+	        value: function reviewUpdateKYCRequest(opts) {
+	            var attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+	            attrs.requestDetails = new _generatedStellarXdr_generated2['default'].ReviewRequestOpRequestDetails.updateKyc(new _generatedStellarXdr_generated2['default'].UpdateKycDetails({
+	                tasksToAdd: opts.tasksToAdd,
+	                tasksToRemove: opts.tasksToRemove,
+	                externalDetails: JSON.stringify(opts.externalDetails),
+	                ext: new _generatedStellarXdr_generated2['default'].UpdateKycDetailsExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            }));
+
+	            return ReviewRequestBuilder._createOp(opts, attrs);
+	        }
+	    }, {
 	        key: 'reviewRequestToObject',
 	        value: function reviewRequestToObject(result, attrs) {
 	            result.requestID = attrs.requestId().toString();
@@ -45505,6 +45614,22 @@ var StellarBase =
 	                    {
 	                        result.twoStepWithdrawal = {
 	                            externalDetails: attrs.requestDetails().twoStepWithdrawal().externalDetails()
+	                        };
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ReviewableRequestType.updateKyc():
+	                    {
+	                        result.updateKyc = {
+	                            tasksToAdd: attrs.requestDetails().updateKyc().tasksToAdd(),
+	                            tasksToRemove: attrs.requestDetails().updateKyc().tasksToRemove(),
+	                            externalDetails: attrs.requestDetails().updateKyc().externalDetails()
+	                        };
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ReviewableRequestType.amlAlert():
+	                    {
+	                        result.amlAlert = {
+	                            comment: attrs.requestDetails().amlAlertDetails().comment()
 	                        };
 	                        break;
 	                    }
@@ -46751,9 +46876,201 @@ var StellarBase =
 /* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _generatedStellarXdr_generated = __webpack_require__(2);
+
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
+
+	var _lodashIsUndefined = __webpack_require__(70);
+
+	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
+
+	var _base_operation = __webpack_require__(51);
+
+	var _keypair = __webpack_require__(52);
+
+	var _jsXdr = __webpack_require__(3);
+
+	var CreateAMLRequestBuilder = (function () {
+	    function CreateAMLRequestBuilder() {
+	        _classCallCheck(this, CreateAMLRequestBuilder);
+	    }
+
+	    _createClass(CreateAMLRequestBuilder, null, [{
+	        key: 'createAMLAlert',
+
+	        /**
+	         * Creates operation to create aml alert
+	         * @param {object} opts
+	         *
+	         * @param {string} opts.balanceID - balance for which specified amount will be locked
+	         * @param {string} opts.amount - amount to be locked
+	         * @param {string} opts.reason - reason due to which alert was raised
+	         * @param {string} opts.reference - Unique reference of the alert
+	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
+	         *
+	         * @returns {xdr.CreateAMLAlertRequestOp}
+	         */
+	        value: function createAMLAlert(opts) {
+	            var rawRequest = {};
+	            if (!_base_operation.BaseOperation.isValidAmount(opts.amount)) {
+	                throw new Error("opts.amount is invalid");
+	            }
+
+	            rawRequest.amount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.amount);
+
+	            if (!_keypair.Keypair.isValidBalanceKey(opts.balanceID)) {
+	                throw new Error("opts.balanceID is invalid");
+	            }
+
+	            rawRequest.balanceId = _keypair.Keypair.fromBalanceId(opts.balanceID).xdrBalanceId();
+	            rawRequest.reason = opts.reason;
+	            rawRequest.ext = new _generatedStellarXdr_generated2['default'].AmlAlertRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
+	            var request = new _generatedStellarXdr_generated2['default'].AmlAlertRequest(rawRequest);
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.reference)) {
+	                throw new Error("opts.reference is invalid");
+	            }
+
+	            var opAttributes = {};
+	            opAttributes.body = new _generatedStellarXdr_generated2['default'].OperationBody.createAmlAlert(new _generatedStellarXdr_generated2['default'].CreateAmlAlertRequestOp({
+	                amlAlertRequest: request,
+	                reference: opts.reference,
+	                ext: new _generatedStellarXdr_generated2['default'].CreateAmlAlertRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            }));
+	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
+	        }
+	    }, {
+	        key: 'createAmlAlertToObject',
+	        value: function createAmlAlertToObject(result, attrs) {
+	            result.balanceID = _base_operation.BaseOperation.balanceIdtoString(attrs.amlAlertRequest().balanceId());
+	            result.amount = _base_operation.BaseOperation._fromXDRAmount(attrs.amlAlertRequest().amount());
+	            result.reason = attrs.amlAlertRequest().reason().toString();
+	            result.reference = attrs.reference().toString();
+	        }
+	    }]);
+
+	    return CreateAMLRequestBuilder;
+	})();
+
+	exports.CreateAMLRequestBuilder = CreateAMLRequestBuilder;
+
+/***/ }),
+/* 228 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _generatedStellarXdr_generated = __webpack_require__(2);
+
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
+
+	var _lodashIsUndefined = __webpack_require__(70);
+
+	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
+
+	var _base_operation = __webpack_require__(51);
+
+	var _keypair = __webpack_require__(52);
+
+	var _jsXdr = __webpack_require__(3);
+
+	var CreateUpdateKYCRequestBuilder = (function () {
+	    function CreateUpdateKYCRequestBuilder() {
+	        _classCallCheck(this, CreateUpdateKYCRequestBuilder);
+	    }
+
+	    _createClass(CreateUpdateKYCRequestBuilder, null, [{
+	        key: 'createUpdateKYCRequest',
+
+	        /**
+	         * Creates operation to create KYC request
+	         * @param {object} opts
+	         * @param {number|string} opts.requestID - set to zero to create new request
+	         * @param {string} opts.accountToUpdateKYC
+	         * @param {string} opts.accountTypeToSet
+	         * @param {number} opts.kycLevelToSet
+	         * @param {object} opts.kycData
+	         * @param {number|string} opts.allTasks
+	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * @returns {xdr.CreateUpdateKycRequestOp}
+	         */
+	        value: function createUpdateKYCRequest(opts) {
+	            var attrs = {};
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.requestID)) {
+	                throw new Error("opts.requestID is invalid");
+	            }
+
+	            if (!_keypair.Keypair.isValidPublicKey(opts.accountToUpdateKYC)) {
+	                throw new Error("opts.accountToUpdateKYC is invalid");
+	            }
+
+	            attrs.accountToUpdateKyc = _keypair.Keypair.fromAccountId(opts.accountToUpdateKYC).xdrAccountId();
+	            attrs.accountTypeToSet = _base_operation.BaseOperation._accountTypeFromNumber(opts.accountTypeToSet);
+	            attrs.kycLevelToSet = opts.kycLevelToSet;
+	            attrs.kycData = JSON.stringify(opts.kycData);
+	            attrs.allTasks = _base_operation.BaseOperation._checkUnsignedIntValue("allTasks", opts.allTasks);
+	            attrs.ext = new _generatedStellarXdr_generated2['default'].UpdateKycRequestDataExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
+
+	            var updateKYCRequestData = new _generatedStellarXdr_generated2['default'].UpdateKycRequestData(attrs);
+
+	            var kycRequestOp = new _generatedStellarXdr_generated2['default'].CreateUpdateKycRequestOp({
+	                requestId: _jsXdr.UnsignedHyper.fromString(opts.requestID),
+	                updateKycRequestData: updateKYCRequestData,
+	                ext: new _generatedStellarXdr_generated2['default'].CreateUpdateKycRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.createKycRequest(kycRequestOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
+	        }
+	    }, {
+	        key: 'createUpdateKYCRequestOpToObject',
+	        value: function createUpdateKYCRequestOpToObject(result, attrs) {
+	            result.requestID = attrs.requestId;
+	            result.accountToUpdateKYC = _base_operation.BaseOperation.accountIdtoAddress(attrs.updateKycRequestData().accountToUpdateKyc());
+	            result.accountTypeToSet = attrs.updateKycRequestData().accountTypeToSet().value;
+	            result.kycLevelToSet = attrs.updateKycRequestData().kycLevelToSet();
+	            result.kycData = JSON.parse(attrs.updateKycRequestData().kycData());
+	            result.allTasks = attrs.updateKycRequestData().allTasks();
+	        }
+	    }]);
+
+	    return CreateUpdateKYCRequestBuilder;
+	})();
+
+	exports.CreateUpdateKYCRequestBuilder = CreateUpdateKYCRequestBuilder;
+
+/***/ }),
+/* 229 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	var arrayMap = __webpack_require__(112),
-	    baseIteratee = __webpack_require__(228),
-	    baseMap = __webpack_require__(297),
+	    baseIteratee = __webpack_require__(230),
+	    baseMap = __webpack_require__(299),
 	    isArray = __webpack_require__(104);
 
 	/**
@@ -46807,14 +47124,14 @@ var StellarBase =
 
 
 /***/ }),
-/* 228 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseMatches = __webpack_require__(229),
-	    baseMatchesProperty = __webpack_require__(282),
-	    identity = __webpack_require__(294),
+	var baseMatches = __webpack_require__(231),
+	    baseMatchesProperty = __webpack_require__(284),
+	    identity = __webpack_require__(296),
 	    isArray = __webpack_require__(104),
-	    property = __webpack_require__(295);
+	    property = __webpack_require__(297);
 
 	/**
 	 * The base implementation of `_.iteratee`.
@@ -46844,12 +47161,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 229 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsMatch = __webpack_require__(230),
-	    getMatchData = __webpack_require__(279),
-	    matchesStrictComparable = __webpack_require__(281);
+	var baseIsMatch = __webpack_require__(232),
+	    getMatchData = __webpack_require__(281),
+	    matchesStrictComparable = __webpack_require__(283);
 
 	/**
 	 * The base implementation of `_.matches` which doesn't clone `source`.
@@ -46872,11 +47189,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 230 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Stack = __webpack_require__(231),
-	    baseIsEqual = __webpack_require__(260);
+	var Stack = __webpack_require__(233),
+	    baseIsEqual = __webpack_require__(262);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1,
@@ -46940,15 +47257,15 @@ var StellarBase =
 
 
 /***/ }),
-/* 231 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var ListCache = __webpack_require__(232),
-	    stackClear = __webpack_require__(240),
-	    stackDelete = __webpack_require__(241),
-	    stackGet = __webpack_require__(242),
-	    stackHas = __webpack_require__(243),
-	    stackSet = __webpack_require__(244);
+	var ListCache = __webpack_require__(234),
+	    stackClear = __webpack_require__(242),
+	    stackDelete = __webpack_require__(243),
+	    stackGet = __webpack_require__(244),
+	    stackHas = __webpack_require__(245),
+	    stackSet = __webpack_require__(246);
 
 	/**
 	 * Creates a stack cache object to store key-value pairs.
@@ -46973,14 +47290,14 @@ var StellarBase =
 
 
 /***/ }),
-/* 232 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var listCacheClear = __webpack_require__(233),
-	    listCacheDelete = __webpack_require__(234),
-	    listCacheGet = __webpack_require__(237),
-	    listCacheHas = __webpack_require__(238),
-	    listCacheSet = __webpack_require__(239);
+	var listCacheClear = __webpack_require__(235),
+	    listCacheDelete = __webpack_require__(236),
+	    listCacheGet = __webpack_require__(239),
+	    listCacheHas = __webpack_require__(240),
+	    listCacheSet = __webpack_require__(241);
 
 	/**
 	 * Creates an list cache object.
@@ -47011,7 +47328,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 233 */
+/* 235 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47030,10 +47347,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 234 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(235);
+	var assocIndexOf = __webpack_require__(237);
 
 	/** Used for built-in method references. */
 	var arrayProto = Array.prototype;
@@ -47071,10 +47388,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 235 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var eq = __webpack_require__(236);
+	var eq = __webpack_require__(238);
 
 	/**
 	 * Gets the index at which the `key` is found in `array` of key-value pairs.
@@ -47098,7 +47415,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 236 */
+/* 238 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47141,10 +47458,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 237 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(235);
+	var assocIndexOf = __webpack_require__(237);
 
 	/**
 	 * Gets the list cache value for `key`.
@@ -47166,10 +47483,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 238 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(235);
+	var assocIndexOf = __webpack_require__(237);
 
 	/**
 	 * Checks if a list cache value for `key` exists.
@@ -47188,10 +47505,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 239 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(235);
+	var assocIndexOf = __webpack_require__(237);
 
 	/**
 	 * Sets the list cache `key` to `value`.
@@ -47220,10 +47537,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 240 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var ListCache = __webpack_require__(232);
+	var ListCache = __webpack_require__(234);
 
 	/**
 	 * Removes all key-value entries from the stack.
@@ -47241,7 +47558,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 241 */
+/* 243 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47265,7 +47582,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 242 */
+/* 244 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47285,7 +47602,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 243 */
+/* 245 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47305,12 +47622,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 244 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var ListCache = __webpack_require__(232),
+	var ListCache = __webpack_require__(234),
 	    Map = __webpack_require__(157),
-	    MapCache = __webpack_require__(245);
+	    MapCache = __webpack_require__(247);
 
 	/** Used as the size to enable large array optimizations. */
 	var LARGE_ARRAY_SIZE = 200;
@@ -47345,14 +47662,14 @@ var StellarBase =
 
 
 /***/ }),
-/* 245 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var mapCacheClear = __webpack_require__(246),
-	    mapCacheDelete = __webpack_require__(254),
-	    mapCacheGet = __webpack_require__(257),
-	    mapCacheHas = __webpack_require__(258),
-	    mapCacheSet = __webpack_require__(259);
+	var mapCacheClear = __webpack_require__(248),
+	    mapCacheDelete = __webpack_require__(256),
+	    mapCacheGet = __webpack_require__(259),
+	    mapCacheHas = __webpack_require__(260),
+	    mapCacheSet = __webpack_require__(261);
 
 	/**
 	 * Creates a map cache object to store key-value pairs.
@@ -47383,11 +47700,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 246 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Hash = __webpack_require__(247),
-	    ListCache = __webpack_require__(232),
+	var Hash = __webpack_require__(249),
+	    ListCache = __webpack_require__(234),
 	    Map = __webpack_require__(157);
 
 	/**
@@ -47410,14 +47727,14 @@ var StellarBase =
 
 
 /***/ }),
-/* 247 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var hashClear = __webpack_require__(248),
-	    hashDelete = __webpack_require__(250),
-	    hashGet = __webpack_require__(251),
-	    hashHas = __webpack_require__(252),
-	    hashSet = __webpack_require__(253);
+	var hashClear = __webpack_require__(250),
+	    hashDelete = __webpack_require__(252),
+	    hashGet = __webpack_require__(253),
+	    hashHas = __webpack_require__(254),
+	    hashSet = __webpack_require__(255);
 
 	/**
 	 * Creates a hash object.
@@ -47448,10 +47765,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 248 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(249);
+	var nativeCreate = __webpack_require__(251);
 
 	/**
 	 * Removes all key-value entries from the hash.
@@ -47469,7 +47786,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 249 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(151);
@@ -47481,7 +47798,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 250 */
+/* 252 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47504,10 +47821,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 251 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(249);
+	var nativeCreate = __webpack_require__(251);
 
 	/** Used to stand-in for `undefined` hash values. */
 	var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -47540,10 +47857,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 252 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(249);
+	var nativeCreate = __webpack_require__(251);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -47569,10 +47886,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 253 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(249);
+	var nativeCreate = __webpack_require__(251);
 
 	/** Used to stand-in for `undefined` hash values. */
 	var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -47598,10 +47915,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 254 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(255);
+	var getMapData = __webpack_require__(257);
 
 	/**
 	 * Removes `key` and its value from the map.
@@ -47622,10 +47939,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 255 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isKeyable = __webpack_require__(256);
+	var isKeyable = __webpack_require__(258);
 
 	/**
 	 * Gets the data for `map`.
@@ -47646,7 +47963,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 256 */
+/* 258 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47667,10 +47984,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 257 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(255);
+	var getMapData = __webpack_require__(257);
 
 	/**
 	 * Gets the map value for `key`.
@@ -47689,10 +48006,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 258 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(255);
+	var getMapData = __webpack_require__(257);
 
 	/**
 	 * Checks if a map value for `key` exists.
@@ -47711,10 +48028,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 259 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(255);
+	var getMapData = __webpack_require__(257);
 
 	/**
 	 * Sets the map `key` to `value`.
@@ -47739,10 +48056,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 260 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsEqualDeep = __webpack_require__(261),
+	var baseIsEqualDeep = __webpack_require__(263),
 	    isObjectLike = __webpack_require__(105);
 
 	/**
@@ -47773,13 +48090,13 @@ var StellarBase =
 
 
 /***/ }),
-/* 261 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Stack = __webpack_require__(231),
-	    equalArrays = __webpack_require__(262),
-	    equalByTag = __webpack_require__(268),
-	    equalObjects = __webpack_require__(272),
+	var Stack = __webpack_require__(233),
+	    equalArrays = __webpack_require__(264),
+	    equalByTag = __webpack_require__(270),
+	    equalObjects = __webpack_require__(274),
 	    getTag = __webpack_require__(149),
 	    isArray = __webpack_require__(104),
 	    isBuffer = __webpack_require__(118),
@@ -47862,12 +48179,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 262 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var SetCache = __webpack_require__(263),
-	    arraySome = __webpack_require__(266),
-	    cacheHas = __webpack_require__(267);
+	var SetCache = __webpack_require__(265),
+	    arraySome = __webpack_require__(268),
+	    cacheHas = __webpack_require__(269);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1,
@@ -47951,12 +48268,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 263 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var MapCache = __webpack_require__(245),
-	    setCacheAdd = __webpack_require__(264),
-	    setCacheHas = __webpack_require__(265);
+	var MapCache = __webpack_require__(247),
+	    setCacheAdd = __webpack_require__(266),
+	    setCacheHas = __webpack_require__(267);
 
 	/**
 	 *
@@ -47984,7 +48301,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 264 */
+/* 266 */
 /***/ (function(module, exports) {
 
 	/** Used to stand-in for `undefined` hash values. */
@@ -48009,7 +48326,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 265 */
+/* 267 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48029,7 +48346,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 266 */
+/* 268 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48058,7 +48375,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 267 */
+/* 269 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48077,15 +48394,15 @@ var StellarBase =
 
 
 /***/ }),
-/* 268 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var Symbol = __webpack_require__(96),
-	    Uint8Array = __webpack_require__(269),
-	    eq = __webpack_require__(236),
-	    equalArrays = __webpack_require__(262),
-	    mapToArray = __webpack_require__(270),
-	    setToArray = __webpack_require__(271);
+	    Uint8Array = __webpack_require__(271),
+	    eq = __webpack_require__(238),
+	    equalArrays = __webpack_require__(264),
+	    mapToArray = __webpack_require__(272),
+	    setToArray = __webpack_require__(273);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1,
@@ -48195,7 +48512,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 269 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var root = __webpack_require__(97);
@@ -48207,7 +48524,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 270 */
+/* 272 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48231,7 +48548,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 271 */
+/* 273 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48255,10 +48572,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 272 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getAllKeys = __webpack_require__(273);
+	var getAllKeys = __webpack_require__(275);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1;
@@ -48350,11 +48667,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 273 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetAllKeys = __webpack_require__(274),
-	    getSymbols = __webpack_require__(276),
+	var baseGetAllKeys = __webpack_require__(276),
+	    getSymbols = __webpack_require__(278),
 	    keys = __webpack_require__(113);
 
 	/**
@@ -48372,10 +48689,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 274 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayPush = __webpack_require__(275),
+	var arrayPush = __webpack_require__(277),
 	    isArray = __webpack_require__(104);
 
 	/**
@@ -48398,7 +48715,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 275 */
+/* 277 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48424,11 +48741,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 276 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayFilter = __webpack_require__(277),
-	    stubArray = __webpack_require__(278);
+	var arrayFilter = __webpack_require__(279),
+	    stubArray = __webpack_require__(280);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -48460,7 +48777,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 277 */
+/* 279 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48491,7 +48808,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 278 */
+/* 280 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48520,10 +48837,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 279 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isStrictComparable = __webpack_require__(280),
+	var isStrictComparable = __webpack_require__(282),
 	    keys = __webpack_require__(113);
 
 	/**
@@ -48550,7 +48867,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 280 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(101);
@@ -48571,7 +48888,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 281 */
+/* 283 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48597,16 +48914,16 @@ var StellarBase =
 
 
 /***/ }),
-/* 282 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsEqual = __webpack_require__(260),
-	    get = __webpack_require__(283),
-	    hasIn = __webpack_require__(291),
-	    isKey = __webpack_require__(286),
-	    isStrictComparable = __webpack_require__(280),
-	    matchesStrictComparable = __webpack_require__(281),
-	    toKey = __webpack_require__(290);
+	var baseIsEqual = __webpack_require__(262),
+	    get = __webpack_require__(285),
+	    hasIn = __webpack_require__(293),
+	    isKey = __webpack_require__(288),
+	    isStrictComparable = __webpack_require__(282),
+	    matchesStrictComparable = __webpack_require__(283),
+	    toKey = __webpack_require__(292);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1,
@@ -48636,10 +48953,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 283 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(284);
+	var baseGet = __webpack_require__(286);
 
 	/**
 	 * Gets the value at `path` of `object`. If the resolved value is
@@ -48675,11 +48992,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 284 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var castPath = __webpack_require__(285),
-	    toKey = __webpack_require__(290);
+	var castPath = __webpack_require__(287),
+	    toKey = __webpack_require__(292);
 
 	/**
 	 * The base implementation of `_.get` without support for default values.
@@ -48705,12 +49022,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 285 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isArray = __webpack_require__(104),
-	    isKey = __webpack_require__(286),
-	    stringToPath = __webpack_require__(287),
+	    isKey = __webpack_require__(288),
+	    stringToPath = __webpack_require__(289),
 	    toString = __webpack_require__(145);
 
 	/**
@@ -48732,7 +49049,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 286 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isArray = __webpack_require__(104),
@@ -48767,10 +49084,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 287 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var memoizeCapped = __webpack_require__(288);
+	var memoizeCapped = __webpack_require__(290);
 
 	/** Used to match property names within property paths. */
 	var reLeadingDot = /^\./,
@@ -48801,10 +49118,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 288 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var memoize = __webpack_require__(289);
+	var memoize = __webpack_require__(291);
 
 	/** Used as the maximum memoize cache size. */
 	var MAX_MEMOIZE_SIZE = 500;
@@ -48833,10 +49150,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 289 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var MapCache = __webpack_require__(245);
+	var MapCache = __webpack_require__(247);
 
 	/** Error message constants. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -48912,7 +49229,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 290 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isSymbol = __webpack_require__(109);
@@ -48939,11 +49256,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 291 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseHasIn = __webpack_require__(292),
-	    hasPath = __webpack_require__(293);
+	var baseHasIn = __webpack_require__(294),
+	    hasPath = __webpack_require__(295);
 
 	/**
 	 * Checks if `path` is a direct or inherited property of `object`.
@@ -48979,7 +49296,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 292 */
+/* 294 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48998,15 +49315,15 @@ var StellarBase =
 
 
 /***/ }),
-/* 293 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var castPath = __webpack_require__(285),
+	var castPath = __webpack_require__(287),
 	    isArguments = __webpack_require__(116),
 	    isArray = __webpack_require__(104),
 	    isIndex = __webpack_require__(120),
 	    isLength = __webpack_require__(102),
-	    toKey = __webpack_require__(290);
+	    toKey = __webpack_require__(292);
 
 	/**
 	 * Checks if `path` exists on `object`.
@@ -49043,7 +49360,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 294 */
+/* 296 */
 /***/ (function(module, exports) {
 
 	/**
@@ -49070,13 +49387,13 @@ var StellarBase =
 
 
 /***/ }),
-/* 295 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var baseProperty = __webpack_require__(140),
-	    basePropertyDeep = __webpack_require__(296),
-	    isKey = __webpack_require__(286),
-	    toKey = __webpack_require__(290);
+	    basePropertyDeep = __webpack_require__(298),
+	    isKey = __webpack_require__(288),
+	    toKey = __webpack_require__(292);
 
 	/**
 	 * Creates a function that returns the value at `path` of a given object.
@@ -49108,10 +49425,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 296 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(284);
+	var baseGet = __webpack_require__(286);
 
 	/**
 	 * A specialized version of `baseProperty` which supports deep paths.
@@ -49130,10 +49447,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 297 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseEach = __webpack_require__(298),
+	var baseEach = __webpack_require__(300),
 	    isArrayLike = __webpack_require__(93);
 
 	/**
@@ -49158,11 +49475,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 298 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseForOwn = __webpack_require__(299),
-	    createBaseEach = __webpack_require__(302);
+	var baseForOwn = __webpack_require__(301),
+	    createBaseEach = __webpack_require__(304);
 
 	/**
 	 * The base implementation of `_.forEach` without support for iteratee shorthands.
@@ -49178,10 +49495,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 299 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseFor = __webpack_require__(300),
+	var baseFor = __webpack_require__(302),
 	    keys = __webpack_require__(113);
 
 	/**
@@ -49200,10 +49517,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 300 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var createBaseFor = __webpack_require__(301);
+	var createBaseFor = __webpack_require__(303);
 
 	/**
 	 * The base implementation of `baseForOwn` which iterates over `object`
@@ -49222,7 +49539,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 301 */
+/* 303 */
 /***/ (function(module, exports) {
 
 	/**
@@ -49253,7 +49570,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 302 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isArrayLike = __webpack_require__(93);
@@ -49291,19 +49608,19 @@ var StellarBase =
 
 
 /***/ }),
-/* 303 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(304);
+	module.exports = __webpack_require__(306);
 
 
 /***/ }),
-/* 304 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayEach = __webpack_require__(305),
-	    baseEach = __webpack_require__(298),
-	    castFunction = __webpack_require__(306),
+	var arrayEach = __webpack_require__(307),
+	    baseEach = __webpack_require__(300),
+	    castFunction = __webpack_require__(308),
 	    isArray = __webpack_require__(104);
 
 	/**
@@ -49345,7 +49662,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 305 */
+/* 307 */
 /***/ (function(module, exports) {
 
 	/**
@@ -49373,10 +49690,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 306 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(294);
+	var identity = __webpack_require__(296);
 
 	/**
 	 * Casts `value` to `identity` if it's not a function.
@@ -49393,7 +49710,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 307 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49420,23 +49737,23 @@ var StellarBase =
 
 	var _keypair = __webpack_require__(52);
 
-	var _account = __webpack_require__(308);
+	var _account = __webpack_require__(310);
 
 	var _operation = __webpack_require__(215);
 
 	var _transaction = __webpack_require__(214);
 
-	var _memo = __webpack_require__(309);
+	var _memo = __webpack_require__(311);
 
 	var _bignumberJs = __webpack_require__(129);
 
 	var _bignumberJs2 = _interopRequireDefault(_bignumberJs);
 
-	var _lodashClone = __webpack_require__(310);
+	var _lodashClone = __webpack_require__(312);
 
 	var _lodashClone2 = _interopRequireDefault(_lodashClone);
 
-	var _lodashMap = __webpack_require__(227);
+	var _lodashMap = __webpack_require__(229);
 
 	var _lodashMap2 = _interopRequireDefault(_lodashMap);
 
@@ -49587,7 +49904,7 @@ var StellarBase =
 	exports.TransactionBuilder = TransactionBuilder;
 
 /***/ }),
-/* 308 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49675,7 +49992,7 @@ var StellarBase =
 	exports.Account = Account;
 
 /***/ }),
-/* 309 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
@@ -49854,10 +50171,10 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13).Buffer))
 
 /***/ }),
-/* 310 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseClone = __webpack_require__(311);
+	var baseClone = __webpack_require__(313);
 
 	/** Used to compose bitmasks for cloning. */
 	var CLONE_SYMBOLS_FLAG = 4;
@@ -49896,24 +50213,24 @@ var StellarBase =
 
 
 /***/ }),
-/* 311 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Stack = __webpack_require__(231),
-	    arrayEach = __webpack_require__(305),
-	    assignValue = __webpack_require__(312),
-	    baseAssign = __webpack_require__(315),
-	    baseAssignIn = __webpack_require__(317),
-	    cloneBuffer = __webpack_require__(321),
-	    copyArray = __webpack_require__(322),
-	    copySymbols = __webpack_require__(323),
-	    copySymbolsIn = __webpack_require__(324),
-	    getAllKeys = __webpack_require__(273),
-	    getAllKeysIn = __webpack_require__(327),
+	var Stack = __webpack_require__(233),
+	    arrayEach = __webpack_require__(307),
+	    assignValue = __webpack_require__(314),
+	    baseAssign = __webpack_require__(317),
+	    baseAssignIn = __webpack_require__(319),
+	    cloneBuffer = __webpack_require__(323),
+	    copyArray = __webpack_require__(324),
+	    copySymbols = __webpack_require__(325),
+	    copySymbolsIn = __webpack_require__(326),
+	    getAllKeys = __webpack_require__(275),
+	    getAllKeysIn = __webpack_require__(329),
 	    getTag = __webpack_require__(149),
-	    initCloneArray = __webpack_require__(328),
-	    initCloneByTag = __webpack_require__(329),
-	    initCloneObject = __webpack_require__(340),
+	    initCloneArray = __webpack_require__(330),
+	    initCloneByTag = __webpack_require__(331),
+	    initCloneObject = __webpack_require__(342),
 	    isArray = __webpack_require__(104),
 	    isBuffer = __webpack_require__(118),
 	    isObject = __webpack_require__(101),
@@ -50055,11 +50372,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 312 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseAssignValue = __webpack_require__(313),
-	    eq = __webpack_require__(236);
+	var baseAssignValue = __webpack_require__(315),
+	    eq = __webpack_require__(238);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -50089,10 +50406,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 313 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var defineProperty = __webpack_require__(314);
+	var defineProperty = __webpack_require__(316);
 
 	/**
 	 * The base implementation of `assignValue` and `assignMergeValue` without
@@ -50120,7 +50437,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 314 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(151);
@@ -50137,10 +50454,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 315 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var copyObject = __webpack_require__(316),
+	var copyObject = __webpack_require__(318),
 	    keys = __webpack_require__(113);
 
 	/**
@@ -50160,11 +50477,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 316 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assignValue = __webpack_require__(312),
-	    baseAssignValue = __webpack_require__(313);
+	var assignValue = __webpack_require__(314),
+	    baseAssignValue = __webpack_require__(315);
 
 	/**
 	 * Copies properties of `source` to `object`.
@@ -50206,11 +50523,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 317 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var copyObject = __webpack_require__(316),
-	    keysIn = __webpack_require__(318);
+	var copyObject = __webpack_require__(318),
+	    keysIn = __webpack_require__(320);
 
 	/**
 	 * The base implementation of `_.assignIn` without support for multiple sources
@@ -50229,11 +50546,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 318 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var arrayLikeKeys = __webpack_require__(114),
-	    baseKeysIn = __webpack_require__(319),
+	    baseKeysIn = __webpack_require__(321),
 	    isArrayLike = __webpack_require__(93);
 
 	/**
@@ -50267,12 +50584,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 319 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(101),
 	    isPrototype = __webpack_require__(126),
-	    nativeKeysIn = __webpack_require__(320);
+	    nativeKeysIn = __webpack_require__(322);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -50306,7 +50623,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 320 */
+/* 322 */
 /***/ (function(module, exports) {
 
 	/**
@@ -50332,7 +50649,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 321 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(97);
@@ -50374,7 +50691,7 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 322 */
+/* 324 */
 /***/ (function(module, exports) {
 
 	/**
@@ -50400,11 +50717,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 323 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var copyObject = __webpack_require__(316),
-	    getSymbols = __webpack_require__(276);
+	var copyObject = __webpack_require__(318),
+	    getSymbols = __webpack_require__(278);
 
 	/**
 	 * Copies own symbols of `source` to `object`.
@@ -50422,11 +50739,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 324 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var copyObject = __webpack_require__(316),
-	    getSymbolsIn = __webpack_require__(325);
+	var copyObject = __webpack_require__(318),
+	    getSymbolsIn = __webpack_require__(327);
 
 	/**
 	 * Copies own and inherited symbols of `source` to `object`.
@@ -50444,13 +50761,13 @@ var StellarBase =
 
 
 /***/ }),
-/* 325 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayPush = __webpack_require__(275),
-	    getPrototype = __webpack_require__(326),
-	    getSymbols = __webpack_require__(276),
-	    stubArray = __webpack_require__(278);
+	var arrayPush = __webpack_require__(277),
+	    getPrototype = __webpack_require__(328),
+	    getSymbols = __webpack_require__(278),
+	    stubArray = __webpack_require__(280);
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeGetSymbols = Object.getOwnPropertySymbols;
@@ -50475,7 +50792,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 326 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var overArg = __webpack_require__(128);
@@ -50487,12 +50804,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 327 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetAllKeys = __webpack_require__(274),
-	    getSymbolsIn = __webpack_require__(325),
-	    keysIn = __webpack_require__(318);
+	var baseGetAllKeys = __webpack_require__(276),
+	    getSymbolsIn = __webpack_require__(327),
+	    keysIn = __webpack_require__(320);
 
 	/**
 	 * Creates an array of own and inherited enumerable property names and
@@ -50510,7 +50827,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 328 */
+/* 330 */
 /***/ (function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -50542,16 +50859,16 @@ var StellarBase =
 
 
 /***/ }),
-/* 329 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var cloneArrayBuffer = __webpack_require__(330),
-	    cloneDataView = __webpack_require__(331),
-	    cloneMap = __webpack_require__(332),
-	    cloneRegExp = __webpack_require__(335),
-	    cloneSet = __webpack_require__(336),
-	    cloneSymbol = __webpack_require__(338),
-	    cloneTypedArray = __webpack_require__(339);
+	var cloneArrayBuffer = __webpack_require__(332),
+	    cloneDataView = __webpack_require__(333),
+	    cloneMap = __webpack_require__(334),
+	    cloneRegExp = __webpack_require__(337),
+	    cloneSet = __webpack_require__(338),
+	    cloneSymbol = __webpack_require__(340),
+	    cloneTypedArray = __webpack_require__(341);
 
 	/** `Object#toString` result references. */
 	var boolTag = '[object Boolean]',
@@ -50628,10 +50945,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 330 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Uint8Array = __webpack_require__(269);
+	var Uint8Array = __webpack_require__(271);
 
 	/**
 	 * Creates a clone of `arrayBuffer`.
@@ -50650,10 +50967,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 331 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var cloneArrayBuffer = __webpack_require__(330);
+	var cloneArrayBuffer = __webpack_require__(332);
 
 	/**
 	 * Creates a clone of `dataView`.
@@ -50672,12 +50989,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 332 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var addMapEntry = __webpack_require__(333),
-	    arrayReduce = __webpack_require__(334),
-	    mapToArray = __webpack_require__(270);
+	var addMapEntry = __webpack_require__(335),
+	    arrayReduce = __webpack_require__(336),
+	    mapToArray = __webpack_require__(272);
 
 	/** Used to compose bitmasks for cloning. */
 	var CLONE_DEEP_FLAG = 1;
@@ -50700,7 +51017,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 333 */
+/* 335 */
 /***/ (function(module, exports) {
 
 	/**
@@ -50721,7 +51038,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 334 */
+/* 336 */
 /***/ (function(module, exports) {
 
 	/**
@@ -50753,7 +51070,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 335 */
+/* 337 */
 /***/ (function(module, exports) {
 
 	/** Used to match `RegExp` flags from their coerced string values. */
@@ -50776,12 +51093,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 336 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var addSetEntry = __webpack_require__(337),
-	    arrayReduce = __webpack_require__(334),
-	    setToArray = __webpack_require__(271);
+	var addSetEntry = __webpack_require__(339),
+	    arrayReduce = __webpack_require__(336),
+	    setToArray = __webpack_require__(273);
 
 	/** Used to compose bitmasks for cloning. */
 	var CLONE_DEEP_FLAG = 1;
@@ -50804,7 +51121,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 337 */
+/* 339 */
 /***/ (function(module, exports) {
 
 	/**
@@ -50825,7 +51142,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 338 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var Symbol = __webpack_require__(96);
@@ -50849,10 +51166,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 339 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var cloneArrayBuffer = __webpack_require__(330);
+	var cloneArrayBuffer = __webpack_require__(332);
 
 	/**
 	 * Creates a clone of `typedArray`.
@@ -50871,11 +51188,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 340 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseCreate = __webpack_require__(341),
-	    getPrototype = __webpack_require__(326),
+	var baseCreate = __webpack_require__(343),
+	    getPrototype = __webpack_require__(328),
 	    isPrototype = __webpack_require__(126);
 
 	/**
@@ -50895,7 +51212,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 341 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(101);
