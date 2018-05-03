@@ -332,7 +332,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-05-01T19:58:14+03:00
+	// Automatically generated on 2018-05-02T13:02:24+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -27548,7 +27548,7 @@ var StellarBase =
 	        value: function createBindExternalSystemAccountIdOp(opts) {
 	            var attrs = {};
 
-	            attrs.externalSystemType = _base_operation.BaseOperation._ExternalSystemTypeFromNumber(opts.externalSystemType);
+	            attrs.externalSystemType = opts.externalSystemType;
 	            attrs.ext = new _generatedStellarXdr_generated2["default"].BindExternalSystemAccountIdOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion());
 
 	            var bindExternalSystemAccountIdOp = new _generatedStellarXdr_generated2["default"].BindExternalSystemAccountIdOp(attrs);
@@ -27561,7 +27561,7 @@ var StellarBase =
 	    }, {
 	        key: "bindExternalSystemAccountIdToObject",
 	        value: function bindExternalSystemAccountIdToObject(result, attrs) {
-	            result.externalSystemType = attrs.externalSystemType().value;
+	            result.externalSystemType = attrs.externalSystemType();
 	        }
 	    }]);
 
@@ -27919,15 +27919,6 @@ var StellarBase =
 	            return _generatedStellarXdr_generated2["default"].AccountType._byValue.get(rawAccountType);
 	        }
 	    }, {
-	        key: "_ExternalSystemTypeFromNumber",
-	        value: function _ExternalSystemTypeFromNumber(rawExternalSystemType) {
-	            if (!BaseOperation._isValidExternalSystemType(rawExternalSystemType)) {
-	                throw new Error("XDR Read Error: Unknown ExternalSystemType member for value " + rawExternalSystemType);
-	            }
-
-	            return _generatedStellarXdr_generated2["default"].ExternalSystemType._byValue.get(rawExternalSystemType);
-	        }
-	    }, {
 	        key: "isFeeValid",
 	        value: function isFeeValid(fee) {
 	            return BaseOperation.isValidAmount(fee.fixed, true) && BaseOperation.isValidAmount(fee.percent, true);
@@ -27956,11 +27947,6 @@ var StellarBase =
 	        key: "_isValidAccountType",
 	        value: function _isValidAccountType(rawAccountType) {
 	            return _generatedStellarXdr_generated2["default"].AccountType._byValue.has(rawAccountType);
-	        }
-	    }, {
-	        key: "_isValidExternalSystemType",
-	        value: function _isValidExternalSystemType(rawExternalSystemType) {
-	            return _generatedStellarXdr_generated2["default"].ExternalSystemType._byValue.has(rawExternalSystemType);
 	        }
 	    }, {
 	        key: "_isValidRequestType",
@@ -46818,6 +46804,8 @@ var StellarBase =
 	         *
 	         * @param {string} opts.externalSystemType - type of external system
 	         * @param {string} opts.data
+	         * @param {string} opts.parent - parent of pool
+	         * @param {string} opts.poolEntryId - id of pool entry
 	         *
 	         * @param {string} [opts.source] - The source account for the creation. Defaults to the transaction's source account.
 	         *
@@ -46826,17 +46814,31 @@ var StellarBase =
 	        value: function createExternalSystemAccountIdPoolEntry(opts) {
 	            var attrs = {};
 
-	            attrs.externalSystemType = _base_operation.BaseOperation._ExternalSystemTypeFromNumber(opts.externalSystemType);
+	            attrs.externalSystemType = opts.externalSystemType;
 
 	            if (opts.data === "") {
 	                throw new Error("data cannot be empty string");
 	            }
 	            attrs.data = opts.data;
 
+	            attrs.parent = _jsXdr.UnsignedHyper.fromString(opts.parent.toString());
+
 	            attrs.ext = new _generatedStellarXdr_generated2['default'].CreateExternalSystemAccountIdPoolEntryActionInputExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
 
 	            var createExternalSystemAccountIdPoolEntryActionInput = new _generatedStellarXdr_generated2['default'].CreateExternalSystemAccountIdPoolEntryActionInput(attrs);
 	            return ManageExternalSystemAccountIdPoolEntryBuilder._createManageExternalSystemAccountIdPoolEntryOp(opts, new _generatedStellarXdr_generated2['default'].ManageExternalSystemAccountIdPoolEntryOpActionInput.create(createExternalSystemAccountIdPoolEntryActionInput));
+	        }
+	    }, {
+	        key: 'deleteExternalSystemAccountIdPoolEntry',
+	        value: function deleteExternalSystemAccountIdPoolEntry(opts) {
+	            var attrs = {};
+
+	            attrs.poolEntryId = _jsXdr.UnsignedHyper.fromString(opts.poolEntryId.toString());
+
+	            attrs.ext = new _generatedStellarXdr_generated2['default'].DeleteExternalSystemAccountIdPoolEntryActionInputExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
+
+	            var deleteExternalSystemAccountIdPoolEntryActionInput = new _generatedStellarXdr_generated2['default'].DeleteExternalSystemAccountIdPoolEntryActionInput(attrs);
+	            return ManageExternalSystemAccountIdPoolEntryBuilder._deleteManageExternalSystemAccountIdPoolEntryOp(opts, new _generatedStellarXdr_generated2['default'].ManageExternalSystemAccountIdPoolEntryOpActionInput['delete'](deleteExternalSystemAccountIdPoolEntryActionInput));
 	        }
 	    }, {
 	        key: '_createManageExternalSystemAccountIdPoolEntryOp',
@@ -46852,6 +46854,20 @@ var StellarBase =
 	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
 	        }
 	    }, {
+	        key: '_deleteManageExternalSystemAccountIdPoolEntryOp',
+	        value: function _deleteManageExternalSystemAccountIdPoolEntryOp(opts, input) {
+	            var manageExternalSystemAccountIdPoolEntryOp = new _generatedStellarXdr_generated2['default'].ManageExternalSystemAccountIdPoolEntryOp({
+	                actionInput: input,
+	                ext: new _generatedStellarXdr_generated2['default'].ManageExternalSystemAccountIdPoolEntryOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.manageExternalSystemAccountIdPoolEntry(manageExternalSystemAccountIdPoolEntryOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
+
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
+	        }
+	    }, {
 	        key: 'manageExternalSystemAccountIdPoolEntryToObject',
 	        value: function manageExternalSystemAccountIdPoolEntryToObject(result, attrs) {
 	            result.actionType = attrs.actionInput()['switch']().name;
@@ -46859,8 +46875,15 @@ var StellarBase =
 	                case _generatedStellarXdr_generated2['default'].ManageExternalSystemAccountIdPoolEntryAction.create():
 	                    {
 	                        var action = attrs.actionInput().createExternalSystemAccountIdPoolEntryActionInput();
-	                        result.externalSystemType = action.externalSystemType().value;
+	                        result.externalSystemType = action.externalSystemType();
 	                        result.data = action.data();
+	                        result.parent = action.parent().toString();
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageExternalSystemAccountIdPoolEntryAction['delete']():
+	                    {
+	                        var action = attrs.actionInput().deleteExternalSystemAccountIdPoolEntryActionInput();
+	                        result.poolEntryId = action.poolEntryId().toString();
 	                        break;
 	                    }
 	            }

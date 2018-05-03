@@ -16,7 +16,7 @@ export class BindExternalSystemAccountIdBuilder {
     static createBindExternalSystemAccountIdOp(opts) {
         let attrs = {};
 
-        attrs.externalSystemType = BaseOperation._ExternalSystemTypeFromNumber(opts.externalSystemType);
+        attrs.externalSystemType = opts.externalSystemType;
         attrs.ext = new xdr.BindExternalSystemAccountIdOpExt(xdr.LedgerVersion.emptyVersion());
 
         let bindExternalSystemAccountIdOp = new xdr.BindExternalSystemAccountIdOp(attrs);
@@ -28,6 +28,6 @@ export class BindExternalSystemAccountIdBuilder {
     }
 
     static bindExternalSystemAccountIdToObject(result, attrs) {
-        result.externalSystemType = attrs.externalSystemType().value;
+        result.externalSystemType = attrs.externalSystemType();
     }
 }
