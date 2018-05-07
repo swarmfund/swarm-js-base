@@ -23,11 +23,21 @@ export class ManageExternalSystemAccountIdPoolEntryBuilder {
 
         attrs.externalSystemType = opts.externalSystemType;
 
+
+        if(opts.data === undefined){
+            throw new Error("data is undefined");
+        }
         if (opts.data === "") {
             throw new Error("data cannot be empty string");
         }
         attrs.data = opts.data;
 
+        if(opts.parent.toString() === undefined){
+            throw new Error("parent is undefined");
+        }
+        if (opts.parent.toString() === "") {
+            throw new Error("parent cannot be empty string");
+        }
         attrs.parent = UnsignedHyper.fromString(opts.parent.toString());
 
         attrs.ext = new xdr.CreateExternalSystemAccountIdPoolEntryActionInputExt(xdr.LedgerVersion.emptyVersion());
@@ -41,6 +51,12 @@ export class ManageExternalSystemAccountIdPoolEntryBuilder {
     static deleteExternalSystemAccountIdPoolEntry(opts) {
         let attrs = {};
 
+        if(opts.poolEntryId.toString() === undefined){
+            throw new Error("poolEntryId is undefined");
+        }
+        if (opts.poolEntryId.toString() === "") {
+            throw new Error("poolEntryId cannot be empty string");
+        }
         attrs.poolEntryId = UnsignedHyper.fromString(opts.poolEntryId.toString());
 
         attrs.ext = new xdr.DeleteExternalSystemAccountIdPoolEntryActionInputExt(xdr.LedgerVersion.emptyVersion());
