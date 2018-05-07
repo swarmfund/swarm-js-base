@@ -1,4 +1,3 @@
-
 import {default as xdr} from "./generated/stellar-xdr_generated";
 
 export {xdr};
@@ -23,6 +22,7 @@ export { ManageOfferBuilder } from './operations/manage_offer_builder';
 export { SetOptionsBuilder } from './operations/set_options_builder';
 export {CreateAMLRequestBuilder} from "./operations/create_aml_request_builder";
 export { CreateUpdateKYCRequestBuilder } from './operations/create_update_kyc_request_builder';
+export { PaymentV2Builder } from "./operations/payment_v2_builder";
 
 export * from "./strkey";
 
