@@ -7,7 +7,7 @@ describe("PaymentV2 op", function () {
     let destinationAccountId = "GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ";
     let amount = "100";
     it("PaymentV2 for balance success", function () {
-        let op = StellarBase.PaymentV2Builder.paymentV2ForBalance({
+        let op = StellarBase.PaymentV2Builder.paymentV2({
             sourceBalanceId: sourceBalanceId,
             destination: destinationBalanceId,
             amount: amount,
@@ -45,7 +45,7 @@ describe("PaymentV2 op", function () {
         expect(obj.reference).to.be.equal('ref');
     })
     it("PaymentV2 for account success", function () {
-        let op = StellarBase.PaymentV2Builder.paymentV2ForAccount({
+        let op = StellarBase.PaymentV2Builder.paymentV2({
             sourceBalanceId: sourceBalanceId,
             destination: destinationAccountId,
             amount: amount,

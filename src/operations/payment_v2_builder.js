@@ -6,7 +6,7 @@ import {UnsignedHyper, Hyper} from "js-xdr";
 
 export class PaymentV2Builder {
     /**
-     * Creates PaymentV2 operation where destination is AccountID
+     * Creates PaymentV2 operation where destination is AccountID or BalanceID
      * @param {object} opts
      * @param {string} opts.sourceBalanceId
      * @param {string} opts.destination
@@ -25,78 +25,55 @@ export class PaymentV2Builder {
      * @param {string} opts.reference
      * @returns {xdr.PaymentOpV2}
      */
-    static paymentV2ForAccount(opts) {
-        if (!Keypair.isValidPublicKey(opts.destination)) {
-            throw new TypeError('opts.destination is invalid');
-        }
-
-        let attrs = PaymentV2Builder._prepateAttrs(opts);
-
-        attrs.destination = new xdr.PaymentOpV2Destination.account(Keypair.fromAccountId(opts.destination).xdrAccountId());
-
-        return PaymentV2Builder._createOp(opts, attrs);
-    }
-
-    static paymentV2ForBalance(opts) {
-        if (!Keypair.isValidBalanceKey(opts.destination)) {
-            throw new TypeError('opts.destination is invalid');
-        }
-
-        let attrs = PaymentV2Builder._prepateAttrs(opts);
-
-        attrs.destination = new xdr.PaymentOpV2Destination.balance(Keypair.fromBalanceId(opts.destination).xdrBalanceId());
-
-        return PaymentV2Builder._createOp(opts, attrs);
-    }
-
-    static _createOp(opts, attrs) {
-        let paymentV2 = new xdr.PaymentOpV2(attrs);
-        let opAttrs = {};
-        opAttrs.body = xdr.OperationBody.paymentV2(paymentV2);
-        BaseOperation.setSourceAccount(opAttrs, opts);
-        return new xdr.Operation(opAttrs);
-    }
-
-    static _prepateAttrs(opts) {
+    static paymentV2(opts) {
         let attrs = {};
 
         if (!Keypair.isValidBalanceKey(opts.sourceBalanceId)) {
             throw new TypeError('sourceBalanceId is invalid');
         }
 
+        if (Keypair.isValidPublicKey(opts.destination)) {
+            attrs.destination = new xdr.PaymentOpV2Destination.account(Keypair.fromAccountId(opts.destination).xdrAccountId());
+        } else if (Keypair.isValidBalanceKey(opts.destination)) {
+            attrs.destination = new xdr.PaymentOpV2Destination.balance(Keypair.fromBalanceId(opts.destination).xdrBalanceId());
+        } else {
+            throw new TypeError('opts.destination is invalid');
+        }
+
+
         if (!BaseOperation.isValidAmount(opts.amount)) {
             throw new TypeError('amount argument must be of type String and represent a positive number');
         }
 
-        if (!isUndefined(opts.feeData)) {
-            if (!BaseOperation.isValidAsset(opts.feeData.sourceFee.feeAsset)) {
-                throw new TypeError('Source fee asset is invalid');
-            }
-            if (!BaseOperation.isValidAsset(opts.feeData.destinationFee.feeAsset)) {
-                throw new TypeError('Destination fee asset is invalid');
-            }
-
-            let sourceFee = new xdr.FeeDataV2({
-                maxPaymentFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.maxPaymentFee),
-                fixedFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.fixedFee),
-                feeAsset: opts.feeData.sourceFee.feeAsset,
-                ext: new xdr.FeeDataV2Ext(xdr.LedgerVersion.emptyVersion())
-            });
-            let destinationFee = new xdr.FeeDataV2({
-                maxPaymentFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.maxPaymentFee),
-                fixedFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.fixedFee),
-                feeAsset: opts.feeData.destinationFee.feeAsset,
-                ext: new xdr.FeeDataV2Ext(xdr.LedgerVersion.emptyVersion())
-            });
-            attrs.feeData = new xdr.PaymentFeeDataV2({
-                sourceFee,
-                destinationFee,
-                sourcePaysForDest: opts.feeData.sourcePaysForDest,
-                ext: new xdr.PaymentFeeDataV2Ext(xdr.LedgerVersion.emptyVersion())
-            });
-        } else {
+        if (isUndefined(opts.feeData)) {
             throw new Error("feeData argument must be defined");
         }
+
+        if (!BaseOperation.isValidAsset(opts.feeData.sourceFee.feeAsset)) {
+            throw new TypeError('Source fee asset is invalid');
+        }
+        if (!BaseOperation.isValidAsset(opts.feeData.destinationFee.feeAsset)) {
+            throw new TypeError('Destination fee asset is invalid');
+        }
+
+        let sourceFee = new xdr.FeeDataV2({
+            maxPaymentFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.maxPaymentFee),
+            fixedFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.fixedFee),
+            feeAsset: opts.feeData.sourceFee.feeAsset,
+            ext: new xdr.FeeDataV2Ext(xdr.LedgerVersion.emptyVersion())
+        });
+        let destinationFee = new xdr.FeeDataV2({
+            maxPaymentFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.maxPaymentFee),
+            fixedFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.fixedFee),
+            feeAsset: opts.feeData.destinationFee.feeAsset,
+            ext: new xdr.FeeDataV2Ext(xdr.LedgerVersion.emptyVersion())
+        });
+        attrs.feeData = new xdr.PaymentFeeDataV2({
+            sourceFee,
+            destinationFee,
+            sourcePaysForDest: opts.feeData.sourcePaysForDest,
+            ext: new xdr.PaymentFeeDataV2Ext(xdr.LedgerVersion.emptyVersion())
+        });
 
         if (!BaseOperation.isValidSubject(opts.subject)) {
             throw new Error("subject argument must be of type String 0-256 long");
@@ -112,7 +89,11 @@ export class PaymentV2Builder {
         attrs.reference = opts.reference;
         attrs.ext = new xdr.PaymentOpV2Ext(xdr.LedgerVersion.emptyVersion());
 
-        return attrs;
+        let paymentV2 = new xdr.PaymentOpV2(attrs);
+        let opAttrs = {};
+        opAttrs.body = xdr.OperationBody.paymentV2(paymentV2);
+        BaseOperation.setSourceAccount(opAttrs, opts);
+        return new xdr.Operation(opAttrs);
     }
 
     static paymentV2ToObject(result, attrs) {
