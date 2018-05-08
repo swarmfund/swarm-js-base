@@ -324,7 +324,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-05-07T10:10:20+03:00
+	// Automatically generated on 2018-05-08T13:39:29+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -3009,9 +3009,7 @@ var StellarBase =
 	//       uint64 paymentID;
 	//   
 	//       uint64 actualSourcePaymentFee;
-	//       AssetCode actualSourcePaymentFeeAssetCode;
 	//       uint64 actualDestinationPaymentFee;
-	//       AssetCode actualDestPaymentFeeAssetCode;
 	//   
 	//       // reserved for future use
 	//       union switch (LedgerVersion v)
@@ -3023,7 +3021,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("PaymentV2Response",[["destination",xdr.lookup("AccountId")],["destinationBalanceId",xdr.lookup("BalanceId")],["asset",xdr.lookup("AssetCode")],["sourceSentUniversal",xdr.lookup("Uint64")],["paymentId",xdr.lookup("Uint64")],["actualSourcePaymentFee",xdr.lookup("Uint64")],["actualSourcePaymentFeeAssetCode",xdr.lookup("AssetCode")],["actualDestinationPaymentFee",xdr.lookup("Uint64")],["actualDestPaymentFeeAssetCode",xdr.lookup("AssetCode")],["ext",xdr.lookup("PaymentV2ResponseExt")]]); // === xdr source ============================================================
+	xdr.struct("PaymentV2Response",[["destination",xdr.lookup("AccountId")],["destinationBalanceId",xdr.lookup("BalanceId")],["asset",xdr.lookup("AssetCode")],["sourceSentUniversal",xdr.lookup("Uint64")],["paymentId",xdr.lookup("Uint64")],["actualSourcePaymentFee",xdr.lookup("Uint64")],["actualDestinationPaymentFee",xdr.lookup("Uint64")],["ext",xdr.lookup("PaymentV2ResponseExt")]]); // === xdr source ============================================================
 	//
 	//   union PaymentV2Result switch (PaymentV2ResultCode code)
 	//   {
