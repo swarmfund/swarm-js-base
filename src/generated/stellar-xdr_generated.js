@@ -1,4 +1,4 @@
-// Automatically generated on 2018-05-08T13:39:29+03:00
+// Automatically generated on 2018-05-08T15:02:03+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -2235,8 +2235,10 @@ xdr.union("PublicKey", {
 //   	ALLOW_ACCOUNT_MANAGER_TO_CHANGE_KYC = 10,
 //   	CHANGE_ASSET_ISSUER_BAD_AUTH_EXTRA_FIXED = 11,
 //   	AUTO_CREATE_COMMISSION_BALANCE_ON_TRANSFER = 12,
-//   	CROSS_ASSET_FEE = 13,
-//   	USE_PAYMENT_V2 = 14
+//       ALLOW_REJECT_REQUEST_OF_BLOCKED_REQUESTOR = 13,
+//   	ASSET_UPDATE_CHECK_REFERENCE_EXISTS = 14,
+//   	CROSS_ASSET_FEE = 15,
+//   	USE_PAYMENT_V2 = 16
 //   };
 //
 // ===========================================================================
@@ -2254,8 +2256,10 @@ xdr.enum("LedgerVersion", {
   allowAccountManagerToChangeKyc: 10,
   changeAssetIssuerBadAuthExtraFixed: 11,
   autoCreateCommissionBalanceOnTransfer: 12,
-  crossAssetFee: 13,
-  usePaymentV2: 14,
+  allowRejectRequestOfBlockedRequestor: 13,
+  assetUpdateCheckReferenceExist: 14,
+  crossAssetFee: 15,
+  usePaymentV2: 16,
 });
 
 // === xdr source ============================================================
