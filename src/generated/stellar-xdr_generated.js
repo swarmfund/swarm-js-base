@@ -1,4 +1,4 @@
-// Automatically generated on 2018-04-05T21:43:21+03:00
+// Automatically generated on 2018-05-08T15:02:03+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -2231,7 +2231,14 @@ xdr.union("PublicKey", {
 //   	ASSET_PREISSUER_MIGRATION = 6,
 //   	ASSET_PREISSUER_MIGRATED = 7,
 //   	USE_KYC_LEVEL = 8,
-//   	ERROR_ON_NON_ZERO_TASKS_TO_REMOVE_IN_REJECT_KYC = 9
+//   	ERROR_ON_NON_ZERO_TASKS_TO_REMOVE_IN_REJECT_KYC = 9,
+//   	ALLOW_ACCOUNT_MANAGER_TO_CHANGE_KYC = 10,
+//   	CHANGE_ASSET_ISSUER_BAD_AUTH_EXTRA_FIXED = 11,
+//   	AUTO_CREATE_COMMISSION_BALANCE_ON_TRANSFER = 12,
+//       ALLOW_REJECT_REQUEST_OF_BLOCKED_REQUESTOR = 13,
+//   	ASSET_UPDATE_CHECK_REFERENCE_EXISTS = 14,
+//   	CROSS_ASSET_FEE = 15,
+//   	USE_PAYMENT_V2 = 16
 //   };
 //
 // ===========================================================================
@@ -2246,6 +2253,13 @@ xdr.enum("LedgerVersion", {
   assetPreissuerMigrated: 7,
   useKycLevel: 8,
   errorOnNonZeroTasksToRemoveInRejectKyc: 9,
+  allowAccountManagerToChangeKyc: 10,
+  changeAssetIssuerBadAuthExtraFixed: 11,
+  autoCreateCommissionBalanceOnTransfer: 12,
+  allowRejectRequestOfBlockedRequestor: 13,
+  assetUpdateCheckReferenceExist: 14,
+  crossAssetFee: 15,
+  usePaymentV2: 16,
 });
 
 // === xdr source ============================================================
@@ -2452,7 +2466,8 @@ xdr.struct("Fee", [
 //   	CREATE_SALE_REQUEST = 19,
 //   	CHECK_SALE_STATE = 20,
 //       CREATE_AML_ALERT = 21,
-//       CREATE_KYC_REQUEST = 22
+//       CREATE_KYC_REQUEST = 22,
+//       PAYMENT_V2 = 23
 //   };
 //
 // ===========================================================================
@@ -2478,6 +2493,7 @@ xdr.enum("OperationType", {
   checkSaleState: 20,
   createAmlAlert: 21,
   createKycRequest: 22,
+  paymentV2: 23,
 });
 
 // === xdr source ============================================================
@@ -2540,6 +2556,8 @@ xdr.struct("DecoratedSignature", [
 //   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 //   	case CREATE_KYC_REQUEST:
 //   		CreateUpdateKYCRequestOp createUpdateKYCRequestOp;
+//       case PAYMENT_V2:
+//           PaymentOpV2 paymentOpV2;
 //       }
 //
 // ===========================================================================
@@ -2568,6 +2586,7 @@ xdr.union("OperationBody", {
     ["checkSaleState", "checkSaleStateOp"],
     ["createAmlAlert", "createAmlAlertRequestOp"],
     ["createKycRequest", "createUpdateKycRequestOp"],
+    ["paymentV2", "paymentOpV2"],
   ],
   arms: {
     createAccountOp: xdr.lookup("CreateAccountOp"),
@@ -2591,6 +2610,7 @@ xdr.union("OperationBody", {
     checkSaleStateOp: xdr.lookup("CheckSaleStateOp"),
     createAmlAlertRequestOp: xdr.lookup("CreateAmlAlertRequestOp"),
     createUpdateKycRequestOp: xdr.lookup("CreateUpdateKycRequestOp"),
+    paymentOpV2: xdr.lookup("PaymentOpV2"),
   },
 });
 
@@ -2647,6 +2667,8 @@ xdr.union("OperationBody", {
 //   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 //   	case CREATE_KYC_REQUEST:
 //   		CreateUpdateKYCRequestOp createUpdateKYCRequestOp;
+//       case PAYMENT_V2:
+//           PaymentOpV2 paymentOpV2;
 //       }
 //       body;
 //   };
@@ -2869,6 +2891,8 @@ xdr.enum("OperationResultCode", {
 //           CreateAMLAlertRequestResult createAMLAlertRequestResult;
 //   	case CREATE_KYC_REQUEST:
 //   	    CreateUpdateKYCRequestResult createUpdateKYCRequestResult;
+//       case PAYMENT_V2:
+//           PaymentV2Result paymentV2Result;
 //       }
 //
 // ===========================================================================
@@ -2897,6 +2921,7 @@ xdr.union("OperationResultTr", {
     ["checkSaleState", "checkSaleStateResult"],
     ["createAmlAlert", "createAmlAlertRequestResult"],
     ["createKycRequest", "createUpdateKycRequestResult"],
+    ["paymentV2", "paymentV2Result"],
   ],
   arms: {
     createAccountResult: xdr.lookup("CreateAccountResult"),
@@ -2920,6 +2945,7 @@ xdr.union("OperationResultTr", {
     checkSaleStateResult: xdr.lookup("CheckSaleStateResult"),
     createAmlAlertRequestResult: xdr.lookup("CreateAmlAlertRequestResult"),
     createUpdateKycRequestResult: xdr.lookup("CreateUpdateKycRequestResult"),
+    paymentV2Result: xdr.lookup("PaymentV2Result"),
   },
 });
 
@@ -2972,6 +2998,8 @@ xdr.union("OperationResultTr", {
 //           CreateAMLAlertRequestResult createAMLAlertRequestResult;
 //   	case CREATE_KYC_REQUEST:
 //   	    CreateUpdateKYCRequestResult createUpdateKYCRequestResult;
+//       case PAYMENT_V2:
+//           PaymentV2Result paymentV2Result;
 //       }
 //       tr;
 //   default:
@@ -4117,6 +4145,311 @@ xdr.union("ReviewRequestResult", {
   ],
   arms: {
     success: xdr.lookup("ReviewRequestResultSuccess"),
+  },
+  defaultArm: xdr.void(),
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("FeeDataV2Ext", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct FeeDataV2 {
+//       uint64 maxPaymentFee;
+//       uint64 fixedFee;
+//   
+//       // Cross asset fees
+//       AssetCode feeAsset;
+//   
+//   	// reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("FeeDataV2", [
+  ["maxPaymentFee", xdr.lookup("Uint64")],
+  ["fixedFee", xdr.lookup("Uint64")],
+  ["feeAsset", xdr.lookup("AssetCode")],
+  ["ext", xdr.lookup("FeeDataV2Ext")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("PaymentFeeDataV2Ext", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct PaymentFeeDataV2 {
+//       FeeDataV2 sourceFee;
+//       FeeDataV2 destinationFee;
+//       bool sourcePaysForDest; // if true - source account pays fee, else destination
+//   
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("PaymentFeeDataV2", [
+  ["sourceFee", xdr.lookup("FeeDataV2")],
+  ["destinationFee", xdr.lookup("FeeDataV2")],
+  ["sourcePaysForDest", xdr.bool()],
+  ["ext", xdr.lookup("PaymentFeeDataV2Ext")],
+]);
+
+// === xdr source ============================================================
+//
+//   enum PaymentDestinationType {
+//       ACCOUNT = 0,
+//       BALANCE = 1
+//   };
+//
+// ===========================================================================
+xdr.enum("PaymentDestinationType", {
+  account: 0,
+  balance: 1,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (PaymentDestinationType type) {
+//           case ACCOUNT:
+//               AccountID accountID;
+//           case BALANCE:
+//               BalanceID balanceID;
+//       }
+//
+// ===========================================================================
+xdr.union("PaymentOpV2Destination", {
+  switchOn: xdr.lookup("PaymentDestinationType"),
+  switchName: "type",
+  switches: [
+    ["account", "accountId"],
+    ["balance", "balanceId"],
+  ],
+  arms: {
+    accountId: xdr.lookup("AccountId"),
+    balanceId: xdr.lookup("BalanceId"),
+  },
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("PaymentOpV2Ext", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct PaymentOpV2
+//   {
+//       BalanceID sourceBalanceID;
+//   
+//       union switch (PaymentDestinationType type) {
+//           case ACCOUNT:
+//               AccountID accountID;
+//           case BALANCE:
+//               BalanceID balanceID;
+//       } destination;
+//   
+//       uint64 amount;
+//   
+//       PaymentFeeDataV2 feeData;
+//   
+//       longstring subject;
+//       longstring reference;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("PaymentOpV2", [
+  ["sourceBalanceId", xdr.lookup("BalanceId")],
+  ["destination", xdr.lookup("PaymentOpV2Destination")],
+  ["amount", xdr.lookup("Uint64")],
+  ["feeData", xdr.lookup("PaymentFeeDataV2")],
+  ["subject", xdr.lookup("Longstring")],
+  ["reference", xdr.lookup("Longstring")],
+  ["ext", xdr.lookup("PaymentOpV2Ext")],
+]);
+
+// === xdr source ============================================================
+//
+//   enum PaymentV2ResultCode
+//   {
+//       // codes considered as "success" for the operation
+//       SUCCESS = 0, // payment successfully completed
+//   
+//       // codes considered as "failure" for the operation
+//       MALFORMED = -1, // bad input
+//       UNDERFUNDED = -2, // not enough funds in source account
+//       LINE_FULL = -3, // destination would go above their limit
+//   	DESTINATION_BALANCE_NOT_FOUND = -4,
+//       BALANCE_ASSETS_MISMATCHED = -5,
+//   	SRC_BALANCE_NOT_FOUND = -6, // source balance not found
+//       REFERENCE_DUPLICATION = -7,
+//       STATS_OVERFLOW = -8,
+//       LIMITS_EXCEEDED = -9,
+//       NOT_ALLOWED_BY_ASSET_POLICY = -10,
+//       INVALID_DESTINATION_FEE = -11,
+//       INVALID_DESTINATION_FEE_ASSET = -12, // destination fee asset must be the same as source balance asset
+//       FEE_ASSET_MISMATCHED = -13,
+//       INSUFFICIENT_FEE_AMOUNT = -14,
+//       BALANCE_TO_CHARGE_FEE_FROM_NOT_FOUND = -15,
+//       PAYMENT_AMOUNT_IS_LESS_THAN_DEST_FEE = -16
+//   };
+//
+// ===========================================================================
+xdr.enum("PaymentV2ResultCode", {
+  success: 0,
+  malformed: -1,
+  underfunded: -2,
+  lineFull: -3,
+  destinationBalanceNotFound: -4,
+  balanceAssetsMismatched: -5,
+  srcBalanceNotFound: -6,
+  referenceDuplication: -7,
+  statsOverflow: -8,
+  limitsExceeded: -9,
+  notAllowedByAssetPolicy: -10,
+  invalidDestinationFee: -11,
+  invalidDestinationFeeAsset: -12,
+  feeAssetMismatched: -13,
+  insufficientFeeAmount: -14,
+  balanceToChargeFeeFromNotFound: -15,
+  paymentAmountIsLessThanDestFee: -16,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("PaymentV2ResponseExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct PaymentV2Response {
+//       AccountID destination;
+//       BalanceID destinationBalanceID;
+//   
+//       AssetCode asset;
+//       uint64 sourceSentUniversal;
+//       uint64 paymentID;
+//   
+//       uint64 actualSourcePaymentFee;
+//       uint64 actualDestinationPaymentFee;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("PaymentV2Response", [
+  ["destination", xdr.lookup("AccountId")],
+  ["destinationBalanceId", xdr.lookup("BalanceId")],
+  ["asset", xdr.lookup("AssetCode")],
+  ["sourceSentUniversal", xdr.lookup("Uint64")],
+  ["paymentId", xdr.lookup("Uint64")],
+  ["actualSourcePaymentFee", xdr.lookup("Uint64")],
+  ["actualDestinationPaymentFee", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("PaymentV2ResponseExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union PaymentV2Result switch (PaymentV2ResultCode code)
+//   {
+//   case SUCCESS:
+//       PaymentV2Response paymentV2Response;
+//   default:
+//       void;
+//   };
+//
+// ===========================================================================
+xdr.union("PaymentV2Result", {
+  switchOn: xdr.lookup("PaymentV2ResultCode"),
+  switchName: "code",
+  switches: [
+    ["success", "paymentV2Response"],
+  ],
+  arms: {
+    paymentV2Response: xdr.lookup("PaymentV2Response"),
   },
   defaultArm: xdr.void(),
 });
@@ -6342,10 +6675,26 @@ xdr.enum("EmissionFeeType", {
 
 // === xdr source ============================================================
 //
+//   enum PaymentFeeType
+//   {
+//       OUTGOING = 1,
+//       INCOMING = 2
+//   };
+//
+// ===========================================================================
+xdr.enum("PaymentFeeType", {
+  outgoing: 1,
+  incoming: 2,
+});
+
+// === xdr source ============================================================
+//
 //   union switch (LedgerVersion v)
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case CROSS_ASSET_FEE:
+//           AssetCode feeAsset;
 //       }
 //
 // ===========================================================================
@@ -6354,8 +6703,10 @@ xdr.union("FeeEntryExt", {
   switchName: "v",
   switches: [
     ["emptyVersion", xdr.void()],
+    ["crossAssetFee", "feeAsset"],
   ],
   arms: {
+    feeAsset: xdr.lookup("AssetCode"),
   },
 });
 
@@ -6382,9 +6733,10 @@ xdr.union("FeeEntryExt", {
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case CROSS_ASSET_FEE:
+//           AssetCode feeAsset;
 //       }
 //       ext;
-//   
 //   };
 //
 // ===========================================================================
@@ -8386,7 +8738,14 @@ xdr.struct("SetFeesOp", [
 //   		MALFORMED_RANGE = -6,
 //   		RANGE_OVERLAP = -7,
 //   		NOT_FOUND = -8,
-//   		SUB_TYPE_NOT_EXIST = -9
+//   		SUB_TYPE_NOT_EXIST = -9,
+//   		INVALID_FEE_VERSION = -10, // version of fee entry is greater than ledger version
+//   		INVALID_FEE_ASSET = -11,
+//   		FEE_ASSET_NOT_ALLOWED = -12, // feeAsset can be set only if feeType is PAYMENT
+//   		CROSS_ASSET_FEE_NOT_ALLOWED = -13, // feeAsset on payment fee type can differ from asset only if payment fee subtype is OUTGOING
+//   		FEE_ASSET_NOT_FOUND = -14,
+//   		ASSET_PAIR_NOT_FOUND = -15, // cannot create cross asset fee entry without existing asset pair
+//   		INVALID_ASSET_PAIR_PRICE = -16
 //       };
 //
 // ===========================================================================
@@ -8401,6 +8760,13 @@ xdr.enum("SetFeesResultCode", {
   rangeOverlap: -7,
   notFound: -8,
   subTypeNotExist: -9,
+  invalidFeeVersion: -10,
+  invalidFeeAsset: -11,
+  feeAssetNotAllowed: -12,
+  crossAssetFeeNotAllowed: -13,
+  feeAssetNotFound: -14,
+  assetPairNotFound: -15,
+  invalidAssetPairPrice: -16,
 });
 
 // === xdr source ============================================================
