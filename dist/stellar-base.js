@@ -46826,8 +46826,6 @@ var StellarBase =
 
 	var _jsXdr = __webpack_require__(3);
 
-	var _operation = __webpack_require__(128);
-
 	var PaymentV2Builder = (function () {
 	    function PaymentV2Builder() {
 	        _classCallCheck(this, PaymentV2Builder);
@@ -46835,6 +46833,27 @@ var StellarBase =
 
 	    _createClass(PaymentV2Builder, null, [{
 	        key: 'paymentV2ForAccount',
+
+	        /**
+	         * Creates PaymentV2 operation where destination is AccountID
+	         * @param {object} opts
+	         * @param {string} opts.sourceBalanceId
+	         * @param {string} opts.destination
+	         * @param {number|string} opts.amount
+	         * @param {object} opts.feeData
+	         * * @param {object} opts.feeData.sourceFee
+	         * * * @param {number|string} opts.feeData.sourceFee.maxPaymentFee
+	         * * * @param {number|string} opts.feeData.sourceFee.fixedFee
+	         * * * @param {string} opts.feeData.sourceFee.feeAsset
+	         * * @param {object} opts.feeData.destinationFee
+	         * * * @param {number|string} opts.feeData.destinationFee.maxPaymentFee
+	         * * * @param {number|string} opts.feeData.destinationFee.fixedFee
+	         * * * @param {string} opts.feeData.destinationFee.feeAsset
+	         * * @param {bool} opts.feeData.sourcePaysForDest
+	         * @param {string} opts.subject
+	         * @param {string} opts.reference
+	         * @returns {xdr.PaymentOpV2}
+	         */
 	        value: function paymentV2ForAccount(opts) {
 	            if (!_keypair.Keypair.isValidPublicKey(opts.destination)) {
 	                throw new TypeError('opts.destination is invalid');

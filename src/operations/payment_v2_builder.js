@@ -3,9 +3,28 @@ import isUndefined from 'lodash/isUndefined';
 import {BaseOperation} from './base_operation';
 import {Keypair} from "../keypair";
 import {UnsignedHyper, Hyper} from "js-xdr";
-import {Operation} from "../operation";
 
 export class PaymentV2Builder {
+    /**
+     * Creates PaymentV2 operation where destination is AccountID
+     * @param {object} opts
+     * @param {string} opts.sourceBalanceId
+     * @param {string} opts.destination
+     * @param {number|string} opts.amount
+     * @param {object} opts.feeData
+     * * @param {object} opts.feeData.sourceFee
+     * * * @param {number|string} opts.feeData.sourceFee.maxPaymentFee
+     * * * @param {number|string} opts.feeData.sourceFee.fixedFee
+     * * * @param {string} opts.feeData.sourceFee.feeAsset
+     * * @param {object} opts.feeData.destinationFee
+     * * * @param {number|string} opts.feeData.destinationFee.maxPaymentFee
+     * * * @param {number|string} opts.feeData.destinationFee.fixedFee
+     * * * @param {string} opts.feeData.destinationFee.feeAsset
+     * * @param {bool} opts.feeData.sourcePaysForDest
+     * @param {string} opts.subject
+     * @param {string} opts.reference
+     * @returns {xdr.PaymentOpV2}
+     */
     static paymentV2ForAccount(opts) {
         if (!Keypair.isValidPublicKey(opts.destination)) {
             throw new TypeError('opts.destination is invalid');
