@@ -1,4 +1,3 @@
-
 import {default as xdr} from "./generated/stellar-xdr_generated";
 import {BindExternalSystemAccountIdBuilder} from "./operations/bind_external_system_account_id_builder";
 
@@ -26,6 +25,7 @@ export { ManageExternalSystemAccountIdPoolEntryBuilder } from './operations/mana
 export { BindExternalSystemAccountIdBuilder } from './operations/bind_external_system_account_id_builder';
 export {CreateAMLRequestBuilder} from "./operations/create_aml_request_builder";
 export { CreateUpdateKYCRequestBuilder } from './operations/create_update_kyc_request_builder';
+export { PaymentV2Builder } from "./operations/payment_v2_builder";
 
 export * from "./strkey";
 
