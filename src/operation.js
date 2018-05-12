@@ -23,8 +23,11 @@ import { SaleRequestBuilder } from './operations/sale_request_builder';
 import { ManageOfferBuilder } from './operations/manage_offer_builder';
 import { ManageKeyValueOpBuilder } from './operations/manage_key_value_op_builder';
 import { SetOptionsBuilder} from "./operations/set_options_builder";
+import { ManageExternalSystemAccountIdPoolEntryBuilder } from "./operations/manage_external_system_account_id_pool_entry_builder";
+import {BindExternalSystemAccountIdBuilder} from "./operations/bind_external_system_account_id_builder";
 import { CreateAMLRequestBuilder } from "./operations/create_aml_request_builder";
 import { CreateUpdateKYCRequestBuilder } from "./operations/create_update_kyc_request_builder";
+import { PaymentV2Builder } from "./operations/payment_v2_builder";
 
 export class Operation extends BaseOperation {
 
@@ -211,6 +214,7 @@ export class Operation extends BaseOperation {
      * @param {string} opts.fee.feeType - feeType
      * @param {string} opts.fee.feeAmount - fee amount
      * @param {bool} [opts.isDelete] - isDelete - true for remove fee
+     * @param {string} opts.fee.feeAsset - asset of fee
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
      * @returns {xdr.SetFeesOp}
      */
@@ -258,6 +262,14 @@ export class Operation extends BaseOperation {
                 upperBound: Operation._toXDRAmount(opts.fee.upperBound),
                 ext: new xdr.FeeEntryExt(xdr.LedgerVersion.emptyVersion()),
             };
+
+            if (!isUndefined(opts.fee.feeAsset)) {
+                if (!Operation.isValidAsset(opts.fee.feeAsset)) {
+                    throw new TypeError('Fee asset is invalid');
+                }
+                feeData.ext = xdr.FeeEntryExt.crossAssetFee(opts.fee.feeAsset);
+            }
+
             var data = `type:${opts.fee.feeType.value}asset:${opts.fee.asset}subtype:${opts.fee.subtype.toString()}`;
             if (opts.fee.accountId) {
                 if (!Keypair.isValidPublicKey(opts.fee.accountId)) {
@@ -611,6 +623,12 @@ export class Operation extends BaseOperation {
                     if (attrs.fee().accountType()) {
                         result.fee.accountType = attrs.fee().accountType();
                     }
+
+                    switch (attrs.fee().ext().switch().name) {
+                        case "crossAssetFee":
+                            result.fee.feeAsset = attrs.fee().ext().value();
+                    }
+
                     result.fee.hash = attrs.fee().hash();
                 }
                 break;
@@ -683,6 +701,12 @@ export class Operation extends BaseOperation {
             case xdr.OperationType.checkSaleState():
                 SaleRequestBuilder.checkSaleStateToObject(result, attrs);
                 break;
+            case xdr.OperationType.manageExternalSystemAccountIdPoolEntry():
+                ManageExternalSystemAccountIdPoolEntryBuilder.manageExternalSystemAccountIdPoolEntryToObject(result, attrs);
+                break;
+            case xdr.OperationType.bindExternalSystemAccountId():
+                BindExternalSystemAccountIdBuilder.bindExternalSystemAccountIdToObject(result, attrs);
+                break;
             case xdr.OperationType.createAmlAlert():
                 CreateAMLRequestBuilder.createAmlAlertToObject(result, attrs);
                 break;
@@ -691,6 +715,9 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.createKycRequest():
                 CreateUpdateKYCRequestBuilder.createUpdateKYCRequestOpToObject(result, attrs);
+                break;
+            case xdr.OperationType.paymentV2():
+                PaymentV2Builder.paymentV2ToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");
