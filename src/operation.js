@@ -22,6 +22,8 @@ import { CreateWithdrawRequestBuilder } from './operations/create_withdraw_reque
 import { SaleRequestBuilder } from './operations/sale_request_builder';
 import { ManageOfferBuilder } from './operations/manage_offer_builder';
 import { SetOptionsBuilder} from "./operations/set_options_builder";
+import { ManageExternalSystemAccountIdPoolEntryBuilder } from "./operations/manage_external_system_account_id_pool_entry_builder";
+import {BindExternalSystemAccountIdBuilder} from "./operations/bind_external_system_account_id_builder";
 import { CreateAMLRequestBuilder } from "./operations/create_aml_request_builder";
 import { CreateUpdateKYCRequestBuilder } from "./operations/create_update_kyc_request_builder";
 import { PaymentV2Builder } from "./operations/payment_v2_builder";
@@ -698,6 +700,12 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.checkSaleState():
                 SaleRequestBuilder.checkSaleStateToObject(result, attrs);
+                break;
+            case xdr.OperationType.manageExternalSystemAccountIdPoolEntry():
+                ManageExternalSystemAccountIdPoolEntryBuilder.manageExternalSystemAccountIdPoolEntryToObject(result, attrs);
+                break;
+            case xdr.OperationType.bindExternalSystemAccountId():
+                BindExternalSystemAccountIdBuilder.bindExternalSystemAccountIdToObject(result, attrs);
                 break;
             case xdr.OperationType.createAmlAlert():
                 CreateAMLRequestBuilder.createAmlAlertToObject(result, attrs);

@@ -299,7 +299,6 @@ export class BaseOperation {
         return xdr.RequestType._byValue.get(rawRequestType);
     }
 
-
     static _isValidAccountType(rawAccountType) {
         return xdr.AccountType._byValue.has(rawAccountType);
     }

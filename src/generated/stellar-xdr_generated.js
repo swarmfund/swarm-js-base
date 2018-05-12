@@ -1,4 +1,4 @@
-// Automatically generated on 2018-05-12T12:52:52+03:00
+// Automatically generated on 2018-05-12T16:14:35+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -1374,6 +1374,255 @@ xdr.union("CreateUpdateKycRequestResult", {
 
 // === xdr source ============================================================
 //
+//   enum ManageExternalSystemAccountIdPoolEntryAction
+//   {
+//       CREATE = 0,
+//       DELETE = 1
+//   };
+//
+// ===========================================================================
+xdr.enum("ManageExternalSystemAccountIdPoolEntryAction", {
+  create: 0,
+  delete: 1,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("CreateExternalSystemAccountIdPoolEntryActionInputExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct CreateExternalSystemAccountIdPoolEntryActionInput
+//   {
+//       int32 externalSystemType;
+//       longstring data;
+//       uint64 parent;
+//   
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("CreateExternalSystemAccountIdPoolEntryActionInput", [
+  ["externalSystemType", xdr.lookup("Int32")],
+  ["data", xdr.lookup("Longstring")],
+  ["parent", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("CreateExternalSystemAccountIdPoolEntryActionInputExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("DeleteExternalSystemAccountIdPoolEntryActionInputExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct DeleteExternalSystemAccountIdPoolEntryActionInput
+//   {
+//       uint64 poolEntryID;
+//   
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("DeleteExternalSystemAccountIdPoolEntryActionInput", [
+  ["poolEntryId", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("DeleteExternalSystemAccountIdPoolEntryActionInputExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (ManageExternalSystemAccountIdPoolEntryAction action)
+//       {
+//       case CREATE:
+//           CreateExternalSystemAccountIdPoolEntryActionInput createExternalSystemAccountIdPoolEntryActionInput;
+//       case DELETE:
+//           DeleteExternalSystemAccountIdPoolEntryActionInput deleteExternalSystemAccountIdPoolEntryActionInput;
+//       }
+//
+// ===========================================================================
+xdr.union("ManageExternalSystemAccountIdPoolEntryOpActionInput", {
+  switchOn: xdr.lookup("ManageExternalSystemAccountIdPoolEntryAction"),
+  switchName: "action",
+  switches: [
+    ["create", "createExternalSystemAccountIdPoolEntryActionInput"],
+    ["delete", "deleteExternalSystemAccountIdPoolEntryActionInput"],
+  ],
+  arms: {
+    createExternalSystemAccountIdPoolEntryActionInput: xdr.lookup("CreateExternalSystemAccountIdPoolEntryActionInput"),
+    deleteExternalSystemAccountIdPoolEntryActionInput: xdr.lookup("DeleteExternalSystemAccountIdPoolEntryActionInput"),
+  },
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("ManageExternalSystemAccountIdPoolEntryOpExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct ManageExternalSystemAccountIdPoolEntryOp
+//   {
+//       union switch (ManageExternalSystemAccountIdPoolEntryAction action)
+//       {
+//       case CREATE:
+//           CreateExternalSystemAccountIdPoolEntryActionInput createExternalSystemAccountIdPoolEntryActionInput;
+//       case DELETE:
+//           DeleteExternalSystemAccountIdPoolEntryActionInput deleteExternalSystemAccountIdPoolEntryActionInput;
+//       } actionInput;
+//   
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("ManageExternalSystemAccountIdPoolEntryOp", [
+  ["actionInput", xdr.lookup("ManageExternalSystemAccountIdPoolEntryOpActionInput")],
+  ["ext", xdr.lookup("ManageExternalSystemAccountIdPoolEntryOpExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   enum ManageExternalSystemAccountIdPoolEntryResultCode
+//   {
+//       // codes considered as "success" for the operation
+//       SUCCESS = 0,
+//   
+//       // codes considered as "failure" for the operation
+//       MALFORMED = -1,
+//       ALREADY_EXISTS = -2,
+//       AUTO_GENERATED_TYPE_NOT_ALLOWED = -3,
+//       NOT_FOUND = -4
+//   };
+//
+// ===========================================================================
+xdr.enum("ManageExternalSystemAccountIdPoolEntryResultCode", {
+  success: 0,
+  malformed: -1,
+  alreadyExist: -2,
+  autoGeneratedTypeNotAllowed: -3,
+  notFound: -4,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("ManageExternalSystemAccountIdPoolEntrySuccessExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct ManageExternalSystemAccountIdPoolEntrySuccess {
+//   	uint64 poolEntryID;
+//   	// reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("ManageExternalSystemAccountIdPoolEntrySuccess", [
+  ["poolEntryId", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("ManageExternalSystemAccountIdPoolEntrySuccessExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union ManageExternalSystemAccountIdPoolEntryResult switch (ManageExternalSystemAccountIdPoolEntryResultCode code)
+//   {
+//   case SUCCESS:
+//       ManageExternalSystemAccountIdPoolEntrySuccess success;
+//   default:
+//       void;
+//   };
+//
+// ===========================================================================
+xdr.union("ManageExternalSystemAccountIdPoolEntryResult", {
+  switchOn: xdr.lookup("ManageExternalSystemAccountIdPoolEntryResultCode"),
+  switchName: "code",
+  switches: [
+    ["success", "success"],
+  ],
+  arms: {
+    success: xdr.lookup("ManageExternalSystemAccountIdPoolEntrySuccess"),
+  },
+  defaultArm: xdr.void(),
+});
+
+// === xdr source ============================================================
+//
 //   enum WithdrawalType {
 //   	AUTO_CONVERSION = 0
 //   };
@@ -1533,6 +1782,127 @@ xdr.struct("LimitsUpdateRequest", [
   ["documentHash", xdr.lookup("Hash")],
   ["ext", xdr.lookup("LimitsUpdateRequestExt")],
 ]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("BindExternalSystemAccountIdOpExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct BindExternalSystemAccountIdOp
+//   {
+//       int32 externalSystemType;
+//   
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("BindExternalSystemAccountIdOp", [
+  ["externalSystemType", xdr.lookup("Int32")],
+  ["ext", xdr.lookup("BindExternalSystemAccountIdOpExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   enum BindExternalSystemAccountIdResultCode
+//   {
+//       // codes considered as "success" for the operation
+//       SUCCESS = 0,
+//   
+//       // codes considered as "failure" for the operation
+//       MALFORMED = -1,
+//       NO_AVAILABLE_ID = -2,
+//       AUTO_GENERATED_TYPE_NOT_ALLOWED = -3
+//   };
+//
+// ===========================================================================
+xdr.enum("BindExternalSystemAccountIdResultCode", {
+  success: 0,
+  malformed: -1,
+  noAvailableId: -2,
+  autoGeneratedTypeNotAllowed: -3,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("BindExternalSystemAccountIdSuccessExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct BindExternalSystemAccountIdSuccess {
+//       longstring data;
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("BindExternalSystemAccountIdSuccess", [
+  ["data", xdr.lookup("Longstring")],
+  ["ext", xdr.lookup("BindExternalSystemAccountIdSuccessExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union BindExternalSystemAccountIdResult switch (BindExternalSystemAccountIdResultCode code)
+//   {
+//   case SUCCESS:
+//       BindExternalSystemAccountIdSuccess success;
+//   default:
+//       void;
+//   };
+//
+// ===========================================================================
+xdr.union("BindExternalSystemAccountIdResult", {
+  switchOn: xdr.lookup("BindExternalSystemAccountIdResultCode"),
+  switchName: "code",
+  switches: [
+    ["success", "success"],
+  ],
+  arms: {
+    success: xdr.lookup("BindExternalSystemAccountIdSuccess"),
+  },
+  defaultArm: xdr.void(),
+});
 
 // === xdr source ============================================================
 //
@@ -2469,7 +2839,8 @@ xdr.union("PublicKey", {
 //   	ASSET_UPDATE_CHECK_REFERENCE_EXISTS = 14,
 //   	CROSS_ASSET_FEE = 15,
 //   	USE_PAYMENT_V2 = 16,
-//   	ALLOW_SYNDICATE_TO_UPDATE_KYC = 17
+//   	ALLOW_SYNDICATE_TO_UPDATE_KYC = 17,
+//   	DO_NOT_BUILD_ACCOUNT_IF_VERSION_EQUALS_OR_GREATER = 18
 //   };
 //
 // ===========================================================================
@@ -2492,6 +2863,7 @@ xdr.enum("LedgerVersion", {
   crossAssetFee: 15,
   usePaymentV2: 16,
   allowSyndicateToUpdateKyc: 17,
+  doNotBuildAccountIfVersionEqualsOrGreater: 18,
 });
 
 // === xdr source ============================================================
@@ -2700,7 +3072,9 @@ xdr.struct("Fee", [
 //       CREATE_AML_ALERT = 21,
 //       CREATE_KYC_REQUEST = 22,
 //       PAYMENT_V2 = 23,
-//       MANAGE_SALE = 24
+//       MANAGE_EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_ENTRY = 24,
+//       BIND_EXTERNAL_SYSTEM_ACCOUNT_ID = 25,
+//       MANAGE_SALE = 26
 //   };
 //
 // ===========================================================================
@@ -2727,7 +3101,9 @@ xdr.enum("OperationType", {
   createAmlAlert: 21,
   createKycRequest: 22,
   paymentV2: 23,
-  manageSale: 24,
+  manageExternalSystemAccountIdPoolEntry: 24,
+  bindExternalSystemAccountId: 25,
+  manageSale: 26,
 });
 
 // === xdr source ============================================================
@@ -2790,6 +3166,10 @@ xdr.struct("DecoratedSignature", [
 //   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 //   	case CREATE_KYC_REQUEST:
 //   		CreateUpdateKYCRequestOp createUpdateKYCRequestOp;
+//       case MANAGE_EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_ENTRY:
+//           ManageExternalSystemAccountIdPoolEntryOp manageExternalSystemAccountIdPoolEntryOp;
+//       case BIND_EXTERNAL_SYSTEM_ACCOUNT_ID:
+//           BindExternalSystemAccountIdOp bindExternalSystemAccountIdOp;
 //       case PAYMENT_V2:
 //           PaymentOpV2 paymentOpV2;
 //       case MANAGE_SALE:
@@ -2822,6 +3202,8 @@ xdr.union("OperationBody", {
     ["checkSaleState", "checkSaleStateOp"],
     ["createAmlAlert", "createAmlAlertRequestOp"],
     ["createKycRequest", "createUpdateKycRequestOp"],
+    ["manageExternalSystemAccountIdPoolEntry", "manageExternalSystemAccountIdPoolEntryOp"],
+    ["bindExternalSystemAccountId", "bindExternalSystemAccountIdOp"],
     ["paymentV2", "paymentOpV2"],
     ["manageSale", "manageSaleOp"],
   ],
@@ -2847,6 +3229,8 @@ xdr.union("OperationBody", {
     checkSaleStateOp: xdr.lookup("CheckSaleStateOp"),
     createAmlAlertRequestOp: xdr.lookup("CreateAmlAlertRequestOp"),
     createUpdateKycRequestOp: xdr.lookup("CreateUpdateKycRequestOp"),
+    manageExternalSystemAccountIdPoolEntryOp: xdr.lookup("ManageExternalSystemAccountIdPoolEntryOp"),
+    bindExternalSystemAccountIdOp: xdr.lookup("BindExternalSystemAccountIdOp"),
     paymentOpV2: xdr.lookup("PaymentOpV2"),
     manageSaleOp: xdr.lookup("ManageSaleOp"),
   },
@@ -2905,6 +3289,10 @@ xdr.union("OperationBody", {
 //   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 //   	case CREATE_KYC_REQUEST:
 //   		CreateUpdateKYCRequestOp createUpdateKYCRequestOp;
+//       case MANAGE_EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_ENTRY:
+//           ManageExternalSystemAccountIdPoolEntryOp manageExternalSystemAccountIdPoolEntryOp;
+//       case BIND_EXTERNAL_SYSTEM_ACCOUNT_ID:
+//           BindExternalSystemAccountIdOp bindExternalSystemAccountIdOp;
 //       case PAYMENT_V2:
 //           PaymentOpV2 paymentOpV2;
 //       case MANAGE_SALE:
@@ -3131,6 +3519,10 @@ xdr.enum("OperationResultCode", {
 //           CreateAMLAlertRequestResult createAMLAlertRequestResult;
 //   	case CREATE_KYC_REQUEST:
 //   	    CreateUpdateKYCRequestResult createUpdateKYCRequestResult;
+//       case MANAGE_EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_ENTRY:
+//           ManageExternalSystemAccountIdPoolEntryResult manageExternalSystemAccountIdPoolEntryResult;
+//       case BIND_EXTERNAL_SYSTEM_ACCOUNT_ID:
+//           BindExternalSystemAccountIdResult bindExternalSystemAccountIdResult;
 //       case PAYMENT_V2:
 //           PaymentV2Result paymentV2Result;
 //       case MANAGE_SALE:
@@ -3163,6 +3555,8 @@ xdr.union("OperationResultTr", {
     ["checkSaleState", "checkSaleStateResult"],
     ["createAmlAlert", "createAmlAlertRequestResult"],
     ["createKycRequest", "createUpdateKycRequestResult"],
+    ["manageExternalSystemAccountIdPoolEntry", "manageExternalSystemAccountIdPoolEntryResult"],
+    ["bindExternalSystemAccountId", "bindExternalSystemAccountIdResult"],
     ["paymentV2", "paymentV2Result"],
     ["manageSale", "manageSaleResult"],
   ],
@@ -3188,6 +3582,8 @@ xdr.union("OperationResultTr", {
     checkSaleStateResult: xdr.lookup("CheckSaleStateResult"),
     createAmlAlertRequestResult: xdr.lookup("CreateAmlAlertRequestResult"),
     createUpdateKycRequestResult: xdr.lookup("CreateUpdateKycRequestResult"),
+    manageExternalSystemAccountIdPoolEntryResult: xdr.lookup("ManageExternalSystemAccountIdPoolEntryResult"),
+    bindExternalSystemAccountIdResult: xdr.lookup("BindExternalSystemAccountIdResult"),
     paymentV2Result: xdr.lookup("PaymentV2Result"),
     manageSaleResult: xdr.lookup("ManageSaleResult"),
   },
@@ -3242,6 +3638,10 @@ xdr.union("OperationResultTr", {
 //           CreateAMLAlertRequestResult createAMLAlertRequestResult;
 //   	case CREATE_KYC_REQUEST:
 //   	    CreateUpdateKYCRequestResult createUpdateKYCRequestResult;
+//       case MANAGE_EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_ENTRY:
+//           ManageExternalSystemAccountIdPoolEntryResult manageExternalSystemAccountIdPoolEntryResult;
+//       case BIND_EXTERNAL_SYSTEM_ACCOUNT_ID:
+//           BindExternalSystemAccountIdResult bindExternalSystemAccountIdResult;
 //       case PAYMENT_V2:
 //           PaymentV2Result paymentV2Result;
 //       case MANAGE_SALE:
@@ -4302,7 +4702,10 @@ xdr.struct("ReviewRequestOp", [
 //   	INSUFFICIENT_PREISSUED_FOR_HARD_CAP = -52,
 //   
 //   	// Update KYC requests
-//   	NON_ZERO_TASKS_TO_REMOVE_NOT_ALLOWED = -60
+//   	NON_ZERO_TASKS_TO_REMOVE_NOT_ALLOWED = -60,
+//   
+//   	// Update sale details requests
+//   	SALE_NOT_FOUND = -70
 //   };
 //
 // ===========================================================================
@@ -4326,6 +4729,7 @@ xdr.enum("ReviewRequestResultCode", {
   hardCapWillExceedMaxIssuance: -51,
   insufficientPreissuedForHardCap: -52,
   nonZeroTasksToRemoveNotAllowed: -60,
+  saleNotFound: -70,
 });
 
 // === xdr source ============================================================
@@ -6499,7 +6903,8 @@ xdr.union("SetOptionsResult", {
 //       AML_ALERT_MANAGER = 4194304, // can manage AML alert request
 //       AML_ALERT_REVIEWER = 8388608, // can review aml alert requests
 //   	KYC_ACC_MANAGER = 16777216, // can manage kyc
-//   	KYC_SUPER_ADMIN = 33554432
+//   	KYC_SUPER_ADMIN = 33554432,
+//   	EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_MANAGER = 67108864
 //   };
 //
 // ===========================================================================
@@ -6530,6 +6935,7 @@ xdr.enum("SignerType", {
   amlAlertReviewer: 8388608,
   kycAccManager: 16777216,
   kycSuperAdmin: 33554432,
+  externalSystemAccountIdPoolManager: 67108864,
 });
 
 // === xdr source ============================================================
@@ -7218,22 +7624,6 @@ xdr.union("CreateWithdrawalRequestResult", {
 
 // === xdr source ============================================================
 //
-//   enum ExternalSystemType
-//   {
-//   	BITCOIN = 1,
-//   	ETHEREUM = 2,
-//   	SECURE_VOTE = 3
-//   };
-//
-// ===========================================================================
-xdr.enum("ExternalSystemType", {
-  bitcoin: 1,
-  ethereum: 2,
-  secureVote: 3,
-});
-
-// === xdr source ============================================================
-//
 //   union switch (LedgerVersion v)
 //       {
 //       case EMPTY_VERSION:
@@ -7256,7 +7646,7 @@ xdr.union("ExternalSystemAccountIdExt", {
 //   struct ExternalSystemAccountID
 //   {
 //       AccountID accountID;
-//       ExternalSystemType externalSystemType;
+//       int32 externalSystemType;
 //   	longstring data;
 //   
 //   	 // reserved for future use
@@ -7271,7 +7661,7 @@ xdr.union("ExternalSystemAccountIdExt", {
 // ===========================================================================
 xdr.struct("ExternalSystemAccountId", [
   ["accountId", xdr.lookup("AccountId")],
-  ["externalSystemType", xdr.lookup("ExternalSystemType")],
+  ["externalSystemType", xdr.lookup("Int32")],
   ["data", xdr.lookup("Longstring")],
   ["ext", xdr.lookup("ExternalSystemAccountIdExt")],
 ]);
@@ -8015,7 +8405,7 @@ xdr.union("LedgerKeyExternalSystemAccountIdExt", {
 //
 //   struct {
 //   		AccountID accountID;
-//   		ExternalSystemType externalSystemType;
+//   		int32 externalSystemType;
 //   		union switch (LedgerVersion v)
 //   		{
 //   		case EMPTY_VERSION:
@@ -8027,7 +8417,7 @@ xdr.union("LedgerKeyExternalSystemAccountIdExt", {
 // ===========================================================================
 xdr.struct("LedgerKeyExternalSystemAccountId", [
   ["accountId", xdr.lookup("AccountId")],
-  ["externalSystemType", xdr.lookup("ExternalSystemType")],
+  ["externalSystemType", xdr.lookup("Int32")],
   ["ext", xdr.lookup("LedgerKeyExternalSystemAccountIdExt")],
 ]);
 
@@ -8103,6 +8493,43 @@ xdr.union("LedgerKeyAccountKycExt", {
 xdr.struct("LedgerKeyAccountKyc", [
   ["accountId", xdr.lookup("AccountId")],
   ["ext", xdr.lookup("LedgerKeyAccountKycExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//
+// ===========================================================================
+xdr.union("LedgerKeyExternalSystemAccountIdPoolEntryExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct {
+//   		uint64 poolEntryID;
+//   		union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//   		ext;
+//   	}
+//
+// ===========================================================================
+xdr.struct("LedgerKeyExternalSystemAccountIdPoolEntry", [
+  ["poolEntryId", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("LedgerKeyExternalSystemAccountIdPoolEntryExt")],
 ]);
 
 // === xdr source ============================================================
@@ -8257,7 +8684,7 @@ xdr.struct("LedgerKeyAccountKyc", [
 //   case EXTERNAL_SYSTEM_ACCOUNT_ID:
 //   	struct {
 //   		AccountID accountID;
-//   		ExternalSystemType externalSystemType;
+//   		int32 externalSystemType;
 //   		union switch (LedgerVersion v)
 //   		{
 //   		case EMPTY_VERSION:
@@ -8285,6 +8712,16 @@ xdr.struct("LedgerKeyAccountKyc", [
 //           }
 //           ext;
 //       } accountKYC;
+//   case EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_ENTRY:
+//       struct {
+//   		uint64 poolEntryID;
+//   		union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//   		ext;
+//   	} externalSystemAccountIDPoolEntry;
 //   };
 //
 // ===========================================================================
@@ -8309,6 +8746,7 @@ xdr.union("LedgerKey", {
     ["externalSystemAccountId", "externalSystemAccountId"],
     ["sale", "sale"],
     ["accountKyc", "accountKyc"],
+    ["externalSystemAccountIdPoolEntry", "externalSystemAccountIdPoolEntry"],
   ],
   arms: {
     account: xdr.lookup("LedgerKeyAccount"),
@@ -8328,6 +8766,7 @@ xdr.union("LedgerKey", {
     externalSystemAccountId: xdr.lookup("LedgerKeyExternalSystemAccountId"),
     sale: xdr.lookup("LedgerKeySale"),
     accountKyc: xdr.lookup("LedgerKeyAccountKyc"),
+    externalSystemAccountIdPoolEntry: xdr.lookup("LedgerKeyExternalSystemAccountIdPoolEntry"),
   },
 });
 
@@ -9453,7 +9892,8 @@ xdr.enum("ThresholdIndices", {
 //   	REVIEWABLE_REQUEST = 15,
 //   	EXTERNAL_SYSTEM_ACCOUNT_ID = 16,
 //   	SALE = 17,
-//   	ACCOUNT_KYC = 18
+//   	ACCOUNT_KYC = 18,
+//   	EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_ENTRY = 19
 //   };
 //
 // ===========================================================================
@@ -9475,6 +9915,7 @@ xdr.enum("LedgerEntryType", {
   externalSystemAccountId: 16,
   sale: 17,
   accountKyc: 18,
+  externalSystemAccountIdPoolEntry: 19,
 });
 
 // === xdr source ============================================================
@@ -9515,6 +9956,8 @@ xdr.enum("LedgerEntryType", {
 //   		SaleEntry sale;
 //   	case ACCOUNT_KYC:
 //           AccountKYCEntry accountKYC;
+//       case EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_ENTRY:
+//           ExternalSystemAccountIDPoolEntry externalSystemAccountIDPoolEntry;
 //       }
 //
 // ===========================================================================
@@ -9539,6 +9982,7 @@ xdr.union("LedgerEntryData", {
     ["externalSystemAccountId", "externalSystemAccountId"],
     ["sale", "sale"],
     ["accountKyc", "accountKyc"],
+    ["externalSystemAccountIdPoolEntry", "externalSystemAccountIdPoolEntry"],
   ],
   arms: {
     account: xdr.lookup("AccountEntry"),
@@ -9558,6 +10002,7 @@ xdr.union("LedgerEntryData", {
     externalSystemAccountId: xdr.lookup("ExternalSystemAccountId"),
     sale: xdr.lookup("SaleEntry"),
     accountKyc: xdr.lookup("AccountKycEntry"),
+    externalSystemAccountIdPoolEntry: xdr.lookup("ExternalSystemAccountIdPoolEntry"),
   },
 });
 
@@ -9622,6 +10067,8 @@ xdr.union("LedgerEntryExt", {
 //   		SaleEntry sale;
 //   	case ACCOUNT_KYC:
 //           AccountKYCEntry accountKYC;
+//       case EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_ENTRY:
+//           ExternalSystemAccountIDPoolEntry externalSystemAccountIDPoolEntry;
 //       }
 //       data;
 //   
@@ -9966,6 +10413,61 @@ xdr.union("CreatePreIssuanceRequestResult", {
   },
   defaultArm: xdr.void(),
 });
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//          void;
+//       }
+//
+// ===========================================================================
+xdr.union("ExternalSystemAccountIdPoolEntryExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct ExternalSystemAccountIDPoolEntry
+//   {
+//       uint64 poolEntryID;
+//       int32 externalSystemType;
+//       longstring data;
+//       AccountID* accountID;
+//       uint64 expiresAt;
+//       uint64 bindedAt;
+//       uint64 parent;
+//       bool isDeleted;
+//   
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//          void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("ExternalSystemAccountIdPoolEntry", [
+  ["poolEntryId", xdr.lookup("Uint64")],
+  ["externalSystemType", xdr.lookup("Int32")],
+  ["data", xdr.lookup("Longstring")],
+  ["accountId", xdr.option(xdr.lookup("AccountId"))],
+  ["expiresAt", xdr.lookup("Uint64")],
+  ["bindedAt", xdr.lookup("Uint64")],
+  ["parent", xdr.lookup("Uint64")],
+  ["isDeleted", xdr.bool()],
+  ["ext", xdr.lookup("ExternalSystemAccountIdPoolEntryExt")],
+]);
 
 // === xdr source ============================================================
 //
