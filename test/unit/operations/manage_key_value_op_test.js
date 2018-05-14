@@ -5,14 +5,14 @@ describe('Manage Key Value', function () {
     describe('Put key value', function () {
         it("Success", function () {
             let key = "1216";
-            let value = 123;
+            let value = "123";
             let action = StellarBase.xdr.ManageKvAction.put().value;
             let opts = {
                 key: key,
                 value: value
             };
 
-            let op = StellarBase.ManageKeyValueBuilder.putKeyValue(opts);
+            let op = StellarBase.ManageKeyValueBuilder.putKeyValueOp(opts);
             let xdr = op.toXDR("hex");
             let operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
             let obj = StellarBase.Operation.operationToObject(operation);
@@ -31,7 +31,7 @@ describe('Manage Key Value', function () {
                 key: key
             };
 
-            let op = StellarBase.ManageKeyValueBuilder.deleteKeyValue(opts);
+            let op = StellarBase.ManageKeyValueBuilder.deleteKeyValueOp(opts);
             let xdr = op.toXDR("hex");
             let operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
             let obj = StellarBase.Operation.operationToObject(operation);

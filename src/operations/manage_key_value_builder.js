@@ -5,10 +5,21 @@ import isString from 'lodash/isString';
 
 export class  ManageKeyValueBuilder {
 
-    static putKeyValue(opts){
+    /**
+     * Creates manage key value operation
+     * @param {object} opts
+     *
+     * @param {string} opts.key
+     * @param {number|string} opts.value
+     *
+     * @param {string} [opts.source] - The source account for the creation. Defaults to the transaction's source account.
+     *
+     * @returns {xdr.ManageKeyValueOp}
+     */
+    static putKeyValueOp(opts){
         let attributes = {};
 
-        let value = new xdr.KeyValueEntryValue.uint32(opts.value);
+        let value = new xdr.KeyValueEntryValue.uint32(Number(opts.value));
 
         let KVEntry = new xdr.KeyValueEntry({
             key: opts.key,
@@ -21,7 +32,7 @@ export class  ManageKeyValueBuilder {
         return ManageKeyValueBuilder.createManageKeyValueOp(attributes, opts);
     }
 
-    static deleteKeyValue(opts){
+    static deleteKeyValueOp(opts){
         let attributes = {};
 
         attributes.action = new xdr.ManageKeyValueOpAction(BaseOperation._keyValueActionFromNumber(
@@ -57,7 +68,7 @@ export class  ManageKeyValueBuilder {
         switch (attrs.action().switch()) {
             case xdr.ManageKvAction.put():
                 result.action = new xdr.ManageKvAction.put().value;
-                result.value = action.value().defaultMask();
+                result.value = action.value().defaultMask().toString();
                 break;
             case xdr.ManageKvAction.delete():
                 result.action = new xdr.ManageKvAction.delete().value;
@@ -66,23 +77,4 @@ export class  ManageKeyValueBuilder {
                 throw new Error("invalid KV action type");
         }
     }
-
-    static putKV(opts, attributes){
-        if(isUndefined(opts.KvType) || !xdr.KeyValueEntryType._byValue.has(opts.KvType))
-        {
-            throw new Error("key_value type is invalid");
-        }
-
-        let value = new xdr.KeyValueEntryValue.uint32(opts.value);
-        let KVEntry = new xdr.KeyValueEntry({
-            key : opts.key,
-            value: value,
-            ext : new xdr.ManageKeyValueExt(xdr.LedgerVersion.emptyVersion())
-        });
-
-        attributes.action = new xdr.ManageKeyValueOpAction.put(KVEntry);
-
-        return attributes;
-    }
-
 }
