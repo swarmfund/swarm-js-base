@@ -23,7 +23,6 @@ export class ManageExternalSystemAccountIdPoolEntryBuilder {
 
         attrs.externalSystemType = opts.externalSystemType;
 
-
         if(opts.data === undefined){
             throw new Error("data is undefined");
         }
