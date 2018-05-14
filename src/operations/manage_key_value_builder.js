@@ -7,10 +7,6 @@ export class  ManageKeyValueBuilder {
 
     static putKeyValue(opts){
         let attributes = {};
-        if(isUndefined(opts.action) || !xdr.ManageKvAction._byValue.has(opts.action))
-        {
-            throw new Error("key-value action is invalid");
-        }
 
         let value = new xdr.KeyValueEntryValue.uint32(opts.value);
 
@@ -27,12 +23,9 @@ export class  ManageKeyValueBuilder {
 
     static deleteKeyValue(opts){
         let attributes = {};
-        if(isUndefined(opts.action) || !xdr.ManageKvAction._byValue.has(opts.action))
-        {
-            throw new Error("key-value action is invalid");
-        }
 
-        attributes.action = new xdr.ManageKeyValueOpAction(BaseOperation._keyValueActionFromNumber(opts.action));
+        attributes.action = new xdr.ManageKeyValueOpAction(BaseOperation._keyValueActionFromNumber(
+                                                                        StellarBase.xdr.ManageKvAction.delete().value));
 
         return ManageKeyValueBuilder.createManageKeyValueOp(attributes, opts);
     }

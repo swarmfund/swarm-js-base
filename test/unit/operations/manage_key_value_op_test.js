@@ -9,8 +9,7 @@ describe('Manage Key Value', function () {
             let action = StellarBase.xdr.ManageKvAction.put().value;
             let opts = {
                 key: key,
-                value: value,
-                action: action
+                value: value
             };
 
             let op = StellarBase.ManageKeyValueBuilder.putKeyValue(opts);
@@ -29,8 +28,7 @@ describe('Manage Key Value', function () {
             let key = "1216";
             let action = StellarBase.xdr.ManageKvAction.delete().value;
             let opts = {
-                key: key,
-                action: action
+                key: key
             };
 
             let op = StellarBase.ManageKeyValueBuilder.deleteKeyValue(opts);
