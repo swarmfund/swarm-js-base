@@ -1,4 +1,4 @@
-// Automatically generated on 2018-05-15T18:46:55+03:00
+// Automatically generated on 2018-05-15T19:42:57+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -2637,6 +2637,47 @@ xdr.enum("EnvelopeType", {
   tx: 2,
   auth: 3,
 });
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("UpdateSaleDetailsRequestExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct UpdateSaleDetailsRequest {
+//       uint64 saleID; // ID of sale to update details
+//       longstring newDetails;
+//   
+//       // Reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("UpdateSaleDetailsRequest", [
+  ["saleId", xdr.lookup("Uint64")],
+  ["newDetails", xdr.lookup("Longstring")],
+  ["ext", xdr.lookup("UpdateSaleDetailsRequestExt")],
+]);
 
 // === xdr source ============================================================
 //
@@ -5854,7 +5895,8 @@ xdr.struct("Fee", [
 //       PAYMENT_V2 = 23,
 //       MANAGE_EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_ENTRY = 24,
 //       BIND_EXTERNAL_SYSTEM_ACCOUNT_ID = 25,
-//       MANAGE_KEY_VALUE = 26
+//       MANAGE_SALE = 26,
+//       MANAGE_KEY_VALUE = 27
 //   };
 //
 // ===========================================================================
@@ -5883,7 +5925,8 @@ xdr.enum("OperationType", {
   paymentV2: 23,
   manageExternalSystemAccountIdPoolEntry: 24,
   bindExternalSystemAccountId: 25,
-  manageKeyValue: 26,
+  manageSale: 26,
+  manageKeyValue: 27,
 });
 
 // === xdr source ============================================================
@@ -6678,7 +6721,10 @@ xdr.struct("ReviewRequestOp", [
 //   	INSUFFICIENT_PREISSUED_FOR_HARD_CAP = -52,
 //   
 //   	// Update KYC requests
-//   	NON_ZERO_TASKS_TO_REMOVE_NOT_ALLOWED = -60
+//   	NON_ZERO_TASKS_TO_REMOVE_NOT_ALLOWED = -60,
+//   
+//   	// Update sale details requests
+//   	SALE_NOT_FOUND = -70
 //   };
 //
 // ===========================================================================
@@ -6702,6 +6748,7 @@ xdr.enum("ReviewRequestResultCode", {
   hardCapWillExceedMaxIssuance: -51,
   insufficientPreissuedForHardCap: -52,
   nonZeroTasksToRemoveNotAllowed: -60,
+  saleNotFound: -70,
 });
 
 // === xdr source ============================================================
@@ -7207,7 +7254,8 @@ xdr.struct("AmlAlertRequest", [
 //   	LIMITS_UPDATE = 6,
 //   	TWO_STEP_WITHDRAWAL = 7,
 //       AML_ALERT = 8,
-//   	UPDATE_KYC = 9
+//   	UPDATE_KYC = 9,
+//   	UPDATE_SALE_DETAILS = 10
 //   };
 //
 // ===========================================================================
@@ -7222,6 +7270,7 @@ xdr.enum("ReviewableRequestType", {
   twoStepWithdrawal: 7,
   amlAlert: 8,
   updateKyc: 9,
+  updateSaleDetail: 10,
 });
 
 // === xdr source ============================================================
@@ -7247,6 +7296,8 @@ xdr.enum("ReviewableRequestType", {
 //               AMLAlertRequest amlAlertRequest;
 //           case UPDATE_KYC:
 //               UpdateKYCRequest updateKYCRequest;
+//           case UPDATE_SALE_DETAILS:
+//               UpdateSaleDetailsRequest updateSaleDetailsRequest;
 //   	}
 //
 // ===========================================================================
@@ -7264,6 +7315,7 @@ xdr.union("ReviewableRequestEntryBody", {
     ["twoStepWithdrawal", "twoStepWithdrawalRequest"],
     ["amlAlert", "amlAlertRequest"],
     ["updateKyc", "updateKycRequest"],
+    ["updateSaleDetail", "updateSaleDetailsRequest"],
   ],
   arms: {
     assetCreationRequest: xdr.lookup("AssetCreationRequest"),
@@ -7276,6 +7328,7 @@ xdr.union("ReviewableRequestEntryBody", {
     twoStepWithdrawalRequest: xdr.lookup("WithdrawalRequest"),
     amlAlertRequest: xdr.lookup("AmlAlertRequest"),
     updateKycRequest: xdr.lookup("UpdateKycRequest"),
+    updateSaleDetailsRequest: xdr.lookup("UpdateSaleDetailsRequest"),
   },
 });
 
@@ -7330,6 +7383,8 @@ xdr.union("ReviewableRequestEntryExt", {
 //               AMLAlertRequest amlAlertRequest;
 //           case UPDATE_KYC:
 //               UpdateKYCRequest updateKYCRequest;
+//           case UPDATE_SALE_DETAILS:
+//               UpdateSaleDetailsRequest updateSaleDetailsRequest;
 //   	} body;
 //   
 //   	// reserved for future use
@@ -9572,6 +9627,228 @@ xdr.union("SetFeesResult", {
 
 // === xdr source ============================================================
 //
+//   enum ManageSaleAction
+//   {
+//       CREATE_UPDATE_DETAILS_REQUEST = 1
+//   };
+//
+// ===========================================================================
+xdr.enum("ManageSaleAction", {
+  createUpdateDetailsRequest: 1,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("UpdateSaleDetailsDataExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct UpdateSaleDetailsData {
+//       uint64 requestID; // if requestID is 0 - create request, else - update
+//       longstring newDetails;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       } ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("UpdateSaleDetailsData", [
+  ["requestId", xdr.lookup("Uint64")],
+  ["newDetails", xdr.lookup("Longstring")],
+  ["ext", xdr.lookup("UpdateSaleDetailsDataExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (ManageSaleAction action) {
+//       case CREATE_UPDATE_DETAILS_REQUEST:
+//           UpdateSaleDetailsData updateSaleDetailsData;
+//       }
+//
+// ===========================================================================
+xdr.union("ManageSaleOpData", {
+  switchOn: xdr.lookup("ManageSaleAction"),
+  switchName: "action",
+  switches: [
+    ["createUpdateDetailsRequest", "updateSaleDetailsData"],
+  ],
+  arms: {
+    updateSaleDetailsData: xdr.lookup("UpdateSaleDetailsData"),
+  },
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("ManageSaleOpExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct ManageSaleOp
+//   {
+//       uint64 saleID;
+//   
+//       union switch (ManageSaleAction action) {
+//       case CREATE_UPDATE_DETAILS_REQUEST:
+//           UpdateSaleDetailsData updateSaleDetailsData;
+//       } data;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       } ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("ManageSaleOp", [
+  ["saleId", xdr.lookup("Uint64")],
+  ["data", xdr.lookup("ManageSaleOpData")],
+  ["ext", xdr.lookup("ManageSaleOpExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   enum ManageSaleResultCode
+//   {
+//       SUCCESS = 0,
+//   
+//       SALE_NOT_FOUND = -1, // sale not found
+//       INVALID_NEW_DETAILS = -2, // newDetails field is invalid JSON
+//       UPDATE_DETAILS_REQUEST_ALREADY_EXISTS = -3,
+//       UPDATE_DETAILS_REQUEST_NOT_FOUND = -4
+//   };
+//
+// ===========================================================================
+xdr.enum("ManageSaleResultCode", {
+  success: 0,
+  saleNotFound: -1,
+  invalidNewDetail: -2,
+  updateDetailsRequestAlreadyExist: -3,
+  updateDetailsRequestNotFound: -4,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (ManageSaleAction action) {
+//       case CREATE_UPDATE_DETAILS_REQUEST:
+//           uint64 requestID;
+//       }
+//
+// ===========================================================================
+xdr.union("ManageSaleResultSuccessResponse", {
+  switchOn: xdr.lookup("ManageSaleAction"),
+  switchName: "action",
+  switches: [
+    ["createUpdateDetailsRequest", "requestId"],
+  ],
+  arms: {
+    requestId: xdr.lookup("Uint64"),
+  },
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("ManageSaleResultSuccessExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct ManageSaleResultSuccess
+//   {
+//       union switch (ManageSaleAction action) {
+//       case CREATE_UPDATE_DETAILS_REQUEST:
+//           uint64 requestID;
+//       } response;
+//   
+//       //reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("ManageSaleResultSuccess", [
+  ["response", xdr.lookup("ManageSaleResultSuccessResponse")],
+  ["ext", xdr.lookup("ManageSaleResultSuccessExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union ManageSaleResult switch (ManageSaleResultCode code)
+//   {
+//   case SUCCESS:
+//       ManageSaleResultSuccess success;
+//   default:
+//       void;
+//   };
+//
+// ===========================================================================
+xdr.union("ManageSaleResult", {
+  switchOn: xdr.lookup("ManageSaleResultCode"),
+  switchName: "code",
+  switches: [
+    ["success", "success"],
+  ],
+  arms: {
+    success: xdr.lookup("ManageSaleResultSuccess"),
+  },
+  defaultArm: xdr.void(),
+});
+
+// === xdr source ============================================================
+//
 //   enum KeyValueEntryType
 //       {
 //           UINT32 = 1
@@ -9894,6 +10171,8 @@ xdr.union("ManageBalanceResult", {
 //           BindExternalSystemAccountIdOp bindExternalSystemAccountIdOp;
 //       case PAYMENT_V2:
 //           PaymentOpV2 paymentOpV2;
+//       case MANAGE_SALE:
+//           ManageSaleOp manageSaleOp;
 //       }
 //
 // ===========================================================================
@@ -9926,6 +10205,7 @@ xdr.union("OperationBody", {
     ["manageExternalSystemAccountIdPoolEntry", "manageExternalSystemAccountIdPoolEntryOp"],
     ["bindExternalSystemAccountId", "bindExternalSystemAccountIdOp"],
     ["paymentV2", "paymentOpV2"],
+    ["manageSale", "manageSaleOp"],
   ],
   arms: {
     createAccountOp: xdr.lookup("CreateAccountOp"),
@@ -9953,6 +10233,7 @@ xdr.union("OperationBody", {
     manageExternalSystemAccountIdPoolEntryOp: xdr.lookup("ManageExternalSystemAccountIdPoolEntryOp"),
     bindExternalSystemAccountIdOp: xdr.lookup("BindExternalSystemAccountIdOp"),
     paymentOpV2: xdr.lookup("PaymentOpV2"),
+    manageSaleOp: xdr.lookup("ManageSaleOp"),
   },
 });
 
@@ -10017,6 +10298,8 @@ xdr.union("OperationBody", {
 //           BindExternalSystemAccountIdOp bindExternalSystemAccountIdOp;
 //       case PAYMENT_V2:
 //           PaymentOpV2 paymentOpV2;
+//       case MANAGE_SALE:
+//           ManageSaleOp manageSaleOp;
 //       }
 //       body;
 //   };
@@ -10247,6 +10530,8 @@ xdr.enum("OperationResultCode", {
 //           BindExternalSystemAccountIdResult bindExternalSystemAccountIdResult;
 //       case PAYMENT_V2:
 //           PaymentV2Result paymentV2Result;
+//       case MANAGE_SALE:
+//           ManageSaleResult manageSaleResult;
 //       }
 //
 // ===========================================================================
@@ -10279,6 +10564,7 @@ xdr.union("OperationResultTr", {
     ["manageExternalSystemAccountIdPoolEntry", "manageExternalSystemAccountIdPoolEntryResult"],
     ["bindExternalSystemAccountId", "bindExternalSystemAccountIdResult"],
     ["paymentV2", "paymentV2Result"],
+    ["manageSale", "manageSaleResult"],
   ],
   arms: {
     createAccountResult: xdr.lookup("CreateAccountResult"),
@@ -10306,6 +10592,7 @@ xdr.union("OperationResultTr", {
     manageExternalSystemAccountIdPoolEntryResult: xdr.lookup("ManageExternalSystemAccountIdPoolEntryResult"),
     bindExternalSystemAccountIdResult: xdr.lookup("BindExternalSystemAccountIdResult"),
     paymentV2Result: xdr.lookup("PaymentV2Result"),
+    manageSaleResult: xdr.lookup("ManageSaleResult"),
   },
 });
 
@@ -10366,6 +10653,8 @@ xdr.union("OperationResultTr", {
 //           BindExternalSystemAccountIdResult bindExternalSystemAccountIdResult;
 //       case PAYMENT_V2:
 //           PaymentV2Result paymentV2Result;
+//       case MANAGE_SALE:
+//           ManageSaleResult manageSaleResult;
 //       }
 //       tr;
 //   default:
