@@ -27,6 +27,7 @@ import {BindExternalSystemAccountIdBuilder} from "./operations/bind_external_sys
 import { CreateAMLRequestBuilder } from "./operations/create_aml_request_builder";
 import { CreateUpdateKYCRequestBuilder } from "./operations/create_update_kyc_request_builder";
 import { PaymentV2Builder } from "./operations/payment_v2_builder";
+import { ManageSaleBuilder} from "./operations/manage_sale";
 
 export class Operation extends BaseOperation {
 
@@ -714,6 +715,9 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.paymentV2():
                 PaymentV2Builder.paymentV2ToObject(result, attrs);
+                break;
+            case xdr.OperationType.manageSale():
+                ManageSaleBuilder.manageSaleToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");
