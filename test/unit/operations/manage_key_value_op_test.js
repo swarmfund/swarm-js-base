@@ -12,7 +12,7 @@ describe('Manage Key Value', function () {
                 value: value
             };
 
-            let op = StellarBase.ManageKeyValueBuilder.putKeyValueOp(opts);
+            let op = StellarBase.ManageKeyValueBuilder.putKeyValue(opts);
             let xdr = op.toXDR("hex");
             let operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
             let obj = StellarBase.Operation.operationToObject(operation);
@@ -31,7 +31,7 @@ describe('Manage Key Value', function () {
                 key: key
             };
 
-            let op = StellarBase.ManageKeyValueBuilder.deleteKeyValueOp(opts);
+            let op = StellarBase.ManageKeyValueBuilder.deleteKeyValue(opts);
             let xdr = op.toXDR("hex");
             let operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
             let obj = StellarBase.Operation.operationToObject(operation);

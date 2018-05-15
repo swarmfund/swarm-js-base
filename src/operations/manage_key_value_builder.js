@@ -16,7 +16,7 @@ export class  ManageKeyValueBuilder {
      *
      * @returns {xdr.ManageKeyValueOp}
      */
-    static putKeyValueOp(opts){
+    static putKeyValue(opts){
         let attributes = {};
 
         let value = new xdr.KeyValueEntryValue.uint32(Number(opts.value));
@@ -32,7 +32,7 @@ export class  ManageKeyValueBuilder {
         return ManageKeyValueBuilder.createManageKeyValueOp(attributes, opts);
     }
 
-    static deleteKeyValueOp(opts){
+    static deleteKeyValue(opts){
         let attributes = {};
 
         attributes.action = new xdr.ManageKeyValueOpAction(BaseOperation._keyValueActionFromNumber(

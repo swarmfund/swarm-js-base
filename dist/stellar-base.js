@@ -47071,7 +47071,7 @@ var StellarBase =
 	    }
 
 	    _createClass(ManageKeyValueBuilder, null, [{
-	        key: "putKeyValueOp",
+	        key: "putKeyValue",
 
 	        /**
 	         * Creates manage key value operation
@@ -47084,7 +47084,7 @@ var StellarBase =
 	         *
 	         * @returns {xdr.ManageKeyValueOp}
 	         */
-	        value: function putKeyValueOp(opts) {
+	        value: function putKeyValue(opts) {
 	            var attributes = {};
 
 	            var value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue.uint32(Number(opts.value));
@@ -47100,8 +47100,8 @@ var StellarBase =
 	            return ManageKeyValueBuilder.createManageKeyValueOp(attributes, opts);
 	        }
 	    }, {
-	        key: "deleteKeyValueOp",
-	        value: function deleteKeyValueOp(opts) {
+	        key: "deleteKeyValue",
+	        value: function deleteKeyValue(opts) {
 	            var attributes = {};
 
 	            attributes.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_base_operation.BaseOperation._keyValueActionFromNumber(_generatedStellarXdr_generated2["default"].ManageKvAction["delete"]().value));
