@@ -47061,30 +47061,65 @@ var StellarBase =
 
 	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
+	var _lodashIsString = __webpack_require__(103);
+
+	var _lodashIsString2 = _interopRequireDefault(_lodashIsString);
+
 	var ManageKeyValueBuilder = (function () {
 	    function ManageKeyValueBuilder() {
 	        _classCallCheck(this, ManageKeyValueBuilder);
 	    }
 
 	    _createClass(ManageKeyValueBuilder, null, [{
-	        key: "createManageKeyValueOp",
-	        value: function createManageKeyValueOp(opts) {
-	            var attributes = {};
-	            if ((0, _lodashIsUndefined2["default"])(opts.action) || !_generatedStellarXdr_generated2["default"].ManageKvAction._byValue.has(opts.action)) {
-	                throw new Error("key-value action is invalid");
-	            }
+	        key: "putKeyValueOp",
 
+	        /**
+	         * Creates manage key value operation
+	         * @param {object} opts
+	         *
+	         * @param {string} opts.key
+	         * @param {number|string} opts.value
+	         *
+	         * @param {string} [opts.source] - The source account for the creation. Defaults to the transaction's source account.
+	         *
+	         * @returns {xdr.ManageKeyValueOp}
+	         */
+	        value: function putKeyValueOp(opts) {
+	            var attributes = {};
+
+	            var value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue.uint32(Number(opts.value));
+
+	            var KVEntry = new _generatedStellarXdr_generated2["default"].KeyValueEntry({
+	                key: opts.key,
+	                value: value,
+	                ext: new _generatedStellarXdr_generated2["default"].KeyValueEntryExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
+	            });
+
+	            attributes.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_generatedStellarXdr_generated2["default"].ManageKvAction.put(), KVEntry);
+
+	            return ManageKeyValueBuilder.createManageKeyValueOp(attributes, opts);
+	        }
+	    }, {
+	        key: "deleteKeyValueOp",
+	        value: function deleteKeyValueOp(opts) {
+	            var attributes = {};
+
+	            attributes.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_base_operation.BaseOperation._keyValueActionFromNumber(_generatedStellarXdr_generated2["default"].ManageKvAction["delete"]().value));
+
+	            return ManageKeyValueBuilder.createManageKeyValueOp(attributes, opts);
+	        }
+	    }, {
+	        key: "createManageKeyValueOp",
+	        value: function createManageKeyValueOp(attributes, opts) {
 	            if ((0, _lodashIsUndefined2["default"])(opts.key)) {
-	                throw new Error("key-value key must be defined");
+	                throw new Error("key_value key must be defined");
+	            }
+	            if (!(0, _lodashIsString2["default"])(opts.key)) {
+	                throw new Error("key value key must be string");
 	            }
 
 	            attributes.key = opts.key;
-	            attributes.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_base_operation.BaseOperation._keyValueActionFromNumber(opts.action));
 	            attributes.ext = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion());
-
-	            if (opts.action === _generatedStellarXdr_generated2["default"].ManageKvAction.put()) {
-	                ManageKeyValueBuilder.putKV(opts, attributes);
-	            }
 
 	            var manageKV = new _generatedStellarXdr_generated2["default"].ManageKeyValueOp(attributes);
 
@@ -47096,36 +47131,19 @@ var StellarBase =
 	    }, {
 	        key: "manageKeyValueOpToObject",
 	        value: function manageKeyValueOpToObject(result, attrs) {
-	            result.key = attrs.key;
+	            result.key = attrs.key();
 	            var action = attrs.action().value();
 	            switch (attrs.action()["switch"]()) {
 	                case _generatedStellarXdr_generated2["default"].ManageKvAction.put():
 	                    result.action = new _generatedStellarXdr_generated2["default"].ManageKvAction.put().value;
-	                    result.value = action.value();
+	                    result.value = action.value().defaultMask().toString();
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].ManageKvAction["delete"]():
 	                    result.action = new _generatedStellarXdr_generated2["default"].ManageKvAction["delete"]().value;
-	                    result.value = _generatedStellarXdr_generated2["default"]["void"]();
 	                    break;
 	                default:
 	                    throw new Error("invalid KV action type");
 	            }
-	        }
-	    }, {
-	        key: "putKV",
-	        value: function putKV(opts, attributes) {
-	            var KVEntry = new _generatedStellarXdr_generated2["default"].KeyValueEntry({
-	                key: opts.key,
-	                ext: new _generatedStellarXdr_generated2["default"].ManageKeyValueExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            });
-
-	            if ((0, _lodashIsUndefined2["default"])(opts.KvType) || !_generatedStellarXdr_generated2["default"].KeyValueEntryType._byValue.has(opts.KvType)) {
-	                throw new Error("key_value type is invalid");
-	            }
-
-	            KVEntry.value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue.uint32(opts.value);
-
-	            attributes.action().value(_generatedStellarXdr_generated2["default"].KeyValueEntry(KVEntry));
 	        }
 	    }]);
 

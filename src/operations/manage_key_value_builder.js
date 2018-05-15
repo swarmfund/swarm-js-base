@@ -36,7 +36,7 @@ export class  ManageKeyValueBuilder {
         let attributes = {};
 
         attributes.action = new xdr.ManageKeyValueOpAction(BaseOperation._keyValueActionFromNumber(
-                                                                        StellarBase.xdr.ManageKvAction.delete().value));
+                                                                                xdr.ManageKvAction.delete().value));
 
         return ManageKeyValueBuilder.createManageKeyValueOp(attributes, opts);
     }
