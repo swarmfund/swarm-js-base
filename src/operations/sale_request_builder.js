@@ -1,8 +1,8 @@
-import { default as xdr } from "../generated/stellar-xdr_generated";
+import {default as xdr} from "../generated/stellar-xdr_generated";
 import isUndefined from 'lodash/isUndefined';
-import { BaseOperation } from './base_operation';
-import { Keypair } from "../keypair";
-import { UnsignedHyper, Hyper } from "js-xdr";
+import {BaseOperation} from './base_operation';
+import {Keypair} from "../keypair";
+import {UnsignedHyper, Hyper} from "js-xdr";
 
 export class SaleRequestBuilder {
 
@@ -22,9 +22,10 @@ export class SaleRequestBuilder {
      * @param {object} opts.details.desciption - sale specific details
      * @param {object} opts.details.logo - details of the logo
      * @param {array} opts.quoteAssets - accepted assets
-     * @param {object} opts.quoteAssets.price - price for 1 baseAsset in terms of quote asset 
+     * @param {object} opts.quoteAssets.price - price for 1 baseAsset in terms of quote asset
      * @param {object} opts.quoteAssets.asset - asset code of the quote asset
      * @param {object} opts.isCrowdfunding - states if sale type is crowd funding
+     * @param {string} opts.baseAssetForHardCap - specifies the amount of base asset required for hard cap
      * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
      * @returns {xdr.CreateSaleCreationRequestOp}
      */
@@ -66,18 +67,39 @@ export class SaleRequestBuilder {
         attrs.ext = new xdr.SaleCreationRequestExt(xdr.LedgerVersion.emptyVersion());
 
         let isCrowdfunding = !isUndefined(opts.isCrowdfunding) && opts.isCrowdfunding;
-        if (isCrowdfunding) {
+        let hasBaseAssetForHardCap = !isUndefined(opts.baseAssetForHardCap);
 
+        let saleTypeExt;
+
+        if (isCrowdfunding) {
             let crowdFundingSale = new xdr.CrowdFundingSale({
                 ext: new xdr.CrowdFundingSaleExt(xdr.LedgerVersion.emptyVersion()),
             });
             let saleTypeExtTypedSale = xdr.SaleTypeExtTypedSale.crowdFunding(crowdFundingSale);
-            let saleTypeExt = new xdr.SaleTypeExt({
+            saleTypeExt = new xdr.SaleTypeExt({
                 typedSale: saleTypeExtTypedSale,
             });
+        } else {
+            let basicSale = new xdr.BasicSale({
+                ext: new xdr.BasicSaleExt(xdr.LedgerVersion.emptyVersion()),
+            });
+            let saleTypeExtTypedSale = xdr.SaleTypeExtTypedSale.basicSale(basicSale);
+            saleTypeExt = new xdr.SaleTypeExt({
+                typedSale: saleTypeExtTypedSale,
+            });
+        }
 
+        if (hasBaseAssetForHardCap) {
+            let extV2 = new xdr.SaleCreationRequestExtV2({
+                saleTypeExt: saleTypeExt,
+                requiredBaseAssetForHardCap: BaseOperation._toUnsignedXDRAmount(opts.baseAssetForHardCap),
+            });
+
+            attrs.ext = xdr.SaleCreationRequestExt.allowToSpecifyRequiredBaseAssetAmountForHardCap(extV2);
+        } else if (isCrowdfunding) {
             attrs.ext = xdr.SaleCreationRequestExt.typedSale(saleTypeExt);
         }
+
         let request = new xdr.SaleCreationRequest(attrs);
 
         if (isUndefined(opts.requestID)) {
@@ -161,6 +183,11 @@ export class SaleRequestBuilder {
                 price: BaseOperation._fromXDRAmount(request.quoteAssets()[i].price()),
                 asset: request.quoteAssets()[i].quoteAsset(),
             });
+        }
+        switch (request.ext().switch()) {
+            case xdr.LedgerVersion.allowToSpecifyRequiredBaseAssetAmountForHardCap(): {
+                result.baseAssetForHardCap = BaseOperation._fromXDRAmount(request.ext().extV2().requiredBaseAssetForHardCap());
+            }
         }
     }
 
