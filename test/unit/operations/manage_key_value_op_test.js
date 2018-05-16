@@ -14,8 +14,6 @@ describe('Manage Key Value', function () {
 
             let op = StellarBase.ManageKeyValueBuilder.putKeyValue(opts);
             let xdr = op.toXDR("hex");
-            console.log(xdr);
-            console.log(xdr.toString());
             let operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
             let obj = StellarBase.Operation.operationToObject(operation);
             expect(obj.type).to.be.equal("manageKeyValue");
