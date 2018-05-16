@@ -27,6 +27,7 @@ export {CreateAMLRequestBuilder} from "./operations/create_aml_request_builder";
 export { ManageKeyValueBuilder } from './operations/manage_key_value_builder';
 export { CreateUpdateKYCRequestBuilder } from './operations/create_update_kyc_request_builder';
 export { PaymentV2Builder } from "./operations/payment_v2_builder";
+export { ManageSaleBuilder } from "./operations/manage_sale";
 
 export * from "./strkey";
 
