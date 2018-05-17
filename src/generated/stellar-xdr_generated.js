@@ -1,4 +1,4 @@
-// Automatically generated on 2018-05-15T18:33:39+03:00
+// Automatically generated on 2018-05-17T17:31:58+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -395,7 +395,7 @@ xdr.union("ReviewableRequestEntryExt", {
 //   	uint64 requestID;
 //   	Hash hash; // hash of the request body
 //   	AccountID requestor;
-//   	string256 rejectReason;
+//   	longstring rejectReason;
 //   	AccountID reviewer;
 //   	string64* reference; // reference for request which will act as an unique key for the request (will reject request with the same reference from same requestor)
 //   	int64 createdAt; // when request was created
@@ -439,7 +439,7 @@ xdr.struct("ReviewableRequestEntry", [
   ["requestId", xdr.lookup("Uint64")],
   ["hash", xdr.lookup("Hash")],
   ["requestor", xdr.lookup("AccountId")],
-  ["rejectReason", xdr.lookup("String256")],
+  ["rejectReason", xdr.lookup("Longstring")],
   ["reviewer", xdr.lookup("AccountId")],
   ["reference", xdr.option(xdr.lookup("String64"))],
   ["createdAt", xdr.lookup("Int64")],
@@ -2841,7 +2841,8 @@ xdr.union("PublicKey", {
 //   	USE_PAYMENT_V2 = 16,
 //   	ALLOW_SYNDICATE_TO_UPDATE_KYC = 17,
 //   	DO_NOT_BUILD_ACCOUNT_IF_VERSION_EQUALS_OR_GREATER = 18,
-//   	ALLOW_TO_SPECIFY_REQUIRED_BASE_ASSET_AMOUNT_FOR_HARD_CAP = 19
+//   	ALLOW_TO_SPECIFY_REQUIRED_BASE_ASSET_AMOUNT_FOR_HARD_CAP = 19,
+//   	DETAILS_MAX_LENGTH_EXTENDED = 20
 //   };
 //
 // ===========================================================================
@@ -2866,6 +2867,7 @@ xdr.enum("LedgerVersion", {
   allowSyndicateToUpdateKyc: 17,
   doNotBuildAccountIfVersionEqualsOrGreater: 18,
   allowToSpecifyRequiredBaseAssetAmountForHardCap: 19,
+  detailsMaxLengthExtended: 20,
 });
 
 // === xdr source ============================================================
@@ -4651,7 +4653,7 @@ xdr.union("ReviewRequestOpExt", {
 //   		void;
 //   	} requestDetails;
 //   	ReviewRequestOpAction action;
-//   	string256 reason;
+//   	longstring reason;
 //   	// reserved for future use
 //       union switch (LedgerVersion v)
 //       {
@@ -4667,7 +4669,7 @@ xdr.struct("ReviewRequestOp", [
   ["requestHash", xdr.lookup("Hash")],
   ["requestDetails", xdr.lookup("ReviewRequestOpRequestDetails")],
   ["action", xdr.lookup("ReviewRequestOpAction")],
-  ["reason", xdr.lookup("String256")],
+  ["reason", xdr.lookup("Longstring")],
   ["ext", xdr.lookup("ReviewRequestOpExt")],
 ]);
 
@@ -9764,7 +9766,7 @@ xdr.union("ReviewPaymentRequestOpExt", {
 //       uint64 paymentID;
 //   
 //   	bool accept;
-//       string256* rejectReason;
+//       longstring* rejectReason;
 //   	// reserved for future use
 //   	union switch (LedgerVersion v)
 //   	{
@@ -9778,7 +9780,7 @@ xdr.union("ReviewPaymentRequestOpExt", {
 xdr.struct("ReviewPaymentRequestOp", [
   ["paymentId", xdr.lookup("Uint64")],
   ["accept", xdr.bool()],
-  ["rejectReason", xdr.option(xdr.lookup("String256"))],
+  ["rejectReason", xdr.option(xdr.lookup("Longstring"))],
   ["ext", xdr.lookup("ReviewPaymentRequestOpExt")],
 ]);
 
@@ -10520,7 +10522,7 @@ xdr.union("AmlAlertRequestExt", {
 //   struct AMLAlertRequest {
 //       BalanceID balanceID;
 //       uint64 amount;
-//       string256 reason;
+//       longstring reason;
 //   	union switch (LedgerVersion v)
 //       {
 //       case EMPTY_VERSION:
@@ -10533,7 +10535,7 @@ xdr.union("AmlAlertRequestExt", {
 xdr.struct("AmlAlertRequest", [
   ["balanceId", xdr.lookup("BalanceId")],
   ["amount", xdr.lookup("Uint64")],
-  ["reason", xdr.lookup("String256")],
+  ["reason", xdr.lookup("Longstring")],
   ["ext", xdr.lookup("AmlAlertRequestExt")],
 ]);
 
