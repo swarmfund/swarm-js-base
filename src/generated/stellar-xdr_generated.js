@@ -1,4 +1,4 @@
-// Automatically generated on 2018-05-16T15:54:40+03:00
+// Automatically generated on 2018-05-17T13:06:06+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -5660,7 +5660,8 @@ xdr.union("PublicKey", {
 //   	USE_PAYMENT_V2 = 16,
 //   	ALLOW_SYNDICATE_TO_UPDATE_KYC = 17,
 //   	DO_NOT_BUILD_ACCOUNT_IF_VERSION_EQUALS_OR_GREATER = 18,
-//   	KYC_RULES = 19
+//   	ALLOW_TO_SPECIFY_REQUIRED_BASE_ASSET_AMOUNT_FOR_HARD_CAP = 19,
+//   	KYC_RULES = 20
 //   };
 //
 // ===========================================================================
@@ -5684,7 +5685,8 @@ xdr.enum("LedgerVersion", {
   usePaymentV2: 16,
   allowSyndicateToUpdateKyc: 17,
   doNotBuildAccountIfVersionEqualsOrGreater: 18,
-  kycRule: 19,
+  allowToSpecifyRequiredBaseAssetAmountForHardCap: 19,
+  kycRule: 20,
 });
 
 // === xdr source ============================================================
@@ -8718,12 +8720,30 @@ xdr.struct("SaleCreationRequestQuoteAsset", [
 
 // === xdr source ============================================================
 //
+//   struct {
+//               SaleTypeExt saleTypeExt;
+//               uint64 requiredBaseAssetForHardCap;
+//           }
+//
+// ===========================================================================
+xdr.struct("SaleCreationRequestExtV2", [
+  ["saleTypeExt", xdr.lookup("SaleTypeExt")],
+  ["requiredBaseAssetForHardCap", xdr.lookup("Uint64")],
+]);
+
+// === xdr source ============================================================
+//
 //   union switch (LedgerVersion v)
 //       {
 //       case EMPTY_VERSION:
 //           void;
 //   	case TYPED_SALE:
 //   		SaleTypeExt saleTypeExt;
+//       case ALLOW_TO_SPECIFY_REQUIRED_BASE_ASSET_AMOUNT_FOR_HARD_CAP:
+//           struct {
+//               SaleTypeExt saleTypeExt;
+//               uint64 requiredBaseAssetForHardCap;
+//           } extV2;
 //       }
 //
 // ===========================================================================
@@ -8733,9 +8753,11 @@ xdr.union("SaleCreationRequestExt", {
   switches: [
     ["emptyVersion", xdr.void()],
     ["typedSale", "saleTypeExt"],
+    ["allowToSpecifyRequiredBaseAssetAmountForHardCap", "extV2"],
   ],
   arms: {
     saleTypeExt: xdr.lookup("SaleTypeExt"),
+    extV2: xdr.lookup("SaleCreationRequestExtV2"),
   },
 });
 
@@ -8758,6 +8780,11 @@ xdr.union("SaleCreationRequestExt", {
 //           void;
 //   	case TYPED_SALE:
 //   		SaleTypeExt saleTypeExt;
+//       case ALLOW_TO_SPECIFY_REQUIRED_BASE_ASSET_AMOUNT_FOR_HARD_CAP:
+//           struct {
+//               SaleTypeExt saleTypeExt;
+//               uint64 requiredBaseAssetForHardCap;
+//           } extV2;
 //       }
 //       ext;
 //   };
@@ -9864,7 +9891,7 @@ xdr.enum("KeyValueEntryType", {
 //   union switch (KeyValueEntryType type)
 //           {
 //                case UINT32:
-//                   uint32 defaultMask;
+//                   uint32 ui32Value;
 //           }
 //
 // ===========================================================================
@@ -9872,10 +9899,10 @@ xdr.union("KeyValueEntryValue", {
   switchOn: xdr.lookup("KeyValueEntryType"),
   switchName: "type",
   switches: [
-    ["uint32", "defaultMask"],
+    ["uint32", "ui32Value"],
   ],
   arms: {
-    defaultMask: xdr.lookup("Uint32"),
+    ui32Value: xdr.lookup("Uint32"),
   },
 });
 
@@ -9907,7 +9934,7 @@ xdr.union("KeyValueEntryExt", {
 //           union switch (KeyValueEntryType type)
 //           {
 //                case UINT32:
-//                   uint32 defaultMask;
+//                   uint32 ui32Value;
 //           }
 //           value;
 //   

@@ -68,7 +68,7 @@ export class  ManageKeyValueBuilder {
         switch (attrs.action().switch()) {
             case xdr.ManageKvAction.put():
                 result.action = new xdr.ManageKvAction.put().value;
-                result.value = action.value().defaultMask().toString();
+                result.value = action.value().ui32Value().toString();
                 break;
             case xdr.ManageKvAction.delete():
                 result.action = new xdr.ManageKvAction.delete().value;
