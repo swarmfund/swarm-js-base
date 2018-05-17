@@ -350,7 +350,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-05-12T16:14:35+03:00
+	// Automatically generated on 2018-05-15T18:33:39+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -2076,11 +2076,12 @@ var StellarBase =
 	//   	CROSS_ASSET_FEE = 15,
 	//   	USE_PAYMENT_V2 = 16,
 	//   	ALLOW_SYNDICATE_TO_UPDATE_KYC = 17,
-	//   	DO_NOT_BUILD_ACCOUNT_IF_VERSION_EQUALS_OR_GREATER = 18
+	//   	DO_NOT_BUILD_ACCOUNT_IF_VERSION_EQUALS_OR_GREATER = 18,
+	//   	ALLOW_TO_SPECIFY_REQUIRED_BASE_ASSET_AMOUNT_FOR_HARD_CAP = 19
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18}); // === xdr source ============================================================
+	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19}); // === xdr source ============================================================
 	//
 	//   typedef opaque Signature<64>;
 	//
@@ -3995,16 +3996,29 @@ var StellarBase =
 	// ===========================================================================
 	xdr.struct("SaleCreationRequestQuoteAsset",[["quoteAsset",xdr.lookup("AssetCode")],["price",xdr.lookup("Uint64")],["ext",xdr.lookup("SaleCreationRequestQuoteAssetExt")]]); // === xdr source ============================================================
 	//
+	//   struct {
+	//               SaleTypeExt saleTypeExt;
+	//               uint64 requiredBaseAssetForHardCap;
+	//           }
+	//
+	// ===========================================================================
+	xdr.struct("SaleCreationRequestExtV2",[["saleTypeExt",xdr.lookup("SaleTypeExt")],["requiredBaseAssetForHardCap",xdr.lookup("Uint64")]]); // === xdr source ============================================================
+	//
 	//   union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
 	//   	case TYPED_SALE:
 	//   		SaleTypeExt saleTypeExt;
+	//       case ALLOW_TO_SPECIFY_REQUIRED_BASE_ASSET_AMOUNT_FOR_HARD_CAP:
+	//           struct {
+	//               SaleTypeExt saleTypeExt;
+	//               uint64 requiredBaseAssetForHardCap;
+	//           } extV2;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("SaleCreationRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["typedSale","saleTypeExt"]],arms:{saleTypeExt:xdr.lookup("SaleTypeExt")}}); // === xdr source ============================================================
+	xdr.union("SaleCreationRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["typedSale","saleTypeExt"],["allowToSpecifyRequiredBaseAssetAmountForHardCap","extV2"]],arms:{saleTypeExt:xdr.lookup("SaleTypeExt"),extV2:xdr.lookup("SaleCreationRequestExtV2")}}); // === xdr source ============================================================
 	//
 	//   struct SaleCreationRequest {
 	//   	AssetCode baseAsset; // asset for which sale will be performed
@@ -4023,6 +4037,11 @@ var StellarBase =
 	//           void;
 	//   	case TYPED_SALE:
 	//   		SaleTypeExt saleTypeExt;
+	//       case ALLOW_TO_SPECIFY_REQUIRED_BASE_ASSET_AMOUNT_FOR_HARD_CAP:
+	//           struct {
+	//               SaleTypeExt saleTypeExt;
+	//               uint64 requiredBaseAssetForHardCap;
+	//           } extV2;
 	//       }
 	//       ext;
 	//   };
@@ -46662,9 +46681,10 @@ var StellarBase =
 	         * @param {object} opts.details.desciption - sale specific details
 	         * @param {object} opts.details.logo - details of the logo
 	         * @param {array} opts.quoteAssets - accepted assets
-	         * @param {object} opts.quoteAssets.price - price for 1 baseAsset in terms of quote asset 
+	         * @param {object} opts.quoteAssets.price - price for 1 baseAsset in terms of quote asset
 	         * @param {object} opts.quoteAssets.asset - asset code of the quote asset
 	         * @param {object} opts.isCrowdfunding - states if sale type is crowd funding
+	         * @param {string} opts.baseAssetForHardCap - specifies the amount of base asset required for hard cap
 	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
 	         * @returns {xdr.CreateSaleCreationRequestOp}
 	         */
@@ -46706,18 +46726,39 @@ var StellarBase =
 	            attrs.ext = new _generatedStellarXdr_generated2['default'].SaleCreationRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
 
 	            var isCrowdfunding = !(0, _lodashIsUndefined2['default'])(opts.isCrowdfunding) && opts.isCrowdfunding;
-	            if (isCrowdfunding) {
+	            var hasBaseAssetForHardCap = !(0, _lodashIsUndefined2['default'])(opts.baseAssetForHardCap);
 
+	            var saleTypeExt = undefined;
+
+	            if (isCrowdfunding) {
 	                var crowdFundingSale = new _generatedStellarXdr_generated2['default'].CrowdFundingSale({
 	                    ext: new _generatedStellarXdr_generated2['default'].CrowdFundingSaleExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
 	                });
 	                var saleTypeExtTypedSale = _generatedStellarXdr_generated2['default'].SaleTypeExtTypedSale.crowdFunding(crowdFundingSale);
-	                var saleTypeExt = new _generatedStellarXdr_generated2['default'].SaleTypeExt({
+	                saleTypeExt = new _generatedStellarXdr_generated2['default'].SaleTypeExt({
 	                    typedSale: saleTypeExtTypedSale
 	                });
+	            } else {
+	                var basicSale = new _generatedStellarXdr_generated2['default'].BasicSale({
+	                    ext: new _generatedStellarXdr_generated2['default'].BasicSaleExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	                });
+	                var saleTypeExtTypedSale = _generatedStellarXdr_generated2['default'].SaleTypeExtTypedSale.basicSale(basicSale);
+	                saleTypeExt = new _generatedStellarXdr_generated2['default'].SaleTypeExt({
+	                    typedSale: saleTypeExtTypedSale
+	                });
+	            }
 
+	            if (hasBaseAssetForHardCap) {
+	                var extV2 = new _generatedStellarXdr_generated2['default'].SaleCreationRequestExtV2({
+	                    saleTypeExt: saleTypeExt,
+	                    requiredBaseAssetForHardCap: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.baseAssetForHardCap)
+	                });
+
+	                attrs.ext = _generatedStellarXdr_generated2['default'].SaleCreationRequestExt.allowToSpecifyRequiredBaseAssetAmountForHardCap(extV2);
+	            } else if (isCrowdfunding) {
 	                attrs.ext = _generatedStellarXdr_generated2['default'].SaleCreationRequestExt.typedSale(saleTypeExt);
 	            }
+
 	            var request = new _generatedStellarXdr_generated2['default'].SaleCreationRequest(attrs);
 
 	            if ((0, _lodashIsUndefined2['default'])(opts.requestID)) {
@@ -46803,6 +46844,12 @@ var StellarBase =
 	                    price: _base_operation.BaseOperation._fromXDRAmount(request.quoteAssets()[i].price()),
 	                    asset: request.quoteAssets()[i].quoteAsset()
 	                });
+	            }
+	            switch (request.ext()['switch']()) {
+	                case _generatedStellarXdr_generated2['default'].LedgerVersion.allowToSpecifyRequiredBaseAssetAmountForHardCap():
+	                    {
+	                        result.baseAssetForHardCap = _base_operation.BaseOperation._fromXDRAmount(request.ext().extV2().requiredBaseAssetForHardCap());
+	                    }
 	            }
 	        }
 
