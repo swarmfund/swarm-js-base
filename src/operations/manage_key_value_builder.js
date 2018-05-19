@@ -6,7 +6,7 @@ import isString from 'lodash/isString';
 export class  ManageKeyValueBuilder {
 
     /**
-     * Creates manage key value operation
+     * Creates put key value operation
      * @param {object} opts
      *
      * @param {string} opts.key
@@ -33,7 +33,7 @@ export class  ManageKeyValueBuilder {
     }
 
     /**
-     * Creates manage key value operation
+     * Creates delete key value operation
      * @param {object} opts
      *
      * @param {string} opts.key

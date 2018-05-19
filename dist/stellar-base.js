@@ -44792,7 +44792,7 @@ var StellarBase =
 	        key: "putKeyValue",
 
 	        /**
-	         * Creates manage key value operation
+	         * Creates put key value operation
 	         * @param {object} opts
 	         *
 	         * @param {string} opts.key
@@ -44819,7 +44819,7 @@ var StellarBase =
 	        }
 
 	        /**
-	         * Creates manage key value operation
+	         * Creates delete key value operation
 	         * @param {object} opts
 	         *
 	         * @param {string} opts.key
