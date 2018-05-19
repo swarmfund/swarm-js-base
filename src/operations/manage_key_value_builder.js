@@ -32,6 +32,16 @@ export class  ManageKeyValueBuilder {
         return ManageKeyValueBuilder.createManageKeyValueOp(attributes, opts);
     }
 
+    /**
+     * Creates manage key value operation
+     * @param {object} opts
+     *
+     * @param {string} opts.key
+     *
+     * @param {string} [opts.source] - The source account for the creation. Defaults to the transaction's source account.
+     *
+     * @returns {xdr.ManageKeyValueOp}
+     */
     static deleteKeyValue(opts){
         let attributes = {};
 
