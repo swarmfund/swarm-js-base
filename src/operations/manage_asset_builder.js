@@ -177,11 +177,7 @@ export class ManageAssetBuilder {
             details.logo.type = "";
         }
 
-        return {
-          name: details.name,
-          logo: details.logo,
-          terms: details.terms
-        };
+        return details;
     }
 
     static _createUpdateAttrs(opts) {
