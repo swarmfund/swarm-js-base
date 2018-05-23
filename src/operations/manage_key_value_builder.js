@@ -6,7 +6,7 @@ import isString from 'lodash/isString';
 export class  ManageKeyValueBuilder {
 
     /**
-     * Creates manage key value operation
+     * Creates put key value operation
      * @param {object} opts
      *
      * @param {string} opts.key
@@ -32,6 +32,16 @@ export class  ManageKeyValueBuilder {
         return ManageKeyValueBuilder.createManageKeyValueOp(attributes, opts);
     }
 
+    /**
+     * Creates delete key value operation
+     * @param {object} opts
+     *
+     * @param {string} opts.key
+     *
+     * @param {string} [opts.source] - The source account for the creation. Defaults to the transaction's source account.
+     *
+     * @returns {xdr.ManageKeyValueOp}
+     */
     static deleteKeyValue(opts){
         let attributes = {};
 

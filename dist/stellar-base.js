@@ -47302,7 +47302,7 @@ var StellarBase =
 	        key: "putKeyValue",
 
 	        /**
-	         * Creates manage key value operation
+	         * Creates put key value operation
 	         * @param {object} opts
 	         *
 	         * @param {string} opts.key
@@ -47327,6 +47327,17 @@ var StellarBase =
 
 	            return ManageKeyValueBuilder.createManageKeyValueOp(attributes, opts);
 	        }
+
+	        /**
+	         * Creates delete key value operation
+	         * @param {object} opts
+	         *
+	         * @param {string} opts.key
+	         *
+	         * @param {string} [opts.source] - The source account for the creation. Defaults to the transaction's source account.
+	         *
+	         * @returns {xdr.ManageKeyValueOp}
+	         */
 	    }, {
 	        key: "deleteKeyValue",
 	        value: function deleteKeyValue(opts) {
