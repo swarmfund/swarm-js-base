@@ -359,29 +359,29 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-05-17T16:47:28+03:00
+	// Automatically generated on 2018-05-25T14:54:37+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
 	//   enum ManageKVAction
 	//       {
 	//           PUT = 1,
-	//           DELETE = 2
+	//           REMOVE = 2
 	//       };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageKvAction",{put:1,"delete":2}); // === xdr source ============================================================
+	xdr["enum"]("ManageKvAction",{put:1,remove:2}); // === xdr source ============================================================
 	//
 	//   union switch(ManageKVAction action)
 	//           {
 	//               case PUT:
 	//                   KeyValueEntry value;
-	//               case DELETE:
+	//               case REMOVE:
 	//                   void;
 	//           }
 	//
 	// ===========================================================================
-	xdr.union("ManageKeyValueOpAction",{switchOn:xdr.lookup("ManageKvAction"),switchName:"action",switches:[["put","value"],["delete",xdr["void"]()]],arms:{value:xdr.lookup("KeyValueEntry")}}); // === xdr source ============================================================
+	xdr.union("ManageKeyValueOpAction",{switchOn:xdr.lookup("ManageKvAction"),switchName:"action",switches:[["put","value"],["remove",xdr["void"]()]],arms:{value:xdr.lookup("KeyValueEntry")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//           {
@@ -399,7 +399,7 @@ var StellarBase =
 	//           {
 	//               case PUT:
 	//                   KeyValueEntry value;
-	//               case DELETE:
+	//               case REMOVE:
 	//                   void;
 	//           }
 	//           action;
@@ -442,11 +442,12 @@ var StellarBase =
 	//   enum ManageKeyValueResultCode
 	//       {
 	//           SUCCESS = 1,
-	//           NOT_FOUND = -1
+	//           NOT_FOUND = -1,
+	//           INVALID_TYPE = -2
 	//       };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageKeyValueResultCode",{success:1,notFound:-1}); // === xdr source ============================================================
+	xdr["enum"]("ManageKeyValueResultCode",{success:1,notFound:-1,invalidType:-2}); // === xdr source ============================================================
 	//
 	//   union ManageKeyValueResult switch (ManageKeyValueResultCode code)
 	//       {
@@ -833,11 +834,11 @@ var StellarBase =
 	//   enum ManageExternalSystemAccountIdPoolEntryAction
 	//   {
 	//       CREATE = 0,
-	//       DELETE = 1
+	//       REMOVE = 1
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageExternalSystemAccountIdPoolEntryAction",{create:0,"delete":1}); // === xdr source ============================================================
+	xdr["enum"]("ManageExternalSystemAccountIdPoolEntryAction",{create:0,remove:1}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -893,12 +894,12 @@ var StellarBase =
 	//       {
 	//       case CREATE:
 	//           CreateExternalSystemAccountIdPoolEntryActionInput createExternalSystemAccountIdPoolEntryActionInput;
-	//       case DELETE:
+	//       case REMOVE:
 	//           DeleteExternalSystemAccountIdPoolEntryActionInput deleteExternalSystemAccountIdPoolEntryActionInput;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ManageExternalSystemAccountIdPoolEntryOpActionInput",{switchOn:xdr.lookup("ManageExternalSystemAccountIdPoolEntryAction"),switchName:"action",switches:[["create","createExternalSystemAccountIdPoolEntryActionInput"],["delete","deleteExternalSystemAccountIdPoolEntryActionInput"]],arms:{createExternalSystemAccountIdPoolEntryActionInput:xdr.lookup("CreateExternalSystemAccountIdPoolEntryActionInput"),deleteExternalSystemAccountIdPoolEntryActionInput:xdr.lookup("DeleteExternalSystemAccountIdPoolEntryActionInput")}}); // === xdr source ============================================================
+	xdr.union("ManageExternalSystemAccountIdPoolEntryOpActionInput",{switchOn:xdr.lookup("ManageExternalSystemAccountIdPoolEntryAction"),switchName:"action",switches:[["create","createExternalSystemAccountIdPoolEntryActionInput"],["remove","deleteExternalSystemAccountIdPoolEntryActionInput"]],arms:{createExternalSystemAccountIdPoolEntryActionInput:xdr.lookup("CreateExternalSystemAccountIdPoolEntryActionInput"),deleteExternalSystemAccountIdPoolEntryActionInput:xdr.lookup("DeleteExternalSystemAccountIdPoolEntryActionInput")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -915,7 +916,7 @@ var StellarBase =
 	//       {
 	//       case CREATE:
 	//           CreateExternalSystemAccountIdPoolEntryActionInput createExternalSystemAccountIdPoolEntryActionInput;
-	//       case DELETE:
+	//       case REMOVE:
 	//           DeleteExternalSystemAccountIdPoolEntryActionInput deleteExternalSystemAccountIdPoolEntryActionInput;
 	//       } actionInput;
 	//   
@@ -3839,11 +3840,14 @@ var StellarBase =
 	//   	ALLOW_SYNDICATE_TO_UPDATE_KYC = 17,
 	//   	DO_NOT_BUILD_ACCOUNT_IF_VERSION_EQUALS_OR_GREATER = 18,
 	//   	ALLOW_TO_SPECIFY_REQUIRED_BASE_ASSET_AMOUNT_FOR_HARD_CAP = 19,
-	//   	KYC_RULES = 20
+	//   	KYC_RULES = 20,
+	//   	ALLOW_TO_CREATE_SEVERAL_SALES = 21,
+	//   	KEY_VALUE_POOL_ENTRY_EXPIRES_AT = 22,
+	//   	KEY_VALUE_UPDATE = 23
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20}); // === xdr source ============================================================
+	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23}); // === xdr source ============================================================
 	//
 	//   typedef opaque Signature<64>;
 	//
@@ -6363,20 +6367,23 @@ var StellarBase =
 	//
 	//   enum KeyValueEntryType
 	//       {
-	//           UINT32 = 1
+	//           UINT32 = 1,
+	//           STRING = 2
 	//       };
 	//
 	// ===========================================================================
-	xdr["enum"]("KeyValueEntryType",{uint32:1}); // === xdr source ============================================================
+	xdr["enum"]("KeyValueEntryType",{uint32:1,string:2}); // === xdr source ============================================================
 	//
 	//   union switch (KeyValueEntryType type)
 	//           {
 	//                case UINT32:
 	//                   uint32 ui32Value;
+	//                case STRING:
+	//                   string stringValue<>;
 	//           }
 	//
 	// ===========================================================================
-	xdr.union("KeyValueEntryValue",{switchOn:xdr.lookup("KeyValueEntryType"),switchName:"type",switches:[["uint32","ui32Value"]],arms:{ui32Value:xdr.lookup("Uint32")}}); // === xdr source ============================================================
+	xdr.union("KeyValueEntryValue",{switchOn:xdr.lookup("KeyValueEntryType"),switchName:"type",switches:[["uint32","ui32Value"],["string","stringValue"]],arms:{ui32Value:xdr.lookup("Uint32"),stringValue:xdr.string()}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//           {
@@ -6395,6 +6402,8 @@ var StellarBase =
 	//           {
 	//                case UINT32:
 	//                   uint32 ui32Value;
+	//                case STRING:
+	//                   string stringValue<>;
 	//           }
 	//           value;
 	//   
