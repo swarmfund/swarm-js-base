@@ -44842,7 +44842,7 @@ var StellarBase =
 	        value: function deleteKeyValue(opts) {
 	            var attributes = {};
 
-	            attributes.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_base_operation.BaseOperation._keyValueActionFromNumber(_generatedStellarXdr_generated2["default"].ManageKvAction["delete"]().value));
+	            attributes.action = new _generatedStellarXdr_generated2["default"].ManageKeyValueOpAction(_base_operation.BaseOperation._keyValueActionFromNumber(_generatedStellarXdr_generated2["default"].ManageKvAction.remove().value));
 
 	            return ManageKeyValueBuilder.createManageKeyValueOp(attributes, opts);
 	        }
@@ -44876,8 +44876,8 @@ var StellarBase =
 	                    result.action = new _generatedStellarXdr_generated2["default"].ManageKvAction.put().value;
 	                    result.value = action.value().ui32Value().toString();
 	                    break;
-	                case _generatedStellarXdr_generated2["default"].ManageKvAction["delete"]():
-	                    result.action = new _generatedStellarXdr_generated2["default"].ManageKvAction["delete"]().value;
+	                case _generatedStellarXdr_generated2["default"].ManageKvAction.remove():
+	                    result.action = new _generatedStellarXdr_generated2["default"].ManageKvAction.remove().value;
 	                    break;
 	                default:
 	                    throw new Error("invalid KV action type");
@@ -45184,7 +45184,7 @@ var StellarBase =
 	            attrs.ext = new _generatedStellarXdr_generated2['default'].DeleteExternalSystemAccountIdPoolEntryActionInputExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
 
 	            var deleteExternalSystemAccountIdPoolEntryActionInput = new _generatedStellarXdr_generated2['default'].DeleteExternalSystemAccountIdPoolEntryActionInput(attrs);
-	            return ManageExternalSystemAccountIdPoolEntryBuilder._deleteManageExternalSystemAccountIdPoolEntryOp(opts, new _generatedStellarXdr_generated2['default'].ManageExternalSystemAccountIdPoolEntryOpActionInput['delete'](deleteExternalSystemAccountIdPoolEntryActionInput));
+	            return ManageExternalSystemAccountIdPoolEntryBuilder._deleteManageExternalSystemAccountIdPoolEntryOp(opts, new _generatedStellarXdr_generated2['default'].ManageExternalSystemAccountIdPoolEntryOpActionInput.remove(deleteExternalSystemAccountIdPoolEntryActionInput));
 	        }
 	    }, {
 	        key: '_createManageExternalSystemAccountIdPoolEntryOp',
@@ -45226,7 +45226,7 @@ var StellarBase =
 	                        result.parent = action.parent().toString();
 	                        break;
 	                    }
-	                case _generatedStellarXdr_generated2['default'].ManageExternalSystemAccountIdPoolEntryAction['delete']():
+	                case _generatedStellarXdr_generated2['default'].ManageExternalSystemAccountIdPoolEntryAction.remove():
 	                    {
 	                        var action = attrs.actionInput().deleteExternalSystemAccountIdPoolEntryActionInput();
 	                        result.poolEntryId = action.poolEntryId().toString();

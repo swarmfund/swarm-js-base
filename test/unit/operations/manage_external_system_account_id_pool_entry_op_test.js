@@ -37,7 +37,7 @@ describe('ManageExternalSystemAccountIdPoolEntry', function () {
             let operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
             let obj = StellarBase.Operation.operationToObject(operation);
             expect(obj.type).to.be.equal("manageExternalSystemAccountIdPoolEntry");
-            expect(obj.actionType).to.be.equal("delete");
+            expect(obj.actionType).to.be.equal("remove");
             expect(obj.poolEntryId).to.be.equal(poolEntryID);
         });
     });
