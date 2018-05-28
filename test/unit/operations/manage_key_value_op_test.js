@@ -26,7 +26,7 @@ describe('Manage Key Value', function () {
     describe('Delete key value', function () {
         it("Success", function () {
             let key = "1216";
-            let action = StellarBase.xdr.ManageKvAction.delete().value;
+            let action = StellarBase.xdr.ManageKvAction.remove().value;
             let opts = {
                 key: key
             };

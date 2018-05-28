@@ -62,7 +62,7 @@ export class ManageExternalSystemAccountIdPoolEntryBuilder {
 
         let deleteExternalSystemAccountIdPoolEntryActionInput = new xdr.DeleteExternalSystemAccountIdPoolEntryActionInput(attrs);
         return ManageExternalSystemAccountIdPoolEntryBuilder._deleteManageExternalSystemAccountIdPoolEntryOp(
-            opts, new xdr.ManageExternalSystemAccountIdPoolEntryOpActionInput.delete(
+            opts, new xdr.ManageExternalSystemAccountIdPoolEntryOpActionInput.remove(
                 deleteExternalSystemAccountIdPoolEntryActionInput));
     }
 
@@ -102,7 +102,7 @@ export class ManageExternalSystemAccountIdPoolEntryBuilder {
                 result.parent = action.parent().toString();
                 break;
             }
-            case xdr.ManageExternalSystemAccountIdPoolEntryAction.delete():
+            case xdr.ManageExternalSystemAccountIdPoolEntryAction.remove():
             {
                 let action = attrs.actionInput().deleteExternalSystemAccountIdPoolEntryActionInput();
                 result.poolEntryId = action.poolEntryId().toString();
