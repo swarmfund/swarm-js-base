@@ -1,8 +1,8 @@
 import isEqual from "lodash/isEqual";
 import {ManageSaleBuilder} from "../../../src/operations/manage_sale";
 
-describe("Update sale details request op", function () {
-    it("Success", function () {
+describe("Manage sale", function () {
+    it("Update sale details request op", function () {
         let opts = {
             saleID: "1",
             requestID: "0",
@@ -24,5 +24,15 @@ describe("Update sale details request op", function () {
         expect(obj.saleID).to.be.equal(opts.saleID);
         expect(obj.requestID).to.be.equal(opts.requestID);
         expect(isEqual(obj.newDetails, opts.newDetails)).to.be.true;
+    })
+    it('Cancel sale', () => {
+        let opts = {
+            saleID: '1'
+        }
+        let op = ManageSaleBuilder.cancelSale(opts)
+        let xdrOp = op.toXDR('hex')
+        let operation = StellarBase.xdr.Operation.fromXDR(Buffer.from(xdrOp, 'hex'))
+        let obj = StellarBase.Operation.operationToObject(operation)
+        expect(obj.saleID).to.be.equal(opts.saleID)
     })
 });

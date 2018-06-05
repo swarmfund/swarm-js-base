@@ -49,6 +49,30 @@ export class ManageSaleBuilder {
         return new xdr.Operation(opAttrs);
     }
 
+    /**
+     * Creates manage sale operation for cancel sale
+     * @param {object} opts
+     * @param {string} opts.saleID - ID of the sale to cancel
+     * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
+     * @returns {xdr.ManageSaleOp}
+     */
+    static cancelSale(opts) {
+        if (isUndefined(opts.saleID)) {
+            throw new Error('opts.saleID is invalid');
+        }
+
+        let manageSaleOp = new xdr.ManageSaleOp({
+            saleId: UnsignedHyper.fromString(opts.saleID),
+            data: new xdr.ManageSaleOpData.cancel(),
+            ext: new xdr.ManageSaleOpExt(xdr.LedgerVersion.emptyVersion())
+        });
+
+        let opAttrs = {};
+        opAttrs.body = xdr.OperationBody.manageSale(manageSaleOp);
+        BaseOperation.setSourceAccount(opAttrs, opts);
+        return new xdr.Operation(opAttrs);
+    }
+
     static manageSaleToObject(result, attrs) {
         result.saleID = attrs.saleId().toString();
         switch (attrs.data().switch()) {
