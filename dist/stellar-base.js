@@ -350,7 +350,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-06-05T21:03:35+03:00
+	// Automatically generated on 2018-06-05T22:05:31+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -473,10 +473,12 @@ var StellarBase =
 	//   union switch (ManageSaleAction action) {
 	//       case CREATE_UPDATE_DETAILS_REQUEST:
 	//           uint64 requestID;
+	//       case CANCEL:
+	//           void;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ManageSaleResultSuccessResponse",{switchOn:xdr.lookup("ManageSaleAction"),switchName:"action",switches:[["createUpdateDetailsRequest","requestId"]],arms:{requestId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
+	xdr.union("ManageSaleResultSuccessResponse",{switchOn:xdr.lookup("ManageSaleAction"),switchName:"action",switches:[["createUpdateDetailsRequest","requestId"],["cancel",xdr["void"]()]],arms:{requestId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -492,6 +494,8 @@ var StellarBase =
 	//       union switch (ManageSaleAction action) {
 	//       case CREATE_UPDATE_DETAILS_REQUEST:
 	//           uint64 requestID;
+	//       case CANCEL:
+	//           void;
 	//       } response;
 	//   
 	//       //reserved for future use
