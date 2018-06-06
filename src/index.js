@@ -24,6 +24,7 @@ export { SetOptionsBuilder } from './operations/set_options_builder';
 export { ManageExternalSystemAccountIdPoolEntryBuilder } from './operations/manage_external_system_account_id_pool_entry_builder';
 export { BindExternalSystemAccountIdBuilder } from './operations/bind_external_system_account_id_builder';
 export {CreateAMLRequestBuilder} from "./operations/create_aml_request_builder";
+export { ManageKeyValueBuilder } from './operations/manage_key_value_builder';
 export { CreateUpdateKYCRequestBuilder } from './operations/create_update_kyc_request_builder';
 export { PaymentV2Builder } from "./operations/payment_v2_builder";
 export { ManageSaleBuilder } from "./operations/manage_sale";

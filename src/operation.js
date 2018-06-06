@@ -21,6 +21,7 @@ import { CreateIssuanceRequestBuilder } from './operations/create_issuance_reque
 import { CreateWithdrawRequestBuilder } from './operations/create_withdraw_request_builder';
 import { SaleRequestBuilder } from './operations/sale_request_builder';
 import { ManageOfferBuilder } from './operations/manage_offer_builder';
+import { ManageKeyValueBuilder } from './operations/manage_key_value_builder';
 import { SetOptionsBuilder} from "./operations/set_options_builder";
 import { ManageExternalSystemAccountIdPoolEntryBuilder } from "./operations/manage_external_system_account_id_pool_entry_builder";
 import {BindExternalSystemAccountIdBuilder} from "./operations/bind_external_system_account_id_builder";
@@ -709,6 +710,9 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.createAmlAlert():
                 CreateAMLRequestBuilder.createAmlAlertToObject(result, attrs);
+                break;
+            case xdr.OperationType.manageKeyValue():
+                ManageKeyValueBuilder.manageKeyValueOpToObject(result, attrs);
                 break;
             case xdr.OperationType.createKycRequest():
                 CreateUpdateKYCRequestBuilder.createUpdateKYCRequestOpToObject(result, attrs);
