@@ -359,7 +359,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-06-05T22:05:31+03:00
+	// Automatically generated on 2018-06-08T13:10:24+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -4844,11 +4844,13 @@ var StellarBase =
 	//   	MASTER = 4,            // master account
 	//       NOT_VERIFIED = 5,
 	//   	SYNDICATE = 6, // can create asset
-	//   	EXCHANGE = 7
+	//   	EXCHANGE = 7,
+	//   	ACCREDITED_INVESTOR = 8,
+	//   	INSTITUTIONAL_INVESTOR = 9
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("AccountType",{operational:1,general:2,commission:3,master:4,notVerified:5,syndicate:6,exchange:7}); // === xdr source ============================================================
+	xdr["enum"]("AccountType",{operational:1,general:2,commission:3,master:4,notVerified:5,syndicate:6,exchange:7,accreditedInvestor:8,institutionalInvestor:9}); // === xdr source ============================================================
 	//
 	//   enum BlockReasons
 	//   {
