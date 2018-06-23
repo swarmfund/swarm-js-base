@@ -44185,14 +44185,51 @@ var StellarBase =
 
 	            var attrs = ReviewRequestBuilder._prepareAttrs(opts);
 
+	            var rawLimitsV2Entry = {};
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.newLimits.id)) {
+	                throw new Error('opts.newLimits.id is not defined');
+	            }
+	            rawLimitsV2Entry.id = _jsXdr.UnsignedHyper.fromString(opts.newLimits.id);
+
+	            if (!(0, _lodashIsUndefined2['default'])(opts.newLimits.accountID) && !(0, _lodashIsUndefined2['default'])(opts.newLimits.accountType)) {
+	                throw new Error('opts.newLimits.accountID and opts.newLimits.accountType cannot be set for same limits');
+	            }
+
+	            if (!(0, _lodashIsUndefined2['default'])(opts.newLimits.accountID)) {
+	                if (!_keypair.Keypair.isValidPublicKey(opts.newLimits.accountID)) {
+	                    throw new Error('opts.newLimits.accountID is invalid');
+	                }
+	                rawLimitsV2Entry.accountId = _keypair.Keypair.fromAccountId(opts.newLimits.accountID).xdrAccountId();
+	            }
+
+	            if (!(0, _lodashIsUndefined2['default'])(opts.newLimits.accountType)) {
+	                rawLimitsV2Entry.accountType = _base_operation.BaseOperation._accountTypeFromNumber(opts.newLimits.accountType);
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.newLimits.statsOpType)) {
+	                throw new Error('opts.newLimits.statsOpType is not defined');
+	            }
+	            rawLimitsV2Entry.statsOpType = _base_operation.BaseOperation._statsOpTypeFromNumber(opts.newLimits.statsOpType);
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.newLimits.assetCode) || !_base_operation.BaseOperation.isValidAsset(opts.newLimits.assetCode)) {
+	                throw new Error('opts.newLimits.assetCode is invalid');
+	            }
+	            rawLimitsV2Entry.assetCode = opts.newLimits.assetCode;
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.newLimits.isConvertNeeded)) {
+	                throw new Error('opts.newLimits.isConvertNeeded is not defined');
+	            }
+	            rawLimitsV2Entry.isConvertNeeded = opts.newLimits.isConvertNeeded;
+
+	            rawLimitsV2Entry.dailyOut = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.newLimits.dailyOut);
+	            rawLimitsV2Entry.weeklyOut = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.newLimits.weeklyOut);
+	            rawLimitsV2Entry.monthlyOut = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.newLimits.monthlyOut);
+	            rawLimitsV2Entry.annualOut = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.newLimits.annualOut);
+	            rawLimitsV2Entry.ext = new _generatedStellarXdr_generated2['default'].LimitsV2EntryExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
+
 	            attrs.requestDetails = new _generatedStellarXdr_generated2['default'].ReviewRequestOpRequestDetails.limitsUpdate(new _generatedStellarXdr_generated2['default'].LimitsUpdateDetails({
-	                newLimits: new _generatedStellarXdr_generated2['default'].Limits({
-	                    dailyOut: _base_operation.BaseOperation._toXDRAmount(opts.newLimits.dailyOut),
-	                    weeklyOut: _base_operation.BaseOperation._toXDRAmount(opts.newLimits.weeklyOut),
-	                    monthlyOut: _base_operation.BaseOperation._toXDRAmount(opts.newLimits.monthlyOut),
-	                    annualOut: _base_operation.BaseOperation._toXDRAmount(opts.newLimits.annualOut),
-	                    ext: new _generatedStellarXdr_generated2['default'].LimitsExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
-	                }),
+	                newLimitsV2: new _generatedStellarXdr_generated2['default'].LimitsV2Entry(rawLimitsV2Entry),
 	                ext: new _generatedStellarXdr_generated2['default'].LimitsUpdateDetailsExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
 	            }));
 
@@ -44228,14 +44265,29 @@ var StellarBase =
 	                    }
 	                case _generatedStellarXdr_generated2['default'].ReviewableRequestType.limitsUpdate():
 	                    {
+	                        var newLimitsV2 = attrs.requestDetails().limitsUpdate().newLimitsV2();
+
 	                        result.limitsUpdate = {
 	                            newLimits: {
-	                                dailyOut: _base_operation.BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().dailyOut()),
-	                                weeklyOut: _base_operation.BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().weeklyOut()),
-	                                monthlyOut: _base_operation.BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().monthlyOut()),
-	                                annualOut: _base_operation.BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().annualOut())
+	                                id: newLimitsV2.id().toString(),
+	                                statsOpType: newLimitsV2.statsOpType().value,
+	                                assetCode: newLimitsV2.assetCode(),
+	                                isConvertNeeded: newLimitsV2.isConvertNeeded(),
+	                                dailyOut: _base_operation.BaseOperation._fromXDRAmount(newLimitsV2.dailyOut()),
+	                                weeklyOut: _base_operation.BaseOperation._fromXDRAmount(newLimitsV2.weeklyOut()),
+	                                monthlyOut: _base_operation.BaseOperation._fromXDRAmount(newLimitsV2.monthlyOut()),
+	                                annualOut: _base_operation.BaseOperation._fromXDRAmount(newLimitsV2.annualOut())
 	                            }
 	                        };
+
+	                        if (newLimitsV2.accountId()) {
+	                            result.limitsUpdate.newLimits.accountID = _base_operation.BaseOperation.accountIdtoAddress(newLimitsV2.accountId());
+	                        }
+
+	                        if (newLimitsV2.accountType()) {
+	                            result.limitsUpdate.newLimits.accountType = newLimitsV2.accountType().value;
+	                        }
+
 	                        break;
 	                    }
 	                case _generatedStellarXdr_generated2['default'].ReviewableRequestType.twoStepWithdrawal():
