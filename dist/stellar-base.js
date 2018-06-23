@@ -359,7 +359,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-06-22T17:39:00+03:00
+	// Automatically generated on 2018-06-23T18:26:21+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -395,11 +395,12 @@ var StellarBase =
 	//   enum ManageSaleAction
 	//   {
 	//       CREATE_UPDATE_DETAILS_REQUEST = 1,
-	//       CANCEL = 2
+	//       CANCEL = 2,
+	//   	SET_STATE = 3
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageSaleAction",{createUpdateDetailsRequest:1,cancel:2}); // === xdr source ============================================================
+	xdr["enum"]("ManageSaleAction",{createUpdateDetailsRequest:1,cancel:2,setState:3}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -430,10 +431,12 @@ var StellarBase =
 	//           UpdateSaleDetailsData updateSaleDetailsData;
 	//       case CANCEL:
 	//           void;
+	//   	case SET_STATE:
+	//   		SaleState saleState;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ManageSaleOpData",{switchOn:xdr.lookup("ManageSaleAction"),switchName:"action",switches:[["createUpdateDetailsRequest","updateSaleDetailsData"],["cancel",xdr["void"]()]],arms:{updateSaleDetailsData:xdr.lookup("UpdateSaleDetailsData")}}); // === xdr source ============================================================
+	xdr.union("ManageSaleOpData",{switchOn:xdr.lookup("ManageSaleAction"),switchName:"action",switches:[["createUpdateDetailsRequest","updateSaleDetailsData"],["cancel",xdr["void"]()],["setState","saleState"]],arms:{updateSaleDetailsData:xdr.lookup("UpdateSaleDetailsData"),saleState:xdr.lookup("SaleState")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -453,6 +456,8 @@ var StellarBase =
 	//           UpdateSaleDetailsData updateSaleDetailsData;
 	//       case CANCEL:
 	//           void;
+	//   	case SET_STATE:
+	//   		SaleState saleState;
 	//       } data;
 	//   
 	//       // reserved for future use
@@ -473,21 +478,24 @@ var StellarBase =
 	//       SALE_NOT_FOUND = -1, // sale not found
 	//       INVALID_NEW_DETAILS = -2, // newDetails field is invalid JSON
 	//       UPDATE_DETAILS_REQUEST_ALREADY_EXISTS = -3,
-	//       UPDATE_DETAILS_REQUEST_NOT_FOUND = -4
+	//       UPDATE_DETAILS_REQUEST_NOT_FOUND = -4,
+	//   	NOT_ALLOWED = -5 // it's not allowed to set state for non master account
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageSaleResultCode",{success:0,saleNotFound:-1,invalidNewDetail:-2,updateDetailsRequestAlreadyExist:-3,updateDetailsRequestNotFound:-4}); // === xdr source ============================================================
+	xdr["enum"]("ManageSaleResultCode",{success:0,saleNotFound:-1,invalidNewDetail:-2,updateDetailsRequestAlreadyExist:-3,updateDetailsRequestNotFound:-4,notAllowed:-5}); // === xdr source ============================================================
 	//
 	//   union switch (ManageSaleAction action) {
 	//       case CREATE_UPDATE_DETAILS_REQUEST:
 	//           uint64 requestID;
 	//       case CANCEL:
 	//           void;
+	//   	case SET_STATE:
+	//   		void;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ManageSaleResultSuccessResponse",{switchOn:xdr.lookup("ManageSaleAction"),switchName:"action",switches:[["createUpdateDetailsRequest","requestId"],["cancel",xdr["void"]()]],arms:{requestId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
+	xdr.union("ManageSaleResultSuccessResponse",{switchOn:xdr.lookup("ManageSaleAction"),switchName:"action",switches:[["createUpdateDetailsRequest","requestId"],["cancel",xdr["void"]()],["setState",xdr["void"]()]],arms:{requestId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -505,6 +513,8 @@ var StellarBase =
 	//           uint64 requestID;
 	//       case CANCEL:
 	//           void;
+	//   	case SET_STATE:
+	//   		void;
 	//       } response;
 	//   
 	//       //reserved for future use
@@ -2434,11 +2444,12 @@ var StellarBase =
 	//   	ALLOW_MASTER_TO_MANAGE_SALE = 26,
 	//   	USE_SALE_ANTE = 27,
 	//   	FIX_ASSET_PAIRS_CREATION_IN_SALE_CREATION = 28,
-	//   	CREATE_ONLY_STATISTICS_V2 = 29
+	//   	STATABLE_SALES = 29,
+	//   	CREATE_ONLY_STATISTICS_V2 = 30
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23,allowToCancelSaleParticipWithoutSpecifingBalance:24,detailsMaxLengthExtended:25,allowMasterToManageSale:26,useSaleAnte:27,fixAssetPairsCreationInSaleCreation:28,createOnlyStatisticsV2:29}); // === xdr source ============================================================
+	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23,allowToCancelSaleParticipWithoutSpecifingBalance:24,detailsMaxLengthExtended:25,allowMasterToManageSale:26,useSaleAnte:27,fixAssetPairsCreationInSaleCreation:28,statableSale:29,createOnlyStatisticsV2:30}); // === xdr source ============================================================
 	//
 	//   typedef opaque Signature<64>;
 	//
@@ -3204,6 +3215,15 @@ var StellarBase =
 	// ===========================================================================
 	xdr.union("ManageAssetResult",{switchOn:xdr.lookup("ManageAssetResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageAssetSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
+	//   enum SaleState {
+	//   	NONE = 0, // default state
+	//   	VOTING = 1, // not allowed to invest
+	//   	PROMOTION = 2 // not allowed to invest, but allowed to change all the details
+	//   };
+	//
+	// ===========================================================================
+	xdr["enum"]("SaleState",{none:0,voting:1,promotion:2}); // === xdr source ============================================================
+	//
 	//   enum SaleType {
 	//   	BASIC_SALE = 1, // sale creator specifies price for each quote asset
 	//   	CROWD_FUNDING = 2 // sale creator does not specify price,
@@ -3280,6 +3300,14 @@ var StellarBase =
 	// ===========================================================================
 	xdr.struct("SaleTypeExt",[["typedSale",xdr.lookup("SaleTypeExtTypedSale")]]); // === xdr source ============================================================
 	//
+	//   struct StatableSaleExt {
+	//   	SaleTypeExt saleTypeExt;
+	//   	SaleState state;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("StatableSaleExt",[["saleTypeExt",xdr.lookup("SaleTypeExt")],["state",xdr.lookup("SaleState")]]); // === xdr source ============================================================
+	//
 	//   union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -3311,10 +3339,12 @@ var StellarBase =
 	//           void;
 	//   	case TYPED_SALE:
 	//   		SaleTypeExt saleTypeExt;
+	//   	case STATABLE_SALES:
+	//   		StatableSaleExt statableSaleExt;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("SaleEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["typedSale","saleTypeExt"]],arms:{saleTypeExt:xdr.lookup("SaleTypeExt")}}); // === xdr source ============================================================
+	xdr.union("SaleEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["typedSale","saleTypeExt"],["statableSale","statableSaleExt"]],arms:{saleTypeExt:xdr.lookup("SaleTypeExt"),statableSaleExt:xdr.lookup("StatableSaleExt")}}); // === xdr source ============================================================
 	//
 	//   struct SaleEntry
 	//   {
@@ -3339,6 +3369,8 @@ var StellarBase =
 	//           void;
 	//   	case TYPED_SALE:
 	//   		SaleTypeExt saleTypeExt;
+	//   	case STATABLE_SALES:
+	//   		StatableSaleExt statableSaleExt;
 	//       }
 	//       ext;
 	//   };
@@ -4409,6 +4441,15 @@ var StellarBase =
 	// ===========================================================================
 	xdr.struct("SaleCreationRequestExtV2",[["saleTypeExt",xdr.lookup("SaleTypeExt")],["requiredBaseAssetForHardCap",xdr.lookup("Uint64")]]); // === xdr source ============================================================
 	//
+	//   struct {
+	//   			SaleTypeExt saleTypeExt;
+	//               uint64 requiredBaseAssetForHardCap;
+	//   			SaleState state;
+	//   		}
+	//
+	// ===========================================================================
+	xdr.struct("SaleCreationRequestExtV3",[["saleTypeExt",xdr.lookup("SaleTypeExt")],["requiredBaseAssetForHardCap",xdr.lookup("Uint64")],["state",xdr.lookup("SaleState")]]); // === xdr source ============================================================
+	//
 	//   union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -4420,10 +4461,16 @@ var StellarBase =
 	//               SaleTypeExt saleTypeExt;
 	//               uint64 requiredBaseAssetForHardCap;
 	//           } extV2;
+	//   	case STATABLE_SALES:
+	//   		struct {
+	//   			SaleTypeExt saleTypeExt;
+	//               uint64 requiredBaseAssetForHardCap;
+	//   			SaleState state;
+	//   		} extV3;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("SaleCreationRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["typedSale","saleTypeExt"],["allowToSpecifyRequiredBaseAssetAmountForHardCap","extV2"]],arms:{saleTypeExt:xdr.lookup("SaleTypeExt"),extV2:xdr.lookup("SaleCreationRequestExtV2")}}); // === xdr source ============================================================
+	xdr.union("SaleCreationRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["typedSale","saleTypeExt"],["allowToSpecifyRequiredBaseAssetAmountForHardCap","extV2"],["statableSale","extV3"]],arms:{saleTypeExt:xdr.lookup("SaleTypeExt"),extV2:xdr.lookup("SaleCreationRequestExtV2"),extV3:xdr.lookup("SaleCreationRequestExtV3")}}); // === xdr source ============================================================
 	//
 	//   struct SaleCreationRequest {
 	//   	AssetCode baseAsset; // asset for which sale will be performed
@@ -4447,6 +4494,12 @@ var StellarBase =
 	//               SaleTypeExt saleTypeExt;
 	//               uint64 requiredBaseAssetForHardCap;
 	//           } extV2;
+	//   	case STATABLE_SALES:
+	//   		struct {
+	//   			SaleTypeExt saleTypeExt;
+	//               uint64 requiredBaseAssetForHardCap;
+	//   			SaleState state;
+	//   		} extV3;
 	//       }
 	//       ext;
 	//   };
