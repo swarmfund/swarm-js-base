@@ -74,6 +74,10 @@ var StellarBase =
 
 	var _operationsBind_external_system_account_id_builder = __webpack_require__(41);
 
+	var _operationsManage_limits_builder = __webpack_require__(205);
+
+	var _operationsCreate_manage_limits_request_builder = __webpack_require__(206);
+
 	exports.xdr = _generatedStellarXdr_generated2["default"];
 
 	var _hashing = __webpack_require__(45);
@@ -130,7 +134,7 @@ var StellarBase =
 	  }
 	});
 
-	var _transaction = __webpack_require__(205);
+	var _transaction = __webpack_require__(207);
 
 	Object.defineProperty(exports, "Transaction", {
 	  enumerable: true,
@@ -148,7 +152,7 @@ var StellarBase =
 	  }
 	});
 
-	var _pre_issuance_request = __webpack_require__(211);
+	var _pre_issuance_request = __webpack_require__(213);
 
 	Object.defineProperty(exports, "PreIssuanceRequest", {
 	  enumerable: true,
@@ -157,7 +161,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operation = __webpack_require__(206);
+	var _operation = __webpack_require__(208);
 
 	Object.defineProperty(exports, "Operation", {
 	  enumerable: true,
@@ -217,7 +221,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_asset_builder = __webpack_require__(207);
+	var _operationsManage_asset_builder = __webpack_require__(209);
 
 	Object.defineProperty(exports, "ManageAssetBuilder", {
 	  enumerable: true,
@@ -226,7 +230,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsReview_request_builder = __webpack_require__(208);
+	var _operationsReview_request_builder = __webpack_require__(210);
 
 	Object.defineProperty(exports, "ReviewRequestBuilder", {
 	  enumerable: true,
@@ -235,7 +239,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsPre_issuance_request_op_builder = __webpack_require__(210);
+	var _operationsPre_issuance_request_op_builder = __webpack_require__(212);
 
 	Object.defineProperty(exports, "PreIssuanceRequestOpBuilder", {
 	  enumerable: true,
@@ -244,7 +248,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_issuance_request_builder = __webpack_require__(212);
+	var _operationsCreate_issuance_request_builder = __webpack_require__(214);
 
 	Object.defineProperty(exports, "CreateIssuanceRequestBuilder", {
 	  enumerable: true,
@@ -253,7 +257,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_withdraw_request_builder = __webpack_require__(213);
+	var _operationsCreate_withdraw_request_builder = __webpack_require__(215);
 
 	Object.defineProperty(exports, "CreateWithdrawRequestBuilder", {
 	  enumerable: true,
@@ -262,7 +266,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsSale_request_builder = __webpack_require__(214);
+	var _operationsSale_request_builder = __webpack_require__(216);
 
 	Object.defineProperty(exports, "SaleRequestBuilder", {
 	  enumerable: true,
@@ -271,7 +275,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_offer_builder = __webpack_require__(215);
+	var _operationsManage_offer_builder = __webpack_require__(217);
 
 	Object.defineProperty(exports, "ManageOfferBuilder", {
 	  enumerable: true,
@@ -280,7 +284,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsSet_options_builder = __webpack_require__(217);
+	var _operationsSet_options_builder = __webpack_require__(219);
 
 	Object.defineProperty(exports, "SetOptionsBuilder", {
 	  enumerable: true,
@@ -289,7 +293,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(218);
+	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(220);
 
 	Object.defineProperty(exports, "ManageExternalSystemAccountIdPoolEntryBuilder", {
 	  enumerable: true,
@@ -304,7 +308,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_aml_request_builder = __webpack_require__(219);
+	var _operationsCreate_aml_request_builder = __webpack_require__(221);
 
 	Object.defineProperty(exports, "CreateAMLRequestBuilder", {
 	  enumerable: true,
@@ -313,7 +317,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_key_value_builder = __webpack_require__(216);
+	var _operationsManage_key_value_builder = __webpack_require__(218);
 
 	Object.defineProperty(exports, "ManageKeyValueBuilder", {
 	  enumerable: true,
@@ -322,7 +326,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_update_kyc_request_builder = __webpack_require__(220);
+	var _operationsCreate_update_kyc_request_builder = __webpack_require__(222);
 
 	Object.defineProperty(exports, "CreateUpdateKYCRequestBuilder", {
 	  enumerable: true,
@@ -331,7 +335,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsPayment_v2_builder = __webpack_require__(221);
+	var _operationsPayment_v2_builder = __webpack_require__(223);
 
 	Object.defineProperty(exports, "PaymentV2Builder", {
 	  enumerable: true,
@@ -340,12 +344,24 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_sale = __webpack_require__(222);
+	var _operationsManage_sale = __webpack_require__(224);
 
 	Object.defineProperty(exports, "ManageSaleBuilder", {
 	  enumerable: true,
 	  get: function get() {
 	    return _operationsManage_sale.ManageSaleBuilder;
+	  }
+	});
+	Object.defineProperty(exports, "ManageLimitsBuilder", {
+	  enumerable: true,
+	  get: function get() {
+	    return _operationsManage_limits_builder.ManageLimitsBuilder;
+	  }
+	});
+	Object.defineProperty(exports, "CreateManageLimitsRequestBuilder", {
+	  enumerable: true,
+	  get: function get() {
+	    return _operationsCreate_manage_limits_request_builder.CreateManageLimitsRequestBuilder;
 	  }
 	});
 
@@ -42804,6 +42820,245 @@ var StellarBase =
 /* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _generatedStellarXdr_generated = __webpack_require__(2);
+
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
+
+	var _lodashIsUndefined = __webpack_require__(61);
+
+	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
+
+	var _base_operation = __webpack_require__(42);
+
+	var _keypair = __webpack_require__(43);
+
+	var _jsXdr = __webpack_require__(3);
+
+	var ManageLimitsBuilder = (function () {
+	    function ManageLimitsBuilder() {
+	        _classCallCheck(this, ManageLimitsBuilder);
+	    }
+
+	    _createClass(ManageLimitsBuilder, null, [{
+	        key: 'createLimits',
+
+	        /**
+	         * Create limits for account or account type
+	         * @param {object} opts
+	         * @param {string} opts.accountID - account to create limits for
+	         * @param {string} opts.accountType - account type to create limits for
+	         * @param {string} opts.statsOpType - operation type of stats
+	         * @param {string} opts.assetCode - asset code of limits
+	         * @param {boolean} opts.isConvertNeeded - if true - can use another assets for stats
+	         * @param {number|string} opts.dailyOut - limit per day
+	         * @param {number|string} opts.weeklyOut - limit per week
+	         * @param {number|string} opts.monthlyOut - limit per month
+	         * @param {number|string} opts.annualOut - limit per year
+	         * @param {string} [opts.source] - The source account for the limits creation. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageLimitsOp}
+	         */
+	        value: function createLimits(opts) {
+	            if (!(0, _lodashIsUndefined2['default'])(opts.accountID) && !(0, _lodashIsUndefined2['default'])(opts.accountType)) {
+	                throw new Error('opts.accountID and opts.accountType cannot be set for same limits');
+	            }
+
+	            var rawLimitsCreateDetails = {};
+
+	            if (!(0, _lodashIsUndefined2['default'])(opts.accountID)) {
+	                if (!_keypair.Keypair.isValidPublicKey(opts.accountID)) {
+	                    throw new Error("opts.accountID is invalid");
+	                }
+	                rawLimitsCreateDetails.accountId = _keypair.Keypair.fromAccountId(opts.accountID).xdrAccountId();
+	            }
+
+	            if (!(0, _lodashIsUndefined2['default'])(opts.accountType)) {
+	                rawLimitsCreateDetails.accountType = _base_operation.BaseOperation._accountTypeFromNumber(opts.accountType);
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.statsOpType)) {
+	                throw new Error('opts.statsOpType cannot be empty');
+	            }
+	            rawLimitsCreateDetails.statsOpType = _base_operation.BaseOperation._statsOpTypeFromNumber(opts.statsOpType);
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.assetCode) || !_base_operation.BaseOperation.isValidAsset(opts.assetCode)) {
+	                throw new Error('opts.assetCode is invalid');
+	            }
+	            rawLimitsCreateDetails.assetCode = opts.assetCode;
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.isConvertNeeded)) {
+	                throw new Error('opts.isConvertNeeded cannot be empty');
+	            }
+	            rawLimitsCreateDetails.isConvertNeeded = opts.isConvertNeeded;
+
+	            rawLimitsCreateDetails.dailyOut = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.dailyOut);
+	            rawLimitsCreateDetails.weeklyOut = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.weeklyOut);
+	            rawLimitsCreateDetails.monthlyOut = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.monthlyOut);
+	            rawLimitsCreateDetails.annualOut = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.annualOut);
+
+	            var limitsCreateDetails = new _generatedStellarXdr_generated2['default'].LimitsCreateDetails(rawLimitsCreateDetails);
+
+	            var manageLimitsOp = new _generatedStellarXdr_generated2['default'].ManageLimitsOp({
+	                details: new _generatedStellarXdr_generated2['default'].ManageLimitsOpDetails.create(limitsCreateDetails),
+	                ext: new _generatedStellarXdr_generated2['default'].ManageLimitsOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var opAttrs = {};
+	            opAttrs.body = _generatedStellarXdr_generated2['default'].OperationBody.manageLimit(manageLimitsOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
+	        }
+
+	        /**
+	         * Delete limits by given id
+	         * @param {object} opts
+	         * @param {number|string} opts.id - limits to delete id
+	         */
+	    }, {
+	        key: 'deleteLimits',
+	        value: function deleteLimits(opts) {
+	            if ((0, _lodashIsUndefined2['default'])(opts.id)) {
+	                throw new Error('opts.id cannot be empty');
+	            }
+
+	            var manageLimitsOp = new _generatedStellarXdr_generated2['default'].ManageLimitsOp({
+	                details: new _generatedStellarXdr_generated2['default'].ManageLimitsOpDetails['delete'](_jsXdr.UnsignedHyper.fromString(opts.id)),
+	                ext: new _generatedStellarXdr_generated2['default'].ManageLimitsOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var opAttrs = {};
+	            opAttrs.body = _generatedStellarXdr_generated2['default'].OperationBody.manageLimit(manageLimitsOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
+	        }
+	    }, {
+	        key: 'manageLimitsOpToObject',
+	        value: function manageLimitsOpToObject(result, attrs) {
+	            switch (attrs.details()['switch']()) {
+	                case _generatedStellarXdr_generated2['default'].ManageLimitsAction.create():
+	                    {
+	                        var details = attrs.details().limitsCreateDetails();
+	                        if (details.accountId()) {
+	                            result.account = _base_operation.BaseOperation.accountIdtoAddress(details.accountId());
+	                        }
+	                        if (details.accountType()) {
+	                            result.accountType = details.accountType().value;
+	                        }
+
+	                        result.statsOpType = details.statsOpType().value;
+	                        result.assetCode = details.assetCode();
+	                        result.isConvertNeeded = details.isConvertNeeded();
+	                        result.dailyOut = _base_operation.BaseOperation._fromXDRAmount(details.dailyOut());
+	                        result.weeklyOut = _base_operation.BaseOperation._fromXDRAmount(details.weeklyOut());
+	                        result.monthlyOut = _base_operation.BaseOperation._fromXDRAmount(details.monthlyOut());
+	                        result.annualOut = _base_operation.BaseOperation._fromXDRAmount(details.annualOut());
+
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageLimitsAction['delete']():
+	                    {
+	                        result.id = attrs.details().id().toString();
+	                        break;
+	                    }
+	            }
+	        }
+	    }]);
+
+	    return ManageLimitsBuilder;
+	})();
+
+	exports.ManageLimitsBuilder = ManageLimitsBuilder;
+
+/***/ }),
+/* 206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _generatedStellarXdr_generated = __webpack_require__(2);
+
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
+
+	var _lodashIsUndefined = __webpack_require__(61);
+
+	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
+
+	var _base_operation = __webpack_require__(42);
+
+	var _jsXdr = __webpack_require__(3);
+
+	var CreateManageLimitsRequestBuilder = (function () {
+	    function CreateManageLimitsRequestBuilder() {
+	        _classCallCheck(this, CreateManageLimitsRequestBuilder);
+	    }
+
+	    _createClass(CreateManageLimitsRequestBuilder, null, [{
+	        key: 'createManageLimitsRequest',
+
+	        /**
+	         * Creates limits update request
+	         * @param {object} opts
+	         * @param {string} opts.documentHash - hash of the document to review
+	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
+	         * @returns {xdr.CreateManageLimitsRequestOp}
+	         */
+	        value: function createManageLimitsRequest(opts) {
+	            if ((0, _lodashIsUndefined2['default'])(opts.documentHash)) {
+	                throw new Error('opts.documentHash is not defined');
+	            }
+
+	            var limitsUpdateRequest = new _generatedStellarXdr_generated2['default'].LimitsUpdateRequest({
+	                documentHash: opts.documentHash,
+	                ext: new _generatedStellarXdr_generated2['default'].LimitsUpdateRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var createManageLimitsRequestOp = new _generatedStellarXdr_generated2['default'].CreateManageLimitsRequestOp({
+	                manageLimitsRequest: limitsUpdateRequest,
+	                ext: new _generatedStellarXdr_generated2['default'].CreateManageLimitsRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var opAttrs = {};
+	            opAttrs.body = _generatedStellarXdr_generated2['default'].OperationBody.createManageLimitsRequest(createManageLimitsRequestOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
+	        }
+	    }, {
+	        key: 'createManageLimitsRequestToObject',
+	        value: function createManageLimitsRequestToObject(result, attrs) {
+	            result.documentHash = attrs.manageLimitsRequest().documentHash();
+	        }
+	    }]);
+
+	    return CreateManageLimitsRequestBuilder;
+	})();
+
+	exports.CreateManageLimitsRequestBuilder = CreateManageLimitsRequestBuilder;
+
+/***/ }),
+/* 207 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
@@ -42820,7 +43075,7 @@ var StellarBase =
 
 	var _strkey = __webpack_require__(63);
 
-	var _operation = __webpack_require__(206);
+	var _operation = __webpack_require__(208);
 
 	var _network = __webpack_require__(44);
 
@@ -42944,7 +43199,7 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9).Buffer))
 
 /***/ }),
-/* 206 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -43015,39 +43270,39 @@ var StellarBase =
 
 	var _operationsBase_operation = __webpack_require__(42);
 
-	var _operationsManage_asset_builder = __webpack_require__(207);
+	var _operationsManage_asset_builder = __webpack_require__(209);
 
-	var _operationsReview_request_builder = __webpack_require__(208);
+	var _operationsReview_request_builder = __webpack_require__(210);
 
-	var _operationsPre_issuance_request_op_builder = __webpack_require__(210);
+	var _operationsPre_issuance_request_op_builder = __webpack_require__(212);
 
-	var _operationsCreate_issuance_request_builder = __webpack_require__(212);
+	var _operationsCreate_issuance_request_builder = __webpack_require__(214);
 
-	var _operationsCreate_withdraw_request_builder = __webpack_require__(213);
+	var _operationsCreate_withdraw_request_builder = __webpack_require__(215);
 
-	var _operationsSale_request_builder = __webpack_require__(214);
+	var _operationsSale_request_builder = __webpack_require__(216);
 
-	var _operationsManage_offer_builder = __webpack_require__(215);
+	var _operationsManage_offer_builder = __webpack_require__(217);
 
-	var _operationsManage_key_value_builder = __webpack_require__(216);
+	var _operationsManage_key_value_builder = __webpack_require__(218);
 
-	var _operationsSet_options_builder = __webpack_require__(217);
+	var _operationsSet_options_builder = __webpack_require__(219);
 
-	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(218);
+	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(220);
 
 	var _operationsBind_external_system_account_id_builder = __webpack_require__(41);
 
-	var _operationsCreate_aml_request_builder = __webpack_require__(219);
+	var _operationsCreate_aml_request_builder = __webpack_require__(221);
 
-	var _operationsCreate_update_kyc_request_builder = __webpack_require__(220);
+	var _operationsCreate_update_kyc_request_builder = __webpack_require__(222);
 
-	var _operationsPayment_v2_builder = __webpack_require__(221);
+	var _operationsPayment_v2_builder = __webpack_require__(223);
 
-	var _operationsManage_sale = __webpack_require__(222);
+	var _operationsManage_sale = __webpack_require__(224);
 
-	var _operationsManage_limits_builder = __webpack_require__(223);
+	var _operationsManage_limits_builder = __webpack_require__(205);
 
-	var _operationsCreate_manage_limits_request_builder = __webpack_require__(224);
+	var _operationsCreate_manage_limits_request_builder = __webpack_require__(206);
 
 	var Operation = (function (_BaseOperation) {
 	    _inherits(Operation, _BaseOperation);
@@ -43745,7 +44000,7 @@ var StellarBase =
 	exports.Operation = Operation;
 
 /***/ }),
-/* 207 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44046,7 +44301,7 @@ var StellarBase =
 	exports.ManageAssetBuilder = ManageAssetBuilder;
 
 /***/ }),
-/* 208 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44075,9 +44330,9 @@ var StellarBase =
 
 	var _jsXdr = __webpack_require__(3);
 
-	var _utilHasher = __webpack_require__(209);
+	var _utilHasher = __webpack_require__(211);
 
-	var _operation = __webpack_require__(206);
+	var _operation = __webpack_require__(208);
 
 	var ReviewRequestBuilder = (function () {
 	    function ReviewRequestBuilder() {
@@ -44378,7 +44633,7 @@ var StellarBase =
 	exports.ReviewRequestBuilder = ReviewRequestBuilder;
 
 /***/ }),
-/* 209 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
@@ -44479,7 +44734,7 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9).Buffer))
 
 /***/ }),
-/* 210 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44508,9 +44763,9 @@ var StellarBase =
 
 	var _jsXdr = __webpack_require__(3);
 
-	var _utilHasher = __webpack_require__(209);
+	var _utilHasher = __webpack_require__(211);
 
-	var _pre_issuance_request = __webpack_require__(211);
+	var _pre_issuance_request = __webpack_require__(213);
 
 	var PreIssuanceRequestOpBuilder = (function () {
 	    function PreIssuanceRequestOpBuilder() {
@@ -44551,7 +44806,7 @@ var StellarBase =
 	exports.PreIssuanceRequestOpBuilder = PreIssuanceRequestOpBuilder;
 
 /***/ }),
-/* 211 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44568,7 +44823,7 @@ var StellarBase =
 
 	var _keypair = __webpack_require__(43);
 
-	var _operation = __webpack_require__(206);
+	var _operation = __webpack_require__(208);
 
 	var _operationsBase_operation = __webpack_require__(42);
 
@@ -44682,7 +44937,7 @@ var StellarBase =
 	exports.PreIssuanceRequest = PreIssuanceRequest;
 
 /***/ }),
-/* 212 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44797,7 +45052,7 @@ var StellarBase =
 	exports.CreateIssuanceRequestBuilder = CreateIssuanceRequestBuilder;
 
 /***/ }),
-/* 213 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44931,7 +45186,7 @@ var StellarBase =
 	exports.CreateWithdrawRequestBuilder = CreateWithdrawRequestBuilder;
 
 /***/ }),
-/* 214 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45210,7 +45465,7 @@ var StellarBase =
 	exports.SaleRequestBuilder = SaleRequestBuilder;
 
 /***/ }),
-/* 215 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45351,7 +45606,7 @@ var StellarBase =
 	exports.ManageOfferBuilder = ManageOfferBuilder;
 
 /***/ }),
-/* 216 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45479,7 +45734,7 @@ var StellarBase =
 	exports.ManageKeyValueBuilder = ManageKeyValueBuilder;
 
 /***/ }),
-/* 217 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45680,7 +45935,7 @@ var StellarBase =
 	exports.SetOptionsBuilder = SetOptionsBuilder;
 
 /***/ }),
-/* 218 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45830,7 +46085,7 @@ var StellarBase =
 	exports.ManageExternalSystemAccountIdPoolEntryBuilder = ManageExternalSystemAccountIdPoolEntryBuilder;
 
 /***/ }),
-/* 219 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45925,7 +46180,7 @@ var StellarBase =
 	exports.CreateAMLRequestBuilder = CreateAMLRequestBuilder;
 
 /***/ }),
-/* 220 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46022,7 +46277,7 @@ var StellarBase =
 	exports.CreateUpdateKYCRequestBuilder = CreateUpdateKYCRequestBuilder;
 
 /***/ }),
-/* 221 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46189,7 +46444,7 @@ var StellarBase =
 	exports.PaymentV2Builder = PaymentV2Builder;
 
 /***/ }),
-/* 222 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46216,7 +46471,7 @@ var StellarBase =
 
 	var _jsXdr = __webpack_require__(3);
 
-	var _sale_request_builder = __webpack_require__(214);
+	var _sale_request_builder = __webpack_require__(216);
 
 	var ManageSaleBuilder = (function () {
 	    function ManageSaleBuilder() {
@@ -46351,245 +46606,6 @@ var StellarBase =
 	})();
 
 	exports.ManageSaleBuilder = ManageSaleBuilder;
-
-/***/ }),
-/* 223 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _generatedStellarXdr_generated = __webpack_require__(2);
-
-	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
-
-	var _lodashIsUndefined = __webpack_require__(61);
-
-	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
-
-	var _base_operation = __webpack_require__(42);
-
-	var _keypair = __webpack_require__(43);
-
-	var _jsXdr = __webpack_require__(3);
-
-	var ManageLimitsBuilder = (function () {
-	    function ManageLimitsBuilder() {
-	        _classCallCheck(this, ManageLimitsBuilder);
-	    }
-
-	    _createClass(ManageLimitsBuilder, null, [{
-	        key: 'createLimits',
-
-	        /**
-	         * Create limits for account or account type
-	         * @param {object} opts
-	         * @param {string} opts.accountID - account to create limits for
-	         * @param {string} opts.accountType - account type to create limits for
-	         * @param {string} opts.statsOpType - operation type of stats
-	         * @param {string} opts.assetCode - asset code of limits
-	         * @param {boolean} opts.isConvertNeeded - if true - can use another assets for stats
-	         * @param {number|string} opts.dailyOut - limit per day
-	         * @param {number|string} opts.weeklyOut - limit per week
-	         * @param {number|string} opts.monthlyOut - limit per month
-	         * @param {number|string} opts.annualOut - limit per year
-	         * @param {string} [opts.source] - The source account for the limits creation. Defaults to the transaction's source account.
-	         * @returns {xdr.ManageLimitsOp}
-	         */
-	        value: function createLimits(opts) {
-	            if (!(0, _lodashIsUndefined2['default'])(opts.accountID) && !(0, _lodashIsUndefined2['default'])(opts.accountType)) {
-	                throw new Error('opts.accountID and opts.accountType cannot be set for same limits');
-	            }
-
-	            var rawLimitsCreateDetails = {};
-
-	            if (!(0, _lodashIsUndefined2['default'])(opts.accountID)) {
-	                if (!_keypair.Keypair.isValidPublicKey(opts.accountID)) {
-	                    throw new Error("opts.accountID is invalid");
-	                }
-	                rawLimitsCreateDetails.accountId = _keypair.Keypair.fromAccountId(opts.accountID).xdrAccountId();
-	            }
-
-	            if (!(0, _lodashIsUndefined2['default'])(opts.accountType)) {
-	                rawLimitsCreateDetails.accountType = _base_operation.BaseOperation._accountTypeFromNumber(opts.accountType);
-	            }
-
-	            if ((0, _lodashIsUndefined2['default'])(opts.statsOpType)) {
-	                throw new Error('opts.statsOpType cannot be empty');
-	            }
-	            rawLimitsCreateDetails.statsOpType = _base_operation.BaseOperation._statsOpTypeFromNumber(opts.statsOpType);
-
-	            if ((0, _lodashIsUndefined2['default'])(opts.assetCode) || !_base_operation.BaseOperation.isValidAsset(opts.assetCode)) {
-	                throw new Error('opts.assetCode is invalid');
-	            }
-	            rawLimitsCreateDetails.assetCode = opts.assetCode;
-
-	            if ((0, _lodashIsUndefined2['default'])(opts.isConvertNeeded)) {
-	                throw new Error('opts.isConvertNeeded cannot be empty');
-	            }
-	            rawLimitsCreateDetails.isConvertNeeded = opts.isConvertNeeded;
-
-	            rawLimitsCreateDetails.dailyOut = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.dailyOut);
-	            rawLimitsCreateDetails.weeklyOut = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.weeklyOut);
-	            rawLimitsCreateDetails.monthlyOut = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.monthlyOut);
-	            rawLimitsCreateDetails.annualOut = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.annualOut);
-
-	            var limitsCreateDetails = new _generatedStellarXdr_generated2['default'].LimitsCreateDetails(rawLimitsCreateDetails);
-
-	            var manageLimitsOp = new _generatedStellarXdr_generated2['default'].ManageLimitsOp({
-	                details: new _generatedStellarXdr_generated2['default'].ManageLimitsOpDetails.create(limitsCreateDetails),
-	                ext: new _generatedStellarXdr_generated2['default'].ManageLimitsOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
-	            });
-
-	            var opAttrs = {};
-	            opAttrs.body = _generatedStellarXdr_generated2['default'].OperationBody.manageLimit(manageLimitsOp);
-	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
-	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
-	        }
-
-	        /**
-	         * Delete limits by given id
-	         * @param {object} opts
-	         * @param {number|string} opts.id - limits to delete id
-	         */
-	    }, {
-	        key: 'deleteLimits',
-	        value: function deleteLimits(opts) {
-	            if ((0, _lodashIsUndefined2['default'])(opts.id)) {
-	                throw new Error('opts.id cannot be empty');
-	            }
-
-	            var manageLimitsOp = new _generatedStellarXdr_generated2['default'].ManageLimitsOp({
-	                details: new _generatedStellarXdr_generated2['default'].ManageLimitsOpDetails['delete'](_jsXdr.UnsignedHyper.fromString(opts.id)),
-	                ext: new _generatedStellarXdr_generated2['default'].ManageLimitsOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
-	            });
-
-	            var opAttrs = {};
-	            opAttrs.body = _generatedStellarXdr_generated2['default'].OperationBody.manageLimit(manageLimitsOp);
-	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
-	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
-	        }
-	    }, {
-	        key: 'manageLimitsOpToObject',
-	        value: function manageLimitsOpToObject(result, attrs) {
-	            switch (attrs.details()['switch']()) {
-	                case _generatedStellarXdr_generated2['default'].ManageLimitsAction.create():
-	                    {
-	                        var details = attrs.details().limitsCreateDetails();
-	                        if (details.accountId()) {
-	                            result.account = _base_operation.BaseOperation.accountIdtoAddress(details.accountId());
-	                        }
-	                        if (details.accountType()) {
-	                            result.accountType = details.accountType().value;
-	                        }
-
-	                        result.statsOpType = details.statsOpType().value;
-	                        result.assetCode = details.assetCode();
-	                        result.isConvertNeeded = details.isConvertNeeded();
-	                        result.dailyOut = _base_operation.BaseOperation._fromXDRAmount(details.dailyOut());
-	                        result.weeklyOut = _base_operation.BaseOperation._fromXDRAmount(details.weeklyOut());
-	                        result.monthlyOut = _base_operation.BaseOperation._fromXDRAmount(details.monthlyOut());
-	                        result.annualOut = _base_operation.BaseOperation._fromXDRAmount(details.annualOut());
-
-	                        break;
-	                    }
-	                case _generatedStellarXdr_generated2['default'].ManageLimitsAction['delete']():
-	                    {
-	                        result.id = attrs.details().id().toString();
-	                        break;
-	                    }
-	            }
-	        }
-	    }]);
-
-	    return ManageLimitsBuilder;
-	})();
-
-	exports.ManageLimitsBuilder = ManageLimitsBuilder;
-
-/***/ }),
-/* 224 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _generatedStellarXdr_generated = __webpack_require__(2);
-
-	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
-
-	var _lodashIsUndefined = __webpack_require__(61);
-
-	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
-
-	var _base_operation = __webpack_require__(42);
-
-	var _jsXdr = __webpack_require__(3);
-
-	var CreateManageLimitsRequestBuilder = (function () {
-	    function CreateManageLimitsRequestBuilder() {
-	        _classCallCheck(this, CreateManageLimitsRequestBuilder);
-	    }
-
-	    _createClass(CreateManageLimitsRequestBuilder, null, [{
-	        key: 'createManageLimitsRequest',
-
-	        /**
-	         * Creates limits update request
-	         * @param {object} opts
-	         * @param {string} opts.documentHash - hash of the document to review
-	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
-	         * @returns {xdr.CreateManageLimitsRequestOp}
-	         */
-	        value: function createManageLimitsRequest(opts) {
-	            if ((0, _lodashIsUndefined2['default'])(opts.documentHash)) {
-	                throw new Error('opts.documentHash is not defined');
-	            }
-
-	            var limitsUpdateRequest = new _generatedStellarXdr_generated2['default'].LimitsUpdateRequest({
-	                documentHash: opts.documentHash,
-	                ext: new _generatedStellarXdr_generated2['default'].LimitsUpdateRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
-	            });
-
-	            var createManageLimitsRequestOp = new _generatedStellarXdr_generated2['default'].CreateManageLimitsRequestOp({
-	                manageLimitsRequest: limitsUpdateRequest,
-	                ext: new _generatedStellarXdr_generated2['default'].CreateManageLimitsRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
-	            });
-
-	            var opAttrs = {};
-	            opAttrs.body = _generatedStellarXdr_generated2['default'].OperationBody.createManageLimitsRequest(createManageLimitsRequestOp);
-	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
-	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
-	        }
-	    }, {
-	        key: 'createManageLimitsRequestToObject',
-	        value: function createManageLimitsRequestToObject(result, attrs) {
-	            result.documentHash = attrs.manageLimitsRequest().documentHash();
-	        }
-	    }]);
-
-	    return CreateManageLimitsRequestBuilder;
-	})();
-
-	exports.CreateManageLimitsRequestBuilder = CreateManageLimitsRequestBuilder;
 
 /***/ }),
 /* 225 */
@@ -49265,9 +49281,9 @@ var StellarBase =
 
 	var _account = __webpack_require__(306);
 
-	var _operation = __webpack_require__(206);
+	var _operation = __webpack_require__(208);
 
-	var _transaction = __webpack_require__(205);
+	var _transaction = __webpack_require__(207);
 
 	var _memo = __webpack_require__(307);
 
@@ -49555,7 +49571,7 @@ var StellarBase =
 
 	var _bignumberJs2 = _interopRequireDefault(_bignumberJs);
 
-	var _utilHasher = __webpack_require__(209);
+	var _utilHasher = __webpack_require__(211);
 
 	var _utilHasher2 = _interopRequireDefault(_utilHasher);
 

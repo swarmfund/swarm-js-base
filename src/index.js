@@ -1,5 +1,7 @@
 import {default as xdr} from "./generated/stellar-xdr_generated";
 import {BindExternalSystemAccountIdBuilder} from "./operations/bind_external_system_account_id_builder";
+import {ManageLimitsBuilder} from "./operations/manage_limits_builder";
+import {CreateManageLimitsRequestBuilder} from "./operations/create_manage_limits_request_builder";
 
 export {xdr};
 export {hash} from "./hashing";
@@ -28,6 +30,8 @@ export { ManageKeyValueBuilder } from './operations/manage_key_value_builder';
 export { CreateUpdateKYCRequestBuilder } from './operations/create_update_kyc_request_builder';
 export { PaymentV2Builder } from "./operations/payment_v2_builder";
 export { ManageSaleBuilder } from "./operations/manage_sale";
+export { ManageLimitsBuilder } from "./operations/manage_limits_builder";
+export { CreateManageLimitsRequestBuilder } from "./operations/create_manage_limits_request_builder";
 
 export * from "./strkey";
 
