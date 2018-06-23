@@ -277,6 +277,14 @@ export class BaseOperation {
         return xdr.AccountType._byValue.get(rawAccountType);
     }
 
+    static _statsOpTypeFromNumber(rawStatsOpType) {
+        if (!BaseOperation._isValidStatsOpType(rawStatsOpType)) {
+            throw new Error(`XDR Read Error: Unknown StatsOpType member for value ${rawStatsOpType}`);
+        }
+
+        return xdr.StatsOpType._byValue.get(rawStatsOpType);
+    }
+
     static _keyValueTypeFromNumber(rawKVType){
         if (!BaseOperation._isValidKVType(rawKVType)) {
             throw new Error(`XDR Read Error: Unknown KeyValueType number for value ${rawKVType}`);
@@ -317,6 +325,10 @@ export class BaseOperation {
 
     static _isValidAccountType(rawAccountType) {
         return xdr.AccountType._byValue.has(rawAccountType);
+    }
+
+    static _isValidStatsOpType(rawStatsOpType) {
+        return xdr.StatsOpType._byValue.has(rawStatsOpType);
     }
 
     static _isValidKVType(rawKVType) {

@@ -1,4 +1,4 @@
-// Automatically generated on 2018-06-14T17:03:53+03:00
+// Automatically generated on 2018-06-22T17:39:00+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -287,6 +287,246 @@ xdr.union("ManageSaleResult", {
   ],
   arms: {
     success: xdr.lookup("ManageSaleResultSuccess"),
+  },
+  defaultArm: xdr.void(),
+});
+
+// === xdr source ============================================================
+//
+//   enum ManageLimitsAction
+//   {
+//       CREATE = 0,
+//       DELETE = 1
+//   };
+//
+// ===========================================================================
+xdr.enum("ManageLimitsAction", {
+  create: 0,
+  delete: 1,
+});
+
+// === xdr source ============================================================
+//
+//   struct LimitsCreateDetails
+//   {
+//       AccountType *accountType;
+//       AccountID   *accountID;
+//       StatsOpType statsOpType;
+//       AssetCode   assetCode;
+//       bool        isConvertNeeded;
+//   
+//       uint64 dailyOut;
+//       uint64 weeklyOut;
+//       uint64 monthlyOut;
+//       uint64 annualOut;
+//   };
+//
+// ===========================================================================
+xdr.struct("LimitsCreateDetails", [
+  ["accountType", xdr.option(xdr.lookup("AccountType"))],
+  ["accountId", xdr.option(xdr.lookup("AccountId"))],
+  ["statsOpType", xdr.lookup("StatsOpType")],
+  ["assetCode", xdr.lookup("AssetCode")],
+  ["isConvertNeeded", xdr.bool()],
+  ["dailyOut", xdr.lookup("Uint64")],
+  ["weeklyOut", xdr.lookup("Uint64")],
+  ["monthlyOut", xdr.lookup("Uint64")],
+  ["annualOut", xdr.lookup("Uint64")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (ManageLimitsAction action)
+//       {
+//       case CREATE:
+//           LimitsCreateDetails limitsCreateDetails;
+//       case DELETE:
+//           uint64 id;
+//       }
+//
+// ===========================================================================
+xdr.union("ManageLimitsOpDetails", {
+  switchOn: xdr.lookup("ManageLimitsAction"),
+  switchName: "action",
+  switches: [
+    ["create", "limitsCreateDetails"],
+    ["delete", "id"],
+  ],
+  arms: {
+    limitsCreateDetails: xdr.lookup("LimitsCreateDetails"),
+    id: xdr.lookup("Uint64"),
+  },
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("ManageLimitsOpExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct ManageLimitsOp
+//   {
+//       union switch (ManageLimitsAction action)
+//       {
+//       case CREATE:
+//           LimitsCreateDetails limitsCreateDetails;
+//       case DELETE:
+//           uint64 id;
+//       } details;
+//   
+//        // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("ManageLimitsOp", [
+  ["details", xdr.lookup("ManageLimitsOpDetails")],
+  ["ext", xdr.lookup("ManageLimitsOpExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   enum ManageLimitsResultCode
+//   {
+//       // codes considered as "success" for the operation
+//       SUCCESS = 0,
+//       // codes considered as "failure" for the operation
+//       MALFORMED = -1,
+//       NOT_FOUND = -2,
+//       ALREADY_EXISTS = -3
+//   };
+//
+// ===========================================================================
+xdr.enum("ManageLimitsResultCode", {
+  success: 0,
+  malformed: -1,
+  notFound: -2,
+  alreadyExist: -3,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (ManageLimitsAction action)
+//           {
+//           case CREATE:
+//               uint64 id;
+//           case DELETE:
+//               void;
+//           }
+//
+// ===========================================================================
+xdr.union("ManageLimitsResultSuccessDetails", {
+  switchOn: xdr.lookup("ManageLimitsAction"),
+  switchName: "action",
+  switches: [
+    ["create", "id"],
+    ["delete", xdr.void()],
+  ],
+  arms: {
+    id: xdr.lookup("Uint64"),
+  },
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//
+// ===========================================================================
+xdr.union("ManageLimitsResultSuccessExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct {
+//           union switch (ManageLimitsAction action)
+//           {
+//           case CREATE:
+//               uint64 id;
+//           case DELETE:
+//               void;
+//           } details;
+//   
+//   		// reserved for future use
+//   		union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//   		ext;
+//   	}
+//
+// ===========================================================================
+xdr.struct("ManageLimitsResultSuccess", [
+  ["details", xdr.lookup("ManageLimitsResultSuccessDetails")],
+  ["ext", xdr.lookup("ManageLimitsResultSuccessExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union ManageLimitsResult switch (ManageLimitsResultCode code)
+//   {
+//   case SUCCESS:
+//       struct {
+//           union switch (ManageLimitsAction action)
+//           {
+//           case CREATE:
+//               uint64 id;
+//           case DELETE:
+//               void;
+//           } details;
+//   
+//   		// reserved for future use
+//   		union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//   		ext;
+//   	} success;
+//   default:
+//       void;
+//   };
+//
+// ===========================================================================
+xdr.union("ManageLimitsResult", {
+  switchOn: xdr.lookup("ManageLimitsResultCode"),
+  switchName: "code",
+  switches: [
+    ["success", "success"],
+  ],
+  arms: {
+    success: xdr.lookup("ManageLimitsResultSuccess"),
   },
   defaultArm: xdr.void(),
 });
@@ -652,6 +892,50 @@ xdr.union("ManageInvoiceResult", {
   },
   defaultArm: xdr.void(),
 });
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("PendingStatisticsEntryExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct PendingStatisticsEntry
+//   {
+//       uint64 statisticsID;
+//       uint64 requestID;
+//       uint64 amount;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("PendingStatisticsEntry", [
+  ["statisticsId", xdr.lookup("Uint64")],
+  ["requestId", xdr.lookup("Uint64")],
+  ["amount", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("PendingStatisticsEntryExt")],
+]);
 
 // === xdr source ============================================================
 //
@@ -3116,7 +3400,9 @@ xdr.union("PublicKey", {
 //   	ALLOW_TO_CANCEL_SALE_PARTICIP_WITHOUT_SPECIFING_BALANCE = 24,
 //   	DETAILS_MAX_LENGTH_EXTENDED = 25,
 //   	ALLOW_MASTER_TO_MANAGE_SALE = 26,
-//   	USE_SALE_ANTE = 27
+//   	USE_SALE_ANTE = 27,
+//   	FIX_ASSET_PAIRS_CREATION_IN_SALE_CREATION = 28,
+//   	CREATE_ONLY_STATISTICS_V2 = 29
 //   };
 //
 // ===========================================================================
@@ -3149,6 +3435,8 @@ xdr.enum("LedgerVersion", {
   detailsMaxLengthExtended: 25,
   allowMasterToManageSale: 26,
   useSaleAnte: 27,
+  fixAssetPairsCreationInSaleCreation: 28,
+  createOnlyStatisticsV2: 29,
 });
 
 // === xdr source ============================================================
@@ -3346,7 +3634,7 @@ xdr.struct("Fee", [
 //       REVIEW_PAYMENT_REQUEST = 10,
 //       MANAGE_ASSET = 11,
 //       CREATE_PREISSUANCE_REQUEST = 12,
-//       SET_LIMITS = 13,
+//       MANAGE_LIMITS = 13,
 //       DIRECT_DEBIT = 14,
 //   	MANAGE_ASSET_PAIR = 15,
 //   	MANAGE_OFFER = 16,
@@ -3360,7 +3648,8 @@ xdr.struct("Fee", [
 //       MANAGE_EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_ENTRY = 24,
 //       BIND_EXTERNAL_SYSTEM_ACCOUNT_ID = 25,
 //       MANAGE_SALE = 26,
-//       MANAGE_KEY_VALUE = 27
+//       MANAGE_KEY_VALUE = 27,
+//       CREATE_MANAGE_LIMITS_REQUEST = 28
 //   };
 //
 // ===========================================================================
@@ -3376,7 +3665,7 @@ xdr.enum("OperationType", {
   reviewPaymentRequest: 10,
   manageAsset: 11,
   createPreissuanceRequest: 12,
-  setLimit: 13,
+  manageLimit: 13,
   directDebit: 14,
   manageAssetPair: 15,
   manageOffer: 16,
@@ -3391,6 +3680,7 @@ xdr.enum("OperationType", {
   bindExternalSystemAccountId: 25,
   manageSale: 26,
   manageKeyValue: 27,
+  createManageLimitsRequest: 28,
 });
 
 // === xdr source ============================================================
@@ -3433,8 +3723,8 @@ xdr.struct("DecoratedSignature", [
 //           ManageAssetOp manageAssetOp;
 //       case CREATE_PREISSUANCE_REQUEST:
 //           CreatePreIssuanceRequestOp createPreIssuanceRequest;
-//       case SET_LIMITS:
-//           SetLimitsOp setLimitsOp;
+//       case MANAGE_LIMITS:
+//           ManageLimitsOp manageLimitsOp;
 //       case DIRECT_DEBIT:
 //           DirectDebitOp directDebitOp;
 //   	case MANAGE_ASSET_PAIR:
@@ -3463,6 +3753,8 @@ xdr.struct("DecoratedSignature", [
 //           PaymentOpV2 paymentOpV2;
 //       case MANAGE_SALE:
 //           ManageSaleOp manageSaleOp;
+//       case CREATE_MANAGE_LIMITS_REQUEST:
+//           CreateManageLimitsRequestOp createManageLimitsRequestOp;
 //       }
 //
 // ===========================================================================
@@ -3481,7 +3773,7 @@ xdr.union("OperationBody", {
     ["reviewPaymentRequest", "reviewPaymentRequestOp"],
     ["manageAsset", "manageAssetOp"],
     ["createPreissuanceRequest", "createPreIssuanceRequest"],
-    ["setLimit", "setLimitsOp"],
+    ["manageLimit", "manageLimitsOp"],
     ["directDebit", "directDebitOp"],
     ["manageAssetPair", "manageAssetPairOp"],
     ["manageOffer", "manageOfferOp"],
@@ -3496,6 +3788,7 @@ xdr.union("OperationBody", {
     ["bindExternalSystemAccountId", "bindExternalSystemAccountIdOp"],
     ["paymentV2", "paymentOpV2"],
     ["manageSale", "manageSaleOp"],
+    ["createManageLimitsRequest", "createManageLimitsRequestOp"],
   ],
   arms: {
     createAccountOp: xdr.lookup("CreateAccountOp"),
@@ -3509,7 +3802,7 @@ xdr.union("OperationBody", {
     reviewPaymentRequestOp: xdr.lookup("ReviewPaymentRequestOp"),
     manageAssetOp: xdr.lookup("ManageAssetOp"),
     createPreIssuanceRequest: xdr.lookup("CreatePreIssuanceRequestOp"),
-    setLimitsOp: xdr.lookup("SetLimitsOp"),
+    manageLimitsOp: xdr.lookup("ManageLimitsOp"),
     directDebitOp: xdr.lookup("DirectDebitOp"),
     manageAssetPairOp: xdr.lookup("ManageAssetPairOp"),
     manageOfferOp: xdr.lookup("ManageOfferOp"),
@@ -3524,6 +3817,7 @@ xdr.union("OperationBody", {
     bindExternalSystemAccountIdOp: xdr.lookup("BindExternalSystemAccountIdOp"),
     paymentOpV2: xdr.lookup("PaymentOpV2"),
     manageSaleOp: xdr.lookup("ManageSaleOp"),
+    createManageLimitsRequestOp: xdr.lookup("CreateManageLimitsRequestOp"),
   },
 });
 
@@ -3560,8 +3854,8 @@ xdr.union("OperationBody", {
 //           ManageAssetOp manageAssetOp;
 //       case CREATE_PREISSUANCE_REQUEST:
 //           CreatePreIssuanceRequestOp createPreIssuanceRequest;
-//       case SET_LIMITS:
-//           SetLimitsOp setLimitsOp;
+//       case MANAGE_LIMITS:
+//           ManageLimitsOp manageLimitsOp;
 //       case DIRECT_DEBIT:
 //           DirectDebitOp directDebitOp;
 //   	case MANAGE_ASSET_PAIR:
@@ -3590,6 +3884,8 @@ xdr.union("OperationBody", {
 //           PaymentOpV2 paymentOpV2;
 //       case MANAGE_SALE:
 //           ManageSaleOp manageSaleOp;
+//       case CREATE_MANAGE_LIMITS_REQUEST:
+//           CreateManageLimitsRequestOp createManageLimitsRequestOp;
 //       }
 //       body;
 //   };
@@ -3792,8 +4088,8 @@ xdr.enum("OperationResultCode", {
 //           ManageAssetResult manageAssetResult;
 //       case CREATE_PREISSUANCE_REQUEST:
 //           CreatePreIssuanceRequestResult createPreIssuanceRequestResult;
-//       case SET_LIMITS:
-//           SetLimitsResult setLimitsResult;
+//       case MANAGE_LIMITS:
+//           ManageLimitsResult manageLimitsResult;
 //       case DIRECT_DEBIT:
 //           DirectDebitResult directDebitResult;
 //   	case MANAGE_ASSET_PAIR:
@@ -3822,6 +4118,8 @@ xdr.enum("OperationResultCode", {
 //           PaymentV2Result paymentV2Result;
 //       case MANAGE_SALE:
 //           ManageSaleResult manageSaleResult;
+//       case CREATE_MANAGE_LIMITS_REQUEST:
+//           CreateManageLimitsRequestResult createManageLimitsRequestResult;
 //       }
 //
 // ===========================================================================
@@ -3840,7 +4138,7 @@ xdr.union("OperationResultTr", {
     ["reviewPaymentRequest", "reviewPaymentRequestResult"],
     ["manageAsset", "manageAssetResult"],
     ["createPreissuanceRequest", "createPreIssuanceRequestResult"],
-    ["setLimit", "setLimitsResult"],
+    ["manageLimit", "manageLimitsResult"],
     ["directDebit", "directDebitResult"],
     ["manageAssetPair", "manageAssetPairResult"],
     ["manageOffer", "manageOfferResult"],
@@ -3855,6 +4153,7 @@ xdr.union("OperationResultTr", {
     ["bindExternalSystemAccountId", "bindExternalSystemAccountIdResult"],
     ["paymentV2", "paymentV2Result"],
     ["manageSale", "manageSaleResult"],
+    ["createManageLimitsRequest", "createManageLimitsRequestResult"],
   ],
   arms: {
     createAccountResult: xdr.lookup("CreateAccountResult"),
@@ -3868,7 +4167,7 @@ xdr.union("OperationResultTr", {
     reviewPaymentRequestResult: xdr.lookup("ReviewPaymentRequestResult"),
     manageAssetResult: xdr.lookup("ManageAssetResult"),
     createPreIssuanceRequestResult: xdr.lookup("CreatePreIssuanceRequestResult"),
-    setLimitsResult: xdr.lookup("SetLimitsResult"),
+    manageLimitsResult: xdr.lookup("ManageLimitsResult"),
     directDebitResult: xdr.lookup("DirectDebitResult"),
     manageAssetPairResult: xdr.lookup("ManageAssetPairResult"),
     manageOfferResult: xdr.lookup("ManageOfferResult"),
@@ -3883,6 +4182,7 @@ xdr.union("OperationResultTr", {
     bindExternalSystemAccountIdResult: xdr.lookup("BindExternalSystemAccountIdResult"),
     paymentV2Result: xdr.lookup("PaymentV2Result"),
     manageSaleResult: xdr.lookup("ManageSaleResult"),
+    createManageLimitsRequestResult: xdr.lookup("CreateManageLimitsRequestResult"),
   },
 });
 
@@ -3915,8 +4215,8 @@ xdr.union("OperationResultTr", {
 //           ManageAssetResult manageAssetResult;
 //       case CREATE_PREISSUANCE_REQUEST:
 //           CreatePreIssuanceRequestResult createPreIssuanceRequestResult;
-//       case SET_LIMITS:
-//           SetLimitsResult setLimitsResult;
+//       case MANAGE_LIMITS:
+//           ManageLimitsResult manageLimitsResult;
 //       case DIRECT_DEBIT:
 //           DirectDebitResult directDebitResult;
 //   	case MANAGE_ASSET_PAIR:
@@ -3945,6 +4245,8 @@ xdr.union("OperationResultTr", {
 //           PaymentV2Result paymentV2Result;
 //       case MANAGE_SALE:
 //           ManageSaleResult manageSaleResult;
+//       case CREATE_MANAGE_LIMITS_REQUEST:
+//           CreateManageLimitsRequestResult createManageLimitsRequestResult;
 //       }
 //       tr;
 //   default:
@@ -4082,7 +4384,8 @@ xdr.struct("TransactionResult", [
 //       CREATE_ASSET_CREATION_REQUEST = 0,
 //       CREATE_ASSET_UPDATE_REQUEST = 1,
 //   	CANCEL_ASSET_REQUEST = 2,
-//   	CHANGE_PREISSUED_ASSET_SIGNER = 3
+//   	CHANGE_PREISSUED_ASSET_SIGNER = 3,
+//   	UPDATE_MAX_ISSUANCE = 4
 //   };
 //
 // ===========================================================================
@@ -4091,6 +4394,7 @@ xdr.enum("ManageAssetAction", {
   createAssetUpdateRequest: 1,
   cancelAssetRequest: 2,
   changePreissuedAssetSigner: 3,
+  updateMaxIssuance: 4,
 });
 
 // === xdr source ============================================================
@@ -4132,6 +4436,47 @@ xdr.struct("CancelAssetRequest", [
 
 // === xdr source ============================================================
 //
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("UpdateMaxIssuanceExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct UpdateMaxIssuance {
+//   
+//   	AssetCode assetCode;
+//   	uint64 maxIssuanceAmount;
+//   	// reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("UpdateMaxIssuance", [
+  ["assetCode", xdr.lookup("AssetCode")],
+  ["maxIssuanceAmount", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("UpdateMaxIssuanceExt")],
+]);
+
+// === xdr source ============================================================
+//
 //   union switch (ManageAssetAction action)
 //   	{
 //   	case CREATE_ASSET_CREATION_REQUEST:
@@ -4142,6 +4487,8 @@ xdr.struct("CancelAssetRequest", [
 //   		CancelAssetRequest cancelRequest;
 //   	case CHANGE_PREISSUED_ASSET_SIGNER:
 //   		AssetChangePreissuedSigner changePreissuedSigner;
+//       case UPDATE_MAX_ISSUANCE:
+//           UpdateMaxIssuance updateMaxIssuance;
 //   	}
 //
 // ===========================================================================
@@ -4153,12 +4500,14 @@ xdr.union("ManageAssetOpRequest", {
     ["createAssetUpdateRequest", "updateAsset"],
     ["cancelAssetRequest", "cancelRequest"],
     ["changePreissuedAssetSigner", "changePreissuedSigner"],
+    ["updateMaxIssuance", "updateMaxIssuance"],
   ],
   arms: {
     createAsset: xdr.lookup("AssetCreationRequest"),
     updateAsset: xdr.lookup("AssetUpdateRequest"),
     cancelRequest: xdr.lookup("CancelAssetRequest"),
     changePreissuedSigner: xdr.lookup("AssetChangePreissuedSigner"),
+    updateMaxIssuance: xdr.lookup("UpdateMaxIssuance"),
   },
 });
 
@@ -4196,6 +4545,8 @@ xdr.union("ManageAssetOpExt", {
 //   		CancelAssetRequest cancelRequest;
 //   	case CHANGE_PREISSUED_ASSET_SIGNER:
 //   		AssetChangePreissuedSigner changePreissuedSigner;
+//       case UPDATE_MAX_ISSUANCE:
+//           UpdateMaxIssuance updateMaxIssuance;
 //   	} request;
 //   
 //   	// reserved for future use
@@ -4718,10 +5069,10 @@ xdr.enum("ReviewRequestOpAction", {
 // === xdr source ============================================================
 //
 //   union switch (LedgerVersion v)
-//           {
-//           case EMPTY_VERSION:
-//               void;
-//           }
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
 //
 // ===========================================================================
 xdr.union("LimitsUpdateDetailsExt", {
@@ -4737,18 +5088,18 @@ xdr.union("LimitsUpdateDetailsExt", {
 // === xdr source ============================================================
 //
 //   struct LimitsUpdateDetails {
-//       Limits newLimits;
+//       LimitsV2Entry newLimitsV2;
 //       union switch (LedgerVersion v)
-//           {
-//           case EMPTY_VERSION:
-//               void;
-//           }
-//           ext;
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
 //   };
 //
 // ===========================================================================
 xdr.struct("LimitsUpdateDetails", [
-  ["newLimits", xdr.lookup("Limits")],
+  ["newLimitsV2", xdr.lookup("LimitsV2Entry")],
   ["ext", xdr.lookup("LimitsUpdateDetailsExt")],
 ]);
 
@@ -6550,6 +6901,81 @@ xdr.union("CreateIssuanceRequestResult", {
   },
   defaultArm: xdr.void(),
 });
+
+// === xdr source ============================================================
+//
+//   enum StatsOpType
+//   {
+//       PAYMENT_OUT = 1,
+//       WITHDRAW = 2,
+//       SPEND = 3
+//   };
+//
+// ===========================================================================
+xdr.enum("StatsOpType", {
+  paymentOut: 1,
+  withdraw: 2,
+  spend: 3,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("LimitsV2EntryExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct LimitsV2Entry
+//   {
+//       uint64      id;
+//       AccountType *accountType;
+//       AccountID   *accountID;
+//       StatsOpType statsOpType;
+//       AssetCode   assetCode;
+//       bool        isConvertNeeded;
+//   
+//       uint64 dailyOut;
+//       uint64 weeklyOut;
+//       uint64 monthlyOut;
+//       uint64 annualOut;
+//   
+//        // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("LimitsV2Entry", [
+  ["id", xdr.lookup("Uint64")],
+  ["accountType", xdr.option(xdr.lookup("AccountType"))],
+  ["accountId", xdr.option(xdr.lookup("AccountId"))],
+  ["statsOpType", xdr.lookup("StatsOpType")],
+  ["assetCode", xdr.lookup("AssetCode")],
+  ["isConvertNeeded", xdr.bool()],
+  ["dailyOut", xdr.lookup("Uint64")],
+  ["weeklyOut", xdr.lookup("Uint64")],
+  ["monthlyOut", xdr.lookup("Uint64")],
+  ["annualOut", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("LimitsV2EntryExt")],
+]);
 
 // === xdr source ============================================================
 //
@@ -8984,6 +9410,118 @@ xdr.struct("LedgerKeySaleAnte", [
 
 // === xdr source ============================================================
 //
+//   union switch (LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           }
+//
+// ===========================================================================
+xdr.union("LedgerKeyLimitsV2Ext", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct {
+//           uint64 id;
+//           union switch (LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           } ext;
+//       }
+//
+// ===========================================================================
+xdr.struct("LedgerKeyLimitsV2", [
+  ["id", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("LedgerKeyLimitsV2Ext")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           }
+//
+// ===========================================================================
+xdr.union("LedgerKeyStatisticsV2Ext", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct {
+//           uint64 id;
+//           union switch (LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           }
+//           ext;
+//       }
+//
+// ===========================================================================
+xdr.struct("LedgerKeyStatisticsV2", [
+  ["id", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("LedgerKeyStatisticsV2Ext")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           }
+//
+// ===========================================================================
+xdr.union("LedgerKeyPendingStatisticsExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct {
+//           uint64 statisticsID;
+//           uint64 requestID;
+//           union switch (LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           }
+//           ext;
+//       }
+//
+// ===========================================================================
+xdr.struct("LedgerKeyPendingStatistics", [
+  ["statisticsId", xdr.lookup("Uint64")],
+  ["requestId", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("LedgerKeyPendingStatisticsExt")],
+]);
+
+// === xdr source ============================================================
+//
 //   union LedgerKey switch (LedgerEntryType type)
 //   {
 //   case ACCOUNT:
@@ -9192,6 +9730,36 @@ xdr.struct("LedgerKeySaleAnte", [
 //               void;
 //           } ext;
 //       } saleAnte;
+//   case LIMITS_V2:
+//       struct {
+//           uint64 id;
+//           union switch (LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           } ext;
+//       } limitsV2;
+//   case STATISTICS_V2:
+//       struct {
+//           uint64 id;
+//           union switch (LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           }
+//           ext;
+//       } statisticsV2;
+//   case PENDING_STATISTICS:
+//       struct {
+//           uint64 statisticsID;
+//           uint64 requestID;
+//           union switch (LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           }
+//           ext;
+//       } pendingStatistics;
 //   };
 //
 // ===========================================================================
@@ -9219,6 +9787,9 @@ xdr.union("LedgerKey", {
     ["accountKyc", "accountKyc"],
     ["externalSystemAccountIdPoolEntry", "externalSystemAccountIdPoolEntry"],
     ["saleAnte", "saleAnte"],
+    ["limitsV2", "limitsV2"],
+    ["statisticsV2", "statisticsV2"],
+    ["pendingStatistic", "pendingStatistics"],
   ],
   arms: {
     account: xdr.lookup("LedgerKeyAccount"),
@@ -9241,6 +9812,9 @@ xdr.union("LedgerKey", {
     accountKyc: xdr.lookup("LedgerKeyAccountKyc"),
     externalSystemAccountIdPoolEntry: xdr.lookup("LedgerKeyExternalSystemAccountIdPoolEntry"),
     saleAnte: xdr.lookup("LedgerKeySaleAnte"),
+    limitsV2: xdr.lookup("LedgerKeyLimitsV2"),
+    statisticsV2: xdr.lookup("LedgerKeyStatisticsV2"),
+    pendingStatistics: xdr.lookup("LedgerKeyPendingStatistics"),
   },
 });
 
@@ -9751,6 +10325,133 @@ xdr.union("ManageAssetPairResult", {
 // === xdr source ============================================================
 //
 //   union switch (LedgerVersion v)
+//   	{
+//   	case EMPTY_VERSION:
+//   		void;
+//   	}
+//
+// ===========================================================================
+xdr.union("CreateManageLimitsRequestOpExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct CreateManageLimitsRequestOp
+//   {
+//       LimitsUpdateRequest manageLimitsRequest;
+//   
+//   	// reserved for future use
+//   	union switch (LedgerVersion v)
+//   	{
+//   	case EMPTY_VERSION:
+//   		void;
+//   	}
+//   	ext;
+//   
+//   };
+//
+// ===========================================================================
+xdr.struct("CreateManageLimitsRequestOp", [
+  ["manageLimitsRequest", xdr.lookup("LimitsUpdateRequest")],
+  ["ext", xdr.lookup("CreateManageLimitsRequestOpExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   enum CreateManageLimitsRequestResultCode
+//   {
+//       // codes considered as "success" for the operation
+//       SUCCESS = 0,
+//       // codes considered as "failure" for the operation
+//   	MANAGE_LIMITS_REQUEST_REFERENCE_DUPLICATION = -1
+//   };
+//
+// ===========================================================================
+xdr.enum("CreateManageLimitsRequestResultCode", {
+  success: 0,
+  manageLimitsRequestReferenceDuplication: -1,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//
+// ===========================================================================
+xdr.union("CreateManageLimitsRequestResultSuccessExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct {
+//           uint64 manageLimitsRequestID;
+//   		// reserved for future use
+//   		union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//   		ext;
+//   	}
+//
+// ===========================================================================
+xdr.struct("CreateManageLimitsRequestResultSuccess", [
+  ["manageLimitsRequestId", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("CreateManageLimitsRequestResultSuccessExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union CreateManageLimitsRequestResult switch (CreateManageLimitsRequestResultCode code)
+//   {
+//   case SUCCESS:
+//       struct {
+//           uint64 manageLimitsRequestID;
+//   		// reserved for future use
+//   		union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//   		ext;
+//   	} success;
+//   default:
+//       void;
+//   };
+//
+// ===========================================================================
+xdr.union("CreateManageLimitsRequestResult", {
+  switchOn: xdr.lookup("CreateManageLimitsRequestResultCode"),
+  switchName: "code",
+  switches: [
+    ["success", "success"],
+  ],
+  arms: {
+    success: xdr.lookup("CreateManageLimitsRequestResultSuccess"),
+  },
+  defaultArm: xdr.void(),
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
 //       {
 //       case EMPTY_VERSION:
 //           void;
@@ -10188,6 +10889,66 @@ xdr.struct("AccountKycEntry", [
 // === xdr source ============================================================
 //
 //   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("StatisticsV2EntryExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct StatisticsV2Entry
+//   {
+//       uint64      id;
+//   	AccountID   accountID;
+//   	StatsOpType statsOpType;
+//       AssetCode   assetCode;
+//       bool        isConvertNeeded;
+//   
+//   	uint64 dailyOutcome;
+//   	uint64 weeklyOutcome;
+//   	uint64 monthlyOutcome;
+//   	uint64 annualOutcome;
+//   
+//   	int64 updatedAt;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("StatisticsV2Entry", [
+  ["id", xdr.lookup("Uint64")],
+  ["accountId", xdr.lookup("AccountId")],
+  ["statsOpType", xdr.lookup("StatsOpType")],
+  ["assetCode", xdr.lookup("AssetCode")],
+  ["isConvertNeeded", xdr.bool()],
+  ["dailyOutcome", xdr.lookup("Uint64")],
+  ["weeklyOutcome", xdr.lookup("Uint64")],
+  ["monthlyOutcome", xdr.lookup("Uint64")],
+  ["annualOutcome", xdr.lookup("Uint64")],
+  ["updatedAt", xdr.lookup("Int64")],
+  ["ext", xdr.lookup("StatisticsV2EntryExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
 //   	{
 //   	case EMPTY_VERSION:
 //   		void;
@@ -10369,7 +11130,10 @@ xdr.enum("ThresholdIndices", {
 //   	ACCOUNT_KYC = 18,
 //   	EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_ENTRY = 19,
 //       KEY_VALUE = 20,
-//       SALE_ANTE = 21
+//       SALE_ANTE = 21,
+//       LIMITS_V2 = 22,
+//       STATISTICS_V2 = 23,
+//       PENDING_STATISTICS = 24
 //   };
 //
 // ===========================================================================
@@ -10394,6 +11158,9 @@ xdr.enum("LedgerEntryType", {
   externalSystemAccountIdPoolEntry: 19,
   keyValue: 20,
   saleAnte: 21,
+  limitsV2: 22,
+  statisticsV2: 23,
+  pendingStatistic: 24,
 });
 
 // === xdr source ============================================================
@@ -10440,6 +11207,12 @@ xdr.enum("LedgerEntryType", {
 //           ExternalSystemAccountIDPoolEntry externalSystemAccountIDPoolEntry;
 //       case SALE_ANTE:
 //           SaleAnteEntry saleAnte;
+//       case LIMITS_V2:
+//           LimitsV2Entry limitsV2;
+//       case STATISTICS_V2:
+//           StatisticsV2Entry statisticsV2;
+//       case PENDING_STATISTICS:
+//           PendingStatisticsEntry pendingStatistics;
 //       }
 //
 // ===========================================================================
@@ -10467,6 +11240,9 @@ xdr.union("LedgerEntryData", {
     ["accountKyc", "accountKyc"],
     ["externalSystemAccountIdPoolEntry", "externalSystemAccountIdPoolEntry"],
     ["saleAnte", "saleAnte"],
+    ["limitsV2", "limitsV2"],
+    ["statisticsV2", "statisticsV2"],
+    ["pendingStatistic", "pendingStatistics"],
   ],
   arms: {
     account: xdr.lookup("AccountEntry"),
@@ -10489,6 +11265,9 @@ xdr.union("LedgerEntryData", {
     accountKyc: xdr.lookup("AccountKycEntry"),
     externalSystemAccountIdPoolEntry: xdr.lookup("ExternalSystemAccountIdPoolEntry"),
     saleAnte: xdr.lookup("SaleAnteEntry"),
+    limitsV2: xdr.lookup("LimitsV2Entry"),
+    statisticsV2: xdr.lookup("StatisticsV2Entry"),
+    pendingStatistics: xdr.lookup("PendingStatisticsEntry"),
   },
 });
 
@@ -10559,6 +11338,12 @@ xdr.union("LedgerEntryExt", {
 //           ExternalSystemAccountIDPoolEntry externalSystemAccountIDPoolEntry;
 //       case SALE_ANTE:
 //           SaleAnteEntry saleAnte;
+//       case LIMITS_V2:
+//           LimitsV2Entry limitsV2;
+//       case STATISTICS_V2:
+//           StatisticsV2Entry statisticsV2;
+//       case PENDING_STATISTICS:
+//           PendingStatisticsEntry pendingStatistics;
 //       }
 //       data;
 //   
@@ -10592,133 +11377,6 @@ xdr.enum("EnvelopeType", {
   scp: 1,
   tx: 2,
   auth: 3,
-});
-
-// === xdr source ============================================================
-//
-//   union switch (LedgerVersion v)
-//   	{
-//   	case EMPTY_VERSION:
-//   		void;
-//   	}
-//
-// ===========================================================================
-xdr.union("SetLimitsOpExt", {
-  switchOn: xdr.lookup("LedgerVersion"),
-  switchName: "v",
-  switches: [
-    ["emptyVersion", xdr.void()],
-  ],
-  arms: {
-  },
-});
-
-// === xdr source ============================================================
-//
-//   struct SetLimitsOp
-//   {
-//       AccountID* account;
-//       AccountType* accountType;
-//   
-//       Limits limits;
-//   	// reserved for future use
-//   	union switch (LedgerVersion v)
-//   	{
-//   	case EMPTY_VERSION:
-//   		void;
-//   	}
-//   	ext;
-//   };
-//
-// ===========================================================================
-xdr.struct("SetLimitsOp", [
-  ["account", xdr.option(xdr.lookup("AccountId"))],
-  ["accountType", xdr.option(xdr.lookup("AccountType"))],
-  ["limits", xdr.lookup("Limits")],
-  ["ext", xdr.lookup("SetLimitsOpExt")],
-]);
-
-// === xdr source ============================================================
-//
-//   enum SetLimitsResultCode
-//   {
-//       // codes considered as "success" for the operation
-//       SUCCESS = 0,
-//       // codes considered as "failure" for the operation
-//       MALFORMED = -1
-//   };
-//
-// ===========================================================================
-xdr.enum("SetLimitsResultCode", {
-  success: 0,
-  malformed: -1,
-});
-
-// === xdr source ============================================================
-//
-//   union switch (LedgerVersion v)
-//   		{
-//   		case EMPTY_VERSION:
-//   			void;
-//   		}
-//
-// ===========================================================================
-xdr.union("SetLimitsResultSuccessExt", {
-  switchOn: xdr.lookup("LedgerVersion"),
-  switchName: "v",
-  switches: [
-    ["emptyVersion", xdr.void()],
-  ],
-  arms: {
-  },
-});
-
-// === xdr source ============================================================
-//
-//   struct {
-//   		// reserved for future use
-//   		union switch (LedgerVersion v)
-//   		{
-//   		case EMPTY_VERSION:
-//   			void;
-//   		}
-//   		ext;
-//   	}
-//
-// ===========================================================================
-xdr.struct("SetLimitsResultSuccess", [
-  ["ext", xdr.lookup("SetLimitsResultSuccessExt")],
-]);
-
-// === xdr source ============================================================
-//
-//   union SetLimitsResult switch (SetLimitsResultCode code)
-//   {
-//   case SUCCESS:
-//       struct {
-//   		// reserved for future use
-//   		union switch (LedgerVersion v)
-//   		{
-//   		case EMPTY_VERSION:
-//   			void;
-//   		}
-//   		ext;
-//   	} success;
-//   default:
-//       void;
-//   };
-//
-// ===========================================================================
-xdr.union("SetLimitsResult", {
-  switchOn: xdr.lookup("SetLimitsResultCode"),
-  switchName: "code",
-  switches: [
-    ["success", "success"],
-  ],
-  arms: {
-    success: xdr.lookup("SetLimitsResultSuccess"),
-  },
-  defaultArm: xdr.void(),
 });
 
 // === xdr source ============================================================
