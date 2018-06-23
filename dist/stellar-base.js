@@ -44935,6 +44935,7 @@ var StellarBase =
 	         * @param {object} opts.quoteAssets.asset - asset code of the quote asset
 	         * @param {object} opts.isCrowdfunding - states if sale type is crowd funding
 	         * @param {string} opts.baseAssetForHardCap - specifies the amount of base asset required for hard cap
+	         * @param {SaleState} opts.saleState - specifies the initial state of the sale
 	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
 	         * @returns {xdr.CreateSaleCreationRequestOp}
 	         */
@@ -44998,13 +44999,21 @@ var StellarBase =
 	                });
 	            }
 
-	            if (hasBaseAssetForHardCap) {
+	            if (hasBaseAssetForHardCap && (0, _lodashIsUndefined2['default'])(opts.saleState)) {
 	                var extV2 = new _generatedStellarXdr_generated2['default'].SaleCreationRequestExtV2({
 	                    saleTypeExt: saleTypeExt,
 	                    requiredBaseAssetForHardCap: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.baseAssetForHardCap)
 	                });
 
 	                attrs.ext = _generatedStellarXdr_generated2['default'].SaleCreationRequestExt.allowToSpecifyRequiredBaseAssetAmountForHardCap(extV2);
+	            } else if (!(0, _lodashIsUndefined2['default'])(opts.saleState)) {
+	                var extV3 = new _generatedStellarXdr_generated2['default'].SaleCreationRequestExtV3({
+	                    saleTypeExt: saleTypeExt,
+	                    requiredBaseAssetForHardCap: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.baseAssetForHardCap),
+	                    state: opts.saleState
+	                });
+
+	                attrs.ext = _generatedStellarXdr_generated2['default'].SaleCreationRequestExt.statableSale(extV3);
 	            } else if (isCrowdfunding) {
 	                attrs.ext = _generatedStellarXdr_generated2['default'].SaleCreationRequestExt.typedSale(saleTypeExt);
 	            }
@@ -45099,6 +45108,13 @@ var StellarBase =
 	                case _generatedStellarXdr_generated2['default'].LedgerVersion.allowToSpecifyRequiredBaseAssetAmountForHardCap():
 	                    {
 	                        result.baseAssetForHardCap = _base_operation.BaseOperation._fromXDRAmount(request.ext().extV2().requiredBaseAssetForHardCap());
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].LedgerVersion.statableSale():
+	                    {
+	                        result.baseAssetForHardCap = _base_operation.BaseOperation._fromXDRAmount(request.ext().extV3().requiredBaseAssetForHardCap());
+	                        result.saleState = request.ext().extV3().state();
+	                        break;
 	                    }
 	            }
 	        }
@@ -46226,6 +46242,37 @@ var StellarBase =
 	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
 	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
 	        }
+
+	        /**
+	         * Sets sale state (only allowed for admins)
+	         * @param {object} opts
+	         * @param {string} opts.saleID - ID of the sale to cancel
+	         * @param {string} opts.saleState - state to set
+	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageSaleOp}
+	         */
+	    }, {
+	        key: 'setSaleState',
+	        value: function setSaleState(opts) {
+	            if ((0, _lodashIsUndefined2['default'])(opts.saleID)) {
+	                throw new Error('opts.saleID is invalid');
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.saleState)) {
+	                throw new Error('opts.saleState is invalid');
+	            }
+
+	            var manageSaleOp = new _generatedStellarXdr_generated2['default'].ManageSaleOp({
+	                saleId: _jsXdr.UnsignedHyper.fromString(opts.saleID),
+	                data: new _generatedStellarXdr_generated2['default'].ManageSaleOpData.setState(opts.saleState),
+	                ext: new _generatedStellarXdr_generated2['default'].ManageSaleOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var opAttrs = {};
+	            opAttrs.body = _generatedStellarXdr_generated2['default'].OperationBody.manageSale(manageSaleOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
+	        }
 	    }, {
 	        key: 'manageSaleToObject',
 	        value: function manageSaleToObject(result, attrs) {
@@ -46236,6 +46283,11 @@ var StellarBase =
 	                        var data = attrs.data().updateSaleDetailsData();
 	                        result.requestID = data.requestId().toString();
 	                        result.newDetails = JSON.parse(data.newDetails());
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageSaleAction.setState():
+	                    {
+	                        result.saleState = attrs.data().saleState();
 	                        break;
 	                    }
 	            }
