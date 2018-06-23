@@ -73,6 +73,35 @@ export class ManageSaleBuilder {
         return new xdr.Operation(opAttrs);
     }
 
+    /**
+     * Sets sale state (only allowed for admins)
+     * @param {object} opts
+     * @param {string} opts.saleID - ID of the sale to cancel
+     * @param {string} opts.saleState - state to set
+     * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
+     * @returns {xdr.ManageSaleOp}
+     */
+    static setSaleState(opts) {
+        if (isUndefined(opts.saleID)) {
+            throw new Error('opts.saleID is invalid');
+        }
+
+        if (isUndefined(opts.saleState)) {
+            throw new Error('opts.saleState is invalid');
+        }
+
+        let manageSaleOp = new xdr.ManageSaleOp({
+            saleId: UnsignedHyper.fromString(opts.saleID),
+            data: new xdr.ManageSaleOpData.setState(opts.saleState),
+            ext: new xdr.ManageSaleOpExt(xdr.LedgerVersion.emptyVersion())
+        });
+
+        let opAttrs = {};
+        opAttrs.body = xdr.OperationBody.manageSale(manageSaleOp);
+        BaseOperation.setSourceAccount(opAttrs, opts);
+        return new xdr.Operation(opAttrs);
+    }
+
     static manageSaleToObject(result, attrs) {
         result.saleID = attrs.saleId().toString();
         switch (attrs.data().switch()) {
@@ -80,6 +109,10 @@ export class ManageSaleBuilder {
                 let data = attrs.data().updateSaleDetailsData();
                 result.requestID = data.requestId().toString();
                 result.newDetails = JSON.parse(data.newDetails());
+                break;
+            }
+            case xdr.ManageSaleAction.setState(): {
+                result.saleState = attrs.data().saleState();
                 break;
             }
         }

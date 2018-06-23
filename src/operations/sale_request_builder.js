@@ -26,6 +26,7 @@ export class SaleRequestBuilder {
      * @param {object} opts.quoteAssets.asset - asset code of the quote asset
      * @param {object} opts.isCrowdfunding - states if sale type is crowd funding
      * @param {string} opts.baseAssetForHardCap - specifies the amount of base asset required for hard cap
+     * @param {SaleState} opts.saleState - specifies the initial state of the sale
      * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
      * @returns {xdr.CreateSaleCreationRequestOp}
      */
@@ -89,14 +90,23 @@ export class SaleRequestBuilder {
             });
         }
 
-        if (hasBaseAssetForHardCap) {
+        if (hasBaseAssetForHardCap && isUndefined(opts.saleState)) {
             let extV2 = new xdr.SaleCreationRequestExtV2({
                 saleTypeExt: saleTypeExt,
                 requiredBaseAssetForHardCap: BaseOperation._toUnsignedXDRAmount(opts.baseAssetForHardCap),
             });
 
             attrs.ext = xdr.SaleCreationRequestExt.allowToSpecifyRequiredBaseAssetAmountForHardCap(extV2);
-        } else if (isCrowdfunding) {
+        } else if (!isUndefined(opts.saleState)) {
+            let extV3 = new xdr.SaleCreationRequestExtV3({
+                saleTypeExt: saleTypeExt,
+                requiredBaseAssetForHardCap: BaseOperation._toUnsignedXDRAmount(opts.baseAssetForHardCap),
+                state: opts.saleState,
+            });
+
+            attrs.ext = xdr.SaleCreationRequestExt.statableSale(extV3);
+        }
+        else if (isCrowdfunding) {
             attrs.ext = xdr.SaleCreationRequestExt.typedSale(saleTypeExt);
         }
 
@@ -187,6 +197,12 @@ export class SaleRequestBuilder {
         switch (request.ext().switch()) {
             case xdr.LedgerVersion.allowToSpecifyRequiredBaseAssetAmountForHardCap(): {
                 result.baseAssetForHardCap = BaseOperation._fromXDRAmount(request.ext().extV2().requiredBaseAssetForHardCap());
+                break;
+            }
+            case xdr.LedgerVersion.statableSale(): {
+                result.baseAssetForHardCap = BaseOperation._fromXDRAmount(request.ext().extV3().requiredBaseAssetForHardCap());
+                result.saleState = request.ext().extV3().state();
+                break;
             }
         }
     }
