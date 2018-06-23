@@ -30,6 +30,7 @@ import { CreateUpdateKYCRequestBuilder } from "./operations/create_update_kyc_re
 import { PaymentV2Builder } from "./operations/payment_v2_builder";
 import { ManageSaleBuilder} from "./operations/manage_sale";
 import { ManageLimitsBuilder} from "./operations/manage_limits_builder";
+import { CreateManageLimitsRequestBuilder } from "./operations/create_manage_limits_request_builder";
 
 export class Operation extends BaseOperation {
 
@@ -685,6 +686,9 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.manageSale():
                 ManageSaleBuilder.manageSaleToObject(result, attrs);
+                break;
+            case xdr.OperationType.createManageLimitsRequest():
+                CreateManageLimitsRequestBuilder.createManageLimitsRequestToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");
