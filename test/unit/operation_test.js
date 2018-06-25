@@ -525,48 +525,6 @@ describe('Operation', function () {
         });
     });
 
-
-    describe(".setLimits", function () {
-        let account = StellarBase.Keypair.random();
-        let accountType = 1;
-        it("valid setLimitsOp", function () {
-            let operationType = StellarBase.xdr.OperationType.setLimit();
-            var opts = {
-                account: account.accountId(),
-                limits: {
-                    dailyOut: '1',
-                    weeklyOut: '2',
-                    monthlyOut: '3',
-                    annualOut: '5'
-                }
-            };
-            let op = StellarBase.Operation.setLimits(opts);
-            var xdr = op.toXDR("hex");
-            var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
-            var obj = StellarBase.Operation.operationToObject(operation);
-            expect(obj.type).to.be.equal("setLimit");
-            expect(obj.account).to.be.equal(account.accountId());
-            expect(obj.limits.dailyOut).to.be.equal('1');
-            expect(obj.limits.annualOut).to.be.equal('5');
-        });
-
-
-        it("fails to create setLimits operation with invalid account", function () {
-            var opts = {
-                account: 123,
-                limits: {
-                    dailyOut: '1',
-                    weeklyOut: '2',
-                    monthlyOut: '3',
-                    annualOut: '5'
-                }
-            };
-            expect(() => StellarBase.Operation.setLimits(opts)).to.throw(/account is invalid/)
-        });
-
-    });
-
-
     describe(".manageAssetPair", function () {
         let base = 'ETH';
         let quote = "USD";

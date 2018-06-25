@@ -29,6 +29,8 @@ import { CreateAMLRequestBuilder } from "./operations/create_aml_request_builder
 import { CreateUpdateKYCRequestBuilder } from "./operations/create_update_kyc_request_builder";
 import { PaymentV2Builder } from "./operations/payment_v2_builder";
 import { ManageSaleBuilder} from "./operations/manage_sale";
+import { ManageLimitsBuilder} from "./operations/manage_limits_builder";
+import { CreateManageLimitsRequestBuilder } from "./operations/create_manage_limits_request_builder";
 
 export class Operation extends BaseOperation {
 
@@ -497,34 +499,6 @@ export class Operation extends BaseOperation {
         return new xdr.Operation(opAttributes);
     }
 
-
-    static setLimits(opts = {}) {
-        let attributes = {
-            ext: new xdr.SetLimitsOpExt(xdr.LedgerVersion.emptyVersion()),
-            limits: new xdr.Limits({
-                dailyOut: Operation._toXDRAmount(opts.limits.dailyOut),
-                weeklyOut: Operation._toXDRAmount(opts.limits.weeklyOut),
-                monthlyOut: Operation._toXDRAmount(opts.limits.monthlyOut),
-                annualOut: Operation._toXDRAmount(opts.limits.annualOut),
-                ext: new xdr.LimitsExt(xdr.LedgerVersion.emptyVersion())
-            })
-        };
-        if (opts.account) {
-            if (!Keypair.isValidPublicKey(opts.account)) {
-                throw new Error("account is invalid");
-            }
-            attributes.account = Keypair.fromAccountId(opts.account).xdrAccountId();
-        } else if (opts.accountType) {
-            attributes.accountType = Operation._accountTypeFromNumber(opts.accountType);
-        }
-        let setLimitsOp = new xdr.SetLimitsOp(attributes);
-
-        let opAttributes = {};
-        opAttributes.body = xdr.OperationBody.setLimit(setLimitsOp);
-        Operation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
-    }
-
     /**
      * Converts the XDR Operation object to the opts object used to create the XDR
      * operation.
@@ -657,18 +631,8 @@ export class Operation extends BaseOperation {
             case xdr.OperationType.createPreissuanceRequest():
                 PreIssuanceRequestOpBuilder.preIssuanceRequestOpToObject(result, attrs);
                 break;
-            case xdr.OperationType.setLimit():
-                if (attrs.account()) {
-                    result.account = accountIdtoAddress(attrs.account());
-                }
-                if (attrs.accountType()) {
-                    result.accountType = attrs.accountType().value;
-                }
-                result.limits = {};
-                result.limits.dailyOut = Operation._fromXDRAmount(attrs.limits().dailyOut());
-                result.limits.weeklyOut = Operation._fromXDRAmount(attrs.limits().weeklyOut());
-                result.limits.monthlyOut = Operation._fromXDRAmount(attrs.limits().monthlyOut());
-                result.limits.annualOut = Operation._fromXDRAmount(attrs.limits().annualOut());
+            case xdr.OperationType.manageLimit():
+                ManageLimitsBuilder.manageLimitsOpToObject(result, attrs);
                 break;
             case xdr.OperationType.manageOffer():
                 ManageOfferBuilder.manageOfferOpToObject(result, attrs);
@@ -722,6 +686,9 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.manageSale():
                 ManageSaleBuilder.manageSaleToObject(result, attrs);
+                break;
+            case xdr.OperationType.createManageLimitsRequest():
+                CreateManageLimitsRequestBuilder.createManageLimitsRequestToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");

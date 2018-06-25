@@ -150,15 +150,52 @@ export class ReviewRequestBuilder {
 
         let attrs = ReviewRequestBuilder._prepareAttrs(opts);
 
+        let rawLimitsV2Entry = {};
+
+        if(isUndefined(opts.newLimits.id)) {
+            throw new Error('opts.newLimits.id is not defined');
+        }
+        rawLimitsV2Entry.id = UnsignedHyper.fromString(opts.newLimits.id);
+
+        if (!isUndefined(opts.newLimits.accountID) && !isUndefined(opts.newLimits.accountType)) {
+            throw new Error('opts.newLimits.accountID and opts.newLimits.accountType cannot be set for same limits');
+        }
+
+        if (!isUndefined(opts.newLimits.accountID)) {
+            if (!Keypair.isValidPublicKey(opts.newLimits.accountID)) {
+                throw new Error('opts.newLimits.accountID is invalid');
+            }
+            rawLimitsV2Entry.accountId = Keypair.fromAccountId(opts.newLimits.accountID).xdrAccountId();
+        }
+
+        if (!isUndefined(opts.newLimits.accountType)) {
+            rawLimitsV2Entry.accountType = BaseOperation._accountTypeFromNumber(opts.newLimits.accountType);
+        }
+
+        if (isUndefined(opts.newLimits.statsOpType)) {
+            throw new Error('opts.newLimits.statsOpType is not defined');
+        }
+        rawLimitsV2Entry.statsOpType = BaseOperation._statsOpTypeFromNumber(opts.newLimits.statsOpType);
+
+        if (isUndefined(opts.newLimits.assetCode) || !BaseOperation.isValidAsset(opts.newLimits.assetCode)) {
+            throw new Error('opts.newLimits.assetCode is invalid');
+        }
+        rawLimitsV2Entry.assetCode = opts.newLimits.assetCode;
+
+        if (isUndefined(opts.newLimits.isConvertNeeded)) {
+            throw new Error('opts.newLimits.isConvertNeeded is not defined');
+        }
+        rawLimitsV2Entry.isConvertNeeded = opts.newLimits.isConvertNeeded;
+
+        rawLimitsV2Entry.dailyOut = BaseOperation._toUnsignedXDRAmount(opts.newLimits.dailyOut);
+        rawLimitsV2Entry.weeklyOut = BaseOperation._toUnsignedXDRAmount(opts.newLimits.weeklyOut);
+        rawLimitsV2Entry.monthlyOut = BaseOperation._toUnsignedXDRAmount(opts.newLimits.monthlyOut);
+        rawLimitsV2Entry.annualOut = BaseOperation._toUnsignedXDRAmount(opts.newLimits.annualOut);
+        rawLimitsV2Entry.ext = new xdr.LimitsV2EntryExt(xdr.LedgerVersion.emptyVersion());
+
         attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.limitsUpdate(new xdr.LimitsUpdateDetails({
-            newLimits: new xdr.Limits({
-                dailyOut: BaseOperation._toXDRAmount(opts.newLimits.dailyOut),
-                weeklyOut: BaseOperation._toXDRAmount(opts.newLimits.weeklyOut),
-                monthlyOut: BaseOperation._toXDRAmount(opts.newLimits.monthlyOut),
-                annualOut: BaseOperation._toXDRAmount(opts.newLimits.annualOut),
-                ext: new xdr.LimitsExt(xdr.LedgerVersion.emptyVersion())
-            }),
-            ext: new xdr.LimitsUpdateDetailsExt(xdr.LedgerVersion.emptyVersion())
+            newLimitsV2: new xdr.LimitsV2Entry(rawLimitsV2Entry),
+            ext: new xdr.LimitsUpdateDetailsExt(xdr.LedgerVersion.emptyVersion()),
         }));
 
         return ReviewRequestBuilder._createOp(opts, attrs);
@@ -189,14 +226,29 @@ export class ReviewRequestBuilder {
                 break;
             }
             case xdr.ReviewableRequestType.limitsUpdate(): {
+                let newLimitsV2 = attrs.requestDetails().limitsUpdate().newLimitsV2();
+
                 result.limitsUpdate = {
                     newLimits: {
-                        dailyOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().dailyOut()),
-                        weeklyOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().weeklyOut()),
-                        monthlyOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().monthlyOut()),
-                        annualOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().annualOut())
+                        id: newLimitsV2.id().toString(),
+                        statsOpType: newLimitsV2.statsOpType().value,
+                        assetCode: newLimitsV2.assetCode(),
+                        isConvertNeeded: newLimitsV2.isConvertNeeded(),
+                        dailyOut: BaseOperation._fromXDRAmount(newLimitsV2.dailyOut()),
+                        weeklyOut: BaseOperation._fromXDRAmount(newLimitsV2.weeklyOut()),
+                        monthlyOut: BaseOperation._fromXDRAmount(newLimitsV2.monthlyOut()),
+                        annualOut: BaseOperation._fromXDRAmount(newLimitsV2.annualOut())
                     }
                 };
+
+                if (newLimitsV2.accountId()) {
+                    result.limitsUpdate.newLimits.accountID = BaseOperation.accountIdtoAddress(newLimitsV2.accountId());
+                }
+
+                if (newLimitsV2.accountType()) {
+                    result.limitsUpdate.newLimits.accountType = newLimitsV2.accountType().value;
+                }
+
                 break;
             }
             case xdr.ReviewableRequestType.twoStepWithdrawal(): {
