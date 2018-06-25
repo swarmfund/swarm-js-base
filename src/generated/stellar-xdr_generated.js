@@ -1,4 +1,4 @@
-// Automatically generated on 2018-06-23T18:26:21+03:00
+// Automatically generated on 2018-06-25T17:58:15+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -311,13 +311,13 @@ xdr.union("ManageSaleResult", {
 //   enum ManageLimitsAction
 //   {
 //       CREATE = 0,
-//       DELETE = 1
+//       REMOVE = 1
 //   };
 //
 // ===========================================================================
 xdr.enum("ManageLimitsAction", {
   create: 0,
-  delete: 1,
+  remove: 1,
 });
 
 // === xdr source ============================================================
@@ -355,7 +355,7 @@ xdr.struct("LimitsCreateDetails", [
 //       {
 //       case CREATE:
 //           LimitsCreateDetails limitsCreateDetails;
-//       case DELETE:
+//       case REMOVE:
 //           uint64 id;
 //       }
 //
@@ -365,7 +365,7 @@ xdr.union("ManageLimitsOpDetails", {
   switchName: "action",
   switches: [
     ["create", "limitsCreateDetails"],
-    ["delete", "id"],
+    ["remove", "id"],
   ],
   arms: {
     limitsCreateDetails: xdr.lookup("LimitsCreateDetails"),
@@ -400,7 +400,7 @@ xdr.union("ManageLimitsOpExt", {
 //       {
 //       case CREATE:
 //           LimitsCreateDetails limitsCreateDetails;
-//       case DELETE:
+//       case REMOVE:
 //           uint64 id;
 //       } details;
 //   
@@ -445,7 +445,7 @@ xdr.enum("ManageLimitsResultCode", {
 //           {
 //           case CREATE:
 //               uint64 id;
-//           case DELETE:
+//           case REMOVE:
 //               void;
 //           }
 //
@@ -455,7 +455,7 @@ xdr.union("ManageLimitsResultSuccessDetails", {
   switchName: "action",
   switches: [
     ["create", "id"],
-    ["delete", xdr.void()],
+    ["remove", xdr.void()],
   ],
   arms: {
     id: xdr.lookup("Uint64"),
@@ -488,7 +488,7 @@ xdr.union("ManageLimitsResultSuccessExt", {
 //           {
 //           case CREATE:
 //               uint64 id;
-//           case DELETE:
+//           case REMOVE:
 //               void;
 //           } details;
 //   
@@ -517,7 +517,7 @@ xdr.struct("ManageLimitsResultSuccess", [
 //           {
 //           case CREATE:
 //               uint64 id;
-//           case DELETE:
+//           case REMOVE:
 //               void;
 //           } details;
 //   

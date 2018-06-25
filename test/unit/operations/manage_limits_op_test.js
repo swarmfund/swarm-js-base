@@ -69,11 +69,11 @@ describe(".manageLimits", function () {
         };
         expect(() => ManageLimitsBuilder.createLimits(opts)).to.throw(/opts.accountID and opts.accountType cannot be set for same limits/);
     });
-    it("valid deleteLimits", function () {
+    it("valid removeLimits", function () {
         var opts = {
             id: '1',
         };
-        let op = ManageLimitsBuilder.deleteLimits(opts);
+        let op = ManageLimitsBuilder.removeLimits(opts);
         var xdr = op.toXDR("hex");
         var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
         var obj = StellarBase.Operation.operationToObject(operation);
