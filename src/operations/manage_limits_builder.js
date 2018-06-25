@@ -75,15 +75,15 @@ export class ManageLimitsBuilder {
     /**
      * Delete limits by given id
      * @param {object} opts
-     * @param {number|string} opts.id - limits to delete id
+     * @param {number|string} opts.id - limits to remove id
      */
-    static deleteLimits(opts) {
+    static removeLimits(opts) {
         if (isUndefined(opts.id)) {
             throw new Error('opts.id cannot be empty');
         }
 
         let manageLimitsOp = new xdr.ManageLimitsOp({
-            details: new xdr.ManageLimitsOpDetails.delete(UnsignedHyper.fromString(opts.id)),
+            details: new xdr.ManageLimitsOpDetails.remove(UnsignedHyper.fromString(opts.id)),
             ext: new xdr.ManageLimitsOpExt(xdr.LedgerVersion.emptyVersion()),
         });
 
@@ -115,7 +115,7 @@ export class ManageLimitsBuilder {
 
                 break;
             }
-            case xdr.ManageLimitsAction.delete(): {
+            case xdr.ManageLimitsAction.remove(): {
                 result.id = attrs.details().id().toString();
                 break;
             }

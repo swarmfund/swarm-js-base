@@ -375,7 +375,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-06-23T18:26:21+03:00
+	// Automatically generated on 2018-06-25T17:58:15+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -559,11 +559,11 @@ var StellarBase =
 	//   enum ManageLimitsAction
 	//   {
 	//       CREATE = 0,
-	//       DELETE = 1
+	//       REMOVE = 1
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageLimitsAction",{create:0,"delete":1}); // === xdr source ============================================================
+	xdr["enum"]("ManageLimitsAction",{create:0,remove:1}); // === xdr source ============================================================
 	//
 	//   struct LimitsCreateDetails
 	//   {
@@ -586,12 +586,12 @@ var StellarBase =
 	//       {
 	//       case CREATE:
 	//           LimitsCreateDetails limitsCreateDetails;
-	//       case DELETE:
+	//       case REMOVE:
 	//           uint64 id;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ManageLimitsOpDetails",{switchOn:xdr.lookup("ManageLimitsAction"),switchName:"action",switches:[["create","limitsCreateDetails"],["delete","id"]],arms:{limitsCreateDetails:xdr.lookup("LimitsCreateDetails"),id:xdr.lookup("Uint64")}}); // === xdr source ============================================================
+	xdr.union("ManageLimitsOpDetails",{switchOn:xdr.lookup("ManageLimitsAction"),switchName:"action",switches:[["create","limitsCreateDetails"],["remove","id"]],arms:{limitsCreateDetails:xdr.lookup("LimitsCreateDetails"),id:xdr.lookup("Uint64")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -608,7 +608,7 @@ var StellarBase =
 	//       {
 	//       case CREATE:
 	//           LimitsCreateDetails limitsCreateDetails;
-	//       case DELETE:
+	//       case REMOVE:
 	//           uint64 id;
 	//       } details;
 	//   
@@ -641,12 +641,12 @@ var StellarBase =
 	//           {
 	//           case CREATE:
 	//               uint64 id;
-	//           case DELETE:
+	//           case REMOVE:
 	//               void;
 	//           }
 	//
 	// ===========================================================================
-	xdr.union("ManageLimitsResultSuccessDetails",{switchOn:xdr.lookup("ManageLimitsAction"),switchName:"action",switches:[["create","id"],["delete",xdr["void"]()]],arms:{id:xdr.lookup("Uint64")}}); // === xdr source ============================================================
+	xdr.union("ManageLimitsResultSuccessDetails",{switchOn:xdr.lookup("ManageLimitsAction"),switchName:"action",switches:[["create","id"],["remove",xdr["void"]()]],arms:{id:xdr.lookup("Uint64")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -662,7 +662,7 @@ var StellarBase =
 	//           {
 	//           case CREATE:
 	//               uint64 id;
-	//           case DELETE:
+	//           case REMOVE:
 	//               void;
 	//           } details;
 	//   
@@ -686,7 +686,7 @@ var StellarBase =
 	//           {
 	//           case CREATE:
 	//               uint64 id;
-	//           case DELETE:
+	//           case REMOVE:
 	//               void;
 	//           } details;
 	//   
@@ -42923,17 +42923,17 @@ var StellarBase =
 	        /**
 	         * Delete limits by given id
 	         * @param {object} opts
-	         * @param {number|string} opts.id - limits to delete id
+	         * @param {number|string} opts.id - limits to remove id
 	         */
 	    }, {
-	        key: 'deleteLimits',
-	        value: function deleteLimits(opts) {
+	        key: 'removeLimits',
+	        value: function removeLimits(opts) {
 	            if ((0, _lodashIsUndefined2['default'])(opts.id)) {
 	                throw new Error('opts.id cannot be empty');
 	            }
 
 	            var manageLimitsOp = new _generatedStellarXdr_generated2['default'].ManageLimitsOp({
-	                details: new _generatedStellarXdr_generated2['default'].ManageLimitsOpDetails['delete'](_jsXdr.UnsignedHyper.fromString(opts.id)),
+	                details: new _generatedStellarXdr_generated2['default'].ManageLimitsOpDetails.remove(_jsXdr.UnsignedHyper.fromString(opts.id)),
 	                ext: new _generatedStellarXdr_generated2['default'].ManageLimitsOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
 	            });
 
@@ -42966,7 +42966,7 @@ var StellarBase =
 
 	                        break;
 	                    }
-	                case _generatedStellarXdr_generated2['default'].ManageLimitsAction['delete']():
+	                case _generatedStellarXdr_generated2['default'].ManageLimitsAction.remove():
 	                    {
 	                        result.id = attrs.details().id().toString();
 	                        break;
