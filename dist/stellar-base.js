@@ -42989,7 +42989,7 @@ var StellarBase =
 /* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(Buffer) {'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
@@ -43036,7 +43036,7 @@ var StellarBase =
 	            var ext = _generatedStellarXdr_generated2['default'].LimitsUpdateRequestExt.limitsUpdateRequestDeprecatedDocumentHash(opts.details);
 
 	            var limitsUpdateRequest = new _generatedStellarXdr_generated2['default'].LimitsUpdateRequest({
-	                deprecatedDocumentHash: StellarBase.hash("default"),
+	                deprecatedDocumentHash: new Buffer(32),
 	                ext: ext
 	            });
 
@@ -43061,6 +43061,7 @@ var StellarBase =
 	})();
 
 	exports.CreateManageLimitsRequestBuilder = CreateManageLimitsRequestBuilder;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9).Buffer))
 
 /***/ }),
 /* 207 */
