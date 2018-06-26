@@ -43024,7 +43024,6 @@ var StellarBase =
 	        /**
 	         * Creates limits update request
 	         * @param {object} opts
-	         * @param {string} opts.deprecatedDocumentHash - hash of the document to review
 	         * @param {string} opts.details - string details to review
 	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
 	         * @returns {xdr.CreateManageLimitsRequestOp}
@@ -43034,9 +43033,10 @@ var StellarBase =
 	                throw new Error('opts.details is not defined');
 	            }
 
-	            var ext = new _generatedStellarXdr_generated2['default'].LimitsUpdateRequestExt.limitsUpdateRequestDeprecatedDocumentHash(opts.details);
+	            var ext = _generatedStellarXdr_generated2['default'].LimitsUpdateRequestExt.limitsUpdateRequestDeprecatedDocumentHash(opts.details);
 
 	            var limitsUpdateRequest = new _generatedStellarXdr_generated2['default'].LimitsUpdateRequest({
+	                deprecatedDocumentHash: StellarBase.hash("default"),
 	                ext: ext
 	            });
 
@@ -43053,7 +43053,6 @@ var StellarBase =
 	    }, {
 	        key: 'createManageLimitsRequestToObject',
 	        value: function createManageLimitsRequestToObject(result, attrs) {
-	            result.documentHash = attrs.manageLimitsRequest().documentHash();
 	            result.details = attrs.manageLimitsRequest().ext().details();
 	        }
 	    }]);

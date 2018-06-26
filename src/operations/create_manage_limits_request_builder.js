@@ -19,7 +19,7 @@ export class CreateManageLimitsRequestBuilder {
         let ext = xdr.LimitsUpdateRequestExt.limitsUpdateRequestDeprecatedDocumentHash(opts.details);
 
         let limitsUpdateRequest = new xdr.LimitsUpdateRequest({
-            deprecatedDocumentHash: new Buffer(32),
+            deprecatedDocumentHash: StellarBase.hash("default"),
             ext: ext,
         });
 
