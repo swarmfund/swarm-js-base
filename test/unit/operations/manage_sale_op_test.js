@@ -31,7 +31,7 @@ describe("Manage sale", function () {
         }
         let op = ManageSaleBuilder.cancelSale(opts)
         let xdrOp = op.toXDR('hex')
-        let operation = StellarBase.xdr.Operation.fromXDR(Buffer.from(xdrOp, 'hex'))
+        let operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdrOp, 'hex'))
         let obj = StellarBase.Operation.operationToObject(operation)
         expect(obj.saleID).to.be.equal(opts.saleID)
     })
@@ -42,7 +42,7 @@ describe("Manage sale", function () {
         }
         let op = ManageSaleBuilder.setSaleState(opts)
         let xdrOp = op.toXDR('hex')
-        let operation = StellarBase.xdr.Operation.fromXDR(Buffer.from(xdrOp, 'hex'))
+        let operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdrOp, 'hex'))
         let obj = StellarBase.Operation.operationToObject(operation)
         expect(obj.saleID).to.be.equal(opts.saleID)
         expect(obj.saleState).to.be.equal(opts.saleState)
