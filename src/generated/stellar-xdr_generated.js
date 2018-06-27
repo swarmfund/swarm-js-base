@@ -1,4 +1,4 @@
-// Automatically generated on 2018-06-26T18:47:39+03:00
+// Automatically generated on 2018-06-27T18:24:24+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -5993,7 +5993,8 @@ xdr.union("PublicKey", {
 //   	FIX_ASSET_PAIRS_CREATION_IN_SALE_CREATION = 28,
 //   	STATABLE_SALES = 29,
 //   	CREATE_ONLY_STATISTICS_V2 = 30,
-//   	LIMITS_UPDATE_REQUEST_DEPRECATED_DOCUMENT_HASH = 31
+//   	LIMITS_UPDATE_REQUEST_DEPRECATED_DOCUMENT_HASH = 31,
+//   	FIX_PAYMENT_V2_FEE = 32
 //   };
 //
 // ===========================================================================
@@ -6030,6 +6031,7 @@ xdr.enum("LedgerVersion", {
   statableSale: 29,
   createOnlyStatisticsV2: 30,
   limitsUpdateRequestDeprecatedDocumentHash: 31,
+  fixPaymentV2Fee: 32,
 });
 
 // === xdr source ============================================================
