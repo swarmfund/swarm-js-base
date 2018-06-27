@@ -7,18 +7,20 @@ export class CreateManageLimitsRequestBuilder {
     /**
      * Creates limits update request
      * @param {object} opts
-     * @param {string} opts.documentHash - hash of the document to review
+     * @param {string} opts.details - string details to review
      * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
      * @returns {xdr.CreateManageLimitsRequestOp}
      */
     static createManageLimitsRequest(opts) {
-        if (isUndefined(opts.documentHash)) {
-            throw new Error('opts.documentHash is not defined');
+        if (isUndefined(opts.details)) {
+            throw new Error('opts.details is not defined');
         }
 
+        let ext = xdr.LimitsUpdateRequestExt.limitsUpdateRequestDeprecatedDocumentHash(opts.details);
+
         let limitsUpdateRequest = new xdr.LimitsUpdateRequest({
-            documentHash: opts.documentHash,
-            ext: new xdr.LimitsUpdateRequestExt(xdr.LedgerVersion.emptyVersion()),
+            deprecatedDocumentHash: new Buffer(32),
+            ext: ext,
         });
 
         let createManageLimitsRequestOp = new xdr.CreateManageLimitsRequestOp({
@@ -33,6 +35,6 @@ export class CreateManageLimitsRequestBuilder {
     }
 
     static createManageLimitsRequestToObject(result, attrs) {
-        result.documentHash = attrs.manageLimitsRequest().documentHash();
+        result.details = attrs.manageLimitsRequest().ext().details();
     }
 }
