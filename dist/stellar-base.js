@@ -375,7 +375,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-06-29T15:10:38+03:00
+	// Automatically generated on 2018-06-29T17:36:01+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -1975,11 +1975,12 @@ var StellarBase =
 	//   	SALE_IS_NOT_ACTIVE = -23,
 	//   	REQUIRES_KYC = -24, // source must have KYC in order to participate
 	//   	SOURCE_UNDERFUNDED = -25,
-	//   	SOURCE_BALANCE_LOCK_OVERFLOW = -26
+	//   	SOURCE_BALANCE_LOCK_OVERFLOW = -26,
+	//   	REQUIRES_VERIFICATION = -27 // source must be verified in order to participate
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageOfferResultCode",{success:0,malformed:-1,pairNotTraded:-2,balanceNotFound:-3,underfunded:-4,crossSelf:-5,offerOverflow:-6,assetPairNotTradable:-7,physicalPriceRestriction:-8,currentPriceRestriction:-9,notFound:-10,invalidPercentFee:-11,insufficientPrice:-12,orderBookDoesNotExist:-13,saleIsNotStartedYet:-14,saleAlreadyEnded:-15,orderViolatesHardCap:-16,cantParticipateOwnSale:-17,assetMismatched:-18,priceDoesNotMatch:-19,priceIsInvalid:-20,updateIsNotAllowed:-21,invalidAmount:-22,saleIsNotActive:-23,requiresKyc:-24,sourceUnderfunded:-25,sourceBalanceLockOverflow:-26}); // === xdr source ============================================================
+	xdr["enum"]("ManageOfferResultCode",{success:0,malformed:-1,pairNotTraded:-2,balanceNotFound:-3,underfunded:-4,crossSelf:-5,offerOverflow:-6,assetPairNotTradable:-7,physicalPriceRestriction:-8,currentPriceRestriction:-9,notFound:-10,invalidPercentFee:-11,insufficientPrice:-12,orderBookDoesNotExist:-13,saleIsNotStartedYet:-14,saleAlreadyEnded:-15,orderViolatesHardCap:-16,cantParticipateOwnSale:-17,assetMismatched:-18,priceDoesNotMatch:-19,priceIsInvalid:-20,updateIsNotAllowed:-21,invalidAmount:-22,saleIsNotActive:-23,requiresKyc:-24,sourceUnderfunded:-25,sourceBalanceLockOverflow:-26,requiresVerification:-27}); // === xdr source ============================================================
 	//
 	//   enum ManageOfferEffect
 	//   {
@@ -4647,11 +4648,12 @@ var StellarBase =
 	//   	RECEIVER_FULL_LINE = -7,
 	//   	INVALID_EXTERNAL_DETAILS = -8, // external details size exceeds max allowed
 	//   	FEE_EXCEEDS_AMOUNT = -9, // fee more than amount to issue
-	//       REQUIRES_KYC = -10 // asset requires receiver to have KYC
+	//       REQUIRES_KYC = -10, // asset requires receiver to have KYC
+	//       REQUIRES_VERIFICATION = -11 //asset requires receiver to be verified
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("CreateIssuanceRequestResultCode",{success:0,assetNotFound:-1,invalidAmount:-2,referenceDuplication:-3,noCounterparty:-4,notAuthorized:-5,exceedsMaxIssuanceAmount:-6,receiverFullLine:-7,invalidExternalDetail:-8,feeExceedsAmount:-9,requiresKyc:-10}); // === xdr source ============================================================
+	xdr["enum"]("CreateIssuanceRequestResultCode",{success:0,assetNotFound:-1,invalidAmount:-2,referenceDuplication:-3,noCounterparty:-4,notAuthorized:-5,exceedsMaxIssuanceAmount:-6,receiverFullLine:-7,invalidExternalDetail:-8,feeExceedsAmount:-9,requiresKyc:-10,requiresVerification:-11}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   	{
@@ -5289,11 +5291,12 @@ var StellarBase =
 	//   	SYNDICATE = 6, // can create asset
 	//   	EXCHANGE = 7,
 	//   	ACCREDITED_INVESTOR = 8,
-	//   	INSTITUTIONAL_INVESTOR = 9
+	//   	INSTITUTIONAL_INVESTOR = 9,
+	//   	VERIFIED = 10
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("AccountType",{operational:1,general:2,commission:3,master:4,notVerified:5,syndicate:6,exchange:7,accreditedInvestor:8,institutionalInvestor:9}); // === xdr source ============================================================
+	xdr["enum"]("AccountType",{operational:1,general:2,commission:3,master:4,notVerified:5,syndicate:6,exchange:7,accreditedInvestor:8,institutionalInvestor:9,verified:10}); // === xdr source ============================================================
 	//
 	//   enum BlockReasons
 	//   {
@@ -6916,11 +6919,12 @@ var StellarBase =
 	//   	WITHDRAWABLE = 8,
 	//   	TWO_STEP_WITHDRAWAL = 16,
 	//   	REQUIRES_KYC = 32,
-	//   	ISSUANCE_MANUAL_REVIEW_REQUIRED = 64
+	//   	ISSUANCE_MANUAL_REVIEW_REQUIRED = 64,
+	//   	REQUIRES_VERIFICATION = 128
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("AssetPolicy",{transferable:1,baseAsset:2,statsQuoteAsset:4,withdrawable:8,twoStepWithdrawal:16,requiresKyc:32,issuanceManualReviewRequired:64}); // === xdr source ============================================================
+	xdr["enum"]("AssetPolicy",{transferable:1,baseAsset:2,statsQuoteAsset:4,withdrawable:8,twoStepWithdrawal:16,requiresKyc:32,issuanceManualReviewRequired:64,requiresVerification:128}); // === xdr source ============================================================
 	//
 	//   enum AssetSystemPolicies
 	//   {
