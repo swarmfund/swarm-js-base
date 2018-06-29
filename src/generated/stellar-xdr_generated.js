@@ -1,4 +1,4 @@
-// Automatically generated on 2018-06-27T18:24:24+03:00
+// Automatically generated on 2018-06-28T18:11:22+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -2064,7 +2064,8 @@ xdr.union("ManageAssetResult", {
 //   	WITHDRAWABLE = 8,
 //   	TWO_STEP_WITHDRAWAL = 16,
 //   	REQUIRES_KYC = 32,
-//   	ISSUANCE_MANUAL_REVIEW_REQUIRED = 64
+//   	ISSUANCE_MANUAL_REVIEW_REQUIRED = 64,
+//   	REQUIRES_VERIFICATION = 128
 //   };
 //
 // ===========================================================================
@@ -2076,6 +2077,7 @@ xdr.enum("AssetPolicy", {
   twoStepWithdrawal: 16,
   requiresKyc: 32,
   issuanceManualReviewRequired: 64,
+  requiresVerification: 128,
 });
 
 // === xdr source ============================================================
@@ -2818,7 +2820,8 @@ xdr.struct("CreateIssuanceRequestOp", [
 //   	RECEIVER_FULL_LINE = -7,
 //   	INVALID_EXTERNAL_DETAILS = -8, // external details size exceeds max allowed
 //   	FEE_EXCEEDS_AMOUNT = -9, // fee more than amount to issue
-//       REQUIRES_KYC = -10 // asset requires receiver to have KYC
+//       REQUIRES_KYC = -10, // asset requires receiver to have KYC
+//       REQUIRES_VERIFICATION = -11 //asset requires receiver to be verified
 //   };
 //
 // ===========================================================================
@@ -2834,6 +2837,7 @@ xdr.enum("CreateIssuanceRequestResultCode", {
   invalidExternalDetail: -8,
   feeExceedsAmount: -9,
   requiresKyc: -10,
+  requiresVerification: -11,
 });
 
 // === xdr source ============================================================
@@ -7537,7 +7541,8 @@ xdr.enum("AccountPolicies", {
 //   	SYNDICATE = 6, // can create asset
 //   	EXCHANGE = 7,
 //   	ACCREDITED_INVESTOR = 8,
-//   	INSTITUTIONAL_INVESTOR = 9
+//   	INSTITUTIONAL_INVESTOR = 9,
+//   	VERIFIED = 10
 //   };
 //
 // ===========================================================================
@@ -7551,6 +7556,7 @@ xdr.enum("AccountType", {
   exchange: 7,
   accreditedInvestor: 8,
   institutionalInvestor: 9,
+  verified: 10,
 });
 
 // === xdr source ============================================================
@@ -9530,7 +9536,8 @@ xdr.struct("ManageOfferOp", [
 //   	SALE_IS_NOT_ACTIVE = -23,
 //   	REQUIRES_KYC = -24, // source must have KYC in order to participate
 //   	SOURCE_UNDERFUNDED = -25,
-//   	SOURCE_BALANCE_LOCK_OVERFLOW = -26
+//   	SOURCE_BALANCE_LOCK_OVERFLOW = -26,
+//   	REQUIRES_VERIFICATION = -27 // source must be verified in order to participate
 //   };
 //
 // ===========================================================================
@@ -9562,6 +9569,7 @@ xdr.enum("ManageOfferResultCode", {
   requiresKyc: -24,
   sourceUnderfunded: -25,
   sourceBalanceLockOverflow: -26,
+  requiresVerification: -27,
 });
 
 // === xdr source ============================================================
