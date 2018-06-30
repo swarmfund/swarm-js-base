@@ -375,7 +375,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-06-28T18:11:22+03:00
+	// Automatically generated on 2018-06-29T15:53:49+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -4074,11 +4074,12 @@ var StellarBase =
 	//   	STATABLE_SALES = 29,
 	//   	CREATE_ONLY_STATISTICS_V2 = 30,
 	//   	LIMITS_UPDATE_REQUEST_DEPRECATED_DOCUMENT_HASH = 31,
-	//   	FIX_PAYMENT_V2_FEE = 32
+	//   	FIX_PAYMENT_V2_FEE = 32,
+	//   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23,allowToCancelSaleParticipWithoutSpecifingBalance:24,detailsMaxLengthExtended:25,allowMasterToManageSale:26,useSaleAnte:27,fixAssetPairsCreationInSaleCreation:28,statableSale:29,createOnlyStatisticsV2:30,limitsUpdateRequestDeprecatedDocumentHash:31,fixPaymentV2Fee:32}); // === xdr source ============================================================
+	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23,allowToCancelSaleParticipWithoutSpecifingBalance:24,detailsMaxLengthExtended:25,allowMasterToManageSale:26,useSaleAnte:27,fixAssetPairsCreationInSaleCreation:28,statableSale:29,createOnlyStatisticsV2:30,limitsUpdateRequestDeprecatedDocumentHash:31,fixPaymentV2Fee:32,addSaleIdReviewRequestResult:33}); // === xdr source ============================================================
 	//
 	//   typedef opaque Signature<64>;
 	//
@@ -4792,17 +4793,21 @@ var StellarBase =
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
+	//   		case ADD_SALE_ID_REVIEW_REQUEST_RESULT:
+	//   		    uint64 saleID;
 	//   		case EMPTY_VERSION:
 	//   			void;
 	//   		}
 	//
 	// ===========================================================================
-	xdr.union("ReviewRequestResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	xdr.union("ReviewRequestResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["addSaleIdReviewRequestResult","saleId"],["emptyVersion",xdr["void"]()]],arms:{saleId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
 	//
 	//   struct {
 	//   		// reserved for future use
 	//   		union switch (LedgerVersion v)
 	//   		{
+	//   		case ADD_SALE_ID_REVIEW_REQUEST_RESULT:
+	//   		    uint64 saleID;
 	//   		case EMPTY_VERSION:
 	//   			void;
 	//   		}
@@ -4819,6 +4824,8 @@ var StellarBase =
 	//   		// reserved for future use
 	//   		union switch (LedgerVersion v)
 	//   		{
+	//   		case ADD_SALE_ID_REVIEW_REQUEST_RESULT:
+	//   		    uint64 saleID;
 	//   		case EMPTY_VERSION:
 	//   			void;
 	//   		}
