@@ -1,4 +1,4 @@
-// Automatically generated on 2018-06-29T17:36:01+03:00
+// Automatically generated on 2018-06-30T17:35:56+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -3511,7 +3511,8 @@ xdr.union("PublicKey", {
 //   	STATABLE_SALES = 29,
 //   	CREATE_ONLY_STATISTICS_V2 = 30,
 //   	LIMITS_UPDATE_REQUEST_DEPRECATED_DOCUMENT_HASH = 31,
-//   	FIX_PAYMENT_V2_FEE = 32
+//   	FIX_PAYMENT_V2_FEE = 32,
+//   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33
 //   };
 //
 // ===========================================================================
@@ -3549,6 +3550,7 @@ xdr.enum("LedgerVersion", {
   createOnlyStatisticsV2: 30,
   limitsUpdateRequestDeprecatedDocumentHash: 31,
   fixPaymentV2Fee: 32,
+  addSaleIdReviewRequestResult: 33,
 });
 
 // === xdr source ============================================================
@@ -5576,6 +5578,8 @@ xdr.enum("ReviewRequestResultCode", {
 //
 //   union switch (LedgerVersion v)
 //   		{
+//   		case ADD_SALE_ID_REVIEW_REQUEST_RESULT:
+//   		    uint64 saleID;
 //   		case EMPTY_VERSION:
 //   			void;
 //   		}
@@ -5585,9 +5589,11 @@ xdr.union("ReviewRequestResultSuccessExt", {
   switchOn: xdr.lookup("LedgerVersion"),
   switchName: "v",
   switches: [
+    ["addSaleIdReviewRequestResult", "saleId"],
     ["emptyVersion", xdr.void()],
   ],
   arms: {
+    saleId: xdr.lookup("Uint64"),
   },
 });
 
@@ -5597,6 +5603,8 @@ xdr.union("ReviewRequestResultSuccessExt", {
 //   		// reserved for future use
 //   		union switch (LedgerVersion v)
 //   		{
+//   		case ADD_SALE_ID_REVIEW_REQUEST_RESULT:
+//   		    uint64 saleID;
 //   		case EMPTY_VERSION:
 //   			void;
 //   		}
@@ -5617,6 +5625,8 @@ xdr.struct("ReviewRequestResultSuccess", [
 //   		// reserved for future use
 //   		union switch (LedgerVersion v)
 //   		{
+//   		case ADD_SALE_ID_REVIEW_REQUEST_RESULT:
+//   		    uint64 saleID;
 //   		case EMPTY_VERSION:
 //   			void;
 //   		}
