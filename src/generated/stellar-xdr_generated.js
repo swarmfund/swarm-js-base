@@ -1,4 +1,4 @@
-// Automatically generated on 2018-06-29T15:53:49+03:00
+// Automatically generated on 2018-07-06T11:33:11+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -377,6 +377,8 @@ xdr.struct("PaymentOpV2", [
 //       INSUFFICIENT_FEE_AMOUNT = -14,
 //       BALANCE_TO_CHARGE_FEE_FROM_NOT_FOUND = -15,
 //       PAYMENT_AMOUNT_IS_LESS_THAN_DEST_FEE = -16
+//   
+//       // !!! Add new result code to bill pay op too !!!
 //   };
 //
 // ===========================================================================
@@ -1184,6 +1186,177 @@ xdr.union("CreatePreIssuanceRequestResult", {
   ],
   arms: {
     success: xdr.lookup("CreatePreIssuanceRequestResultSuccess"),
+  },
+  defaultArm: xdr.void(),
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("BillPayOpExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct BillPayOp
+//   {
+//       PaymentOpV2 paymentDetails;
+//       uint64 requestID;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("BillPayOp", [
+  ["paymentDetails", xdr.lookup("PaymentOpV2")],
+  ["requestId", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("BillPayOpExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   enum BillPayResultCode
+//   {
+//       // codes considered as "success" for the operation
+//       SUCCESS = 0, // payment successfully completed
+//   
+//       // codes considered as "failure" for the payment operation
+//       MALFORMED = -1, // bad input, requestID must be > 0
+//       UNDERFUNDED = -2, // not enough funds in source account
+//       LINE_FULL = -3, // destination would go above their limit
+//       DESTINATION_BALANCE_NOT_FOUND = -4,
+//       BALANCE_ASSETS_MISMATCHED = -5,
+//       SRC_BALANCE_NOT_FOUND = -6, // source balance not found
+//       REFERENCE_DUPLICATION = -7,
+//       STATS_OVERFLOW = -8,
+//       LIMITS_EXCEEDED = -9,
+//       NOT_ALLOWED_BY_ASSET_POLICY = -10,
+//       INVALID_DESTINATION_FEE = -11,
+//       INVALID_DESTINATION_FEE_ASSET = -12, // destination fee asset must be the same as source balance asset
+//       FEE_ASSET_MISMATCHED = -13,
+//       INSUFFICIENT_FEE_AMOUNT = -14,
+//       BALANCE_TO_CHARGE_FEE_FROM_NOT_FOUND = -15,
+//       PAYMENT_AMOUNT_IS_LESS_THAN_DEST_FEE = -16,
+//   
+//       // codes considered as "failure" for the bill pay operation
+//       INVOICE_REQUEST_NOT_FOUND = -41, // cannot found invoice request
+//       AMOUNT_MISMATCHED = -42, // amount does not match
+//       DESTINATION_BALANCE_MISMATCHED = -43, // invoice balance and payment balance do not match
+//       DESTINATION_ACCOUNT_MISMATCHED = -44, // invoice account and payment account do not match
+//       REQUIRED_SOURCE_PAY_FOR_DESTINATION = -45 // not allowed shift fee responsibility to destination
+//   };
+//
+// ===========================================================================
+xdr.enum("BillPayResultCode", {
+  success: 0,
+  malformed: -1,
+  underfunded: -2,
+  lineFull: -3,
+  destinationBalanceNotFound: -4,
+  balanceAssetsMismatched: -5,
+  srcBalanceNotFound: -6,
+  referenceDuplication: -7,
+  statsOverflow: -8,
+  limitsExceeded: -9,
+  notAllowedByAssetPolicy: -10,
+  invalidDestinationFee: -11,
+  invalidDestinationFeeAsset: -12,
+  feeAssetMismatched: -13,
+  insufficientFeeAmount: -14,
+  balanceToChargeFeeFromNotFound: -15,
+  paymentAmountIsLessThanDestFee: -16,
+  invoiceRequestNotFound: -41,
+  amountMismatched: -42,
+  destinationBalanceMismatched: -43,
+  destinationAccountMismatched: -44,
+  requiredSourcePayForDestination: -45,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//
+// ===========================================================================
+xdr.union("BillPayResultSuccessExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct {
+//   	    PaymentV2Response paymentV2Response;
+//   		// reserved for future use
+//   		union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//   		ext;
+//   	}
+//
+// ===========================================================================
+xdr.struct("BillPayResultSuccess", [
+  ["paymentV2Response", xdr.lookup("PaymentV2Response")],
+  ["ext", xdr.lookup("BillPayResultSuccessExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union BillPayResult switch (BillPayResultCode code)
+//   {
+//   case SUCCESS:
+//   	struct {
+//   	    PaymentV2Response paymentV2Response;
+//   		// reserved for future use
+//   		union switch (LedgerVersion v)
+//   		{
+//   		case EMPTY_VERSION:
+//   			void;
+//   		}
+//   		ext;
+//   	} success;
+//   default:
+//       void;
+//   };
+//
+// ===========================================================================
+xdr.union("BillPayResult", {
+  switchOn: xdr.lookup("BillPayResultCode"),
+  switchName: "code",
+  switches: [
+    ["success", "success"],
+  ],
+  arms: {
+    success: xdr.lookup("BillPayResultSuccess"),
   },
   defaultArm: xdr.void(),
 });
@@ -2374,7 +2547,6 @@ xdr.enum("ThresholdIndices", {
 //       ACCOUNT_LIMITS = 11,
 //   	ASSET_PAIR = 12,
 //   	OFFER_ENTRY = 13,
-//       INVOICE = 14,
 //   	REVIEWABLE_REQUEST = 15,
 //   	EXTERNAL_SYSTEM_ACCOUNT_ID = 16,
 //   	SALE = 17,
@@ -2401,7 +2573,6 @@ xdr.enum("LedgerEntryType", {
   accountLimit: 11,
   assetPair: 12,
   offerEntry: 13,
-  invoice: 14,
   reviewableRequest: 15,
   externalSystemAccountId: 16,
   sale: 17,
@@ -2442,8 +2613,6 @@ xdr.enum("LedgerEntryType", {
 //   		AssetPairEntry assetPair;
 //   	case OFFER_ENTRY:
 //   		OfferEntry offer;
-//       case INVOICE:
-//           InvoiceEntry invoice;
 //   	case REVIEWABLE_REQUEST:
 //   		ReviewableRequestEntry reviewableRequest;
 //   	case EXTERNAL_SYSTEM_ACCOUNT_ID:
@@ -2483,7 +2652,6 @@ xdr.union("LedgerEntryData", {
     ["accountLimit", "accountLimits"],
     ["assetPair", "assetPair"],
     ["offerEntry", "offer"],
-    ["invoice", "invoice"],
     ["reviewableRequest", "reviewableRequest"],
     ["externalSystemAccountId", "externalSystemAccountId"],
     ["sale", "sale"],
@@ -2508,7 +2676,6 @@ xdr.union("LedgerEntryData", {
     accountLimits: xdr.lookup("AccountLimitsEntry"),
     assetPair: xdr.lookup("AssetPairEntry"),
     offer: xdr.lookup("OfferEntry"),
-    invoice: xdr.lookup("InvoiceEntry"),
     reviewableRequest: xdr.lookup("ReviewableRequestEntry"),
     externalSystemAccountId: xdr.lookup("ExternalSystemAccountId"),
     sale: xdr.lookup("SaleEntry"),
@@ -2573,8 +2740,6 @@ xdr.union("LedgerEntryExt", {
 //   		AssetPairEntry assetPair;
 //   	case OFFER_ENTRY:
 //   		OfferEntry offer;
-//       case INVOICE:
-//           InvoiceEntry invoice;
 //   	case REVIEWABLE_REQUEST:
 //   		ReviewableRequestEntry reviewableRequest;
 //   	case EXTERNAL_SYSTEM_ACCOUNT_ID:
@@ -2905,6 +3070,53 @@ xdr.union("CreateIssuanceRequestResult", {
   },
   defaultArm: xdr.void(),
 });
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("InvoiceRequestExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct InvoiceRequest
+//   {
+//       BalanceID receiverBalance;
+//       AccountID sender;
+//       uint64 amount; // not allowed to set 0
+//   
+//       longstring details;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("InvoiceRequest", [
+  ["receiverBalance", xdr.lookup("BalanceId")],
+  ["sender", xdr.lookup("AccountId")],
+  ["amount", xdr.lookup("Uint64")],
+  ["details", xdr.lookup("Longstring")],
+  ["ext", xdr.lookup("InvoiceRequestExt")],
+]);
 
 // === xdr source ============================================================
 //
@@ -3977,71 +4189,6 @@ xdr.union("CreateManageLimitsRequestResult", {
 
 // === xdr source ============================================================
 //
-//   enum InvoiceState
-//   {
-//       INVOICE_NEEDS_PAYMENT = 0,
-//       INVOICE_NEEDS_PAYMENT_REVIEW = 1
-//   };
-//
-// ===========================================================================
-xdr.enum("InvoiceState", {
-  invoiceNeedsPayment: 0,
-  invoiceNeedsPaymentReview: 1,
-});
-
-// === xdr source ============================================================
-//
-//   union switch (LedgerVersion v)
-//       {
-//       case EMPTY_VERSION:
-//           void;
-//       }
-//
-// ===========================================================================
-xdr.union("InvoiceEntryExt", {
-  switchOn: xdr.lookup("LedgerVersion"),
-  switchName: "v",
-  switches: [
-    ["emptyVersion", xdr.void()],
-  ],
-  arms: {
-  },
-});
-
-// === xdr source ============================================================
-//
-//   struct InvoiceEntry
-//   {
-//       uint64 invoiceID;
-//       AccountID receiverAccount;
-//       BalanceID receiverBalance;
-//   	AccountID sender;
-//       int64 amount;
-//       
-//       InvoiceState state;
-//   
-//       // reserved for future use
-//       union switch (LedgerVersion v)
-//       {
-//       case EMPTY_VERSION:
-//           void;
-//       }
-//       ext;
-//   };
-//
-// ===========================================================================
-xdr.struct("InvoiceEntry", [
-  ["invoiceId", xdr.lookup("Uint64")],
-  ["receiverAccount", xdr.lookup("AccountId")],
-  ["receiverBalance", xdr.lookup("BalanceId")],
-  ["sender", xdr.lookup("AccountId")],
-  ["amount", xdr.lookup("Int64")],
-  ["state", xdr.lookup("InvoiceState")],
-  ["ext", xdr.lookup("InvoiceEntryExt")],
-]);
-
-// === xdr source ============================================================
-//
 //   union switch (LedgerVersion v)
 //       {
 //       case EMPTY_VERSION:
@@ -4835,43 +4982,6 @@ xdr.struct("LedgerKeyOffer", [
 //   		}
 //
 // ===========================================================================
-xdr.union("LedgerKeyInvoiceExt", {
-  switchOn: xdr.lookup("LedgerVersion"),
-  switchName: "v",
-  switches: [
-    ["emptyVersion", xdr.void()],
-  ],
-  arms: {
-  },
-});
-
-// === xdr source ============================================================
-//
-//   struct {
-//           uint64 invoiceID;
-//   		union switch (LedgerVersion v)
-//   		{
-//   		case EMPTY_VERSION:
-//   			void;
-//   		}
-//   		ext;
-//       }
-//
-// ===========================================================================
-xdr.struct("LedgerKeyInvoice", [
-  ["invoiceId", xdr.lookup("Uint64")],
-  ["ext", xdr.lookup("LedgerKeyInvoiceExt")],
-]);
-
-// === xdr source ============================================================
-//
-//   union switch (LedgerVersion v)
-//   		{
-//   		case EMPTY_VERSION:
-//   			void;
-//   		}
-//
-// ===========================================================================
 xdr.union("LedgerKeyReviewableRequestExt", {
   switchOn: xdr.lookup("LedgerVersion"),
   switchName: "v",
@@ -5366,16 +5476,6 @@ xdr.struct("LedgerKeyPendingStatistics", [
 //   		uint64 offerID;
 //   		AccountID ownerID;
 //   	} offer;
-//   case INVOICE:
-//       struct {
-//           uint64 invoiceID;
-//   		union switch (LedgerVersion v)
-//   		{
-//   		case EMPTY_VERSION:
-//   			void;
-//   		}
-//   		ext;
-//       } invoice;
 //   case REVIEWABLE_REQUEST:
 //       struct {
 //           uint64 requestID;
@@ -5496,7 +5596,6 @@ xdr.union("LedgerKey", {
     ["accountLimit", "accountLimits"],
     ["assetPair", "assetPair"],
     ["offerEntry", "offer"],
-    ["invoice", "invoice"],
     ["reviewableRequest", "reviewableRequest"],
     ["externalSystemAccountId", "externalSystemAccountId"],
     ["sale", "sale"],
@@ -5521,7 +5620,6 @@ xdr.union("LedgerKey", {
     accountLimits: xdr.lookup("LedgerKeyAccountLimits"),
     assetPair: xdr.lookup("LedgerKeyAssetPair"),
     offer: xdr.lookup("LedgerKeyOffer"),
-    invoice: xdr.lookup("LedgerKeyInvoice"),
     reviewableRequest: xdr.lookup("LedgerKeyReviewableRequest"),
     externalSystemAccountId: xdr.lookup("LedgerKeyExternalSystemAccountId"),
     sale: xdr.lookup("LedgerKeySale"),
@@ -5999,7 +6097,8 @@ xdr.union("PublicKey", {
 //   	CREATE_ONLY_STATISTICS_V2 = 30,
 //   	LIMITS_UPDATE_REQUEST_DEPRECATED_DOCUMENT_HASH = 31,
 //   	FIX_PAYMENT_V2_FEE = 32,
-//   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33
+//   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33,
+//   	USE_ONLY_PAYMENT_V2 = 34
 //   };
 //
 // ===========================================================================
@@ -6038,6 +6137,7 @@ xdr.enum("LedgerVersion", {
   limitsUpdateRequestDeprecatedDocumentHash: 31,
   fixPaymentV2Fee: 32,
   addSaleIdReviewRequestResult: 33,
+  useOnlyPaymentV2: 34,
 });
 
 // === xdr source ============================================================
@@ -6239,7 +6339,7 @@ xdr.struct("Fee", [
 //       DIRECT_DEBIT = 14,
 //   	MANAGE_ASSET_PAIR = 15,
 //   	MANAGE_OFFER = 16,
-//       MANAGE_INVOICE = 17,
+//       MANAGE_INVOICE_REQUEST = 17,
 //   	REVIEW_REQUEST = 18,
 //   	CREATE_SALE_REQUEST = 19,
 //   	CHECK_SALE_STATE = 20,
@@ -6250,7 +6350,8 @@ xdr.struct("Fee", [
 //       BIND_EXTERNAL_SYSTEM_ACCOUNT_ID = 25,
 //       MANAGE_SALE = 26,
 //       MANAGE_KEY_VALUE = 27,
-//       CREATE_MANAGE_LIMITS_REQUEST = 28
+//       CREATE_MANAGE_LIMITS_REQUEST = 28,
+//       BILL_PAY = 29
 //   };
 //
 // ===========================================================================
@@ -6270,7 +6371,7 @@ xdr.enum("OperationType", {
   directDebit: 14,
   manageAssetPair: 15,
   manageOffer: 16,
-  manageInvoice: 17,
+  manageInvoiceRequest: 17,
   reviewRequest: 18,
   createSaleRequest: 19,
   checkSaleState: 20,
@@ -6282,6 +6383,7 @@ xdr.enum("OperationType", {
   manageSale: 26,
   manageKeyValue: 27,
   createManageLimitsRequest: 28,
+  billPay: 29,
 });
 
 // === xdr source ============================================================
@@ -7149,6 +7251,7 @@ xdr.struct("ReviewRequestOp", [
 //   	INVALID_EXTERNAL_DETAILS = -7,
 //   	REQUESTOR_IS_BLOCKED = -8,
 //   	PERMANENT_REJECT_NOT_ALLOWED = -9, // permanent reject not allowed, use reject
+//   	APPROVE_NOT_ALLOWED = -10, // approve not allowed, use other operation
 //   
 //   	// Asset requests
 //   	ASSET_ALREADY_EXISTS = -20,
@@ -7167,8 +7270,11 @@ xdr.struct("ReviewRequestOp", [
 //   	// Update KYC requests
 //   	NON_ZERO_TASKS_TO_REMOVE_NOT_ALLOWED = -60,
 //   
-//   	// Update sale details requests
-//   	SALE_NOT_FOUND = -70
+//   	// Update sale details and promotion update requests
+//   	SALE_NOT_FOUND = -70,
+//   
+//   	// Promotion update requests
+//   	INVALID_SALE_STATE = -80 // sale state must be "PROMOTION"
 //   };
 //
 // ===========================================================================
@@ -7183,6 +7289,7 @@ xdr.enum("ReviewRequestResultCode", {
   invalidExternalDetail: -7,
   requestorIsBlocked: -8,
   permanentRejectNotAllowed: -9,
+  approveNotAllowed: -10,
   assetAlreadyExist: -20,
   assetDoesNotExist: -21,
   maxIssuanceAmountExceeded: -40,
@@ -7193,6 +7300,7 @@ xdr.enum("ReviewRequestResultCode", {
   insufficientPreissuedForHardCap: -52,
   nonZeroTasksToRemoveNotAllowed: -60,
   saleNotFound: -70,
+  invalidSaleState: -80,
 });
 
 // === xdr source ============================================================
@@ -7713,7 +7821,9 @@ xdr.struct("AmlAlertRequest", [
 //   	TWO_STEP_WITHDRAWAL = 7,
 //       AML_ALERT = 8,
 //   	UPDATE_KYC = 9,
-//   	UPDATE_SALE_DETAILS = 10
+//   	UPDATE_SALE_DETAILS = 10,
+//   	UPDATE_PROMOTION = 11,
+//   	INVOICE = 12
 //   };
 //
 // ===========================================================================
@@ -7729,6 +7839,8 @@ xdr.enum("ReviewableRequestType", {
   amlAlert: 8,
   updateKyc: 9,
   updateSaleDetail: 10,
+  updatePromotion: 11,
+  invoice: 12,
 });
 
 // === xdr source ============================================================
@@ -7756,6 +7868,10 @@ xdr.enum("ReviewableRequestType", {
 //               UpdateKYCRequest updateKYCRequest;
 //           case UPDATE_SALE_DETAILS:
 //               UpdateSaleDetailsRequest updateSaleDetailsRequest;
+//           case UPDATE_PROMOTION:
+//               PromotionUpdateRequest promotionUpdateRequest;
+//           case INVOICE:
+//               InvoiceRequest invoiceRequest;
 //   	}
 //
 // ===========================================================================
@@ -7774,6 +7890,8 @@ xdr.union("ReviewableRequestEntryBody", {
     ["amlAlert", "amlAlertRequest"],
     ["updateKyc", "updateKycRequest"],
     ["updateSaleDetail", "updateSaleDetailsRequest"],
+    ["updatePromotion", "promotionUpdateRequest"],
+    ["invoice", "invoiceRequest"],
   ],
   arms: {
     assetCreationRequest: xdr.lookup("AssetCreationRequest"),
@@ -7787,6 +7905,8 @@ xdr.union("ReviewableRequestEntryBody", {
     amlAlertRequest: xdr.lookup("AmlAlertRequest"),
     updateKycRequest: xdr.lookup("UpdateKycRequest"),
     updateSaleDetailsRequest: xdr.lookup("UpdateSaleDetailsRequest"),
+    promotionUpdateRequest: xdr.lookup("PromotionUpdateRequest"),
+    invoiceRequest: xdr.lookup("InvoiceRequest"),
   },
 });
 
@@ -7843,6 +7963,10 @@ xdr.union("ReviewableRequestEntryExt", {
 //               UpdateKYCRequest updateKYCRequest;
 //           case UPDATE_SALE_DETAILS:
 //               UpdateSaleDetailsRequest updateSaleDetailsRequest;
+//           case UPDATE_PROMOTION:
+//               PromotionUpdateRequest promotionUpdateRequest;
+//           case INVOICE:
+//               InvoiceRequest invoiceRequest;
 //   	} body;
 //   
 //   	// reserved for future use
@@ -8711,7 +8835,8 @@ xdr.struct("PaymentOp", [
 //       INVOICE_WRONG_AMOUNT = -14,
 //       INVOICE_BALANCE_MISMATCH = -15,
 //       INVOICE_ACCOUNT_MISMATCH = -16,
-//       INVOICE_ALREADY_PAID = -17
+//       INVOICE_ALREADY_PAID = -17,
+//       PAYMENT_V1_NO_LONGER_SUPPORTED = -18
 //   };
 //
 // ===========================================================================
@@ -8734,6 +8859,7 @@ xdr.enum("PaymentResultCode", {
   invoiceBalanceMismatch: -15,
   invoiceAccountMismatch: -16,
   invoiceAlreadyPaid: -17,
+  paymentV1NoLongerSupported: -18,
 });
 
 // === xdr source ============================================================
@@ -8869,148 +8995,6 @@ xdr.struct("OfferEntry", [
   ["price", xdr.lookup("Int64")],
   ["ext", xdr.lookup("OfferEntryExt")],
 ]);
-
-// === xdr source ============================================================
-//
-//   union switch (LedgerVersion v)
-//       {
-//       case EMPTY_VERSION:
-//           void;
-//       }
-//
-// ===========================================================================
-xdr.union("ManageInvoiceOpExt", {
-  switchOn: xdr.lookup("LedgerVersion"),
-  switchName: "v",
-  switches: [
-    ["emptyVersion", xdr.void()],
-  ],
-  arms: {
-  },
-});
-
-// === xdr source ============================================================
-//
-//   struct ManageInvoiceOp
-//   {
-//       BalanceID receiverBalance;
-//   	AccountID sender;
-//       int64 amount; // if set to 0, delete the invoice
-//   
-//       // 0=create a new invoice, otherwise edit an existing invoice
-//       uint64 invoiceID;
-//   
-//   	// reserved for future use
-//       union switch (LedgerVersion v)
-//       {
-//       case EMPTY_VERSION:
-//           void;
-//       }
-//       ext;
-//   };
-//
-// ===========================================================================
-xdr.struct("ManageInvoiceOp", [
-  ["receiverBalance", xdr.lookup("BalanceId")],
-  ["sender", xdr.lookup("AccountId")],
-  ["amount", xdr.lookup("Int64")],
-  ["invoiceId", xdr.lookup("Uint64")],
-  ["ext", xdr.lookup("ManageInvoiceOpExt")],
-]);
-
-// === xdr source ============================================================
-//
-//   enum ManageInvoiceResultCode
-//   {
-//       // codes considered as "success" for the operation
-//       SUCCESS = 0,
-//   
-//       // codes considered as "failure" for the operation
-//       MALFORMED = -1,
-//       BALANCE_NOT_FOUND = -2,
-//   	INVOICE_OVERFLOW = -3,
-//   
-//       NOT_FOUND = -4,
-//       TOO_MANY_INVOICES = -5,
-//       CAN_NOT_DELETE_IN_PROGRESS = -6
-//   };
-//
-// ===========================================================================
-xdr.enum("ManageInvoiceResultCode", {
-  success: 0,
-  malformed: -1,
-  balanceNotFound: -2,
-  invoiceOverflow: -3,
-  notFound: -4,
-  tooManyInvoice: -5,
-  canNotDeleteInProgress: -6,
-});
-
-// === xdr source ============================================================
-//
-//   union switch (LedgerVersion v)
-//       {
-//       case EMPTY_VERSION:
-//           void;
-//       }
-//
-// ===========================================================================
-xdr.union("ManageInvoiceSuccessResultExt", {
-  switchOn: xdr.lookup("LedgerVersion"),
-  switchName: "v",
-  switches: [
-    ["emptyVersion", xdr.void()],
-  ],
-  arms: {
-  },
-});
-
-// === xdr source ============================================================
-//
-//   struct ManageInvoiceSuccessResult 
-//   {
-//   	uint64 invoiceID;
-//   	AssetCode asset;
-//   	BalanceID senderBalance;
-//   
-//   	union switch (LedgerVersion v)
-//       {
-//       case EMPTY_VERSION:
-//           void;
-//       }
-//       ext;
-//   };
-//
-// ===========================================================================
-xdr.struct("ManageInvoiceSuccessResult", [
-  ["invoiceId", xdr.lookup("Uint64")],
-  ["asset", xdr.lookup("AssetCode")],
-  ["senderBalance", xdr.lookup("BalanceId")],
-  ["ext", xdr.lookup("ManageInvoiceSuccessResultExt")],
-]);
-
-// === xdr source ============================================================
-//
-//   union ManageInvoiceResult switch (ManageInvoiceResultCode code)
-//   {
-//   case SUCCESS:
-//       ManageInvoiceSuccessResult success;
-//   default:
-//       void;
-//   };
-//
-// ===========================================================================
-xdr.union("ManageInvoiceResult", {
-  switchOn: xdr.lookup("ManageInvoiceResultCode"),
-  switchName: "code",
-  switches: [
-    ["success", "success"],
-  ],
-  arms: {
-    success: xdr.lookup("ManageInvoiceSuccessResult"),
-  },
-  defaultArm: xdr.void(),
-});
 
 // === xdr source ============================================================
 //
@@ -9990,6 +9974,46 @@ xdr.union("ManageAccountResult", {
 // === xdr source ============================================================
 //
 //   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("PromotionUpdateRequestExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct PromotionUpdateRequest {
+//       uint64 promotionID;
+//       SaleCreationRequest newPromotionData;
+//   
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("PromotionUpdateRequest", [
+  ["promotionId", xdr.lookup("Uint64")],
+  ["newPromotionData", xdr.lookup("SaleCreationRequest")],
+  ["ext", xdr.lookup("PromotionUpdateRequestExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
 //   		{
 //   		case EMPTY_VERSION:
 //   			void;
@@ -10148,7 +10172,8 @@ xdr.union("SetFeesResult", {
 //   {
 //       CREATE_UPDATE_DETAILS_REQUEST = 1,
 //       CANCEL = 2,
-//   	SET_STATE = 3
+//   	SET_STATE = 3,
+//   	CREATE_PROMOTION_UPDATE_REQUEST = 4
 //   };
 //
 // ===========================================================================
@@ -10156,6 +10181,7 @@ xdr.enum("ManageSaleAction", {
   createUpdateDetailsRequest: 1,
   cancel: 2,
   setState: 3,
+  createPromotionUpdateRequest: 4,
 });
 
 // === xdr source ============================================================
@@ -10200,6 +10226,45 @@ xdr.struct("UpdateSaleDetailsData", [
 
 // === xdr source ============================================================
 //
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("PromotionUpdateDataExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct PromotionUpdateData {
+//       uint64 requestID; // if requestID is 0 - create request, else - update
+//       SaleCreationRequest newPromotionData;
+//   
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       } ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("PromotionUpdateData", [
+  ["requestId", xdr.lookup("Uint64")],
+  ["newPromotionData", xdr.lookup("SaleCreationRequest")],
+  ["ext", xdr.lookup("PromotionUpdateDataExt")],
+]);
+
+// === xdr source ============================================================
+//
 //   union switch (ManageSaleAction action) {
 //       case CREATE_UPDATE_DETAILS_REQUEST:
 //           UpdateSaleDetailsData updateSaleDetailsData;
@@ -10207,6 +10272,8 @@ xdr.struct("UpdateSaleDetailsData", [
 //           void;
 //   	case SET_STATE:
 //   		SaleState saleState;
+//       case CREATE_PROMOTION_UPDATE_REQUEST:
+//           PromotionUpdateData promotionUpdateData;
 //       }
 //
 // ===========================================================================
@@ -10217,10 +10284,12 @@ xdr.union("ManageSaleOpData", {
     ["createUpdateDetailsRequest", "updateSaleDetailsData"],
     ["cancel", xdr.void()],
     ["setState", "saleState"],
+    ["createPromotionUpdateRequest", "promotionUpdateData"],
   ],
   arms: {
     updateSaleDetailsData: xdr.lookup("UpdateSaleDetailsData"),
     saleState: xdr.lookup("SaleState"),
+    promotionUpdateData: xdr.lookup("PromotionUpdateData"),
   },
 });
 
@@ -10256,6 +10325,8 @@ xdr.union("ManageSaleOpExt", {
 //           void;
 //   	case SET_STATE:
 //   		SaleState saleState;
+//       case CREATE_PROMOTION_UPDATE_REQUEST:
+//           PromotionUpdateData promotionUpdateData;
 //       } data;
 //   
 //       // reserved for future use
@@ -10280,10 +10351,24 @@ xdr.struct("ManageSaleOp", [
 //       SUCCESS = 0,
 //   
 //       SALE_NOT_FOUND = -1, // sale not found
+//   
+//       // errors related to action "CREATE_UPDATE_DETAILS_REQUEST"
 //       INVALID_NEW_DETAILS = -2, // newDetails field is invalid JSON
 //       UPDATE_DETAILS_REQUEST_ALREADY_EXISTS = -3,
 //       UPDATE_DETAILS_REQUEST_NOT_FOUND = -4,
-//   	NOT_ALLOWED = -5 // it's not allowed to set state for non master account
+//   
+//       // errors related to action "SET_STATE"
+//   	NOT_ALLOWED = -5, // it's not allowed to set state for non master account
+//   
+//   	// errors related to action "CREATE_PROMOTION_UPDATE_REQUEST"
+//   	PROMOTION_UPDATE_REQUEST_INVALID_ASSET_PAIR = -6, // one of the assets has invalid code or base asset is equal to quote asset
+//   	PROMOTION_UPDATE_REQUEST_INVALID_PRICE = -7, // price cannot be 0
+//   	PROMOTION_UPDATE_REQUEST_START_END_INVALID = -8, // sale ends before start
+//   	PROMOTION_UPDATE_REQUEST_INVALID_CAP = -9, // hard cap is < soft cap
+//   	PROMOTION_UPDATE_REQUEST_INVALID_DETAILS = -10, // details field is invalid JSON
+//   	INVALID_SALE_STATE = -11, // sale state must be "PROMOTION"
+//   	PROMOTION_UPDATE_REQUEST_ALREADY_EXISTS = -12,
+//   	PROMOTION_UPDATE_REQUEST_NOT_FOUND = -13
 //   };
 //
 // ===========================================================================
@@ -10294,6 +10379,14 @@ xdr.enum("ManageSaleResultCode", {
   updateDetailsRequestAlreadyExist: -3,
   updateDetailsRequestNotFound: -4,
   notAllowed: -5,
+  promotionUpdateRequestInvalidAssetPair: -6,
+  promotionUpdateRequestInvalidPrice: -7,
+  promotionUpdateRequestStartEndInvalid: -8,
+  promotionUpdateRequestInvalidCap: -9,
+  promotionUpdateRequestInvalidDetail: -10,
+  invalidSaleState: -11,
+  promotionUpdateRequestAlreadyExist: -12,
+  promotionUpdateRequestNotFound: -13,
 });
 
 // === xdr source ============================================================
@@ -10305,6 +10398,8 @@ xdr.enum("ManageSaleResultCode", {
 //           void;
 //   	case SET_STATE:
 //   		void;
+//       case CREATE_PROMOTION_UPDATE_REQUEST:
+//           uint64 promotionUpdateRequestID;
 //       }
 //
 // ===========================================================================
@@ -10315,9 +10410,11 @@ xdr.union("ManageSaleResultSuccessResponse", {
     ["createUpdateDetailsRequest", "requestId"],
     ["cancel", xdr.void()],
     ["setState", xdr.void()],
+    ["createPromotionUpdateRequest", "promotionUpdateRequestId"],
   ],
   arms: {
     requestId: xdr.lookup("Uint64"),
+    promotionUpdateRequestId: xdr.lookup("Uint64"),
   },
 });
 
@@ -10351,6 +10448,8 @@ xdr.union("ManageSaleResultSuccessExt", {
 //           void;
 //   	case SET_STATE:
 //   		void;
+//       case CREATE_PROMOTION_UPDATE_REQUEST:
+//           uint64 promotionUpdateRequestID;
 //       } response;
 //   
 //       //reserved for future use
@@ -10387,6 +10486,266 @@ xdr.union("ManageSaleResult", {
   ],
   arms: {
     success: xdr.lookup("ManageSaleResultSuccess"),
+  },
+  defaultArm: xdr.void(),
+});
+
+// === xdr source ============================================================
+//
+//   enum ManageInvoiceRequestAction
+//   {
+//       CREATE = 0,
+//       REMOVE = 1
+//   };
+//
+// ===========================================================================
+xdr.enum("ManageInvoiceRequestAction", {
+  create: 0,
+  remove: 1,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (ManageInvoiceRequestAction action){
+//       case CREATE:
+//           InvoiceRequest invoiceRequest;
+//       case REMOVE:
+//           uint64 requestID;
+//       }
+//
+// ===========================================================================
+xdr.union("ManageInvoiceRequestOpDetails", {
+  switchOn: xdr.lookup("ManageInvoiceRequestAction"),
+  switchName: "action",
+  switches: [
+    ["create", "invoiceRequest"],
+    ["remove", "requestId"],
+  ],
+  arms: {
+    invoiceRequest: xdr.lookup("InvoiceRequest"),
+    requestId: xdr.lookup("Uint64"),
+  },
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("ManageInvoiceRequestOpExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct ManageInvoiceRequestOp
+//   {
+//       union switch (ManageInvoiceRequestAction action){
+//       case CREATE:
+//           InvoiceRequest invoiceRequest;
+//       case REMOVE:
+//           uint64 requestID;
+//       } details;
+//   
+//   	// reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("ManageInvoiceRequestOp", [
+  ["details", xdr.lookup("ManageInvoiceRequestOpDetails")],
+  ["ext", xdr.lookup("ManageInvoiceRequestOpExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   enum ManageInvoiceRequestResultCode
+//   {
+//       // codes considered as "success" for the operation
+//       SUCCESS = 0,
+//   
+//       // codes considered as "failure" for the operation
+//       MALFORMED = -1,
+//       BALANCE_NOT_FOUND = -2,
+//       NOT_FOUND = -3, // not found invoice request, when try to remove
+//       TOO_MANY_INVOICES = -4,
+//       MANAGE_INVOICE_REQUEST_REFERENCE_DUPLICATION = -5,
+//       NOT_ALLOWED_TO_REMOVE = -6 // only invoice creator can remove invoice
+//   };
+//
+// ===========================================================================
+xdr.enum("ManageInvoiceRequestResultCode", {
+  success: 0,
+  malformed: -1,
+  balanceNotFound: -2,
+  notFound: -3,
+  tooManyInvoice: -4,
+  manageInvoiceRequestReferenceDuplication: -5,
+  notAllowedToRemove: -6,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("CreateInvoiceRequestResponseExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct CreateInvoiceRequestResponse
+//   {
+//   	AssetCode asset;
+//   	BalanceID senderBalance;
+//   
+//   	uint64 requestID;
+//   
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("CreateInvoiceRequestResponse", [
+  ["asset", xdr.lookup("AssetCode")],
+  ["senderBalance", xdr.lookup("BalanceId")],
+  ["requestId", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("CreateInvoiceRequestResponseExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (ManageInvoiceRequestAction action)
+//           {
+//           case CREATE:
+//               CreateInvoiceRequestResponse response;
+//           case REMOVE:
+//               void;
+//           }
+//
+// ===========================================================================
+xdr.union("ManageInvoiceRequestResultSuccessDetails", {
+  switchOn: xdr.lookup("ManageInvoiceRequestAction"),
+  switchName: "action",
+  switches: [
+    ["create", "response"],
+    ["remove", xdr.void()],
+  ],
+  arms: {
+    response: xdr.lookup("CreateInvoiceRequestResponse"),
+  },
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           }
+//
+// ===========================================================================
+xdr.union("ManageInvoiceRequestResultSuccessExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct
+//       {
+//           union switch (ManageInvoiceRequestAction action)
+//           {
+//           case CREATE:
+//               CreateInvoiceRequestResponse response;
+//           case REMOVE:
+//               void;
+//           } details;
+//   
+//           // reserved for future use
+//           union switch (LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           } ext;
+//       }
+//
+// ===========================================================================
+xdr.struct("ManageInvoiceRequestResultSuccess", [
+  ["details", xdr.lookup("ManageInvoiceRequestResultSuccessDetails")],
+  ["ext", xdr.lookup("ManageInvoiceRequestResultSuccessExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union ManageInvoiceRequestResult switch (ManageInvoiceRequestResultCode code)
+//   {
+//   case SUCCESS:
+//       struct
+//       {
+//           union switch (ManageInvoiceRequestAction action)
+//           {
+//           case CREATE:
+//               CreateInvoiceRequestResponse response;
+//           case REMOVE:
+//               void;
+//           } details;
+//   
+//           // reserved for future use
+//           union switch (LedgerVersion v)
+//           {
+//           case EMPTY_VERSION:
+//               void;
+//           } ext;
+//       } success;
+//   default:
+//       void;
+//   };
+//
+// ===========================================================================
+xdr.union("ManageInvoiceRequestResult", {
+  switchOn: xdr.lookup("ManageInvoiceRequestResultCode"),
+  switchName: "code",
+  switches: [
+    ["success", "success"],
+  ],
+  arms: {
+    success: xdr.lookup("ManageInvoiceRequestResultSuccess"),
   },
   defaultArm: xdr.void(),
 });
@@ -11018,8 +11377,8 @@ xdr.struct("LimitsV2Entry", [
 //   		ManageAssetPairOp manageAssetPairOp;
 //   	case MANAGE_OFFER:
 //   		ManageOfferOp manageOfferOp;
-//       case MANAGE_INVOICE:
-//           ManageInvoiceOp manageInvoiceOp;
+//       case MANAGE_INVOICE_REQUEST:
+//           ManageInvoiceRequestOp manageInvoiceRequestOp;
 //   	case REVIEW_REQUEST:
 //   		ReviewRequestOp reviewRequestOp;
 //   	case CREATE_SALE_REQUEST:
@@ -11042,6 +11401,8 @@ xdr.struct("LimitsV2Entry", [
 //           ManageSaleOp manageSaleOp;
 //       case CREATE_MANAGE_LIMITS_REQUEST:
 //           CreateManageLimitsRequestOp createManageLimitsRequestOp;
+//       case BILL_PAY:
+//           BillPayOp billPayOp;
 //       }
 //
 // ===========================================================================
@@ -11064,7 +11425,7 @@ xdr.union("OperationBody", {
     ["directDebit", "directDebitOp"],
     ["manageAssetPair", "manageAssetPairOp"],
     ["manageOffer", "manageOfferOp"],
-    ["manageInvoice", "manageInvoiceOp"],
+    ["manageInvoiceRequest", "manageInvoiceRequestOp"],
     ["reviewRequest", "reviewRequestOp"],
     ["createSaleRequest", "createSaleCreationRequestOp"],
     ["checkSaleState", "checkSaleStateOp"],
@@ -11076,6 +11437,7 @@ xdr.union("OperationBody", {
     ["paymentV2", "paymentOpV2"],
     ["manageSale", "manageSaleOp"],
     ["createManageLimitsRequest", "createManageLimitsRequestOp"],
+    ["billPay", "billPayOp"],
   ],
   arms: {
     createAccountOp: xdr.lookup("CreateAccountOp"),
@@ -11093,7 +11455,7 @@ xdr.union("OperationBody", {
     directDebitOp: xdr.lookup("DirectDebitOp"),
     manageAssetPairOp: xdr.lookup("ManageAssetPairOp"),
     manageOfferOp: xdr.lookup("ManageOfferOp"),
-    manageInvoiceOp: xdr.lookup("ManageInvoiceOp"),
+    manageInvoiceRequestOp: xdr.lookup("ManageInvoiceRequestOp"),
     reviewRequestOp: xdr.lookup("ReviewRequestOp"),
     createSaleCreationRequestOp: xdr.lookup("CreateSaleCreationRequestOp"),
     checkSaleStateOp: xdr.lookup("CheckSaleStateOp"),
@@ -11105,6 +11467,7 @@ xdr.union("OperationBody", {
     paymentOpV2: xdr.lookup("PaymentOpV2"),
     manageSaleOp: xdr.lookup("ManageSaleOp"),
     createManageLimitsRequestOp: xdr.lookup("CreateManageLimitsRequestOp"),
+    billPayOp: xdr.lookup("BillPayOp"),
   },
 });
 
@@ -11149,8 +11512,8 @@ xdr.union("OperationBody", {
 //   		ManageAssetPairOp manageAssetPairOp;
 //   	case MANAGE_OFFER:
 //   		ManageOfferOp manageOfferOp;
-//       case MANAGE_INVOICE:
-//           ManageInvoiceOp manageInvoiceOp;
+//       case MANAGE_INVOICE_REQUEST:
+//           ManageInvoiceRequestOp manageInvoiceRequestOp;
 //   	case REVIEW_REQUEST:
 //   		ReviewRequestOp reviewRequestOp;
 //   	case CREATE_SALE_REQUEST:
@@ -11173,6 +11536,8 @@ xdr.union("OperationBody", {
 //           ManageSaleOp manageSaleOp;
 //       case CREATE_MANAGE_LIMITS_REQUEST:
 //           CreateManageLimitsRequestOp createManageLimitsRequestOp;
+//       case BILL_PAY:
+//           BillPayOp billPayOp;
 //       }
 //       body;
 //   };
@@ -11383,8 +11748,8 @@ xdr.enum("OperationResultCode", {
 //   		ManageAssetPairResult manageAssetPairResult;
 //   	case MANAGE_OFFER:
 //   		ManageOfferResult manageOfferResult;
-//   	case MANAGE_INVOICE:
-//   		ManageInvoiceResult manageInvoiceResult;
+//   	case MANAGE_INVOICE_REQUEST:
+//   		ManageInvoiceRequestResult manageInvoiceRequestResult;
 //   	case REVIEW_REQUEST:
 //   		ReviewRequestResult reviewRequestResult;
 //   	case CREATE_SALE_REQUEST:
@@ -11407,6 +11772,8 @@ xdr.enum("OperationResultCode", {
 //           ManageSaleResult manageSaleResult;
 //       case CREATE_MANAGE_LIMITS_REQUEST:
 //           CreateManageLimitsRequestResult createManageLimitsRequestResult;
+//       case BILL_PAY:
+//           BillPayResult billPayResult;
 //       }
 //
 // ===========================================================================
@@ -11429,7 +11796,7 @@ xdr.union("OperationResultTr", {
     ["directDebit", "directDebitResult"],
     ["manageAssetPair", "manageAssetPairResult"],
     ["manageOffer", "manageOfferResult"],
-    ["manageInvoice", "manageInvoiceResult"],
+    ["manageInvoiceRequest", "manageInvoiceRequestResult"],
     ["reviewRequest", "reviewRequestResult"],
     ["createSaleRequest", "createSaleCreationRequestResult"],
     ["checkSaleState", "checkSaleStateResult"],
@@ -11441,6 +11808,7 @@ xdr.union("OperationResultTr", {
     ["paymentV2", "paymentV2Result"],
     ["manageSale", "manageSaleResult"],
     ["createManageLimitsRequest", "createManageLimitsRequestResult"],
+    ["billPay", "billPayResult"],
   ],
   arms: {
     createAccountResult: xdr.lookup("CreateAccountResult"),
@@ -11458,7 +11826,7 @@ xdr.union("OperationResultTr", {
     directDebitResult: xdr.lookup("DirectDebitResult"),
     manageAssetPairResult: xdr.lookup("ManageAssetPairResult"),
     manageOfferResult: xdr.lookup("ManageOfferResult"),
-    manageInvoiceResult: xdr.lookup("ManageInvoiceResult"),
+    manageInvoiceRequestResult: xdr.lookup("ManageInvoiceRequestResult"),
     reviewRequestResult: xdr.lookup("ReviewRequestResult"),
     createSaleCreationRequestResult: xdr.lookup("CreateSaleCreationRequestResult"),
     checkSaleStateResult: xdr.lookup("CheckSaleStateResult"),
@@ -11470,6 +11838,7 @@ xdr.union("OperationResultTr", {
     paymentV2Result: xdr.lookup("PaymentV2Result"),
     manageSaleResult: xdr.lookup("ManageSaleResult"),
     createManageLimitsRequestResult: xdr.lookup("CreateManageLimitsRequestResult"),
+    billPayResult: xdr.lookup("BillPayResult"),
   },
 });
 
@@ -11510,8 +11879,8 @@ xdr.union("OperationResultTr", {
 //   		ManageAssetPairResult manageAssetPairResult;
 //   	case MANAGE_OFFER:
 //   		ManageOfferResult manageOfferResult;
-//   	case MANAGE_INVOICE:
-//   		ManageInvoiceResult manageInvoiceResult;
+//   	case MANAGE_INVOICE_REQUEST:
+//   		ManageInvoiceRequestResult manageInvoiceRequestResult;
 //   	case REVIEW_REQUEST:
 //   		ReviewRequestResult reviewRequestResult;
 //   	case CREATE_SALE_REQUEST:
@@ -11534,6 +11903,8 @@ xdr.union("OperationResultTr", {
 //           ManageSaleResult manageSaleResult;
 //       case CREATE_MANAGE_LIMITS_REQUEST:
 //           CreateManageLimitsRequestResult createManageLimitsRequestResult;
+//       case BILL_PAY:
+//           BillPayResult billPayResult;
 //       }
 //       tr;
 //   default:

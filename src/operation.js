@@ -31,6 +31,7 @@ import { PaymentV2Builder } from "./operations/payment_v2_builder";
 import { ManageSaleBuilder} from "./operations/manage_sale";
 import { ManageLimitsBuilder} from "./operations/manage_limits_builder";
 import { CreateManageLimitsRequestBuilder } from "./operations/create_manage_limits_request_builder";
+import {ManageInvoiceRequestBuilder} from "./operations/manage_invoice_request_builder";
 
 export class Operation extends BaseOperation {
 
@@ -468,37 +469,6 @@ export class Operation extends BaseOperation {
     }
 
 
-    static manageInvoice(opts) {
-        let attributes = {
-            ext: new xdr.ManageInvoiceOpExt(xdr.LedgerVersion.emptyVersion())
-        };
-        if (!Keypair.isValidPublicKey(opts.sender)) {
-            throw new Error("sender is invalid");
-        }
-        if (!Keypair.isValidBalanceKey(opts.receiverBalance)) {
-            throw new Error("receiverBalance is invalid");
-        }
-        if (!Operation.isValidAmount(opts.amount, true)) {
-            throw new TypeError('amount argument must be of type String and represent a positive number or zero');
-        }
-        attributes.amount = Operation._toXDRAmount(opts.amount);
-
-        if (isUndefined(opts.invoiceId)) {
-            throw new TypeError('invoiceId must be specified');
-        }
-
-        attributes.invoiceId = UnsignedHyper.fromString(opts.invoiceId);
-        attributes.sender = Keypair.fromAccountId(opts.sender).xdrAccountId();
-        attributes.receiverBalance = Keypair.fromBalanceId(opts.receiverBalance).xdrBalanceId();
-
-        let manageInvoiceOp = new xdr.ManageInvoiceOp(attributes);
-
-        let opAttributes = {};
-        opAttributes.body = xdr.OperationBody.manageInvoice(manageInvoiceOp);
-        Operation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
-    }
-
     /**
      * Converts the XDR Operation object to the opts object used to create the XDR
      * operation.
@@ -637,11 +607,8 @@ export class Operation extends BaseOperation {
             case xdr.OperationType.manageOffer():
                 ManageOfferBuilder.manageOfferOpToObject(result, attrs);
                 break;
-            case xdr.OperationType.manageInvoice():
-                result.amount = Operation._fromXDRAmount(attrs.amount());
-                result.sender = accountIdtoAddress(attrs.sender());
-                result.receiverBalance = balanceIdtoString(attrs.receiverBalance());
-                result.invoiceId = attrs.invoiceId().toString();
+            case xdr.OperationType.manageInvoiceRequest():
+                ManageInvoiceRequestBuilder.manageInvoiceRequestOpToObject(result, attrs);
                 break;
             case xdr.OperationType.manageAssetPair():
                 result.action = attrs.action();

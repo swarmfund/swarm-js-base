@@ -143,7 +143,7 @@ var StellarBase =
 	  }
 	});
 
-	var _transaction_builder = __webpack_require__(305);
+	var _transaction_builder = __webpack_require__(306);
 
 	Object.defineProperty(exports, "TransactionBuilder", {
 	  enumerable: true,
@@ -188,7 +188,7 @@ var StellarBase =
 	  }
 	});
 
-	var _memo = __webpack_require__(307);
+	var _memo = __webpack_require__(308);
 
 	Object.defineProperty(exports, "Memo", {
 	  enumerable: true,
@@ -197,7 +197,7 @@ var StellarBase =
 	  }
 	});
 
-	var _account = __webpack_require__(306);
+	var _account = __webpack_require__(307);
 
 	Object.defineProperty(exports, "Account", {
 	  enumerable: true,
@@ -365,6 +365,15 @@ var StellarBase =
 	  }
 	});
 
+	var _operationsManage_invoice_request_builder = __webpack_require__(225);
+
+	Object.defineProperty(exports, "ManageInvoiceRequestBuilder", {
+	  enumerable: true,
+	  get: function get() {
+	    return _operationsManage_invoice_request_builder.ManageInvoiceRequestBuilder;
+	  }
+	});
+
 	var _strkey = __webpack_require__(63);
 
 	_defaults(exports, _interopExportWildcard(_strkey, _defaults));
@@ -375,7 +384,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-06-29T15:53:49+03:00
+	// Automatically generated on 2018-07-06T11:33:11+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -608,6 +617,8 @@ var StellarBase =
 	//       INSUFFICIENT_FEE_AMOUNT = -14,
 	//       BALANCE_TO_CHARGE_FEE_FROM_NOT_FOUND = -15,
 	//       PAYMENT_AMOUNT_IS_LESS_THAN_DEST_FEE = -16
+	//   
+	//       // !!! Add new result code to bill pay op too !!!
 	//   };
 	//
 	// ===========================================================================
@@ -1082,6 +1093,109 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("CreatePreIssuanceRequestResult",{switchOn:xdr.lookup("CreatePreIssuanceRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreatePreIssuanceRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("BillPayOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct BillPayOp
+	//   {
+	//       PaymentOpV2 paymentDetails;
+	//       uint64 requestID;
+	//   
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("BillPayOp",[["paymentDetails",xdr.lookup("PaymentOpV2")],["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("BillPayOpExt")]]); // === xdr source ============================================================
+	//
+	//   enum BillPayResultCode
+	//   {
+	//       // codes considered as "success" for the operation
+	//       SUCCESS = 0, // payment successfully completed
+	//   
+	//       // codes considered as "failure" for the payment operation
+	//       MALFORMED = -1, // bad input, requestID must be > 0
+	//       UNDERFUNDED = -2, // not enough funds in source account
+	//       LINE_FULL = -3, // destination would go above their limit
+	//       DESTINATION_BALANCE_NOT_FOUND = -4,
+	//       BALANCE_ASSETS_MISMATCHED = -5,
+	//       SRC_BALANCE_NOT_FOUND = -6, // source balance not found
+	//       REFERENCE_DUPLICATION = -7,
+	//       STATS_OVERFLOW = -8,
+	//       LIMITS_EXCEEDED = -9,
+	//       NOT_ALLOWED_BY_ASSET_POLICY = -10,
+	//       INVALID_DESTINATION_FEE = -11,
+	//       INVALID_DESTINATION_FEE_ASSET = -12, // destination fee asset must be the same as source balance asset
+	//       FEE_ASSET_MISMATCHED = -13,
+	//       INSUFFICIENT_FEE_AMOUNT = -14,
+	//       BALANCE_TO_CHARGE_FEE_FROM_NOT_FOUND = -15,
+	//       PAYMENT_AMOUNT_IS_LESS_THAN_DEST_FEE = -16,
+	//   
+	//       // codes considered as "failure" for the bill pay operation
+	//       INVOICE_REQUEST_NOT_FOUND = -41, // cannot found invoice request
+	//       AMOUNT_MISMATCHED = -42, // amount does not match
+	//       DESTINATION_BALANCE_MISMATCHED = -43, // invoice balance and payment balance do not match
+	//       DESTINATION_ACCOUNT_MISMATCHED = -44, // invoice account and payment account do not match
+	//       REQUIRED_SOURCE_PAY_FOR_DESTINATION = -45 // not allowed shift fee responsibility to destination
+	//   };
+	//
+	// ===========================================================================
+	xdr["enum"]("BillPayResultCode",{success:0,malformed:-1,underfunded:-2,lineFull:-3,destinationBalanceNotFound:-4,balanceAssetsMismatched:-5,srcBalanceNotFound:-6,referenceDuplication:-7,statsOverflow:-8,limitsExceeded:-9,notAllowedByAssetPolicy:-10,invalidDestinationFee:-11,invalidDestinationFeeAsset:-12,feeAssetMismatched:-13,insufficientFeeAmount:-14,balanceToChargeFeeFromNotFound:-15,paymentAmountIsLessThanDestFee:-16,invoiceRequestNotFound:-41,amountMismatched:-42,destinationBalanceMismatched:-43,destinationAccountMismatched:-44,requiredSourcePayForDestination:-45}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//   		{
+	//   		case EMPTY_VERSION:
+	//   			void;
+	//   		}
+	//
+	// ===========================================================================
+	xdr.union("BillPayResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct {
+	//   	    PaymentV2Response paymentV2Response;
+	//   		// reserved for future use
+	//   		union switch (LedgerVersion v)
+	//   		{
+	//   		case EMPTY_VERSION:
+	//   			void;
+	//   		}
+	//   		ext;
+	//   	}
+	//
+	// ===========================================================================
+	xdr.struct("BillPayResultSuccess",[["paymentV2Response",xdr.lookup("PaymentV2Response")],["ext",xdr.lookup("BillPayResultSuccessExt")]]); // === xdr source ============================================================
+	//
+	//   union BillPayResult switch (BillPayResultCode code)
+	//   {
+	//   case SUCCESS:
+	//   	struct {
+	//   	    PaymentV2Response paymentV2Response;
+	//   		// reserved for future use
+	//   		union switch (LedgerVersion v)
+	//   		{
+	//   		case EMPTY_VERSION:
+	//   			void;
+	//   		}
+	//   		ext;
+	//   	} success;
+	//   default:
+	//       void;
+	//   };
+	//
+	// ===========================================================================
+	xdr.union("BillPayResult",{switchOn:xdr.lookup("BillPayResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("BillPayResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   enum SaleState {
 	//   	NONE = 0, // default state
@@ -1803,7 +1917,6 @@ var StellarBase =
 	//       ACCOUNT_LIMITS = 11,
 	//   	ASSET_PAIR = 12,
 	//   	OFFER_ENTRY = 13,
-	//       INVOICE = 14,
 	//   	REVIEWABLE_REQUEST = 15,
 	//   	EXTERNAL_SYSTEM_ACCOUNT_ID = 16,
 	//   	SALE = 17,
@@ -1817,7 +1930,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerEntryType",{account:0,fee:2,balance:4,paymentRequest:5,asset:6,referenceEntry:7,accountTypeLimit:8,statistic:9,trust:10,accountLimit:11,assetPair:12,offerEntry:13,invoice:14,reviewableRequest:15,externalSystemAccountId:16,sale:17,accountKyc:18,externalSystemAccountIdPoolEntry:19,keyValue:20,saleAnte:21,limitsV2:22,statisticsV2:23,pendingStatistic:24}); // === xdr source ============================================================
+	xdr["enum"]("LedgerEntryType",{account:0,fee:2,balance:4,paymentRequest:5,asset:6,referenceEntry:7,accountTypeLimit:8,statistic:9,trust:10,accountLimit:11,assetPair:12,offerEntry:13,reviewableRequest:15,externalSystemAccountId:16,sale:17,accountKyc:18,externalSystemAccountIdPoolEntry:19,keyValue:20,saleAnte:21,limitsV2:22,statisticsV2:23,pendingStatistic:24}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerEntryType type)
 	//       {
@@ -1845,8 +1958,6 @@ var StellarBase =
 	//   		AssetPairEntry assetPair;
 	//   	case OFFER_ENTRY:
 	//   		OfferEntry offer;
-	//       case INVOICE:
-	//           InvoiceEntry invoice;
 	//   	case REVIEWABLE_REQUEST:
 	//   		ReviewableRequestEntry reviewableRequest;
 	//   	case EXTERNAL_SYSTEM_ACCOUNT_ID:
@@ -1870,7 +1981,7 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("LedgerEntryData",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["paymentRequest","paymentRequest"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["invoice","invoice"],["reviewableRequest","reviewableRequest"],["externalSystemAccountId","externalSystemAccountId"],["sale","sale"],["keyValue","keyValue"],["accountKyc","accountKyc"],["externalSystemAccountIdPoolEntry","externalSystemAccountIdPoolEntry"],["saleAnte","saleAnte"],["limitsV2","limitsV2"],["statisticsV2","statisticsV2"],["pendingStatistic","pendingStatistics"]],arms:{account:xdr.lookup("AccountEntry"),feeState:xdr.lookup("FeeEntry"),balance:xdr.lookup("BalanceEntry"),paymentRequest:xdr.lookup("PaymentRequestEntry"),asset:xdr.lookup("AssetEntry"),reference:xdr.lookup("ReferenceEntry"),accountTypeLimits:xdr.lookup("AccountTypeLimitsEntry"),stats:xdr.lookup("StatisticsEntry"),trust:xdr.lookup("TrustEntry"),accountLimits:xdr.lookup("AccountLimitsEntry"),assetPair:xdr.lookup("AssetPairEntry"),offer:xdr.lookup("OfferEntry"),invoice:xdr.lookup("InvoiceEntry"),reviewableRequest:xdr.lookup("ReviewableRequestEntry"),externalSystemAccountId:xdr.lookup("ExternalSystemAccountId"),sale:xdr.lookup("SaleEntry"),keyValue:xdr.lookup("KeyValueEntry"),accountKyc:xdr.lookup("AccountKycEntry"),externalSystemAccountIdPoolEntry:xdr.lookup("ExternalSystemAccountIdPoolEntry"),saleAnte:xdr.lookup("SaleAnteEntry"),limitsV2:xdr.lookup("LimitsV2Entry"),statisticsV2:xdr.lookup("StatisticsV2Entry"),pendingStatistics:xdr.lookup("PendingStatisticsEntry")}}); // === xdr source ============================================================
+	xdr.union("LedgerEntryData",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["paymentRequest","paymentRequest"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["reviewableRequest","reviewableRequest"],["externalSystemAccountId","externalSystemAccountId"],["sale","sale"],["keyValue","keyValue"],["accountKyc","accountKyc"],["externalSystemAccountIdPoolEntry","externalSystemAccountIdPoolEntry"],["saleAnte","saleAnte"],["limitsV2","limitsV2"],["statisticsV2","statisticsV2"],["pendingStatistic","pendingStatistics"]],arms:{account:xdr.lookup("AccountEntry"),feeState:xdr.lookup("FeeEntry"),balance:xdr.lookup("BalanceEntry"),paymentRequest:xdr.lookup("PaymentRequestEntry"),asset:xdr.lookup("AssetEntry"),reference:xdr.lookup("ReferenceEntry"),accountTypeLimits:xdr.lookup("AccountTypeLimitsEntry"),stats:xdr.lookup("StatisticsEntry"),trust:xdr.lookup("TrustEntry"),accountLimits:xdr.lookup("AccountLimitsEntry"),assetPair:xdr.lookup("AssetPairEntry"),offer:xdr.lookup("OfferEntry"),reviewableRequest:xdr.lookup("ReviewableRequestEntry"),externalSystemAccountId:xdr.lookup("ExternalSystemAccountId"),sale:xdr.lookup("SaleEntry"),keyValue:xdr.lookup("KeyValueEntry"),accountKyc:xdr.lookup("AccountKycEntry"),externalSystemAccountIdPoolEntry:xdr.lookup("ExternalSystemAccountIdPoolEntry"),saleAnte:xdr.lookup("SaleAnteEntry"),limitsV2:xdr.lookup("LimitsV2Entry"),statisticsV2:xdr.lookup("StatisticsV2Entry"),pendingStatistics:xdr.lookup("PendingStatisticsEntry")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -1911,8 +2022,6 @@ var StellarBase =
 	//   		AssetPairEntry assetPair;
 	//   	case OFFER_ENTRY:
 	//   		OfferEntry offer;
-	//       case INVOICE:
-	//           InvoiceEntry invoice;
 	//   	case REVIEWABLE_REQUEST:
 	//   		ReviewableRequestEntry reviewableRequest;
 	//   	case EXTERNAL_SYSTEM_ACCOUNT_ID:
@@ -2119,6 +2228,35 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("CreateIssuanceRequestResult",{switchOn:xdr.lookup("CreateIssuanceRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreateIssuanceRequestSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("InvoiceRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct InvoiceRequest
+	//   {
+	//       BalanceID receiverBalance;
+	//       AccountID sender;
+	//       uint64 amount; // not allowed to set 0
+	//   
+	//       longstring details;
+	//   
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("InvoiceRequest",[["receiverBalance",xdr.lookup("BalanceId")],["sender",xdr.lookup("AccountId")],["amount",xdr.lookup("Uint64")],["details",xdr.lookup("Longstring")],["ext",xdr.lookup("InvoiceRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2789,46 +2927,6 @@ var StellarBase =
 	// ===========================================================================
 	xdr.union("CreateManageLimitsRequestResult",{switchOn:xdr.lookup("CreateManageLimitsRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreateManageLimitsRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
-	//   enum InvoiceState
-	//   {
-	//       INVOICE_NEEDS_PAYMENT = 0,
-	//       INVOICE_NEEDS_PAYMENT_REVIEW = 1
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("InvoiceState",{invoiceNeedsPayment:0,invoiceNeedsPaymentReview:1}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("InvoiceEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct InvoiceEntry
-	//   {
-	//       uint64 invoiceID;
-	//       AccountID receiverAccount;
-	//       BalanceID receiverBalance;
-	//   	AccountID sender;
-	//       int64 amount;
-	//       
-	//       InvoiceState state;
-	//   
-	//       // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("InvoiceEntry",[["invoiceId",xdr.lookup("Uint64")],["receiverAccount",xdr.lookup("AccountId")],["receiverBalance",xdr.lookup("BalanceId")],["sender",xdr.lookup("AccountId")],["amount",xdr.lookup("Int64")],["state",xdr.lookup("InvoiceState")],["ext",xdr.lookup("InvoiceEntryExt")]]); // === xdr source ============================================================
-	//
 	//   union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -3307,28 +3405,6 @@ var StellarBase =
 	//   		}
 	//
 	// ===========================================================================
-	xdr.union("LedgerKeyInvoiceExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//           uint64 invoiceID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyInvoice",[["invoiceId",xdr.lookup("Uint64")],["ext",xdr.lookup("LedgerKeyInvoiceExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
 	xdr.union("LedgerKeyReviewableRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct {
@@ -3670,16 +3746,6 @@ var StellarBase =
 	//   		uint64 offerID;
 	//   		AccountID ownerID;
 	//   	} offer;
-	//   case INVOICE:
-	//       struct {
-	//           uint64 invoiceID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } invoice;
 	//   case REVIEWABLE_REQUEST:
 	//       struct {
 	//           uint64 requestID;
@@ -3784,7 +3850,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("LedgerKey",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["paymentRequest","paymentRequest"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["invoice","invoice"],["reviewableRequest","reviewableRequest"],["externalSystemAccountId","externalSystemAccountId"],["sale","sale"],["keyValue","keyValue"],["accountKyc","accountKyc"],["externalSystemAccountIdPoolEntry","externalSystemAccountIdPoolEntry"],["saleAnte","saleAnte"],["limitsV2","limitsV2"],["statisticsV2","statisticsV2"],["pendingStatistic","pendingStatistics"]],arms:{account:xdr.lookup("LedgerKeyAccount"),feeState:xdr.lookup("LedgerKeyFeeState"),balance:xdr.lookup("LedgerKeyBalance"),paymentRequest:xdr.lookup("LedgerKeyPaymentRequest"),asset:xdr.lookup("LedgerKeyAsset"),reference:xdr.lookup("LedgerKeyReference"),accountTypeLimits:xdr.lookup("LedgerKeyAccountTypeLimits"),stats:xdr.lookup("LedgerKeyStats"),trust:xdr.lookup("LedgerKeyTrust"),accountLimits:xdr.lookup("LedgerKeyAccountLimits"),assetPair:xdr.lookup("LedgerKeyAssetPair"),offer:xdr.lookup("LedgerKeyOffer"),invoice:xdr.lookup("LedgerKeyInvoice"),reviewableRequest:xdr.lookup("LedgerKeyReviewableRequest"),externalSystemAccountId:xdr.lookup("LedgerKeyExternalSystemAccountId"),sale:xdr.lookup("LedgerKeySale"),keyValue:xdr.lookup("LedgerKeyKeyValue"),accountKyc:xdr.lookup("LedgerKeyAccountKyc"),externalSystemAccountIdPoolEntry:xdr.lookup("LedgerKeyExternalSystemAccountIdPoolEntry"),saleAnte:xdr.lookup("LedgerKeySaleAnte"),limitsV2:xdr.lookup("LedgerKeyLimitsV2"),statisticsV2:xdr.lookup("LedgerKeyStatisticsV2"),pendingStatistics:xdr.lookup("LedgerKeyPendingStatistics")}}); // === xdr source ============================================================
+	xdr.union("LedgerKey",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["paymentRequest","paymentRequest"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["reviewableRequest","reviewableRequest"],["externalSystemAccountId","externalSystemAccountId"],["sale","sale"],["keyValue","keyValue"],["accountKyc","accountKyc"],["externalSystemAccountIdPoolEntry","externalSystemAccountIdPoolEntry"],["saleAnte","saleAnte"],["limitsV2","limitsV2"],["statisticsV2","statisticsV2"],["pendingStatistic","pendingStatistics"]],arms:{account:xdr.lookup("LedgerKeyAccount"),feeState:xdr.lookup("LedgerKeyFeeState"),balance:xdr.lookup("LedgerKeyBalance"),paymentRequest:xdr.lookup("LedgerKeyPaymentRequest"),asset:xdr.lookup("LedgerKeyAsset"),reference:xdr.lookup("LedgerKeyReference"),accountTypeLimits:xdr.lookup("LedgerKeyAccountTypeLimits"),stats:xdr.lookup("LedgerKeyStats"),trust:xdr.lookup("LedgerKeyTrust"),accountLimits:xdr.lookup("LedgerKeyAccountLimits"),assetPair:xdr.lookup("LedgerKeyAssetPair"),offer:xdr.lookup("LedgerKeyOffer"),reviewableRequest:xdr.lookup("LedgerKeyReviewableRequest"),externalSystemAccountId:xdr.lookup("LedgerKeyExternalSystemAccountId"),sale:xdr.lookup("LedgerKeySale"),keyValue:xdr.lookup("LedgerKeyKeyValue"),accountKyc:xdr.lookup("LedgerKeyAccountKyc"),externalSystemAccountIdPoolEntry:xdr.lookup("LedgerKeyExternalSystemAccountIdPoolEntry"),saleAnte:xdr.lookup("LedgerKeySaleAnte"),limitsV2:xdr.lookup("LedgerKeyLimitsV2"),statisticsV2:xdr.lookup("LedgerKeyStatisticsV2"),pendingStatistics:xdr.lookup("LedgerKeyPendingStatistics")}}); // === xdr source ============================================================
 	//
 	//   enum BucketEntryType
 	//   {
@@ -4075,11 +4141,12 @@ var StellarBase =
 	//   	CREATE_ONLY_STATISTICS_V2 = 30,
 	//   	LIMITS_UPDATE_REQUEST_DEPRECATED_DOCUMENT_HASH = 31,
 	//   	FIX_PAYMENT_V2_FEE = 32,
-	//   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33
+	//   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33,
+	//   	USE_ONLY_PAYMENT_V2 = 34
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23,allowToCancelSaleParticipWithoutSpecifingBalance:24,detailsMaxLengthExtended:25,allowMasterToManageSale:26,useSaleAnte:27,fixAssetPairsCreationInSaleCreation:28,statableSale:29,createOnlyStatisticsV2:30,limitsUpdateRequestDeprecatedDocumentHash:31,fixPaymentV2Fee:32,addSaleIdReviewRequestResult:33}); // === xdr source ============================================================
+	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23,allowToCancelSaleParticipWithoutSpecifingBalance:24,detailsMaxLengthExtended:25,allowMasterToManageSale:26,useSaleAnte:27,fixAssetPairsCreationInSaleCreation:28,statableSale:29,createOnlyStatisticsV2:30,limitsUpdateRequestDeprecatedDocumentHash:31,fixPaymentV2Fee:32,addSaleIdReviewRequestResult:33,useOnlyPaymentV2:34}); // === xdr source ============================================================
 	//
 	//   typedef opaque Signature<64>;
 	//
@@ -4220,7 +4287,7 @@ var StellarBase =
 	//       DIRECT_DEBIT = 14,
 	//   	MANAGE_ASSET_PAIR = 15,
 	//   	MANAGE_OFFER = 16,
-	//       MANAGE_INVOICE = 17,
+	//       MANAGE_INVOICE_REQUEST = 17,
 	//   	REVIEW_REQUEST = 18,
 	//   	CREATE_SALE_REQUEST = 19,
 	//   	CHECK_SALE_STATE = 20,
@@ -4231,11 +4298,12 @@ var StellarBase =
 	//       BIND_EXTERNAL_SYSTEM_ACCOUNT_ID = 25,
 	//       MANAGE_SALE = 26,
 	//       MANAGE_KEY_VALUE = 27,
-	//       CREATE_MANAGE_LIMITS_REQUEST = 28
+	//       CREATE_MANAGE_LIMITS_REQUEST = 28,
+	//       BILL_PAY = 29
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("OperationType",{createAccount:0,payment:1,setOption:2,createIssuanceRequest:3,setFee:5,manageAccount:6,createWithdrawalRequest:7,manageBalance:9,reviewPaymentRequest:10,manageAsset:11,createPreissuanceRequest:12,manageLimit:13,directDebit:14,manageAssetPair:15,manageOffer:16,manageInvoice:17,reviewRequest:18,createSaleRequest:19,checkSaleState:20,createAmlAlert:21,createKycRequest:22,paymentV2:23,manageExternalSystemAccountIdPoolEntry:24,bindExternalSystemAccountId:25,manageSale:26,manageKeyValue:27,createManageLimitsRequest:28}); // === xdr source ============================================================
+	xdr["enum"]("OperationType",{createAccount:0,payment:1,setOption:2,createIssuanceRequest:3,setFee:5,manageAccount:6,createWithdrawalRequest:7,manageBalance:9,reviewPaymentRequest:10,manageAsset:11,createPreissuanceRequest:12,manageLimit:13,directDebit:14,manageAssetPair:15,manageOffer:16,manageInvoiceRequest:17,reviewRequest:18,createSaleRequest:19,checkSaleState:20,createAmlAlert:21,createKycRequest:22,paymentV2:23,manageExternalSystemAccountIdPoolEntry:24,bindExternalSystemAccountId:25,manageSale:26,manageKeyValue:27,createManageLimitsRequest:28,billPay:29}); // === xdr source ============================================================
 	//
 	//   struct DecoratedSignature
 	//   {
@@ -4766,6 +4834,7 @@ var StellarBase =
 	//   	INVALID_EXTERNAL_DETAILS = -7,
 	//   	REQUESTOR_IS_BLOCKED = -8,
 	//   	PERMANENT_REJECT_NOT_ALLOWED = -9, // permanent reject not allowed, use reject
+	//   	APPROVE_NOT_ALLOWED = -10, // approve not allowed, use other operation
 	//   
 	//   	// Asset requests
 	//   	ASSET_ALREADY_EXISTS = -20,
@@ -4784,12 +4853,15 @@ var StellarBase =
 	//   	// Update KYC requests
 	//   	NON_ZERO_TASKS_TO_REMOVE_NOT_ALLOWED = -60,
 	//   
-	//   	// Update sale details requests
-	//   	SALE_NOT_FOUND = -70
+	//   	// Update sale details and promotion update requests
+	//   	SALE_NOT_FOUND = -70,
+	//   
+	//   	// Promotion update requests
+	//   	INVALID_SALE_STATE = -80 // sale state must be "PROMOTION"
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ReviewRequestResultCode",{success:0,invalidReason:-1,invalidAction:-2,hashMismatched:-3,notFound:-4,typeMismatched:-5,rejectNotAllowed:-6,invalidExternalDetail:-7,requestorIsBlocked:-8,permanentRejectNotAllowed:-9,assetAlreadyExist:-20,assetDoesNotExist:-21,maxIssuanceAmountExceeded:-40,insufficientAvailableForIssuanceAmount:-41,fullLine:-42,baseAssetDoesNotExist:-50,hardCapWillExceedMaxIssuance:-51,insufficientPreissuedForHardCap:-52,nonZeroTasksToRemoveNotAllowed:-60,saleNotFound:-70}); // === xdr source ============================================================
+	xdr["enum"]("ReviewRequestResultCode",{success:0,invalidReason:-1,invalidAction:-2,hashMismatched:-3,notFound:-4,typeMismatched:-5,rejectNotAllowed:-6,invalidExternalDetail:-7,requestorIsBlocked:-8,permanentRejectNotAllowed:-9,approveNotAllowed:-10,assetAlreadyExist:-20,assetDoesNotExist:-21,maxIssuanceAmountExceeded:-40,insufficientAvailableForIssuanceAmount:-41,fullLine:-42,baseAssetDoesNotExist:-50,hardCapWillExceedMaxIssuance:-51,insufficientPreissuedForHardCap:-52,nonZeroTasksToRemoveNotAllowed:-60,saleNotFound:-70,invalidSaleState:-80}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -5108,11 +5180,13 @@ var StellarBase =
 	//   	TWO_STEP_WITHDRAWAL = 7,
 	//       AML_ALERT = 8,
 	//   	UPDATE_KYC = 9,
-	//   	UPDATE_SALE_DETAILS = 10
+	//   	UPDATE_SALE_DETAILS = 10,
+	//   	UPDATE_PROMOTION = 11,
+	//   	INVOICE = 12
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ReviewableRequestType",{assetCreate:0,assetUpdate:1,preIssuanceCreate:2,issuanceCreate:3,withdraw:4,sale:5,limitsUpdate:6,twoStepWithdrawal:7,amlAlert:8,updateKyc:9,updateSaleDetail:10}); // === xdr source ============================================================
+	xdr["enum"]("ReviewableRequestType",{assetCreate:0,assetUpdate:1,preIssuanceCreate:2,issuanceCreate:3,withdraw:4,sale:5,limitsUpdate:6,twoStepWithdrawal:7,amlAlert:8,updateKyc:9,updateSaleDetail:10,updatePromotion:11,invoice:12}); // === xdr source ============================================================
 	//
 	//   union switch (ReviewableRequestType type) {
 	//   		case ASSET_CREATE:
@@ -5137,10 +5211,14 @@ var StellarBase =
 	//               UpdateKYCRequest updateKYCRequest;
 	//           case UPDATE_SALE_DETAILS:
 	//               UpdateSaleDetailsRequest updateSaleDetailsRequest;
+	//           case UPDATE_PROMOTION:
+	//               PromotionUpdateRequest promotionUpdateRequest;
+	//           case INVOICE:
+	//               InvoiceRequest invoiceRequest;
 	//   	}
 	//
 	// ===========================================================================
-	xdr.union("ReviewableRequestEntryBody",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"type",switches:[["assetCreate","assetCreationRequest"],["assetUpdate","assetUpdateRequest"],["preIssuanceCreate","preIssuanceRequest"],["issuanceCreate","issuanceRequest"],["withdraw","withdrawalRequest"],["sale","saleCreationRequest"],["limitsUpdate","limitsUpdateRequest"],["twoStepWithdrawal","twoStepWithdrawalRequest"],["amlAlert","amlAlertRequest"],["updateKyc","updateKycRequest"],["updateSaleDetail","updateSaleDetailsRequest"]],arms:{assetCreationRequest:xdr.lookup("AssetCreationRequest"),assetUpdateRequest:xdr.lookup("AssetUpdateRequest"),preIssuanceRequest:xdr.lookup("PreIssuanceRequest"),issuanceRequest:xdr.lookup("IssuanceRequest"),withdrawalRequest:xdr.lookup("WithdrawalRequest"),saleCreationRequest:xdr.lookup("SaleCreationRequest"),limitsUpdateRequest:xdr.lookup("LimitsUpdateRequest"),twoStepWithdrawalRequest:xdr.lookup("WithdrawalRequest"),amlAlertRequest:xdr.lookup("AmlAlertRequest"),updateKycRequest:xdr.lookup("UpdateKycRequest"),updateSaleDetailsRequest:xdr.lookup("UpdateSaleDetailsRequest")}}); // === xdr source ============================================================
+	xdr.union("ReviewableRequestEntryBody",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"type",switches:[["assetCreate","assetCreationRequest"],["assetUpdate","assetUpdateRequest"],["preIssuanceCreate","preIssuanceRequest"],["issuanceCreate","issuanceRequest"],["withdraw","withdrawalRequest"],["sale","saleCreationRequest"],["limitsUpdate","limitsUpdateRequest"],["twoStepWithdrawal","twoStepWithdrawalRequest"],["amlAlert","amlAlertRequest"],["updateKyc","updateKycRequest"],["updateSaleDetail","updateSaleDetailsRequest"],["updatePromotion","promotionUpdateRequest"],["invoice","invoiceRequest"]],arms:{assetCreationRequest:xdr.lookup("AssetCreationRequest"),assetUpdateRequest:xdr.lookup("AssetUpdateRequest"),preIssuanceRequest:xdr.lookup("PreIssuanceRequest"),issuanceRequest:xdr.lookup("IssuanceRequest"),withdrawalRequest:xdr.lookup("WithdrawalRequest"),saleCreationRequest:xdr.lookup("SaleCreationRequest"),limitsUpdateRequest:xdr.lookup("LimitsUpdateRequest"),twoStepWithdrawalRequest:xdr.lookup("WithdrawalRequest"),amlAlertRequest:xdr.lookup("AmlAlertRequest"),updateKycRequest:xdr.lookup("UpdateKycRequest"),updateSaleDetailsRequest:xdr.lookup("UpdateSaleDetailsRequest"),promotionUpdateRequest:xdr.lookup("PromotionUpdateRequest"),invoiceRequest:xdr.lookup("InvoiceRequest")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5183,6 +5261,10 @@ var StellarBase =
 	//               UpdateKYCRequest updateKYCRequest;
 	//           case UPDATE_SALE_DETAILS:
 	//               UpdateSaleDetailsRequest updateSaleDetailsRequest;
+	//           case UPDATE_PROMOTION:
+	//               PromotionUpdateRequest promotionUpdateRequest;
+	//           case INVOICE:
+	//               InvoiceRequest invoiceRequest;
 	//   	} body;
 	//   
 	//   	// reserved for future use
@@ -5706,11 +5788,12 @@ var StellarBase =
 	//       INVOICE_WRONG_AMOUNT = -14,
 	//       INVOICE_BALANCE_MISMATCH = -15,
 	//       INVOICE_ACCOUNT_MISMATCH = -16,
-	//       INVOICE_ALREADY_PAID = -17
+	//       INVOICE_ALREADY_PAID = -17,
+	//       PAYMENT_V1_NO_LONGER_SUPPORTED = -18
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("PaymentResultCode",{success:0,malformed:-1,underfunded:-2,lineFull:-3,feeMismatched:-4,balanceNotFound:-5,balanceAccountMismatched:-6,balanceAssetsMismatched:-7,srcBalanceNotFound:-8,referenceDuplication:-9,statsOverflow:-10,limitsExceeded:-11,notAllowedByAssetPolicy:-12,invoiceNotFound:-13,invoiceWrongAmount:-14,invoiceBalanceMismatch:-15,invoiceAccountMismatch:-16,invoiceAlreadyPaid:-17}); // === xdr source ============================================================
+	xdr["enum"]("PaymentResultCode",{success:0,malformed:-1,underfunded:-2,lineFull:-3,feeMismatched:-4,balanceNotFound:-5,balanceAccountMismatched:-6,balanceAssetsMismatched:-7,srcBalanceNotFound:-8,referenceDuplication:-9,statsOverflow:-10,limitsExceeded:-11,notAllowedByAssetPolicy:-12,invoiceNotFound:-13,invoiceWrongAmount:-14,invoiceBalanceMismatch:-15,invoiceAccountMismatch:-16,invoiceAlreadyPaid:-17,paymentV1NoLongerSupported:-18}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5788,91 +5871,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("OfferEntry",[["offerId",xdr.lookup("Uint64")],["orderBookId",xdr.lookup("Uint64")],["ownerId",xdr.lookup("AccountId")],["isBuy",xdr.bool()],["base",xdr.lookup("AssetCode")],["quote",xdr.lookup("AssetCode")],["baseBalance",xdr.lookup("BalanceId")],["quoteBalance",xdr.lookup("BalanceId")],["baseAmount",xdr.lookup("Int64")],["quoteAmount",xdr.lookup("Int64")],["createdAt",xdr.lookup("Uint64")],["fee",xdr.lookup("Int64")],["percentFee",xdr.lookup("Int64")],["price",xdr.lookup("Int64")],["ext",xdr.lookup("OfferEntryExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("ManageInvoiceOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ManageInvoiceOp
-	//   {
-	//       BalanceID receiverBalance;
-	//   	AccountID sender;
-	//       int64 amount; // if set to 0, delete the invoice
-	//   
-	//       // 0=create a new invoice, otherwise edit an existing invoice
-	//       uint64 invoiceID;
-	//   
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ManageInvoiceOp",[["receiverBalance",xdr.lookup("BalanceId")],["sender",xdr.lookup("AccountId")],["amount",xdr.lookup("Int64")],["invoiceId",xdr.lookup("Uint64")],["ext",xdr.lookup("ManageInvoiceOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum ManageInvoiceResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,
-	//   
-	//       // codes considered as "failure" for the operation
-	//       MALFORMED = -1,
-	//       BALANCE_NOT_FOUND = -2,
-	//   	INVOICE_OVERFLOW = -3,
-	//   
-	//       NOT_FOUND = -4,
-	//       TOO_MANY_INVOICES = -5,
-	//       CAN_NOT_DELETE_IN_PROGRESS = -6
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ManageInvoiceResultCode",{success:0,malformed:-1,balanceNotFound:-2,invoiceOverflow:-3,notFound:-4,tooManyInvoice:-5,canNotDeleteInProgress:-6}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("ManageInvoiceSuccessResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ManageInvoiceSuccessResult 
-	//   {
-	//   	uint64 invoiceID;
-	//   	AssetCode asset;
-	//   	BalanceID senderBalance;
-	//   
-	//   	union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ManageInvoiceSuccessResult",[["invoiceId",xdr.lookup("Uint64")],["asset",xdr.lookup("AssetCode")],["senderBalance",xdr.lookup("BalanceId")],["ext",xdr.lookup("ManageInvoiceSuccessResultExt")]]); // === xdr source ============================================================
-	//
-	//   union ManageInvoiceResult switch (ManageInvoiceResultCode code)
-	//   {
-	//   case SUCCESS:
-	//       ManageInvoiceSuccessResult success;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("ManageInvoiceResult",{switchOn:xdr.lookup("ManageInvoiceResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageInvoiceSuccessResult")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   enum WithdrawalType {
 	//   	AUTO_CONVERSION = 0
@@ -6463,6 +6461,30 @@ var StellarBase =
 	xdr.union("ManageAccountResult",{switchOn:xdr.lookup("ManageAccountResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageAccountSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("PromotionUpdateRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct PromotionUpdateRequest {
+	//       uint64 promotionID;
+	//       SaleCreationRequest newPromotionData;
+	//   
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("PromotionUpdateRequest",[["promotionId",xdr.lookup("Uint64")],["newPromotionData",xdr.lookup("SaleCreationRequest")],["ext",xdr.lookup("PromotionUpdateRequestExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
 	//   		{
 	//   		case EMPTY_VERSION:
 	//   			void;
@@ -6559,11 +6581,12 @@ var StellarBase =
 	//   {
 	//       CREATE_UPDATE_DETAILS_REQUEST = 1,
 	//       CANCEL = 2,
-	//   	SET_STATE = 3
+	//   	SET_STATE = 3,
+	//   	CREATE_PROMOTION_UPDATE_REQUEST = 4
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageSaleAction",{createUpdateDetailsRequest:1,cancel:2,setState:3}); // === xdr source ============================================================
+	xdr["enum"]("ManageSaleAction",{createUpdateDetailsRequest:1,cancel:2,setState:3,createPromotionUpdateRequest:4}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -6589,6 +6612,29 @@ var StellarBase =
 	// ===========================================================================
 	xdr.struct("UpdateSaleDetailsData",[["requestId",xdr.lookup("Uint64")],["newDetails",xdr.lookup("Longstring")],["ext",xdr.lookup("UpdateSaleDetailsDataExt")]]); // === xdr source ============================================================
 	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("PromotionUpdateDataExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct PromotionUpdateData {
+	//       uint64 requestID; // if requestID is 0 - create request, else - update
+	//       SaleCreationRequest newPromotionData;
+	//   
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       } ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("PromotionUpdateData",[["requestId",xdr.lookup("Uint64")],["newPromotionData",xdr.lookup("SaleCreationRequest")],["ext",xdr.lookup("PromotionUpdateDataExt")]]); // === xdr source ============================================================
+	//
 	//   union switch (ManageSaleAction action) {
 	//       case CREATE_UPDATE_DETAILS_REQUEST:
 	//           UpdateSaleDetailsData updateSaleDetailsData;
@@ -6596,10 +6642,12 @@ var StellarBase =
 	//           void;
 	//   	case SET_STATE:
 	//   		SaleState saleState;
+	//       case CREATE_PROMOTION_UPDATE_REQUEST:
+	//           PromotionUpdateData promotionUpdateData;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ManageSaleOpData",{switchOn:xdr.lookup("ManageSaleAction"),switchName:"action",switches:[["createUpdateDetailsRequest","updateSaleDetailsData"],["cancel",xdr["void"]()],["setState","saleState"]],arms:{updateSaleDetailsData:xdr.lookup("UpdateSaleDetailsData"),saleState:xdr.lookup("SaleState")}}); // === xdr source ============================================================
+	xdr.union("ManageSaleOpData",{switchOn:xdr.lookup("ManageSaleAction"),switchName:"action",switches:[["createUpdateDetailsRequest","updateSaleDetailsData"],["cancel",xdr["void"]()],["setState","saleState"],["createPromotionUpdateRequest","promotionUpdateData"]],arms:{updateSaleDetailsData:xdr.lookup("UpdateSaleDetailsData"),saleState:xdr.lookup("SaleState"),promotionUpdateData:xdr.lookup("PromotionUpdateData")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -6621,6 +6669,8 @@ var StellarBase =
 	//           void;
 	//   	case SET_STATE:
 	//   		SaleState saleState;
+	//       case CREATE_PROMOTION_UPDATE_REQUEST:
+	//           PromotionUpdateData promotionUpdateData;
 	//       } data;
 	//   
 	//       // reserved for future use
@@ -6639,14 +6689,28 @@ var StellarBase =
 	//       SUCCESS = 0,
 	//   
 	//       SALE_NOT_FOUND = -1, // sale not found
+	//   
+	//       // errors related to action "CREATE_UPDATE_DETAILS_REQUEST"
 	//       INVALID_NEW_DETAILS = -2, // newDetails field is invalid JSON
 	//       UPDATE_DETAILS_REQUEST_ALREADY_EXISTS = -3,
 	//       UPDATE_DETAILS_REQUEST_NOT_FOUND = -4,
-	//   	NOT_ALLOWED = -5 // it's not allowed to set state for non master account
+	//   
+	//       // errors related to action "SET_STATE"
+	//   	NOT_ALLOWED = -5, // it's not allowed to set state for non master account
+	//   
+	//   	// errors related to action "CREATE_PROMOTION_UPDATE_REQUEST"
+	//   	PROMOTION_UPDATE_REQUEST_INVALID_ASSET_PAIR = -6, // one of the assets has invalid code or base asset is equal to quote asset
+	//   	PROMOTION_UPDATE_REQUEST_INVALID_PRICE = -7, // price cannot be 0
+	//   	PROMOTION_UPDATE_REQUEST_START_END_INVALID = -8, // sale ends before start
+	//   	PROMOTION_UPDATE_REQUEST_INVALID_CAP = -9, // hard cap is < soft cap
+	//   	PROMOTION_UPDATE_REQUEST_INVALID_DETAILS = -10, // details field is invalid JSON
+	//   	INVALID_SALE_STATE = -11, // sale state must be "PROMOTION"
+	//   	PROMOTION_UPDATE_REQUEST_ALREADY_EXISTS = -12,
+	//   	PROMOTION_UPDATE_REQUEST_NOT_FOUND = -13
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageSaleResultCode",{success:0,saleNotFound:-1,invalidNewDetail:-2,updateDetailsRequestAlreadyExist:-3,updateDetailsRequestNotFound:-4,notAllowed:-5}); // === xdr source ============================================================
+	xdr["enum"]("ManageSaleResultCode",{success:0,saleNotFound:-1,invalidNewDetail:-2,updateDetailsRequestAlreadyExist:-3,updateDetailsRequestNotFound:-4,notAllowed:-5,promotionUpdateRequestInvalidAssetPair:-6,promotionUpdateRequestInvalidPrice:-7,promotionUpdateRequestStartEndInvalid:-8,promotionUpdateRequestInvalidCap:-9,promotionUpdateRequestInvalidDetail:-10,invalidSaleState:-11,promotionUpdateRequestAlreadyExist:-12,promotionUpdateRequestNotFound:-13}); // === xdr source ============================================================
 	//
 	//   union switch (ManageSaleAction action) {
 	//       case CREATE_UPDATE_DETAILS_REQUEST:
@@ -6655,10 +6719,12 @@ var StellarBase =
 	//           void;
 	//   	case SET_STATE:
 	//   		void;
+	//       case CREATE_PROMOTION_UPDATE_REQUEST:
+	//           uint64 promotionUpdateRequestID;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ManageSaleResultSuccessResponse",{switchOn:xdr.lookup("ManageSaleAction"),switchName:"action",switches:[["createUpdateDetailsRequest","requestId"],["cancel",xdr["void"]()],["setState",xdr["void"]()]],arms:{requestId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
+	xdr.union("ManageSaleResultSuccessResponse",{switchOn:xdr.lookup("ManageSaleAction"),switchName:"action",switches:[["createUpdateDetailsRequest","requestId"],["cancel",xdr["void"]()],["setState",xdr["void"]()],["createPromotionUpdateRequest","promotionUpdateRequestId"]],arms:{requestId:xdr.lookup("Uint64"),promotionUpdateRequestId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -6678,6 +6744,8 @@ var StellarBase =
 	//           void;
 	//   	case SET_STATE:
 	//   		void;
+	//       case CREATE_PROMOTION_UPDATE_REQUEST:
+	//           uint64 promotionUpdateRequestID;
 	//       } response;
 	//   
 	//       //reserved for future use
@@ -6702,6 +6770,167 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("ManageSaleResult",{switchOn:xdr.lookup("ManageSaleResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageSaleResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	//
+	//   enum ManageInvoiceRequestAction
+	//   {
+	//       CREATE = 0,
+	//       REMOVE = 1
+	//   };
+	//
+	// ===========================================================================
+	xdr["enum"]("ManageInvoiceRequestAction",{create:0,remove:1}); // === xdr source ============================================================
+	//
+	//   union switch (ManageInvoiceRequestAction action){
+	//       case CREATE:
+	//           InvoiceRequest invoiceRequest;
+	//       case REMOVE:
+	//           uint64 requestID;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("ManageInvoiceRequestOpDetails",{switchOn:xdr.lookup("ManageInvoiceRequestAction"),switchName:"action",switches:[["create","invoiceRequest"],["remove","requestId"]],arms:{invoiceRequest:xdr.lookup("InvoiceRequest"),requestId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("ManageInvoiceRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct ManageInvoiceRequestOp
+	//   {
+	//       union switch (ManageInvoiceRequestAction action){
+	//       case CREATE:
+	//           InvoiceRequest invoiceRequest;
+	//       case REMOVE:
+	//           uint64 requestID;
+	//       } details;
+	//   
+	//   	// reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("ManageInvoiceRequestOp",[["details",xdr.lookup("ManageInvoiceRequestOpDetails")],["ext",xdr.lookup("ManageInvoiceRequestOpExt")]]); // === xdr source ============================================================
+	//
+	//   enum ManageInvoiceRequestResultCode
+	//   {
+	//       // codes considered as "success" for the operation
+	//       SUCCESS = 0,
+	//   
+	//       // codes considered as "failure" for the operation
+	//       MALFORMED = -1,
+	//       BALANCE_NOT_FOUND = -2,
+	//       NOT_FOUND = -3, // not found invoice request, when try to remove
+	//       TOO_MANY_INVOICES = -4,
+	//       MANAGE_INVOICE_REQUEST_REFERENCE_DUPLICATION = -5,
+	//       NOT_ALLOWED_TO_REMOVE = -6 // only invoice creator can remove invoice
+	//   };
+	//
+	// ===========================================================================
+	xdr["enum"]("ManageInvoiceRequestResultCode",{success:0,malformed:-1,balanceNotFound:-2,notFound:-3,tooManyInvoice:-4,manageInvoiceRequestReferenceDuplication:-5,notAllowedToRemove:-6}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("CreateInvoiceRequestResponseExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct CreateInvoiceRequestResponse
+	//   {
+	//   	AssetCode asset;
+	//   	BalanceID senderBalance;
+	//   
+	//   	uint64 requestID;
+	//   
+	//   	union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("CreateInvoiceRequestResponse",[["asset",xdr.lookup("AssetCode")],["senderBalance",xdr.lookup("BalanceId")],["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("CreateInvoiceRequestResponseExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (ManageInvoiceRequestAction action)
+	//           {
+	//           case CREATE:
+	//               CreateInvoiceRequestResponse response;
+	//           case REMOVE:
+	//               void;
+	//           }
+	//
+	// ===========================================================================
+	xdr.union("ManageInvoiceRequestResultSuccessDetails",{switchOn:xdr.lookup("ManageInvoiceRequestAction"),switchName:"action",switches:[["create","response"],["remove",xdr["void"]()]],arms:{response:xdr.lookup("CreateInvoiceRequestResponse")}}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//           {
+	//           case EMPTY_VERSION:
+	//               void;
+	//           }
+	//
+	// ===========================================================================
+	xdr.union("ManageInvoiceRequestResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct
+	//       {
+	//           union switch (ManageInvoiceRequestAction action)
+	//           {
+	//           case CREATE:
+	//               CreateInvoiceRequestResponse response;
+	//           case REMOVE:
+	//               void;
+	//           } details;
+	//   
+	//           // reserved for future use
+	//           union switch (LedgerVersion v)
+	//           {
+	//           case EMPTY_VERSION:
+	//               void;
+	//           } ext;
+	//       }
+	//
+	// ===========================================================================
+	xdr.struct("ManageInvoiceRequestResultSuccess",[["details",xdr.lookup("ManageInvoiceRequestResultSuccessDetails")],["ext",xdr.lookup("ManageInvoiceRequestResultSuccessExt")]]); // === xdr source ============================================================
+	//
+	//   union ManageInvoiceRequestResult switch (ManageInvoiceRequestResultCode code)
+	//   {
+	//   case SUCCESS:
+	//       struct
+	//       {
+	//           union switch (ManageInvoiceRequestAction action)
+	//           {
+	//           case CREATE:
+	//               CreateInvoiceRequestResponse response;
+	//           case REMOVE:
+	//               void;
+	//           } details;
+	//   
+	//           // reserved for future use
+	//           union switch (LedgerVersion v)
+	//           {
+	//           case EMPTY_VERSION:
+	//               void;
+	//           } ext;
+	//       } success;
+	//   default:
+	//       void;
+	//   };
+	//
+	// ===========================================================================
+	xdr.union("ManageInvoiceRequestResult",{switchOn:xdr.lookup("ManageInvoiceRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageInvoiceRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   enum KeyValueEntryType
 	//       {
@@ -7096,8 +7325,8 @@ var StellarBase =
 	//   		ManageAssetPairOp manageAssetPairOp;
 	//   	case MANAGE_OFFER:
 	//   		ManageOfferOp manageOfferOp;
-	//       case MANAGE_INVOICE:
-	//           ManageInvoiceOp manageInvoiceOp;
+	//       case MANAGE_INVOICE_REQUEST:
+	//           ManageInvoiceRequestOp manageInvoiceRequestOp;
 	//   	case REVIEW_REQUEST:
 	//   		ReviewRequestOp reviewRequestOp;
 	//   	case CREATE_SALE_REQUEST:
@@ -7120,10 +7349,12 @@ var StellarBase =
 	//           ManageSaleOp manageSaleOp;
 	//       case CREATE_MANAGE_LIMITS_REQUEST:
 	//           CreateManageLimitsRequestOp createManageLimitsRequestOp;
+	//       case BILL_PAY:
+	//           BillPayOp billPayOp;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("OperationBody",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountOp"],["payment","paymentOp"],["setOption","setOptionsOp"],["createIssuanceRequest","createIssuanceRequestOp"],["setFee","setFeesOp"],["manageAccount","manageAccountOp"],["createWithdrawalRequest","createWithdrawalRequestOp"],["manageBalance","manageBalanceOp"],["reviewPaymentRequest","reviewPaymentRequestOp"],["manageAsset","manageAssetOp"],["createPreissuanceRequest","createPreIssuanceRequest"],["manageLimit","manageLimitsOp"],["directDebit","directDebitOp"],["manageAssetPair","manageAssetPairOp"],["manageOffer","manageOfferOp"],["manageInvoice","manageInvoiceOp"],["reviewRequest","reviewRequestOp"],["createSaleRequest","createSaleCreationRequestOp"],["checkSaleState","checkSaleStateOp"],["createAmlAlert","createAmlAlertRequestOp"],["manageKeyValue","manageKeyValueOp"],["createKycRequest","createUpdateKycRequestOp"],["manageExternalSystemAccountIdPoolEntry","manageExternalSystemAccountIdPoolEntryOp"],["bindExternalSystemAccountId","bindExternalSystemAccountIdOp"],["paymentV2","paymentOpV2"],["manageSale","manageSaleOp"],["createManageLimitsRequest","createManageLimitsRequestOp"]],arms:{createAccountOp:xdr.lookup("CreateAccountOp"),paymentOp:xdr.lookup("PaymentOp"),setOptionsOp:xdr.lookup("SetOptionsOp"),createIssuanceRequestOp:xdr.lookup("CreateIssuanceRequestOp"),setFeesOp:xdr.lookup("SetFeesOp"),manageAccountOp:xdr.lookup("ManageAccountOp"),createWithdrawalRequestOp:xdr.lookup("CreateWithdrawalRequestOp"),manageBalanceOp:xdr.lookup("ManageBalanceOp"),reviewPaymentRequestOp:xdr.lookup("ReviewPaymentRequestOp"),manageAssetOp:xdr.lookup("ManageAssetOp"),createPreIssuanceRequest:xdr.lookup("CreatePreIssuanceRequestOp"),manageLimitsOp:xdr.lookup("ManageLimitsOp"),directDebitOp:xdr.lookup("DirectDebitOp"),manageAssetPairOp:xdr.lookup("ManageAssetPairOp"),manageOfferOp:xdr.lookup("ManageOfferOp"),manageInvoiceOp:xdr.lookup("ManageInvoiceOp"),reviewRequestOp:xdr.lookup("ReviewRequestOp"),createSaleCreationRequestOp:xdr.lookup("CreateSaleCreationRequestOp"),checkSaleStateOp:xdr.lookup("CheckSaleStateOp"),createAmlAlertRequestOp:xdr.lookup("CreateAmlAlertRequestOp"),manageKeyValueOp:xdr.lookup("ManageKeyValueOp"),createUpdateKycRequestOp:xdr.lookup("CreateUpdateKycRequestOp"),manageExternalSystemAccountIdPoolEntryOp:xdr.lookup("ManageExternalSystemAccountIdPoolEntryOp"),bindExternalSystemAccountIdOp:xdr.lookup("BindExternalSystemAccountIdOp"),paymentOpV2:xdr.lookup("PaymentOpV2"),manageSaleOp:xdr.lookup("ManageSaleOp"),createManageLimitsRequestOp:xdr.lookup("CreateManageLimitsRequestOp")}}); // === xdr source ============================================================
+	xdr.union("OperationBody",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountOp"],["payment","paymentOp"],["setOption","setOptionsOp"],["createIssuanceRequest","createIssuanceRequestOp"],["setFee","setFeesOp"],["manageAccount","manageAccountOp"],["createWithdrawalRequest","createWithdrawalRequestOp"],["manageBalance","manageBalanceOp"],["reviewPaymentRequest","reviewPaymentRequestOp"],["manageAsset","manageAssetOp"],["createPreissuanceRequest","createPreIssuanceRequest"],["manageLimit","manageLimitsOp"],["directDebit","directDebitOp"],["manageAssetPair","manageAssetPairOp"],["manageOffer","manageOfferOp"],["manageInvoiceRequest","manageInvoiceRequestOp"],["reviewRequest","reviewRequestOp"],["createSaleRequest","createSaleCreationRequestOp"],["checkSaleState","checkSaleStateOp"],["createAmlAlert","createAmlAlertRequestOp"],["manageKeyValue","manageKeyValueOp"],["createKycRequest","createUpdateKycRequestOp"],["manageExternalSystemAccountIdPoolEntry","manageExternalSystemAccountIdPoolEntryOp"],["bindExternalSystemAccountId","bindExternalSystemAccountIdOp"],["paymentV2","paymentOpV2"],["manageSale","manageSaleOp"],["createManageLimitsRequest","createManageLimitsRequestOp"],["billPay","billPayOp"]],arms:{createAccountOp:xdr.lookup("CreateAccountOp"),paymentOp:xdr.lookup("PaymentOp"),setOptionsOp:xdr.lookup("SetOptionsOp"),createIssuanceRequestOp:xdr.lookup("CreateIssuanceRequestOp"),setFeesOp:xdr.lookup("SetFeesOp"),manageAccountOp:xdr.lookup("ManageAccountOp"),createWithdrawalRequestOp:xdr.lookup("CreateWithdrawalRequestOp"),manageBalanceOp:xdr.lookup("ManageBalanceOp"),reviewPaymentRequestOp:xdr.lookup("ReviewPaymentRequestOp"),manageAssetOp:xdr.lookup("ManageAssetOp"),createPreIssuanceRequest:xdr.lookup("CreatePreIssuanceRequestOp"),manageLimitsOp:xdr.lookup("ManageLimitsOp"),directDebitOp:xdr.lookup("DirectDebitOp"),manageAssetPairOp:xdr.lookup("ManageAssetPairOp"),manageOfferOp:xdr.lookup("ManageOfferOp"),manageInvoiceRequestOp:xdr.lookup("ManageInvoiceRequestOp"),reviewRequestOp:xdr.lookup("ReviewRequestOp"),createSaleCreationRequestOp:xdr.lookup("CreateSaleCreationRequestOp"),checkSaleStateOp:xdr.lookup("CheckSaleStateOp"),createAmlAlertRequestOp:xdr.lookup("CreateAmlAlertRequestOp"),manageKeyValueOp:xdr.lookup("ManageKeyValueOp"),createUpdateKycRequestOp:xdr.lookup("CreateUpdateKycRequestOp"),manageExternalSystemAccountIdPoolEntryOp:xdr.lookup("ManageExternalSystemAccountIdPoolEntryOp"),bindExternalSystemAccountIdOp:xdr.lookup("BindExternalSystemAccountIdOp"),paymentOpV2:xdr.lookup("PaymentOpV2"),manageSaleOp:xdr.lookup("ManageSaleOp"),createManageLimitsRequestOp:xdr.lookup("CreateManageLimitsRequestOp"),billPayOp:xdr.lookup("BillPayOp")}}); // === xdr source ============================================================
 	//
 	//   struct Operation
 	//   {
@@ -7164,8 +7395,8 @@ var StellarBase =
 	//   		ManageAssetPairOp manageAssetPairOp;
 	//   	case MANAGE_OFFER:
 	//   		ManageOfferOp manageOfferOp;
-	//       case MANAGE_INVOICE:
-	//           ManageInvoiceOp manageInvoiceOp;
+	//       case MANAGE_INVOICE_REQUEST:
+	//           ManageInvoiceRequestOp manageInvoiceRequestOp;
 	//   	case REVIEW_REQUEST:
 	//   		ReviewRequestOp reviewRequestOp;
 	//   	case CREATE_SALE_REQUEST:
@@ -7188,6 +7419,8 @@ var StellarBase =
 	//           ManageSaleOp manageSaleOp;
 	//       case CREATE_MANAGE_LIMITS_REQUEST:
 	//           CreateManageLimitsRequestOp createManageLimitsRequestOp;
+	//       case BILL_PAY:
+	//           BillPayOp billPayOp;
 	//       }
 	//       body;
 	//   };
@@ -7326,8 +7559,8 @@ var StellarBase =
 	//   		ManageAssetPairResult manageAssetPairResult;
 	//   	case MANAGE_OFFER:
 	//   		ManageOfferResult manageOfferResult;
-	//   	case MANAGE_INVOICE:
-	//   		ManageInvoiceResult manageInvoiceResult;
+	//   	case MANAGE_INVOICE_REQUEST:
+	//   		ManageInvoiceRequestResult manageInvoiceRequestResult;
 	//   	case REVIEW_REQUEST:
 	//   		ReviewRequestResult reviewRequestResult;
 	//   	case CREATE_SALE_REQUEST:
@@ -7350,10 +7583,12 @@ var StellarBase =
 	//           ManageSaleResult manageSaleResult;
 	//       case CREATE_MANAGE_LIMITS_REQUEST:
 	//           CreateManageLimitsRequestResult createManageLimitsRequestResult;
+	//       case BILL_PAY:
+	//           BillPayResult billPayResult;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("OperationResultTr",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountResult"],["payment","paymentResult"],["setOption","setOptionsResult"],["createIssuanceRequest","createIssuanceRequestResult"],["setFee","setFeesResult"],["manageAccount","manageAccountResult"],["createWithdrawalRequest","createWithdrawalRequestResult"],["manageBalance","manageBalanceResult"],["reviewPaymentRequest","reviewPaymentRequestResult"],["manageAsset","manageAssetResult"],["createPreissuanceRequest","createPreIssuanceRequestResult"],["manageLimit","manageLimitsResult"],["directDebit","directDebitResult"],["manageAssetPair","manageAssetPairResult"],["manageOffer","manageOfferResult"],["manageInvoice","manageInvoiceResult"],["reviewRequest","reviewRequestResult"],["createSaleRequest","createSaleCreationRequestResult"],["checkSaleState","checkSaleStateResult"],["createAmlAlert","createAmlAlertRequestResult"],["manageKeyValue","manageKeyValueResult"],["createKycRequest","createUpdateKycRequestResult"],["manageExternalSystemAccountIdPoolEntry","manageExternalSystemAccountIdPoolEntryResult"],["bindExternalSystemAccountId","bindExternalSystemAccountIdResult"],["paymentV2","paymentV2Result"],["manageSale","manageSaleResult"],["createManageLimitsRequest","createManageLimitsRequestResult"]],arms:{createAccountResult:xdr.lookup("CreateAccountResult"),paymentResult:xdr.lookup("PaymentResult"),setOptionsResult:xdr.lookup("SetOptionsResult"),createIssuanceRequestResult:xdr.lookup("CreateIssuanceRequestResult"),setFeesResult:xdr.lookup("SetFeesResult"),manageAccountResult:xdr.lookup("ManageAccountResult"),createWithdrawalRequestResult:xdr.lookup("CreateWithdrawalRequestResult"),manageBalanceResult:xdr.lookup("ManageBalanceResult"),reviewPaymentRequestResult:xdr.lookup("ReviewPaymentRequestResult"),manageAssetResult:xdr.lookup("ManageAssetResult"),createPreIssuanceRequestResult:xdr.lookup("CreatePreIssuanceRequestResult"),manageLimitsResult:xdr.lookup("ManageLimitsResult"),directDebitResult:xdr.lookup("DirectDebitResult"),manageAssetPairResult:xdr.lookup("ManageAssetPairResult"),manageOfferResult:xdr.lookup("ManageOfferResult"),manageInvoiceResult:xdr.lookup("ManageInvoiceResult"),reviewRequestResult:xdr.lookup("ReviewRequestResult"),createSaleCreationRequestResult:xdr.lookup("CreateSaleCreationRequestResult"),checkSaleStateResult:xdr.lookup("CheckSaleStateResult"),createAmlAlertRequestResult:xdr.lookup("CreateAmlAlertRequestResult"),manageKeyValueResult:xdr.lookup("ManageKeyValueResult"),createUpdateKycRequestResult:xdr.lookup("CreateUpdateKycRequestResult"),manageExternalSystemAccountIdPoolEntryResult:xdr.lookup("ManageExternalSystemAccountIdPoolEntryResult"),bindExternalSystemAccountIdResult:xdr.lookup("BindExternalSystemAccountIdResult"),paymentV2Result:xdr.lookup("PaymentV2Result"),manageSaleResult:xdr.lookup("ManageSaleResult"),createManageLimitsRequestResult:xdr.lookup("CreateManageLimitsRequestResult")}}); // === xdr source ============================================================
+	xdr.union("OperationResultTr",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountResult"],["payment","paymentResult"],["setOption","setOptionsResult"],["createIssuanceRequest","createIssuanceRequestResult"],["setFee","setFeesResult"],["manageAccount","manageAccountResult"],["createWithdrawalRequest","createWithdrawalRequestResult"],["manageBalance","manageBalanceResult"],["reviewPaymentRequest","reviewPaymentRequestResult"],["manageAsset","manageAssetResult"],["createPreissuanceRequest","createPreIssuanceRequestResult"],["manageLimit","manageLimitsResult"],["directDebit","directDebitResult"],["manageAssetPair","manageAssetPairResult"],["manageOffer","manageOfferResult"],["manageInvoiceRequest","manageInvoiceRequestResult"],["reviewRequest","reviewRequestResult"],["createSaleRequest","createSaleCreationRequestResult"],["checkSaleState","checkSaleStateResult"],["createAmlAlert","createAmlAlertRequestResult"],["manageKeyValue","manageKeyValueResult"],["createKycRequest","createUpdateKycRequestResult"],["manageExternalSystemAccountIdPoolEntry","manageExternalSystemAccountIdPoolEntryResult"],["bindExternalSystemAccountId","bindExternalSystemAccountIdResult"],["paymentV2","paymentV2Result"],["manageSale","manageSaleResult"],["createManageLimitsRequest","createManageLimitsRequestResult"],["billPay","billPayResult"]],arms:{createAccountResult:xdr.lookup("CreateAccountResult"),paymentResult:xdr.lookup("PaymentResult"),setOptionsResult:xdr.lookup("SetOptionsResult"),createIssuanceRequestResult:xdr.lookup("CreateIssuanceRequestResult"),setFeesResult:xdr.lookup("SetFeesResult"),manageAccountResult:xdr.lookup("ManageAccountResult"),createWithdrawalRequestResult:xdr.lookup("CreateWithdrawalRequestResult"),manageBalanceResult:xdr.lookup("ManageBalanceResult"),reviewPaymentRequestResult:xdr.lookup("ReviewPaymentRequestResult"),manageAssetResult:xdr.lookup("ManageAssetResult"),createPreIssuanceRequestResult:xdr.lookup("CreatePreIssuanceRequestResult"),manageLimitsResult:xdr.lookup("ManageLimitsResult"),directDebitResult:xdr.lookup("DirectDebitResult"),manageAssetPairResult:xdr.lookup("ManageAssetPairResult"),manageOfferResult:xdr.lookup("ManageOfferResult"),manageInvoiceRequestResult:xdr.lookup("ManageInvoiceRequestResult"),reviewRequestResult:xdr.lookup("ReviewRequestResult"),createSaleCreationRequestResult:xdr.lookup("CreateSaleCreationRequestResult"),checkSaleStateResult:xdr.lookup("CheckSaleStateResult"),createAmlAlertRequestResult:xdr.lookup("CreateAmlAlertRequestResult"),manageKeyValueResult:xdr.lookup("ManageKeyValueResult"),createUpdateKycRequestResult:xdr.lookup("CreateUpdateKycRequestResult"),manageExternalSystemAccountIdPoolEntryResult:xdr.lookup("ManageExternalSystemAccountIdPoolEntryResult"),bindExternalSystemAccountIdResult:xdr.lookup("BindExternalSystemAccountIdResult"),paymentV2Result:xdr.lookup("PaymentV2Result"),manageSaleResult:xdr.lookup("ManageSaleResult"),createManageLimitsRequestResult:xdr.lookup("CreateManageLimitsRequestResult"),billPayResult:xdr.lookup("BillPayResult")}}); // === xdr source ============================================================
 	//
 	//   union OperationResult switch (OperationResultCode code)
 	//   {
@@ -7390,8 +7625,8 @@ var StellarBase =
 	//   		ManageAssetPairResult manageAssetPairResult;
 	//   	case MANAGE_OFFER:
 	//   		ManageOfferResult manageOfferResult;
-	//   	case MANAGE_INVOICE:
-	//   		ManageInvoiceResult manageInvoiceResult;
+	//   	case MANAGE_INVOICE_REQUEST:
+	//   		ManageInvoiceRequestResult manageInvoiceRequestResult;
 	//   	case REVIEW_REQUEST:
 	//   		ReviewRequestResult reviewRequestResult;
 	//   	case CREATE_SALE_REQUEST:
@@ -7414,6 +7649,8 @@ var StellarBase =
 	//           ManageSaleResult manageSaleResult;
 	//       case CREATE_MANAGE_LIMITS_REQUEST:
 	//           CreateManageLimitsRequestResult createManageLimitsRequestResult;
+	//       case BILL_PAY:
+	//           BillPayResult billPayResult;
 	//       }
 	//       tr;
 	//   default:
@@ -43099,11 +43336,11 @@ var StellarBase =
 
 	var _network = __webpack_require__(44);
 
-	var _lodashMap = __webpack_require__(225);
+	var _lodashMap = __webpack_require__(226);
 
 	var _lodashMap2 = _interopRequireDefault(_lodashMap);
 
-	var _lodashEach = __webpack_require__(301);
+	var _lodashEach = __webpack_require__(302);
 
 	var _lodashEach2 = _interopRequireDefault(_lodashEach);
 
@@ -43323,6 +43560,8 @@ var StellarBase =
 	var _operationsManage_limits_builder = __webpack_require__(205);
 
 	var _operationsCreate_manage_limits_request_builder = __webpack_require__(206);
+
+	var _operationsManage_invoice_request_builder = __webpack_require__(225);
 
 	var Operation = (function (_BaseOperation) {
 	    _inherits(Operation, _BaseOperation);
@@ -43781,38 +44020,6 @@ var StellarBase =
 	            Operation.setSourceAccount(opAttributes, opts);
 	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
 	        }
-	    }, {
-	        key: "manageInvoice",
-	        value: function manageInvoice(opts) {
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].ManageInvoiceOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            };
-	            if (!_keypair.Keypair.isValidPublicKey(opts.sender)) {
-	                throw new Error("sender is invalid");
-	            }
-	            if (!_keypair.Keypair.isValidBalanceKey(opts.receiverBalance)) {
-	                throw new Error("receiverBalance is invalid");
-	            }
-	            if (!Operation.isValidAmount(opts.amount, true)) {
-	                throw new TypeError('amount argument must be of type String and represent a positive number or zero');
-	            }
-	            attributes.amount = Operation._toXDRAmount(opts.amount);
-
-	            if ((0, _lodashIsUndefined2["default"])(opts.invoiceId)) {
-	                throw new TypeError('invoiceId must be specified');
-	            }
-
-	            attributes.invoiceId = _jsXdr.UnsignedHyper.fromString(opts.invoiceId);
-	            attributes.sender = _keypair.Keypair.fromAccountId(opts.sender).xdrAccountId();
-	            attributes.receiverBalance = _keypair.Keypair.fromBalanceId(opts.receiverBalance).xdrBalanceId();
-
-	            var manageInvoiceOp = new _generatedStellarXdr_generated2["default"].ManageInvoiceOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.manageInvoice(manageInvoiceOp);
-	            Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
 
 	        /**
 	         * Converts the XDR Operation object to the opts object used to create the XDR
@@ -43953,11 +44160,8 @@ var StellarBase =
 	                case _generatedStellarXdr_generated2["default"].OperationType.manageOffer():
 	                    _operationsManage_offer_builder.ManageOfferBuilder.manageOfferOpToObject(result, attrs);
 	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageInvoice():
-	                    result.amount = Operation._fromXDRAmount(attrs.amount());
-	                    result.sender = accountIdtoAddress(attrs.sender());
-	                    result.receiverBalance = balanceIdtoString(attrs.receiverBalance());
-	                    result.invoiceId = attrs.invoiceId().toString();
+	                case _generatedStellarXdr_generated2["default"].OperationType.manageInvoiceRequest():
+	                    _operationsManage_invoice_request_builder.ManageInvoiceRequestBuilder.manageInvoiceRequestOpToObject(result, attrs);
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].OperationType.manageAssetPair():
 	                    result.action = attrs.action();
@@ -46631,9 +46835,140 @@ var StellarBase =
 /* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _generatedStellarXdr_generated = __webpack_require__(2);
+
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
+
+	var _lodashIsUndefined = __webpack_require__(61);
+
+	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
+
+	var _base_operation = __webpack_require__(42);
+
+	var _keypair = __webpack_require__(43);
+
+	var _jsXdr = __webpack_require__(3);
+
+	var _operation = __webpack_require__(208);
+
+	var ManageInvoiceRequestBuilder = (function () {
+	    function ManageInvoiceRequestBuilder() {
+	        _classCallCheck(this, ManageInvoiceRequestBuilder);
+	    }
+
+	    _createClass(ManageInvoiceRequestBuilder, null, [{
+	        key: 'createInvoiceRequest',
+
+	        /**
+	         * Create invoice request
+	         * @param {object} opts
+	         * @param {string} opts.sender - payer account
+	         * @param {string} opts.receiverBalance - invoice receive balance
+	         * @param {string} opts.amount - invoice amount
+	         * @param {string} opts.details - invoice details
+	         * @param {string} [opts.source] - The source account for the invoice request. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageInvoiceRequestOp}
+	         */
+	        value: function createInvoiceRequest(opts) {
+	            var invoiceRequestAttr = {
+	                ext: new _generatedStellarXdr_generated2['default'].InvoiceRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion()),
+	                details: opts.details
+	            };
+	            if (!_keypair.Keypair.isValidPublicKey(opts.sender)) {
+	                throw new Error("sender is invalid");
+	            }
+	            if (!_keypair.Keypair.isValidBalanceKey(opts.receiverBalance)) {
+	                throw new Error("receiverBalance is invalid");
+	            }
+	            if (!_operation.Operation.isValidAmount(opts.amount)) {
+	                throw new TypeError('amount argument must be of type String and represent a positive number');
+	            }
+	            invoiceRequestAttr.amount = _operation.Operation._toUnsignedXDRAmount(opts.amount);
+	            invoiceRequestAttr.sender = _keypair.Keypair.fromAccountId(opts.sender).xdrAccountId();
+	            invoiceRequestAttr.receiverBalance = _keypair.Keypair.fromBalanceId(opts.receiverBalance).xdrBalanceId();
+
+	            var invoiceRequest = new _generatedStellarXdr_generated2['default'].InvoiceRequest(invoiceRequestAttr);
+
+	            var details = new _generatedStellarXdr_generated2['default'].ManageInvoiceRequestOpDetails.create(invoiceRequest);
+
+	            return ManageInvoiceRequestBuilder.manageInvoiceRequest(details, opts);
+	        }
+
+	        /**
+	         * Remove invoice request
+	         * @param {object} opts
+	         * @param {string} opts.requestId - invoice request id to remove
+	         * @param {string} [opts.source] - The source account for the invoice request. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageInvoiceRequestOp}
+	         */
+	    }, {
+	        key: 'removeInvoiceRequest',
+	        value: function removeInvoiceRequest(opts) {
+	            var requestId = _jsXdr.UnsignedHyper.fromString(opts.requestId);
+	            var details = _generatedStellarXdr_generated2['default'].ManageInvoiceRequestOpDetails.remove(requestId);
+
+	            return ManageInvoiceRequestBuilder.manageInvoiceRequest(details, opts);
+	        }
+	    }, {
+	        key: 'manageInvoiceRequest',
+	        value: function manageInvoiceRequest(details, opts) {
+	            var manageInvoiceRequestOp = new _generatedStellarXdr_generated2['default'].ManageInvoiceRequestOp({
+	                details: details,
+	                ext: new _generatedStellarXdr_generated2['default'].ManageInvoiceRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.manageInvoiceRequest(manageInvoiceRequestOp);
+	            _operation.Operation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
+	        }
+	    }, {
+	        key: 'manageInvoiceRequestOpToObject',
+	        value: function manageInvoiceRequestOpToObject(result, attrs) {
+	            switch (attrs.details()['switch']()) {
+	                case _generatedStellarXdr_generated2['default'].ManageInvoiceRequestAction.create():
+	                    {
+	                        var invoiceRequest = attrs.details().invoiceRequest();
+
+	                        result.sender = _base_operation.BaseOperation.accountIdtoAddress(invoiceRequest.sender());
+	                        result.receiverBalance = _base_operation.BaseOperation.balanceIdtoString(invoiceRequest.receiverBalance());
+	                        result.amount = _base_operation.BaseOperation._fromXDRAmount(invoiceRequest.amount());
+	                        result.details = invoiceRequest.details();
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageInvoiceRequestAction.remove():
+	                    {
+	                        result.requestId = attrs.details().requestId().toString();
+	                        break;
+	                    }
+	            }
+	        }
+	    }]);
+
+	    return ManageInvoiceRequestBuilder;
+	})();
+
+	exports.ManageInvoiceRequestBuilder = ManageInvoiceRequestBuilder;
+
+/***/ }),
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	var arrayMap = __webpack_require__(103),
-	    baseIteratee = __webpack_require__(226),
-	    baseMap = __webpack_require__(295),
+	    baseIteratee = __webpack_require__(227),
+	    baseMap = __webpack_require__(296),
 	    isArray = __webpack_require__(95);
 
 	/**
@@ -46687,14 +47022,14 @@ var StellarBase =
 
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseMatches = __webpack_require__(227),
-	    baseMatchesProperty = __webpack_require__(280),
-	    identity = __webpack_require__(292),
+	var baseMatches = __webpack_require__(228),
+	    baseMatchesProperty = __webpack_require__(281),
+	    identity = __webpack_require__(293),
 	    isArray = __webpack_require__(95),
-	    property = __webpack_require__(293);
+	    property = __webpack_require__(294);
 
 	/**
 	 * The base implementation of `_.iteratee`.
@@ -46724,12 +47059,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsMatch = __webpack_require__(228),
-	    getMatchData = __webpack_require__(277),
-	    matchesStrictComparable = __webpack_require__(279);
+	var baseIsMatch = __webpack_require__(229),
+	    getMatchData = __webpack_require__(278),
+	    matchesStrictComparable = __webpack_require__(280);
 
 	/**
 	 * The base implementation of `_.matches` which doesn't clone `source`.
@@ -46752,11 +47087,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Stack = __webpack_require__(229),
-	    baseIsEqual = __webpack_require__(258);
+	var Stack = __webpack_require__(230),
+	    baseIsEqual = __webpack_require__(259);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1,
@@ -46820,15 +47155,15 @@ var StellarBase =
 
 
 /***/ }),
-/* 229 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var ListCache = __webpack_require__(230),
-	    stackClear = __webpack_require__(238),
-	    stackDelete = __webpack_require__(239),
-	    stackGet = __webpack_require__(240),
-	    stackHas = __webpack_require__(241),
-	    stackSet = __webpack_require__(242);
+	var ListCache = __webpack_require__(231),
+	    stackClear = __webpack_require__(239),
+	    stackDelete = __webpack_require__(240),
+	    stackGet = __webpack_require__(241),
+	    stackHas = __webpack_require__(242),
+	    stackSet = __webpack_require__(243);
 
 	/**
 	 * Creates a stack cache object to store key-value pairs.
@@ -46853,14 +47188,14 @@ var StellarBase =
 
 
 /***/ }),
-/* 230 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var listCacheClear = __webpack_require__(231),
-	    listCacheDelete = __webpack_require__(232),
-	    listCacheGet = __webpack_require__(235),
-	    listCacheHas = __webpack_require__(236),
-	    listCacheSet = __webpack_require__(237);
+	var listCacheClear = __webpack_require__(232),
+	    listCacheDelete = __webpack_require__(233),
+	    listCacheGet = __webpack_require__(236),
+	    listCacheHas = __webpack_require__(237),
+	    listCacheSet = __webpack_require__(238);
 
 	/**
 	 * Creates an list cache object.
@@ -46891,7 +47226,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 231 */
+/* 232 */
 /***/ (function(module, exports) {
 
 	/**
@@ -46910,10 +47245,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 232 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(233);
+	var assocIndexOf = __webpack_require__(234);
 
 	/** Used for built-in method references. */
 	var arrayProto = Array.prototype;
@@ -46951,10 +47286,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 233 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var eq = __webpack_require__(234);
+	var eq = __webpack_require__(235);
 
 	/**
 	 * Gets the index at which the `key` is found in `array` of key-value pairs.
@@ -46978,7 +47313,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 234 */
+/* 235 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47021,10 +47356,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(233);
+	var assocIndexOf = __webpack_require__(234);
 
 	/**
 	 * Gets the list cache value for `key`.
@@ -47046,10 +47381,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(233);
+	var assocIndexOf = __webpack_require__(234);
 
 	/**
 	 * Checks if a list cache value for `key` exists.
@@ -47068,10 +47403,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(233);
+	var assocIndexOf = __webpack_require__(234);
 
 	/**
 	 * Sets the list cache `key` to `value`.
@@ -47100,10 +47435,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var ListCache = __webpack_require__(230);
+	var ListCache = __webpack_require__(231);
 
 	/**
 	 * Removes all key-value entries from the stack.
@@ -47121,7 +47456,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 239 */
+/* 240 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47145,7 +47480,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 240 */
+/* 241 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47165,7 +47500,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 241 */
+/* 242 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47185,12 +47520,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 242 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var ListCache = __webpack_require__(230),
+	var ListCache = __webpack_require__(231),
 	    Map = __webpack_require__(148),
-	    MapCache = __webpack_require__(243);
+	    MapCache = __webpack_require__(244);
 
 	/** Used as the size to enable large array optimizations. */
 	var LARGE_ARRAY_SIZE = 200;
@@ -47225,14 +47560,14 @@ var StellarBase =
 
 
 /***/ }),
-/* 243 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var mapCacheClear = __webpack_require__(244),
-	    mapCacheDelete = __webpack_require__(252),
-	    mapCacheGet = __webpack_require__(255),
-	    mapCacheHas = __webpack_require__(256),
-	    mapCacheSet = __webpack_require__(257);
+	var mapCacheClear = __webpack_require__(245),
+	    mapCacheDelete = __webpack_require__(253),
+	    mapCacheGet = __webpack_require__(256),
+	    mapCacheHas = __webpack_require__(257),
+	    mapCacheSet = __webpack_require__(258);
 
 	/**
 	 * Creates a map cache object to store key-value pairs.
@@ -47263,11 +47598,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 244 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Hash = __webpack_require__(245),
-	    ListCache = __webpack_require__(230),
+	var Hash = __webpack_require__(246),
+	    ListCache = __webpack_require__(231),
 	    Map = __webpack_require__(148);
 
 	/**
@@ -47290,14 +47625,14 @@ var StellarBase =
 
 
 /***/ }),
-/* 245 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var hashClear = __webpack_require__(246),
-	    hashDelete = __webpack_require__(248),
-	    hashGet = __webpack_require__(249),
-	    hashHas = __webpack_require__(250),
-	    hashSet = __webpack_require__(251);
+	var hashClear = __webpack_require__(247),
+	    hashDelete = __webpack_require__(249),
+	    hashGet = __webpack_require__(250),
+	    hashHas = __webpack_require__(251),
+	    hashSet = __webpack_require__(252);
 
 	/**
 	 * Creates a hash object.
@@ -47328,10 +47663,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 246 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(247);
+	var nativeCreate = __webpack_require__(248);
 
 	/**
 	 * Removes all key-value entries from the hash.
@@ -47349,7 +47684,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 247 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(142);
@@ -47361,7 +47696,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 248 */
+/* 249 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47384,10 +47719,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 249 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(247);
+	var nativeCreate = __webpack_require__(248);
 
 	/** Used to stand-in for `undefined` hash values. */
 	var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -47420,10 +47755,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 250 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(247);
+	var nativeCreate = __webpack_require__(248);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -47449,10 +47784,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(247);
+	var nativeCreate = __webpack_require__(248);
 
 	/** Used to stand-in for `undefined` hash values. */
 	var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -47478,10 +47813,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(253);
+	var getMapData = __webpack_require__(254);
 
 	/**
 	 * Removes `key` and its value from the map.
@@ -47502,10 +47837,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isKeyable = __webpack_require__(254);
+	var isKeyable = __webpack_require__(255);
 
 	/**
 	 * Gets the data for `map`.
@@ -47526,7 +47861,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47547,10 +47882,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(253);
+	var getMapData = __webpack_require__(254);
 
 	/**
 	 * Gets the map value for `key`.
@@ -47569,10 +47904,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(253);
+	var getMapData = __webpack_require__(254);
 
 	/**
 	 * Checks if a map value for `key` exists.
@@ -47591,10 +47926,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(253);
+	var getMapData = __webpack_require__(254);
 
 	/**
 	 * Sets the map `key` to `value`.
@@ -47619,10 +47954,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsEqualDeep = __webpack_require__(259),
+	var baseIsEqualDeep = __webpack_require__(260),
 	    isObjectLike = __webpack_require__(96);
 
 	/**
@@ -47653,13 +47988,13 @@ var StellarBase =
 
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Stack = __webpack_require__(229),
-	    equalArrays = __webpack_require__(260),
-	    equalByTag = __webpack_require__(266),
-	    equalObjects = __webpack_require__(270),
+	var Stack = __webpack_require__(230),
+	    equalArrays = __webpack_require__(261),
+	    equalByTag = __webpack_require__(267),
+	    equalObjects = __webpack_require__(271),
 	    getTag = __webpack_require__(140),
 	    isArray = __webpack_require__(95),
 	    isBuffer = __webpack_require__(109),
@@ -47742,12 +48077,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var SetCache = __webpack_require__(261),
-	    arraySome = __webpack_require__(264),
-	    cacheHas = __webpack_require__(265);
+	var SetCache = __webpack_require__(262),
+	    arraySome = __webpack_require__(265),
+	    cacheHas = __webpack_require__(266);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1,
@@ -47831,12 +48166,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var MapCache = __webpack_require__(243),
-	    setCacheAdd = __webpack_require__(262),
-	    setCacheHas = __webpack_require__(263);
+	var MapCache = __webpack_require__(244),
+	    setCacheAdd = __webpack_require__(263),
+	    setCacheHas = __webpack_require__(264);
 
 	/**
 	 *
@@ -47864,7 +48199,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports) {
 
 	/** Used to stand-in for `undefined` hash values. */
@@ -47889,7 +48224,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47909,7 +48244,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47938,7 +48273,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 265 */
+/* 266 */
 /***/ (function(module, exports) {
 
 	/**
@@ -47957,15 +48292,15 @@ var StellarBase =
 
 
 /***/ }),
-/* 266 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var Symbol = __webpack_require__(87),
-	    Uint8Array = __webpack_require__(267),
-	    eq = __webpack_require__(234),
-	    equalArrays = __webpack_require__(260),
-	    mapToArray = __webpack_require__(268),
-	    setToArray = __webpack_require__(269);
+	    Uint8Array = __webpack_require__(268),
+	    eq = __webpack_require__(235),
+	    equalArrays = __webpack_require__(261),
+	    mapToArray = __webpack_require__(269),
+	    setToArray = __webpack_require__(270);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1,
@@ -48075,7 +48410,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 267 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var root = __webpack_require__(88);
@@ -48087,7 +48422,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 268 */
+/* 269 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48111,7 +48446,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 269 */
+/* 270 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48135,10 +48470,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 270 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getAllKeys = __webpack_require__(271);
+	var getAllKeys = __webpack_require__(272);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1;
@@ -48230,11 +48565,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 271 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetAllKeys = __webpack_require__(272),
-	    getSymbols = __webpack_require__(274),
+	var baseGetAllKeys = __webpack_require__(273),
+	    getSymbols = __webpack_require__(275),
 	    keys = __webpack_require__(104);
 
 	/**
@@ -48252,10 +48587,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 272 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayPush = __webpack_require__(273),
+	var arrayPush = __webpack_require__(274),
 	    isArray = __webpack_require__(95);
 
 	/**
@@ -48278,7 +48613,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 273 */
+/* 274 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48304,11 +48639,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 274 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayFilter = __webpack_require__(275),
-	    stubArray = __webpack_require__(276);
+	var arrayFilter = __webpack_require__(276),
+	    stubArray = __webpack_require__(277);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -48340,7 +48675,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 275 */
+/* 276 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48371,7 +48706,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 276 */
+/* 277 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48400,10 +48735,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 277 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isStrictComparable = __webpack_require__(278),
+	var isStrictComparable = __webpack_require__(279),
 	    keys = __webpack_require__(104);
 
 	/**
@@ -48430,7 +48765,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 278 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(92);
@@ -48451,7 +48786,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 279 */
+/* 280 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48477,16 +48812,16 @@ var StellarBase =
 
 
 /***/ }),
-/* 280 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsEqual = __webpack_require__(258),
-	    get = __webpack_require__(281),
-	    hasIn = __webpack_require__(289),
-	    isKey = __webpack_require__(284),
-	    isStrictComparable = __webpack_require__(278),
-	    matchesStrictComparable = __webpack_require__(279),
-	    toKey = __webpack_require__(288);
+	var baseIsEqual = __webpack_require__(259),
+	    get = __webpack_require__(282),
+	    hasIn = __webpack_require__(290),
+	    isKey = __webpack_require__(285),
+	    isStrictComparable = __webpack_require__(279),
+	    matchesStrictComparable = __webpack_require__(280),
+	    toKey = __webpack_require__(289);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1,
@@ -48516,10 +48851,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 281 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(282);
+	var baseGet = __webpack_require__(283);
 
 	/**
 	 * Gets the value at `path` of `object`. If the resolved value is
@@ -48555,11 +48890,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 282 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var castPath = __webpack_require__(283),
-	    toKey = __webpack_require__(288);
+	var castPath = __webpack_require__(284),
+	    toKey = __webpack_require__(289);
 
 	/**
 	 * The base implementation of `_.get` without support for default values.
@@ -48585,12 +48920,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 283 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isArray = __webpack_require__(95),
-	    isKey = __webpack_require__(284),
-	    stringToPath = __webpack_require__(285),
+	    isKey = __webpack_require__(285),
+	    stringToPath = __webpack_require__(286),
 	    toString = __webpack_require__(136);
 
 	/**
@@ -48612,7 +48947,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 284 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isArray = __webpack_require__(95),
@@ -48647,10 +48982,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 285 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var memoizeCapped = __webpack_require__(286);
+	var memoizeCapped = __webpack_require__(287);
 
 	/** Used to match property names within property paths. */
 	var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
@@ -48680,10 +49015,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var memoize = __webpack_require__(287);
+	var memoize = __webpack_require__(288);
 
 	/** Used as the maximum memoize cache size. */
 	var MAX_MEMOIZE_SIZE = 500;
@@ -48712,10 +49047,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var MapCache = __webpack_require__(243);
+	var MapCache = __webpack_require__(244);
 
 	/** Error message constants. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -48791,7 +49126,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isSymbol = __webpack_require__(100);
@@ -48818,11 +49153,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseHasIn = __webpack_require__(290),
-	    hasPath = __webpack_require__(291);
+	var baseHasIn = __webpack_require__(291),
+	    hasPath = __webpack_require__(292);
 
 	/**
 	 * Checks if `path` is a direct or inherited property of `object`.
@@ -48858,7 +49193,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48877,15 +49212,15 @@ var StellarBase =
 
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var castPath = __webpack_require__(283),
+	var castPath = __webpack_require__(284),
 	    isArguments = __webpack_require__(107),
 	    isArray = __webpack_require__(95),
 	    isIndex = __webpack_require__(111),
 	    isLength = __webpack_require__(93),
-	    toKey = __webpack_require__(288);
+	    toKey = __webpack_require__(289);
 
 	/**
 	 * Checks if `path` exists on `object`.
@@ -48922,7 +49257,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports) {
 
 	/**
@@ -48949,13 +49284,13 @@ var StellarBase =
 
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var baseProperty = __webpack_require__(131),
-	    basePropertyDeep = __webpack_require__(294),
-	    isKey = __webpack_require__(284),
-	    toKey = __webpack_require__(288);
+	    basePropertyDeep = __webpack_require__(295),
+	    isKey = __webpack_require__(285),
+	    toKey = __webpack_require__(289);
 
 	/**
 	 * Creates a function that returns the value at `path` of a given object.
@@ -48987,10 +49322,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(282);
+	var baseGet = __webpack_require__(283);
 
 	/**
 	 * A specialized version of `baseProperty` which supports deep paths.
@@ -49009,10 +49344,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseEach = __webpack_require__(296),
+	var baseEach = __webpack_require__(297),
 	    isArrayLike = __webpack_require__(84);
 
 	/**
@@ -49037,11 +49372,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseForOwn = __webpack_require__(297),
-	    createBaseEach = __webpack_require__(300);
+	var baseForOwn = __webpack_require__(298),
+	    createBaseEach = __webpack_require__(301);
 
 	/**
 	 * The base implementation of `_.forEach` without support for iteratee shorthands.
@@ -49057,10 +49392,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseFor = __webpack_require__(298),
+	var baseFor = __webpack_require__(299),
 	    keys = __webpack_require__(104);
 
 	/**
@@ -49079,10 +49414,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var createBaseFor = __webpack_require__(299);
+	var createBaseFor = __webpack_require__(300);
 
 	/**
 	 * The base implementation of `baseForOwn` which iterates over `object`
@@ -49101,7 +49436,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 299 */
+/* 300 */
 /***/ (function(module, exports) {
 
 	/**
@@ -49132,7 +49467,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 300 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isArrayLike = __webpack_require__(84);
@@ -49170,19 +49505,19 @@ var StellarBase =
 
 
 /***/ }),
-/* 301 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(302);
-
-
-/***/ }),
 /* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayEach = __webpack_require__(303),
-	    baseEach = __webpack_require__(296),
-	    castFunction = __webpack_require__(304),
+	module.exports = __webpack_require__(303);
+
+
+/***/ }),
+/* 303 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var arrayEach = __webpack_require__(304),
+	    baseEach = __webpack_require__(297),
+	    castFunction = __webpack_require__(305),
 	    isArray = __webpack_require__(95);
 
 	/**
@@ -49224,7 +49559,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 303 */
+/* 304 */
 /***/ (function(module, exports) {
 
 	/**
@@ -49252,10 +49587,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 304 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(292);
+	var identity = __webpack_require__(293);
 
 	/**
 	 * Casts `value` to `identity` if it's not a function.
@@ -49272,7 +49607,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 305 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49299,23 +49634,23 @@ var StellarBase =
 
 	var _keypair = __webpack_require__(43);
 
-	var _account = __webpack_require__(306);
+	var _account = __webpack_require__(307);
 
 	var _operation = __webpack_require__(208);
 
 	var _transaction = __webpack_require__(207);
 
-	var _memo = __webpack_require__(307);
+	var _memo = __webpack_require__(308);
 
 	var _bignumberJs = __webpack_require__(120);
 
 	var _bignumberJs2 = _interopRequireDefault(_bignumberJs);
 
-	var _lodashClone = __webpack_require__(308);
+	var _lodashClone = __webpack_require__(309);
 
 	var _lodashClone2 = _interopRequireDefault(_lodashClone);
 
-	var _lodashMap = __webpack_require__(225);
+	var _lodashMap = __webpack_require__(226);
 
 	var _lodashMap2 = _interopRequireDefault(_lodashMap);
 
@@ -49466,7 +49801,7 @@ var StellarBase =
 	exports.TransactionBuilder = TransactionBuilder;
 
 /***/ }),
-/* 306 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49554,7 +49889,7 @@ var StellarBase =
 	exports.Account = Account;
 
 /***/ }),
-/* 307 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
@@ -49733,10 +50068,10 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9).Buffer))
 
 /***/ }),
-/* 308 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseClone = __webpack_require__(309);
+	var baseClone = __webpack_require__(310);
 
 	/** Used to compose bitmasks for cloning. */
 	var CLONE_SYMBOLS_FLAG = 4;
@@ -49775,29 +50110,29 @@ var StellarBase =
 
 
 /***/ }),
-/* 309 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Stack = __webpack_require__(229),
-	    arrayEach = __webpack_require__(303),
-	    assignValue = __webpack_require__(310),
-	    baseAssign = __webpack_require__(313),
-	    baseAssignIn = __webpack_require__(315),
-	    cloneBuffer = __webpack_require__(319),
-	    copyArray = __webpack_require__(320),
-	    copySymbols = __webpack_require__(321),
-	    copySymbolsIn = __webpack_require__(322),
-	    getAllKeys = __webpack_require__(271),
-	    getAllKeysIn = __webpack_require__(325),
+	var Stack = __webpack_require__(230),
+	    arrayEach = __webpack_require__(304),
+	    assignValue = __webpack_require__(311),
+	    baseAssign = __webpack_require__(314),
+	    baseAssignIn = __webpack_require__(316),
+	    cloneBuffer = __webpack_require__(320),
+	    copyArray = __webpack_require__(321),
+	    copySymbols = __webpack_require__(322),
+	    copySymbolsIn = __webpack_require__(323),
+	    getAllKeys = __webpack_require__(272),
+	    getAllKeysIn = __webpack_require__(326),
 	    getTag = __webpack_require__(140),
-	    initCloneArray = __webpack_require__(326),
-	    initCloneByTag = __webpack_require__(327),
-	    initCloneObject = __webpack_require__(333),
+	    initCloneArray = __webpack_require__(327),
+	    initCloneByTag = __webpack_require__(328),
+	    initCloneObject = __webpack_require__(334),
 	    isArray = __webpack_require__(95),
 	    isBuffer = __webpack_require__(109),
-	    isMap = __webpack_require__(335),
+	    isMap = __webpack_require__(336),
 	    isObject = __webpack_require__(92),
-	    isSet = __webpack_require__(337),
+	    isSet = __webpack_require__(338),
 	    keys = __webpack_require__(104);
 
 	/** Used to compose bitmasks for cloning. */
@@ -49952,11 +50287,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 310 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseAssignValue = __webpack_require__(311),
-	    eq = __webpack_require__(234);
+	var baseAssignValue = __webpack_require__(312),
+	    eq = __webpack_require__(235);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -49986,10 +50321,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 311 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var defineProperty = __webpack_require__(312);
+	var defineProperty = __webpack_require__(313);
 
 	/**
 	 * The base implementation of `assignValue` and `assignMergeValue` without
@@ -50017,7 +50352,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 312 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(142);
@@ -50034,10 +50369,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 313 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var copyObject = __webpack_require__(314),
+	var copyObject = __webpack_require__(315),
 	    keys = __webpack_require__(104);
 
 	/**
@@ -50057,11 +50392,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 314 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assignValue = __webpack_require__(310),
-	    baseAssignValue = __webpack_require__(311);
+	var assignValue = __webpack_require__(311),
+	    baseAssignValue = __webpack_require__(312);
 
 	/**
 	 * Copies properties of `source` to `object`.
@@ -50103,11 +50438,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 315 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var copyObject = __webpack_require__(314),
-	    keysIn = __webpack_require__(316);
+	var copyObject = __webpack_require__(315),
+	    keysIn = __webpack_require__(317);
 
 	/**
 	 * The base implementation of `_.assignIn` without support for multiple sources
@@ -50126,11 +50461,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 316 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var arrayLikeKeys = __webpack_require__(105),
-	    baseKeysIn = __webpack_require__(317),
+	    baseKeysIn = __webpack_require__(318),
 	    isArrayLike = __webpack_require__(84);
 
 	/**
@@ -50164,12 +50499,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 317 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(92),
 	    isPrototype = __webpack_require__(117),
-	    nativeKeysIn = __webpack_require__(318);
+	    nativeKeysIn = __webpack_require__(319);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -50203,7 +50538,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 318 */
+/* 319 */
 /***/ (function(module, exports) {
 
 	/**
@@ -50229,7 +50564,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 319 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(88);
@@ -50271,7 +50606,7 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
-/* 320 */
+/* 321 */
 /***/ (function(module, exports) {
 
 	/**
@@ -50297,11 +50632,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 321 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var copyObject = __webpack_require__(314),
-	    getSymbols = __webpack_require__(274);
+	var copyObject = __webpack_require__(315),
+	    getSymbols = __webpack_require__(275);
 
 	/**
 	 * Copies own symbols of `source` to `object`.
@@ -50319,11 +50654,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 322 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var copyObject = __webpack_require__(314),
-	    getSymbolsIn = __webpack_require__(323);
+	var copyObject = __webpack_require__(315),
+	    getSymbolsIn = __webpack_require__(324);
 
 	/**
 	 * Copies own and inherited symbols of `source` to `object`.
@@ -50341,13 +50676,13 @@ var StellarBase =
 
 
 /***/ }),
-/* 323 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayPush = __webpack_require__(273),
-	    getPrototype = __webpack_require__(324),
-	    getSymbols = __webpack_require__(274),
-	    stubArray = __webpack_require__(276);
+	var arrayPush = __webpack_require__(274),
+	    getPrototype = __webpack_require__(325),
+	    getSymbols = __webpack_require__(275),
+	    stubArray = __webpack_require__(277);
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeGetSymbols = Object.getOwnPropertySymbols;
@@ -50372,7 +50707,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 324 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var overArg = __webpack_require__(119);
@@ -50384,12 +50719,12 @@ var StellarBase =
 
 
 /***/ }),
-/* 325 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetAllKeys = __webpack_require__(272),
-	    getSymbolsIn = __webpack_require__(323),
-	    keysIn = __webpack_require__(316);
+	var baseGetAllKeys = __webpack_require__(273),
+	    getSymbolsIn = __webpack_require__(324),
+	    keysIn = __webpack_require__(317);
 
 	/**
 	 * Creates an array of own and inherited enumerable property names and
@@ -50407,7 +50742,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 326 */
+/* 327 */
 /***/ (function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -50439,14 +50774,14 @@ var StellarBase =
 
 
 /***/ }),
-/* 327 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var cloneArrayBuffer = __webpack_require__(328),
-	    cloneDataView = __webpack_require__(329),
-	    cloneRegExp = __webpack_require__(330),
-	    cloneSymbol = __webpack_require__(331),
-	    cloneTypedArray = __webpack_require__(332);
+	var cloneArrayBuffer = __webpack_require__(329),
+	    cloneDataView = __webpack_require__(330),
+	    cloneRegExp = __webpack_require__(331),
+	    cloneSymbol = __webpack_require__(332),
+	    cloneTypedArray = __webpack_require__(333);
 
 	/** `Object#toString` result references. */
 	var boolTag = '[object Boolean]',
@@ -50522,10 +50857,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 328 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Uint8Array = __webpack_require__(267);
+	var Uint8Array = __webpack_require__(268);
 
 	/**
 	 * Creates a clone of `arrayBuffer`.
@@ -50544,10 +50879,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 329 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var cloneArrayBuffer = __webpack_require__(328);
+	var cloneArrayBuffer = __webpack_require__(329);
 
 	/**
 	 * Creates a clone of `dataView`.
@@ -50566,7 +50901,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 330 */
+/* 331 */
 /***/ (function(module, exports) {
 
 	/** Used to match `RegExp` flags from their coerced string values. */
@@ -50589,7 +50924,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 331 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var Symbol = __webpack_require__(87);
@@ -50613,10 +50948,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 332 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var cloneArrayBuffer = __webpack_require__(328);
+	var cloneArrayBuffer = __webpack_require__(329);
 
 	/**
 	 * Creates a clone of `typedArray`.
@@ -50635,11 +50970,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 333 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseCreate = __webpack_require__(334),
-	    getPrototype = __webpack_require__(324),
+	var baseCreate = __webpack_require__(335),
+	    getPrototype = __webpack_require__(325),
 	    isPrototype = __webpack_require__(117);
 
 	/**
@@ -50659,7 +50994,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 334 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(92);
@@ -50695,10 +51030,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 335 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsMap = __webpack_require__(336),
+	var baseIsMap = __webpack_require__(337),
 	    baseUnary = __webpack_require__(114),
 	    nodeUtil = __webpack_require__(115);
 
@@ -50728,7 +51063,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 336 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getTag = __webpack_require__(140),
@@ -50752,10 +51087,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 337 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsSet = __webpack_require__(338),
+	var baseIsSet = __webpack_require__(339),
 	    baseUnary = __webpack_require__(114),
 	    nodeUtil = __webpack_require__(115);
 
@@ -50785,7 +51120,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 338 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getTag = __webpack_require__(140),

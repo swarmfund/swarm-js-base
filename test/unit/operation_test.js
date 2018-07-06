@@ -559,30 +559,6 @@ describe('Operation', function () {
 
     });
 
-    describe(".manageInvoice()", function () {
-        it("creates a manageInvoice", function () {
-            var sender = StellarBase.Keypair.random().accountId();
-            var receiverBalance = StellarBase.Keypair.random().balanceId();
-            var amount = "1000";
-            var invoiceId = "0";
-            let op = StellarBase.Operation.manageInvoice({
-                sender, receiverBalance,
-                amount, invoiceId
-            });
-            var xdr = op.toXDR("hex");
-            var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
-            var obj = StellarBase.Operation.operationToObject(operation);
-            expect(obj.type).to.be.equal("manageInvoice");
-            expect(obj.sender).to.be.equal(sender);
-            expect(obj.receiverBalance).to.be.equal(receiverBalance);
-            expect(operation.body().value().amount().toString()).to.be.equal('1000000000');
-            expect(obj.amount).to.be.equal(amount);
-            expect(obj.invoiceId).to.be.equal(invoiceId);
-        });
-    });
-
-
-
     describe("._checkUnsignedIntValue()", function () {
         it("returns true for valid values", function () {
             let values = [
