@@ -32,6 +32,7 @@ import { ManageSaleBuilder} from "./operations/manage_sale";
 import { ManageLimitsBuilder} from "./operations/manage_limits_builder";
 import { CreateManageLimitsRequestBuilder } from "./operations/create_manage_limits_request_builder";
 import {ManageInvoiceRequestBuilder} from "./operations/manage_invoice_request_builder";
+import {BillPayBuilder} from "./operations/bill_pay_builder";
 
 export class Operation extends BaseOperation {
 
@@ -656,6 +657,9 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.createManageLimitsRequest():
                 CreateManageLimitsRequestBuilder.createManageLimitsRequestToObject(result, attrs);
+                break;
+            case xdr.OperationType.billPay():
+                BillPayBuilder.billPayToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");
