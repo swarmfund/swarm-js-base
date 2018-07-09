@@ -3,7 +3,6 @@ import isUndefined from 'lodash/isUndefined';
 import {BaseOperation} from './base_operation';
 import {Keypair} from "../keypair";
 import {UnsignedHyper, Hyper} from "js-xdr";
-import {Operation} from "../operation";
 
 export class ManageInvoiceRequestBuilder {
 
@@ -28,10 +27,10 @@ export class ManageInvoiceRequestBuilder {
         if (!Keypair.isValidBalanceKey(opts.receiverBalance)) {
             throw new Error("receiverBalance is invalid");
         }
-        if (!Operation.isValidAmount(opts.amount)) {
+        if (!BaseOperation.isValidAmount(opts.amount)) {
             throw new TypeError('amount argument must be of type String and represent a positive number');
         }
-        invoiceRequestAttr.amount = Operation._toUnsignedXDRAmount(opts.amount);
+        invoiceRequestAttr.amount = BaseOperation._toUnsignedXDRAmount(opts.amount);
         invoiceRequestAttr.sender = Keypair.fromAccountId(opts.sender).xdrAccountId();
         invoiceRequestAttr.receiverBalance = Keypair.fromBalanceId(opts.receiverBalance).xdrBalanceId();
 
@@ -64,7 +63,7 @@ export class ManageInvoiceRequestBuilder {
 
         let opAttributes = {};
         opAttributes.body = xdr.OperationBody.manageInvoiceRequest(manageInvoiceRequestOp);
-        Operation.setSourceAccount(opAttributes, opts);
+        BaseOperation.setSourceAccount(opAttributes, opts);
         return new xdr.Operation(opAttributes);
     }
 
