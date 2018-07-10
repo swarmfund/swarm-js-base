@@ -12,14 +12,14 @@ export class ManageInvoiceRequestBuilder {
      * @param {string} opts.sender - payer account
      * @param {string} opts.receiverBalance - invoice receive balance
      * @param {string} opts.amount - invoice amount
-     * @param {string} opts.details - invoice details
+     * @param {object} opts.details - invoice details
      * @param {string} [opts.source] - The source account for the invoice request. Defaults to the transaction's source account.
      * @returns {xdr.ManageInvoiceRequestOp}
      */
     static createInvoiceRequest(opts) {
         let invoiceRequestAttr = {
             ext: new xdr.InvoiceRequestExt(xdr.LedgerVersion.emptyVersion()),
-            details: opts.details,
+            details: JSON.stringify(opts.details),
         };
         if (!Keypair.isValidPublicKey(opts.sender)) {
             throw new Error("sender is invalid");
@@ -76,7 +76,7 @@ export class ManageInvoiceRequestBuilder {
                 result.sender = BaseOperation.accountIdtoAddress(invoiceRequest.sender());
                 result.receiverBalance = BaseOperation.balanceIdtoString(invoiceRequest.receiverBalance());
                 result.amount = BaseOperation._fromXDRAmount(invoiceRequest.amount());
-                result.details = invoiceRequest.details();
+                result.details = JSON.parse(invoiceRequest.details());
                 break;
             }
             case xdr.ManageInvoiceRequestAction.remove(): {

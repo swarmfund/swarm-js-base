@@ -1,11 +1,12 @@
 import {ManageInvoiceRequestBuilder} from "../../../src/operations/manage_invoice_request_builder";
+import isEqual from "lodash/isEqual";
 
 describe(".manageInvoice()", function () {
     it("create invoiceRequest", function () {
         var sender = StellarBase.Keypair.random().accountId();
         var receiverBalance = StellarBase.Keypair.random().balanceId();
         var amount = "1000";
-        let details = "Some details about invoice request";
+        let details = {"data" : "Some details about invoice request"};
         let op = StellarBase.ManageInvoiceRequestBuilder.createInvoiceRequest({
             sender, receiverBalance, amount, details
         });
@@ -17,7 +18,7 @@ describe(".manageInvoice()", function () {
         expect(obj.receiverBalance).to.be.equal(receiverBalance);
         expect(operation.body().value().details().invoiceRequest().amount().toString()).to.be.equal(amount + "000000");
         expect(obj.amount).to.be.equal(amount);
-        expect(obj.details).to.be.equal(details);
+        expect(isEqual(obj.details, details)).to.be.true;
     });
     it("remove invoiceRequest", function () {
         let requestId = "123";

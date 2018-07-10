@@ -43282,7 +43282,7 @@ var StellarBase =
 	        /**
 	         * Creates limits update request
 	         * @param {object} opts
-	         * @param {string} opts.details - string details to review
+	         * @param {object} opts.details - details to review
 	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
 	         * @returns {xdr.CreateManageLimitsRequestOp}
 	         */
@@ -43291,7 +43291,7 @@ var StellarBase =
 	                throw new Error('opts.details is not defined');
 	            }
 
-	            var ext = _generatedStellarXdr_generated2['default'].LimitsUpdateRequestExt.limitsUpdateRequestDeprecatedDocumentHash(opts.details);
+	            var ext = _generatedStellarXdr_generated2['default'].LimitsUpdateRequestExt.limitsUpdateRequestDeprecatedDocumentHash(JSON.stringify(opts.details));
 
 	            var limitsUpdateRequest = new _generatedStellarXdr_generated2['default'].LimitsUpdateRequest({
 	                deprecatedDocumentHash: new Buffer(32),
@@ -43311,7 +43311,7 @@ var StellarBase =
 	    }, {
 	        key: 'createManageLimitsRequestToObject',
 	        value: function createManageLimitsRequestToObject(result, attrs) {
-	            result.details = attrs.manageLimitsRequest().ext().details();
+	            result.details = JSON.parse(attrs.manageLimitsRequest().ext().details());
 	        }
 	    }]);
 
@@ -46889,14 +46889,14 @@ var StellarBase =
 	         * @param {string} opts.sender - payer account
 	         * @param {string} opts.receiverBalance - invoice receive balance
 	         * @param {string} opts.amount - invoice amount
-	         * @param {string} opts.details - invoice details
+	         * @param {object} opts.details - invoice details
 	         * @param {string} [opts.source] - The source account for the invoice request. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageInvoiceRequestOp}
 	         */
 	        value: function createInvoiceRequest(opts) {
 	            var invoiceRequestAttr = {
 	                ext: new _generatedStellarXdr_generated2['default'].InvoiceRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion()),
-	                details: opts.details
+	                details: JSON.stringify(opts.details)
 	            };
 	            if (!_keypair.Keypair.isValidPublicKey(opts.sender)) {
 	                throw new Error("sender is invalid");
@@ -46957,7 +46957,7 @@ var StellarBase =
 	                        result.sender = _base_operation.BaseOperation.accountIdtoAddress(invoiceRequest.sender());
 	                        result.receiverBalance = _base_operation.BaseOperation.balanceIdtoString(invoiceRequest.receiverBalance());
 	                        result.amount = _base_operation.BaseOperation._fromXDRAmount(invoiceRequest.amount());
-	                        result.details = invoiceRequest.details();
+	                        result.details = JSON.parse(invoiceRequest.details());
 	                        break;
 	                    }
 	                case _generatedStellarXdr_generated2['default'].ManageInvoiceRequestAction.remove():
