@@ -15,12 +15,10 @@ export class ManageSaleBuilder {
      * @param {object} opts.newDetails.short_description - short description of the sale
      * @param {object} opts.newDetails.description - sale description
      * @param {object} opts.newDetails.logo - details of the logo
-     * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+     * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
      * @returns {xdr.ManageSaleOp}
      */
     static createUpdateSaleDetailsRequest(opts) {
-        let attrs = {};
-
         if (isUndefined(opts.requestID)) {
             throw new Error("opts.requestID is invalid");
         }
@@ -40,6 +38,46 @@ export class ManageSaleBuilder {
         let manageSaleOp = new xdr.ManageSaleOp({
             saleId: UnsignedHyper.fromString(opts.saleID),
             data: new xdr.ManageSaleOpData.createUpdateDetailsRequest(updateSaleDetailsData),
+            ext: new xdr.ManageSaleOpExt(xdr.LedgerVersion.emptyVersion()),
+        });
+
+        let opAttrs = {};
+        opAttrs.body = xdr.OperationBody.manageSale(manageSaleOp);
+        BaseOperation.setSourceAccount(opAttrs, opts);
+        return new xdr.Operation(opAttrs);
+    }
+
+    /**
+     * Creates request to update manage sale end time
+     * @param {object} opts
+     * @param {number|string} opts.requestID - set to zero to create new request
+     * @param {string} opts.saleID - ID of the sale to create new update end time request
+     * @param {number|string} opts.newEndTime - new sale end time
+     * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
+     * @returns {xdr.ManageSaleOp}
+     */
+    static createUpdateSaleEndTimeRequest(opts) {
+        if (isUndefined(opts.requestID)) {
+            throw new Error("opts.requestID is invalid");
+        }
+
+        if (isUndefined(opts.saleID)) {
+            throw new Error("opts.saleID is invalid");
+        }
+
+        if (isUndefined(opts.newEndTime)) {
+            throw new Error("opts.newEndTime is invalid");
+        }
+
+        let updateSaleEndTimeData = new xdr.UpdateSaleEndTimeData({
+            requestId: UnsignedHyper.fromString(opts.requestID),
+            newEndTime: UnsignedHyper.fromString(opts.newEndTime),
+            ext: new xdr.UpdateSaleEndTimeDataExt(xdr.LedgerVersion.emptyVersion()),
+        });
+
+        let manageSaleOp = new xdr.ManageSaleOp({
+            saleId: UnsignedHyper.fromString(opts.saleID),
+            data: new xdr.ManageSaleOpData.createUpdateEndTimeRequest(updateSaleEndTimeData),
             ext: new xdr.ManageSaleOpExt(xdr.LedgerVersion.emptyVersion()),
         });
 
@@ -163,6 +201,12 @@ export class ManageSaleBuilder {
             }
             case xdr.ManageSaleAction.setState(): {
                 result.saleState = attrs.data().saleState();
+                break;
+            }
+            case xdr.ManageSaleAction.createUpdateEndTimeRequest(): {
+                let data = attrs.data().updateSaleEndTimeData();
+                result.requestID = data.requestId().toString();
+                result.newEndTime = data.newEndTime().toString();
                 break;
             }
             case xdr.ManageSaleAction.createPromotionUpdateRequest(): {

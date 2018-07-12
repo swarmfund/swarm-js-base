@@ -46668,12 +46668,10 @@ var StellarBase =
 	         * @param {object} opts.newDetails.short_description - short description of the sale
 	         * @param {object} opts.newDetails.description - sale description
 	         * @param {object} opts.newDetails.logo - details of the logo
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageSaleOp}
 	         */
 	        value: function createUpdateSaleDetailsRequest(opts) {
-	            var attrs = {};
-
 	            if ((0, _lodashIsUndefined2['default'])(opts.requestID)) {
 	                throw new Error("opts.requestID is invalid");
 	            }
@@ -46693,6 +46691,48 @@ var StellarBase =
 	            var manageSaleOp = new _generatedStellarXdr_generated2['default'].ManageSaleOp({
 	                saleId: _jsXdr.UnsignedHyper.fromString(opts.saleID),
 	                data: new _generatedStellarXdr_generated2['default'].ManageSaleOpData.createUpdateDetailsRequest(updateSaleDetailsData),
+	                ext: new _generatedStellarXdr_generated2['default'].ManageSaleOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var opAttrs = {};
+	            opAttrs.body = _generatedStellarXdr_generated2['default'].OperationBody.manageSale(manageSaleOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
+	        }
+
+	        /**
+	         * Creates request to update manage sale end time
+	         * @param {object} opts
+	         * @param {number|string} opts.requestID - set to zero to create new request
+	         * @param {string} opts.saleID - ID of the sale to create new update end time request
+	         * @param {number|string} opts.newEndTime - new sale end time
+	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageSaleOp}
+	         */
+	    }, {
+	        key: 'createUpdateSaleEndTimeRequest',
+	        value: function createUpdateSaleEndTimeRequest(opts) {
+	            if ((0, _lodashIsUndefined2['default'])(opts.requestID)) {
+	                throw new Error("opts.requestID is invalid");
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.saleID)) {
+	                throw new Error("opts.saleID is invalid");
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.newEndTime)) {
+	                throw new Error("opts.newEndTime is invalid");
+	            }
+
+	            var updateSaleEndTimeData = new _generatedStellarXdr_generated2['default'].UpdateSaleEndTimeData({
+	                requestId: _jsXdr.UnsignedHyper.fromString(opts.requestID),
+	                newEndTime: _jsXdr.UnsignedHyper.fromString(opts.newEndTime),
+	                ext: new _generatedStellarXdr_generated2['default'].UpdateSaleEndTimeDataExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var manageSaleOp = new _generatedStellarXdr_generated2['default'].ManageSaleOp({
+	                saleId: _jsXdr.UnsignedHyper.fromString(opts.saleID),
+	                data: new _generatedStellarXdr_generated2['default'].ManageSaleOpData.createUpdateEndTimeRequest(updateSaleEndTimeData),
 	                ext: new _generatedStellarXdr_generated2['default'].ManageSaleOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
 	            });
 
@@ -46825,6 +46865,13 @@ var StellarBase =
 	                case _generatedStellarXdr_generated2['default'].ManageSaleAction.setState():
 	                    {
 	                        result.saleState = attrs.data().saleState();
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageSaleAction.createUpdateEndTimeRequest():
+	                    {
+	                        var data = attrs.data().updateSaleEndTimeData();
+	                        result.requestID = data.requestId().toString();
+	                        result.newEndTime = data.newEndTime().toString();
 	                        break;
 	                    }
 	                case _generatedStellarXdr_generated2['default'].ManageSaleAction.createPromotionUpdateRequest():

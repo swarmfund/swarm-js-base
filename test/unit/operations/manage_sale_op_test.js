@@ -24,7 +24,22 @@ describe("Manage sale", function () {
         expect(obj.saleID).to.be.equal(opts.saleID);
         expect(obj.requestID).to.be.equal(opts.requestID);
         expect(isEqual(obj.newDetails, opts.newDetails)).to.be.true;
-    })
+    });
+    it('Update sale end time request op', function () {
+        let opts = {
+            saleID: '1',
+            requestID: '0',
+            newEndTime: '1000'
+        };
+
+        let op = StellarBase.ManageSaleBuilder.createUpdateSaleEndTimeRequest(opts);
+        let xdr = op.toXDR("hex");
+        let operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
+        var obj = StellarBase.Operation.operationToObject(operation);
+        expect(obj.saleID).to.be.equal(opts.saleID);
+        expect(obj.requestID).to.be.equal(opts.requestID);
+        expect(obj.newEndTime).to.be.equal(opts.newEndTime);
+    });
     it('Cancel sale', () => {
         let opts = {
             saleID: '1'
@@ -34,7 +49,7 @@ describe("Manage sale", function () {
         let operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdrOp, 'hex'))
         let obj = StellarBase.Operation.operationToObject(operation)
         expect(obj.saleID).to.be.equal(opts.saleID)
-    })
+    });
     it('Set sale state', () => {
         let opts = {
             saleID: '1',
@@ -46,7 +61,7 @@ describe("Manage sale", function () {
         let obj = StellarBase.Operation.operationToObject(operation)
         expect(obj.saleID).to.be.equal(opts.saleID)
         expect(obj.saleState).to.be.equal(opts.saleState)
-    })
+    });
     it('Update promotion', () => {
         let opts = {
             saleID: "1",
@@ -93,5 +108,5 @@ describe("Manage sale", function () {
         expect(JSON.stringify(opts.quoteAssets)).to.be.equal(JSON.stringify(obj.quoteAssets));
         expect(isEqual(opts.details, obj.details)).to.be.true;
         expect(opts.baseAssetForHardCap).to.be.equal(obj.baseAssetForHardCap);
-    })
+    });
 });
