@@ -1,4 +1,4 @@
-// Automatically generated on 2018-07-07T01:41:43+03:00
+// Automatically generated on 2018-07-12T13:50:46+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -3623,7 +3623,8 @@ xdr.union("PublicKey", {
 //   	CREATE_ONLY_STATISTICS_V2 = 30,
 //   	LIMITS_UPDATE_REQUEST_DEPRECATED_DOCUMENT_HASH = 31,
 //   	FIX_PAYMENT_V2_FEE = 32,
-//   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33
+//   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33,
+//   	FIX_SET_SALE_STATE_AND_CHECK_SALE_STATE_OPS = 34 // only master allowed to set sale state, max issuance after sale closure = pending + issued
 //   };
 //
 // ===========================================================================
@@ -3662,6 +3663,7 @@ xdr.enum("LedgerVersion", {
   limitsUpdateRequestDeprecatedDocumentHash: 31,
   fixPaymentV2Fee: 32,
   addSaleIdReviewRequestResult: 33,
+  fixSetSaleStateAndCheckSaleStateOp: 34,
 });
 
 // === xdr source ============================================================
