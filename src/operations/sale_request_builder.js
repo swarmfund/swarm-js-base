@@ -31,6 +31,20 @@ export class SaleRequestBuilder {
      * @returns {xdr.CreateSaleCreationRequestOp}
      */
     static createSaleCreationRequest(opts) {
+        let request = this.validateSaleCreationRequest(opts);
+
+        let createSaleCreationRequestOp = new xdr.CreateSaleCreationRequestOp({
+            requestId: UnsignedHyper.fromString(opts.requestID),
+            request: request,
+            ext: new xdr.CreateSaleCreationRequestOpExt(xdr.LedgerVersion.emptyVersion())
+        });
+        let opAttributes = {};
+        opAttributes.body = xdr.OperationBody.createSaleRequest(createSaleCreationRequestOp);
+        BaseOperation.setSourceAccount(opAttributes, opts);
+        return new xdr.Operation(opAttributes);
+    }
+
+    static validateSaleCreationRequest(opts) {
         let attrs = {};
 
         if (!BaseOperation.isValidAsset(opts.baseAsset)) {
@@ -144,15 +158,7 @@ export class SaleRequestBuilder {
             }));
         }
 
-        let withdrawRequestOp = new xdr.CreateSaleCreationRequestOp({
-            requestId: UnsignedHyper.fromString(opts.requestID),
-            request: request,
-            ext: new xdr.CreateSaleCreationRequestOpExt(xdr.LedgerVersion.emptyVersion())
-        });
-        let opAttributes = {};
-        opAttributes.body = xdr.OperationBody.createSaleRequest(withdrawRequestOp);
-        BaseOperation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
+        return request;
     }
 
     static validateDetail(details) {

@@ -393,7 +393,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-07-06T11:33:11+03:00
+	// Automatically generated on 2018-07-14T12:20:56+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -4151,11 +4151,14 @@ var StellarBase =
 	//   	LIMITS_UPDATE_REQUEST_DEPRECATED_DOCUMENT_HASH = 31,
 	//   	FIX_PAYMENT_V2_FEE = 32,
 	//   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33,
-	//   	USE_ONLY_PAYMENT_V2 = 34
+	//   	FIX_SET_SALE_STATE_AND_CHECK_SALE_STATE_OPS = 34, // only master allowed to set sale state, max issuance after sale closure = pending + issued
+	//   	FIX_UPDATE_MAX_ISSUANCE = 35,
+	//   	ALLOW_CLOSE_SALE_WITH_NON_ZERO_BALANCE = 36,
+	//   	USE_ONLY_PAYMENT_V2 = 37
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23,allowToCancelSaleParticipWithoutSpecifingBalance:24,detailsMaxLengthExtended:25,allowMasterToManageSale:26,useSaleAnte:27,fixAssetPairsCreationInSaleCreation:28,statableSale:29,createOnlyStatisticsV2:30,limitsUpdateRequestDeprecatedDocumentHash:31,fixPaymentV2Fee:32,addSaleIdReviewRequestResult:33,useOnlyPaymentV2:34}); // === xdr source ============================================================
+	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23,allowToCancelSaleParticipWithoutSpecifingBalance:24,detailsMaxLengthExtended:25,allowMasterToManageSale:26,useSaleAnte:27,fixAssetPairsCreationInSaleCreation:28,statableSale:29,createOnlyStatisticsV2:30,limitsUpdateRequestDeprecatedDocumentHash:31,fixPaymentV2Fee:32,addSaleIdReviewRequestResult:33,fixSetSaleStateAndCheckSaleStateOp:34,fixUpdateMaxIssuance:35,allowCloseSaleWithNonZeroBalance:36,useOnlyPaymentV2:37}); // === xdr source ============================================================
 	//
 	//   typedef opaque Signature<64>;
 	//
@@ -4862,15 +4865,18 @@ var StellarBase =
 	//   	// Update KYC requests
 	//   	NON_ZERO_TASKS_TO_REMOVE_NOT_ALLOWED = -60,
 	//   
-	//   	// Update sale details and promotion update requests
+	//   	// Update sale details, end time and promotion requests
 	//   	SALE_NOT_FOUND = -70,
 	//   
 	//   	// Promotion update requests
-	//   	INVALID_SALE_STATE = -80 // sale state must be "PROMOTION"
+	//   	INVALID_SALE_STATE = -80, // sale state must be "PROMOTION"
+	//   
+	//   	// Update sale end time requests
+	//       INVALID_SALE_NEW_END_TIME = -90 // new end time is before start time or current ledger close time
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ReviewRequestResultCode",{success:0,invalidReason:-1,invalidAction:-2,hashMismatched:-3,notFound:-4,typeMismatched:-5,rejectNotAllowed:-6,invalidExternalDetail:-7,requestorIsBlocked:-8,permanentRejectNotAllowed:-9,approveNotAllowed:-10,assetAlreadyExist:-20,assetDoesNotExist:-21,maxIssuanceAmountExceeded:-40,insufficientAvailableForIssuanceAmount:-41,fullLine:-42,baseAssetDoesNotExist:-50,hardCapWillExceedMaxIssuance:-51,insufficientPreissuedForHardCap:-52,nonZeroTasksToRemoveNotAllowed:-60,saleNotFound:-70,invalidSaleState:-80}); // === xdr source ============================================================
+	xdr["enum"]("ReviewRequestResultCode",{success:0,invalidReason:-1,invalidAction:-2,hashMismatched:-3,notFound:-4,typeMismatched:-5,rejectNotAllowed:-6,invalidExternalDetail:-7,requestorIsBlocked:-8,permanentRejectNotAllowed:-9,approveNotAllowed:-10,assetAlreadyExist:-20,assetDoesNotExist:-21,maxIssuanceAmountExceeded:-40,insufficientAvailableForIssuanceAmount:-41,fullLine:-42,baseAssetDoesNotExist:-50,hardCapWillExceedMaxIssuance:-51,insufficientPreissuedForHardCap:-52,nonZeroTasksToRemoveNotAllowed:-60,saleNotFound:-70,invalidSaleState:-80,invalidSaleNewEndTime:-90}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -5191,11 +5197,12 @@ var StellarBase =
 	//   	UPDATE_KYC = 9,
 	//   	UPDATE_SALE_DETAILS = 10,
 	//   	UPDATE_PROMOTION = 11,
-	//   	INVOICE = 12
+	//   	UPDATE_SALE_END_TIME = 12,
+	//   	INVOICE = 13
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ReviewableRequestType",{assetCreate:0,assetUpdate:1,preIssuanceCreate:2,issuanceCreate:3,withdraw:4,sale:5,limitsUpdate:6,twoStepWithdrawal:7,amlAlert:8,updateKyc:9,updateSaleDetail:10,updatePromotion:11,invoice:12}); // === xdr source ============================================================
+	xdr["enum"]("ReviewableRequestType",{assetCreate:0,assetUpdate:1,preIssuanceCreate:2,issuanceCreate:3,withdraw:4,sale:5,limitsUpdate:6,twoStepWithdrawal:7,amlAlert:8,updateKyc:9,updateSaleDetail:10,updatePromotion:11,updateSaleEndTime:12,invoice:13}); // === xdr source ============================================================
 	//
 	//   union switch (ReviewableRequestType type) {
 	//   		case ASSET_CREATE:
@@ -5224,10 +5231,12 @@ var StellarBase =
 	//               PromotionUpdateRequest promotionUpdateRequest;
 	//           case INVOICE:
 	//               InvoiceRequest invoiceRequest;
+	//           case UPDATE_SALE_END_TIME:
+	//               UpdateSaleEndTimeRequest updateSaleEndTimeRequest;
 	//   	}
 	//
 	// ===========================================================================
-	xdr.union("ReviewableRequestEntryBody",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"type",switches:[["assetCreate","assetCreationRequest"],["assetUpdate","assetUpdateRequest"],["preIssuanceCreate","preIssuanceRequest"],["issuanceCreate","issuanceRequest"],["withdraw","withdrawalRequest"],["sale","saleCreationRequest"],["limitsUpdate","limitsUpdateRequest"],["twoStepWithdrawal","twoStepWithdrawalRequest"],["amlAlert","amlAlertRequest"],["updateKyc","updateKycRequest"],["updateSaleDetail","updateSaleDetailsRequest"],["updatePromotion","promotionUpdateRequest"],["invoice","invoiceRequest"]],arms:{assetCreationRequest:xdr.lookup("AssetCreationRequest"),assetUpdateRequest:xdr.lookup("AssetUpdateRequest"),preIssuanceRequest:xdr.lookup("PreIssuanceRequest"),issuanceRequest:xdr.lookup("IssuanceRequest"),withdrawalRequest:xdr.lookup("WithdrawalRequest"),saleCreationRequest:xdr.lookup("SaleCreationRequest"),limitsUpdateRequest:xdr.lookup("LimitsUpdateRequest"),twoStepWithdrawalRequest:xdr.lookup("WithdrawalRequest"),amlAlertRequest:xdr.lookup("AmlAlertRequest"),updateKycRequest:xdr.lookup("UpdateKycRequest"),updateSaleDetailsRequest:xdr.lookup("UpdateSaleDetailsRequest"),promotionUpdateRequest:xdr.lookup("PromotionUpdateRequest"),invoiceRequest:xdr.lookup("InvoiceRequest")}}); // === xdr source ============================================================
+	xdr.union("ReviewableRequestEntryBody",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"type",switches:[["assetCreate","assetCreationRequest"],["assetUpdate","assetUpdateRequest"],["preIssuanceCreate","preIssuanceRequest"],["issuanceCreate","issuanceRequest"],["withdraw","withdrawalRequest"],["sale","saleCreationRequest"],["limitsUpdate","limitsUpdateRequest"],["twoStepWithdrawal","twoStepWithdrawalRequest"],["amlAlert","amlAlertRequest"],["updateKyc","updateKycRequest"],["updateSaleDetail","updateSaleDetailsRequest"],["updatePromotion","promotionUpdateRequest"],["invoice","invoiceRequest"],["updateSaleEndTime","updateSaleEndTimeRequest"]],arms:{assetCreationRequest:xdr.lookup("AssetCreationRequest"),assetUpdateRequest:xdr.lookup("AssetUpdateRequest"),preIssuanceRequest:xdr.lookup("PreIssuanceRequest"),issuanceRequest:xdr.lookup("IssuanceRequest"),withdrawalRequest:xdr.lookup("WithdrawalRequest"),saleCreationRequest:xdr.lookup("SaleCreationRequest"),limitsUpdateRequest:xdr.lookup("LimitsUpdateRequest"),twoStepWithdrawalRequest:xdr.lookup("WithdrawalRequest"),amlAlertRequest:xdr.lookup("AmlAlertRequest"),updateKycRequest:xdr.lookup("UpdateKycRequest"),updateSaleDetailsRequest:xdr.lookup("UpdateSaleDetailsRequest"),promotionUpdateRequest:xdr.lookup("PromotionUpdateRequest"),invoiceRequest:xdr.lookup("InvoiceRequest"),updateSaleEndTimeRequest:xdr.lookup("UpdateSaleEndTimeRequest")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5274,6 +5283,8 @@ var StellarBase =
 	//               PromotionUpdateRequest promotionUpdateRequest;
 	//           case INVOICE:
 	//               InvoiceRequest invoiceRequest;
+	//           case UPDATE_SALE_END_TIME:
+	//               UpdateSaleEndTimeRequest updateSaleEndTimeRequest;
 	//   	} body;
 	//   
 	//   	// reserved for future use
@@ -5587,6 +5598,31 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("PaymentRequestEntry",[["paymentId",xdr.lookup("Uint64")],["sourceBalance",xdr.lookup("BalanceId")],["destinationBalance",xdr.option(xdr.lookup("BalanceId"))],["sourceSend",xdr.lookup("Int64")],["sourceSendUniversal",xdr.lookup("Int64")],["destinationReceive",xdr.lookup("Int64")],["createdAt",xdr.lookup("Uint64")],["invoiceId",xdr.option(xdr.lookup("Uint64"))],["ext",xdr.lookup("PaymentRequestEntryExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("UpdateSaleEndTimeRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct UpdateSaleEndTimeRequest {
+	//       uint64 saleID; // ID of the sale to update end time
+	//       uint64 newEndTime;
+	//   
+	//       // Reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("UpdateSaleEndTimeRequest",[["saleId",xdr.lookup("Uint64")],["newEndTime",xdr.lookup("Uint64")],["ext",xdr.lookup("UpdateSaleEndTimeRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -6591,11 +6627,12 @@ var StellarBase =
 	//       CREATE_UPDATE_DETAILS_REQUEST = 1,
 	//       CANCEL = 2,
 	//   	SET_STATE = 3,
-	//   	CREATE_PROMOTION_UPDATE_REQUEST = 4
+	//   	CREATE_PROMOTION_UPDATE_REQUEST = 4,
+	//   	CREATE_UPDATE_END_TIME_REQUEST = 5
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageSaleAction",{createUpdateDetailsRequest:1,cancel:2,setState:3,createPromotionUpdateRequest:4}); // === xdr source ============================================================
+	xdr["enum"]("ManageSaleAction",{createUpdateDetailsRequest:1,cancel:2,setState:3,createPromotionUpdateRequest:4,createUpdateEndTimeRequest:5}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -6644,6 +6681,30 @@ var StellarBase =
 	// ===========================================================================
 	xdr.struct("PromotionUpdateData",[["requestId",xdr.lookup("Uint64")],["newPromotionData",xdr.lookup("SaleCreationRequest")],["ext",xdr.lookup("PromotionUpdateDataExt")]]); // === xdr source ============================================================
 	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("UpdateSaleEndTimeDataExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct UpdateSaleEndTimeData {
+	//       uint64 requestID; // if requestID is 0 - create request, else - update
+	//       uint64 newEndTime;
+	//   
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       } ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("UpdateSaleEndTimeData",[["requestId",xdr.lookup("Uint64")],["newEndTime",xdr.lookup("Uint64")],["ext",xdr.lookup("UpdateSaleEndTimeDataExt")]]); // === xdr source ============================================================
+	//
 	//   union switch (ManageSaleAction action) {
 	//       case CREATE_UPDATE_DETAILS_REQUEST:
 	//           UpdateSaleDetailsData updateSaleDetailsData;
@@ -6653,10 +6714,12 @@ var StellarBase =
 	//   		SaleState saleState;
 	//       case CREATE_PROMOTION_UPDATE_REQUEST:
 	//           PromotionUpdateData promotionUpdateData;
+	//       case CREATE_UPDATE_END_TIME_REQUEST:
+	//           UpdateSaleEndTimeData updateSaleEndTimeData;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ManageSaleOpData",{switchOn:xdr.lookup("ManageSaleAction"),switchName:"action",switches:[["createUpdateDetailsRequest","updateSaleDetailsData"],["cancel",xdr["void"]()],["setState","saleState"],["createPromotionUpdateRequest","promotionUpdateData"]],arms:{updateSaleDetailsData:xdr.lookup("UpdateSaleDetailsData"),saleState:xdr.lookup("SaleState"),promotionUpdateData:xdr.lookup("PromotionUpdateData")}}); // === xdr source ============================================================
+	xdr.union("ManageSaleOpData",{switchOn:xdr.lookup("ManageSaleAction"),switchName:"action",switches:[["createUpdateDetailsRequest","updateSaleDetailsData"],["cancel",xdr["void"]()],["setState","saleState"],["createPromotionUpdateRequest","promotionUpdateData"],["createUpdateEndTimeRequest","updateSaleEndTimeData"]],arms:{updateSaleDetailsData:xdr.lookup("UpdateSaleDetailsData"),saleState:xdr.lookup("SaleState"),promotionUpdateData:xdr.lookup("PromotionUpdateData"),updateSaleEndTimeData:xdr.lookup("UpdateSaleEndTimeData")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -6680,6 +6743,8 @@ var StellarBase =
 	//   		SaleState saleState;
 	//       case CREATE_PROMOTION_UPDATE_REQUEST:
 	//           PromotionUpdateData promotionUpdateData;
+	//       case CREATE_UPDATE_END_TIME_REQUEST:
+	//           UpdateSaleEndTimeData updateSaleEndTimeData;
 	//       } data;
 	//   
 	//       // reserved for future use
@@ -6705,21 +6770,26 @@ var StellarBase =
 	//       UPDATE_DETAILS_REQUEST_NOT_FOUND = -4,
 	//   
 	//       // errors related to action "SET_STATE"
-	//   	NOT_ALLOWED = -5, // it's not allowed to set state for non master account
+	//       NOT_ALLOWED = -5, // it's not allowed to set state for non master account
 	//   
-	//   	// errors related to action "CREATE_PROMOTION_UPDATE_REQUEST"
-	//   	PROMOTION_UPDATE_REQUEST_INVALID_ASSET_PAIR = -6, // one of the assets has invalid code or base asset is equal to quote asset
-	//   	PROMOTION_UPDATE_REQUEST_INVALID_PRICE = -7, // price cannot be 0
-	//   	PROMOTION_UPDATE_REQUEST_START_END_INVALID = -8, // sale ends before start
-	//   	PROMOTION_UPDATE_REQUEST_INVALID_CAP = -9, // hard cap is < soft cap
-	//   	PROMOTION_UPDATE_REQUEST_INVALID_DETAILS = -10, // details field is invalid JSON
-	//   	INVALID_SALE_STATE = -11, // sale state must be "PROMOTION"
-	//   	PROMOTION_UPDATE_REQUEST_ALREADY_EXISTS = -12,
-	//   	PROMOTION_UPDATE_REQUEST_NOT_FOUND = -13
+	//       // errors related to action "CREATE_PROMOTION_UPDATE_REQUEST"
+	//       PROMOTION_UPDATE_REQUEST_INVALID_ASSET_PAIR = -6, // one of the assets has invalid code or base asset is equal to quote asset
+	//       PROMOTION_UPDATE_REQUEST_INVALID_PRICE = -7, // price cannot be 0
+	//       PROMOTION_UPDATE_REQUEST_START_END_INVALID = -8, // sale ends before start
+	//       PROMOTION_UPDATE_REQUEST_INVALID_CAP = -9, // hard cap is < soft cap
+	//       PROMOTION_UPDATE_REQUEST_INVALID_DETAILS = -10, // details field is invalid JSON
+	//       INVALID_SALE_STATE = -11, // sale state must be "PROMOTION"
+	//       PROMOTION_UPDATE_REQUEST_ALREADY_EXISTS = -12,
+	//       PROMOTION_UPDATE_REQUEST_NOT_FOUND = -13,
+	//   
+	//       // errors related to action "CREATE_UPDATE_END_TIME_REQUEST"
+	//       INVALID_NEW_END_TIME = -14, // new end time is before start time or current ledger close time
+	//       UPDATE_END_TIME_REQUEST_ALREADY_EXISTS = -15,
+	//       UPDATE_END_TIME_REQUEST_NOT_FOUND = -16
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageSaleResultCode",{success:0,saleNotFound:-1,invalidNewDetail:-2,updateDetailsRequestAlreadyExist:-3,updateDetailsRequestNotFound:-4,notAllowed:-5,promotionUpdateRequestInvalidAssetPair:-6,promotionUpdateRequestInvalidPrice:-7,promotionUpdateRequestStartEndInvalid:-8,promotionUpdateRequestInvalidCap:-9,promotionUpdateRequestInvalidDetail:-10,invalidSaleState:-11,promotionUpdateRequestAlreadyExist:-12,promotionUpdateRequestNotFound:-13}); // === xdr source ============================================================
+	xdr["enum"]("ManageSaleResultCode",{success:0,saleNotFound:-1,invalidNewDetail:-2,updateDetailsRequestAlreadyExist:-3,updateDetailsRequestNotFound:-4,notAllowed:-5,promotionUpdateRequestInvalidAssetPair:-6,promotionUpdateRequestInvalidPrice:-7,promotionUpdateRequestStartEndInvalid:-8,promotionUpdateRequestInvalidCap:-9,promotionUpdateRequestInvalidDetail:-10,invalidSaleState:-11,promotionUpdateRequestAlreadyExist:-12,promotionUpdateRequestNotFound:-13,invalidNewEndTime:-14,updateEndTimeRequestAlreadyExist:-15,updateEndTimeRequestNotFound:-16}); // === xdr source ============================================================
 	//
 	//   union switch (ManageSaleAction action) {
 	//       case CREATE_UPDATE_DETAILS_REQUEST:
@@ -6730,10 +6800,12 @@ var StellarBase =
 	//   		void;
 	//       case CREATE_PROMOTION_UPDATE_REQUEST:
 	//           uint64 promotionUpdateRequestID;
+	//   	case CREATE_UPDATE_END_TIME_REQUEST:
+	//   	    uint64 updateEndTimeRequestID;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ManageSaleResultSuccessResponse",{switchOn:xdr.lookup("ManageSaleAction"),switchName:"action",switches:[["createUpdateDetailsRequest","requestId"],["cancel",xdr["void"]()],["setState",xdr["void"]()],["createPromotionUpdateRequest","promotionUpdateRequestId"]],arms:{requestId:xdr.lookup("Uint64"),promotionUpdateRequestId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
+	xdr.union("ManageSaleResultSuccessResponse",{switchOn:xdr.lookup("ManageSaleAction"),switchName:"action",switches:[["createUpdateDetailsRequest","requestId"],["cancel",xdr["void"]()],["setState",xdr["void"]()],["createPromotionUpdateRequest","promotionUpdateRequestId"],["createUpdateEndTimeRequest","updateEndTimeRequestId"]],arms:{requestId:xdr.lookup("Uint64"),promotionUpdateRequestId:xdr.lookup("Uint64"),updateEndTimeRequestId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -6755,6 +6827,8 @@ var StellarBase =
 	//   		void;
 	//       case CREATE_PROMOTION_UPDATE_REQUEST:
 	//           uint64 promotionUpdateRequestID;
+	//   	case CREATE_UPDATE_END_TIME_REQUEST:
+	//   	    uint64 updateEndTimeRequestID;
 	//       } response;
 	//   
 	//       //reserved for future use
@@ -45486,6 +45560,21 @@ var StellarBase =
 	         * @returns {xdr.CreateSaleCreationRequestOp}
 	         */
 	        value: function createSaleCreationRequest(opts) {
+	            var request = this.validateSaleCreationRequest(opts);
+
+	            var createSaleCreationRequestOp = new _generatedStellarXdr_generated2['default'].CreateSaleCreationRequestOp({
+	                requestId: _jsXdr.UnsignedHyper.fromString(opts.requestID),
+	                request: request,
+	                ext: new _generatedStellarXdr_generated2['default'].CreateSaleCreationRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.createSaleRequest(createSaleCreationRequestOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
+	        }
+	    }, {
+	        key: 'validateSaleCreationRequest',
+	        value: function validateSaleCreationRequest(opts) {
 	            var attrs = {};
 
 	            if (!_base_operation.BaseOperation.isValidAsset(opts.baseAsset)) {
@@ -45598,15 +45687,7 @@ var StellarBase =
 	                }));
 	            }
 
-	            var withdrawRequestOp = new _generatedStellarXdr_generated2['default'].CreateSaleCreationRequestOp({
-	                requestId: _jsXdr.UnsignedHyper.fromString(opts.requestID),
-	                request: request,
-	                ext: new _generatedStellarXdr_generated2['default'].CreateSaleCreationRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
-	            });
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.createSaleRequest(withdrawRequestOp);
-	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
+	            return request;
 	        }
 	    }, {
 	        key: 'validateDetail',
@@ -46729,12 +46810,10 @@ var StellarBase =
 	         * @param {object} opts.newDetails.short_description - short description of the sale
 	         * @param {object} opts.newDetails.description - sale description
 	         * @param {object} opts.newDetails.logo - details of the logo
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageSaleOp}
 	         */
 	        value: function createUpdateSaleDetailsRequest(opts) {
-	            var attrs = {};
-
 	            if ((0, _lodashIsUndefined2['default'])(opts.requestID)) {
 	                throw new Error("opts.requestID is invalid");
 	            }
@@ -46754,6 +46833,100 @@ var StellarBase =
 	            var manageSaleOp = new _generatedStellarXdr_generated2['default'].ManageSaleOp({
 	                saleId: _jsXdr.UnsignedHyper.fromString(opts.saleID),
 	                data: new _generatedStellarXdr_generated2['default'].ManageSaleOpData.createUpdateDetailsRequest(updateSaleDetailsData),
+	                ext: new _generatedStellarXdr_generated2['default'].ManageSaleOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var opAttrs = {};
+	            opAttrs.body = _generatedStellarXdr_generated2['default'].OperationBody.manageSale(manageSaleOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
+	        }
+
+	        /**
+	         * Creates request to update manage sale end time
+	         * @param {object} opts
+	         * @param {number|string} opts.requestID - set to zero to create new request
+	         * @param {string} opts.saleID - ID of the sale to create new update end time request
+	         * @param {number|string} opts.newEndTime - new sale end time
+	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageSaleOp}
+	         */
+	    }, {
+	        key: 'createUpdateSaleEndTimeRequest',
+	        value: function createUpdateSaleEndTimeRequest(opts) {
+	            if ((0, _lodashIsUndefined2['default'])(opts.requestID)) {
+	                throw new Error("opts.requestID is invalid");
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.saleID)) {
+	                throw new Error("opts.saleID is invalid");
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.newEndTime)) {
+	                throw new Error("opts.newEndTime is invalid");
+	            }
+
+	            var updateSaleEndTimeData = new _generatedStellarXdr_generated2['default'].UpdateSaleEndTimeData({
+	                requestId: _jsXdr.UnsignedHyper.fromString(opts.requestID),
+	                newEndTime: _jsXdr.UnsignedHyper.fromString(opts.newEndTime),
+	                ext: new _generatedStellarXdr_generated2['default'].UpdateSaleEndTimeDataExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var manageSaleOp = new _generatedStellarXdr_generated2['default'].ManageSaleOp({
+	                saleId: _jsXdr.UnsignedHyper.fromString(opts.saleID),
+	                data: new _generatedStellarXdr_generated2['default'].ManageSaleOpData.createUpdateEndTimeRequest(updateSaleEndTimeData),
+	                ext: new _generatedStellarXdr_generated2['default'].ManageSaleOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var opAttrs = {};
+	            opAttrs.body = _generatedStellarXdr_generated2['default'].OperationBody.manageSale(manageSaleOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
+	        }
+
+	        /**
+	         * Creates request to update details of the sale in state "PROMOTION"
+	         * @param {object} opts
+	         * @param {string} opts.saleID - ID of the sale to create new promotion update request
+	         * @param {string} opts.requestID - ID of the request. 0 - to create new;
+	         * @param {string} opts.baseAsset - asset for which sale will be performed
+	         * @param {string} opts.defaultQuoteAsset - asset in which hardcap/soft cap will be calculated
+	         * @param {string} opts.startTime - start time of the sale
+	         * @param {string} opts.endTime - close time of the sale
+	         * @param {string} opts.softCap - minimum amount of quote asset to be received at which sale will be considered a successful
+	         * @param {string} opts.hardCap - max amount of quote asset to be received
+	         * @param {object} opts.details - sale specific details
+	         * @param {object} opts.details.name - name of the sale
+	         * @param {object} opts.details.short_description - short description of the sale
+	         * @param {object} opts.details.desciption - sale specific details
+	         * @param {object} opts.details.logo - details of the logo
+	         * @param {array} opts.quoteAssets - accepted assets
+	         * @param {object} opts.quoteAssets.price - price for 1 baseAsset in terms of quote asset
+	         * @param {object} opts.quoteAssets.asset - asset code of the quote asset
+	         * @param {object} opts.isCrowdfunding - states if sale type is crowd funding
+	         * @param {string} opts.baseAssetForHardCap - specifies the amount of base asset required for hard cap
+	         * @param {SaleState} opts.saleState - specifies the initial state of the sale
+	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageSaleOp}
+	         */
+	    }, {
+	        key: 'createPromotionUpdateRequest',
+	        value: function createPromotionUpdateRequest(opts) {
+	            if ((0, _lodashIsUndefined2['default'])(opts.saleID)) {
+	                throw new Error('opts.saleID is invalid');
+	            }
+
+	            var request = _sale_request_builder.SaleRequestBuilder.validateSaleCreationRequest(opts);
+
+	            var promotionUpdateData = new _generatedStellarXdr_generated2['default'].PromotionUpdateData({
+	                requestId: _jsXdr.UnsignedHyper.fromString(opts.requestID),
+	                newPromotionData: request,
+	                ext: new _generatedStellarXdr_generated2['default'].PromotionUpdateDataExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var manageSaleOp = new _generatedStellarXdr_generated2['default'].ManageSaleOp({
+	                saleId: _jsXdr.UnsignedHyper.fromString(opts.saleID),
+	                data: new _generatedStellarXdr_generated2['default'].ManageSaleOpData.createPromotionUpdateRequest(promotionUpdateData),
 	                ext: new _generatedStellarXdr_generated2['default'].ManageSaleOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
 	            });
 
@@ -46834,6 +47007,47 @@ var StellarBase =
 	                case _generatedStellarXdr_generated2['default'].ManageSaleAction.setState():
 	                    {
 	                        result.saleState = attrs.data().saleState();
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageSaleAction.createUpdateEndTimeRequest():
+	                    {
+	                        var data = attrs.data().updateSaleEndTimeData();
+	                        result.requestID = data.requestId().toString();
+	                        result.newEndTime = data.newEndTime().toString();
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageSaleAction.createPromotionUpdateRequest():
+	                    {
+	                        var data = attrs.data().promotionUpdateData();
+	                        result.requestID = data.requestId().toString();
+	                        var saleCreationRequest = data.newPromotionData();
+	                        result.baseAsset = saleCreationRequest.baseAsset();
+	                        result.defaultQuoteAsset = saleCreationRequest.defaultQuoteAsset();
+	                        result.startTime = saleCreationRequest.startTime().toString();
+	                        result.endTime = saleCreationRequest.endTime().toString();
+	                        result.softCap = _base_operation.BaseOperation._fromXDRAmount(saleCreationRequest.softCap());
+	                        result.hardCap = _base_operation.BaseOperation._fromXDRAmount(saleCreationRequest.hardCap());
+	                        result.details = JSON.parse(saleCreationRequest.details());
+	                        result.quoteAssets = [];
+	                        for (var i = 0; i < saleCreationRequest.quoteAssets().length; i++) {
+	                            result.quoteAssets.push({
+	                                price: _base_operation.BaseOperation._fromXDRAmount(saleCreationRequest.quoteAssets()[i].price()),
+	                                asset: saleCreationRequest.quoteAssets()[i].quoteAsset()
+	                            });
+	                        }
+	                        switch (saleCreationRequest.ext()['switch']()) {
+	                            case _generatedStellarXdr_generated2['default'].LedgerVersion.allowToSpecifyRequiredBaseAssetAmountForHardCap():
+	                                {
+	                                    result.baseAssetForHardCap = _base_operation.BaseOperation._fromXDRAmount(saleCreationRequest.ext().extV2().requiredBaseAssetForHardCap());
+	                                    break;
+	                                }
+	                            case _generatedStellarXdr_generated2['default'].LedgerVersion.statableSale():
+	                                {
+	                                    result.baseAssetForHardCap = _base_operation.BaseOperation._fromXDRAmount(saleCreationRequest.ext().extV3().requiredBaseAssetForHardCap());
+	                                    result.saleState = saleCreationRequest.ext().extV3().state();
+	                                    break;
+	                                }
+	                        }
 	                        break;
 	                    }
 	            }

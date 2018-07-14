@@ -1,4 +1,4 @@
-// Automatically generated on 2018-07-06T11:33:11+03:00
+// Automatically generated on 2018-07-14T12:20:56+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -6098,7 +6098,10 @@ xdr.union("PublicKey", {
 //   	LIMITS_UPDATE_REQUEST_DEPRECATED_DOCUMENT_HASH = 31,
 //   	FIX_PAYMENT_V2_FEE = 32,
 //   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33,
-//   	USE_ONLY_PAYMENT_V2 = 34
+//   	FIX_SET_SALE_STATE_AND_CHECK_SALE_STATE_OPS = 34, // only master allowed to set sale state, max issuance after sale closure = pending + issued
+//   	FIX_UPDATE_MAX_ISSUANCE = 35,
+//   	ALLOW_CLOSE_SALE_WITH_NON_ZERO_BALANCE = 36,
+//   	USE_ONLY_PAYMENT_V2 = 37
 //   };
 //
 // ===========================================================================
@@ -6137,7 +6140,10 @@ xdr.enum("LedgerVersion", {
   limitsUpdateRequestDeprecatedDocumentHash: 31,
   fixPaymentV2Fee: 32,
   addSaleIdReviewRequestResult: 33,
-  useOnlyPaymentV2: 34,
+  fixSetSaleStateAndCheckSaleStateOp: 34,
+  fixUpdateMaxIssuance: 35,
+  allowCloseSaleWithNonZeroBalance: 36,
+  useOnlyPaymentV2: 37,
 });
 
 // === xdr source ============================================================
@@ -7270,11 +7276,14 @@ xdr.struct("ReviewRequestOp", [
 //   	// Update KYC requests
 //   	NON_ZERO_TASKS_TO_REMOVE_NOT_ALLOWED = -60,
 //   
-//   	// Update sale details and promotion update requests
+//   	// Update sale details, end time and promotion requests
 //   	SALE_NOT_FOUND = -70,
 //   
 //   	// Promotion update requests
-//   	INVALID_SALE_STATE = -80 // sale state must be "PROMOTION"
+//   	INVALID_SALE_STATE = -80, // sale state must be "PROMOTION"
+//   
+//   	// Update sale end time requests
+//       INVALID_SALE_NEW_END_TIME = -90 // new end time is before start time or current ledger close time
 //   };
 //
 // ===========================================================================
@@ -7301,6 +7310,7 @@ xdr.enum("ReviewRequestResultCode", {
   nonZeroTasksToRemoveNotAllowed: -60,
   saleNotFound: -70,
   invalidSaleState: -80,
+  invalidSaleNewEndTime: -90,
 });
 
 // === xdr source ============================================================
@@ -7823,7 +7833,8 @@ xdr.struct("AmlAlertRequest", [
 //   	UPDATE_KYC = 9,
 //   	UPDATE_SALE_DETAILS = 10,
 //   	UPDATE_PROMOTION = 11,
-//   	INVOICE = 12
+//   	UPDATE_SALE_END_TIME = 12,
+//   	INVOICE = 13
 //   };
 //
 // ===========================================================================
@@ -7840,7 +7851,8 @@ xdr.enum("ReviewableRequestType", {
   updateKyc: 9,
   updateSaleDetail: 10,
   updatePromotion: 11,
-  invoice: 12,
+  updateSaleEndTime: 12,
+  invoice: 13,
 });
 
 // === xdr source ============================================================
@@ -7872,6 +7884,8 @@ xdr.enum("ReviewableRequestType", {
 //               PromotionUpdateRequest promotionUpdateRequest;
 //           case INVOICE:
 //               InvoiceRequest invoiceRequest;
+//           case UPDATE_SALE_END_TIME:
+//               UpdateSaleEndTimeRequest updateSaleEndTimeRequest;
 //   	}
 //
 // ===========================================================================
@@ -7892,6 +7906,7 @@ xdr.union("ReviewableRequestEntryBody", {
     ["updateSaleDetail", "updateSaleDetailsRequest"],
     ["updatePromotion", "promotionUpdateRequest"],
     ["invoice", "invoiceRequest"],
+    ["updateSaleEndTime", "updateSaleEndTimeRequest"],
   ],
   arms: {
     assetCreationRequest: xdr.lookup("AssetCreationRequest"),
@@ -7907,6 +7922,7 @@ xdr.union("ReviewableRequestEntryBody", {
     updateSaleDetailsRequest: xdr.lookup("UpdateSaleDetailsRequest"),
     promotionUpdateRequest: xdr.lookup("PromotionUpdateRequest"),
     invoiceRequest: xdr.lookup("InvoiceRequest"),
+    updateSaleEndTimeRequest: xdr.lookup("UpdateSaleEndTimeRequest"),
   },
 });
 
@@ -7967,6 +7983,8 @@ xdr.union("ReviewableRequestEntryExt", {
 //               PromotionUpdateRequest promotionUpdateRequest;
 //           case INVOICE:
 //               InvoiceRequest invoiceRequest;
+//           case UPDATE_SALE_END_TIME:
+//               UpdateSaleEndTimeRequest updateSaleEndTimeRequest;
 //   	} body;
 //   
 //   	// reserved for future use
@@ -8499,6 +8517,47 @@ xdr.struct("PaymentRequestEntry", [
   ["createdAt", xdr.lookup("Uint64")],
   ["invoiceId", xdr.option(xdr.lookup("Uint64"))],
   ["ext", xdr.lookup("PaymentRequestEntryExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("UpdateSaleEndTimeRequestExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct UpdateSaleEndTimeRequest {
+//       uint64 saleID; // ID of the sale to update end time
+//       uint64 newEndTime;
+//   
+//       // Reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("UpdateSaleEndTimeRequest", [
+  ["saleId", xdr.lookup("Uint64")],
+  ["newEndTime", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("UpdateSaleEndTimeRequestExt")],
 ]);
 
 // === xdr source ============================================================
@@ -10173,7 +10232,8 @@ xdr.union("SetFeesResult", {
 //       CREATE_UPDATE_DETAILS_REQUEST = 1,
 //       CANCEL = 2,
 //   	SET_STATE = 3,
-//   	CREATE_PROMOTION_UPDATE_REQUEST = 4
+//   	CREATE_PROMOTION_UPDATE_REQUEST = 4,
+//   	CREATE_UPDATE_END_TIME_REQUEST = 5
 //   };
 //
 // ===========================================================================
@@ -10182,6 +10242,7 @@ xdr.enum("ManageSaleAction", {
   cancel: 2,
   setState: 3,
   createPromotionUpdateRequest: 4,
+  createUpdateEndTimeRequest: 5,
 });
 
 // === xdr source ============================================================
@@ -10265,6 +10326,46 @@ xdr.struct("PromotionUpdateData", [
 
 // === xdr source ============================================================
 //
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("UpdateSaleEndTimeDataExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct UpdateSaleEndTimeData {
+//       uint64 requestID; // if requestID is 0 - create request, else - update
+//       uint64 newEndTime;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       } ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("UpdateSaleEndTimeData", [
+  ["requestId", xdr.lookup("Uint64")],
+  ["newEndTime", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("UpdateSaleEndTimeDataExt")],
+]);
+
+// === xdr source ============================================================
+//
 //   union switch (ManageSaleAction action) {
 //       case CREATE_UPDATE_DETAILS_REQUEST:
 //           UpdateSaleDetailsData updateSaleDetailsData;
@@ -10274,6 +10375,8 @@ xdr.struct("PromotionUpdateData", [
 //   		SaleState saleState;
 //       case CREATE_PROMOTION_UPDATE_REQUEST:
 //           PromotionUpdateData promotionUpdateData;
+//       case CREATE_UPDATE_END_TIME_REQUEST:
+//           UpdateSaleEndTimeData updateSaleEndTimeData;
 //       }
 //
 // ===========================================================================
@@ -10285,11 +10388,13 @@ xdr.union("ManageSaleOpData", {
     ["cancel", xdr.void()],
     ["setState", "saleState"],
     ["createPromotionUpdateRequest", "promotionUpdateData"],
+    ["createUpdateEndTimeRequest", "updateSaleEndTimeData"],
   ],
   arms: {
     updateSaleDetailsData: xdr.lookup("UpdateSaleDetailsData"),
     saleState: xdr.lookup("SaleState"),
     promotionUpdateData: xdr.lookup("PromotionUpdateData"),
+    updateSaleEndTimeData: xdr.lookup("UpdateSaleEndTimeData"),
   },
 });
 
@@ -10327,6 +10432,8 @@ xdr.union("ManageSaleOpExt", {
 //   		SaleState saleState;
 //       case CREATE_PROMOTION_UPDATE_REQUEST:
 //           PromotionUpdateData promotionUpdateData;
+//       case CREATE_UPDATE_END_TIME_REQUEST:
+//           UpdateSaleEndTimeData updateSaleEndTimeData;
 //       } data;
 //   
 //       // reserved for future use
@@ -10358,17 +10465,22 @@ xdr.struct("ManageSaleOp", [
 //       UPDATE_DETAILS_REQUEST_NOT_FOUND = -4,
 //   
 //       // errors related to action "SET_STATE"
-//   	NOT_ALLOWED = -5, // it's not allowed to set state for non master account
+//       NOT_ALLOWED = -5, // it's not allowed to set state for non master account
 //   
-//   	// errors related to action "CREATE_PROMOTION_UPDATE_REQUEST"
-//   	PROMOTION_UPDATE_REQUEST_INVALID_ASSET_PAIR = -6, // one of the assets has invalid code or base asset is equal to quote asset
-//   	PROMOTION_UPDATE_REQUEST_INVALID_PRICE = -7, // price cannot be 0
-//   	PROMOTION_UPDATE_REQUEST_START_END_INVALID = -8, // sale ends before start
-//   	PROMOTION_UPDATE_REQUEST_INVALID_CAP = -9, // hard cap is < soft cap
-//   	PROMOTION_UPDATE_REQUEST_INVALID_DETAILS = -10, // details field is invalid JSON
-//   	INVALID_SALE_STATE = -11, // sale state must be "PROMOTION"
-//   	PROMOTION_UPDATE_REQUEST_ALREADY_EXISTS = -12,
-//   	PROMOTION_UPDATE_REQUEST_NOT_FOUND = -13
+//       // errors related to action "CREATE_PROMOTION_UPDATE_REQUEST"
+//       PROMOTION_UPDATE_REQUEST_INVALID_ASSET_PAIR = -6, // one of the assets has invalid code or base asset is equal to quote asset
+//       PROMOTION_UPDATE_REQUEST_INVALID_PRICE = -7, // price cannot be 0
+//       PROMOTION_UPDATE_REQUEST_START_END_INVALID = -8, // sale ends before start
+//       PROMOTION_UPDATE_REQUEST_INVALID_CAP = -9, // hard cap is < soft cap
+//       PROMOTION_UPDATE_REQUEST_INVALID_DETAILS = -10, // details field is invalid JSON
+//       INVALID_SALE_STATE = -11, // sale state must be "PROMOTION"
+//       PROMOTION_UPDATE_REQUEST_ALREADY_EXISTS = -12,
+//       PROMOTION_UPDATE_REQUEST_NOT_FOUND = -13,
+//   
+//       // errors related to action "CREATE_UPDATE_END_TIME_REQUEST"
+//       INVALID_NEW_END_TIME = -14, // new end time is before start time or current ledger close time
+//       UPDATE_END_TIME_REQUEST_ALREADY_EXISTS = -15,
+//       UPDATE_END_TIME_REQUEST_NOT_FOUND = -16
 //   };
 //
 // ===========================================================================
@@ -10387,6 +10499,9 @@ xdr.enum("ManageSaleResultCode", {
   invalidSaleState: -11,
   promotionUpdateRequestAlreadyExist: -12,
   promotionUpdateRequestNotFound: -13,
+  invalidNewEndTime: -14,
+  updateEndTimeRequestAlreadyExist: -15,
+  updateEndTimeRequestNotFound: -16,
 });
 
 // === xdr source ============================================================
@@ -10400,6 +10515,8 @@ xdr.enum("ManageSaleResultCode", {
 //   		void;
 //       case CREATE_PROMOTION_UPDATE_REQUEST:
 //           uint64 promotionUpdateRequestID;
+//   	case CREATE_UPDATE_END_TIME_REQUEST:
+//   	    uint64 updateEndTimeRequestID;
 //       }
 //
 // ===========================================================================
@@ -10411,10 +10528,12 @@ xdr.union("ManageSaleResultSuccessResponse", {
     ["cancel", xdr.void()],
     ["setState", xdr.void()],
     ["createPromotionUpdateRequest", "promotionUpdateRequestId"],
+    ["createUpdateEndTimeRequest", "updateEndTimeRequestId"],
   ],
   arms: {
     requestId: xdr.lookup("Uint64"),
     promotionUpdateRequestId: xdr.lookup("Uint64"),
+    updateEndTimeRequestId: xdr.lookup("Uint64"),
   },
 });
 
@@ -10450,6 +10569,8 @@ xdr.union("ManageSaleResultSuccessExt", {
 //   		void;
 //       case CREATE_PROMOTION_UPDATE_REQUEST:
 //           uint64 promotionUpdateRequestID;
+//   	case CREATE_UPDATE_END_TIME_REQUEST:
+//   	    uint64 updateEndTimeRequestID;
 //       } response;
 //   
 //       //reserved for future use
