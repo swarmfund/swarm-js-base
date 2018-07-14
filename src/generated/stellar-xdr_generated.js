@@ -1,4 +1,4 @@
-// Automatically generated on 2018-07-12T13:50:46+03:00
+// Automatically generated on 2018-07-14T18:11:40+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -375,6 +375,8 @@ xdr.union("ManageSaleResultSuccessResponse", {
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION:
+//           bool fulfilled; // can be used for any reviewable request type created with manage sale operation
 //       }
 //
 // ===========================================================================
@@ -383,8 +385,10 @@ xdr.union("ManageSaleResultSuccessExt", {
   switchName: "v",
   switches: [
     ["emptyVersion", xdr.void()],
+    ["allowToUpdateVotingSalesAsPromotion", "fulfilled"],
   ],
   arms: {
+    fulfilled: xdr.bool(),
   },
 });
 
@@ -405,11 +409,13 @@ xdr.union("ManageSaleResultSuccessExt", {
 //   	    uint64 updateEndTimeRequestID;
 //       } response;
 //   
-//       //reserved for future use
+//       // reserved for future use
 //       union switch (LedgerVersion v)
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION:
+//           bool fulfilled; // can be used for any reviewable request type created with manage sale operation
 //       }
 //       ext;
 //   };
@@ -3624,7 +3630,10 @@ xdr.union("PublicKey", {
 //   	LIMITS_UPDATE_REQUEST_DEPRECATED_DOCUMENT_HASH = 31,
 //   	FIX_PAYMENT_V2_FEE = 32,
 //   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33,
-//   	FIX_SET_SALE_STATE_AND_CHECK_SALE_STATE_OPS = 34 // only master allowed to set sale state, max issuance after sale closure = pending + issued
+//   	FIX_SET_SALE_STATE_AND_CHECK_SALE_STATE_OPS = 34, // only master allowed to set sale state, max issuance after sale closure = pending + issued
+//   	FIX_UPDATE_MAX_ISSUANCE = 35,
+//   	ALLOW_CLOSE_SALE_WITH_NON_ZERO_BALANCE = 36,
+//   	ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION = 37
 //   };
 //
 // ===========================================================================
@@ -3664,6 +3673,9 @@ xdr.enum("LedgerVersion", {
   fixPaymentV2Fee: 32,
   addSaleIdReviewRequestResult: 33,
   fixSetSaleStateAndCheckSaleStateOp: 34,
+  fixUpdateMaxIssuance: 35,
+  allowCloseSaleWithNonZeroBalance: 36,
+  allowToUpdateVotingSalesAsPromotion: 37,
 });
 
 // === xdr source ============================================================
