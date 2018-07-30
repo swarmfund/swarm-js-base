@@ -45299,6 +45299,7 @@ var StellarBase =
 	         * @param {string} opts.receiver - balance ID of the receiver
 	         * @param {string} opts.reference - Reference of the request
 	         * @param {object} opts.externalDetails - External details needed for PSIM to process withdraw operation
+	         * @param {number|string} opts.allTasks - Bitmask of all tasks which must be completed for the request approval
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         * @returns {xdr.CreateIssuanceRequestOp}
 	         */
@@ -45340,11 +45341,14 @@ var StellarBase =
 
 	            attrs.ext = new _generatedStellarXdr_generated2['default'].IssuanceRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
 	            var request = new _generatedStellarXdr_generated2['default'].IssuanceRequest(attrs);
+
+	            var rawAllTasks = _base_operation.BaseOperation._checkUnsignedIntValue("allTasks", opts.allTasks);
+
 	            var issuanceRequestOp = new _generatedStellarXdr_generated2['default'].CreateIssuanceRequestOp({
 	                request: request,
 	                reference: opts.reference,
 	                externalDetails: request.externalDetails(),
-	                ext: new _generatedStellarXdr_generated2['default'].CreateIssuanceRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	                ext: new _generatedStellarXdr_generated2['default'].CreateIssuanceRequestOpExt.addTasksToReviewableRequest(rawAllTasks)
 	            });
 	            var opAttributes = {};
 	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.createIssuanceRequest(issuanceRequestOp);
@@ -45360,6 +45364,13 @@ var StellarBase =
 	            result.amount = _base_operation.BaseOperation._fromXDRAmount(request.amount());
 	            result.receiver = _base_operation.BaseOperation.balanceIdtoString(request.receiver());
 	            result.externalDetails = JSON.parse(request.externalDetails());
+	            switch (attrs.ext()['switch']()) {
+	                case _generatedStellarXdr_generated2['default'].LedgerVersion.addTasksToReviewableRequest():
+	                    {
+	                        result.allTasks = attrs.ext().allTasks();
+	                        break;
+	                    }
+	            }
 	        }
 	    }]);
 
