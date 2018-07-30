@@ -375,7 +375,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-07-12T13:50:46+03:00
+	// Automatically generated on 2018-07-30T16:30:18+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -597,10 +597,12 @@ var StellarBase =
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
+	//       case ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION:
+	//           bool fulfilled; // can be used for any reviewable request type created with manage sale operation
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ManageSaleResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	xdr.union("ManageSaleResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["allowToUpdateVotingSalesAsPromotion","fulfilled"]],arms:{fulfilled:xdr.bool()}}); // === xdr source ============================================================
 	//
 	//   struct ManageSaleResultSuccess
 	//   {
@@ -617,11 +619,13 @@ var StellarBase =
 	//   	    uint64 updateEndTimeRequestID;
 	//       } response;
 	//   
-	//       //reserved for future use
+	//       // reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
+	//       case ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION:
+	//           bool fulfilled; // can be used for any reviewable request type created with manage sale operation
 	//       }
 	//       ext;
 	//   };
@@ -809,6 +813,35 @@ var StellarBase =
 	// ===========================================================================
 	xdr["enum"]("ReviewableRequestType",{assetCreate:0,assetUpdate:1,preIssuanceCreate:2,issuanceCreate:3,withdraw:4,sale:5,limitsUpdate:6,twoStepWithdrawal:7,amlAlert:8,updateKyc:9,updateSaleDetail:10,updatePromotion:11,updateSaleEndTime:12}); // === xdr source ============================================================
 	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("TasksExtExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct TasksExt {
+	//       // Tasks are represented by a bitmask
+	//       uint32 allTasks;
+	//       uint32 pendingTasks;
+	//   
+	//       // External details vector consists of comments written by request reviewers
+	//       longstring externalDetails<>;
+	//   
+	//       // Reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("TasksExt",[["allTasks",xdr.lookup("Uint32")],["pendingTasks",xdr.lookup("Uint32")],["externalDetails",xdr.varArray(xdr.lookup("Longstring"),2147483647)],["ext",xdr.lookup("TasksExtExt")]]); // === xdr source ============================================================
+	//
 	//   union switch (ReviewableRequestType type) {
 	//   		case ASSET_CREATE:
 	//   			AssetCreationRequest assetCreationRequest;
@@ -845,10 +878,12 @@ var StellarBase =
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
+	//       case ADD_TASKS_TO_REVIEWABLE_REQUEST:
+	//           TasksExt tasksExt;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ReviewableRequestEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	xdr.union("ReviewableRequestEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["addTasksToReviewableRequest","tasksExt"]],arms:{tasksExt:xdr.lookup("TasksExt")}}); // === xdr source ============================================================
 	//
 	//   struct ReviewableRequestEntry {
 	//   	uint64 requestID;
@@ -893,6 +928,8 @@ var StellarBase =
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
+	//       case ADD_TASKS_TO_REVIEWABLE_REQUEST:
+	//           TasksExt tasksExt;
 	//       }
 	//       ext;
 	//   };
@@ -2589,11 +2626,17 @@ var StellarBase =
 	//   	LIMITS_UPDATE_REQUEST_DEPRECATED_DOCUMENT_HASH = 31,
 	//   	FIX_PAYMENT_V2_FEE = 32,
 	//   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33,
-	//   	FIX_SET_SALE_STATE_AND_CHECK_SALE_STATE_OPS = 34 // only master allowed to set sale state, max issuance after sale closure = pending + issued
+	//   	FIX_SET_SALE_STATE_AND_CHECK_SALE_STATE_OPS = 34, // only master allowed to set sale state, max issuance after sale closure = pending + issued
+	//   	FIX_UPDATE_MAX_ISSUANCE = 35,
+	//   	ALLOW_CLOSE_SALE_WITH_NON_ZERO_BALANCE = 36,
+	//   	ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION = 37,
+	//   	ALLOW_TO_ISSUE_AFTER_SALE = 38,
+	//       FIX_PAYMENT_V2_SEND_TO_SELF = 39,
+	//       ADD_TASKS_TO_REVIEWABLE_REQUEST = 40
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23,allowToCancelSaleParticipWithoutSpecifingBalance:24,detailsMaxLengthExtended:25,allowMasterToManageSale:26,useSaleAnte:27,fixAssetPairsCreationInSaleCreation:28,statableSale:29,createOnlyStatisticsV2:30,limitsUpdateRequestDeprecatedDocumentHash:31,fixPaymentV2Fee:32,addSaleIdReviewRequestResult:33,fixSetSaleStateAndCheckSaleStateOp:34}); // === xdr source ============================================================
+	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23,allowToCancelSaleParticipWithoutSpecifingBalance:24,detailsMaxLengthExtended:25,allowMasterToManageSale:26,useSaleAnte:27,fixAssetPairsCreationInSaleCreation:28,statableSale:29,createOnlyStatisticsV2:30,limitsUpdateRequestDeprecatedDocumentHash:31,fixPaymentV2Fee:32,addSaleIdReviewRequestResult:33,fixSetSaleStateAndCheckSaleStateOp:34,fixUpdateMaxIssuance:35,allowCloseSaleWithNonZeroBalance:36,allowToUpdateVotingSalesAsPromotion:37,allowToIssueAfterSale:38,fixPaymentV2SendToSelf:39,addTasksToReviewableRequest:40}); // === xdr source ============================================================
 	//
 	//   typedef opaque Signature<64>;
 	//
@@ -3735,6 +3778,92 @@ var StellarBase =
 	// ===========================================================================
 	xdr.struct("UpdateKycDetails",[["tasksToAdd",xdr.lookup("Uint32")],["tasksToRemove",xdr.lookup("Uint32")],["externalDetails",xdr.string()],["ext",xdr.lookup("UpdateKycDetailsExt")]]); // === xdr source ============================================================
 	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("ReviewDetailsExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct ReviewDetails {
+	//       uint32 tasksToAdd;
+	//       uint32 tasksToRemove;
+	//       string externalDetails<>;
+	//       // Reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("ReviewDetails",[["tasksToAdd",xdr.lookup("Uint32")],["tasksToRemove",xdr.lookup("Uint32")],["externalDetails",xdr.string()],["ext",xdr.lookup("ReviewDetailsExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("SaleExtendedExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct SaleExtended {
+	//       uint64 saleID;
+	//   
+	//       // Reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("SaleExtended",[["saleId",xdr.lookup("Uint64")],["ext",xdr.lookup("SaleExtendedExt")]]); // === xdr source ============================================================
+	//
+	//   union switch(ReviewableRequestType requestType) {
+	//       case SALE:
+	//           SaleExtended saleExtended;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("ExtendedResultTypeExt",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"requestType",switches:[["sale","saleExtended"]],arms:{saleExtended:xdr.lookup("SaleExtended")}}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//      {
+	//      case EMPTY_VERSION:
+	//          void;
+	//      }
+	//
+	// ===========================================================================
+	xdr.union("ExtendedResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct ExtendedResult {
+	//       bool fulfilled;
+	//   
+	//       union switch(ReviewableRequestType requestType) {
+	//       case SALE:
+	//           SaleExtended saleExtended;
+	//       } typeExt;
+	//   
+	//      // Reserved for future use
+	//      union switch (LedgerVersion v)
+	//      {
+	//      case EMPTY_VERSION:
+	//          void;
+	//      }
+	//      ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("ExtendedResult",[["fulfilled",xdr.bool()],["typeExt",xdr.lookup("ExtendedResultTypeExt")],["ext",xdr.lookup("ExtendedResultExt")]]); // === xdr source ============================================================
+	//
 	//   union switch(ReviewableRequestType requestType) {
 	//   	case WITHDRAW:
 	//   		WithdrawalDetails withdrawal;
@@ -3757,10 +3886,12 @@ var StellarBase =
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
+	//       case ADD_TASKS_TO_REVIEWABLE_REQUEST:
+	//           ReviewDetails reviewDetails;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ReviewRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	xdr.union("ReviewRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["addTasksToReviewableRequest","reviewDetails"]],arms:{reviewDetails:xdr.lookup("ReviewDetails")}}); // === xdr source ============================================================
 	//
 	//   struct ReviewRequestOp
 	//   {
@@ -3787,6 +3918,8 @@ var StellarBase =
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
+	//       case ADD_TASKS_TO_REVIEWABLE_REQUEST:
+	//           ReviewDetails reviewDetails;
 	//       }
 	//       ext;
 	//   };
@@ -3818,6 +3951,7 @@ var StellarBase =
 	//   	MAX_ISSUANCE_AMOUNT_EXCEEDED = -40,
 	//   	INSUFFICIENT_AVAILABLE_FOR_ISSUANCE_AMOUNT = -41,
 	//   	FULL_LINE = -42, // can't fund balance - total funds exceed UINT64_MAX
+	//   	SYSTEM_TASKS_NOT_ALLOWED = -43,
 	//   
 	//   	// Sale creation requests
 	//   	BASE_ASSET_DOES_NOT_EXISTS = -50,
@@ -3838,7 +3972,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ReviewRequestResultCode",{success:0,invalidReason:-1,invalidAction:-2,hashMismatched:-3,notFound:-4,typeMismatched:-5,rejectNotAllowed:-6,invalidExternalDetail:-7,requestorIsBlocked:-8,permanentRejectNotAllowed:-9,assetAlreadyExist:-20,assetDoesNotExist:-21,maxIssuanceAmountExceeded:-40,insufficientAvailableForIssuanceAmount:-41,fullLine:-42,baseAssetDoesNotExist:-50,hardCapWillExceedMaxIssuance:-51,insufficientPreissuedForHardCap:-52,nonZeroTasksToRemoveNotAllowed:-60,saleNotFound:-70,invalidSaleState:-80,invalidSaleNewEndTime:-90}); // === xdr source ============================================================
+	xdr["enum"]("ReviewRequestResultCode",{success:0,invalidReason:-1,invalidAction:-2,hashMismatched:-3,notFound:-4,typeMismatched:-5,rejectNotAllowed:-6,invalidExternalDetail:-7,requestorIsBlocked:-8,permanentRejectNotAllowed:-9,assetAlreadyExist:-20,assetDoesNotExist:-21,maxIssuanceAmountExceeded:-40,insufficientAvailableForIssuanceAmount:-41,fullLine:-42,systemTasksNotAllowed:-43,baseAssetDoesNotExist:-50,hardCapWillExceedMaxIssuance:-51,insufficientPreissuedForHardCap:-52,nonZeroTasksToRemoveNotAllowed:-60,saleNotFound:-70,invalidSaleState:-80,invalidSaleNewEndTime:-90}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -3846,10 +3980,12 @@ var StellarBase =
 	//   		    uint64 saleID;
 	//   		case EMPTY_VERSION:
 	//   			void;
+	//           case ADD_TASKS_TO_REVIEWABLE_REQUEST:
+	//               ExtendedResult extendedResult;
 	//   		}
 	//
 	// ===========================================================================
-	xdr.union("ReviewRequestResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["addSaleIdReviewRequestResult","saleId"],["emptyVersion",xdr["void"]()]],arms:{saleId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
+	xdr.union("ReviewRequestResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["addSaleIdReviewRequestResult","saleId"],["emptyVersion",xdr["void"]()],["addTasksToReviewableRequest","extendedResult"]],arms:{saleId:xdr.lookup("Uint64"),extendedResult:xdr.lookup("ExtendedResult")}}); // === xdr source ============================================================
 	//
 	//   struct {
 	//   		// reserved for future use
@@ -3859,6 +3995,8 @@ var StellarBase =
 	//   		    uint64 saleID;
 	//   		case EMPTY_VERSION:
 	//   			void;
+	//           case ADD_TASKS_TO_REVIEWABLE_REQUEST:
+	//               ExtendedResult extendedResult;
 	//   		}
 	//   		ext;
 	//   	}
@@ -3877,6 +4015,8 @@ var StellarBase =
 	//   		    uint64 saleID;
 	//   		case EMPTY_VERSION:
 	//   			void;
+	//           case ADD_TASKS_TO_REVIEWABLE_REQUEST:
+	//               ExtendedResult extendedResult;
 	//   		}
 	//   		ext;
 	//   	} success;
@@ -4691,10 +4831,12 @@ var StellarBase =
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
+	//       case ADD_TASKS_TO_REVIEWABLE_REQUEST:
+	//           uint32* allTasks;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("CreateIssuanceRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	xdr.union("CreateIssuanceRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["addTasksToReviewableRequest","allTasks"]],arms:{allTasks:xdr.option(xdr.lookup("Uint32"))}}); // === xdr source ============================================================
 	//
 	//   struct CreateIssuanceRequestOp
 	//   {
@@ -4705,6 +4847,8 @@ var StellarBase =
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
+	//       case ADD_TASKS_TO_REVIEWABLE_REQUEST:
+	//           uint32* allTasks;
 	//       }
 	//       ext;
 	//   };
@@ -4728,11 +4872,13 @@ var StellarBase =
 	//   	INVALID_EXTERNAL_DETAILS = -8, // external details size exceeds max allowed
 	//   	FEE_EXCEEDS_AMOUNT = -9, // fee more than amount to issue
 	//       REQUIRES_KYC = -10, // asset requires receiver to have KYC
-	//       REQUIRES_VERIFICATION = -11 //asset requires receiver to be verified
+	//       REQUIRES_VERIFICATION = -11, //asset requires receiver to be verified
+	//       ISSUANCE_TASKS_NOT_FOUND = -12, // issuance tasks have not been provided by the source and don't exist in 'KeyValue' table
+	//       SYSTEM_TASKS_NOT_ALLOWED = -13
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("CreateIssuanceRequestResultCode",{success:0,assetNotFound:-1,invalidAmount:-2,referenceDuplication:-3,noCounterparty:-4,notAuthorized:-5,exceedsMaxIssuanceAmount:-6,receiverFullLine:-7,invalidExternalDetail:-8,feeExceedsAmount:-9,requiresKyc:-10,requiresVerification:-11}); // === xdr source ============================================================
+	xdr["enum"]("CreateIssuanceRequestResultCode",{success:0,assetNotFound:-1,invalidAmount:-2,referenceDuplication:-3,noCounterparty:-4,notAuthorized:-5,exceedsMaxIssuanceAmount:-6,receiverFullLine:-7,invalidExternalDetail:-8,feeExceedsAmount:-9,requiresKyc:-10,requiresVerification:-11,issuanceTasksNotFound:-12,systemTasksNotAllowed:-13}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   	{
@@ -5261,11 +5407,12 @@ var StellarBase =
 	//   	KYC_ACC_MANAGER = 16777216, // can manage kyc
 	//   	KYC_SUPER_ADMIN = 33554432,
 	//   	EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_MANAGER = 67108864,
-	//       KEY_VALUE_MANAGER = 134217728 // can manage keyValue
+	//       KEY_VALUE_MANAGER = 134217728, // can manage keyValue
+	//       SUPER_ISSUANCE_MANAGER = 268435456
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("SignerType",{reader:1,notVerifiedAccManager:2,generalAccManager:4,directDebitOperator:8,assetManager:16,assetRateManager:32,balanceManager:64,issuanceManager:128,invoiceManager:256,paymentOperator:512,limitsManager:1024,accountManager:2048,commissionBalanceManager:4096,operationalBalanceManager:8192,eventsChecker:16384,exchangeAccManager:32768,syndicateAccManager:65536,userAssetManager:131072,userIssuanceManager:262144,withdrawManager:524288,feesManager:1048576,txSender:2097152,amlAlertManager:4194304,amlAlertReviewer:8388608,kycAccManager:16777216,kycSuperAdmin:33554432,externalSystemAccountIdPoolManager:67108864,keyValueManager:134217728}); // === xdr source ============================================================
+	xdr["enum"]("SignerType",{reader:1,notVerifiedAccManager:2,generalAccManager:4,directDebitOperator:8,assetManager:16,assetRateManager:32,balanceManager:64,issuanceManager:128,invoiceManager:256,paymentOperator:512,limitsManager:1024,accountManager:2048,commissionBalanceManager:4096,operationalBalanceManager:8192,eventsChecker:16384,exchangeAccManager:32768,syndicateAccManager:65536,userAssetManager:131072,userIssuanceManager:262144,withdrawManager:524288,feesManager:1048576,txSender:2097152,amlAlertManager:4194304,amlAlertReviewer:8388608,kycAccManager:16777216,kycSuperAdmin:33554432,externalSystemAccountIdPoolManager:67108864,keyValueManager:134217728,superIssuanceManager:268435456}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
