@@ -44668,6 +44668,9 @@ var StellarBase =
 	         * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
 	         * @param {string} opts.reason - Reject reason
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * @param {number|string} opts.tasksToAdd - new tasks for reviewable request to be accomplished before fulfill
+	         * @param {number|string} opts.tasksToRemove - tasks, which were done by the reviewer and should be removed
+	         * @param {string} opts.ExternalDetails - the reviewer's commentary
 	         * @returns {xdr.ReviewRequestOp}
 	         */
 	        value: function reviewRequest(opts) {
@@ -44713,7 +44716,23 @@ var StellarBase =
 	            }
 
 	            attrs.reason = opts.reason;
-	            attrs.ext = new _generatedStellarXdr_generated2['default'].ReviewRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.tasksToAdd)) {
+	                throw new Error("opts.tasksToAdd is invalid");
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.tasksToRemove)) {
+	                throw new Error("opts.tasksToRemove is invalid");
+	            }
+
+	            var reviewDetails = new _generatedStellarXdr_generated2['default'].ReviewDetails({
+	                tasksToAdd: opts.tasksToAdd,
+	                tasksToRemove: opts.tasksToRemove,
+	                externalDetails: JSON.stringify(opts.externalDetails),
+	                ext: new _generatedStellarXdr_generated2['default'].ReviewDetailsExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            attrs.ext = new _generatedStellarXdr_generated2['default'].ReviewRequestOpExt.addTasksToReviewableRequest(reviewDetails);
 
 	            return attrs;
 	        }
@@ -44941,6 +44960,17 @@ var StellarBase =
 	            }
 	            result.action = attrs.action().value;
 	            result.reason = attrs.reason();
+
+	            switch (attrs.ext()['switch']()) {
+	                case _generatedStellarXdr_generated2['default'].LedgerVersion.addTasksToReviewableRequest():
+	                    {
+	                        var reviewDetails = attrs.ext().reviewDetails();
+	                        result.tasksToAdd = reviewDetails.tasksToAdd();
+	                        result.tasksToRemove = reviewDetails.tasksToRemove();
+	                        result.externalDetails = reviewDetails.externalDetails();
+	                        break;
+	                    }
+	            }
 	        }
 	    }]);
 

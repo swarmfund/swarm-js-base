@@ -8,7 +8,10 @@ describe('ReviewRequest', function () {
             requestHash: "b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9",
             requestType: StellarBase.xdr.ReviewableRequestType.assetCreate().value,
             action: StellarBase.xdr.ReviewRequestOpAction.reject().value,
-            reason: "Something is invalid"
+            reason: "Something is invalid",
+            tasksToAdd: 0,
+            tasksToRemove: 4,
+            externalDetails: {details: 'All right'}
         }
         let op = StellarBase.ReviewRequestBuilder.reviewRequest(opts);
         var xdr = op.toXDR("hex");
@@ -20,6 +23,9 @@ describe('ReviewRequest', function () {
         expect(obj.requestType).to.be.equal(opts.requestType);
         expect(obj.action).to.be.equal(opts.action);
         expect(obj.reason).to.be.equal(opts.reason);
+        expect(obj.tasksToAdd).to.be.equal(opts.tasksToAdd);
+        expect(obj.tasksToRemove).to.be.equal(opts.tasksToRemove);
+        expect(obj.externalDetails).to.be.equal(JSON.stringify(opts.externalDetails));
     });
     it("Withdraw request success", function () {
         var opts = {
@@ -27,7 +33,10 @@ describe('ReviewRequest', function () {
             requestHash: "b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9",
             externalDetails: {details: "External details"},
             action: StellarBase.xdr.ReviewRequestOpAction.reject().value,
-            reason: "Something is invalid"
+            reason: "Something is invalid",
+            tasksToAdd: 0,
+            tasksToRemove: 4,
+            externalDetails: {details: 'All right'}
         }
         let op = StellarBase.ReviewRequestBuilder.reviewWithdrawRequest(opts);
         var xdr = op.toXDR("hex");
@@ -39,6 +48,9 @@ describe('ReviewRequest', function () {
         expect(obj.action).to.be.equal(opts.action);
         expect(obj.reason).to.be.equal(opts.reason);
         expect(obj.withdrawal.externalDetails).to.be.equal(JSON.stringify(opts.externalDetails));
+        expect(obj.tasksToAdd).to.be.equal(opts.tasksToAdd);
+        expect(obj.tasksToRemove).to.be.equal(opts.tasksToRemove);
+        expect(obj.externalDetails).to.be.equal(JSON.stringify(opts.externalDetails));
     });
     it("LimitsUpdate request success", function () {
         let account = StellarBase.Keypair.random();
@@ -57,7 +69,10 @@ describe('ReviewRequest', function () {
                 annualOut: '500',
             },
             action: StellarBase.xdr.ReviewRequestOpAction.reject().value,
-            reason: "Something is invalid"
+            reason: "Something is invalid",
+            tasksToAdd: 0,
+            tasksToRemove: 4,
+            externalDetails: {details: 'All right'}
         };
         let op = StellarBase.ReviewRequestBuilder.reviewLimitsUpdateRequest(opts);
         var xdr = op.toXDR("hex");
@@ -76,6 +91,9 @@ describe('ReviewRequest', function () {
         expect(obj.limitsUpdate.newLimits.weeklyOut).to.be.equal(opts.newLimits.weeklyOut);
         expect(obj.limitsUpdate.newLimits.monthlyOut).to.be.equal(opts.newLimits.monthlyOut);
         expect(obj.limitsUpdate.newLimits.annualOut).to.be.equal(opts.newLimits.annualOut);
+        expect(obj.tasksToAdd).to.be.equal(opts.tasksToAdd);
+        expect(obj.tasksToRemove).to.be.equal(opts.tasksToRemove);
+        expect(obj.externalDetails).to.be.equal(JSON.stringify(opts.externalDetails));
     });
     it("Two step Withdraw request success", function () {
         var opts = {
@@ -83,7 +101,10 @@ describe('ReviewRequest', function () {
             requestHash: "b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9",
             externalDetails: {details: "External details of two step request"},
             action: StellarBase.xdr.ReviewRequestOpAction.reject().value,
-            reason: "Something is invalid"
+            reason: "Something is invalid",
+            tasksToAdd: 0,
+            tasksToRemove: 4,
+            externalDetails: {details: 'All right'}
         }
         let op = StellarBase.ReviewRequestBuilder.reviewTwoStepWithdrawRequest(opts);
         var xdr = op.toXDR("hex");
@@ -95,6 +116,9 @@ describe('ReviewRequest', function () {
         expect(obj.action).to.be.equal(opts.action);
         expect(obj.reason).to.be.equal(opts.reason);
         expect(obj.twoStepWithdrawal.externalDetails).to.be.equal(JSON.stringify(opts.externalDetails));
+        expect(obj.tasksToAdd).to.be.equal(opts.tasksToAdd);
+        expect(obj.tasksToRemove).to.be.equal(opts.tasksToRemove);
+        expect(obj.externalDetails).to.be.equal(JSON.stringify(opts.externalDetails));
     });
     it("Aml alert request success", function () {
         var opts = {
@@ -102,7 +126,10 @@ describe('ReviewRequest', function () {
             requestHash: "b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9",
             comment: 'Testing aml alert',
             action: StellarBase.xdr.ReviewRequestOpAction.reject().value,
-            reason: "Something is invalid"
+            reason: "Something is invalid",
+            tasksToAdd: 0,
+            tasksToRemove: 4,
+            externalDetails: {details: 'All right'}
         };
         let op = StellarBase.ReviewRequestBuilder.reviewAmlAlertRequest(opts);
         var xdr = op.toXDR("hex");
@@ -114,6 +141,9 @@ describe('ReviewRequest', function () {
         expect(obj.action).to.be.equal(opts.action);
         expect(obj.reason).to.be.equal(opts.reason);
         expect(obj.amlAlert.comment).to.be.equal(opts.comment);
+        expect(obj.tasksToAdd).to.be.equal(opts.tasksToAdd);
+        expect(obj.tasksToRemove).to.be.equal(opts.tasksToRemove);
+        expect(obj.externalDetails).to.be.equal(JSON.stringify(opts.externalDetails));
     });
     it("Update KYC request success", function () {
         var opts = {
@@ -137,5 +167,8 @@ describe('ReviewRequest', function () {
         expect(obj.updateKyc.externalDetails).to.be.equal(JSON.stringify(opts.externalDetails));
         expect(obj.updateKyc.tasksToAdd).to.be.equal(opts.tasksToAdd);
         expect(obj.updateKyc.tasksToRemove).to.be.equal(opts.tasksToRemove);
+        expect(obj.tasksToAdd).to.be.equal(opts.tasksToAdd);
+        expect(obj.tasksToRemove).to.be.equal(opts.tasksToRemove);
+        expect(obj.externalDetails).to.be.equal(JSON.stringify(opts.externalDetails));
     })
 });

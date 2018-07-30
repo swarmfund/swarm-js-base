@@ -78,12 +78,11 @@ export class CreateIssuanceRequestBuilder {
         result.amount = BaseOperation._fromXDRAmount(request.amount());
         result.receiver = BaseOperation.balanceIdtoString(request.receiver());
         result.externalDetails = JSON.parse(request.externalDetails());
-         switch (attrs.ext().switch()) {
-             case xdr.LedgerVersion.addTasksToReviewableRequest():
-             {
-                 result.allTasks = attrs.ext().allTasks();
-                 break;
-             }
-         }
+        switch (attrs.ext().switch()) {
+            case xdr.LedgerVersion.addTasksToReviewableRequest(): {
+                result.allTasks = attrs.ext().allTasks();
+                break;
+            }
+        }
     }
 }

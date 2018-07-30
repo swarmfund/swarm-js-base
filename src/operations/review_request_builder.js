@@ -17,6 +17,9 @@ export class ReviewRequestBuilder {
      * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
      * @param {string} opts.reason - Reject reason
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+     * @param {number|string} opts.tasksToAdd - new tasks for reviewable request to be accomplished before fulfill
+     * @param {number|string} opts.tasksToRemove - tasks, which were done by the reviewer and should be removed
+     * @param {string} opts.ExternalDetails - the reviewer's commentary
      * @returns {xdr.ReviewRequestOp}
      */
     static reviewRequest(opts) {
@@ -60,7 +63,23 @@ export class ReviewRequestBuilder {
         }
 
         attrs.reason = opts.reason;
-        attrs.ext = new xdr.ReviewRequestOpExt(xdr.LedgerVersion.emptyVersion());
+
+        if (isUndefined(opts.tasksToAdd)) {
+            throw new Error("opts.tasksToAdd is invalid");
+        }
+
+        if (isUndefined(opts.tasksToRemove)) {
+            throw new Error("opts.tasksToRemove is invalid");
+        }
+
+        let reviewDetails = new xdr.ReviewDetails({
+            tasksToAdd: opts.tasksToAdd,
+            tasksToRemove: opts.tasksToRemove,
+            externalDetails: JSON.stringify(opts.externalDetails),
+            ext: new xdr.ReviewDetailsExt(xdr.LedgerVersion.emptyVersion())
+        });
+
+        attrs.ext = new xdr.ReviewRequestOpExt.addTasksToReviewableRequest(reviewDetails);
 
         return attrs;
     }
@@ -275,5 +294,15 @@ export class ReviewRequestBuilder {
         result.action = attrs.action().value;
         result.reason = attrs.reason();
 
+        switch (attrs.ext().switch())
+        {
+            case xdr.LedgerVersion.addTasksToReviewableRequest(): {
+                let reviewDetails = attrs.ext().reviewDetails();
+                result.tasksToAdd = reviewDetails.tasksToAdd();
+                result.tasksToRemove = reviewDetails.tasksToRemove();
+                result.externalDetails = reviewDetails.externalDetails();
+                break;
+            }
+        }
     }
 }
