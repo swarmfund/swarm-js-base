@@ -1,4 +1,4 @@
-// Automatically generated on 2018-07-30T16:30:18+03:00
+// Automatically generated on 2018-07-31T18:01:09+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -705,7 +705,8 @@ xdr.union("ManageLimitsResult", {
 //   	UPDATE_KYC = 9,
 //   	UPDATE_SALE_DETAILS = 10,
 //   	UPDATE_PROMOTION = 11,
-//   	UPDATE_SALE_END_TIME = 12
+//   	UPDATE_SALE_END_TIME = 12,
+//   	NONE = 13 // use this request type in ReviewRequestOp extended result if additional info is not required
 //   };
 //
 // ===========================================================================
@@ -723,6 +724,7 @@ xdr.enum("ReviewableRequestType", {
   updateSaleDetail: 10,
   updatePromotion: 11,
   updateSaleEndTime: 12,
+  none: 13,
 });
 
 // === xdr source ============================================================
@@ -5678,6 +5680,8 @@ xdr.struct("SaleExtended", [
 //   union switch(ReviewableRequestType requestType) {
 //       case SALE:
 //           SaleExtended saleExtended;
+//       case NONE:
+//           void;
 //       }
 //
 // ===========================================================================
@@ -5686,6 +5690,7 @@ xdr.union("ExtendedResultTypeExt", {
   switchName: "requestType",
   switches: [
     ["sale", "saleExtended"],
+    ["none", xdr.void()],
   ],
   arms: {
     saleExtended: xdr.lookup("SaleExtended"),
@@ -5719,6 +5724,8 @@ xdr.union("ExtendedResultExt", {
 //       union switch(ReviewableRequestType requestType) {
 //       case SALE:
 //           SaleExtended saleExtended;
+//       case NONE:
+//           void;
 //       } typeExt;
 //   
 //      // Reserved for future use

@@ -375,7 +375,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-07-30T16:30:18+03:00
+	// Automatically generated on 2018-07-31T18:01:09+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -807,11 +807,12 @@ var StellarBase =
 	//   	UPDATE_KYC = 9,
 	//   	UPDATE_SALE_DETAILS = 10,
 	//   	UPDATE_PROMOTION = 11,
-	//   	UPDATE_SALE_END_TIME = 12
+	//   	UPDATE_SALE_END_TIME = 12,
+	//   	NONE = 13 // use this request type in ReviewRequestOp extended result if additional info is not required
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ReviewableRequestType",{assetCreate:0,assetUpdate:1,preIssuanceCreate:2,issuanceCreate:3,withdraw:4,sale:5,limitsUpdate:6,twoStepWithdrawal:7,amlAlert:8,updateKyc:9,updateSaleDetail:10,updatePromotion:11,updateSaleEndTime:12}); // === xdr source ============================================================
+	xdr["enum"]("ReviewableRequestType",{assetCreate:0,assetUpdate:1,preIssuanceCreate:2,issuanceCreate:3,withdraw:4,sale:5,limitsUpdate:6,twoStepWithdrawal:7,amlAlert:8,updateKyc:9,updateSaleDetail:10,updatePromotion:11,updateSaleEndTime:12,none:13}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3830,10 +3831,12 @@ var StellarBase =
 	//   union switch(ReviewableRequestType requestType) {
 	//       case SALE:
 	//           SaleExtended saleExtended;
+	//       case NONE:
+	//           void;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ExtendedResultTypeExt",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"requestType",switches:[["sale","saleExtended"]],arms:{saleExtended:xdr.lookup("SaleExtended")}}); // === xdr source ============================================================
+	xdr.union("ExtendedResultTypeExt",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"requestType",switches:[["sale","saleExtended"],["none",xdr["void"]()]],arms:{saleExtended:xdr.lookup("SaleExtended")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//      {
@@ -3850,6 +3853,8 @@ var StellarBase =
 	//       union switch(ReviewableRequestType requestType) {
 	//       case SALE:
 	//           SaleExtended saleExtended;
+	//       case NONE:
+	//           void;
 	//       } typeExt;
 	//   
 	//      // Reserved for future use
