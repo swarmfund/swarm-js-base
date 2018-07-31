@@ -65,11 +65,15 @@ export class ReviewRequestBuilder {
         attrs.reason = opts.reason;
 
         if (isUndefined(opts.tasksToAdd)) {
-            throw new Error("opts.tasksToAdd is invalid");
+            opts.tasksToAdd = 0;
         }
 
         if (isUndefined(opts.tasksToRemove)) {
-            throw new Error("opts.tasksToRemove is invalid");
+            opts.tasksToRemove = 0;
+        }
+
+        if (isUndefined(opts.externalDetails)) {
+            opts.externalDetails = {};
         }
 
         let reviewDetails = new xdr.ReviewDetails({

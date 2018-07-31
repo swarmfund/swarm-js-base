@@ -44718,11 +44718,15 @@ var StellarBase =
 	            attrs.reason = opts.reason;
 
 	            if ((0, _lodashIsUndefined2['default'])(opts.tasksToAdd)) {
-	                throw new Error("opts.tasksToAdd is invalid");
+	                opts.tasksToAdd = 0;
 	            }
 
 	            if ((0, _lodashIsUndefined2['default'])(opts.tasksToRemove)) {
-	                throw new Error("opts.tasksToRemove is invalid");
+	                opts.tasksToRemove = 0;
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.externalDetails)) {
+	                opts.externalDetails = {};
 	            }
 
 	            var reviewDetails = new _generatedStellarXdr_generated2['default'].ReviewDetails({
