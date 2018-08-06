@@ -43371,6 +43371,9 @@ var StellarBase =
 	        this.signatures = (0, _lodashMap2["default"])(signatures, function (s) {
 	            return s;
 	        });
+
+	        var maxTotalFee = envelope.tx().ext().maxTotalFee() || 0;
+	        this.maxTotalFee = _operation.Operation._fromXDRAmount(maxTotalFee);
 	    }
 
 	    /**
@@ -49733,6 +49736,7 @@ var StellarBase =
 	     * @param {string} [opts.timebounds.minTime] - 64 bit unix timestamp
 	     * @param {string} [opts.timebounds.maxTime] - 64 bit unix timestamp
 	     * @param {Memo} [opts.memo] - The memo for the transaction
+	     * @param {number|string} [opts.MaxTotalFee] - Max fee amount that source is willing to pay
 	     */
 
 	    function TransactionBuilder(sourceAccount) {
@@ -49750,6 +49754,7 @@ var StellarBase =
 	        this.timebounds = (0, _lodashClone2["default"])(opts.timebounds);
 	        this.salt = opts.salt;
 	        this.memo = opts.memo || _memo.Memo.none();
+	        this.maxTotalFee = opts.MaxTotalFee;
 
 	        // the signed base64 form of the transaction to be sent to Horizon
 	        this.blob = null;
@@ -49777,6 +49782,18 @@ var StellarBase =
 	        key: "addMemo",
 	        value: function addMemo(memo) {
 	            this.memo = memo;
+	            return this;
+	        }
+
+	        /**
+	         * Adds max total fee to the transaction.
+	         * @param {number|string} maxTotalFee.
+	         * @returns {TransactionBuilder}
+	         */
+	    }, {
+	        key: "addMaxTotalFee",
+	        value: function addMaxTotalFee(maxTotalFee) {
+	            this.maxTotalFee = maxTotalFee;
 	            return this;
 	        }
 
@@ -49812,6 +49829,10 @@ var StellarBase =
 	            };
 
 	            attrs.timeBounds = new _generatedStellarXdr_generated2["default"].TimeBounds(this.timebounds);
+
+	            if (!(0, _lodashIsUndefined2["default"])(this.maxTotalFee)) {
+	                attrs.ext = new _generatedStellarXdr_generated2["default"].TransactionExt.addTransactionFee(_operation.Operation._toUnsignedXDRAmount(this.maxTotalFee));
+	            }
 
 	            var xtx = new _generatedStellarXdr_generated2["default"].Transaction(attrs);
 	            xtx.operations(this.operations);
