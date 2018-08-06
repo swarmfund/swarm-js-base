@@ -1,4 +1,4 @@
-// Automatically generated on 2018-07-12T13:50:46+03:00
+// Automatically generated on 2018-08-06T17:04:24+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -375,6 +375,8 @@ xdr.union("ManageSaleResultSuccessResponse", {
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION:
+//           bool fulfilled; // can be used for any reviewable request type created with manage sale operation
 //       }
 //
 // ===========================================================================
@@ -383,8 +385,10 @@ xdr.union("ManageSaleResultSuccessExt", {
   switchName: "v",
   switches: [
     ["emptyVersion", xdr.void()],
+    ["allowToUpdateVotingSalesAsPromotion", "fulfilled"],
   ],
   arms: {
+    fulfilled: xdr.bool(),
   },
 });
 
@@ -405,11 +409,13 @@ xdr.union("ManageSaleResultSuccessExt", {
 //   	    uint64 updateEndTimeRequestID;
 //       } response;
 //   
-//       //reserved for future use
+//       // reserved for future use
 //       union switch (LedgerVersion v)
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION:
+//           bool fulfilled; // can be used for any reviewable request type created with manage sale operation
 //       }
 //       ext;
 //   };
@@ -3624,7 +3630,13 @@ xdr.union("PublicKey", {
 //   	LIMITS_UPDATE_REQUEST_DEPRECATED_DOCUMENT_HASH = 31,
 //   	FIX_PAYMENT_V2_FEE = 32,
 //   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33,
-//   	FIX_SET_SALE_STATE_AND_CHECK_SALE_STATE_OPS = 34 // only master allowed to set sale state, max issuance after sale closure = pending + issued
+//   	FIX_SET_SALE_STATE_AND_CHECK_SALE_STATE_OPS = 34, // only master allowed to set sale state, max issuance after sale closure = pending + issued
+//   	FIX_UPDATE_MAX_ISSUANCE = 35,
+//   	ALLOW_CLOSE_SALE_WITH_NON_ZERO_BALANCE = 36,
+//   	ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION = 37,
+//   	ALLOW_TO_ISSUE_AFTER_SALE = 38,
+//   	FIX_PAYMENT_V2_SEND_TO_SELF = 39,
+//   	ADD_TRANSACTION_FEE = 40
 //   };
 //
 // ===========================================================================
@@ -3664,6 +3676,12 @@ xdr.enum("LedgerVersion", {
   fixPaymentV2Fee: 32,
   addSaleIdReviewRequestResult: 33,
   fixSetSaleStateAndCheckSaleStateOp: 34,
+  fixUpdateMaxIssuance: 35,
+  allowCloseSaleWithNonZeroBalance: 36,
+  allowToUpdateVotingSalesAsPromotion: 37,
+  allowToIssueAfterSale: 38,
+  fixPaymentV2SendToSelf: 39,
+  addTransactionFee: 40,
 });
 
 // === xdr source ============================================================
@@ -4198,6 +4216,8 @@ xdr.struct("TimeBounds", [
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case ADD_TRANSACTION_FEE:
+//           uint64 maxTotalFee;
 //       }
 //
 // ===========================================================================
@@ -4206,8 +4226,10 @@ xdr.union("TransactionExt", {
   switchName: "v",
   switches: [
     ["emptyVersion", xdr.void()],
+    ["addTransactionFee", "maxTotalFee"],
   ],
   arms: {
+    maxTotalFee: xdr.lookup("Uint64"),
   },
 });
 
@@ -4232,6 +4254,8 @@ xdr.union("TransactionExt", {
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case ADD_TRANSACTION_FEE:
+//           uint64 maxTotalFee;
 //       }
 //       ext;
 //   };
@@ -4507,10 +4531,13 @@ xdr.union("OperationResult", {
 //   
 //       txBAD_AUTH = -5,             // too few valid signatures / wrong network
 //       txNO_ACCOUNT = -6,           // source account not found
-//       txBAD_AUTH_EXTRA = -7,      // unused signatures attached to transaction
-//       txINTERNAL_ERROR = -8,      // an unknown error occured
-//   	txACCOUNT_BLOCKED = -9,     // account is blocked and cannot be source of tx
-//       txDUPLICATION = -10         // if timing is stored
+//       txBAD_AUTH_EXTRA = -7,       // unused signatures attached to transaction
+//       txINTERNAL_ERROR = -8,       // an unknown error occured
+//   	txACCOUNT_BLOCKED = -9,      // account is blocked and cannot be source of tx
+//       txDUPLICATION = -10,         // if timing is stored
+//       txINSUFFICIENT_FEE = -11,    // the actual total fee amount is greater than the max total fee amount, provided by the source
+//       txSOURCE_UNDERFUNDED = -12,  // not enough tx fee asset on source balance
+//       txCOMMISSION_LINE_FULL = -13 // commission tx fee asset balance amount overflow
 //   };
 //
 // ===========================================================================
@@ -4526,7 +4553,94 @@ xdr.enum("TransactionResultCode", {
   txInternalError: -8,
   txAccountBlocked: -9,
   txDuplication: -10,
+  txInsufficientFee: -11,
+  txSourceUnderfunded: -12,
+  txCommissionLineFull: -13,
 });
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("OperationFeeExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct OperationFee
+//   {
+//       Operation operation;
+//       uint64 amount;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("OperationFee", [
+  ["operation", xdr.lookup("Operation")],
+  ["amount", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("OperationFeeExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("TransactionFeeExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct TransactionFee
+//   {
+//       AssetCode assetCode;
+//       OperationFee operationFees<100>;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("TransactionFee", [
+  ["assetCode", xdr.lookup("AssetCode")],
+  ["operationFees", xdr.varArray(xdr.lookup("OperationFee"), 100)],
+  ["ext", xdr.lookup("TransactionFeeExt")],
+]);
 
 // === xdr source ============================================================
 //
@@ -4559,6 +4673,8 @@ xdr.union("TransactionResultResult", {
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case ADD_TRANSACTION_FEE:
+//           TransactionFee transactionFee;
 //       }
 //
 // ===========================================================================
@@ -4567,8 +4683,10 @@ xdr.union("TransactionResultExt", {
   switchName: "v",
   switches: [
     ["emptyVersion", xdr.void()],
+    ["addTransactionFee", "transactionFee"],
   ],
   arms: {
+    transactionFee: xdr.lookup("TransactionFee"),
   },
 });
 
@@ -4593,6 +4711,8 @@ xdr.union("TransactionResultExt", {
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case ADD_TRANSACTION_FEE:
+//           TransactionFee transactionFee;
 //       }
 //       ext;
 //   };
@@ -8450,7 +8570,8 @@ xdr.struct("IssuanceRequest", [
 //   	OFFER_FEE = 1,
 //       WITHDRAWAL_FEE = 2,
 //       ISSUANCE_FEE = 3,
-//       INVEST_FEE = 4 // fee to be taken while creating sale participation
+//       INVEST_FEE = 4, // fee to be taken while creating sale participation
+//       OPERATION_FEE = 5
 //   };
 //
 // ===========================================================================
@@ -8460,6 +8581,7 @@ xdr.enum("FeeType", {
   withdrawalFee: 2,
   issuanceFee: 3,
   investFee: 4,
+  operationFee: 5,
 });
 
 // === xdr source ============================================================
