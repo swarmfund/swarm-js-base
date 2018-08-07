@@ -45911,7 +45911,12 @@ var StellarBase =
 	        value: function putKeyValue(opts) {
 	            var attributes = {};
 
-	            var value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue.uint32(Number(opts.value));
+	            var value = undefined;
+	            if (isNaN(opts.value)) {
+	                value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue.string(opts.value);
+	            } else {
+	                value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue.uint32(Number(opts.value));
+	            }
 
 	            var KVEntry = new _generatedStellarXdr_generated2["default"].KeyValueEntry({
 	                key: opts.key,
@@ -45950,7 +45955,7 @@ var StellarBase =
 	                throw new Error("key_value key must be defined");
 	            }
 	            if (!(0, _lodashIsString2["default"])(opts.key)) {
-	                throw new Error("key value key must be string");
+	                throw new Error("key_value key must be string");
 	            }
 
 	            attributes.key = opts.key;
@@ -45971,7 +45976,14 @@ var StellarBase =
 	            switch (attrs.action()["switch"]()) {
 	                case _generatedStellarXdr_generated2["default"].ManageKvAction.put():
 	                    result.action = new _generatedStellarXdr_generated2["default"].ManageKvAction.put().value;
-	                    result.value = action.value().ui32Value().toString();
+	                    switch (action.value()["switch"]()) {
+	                        case _generatedStellarXdr_generated2["default"].KeyValueEntryType.string():
+	                            result.value = action.value().stringValue().toString();
+	                            break;
+	                        case _generatedStellarXdr_generated2["default"].KeyValueEntryType.uint32():
+	                            result.value = action.value().ui32Value().toString();
+	                            break;
+	                    }
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].ManageKvAction.remove():
 	                    result.action = new _generatedStellarXdr_generated2["default"].ManageKvAction.remove().value;
