@@ -1,4 +1,4 @@
-// Automatically generated on 2018-08-06T17:04:24+03:00
+// Automatically generated on 2018-08-07T19:01:14+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -8389,7 +8389,8 @@ xdr.enum("AccountType", {
 //   	RECOVERY_REQUEST = 1,
 //   	KYC_UPDATE = 2,
 //   	SUSPICIOUS_BEHAVIOR = 4,
-//   	TOO_MANY_KYC_UPDATE_REQUESTS = 8
+//   	TOO_MANY_KYC_UPDATE_REQUESTS = 8,
+//   	WITHDRAWAL = 16
 //   };
 //
 // ===========================================================================
@@ -8398,6 +8399,7 @@ xdr.enum("BlockReasons", {
   kycUpdate: 2,
   suspiciousBehavior: 4,
   tooManyKycUpdateRequest: 8,
+  withdrawal: 16,
 });
 
 // === xdr source ============================================================
