@@ -1,4 +1,4 @@
-// Automatically generated on 2018-07-14T18:11:40+03:00
+// Automatically generated on 2018-08-08T19:07:05+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -3633,7 +3633,9 @@ xdr.union("PublicKey", {
 //   	FIX_SET_SALE_STATE_AND_CHECK_SALE_STATE_OPS = 34, // only master allowed to set sale state, max issuance after sale closure = pending + issued
 //   	FIX_UPDATE_MAX_ISSUANCE = 35,
 //   	ALLOW_CLOSE_SALE_WITH_NON_ZERO_BALANCE = 36,
-//   	ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION = 37
+//   	ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION = 37,
+//   	ALLOW_TO_ISSUE_AFTER_SALE = 38,
+//   	FIX_PAYMENT_V2_SEND_TO_SELF = 39
 //   };
 //
 // ===========================================================================
@@ -3676,6 +3678,8 @@ xdr.enum("LedgerVersion", {
   fixUpdateMaxIssuance: 35,
   allowCloseSaleWithNonZeroBalance: 36,
   allowToUpdateVotingSalesAsPromotion: 37,
+  allowToIssueAfterSale: 38,
+  fixPaymentV2SendToSelf: 39,
 });
 
 // === xdr source ============================================================
@@ -8281,7 +8285,8 @@ xdr.enum("AccountType", {
 //   	RECOVERY_REQUEST = 1,
 //   	KYC_UPDATE = 2,
 //   	SUSPICIOUS_BEHAVIOR = 4,
-//   	TOO_MANY_KYC_UPDATE_REQUESTS = 8
+//   	TOO_MANY_KYC_UPDATE_REQUESTS = 8,
+//   	WITHDRAWAL = 16
 //   };
 //
 // ===========================================================================
@@ -8290,6 +8295,7 @@ xdr.enum("BlockReasons", {
   kycUpdate: 2,
   suspiciousBehavior: 4,
   tooManyKycUpdateRequest: 8,
+  withdrawal: 16,
 });
 
 // === xdr source ============================================================
