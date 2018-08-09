@@ -1,4 +1,4 @@
-// Automatically generated on 2018-08-08T19:07:05+03:00
+// Automatically generated on 2018-08-09T15:37:45+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -3635,7 +3635,8 @@ xdr.union("PublicKey", {
 //   	ALLOW_CLOSE_SALE_WITH_NON_ZERO_BALANCE = 36,
 //   	ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION = 37,
 //   	ALLOW_TO_ISSUE_AFTER_SALE = 38,
-//   	FIX_PAYMENT_V2_SEND_TO_SELF = 39
+//   	FIX_PAYMENT_V2_SEND_TO_SELF = 39,
+//   	FIX_PAYMENT_V2_DEST_ACCOUNT_NOT_FOUND = 40
 //   };
 //
 // ===========================================================================
@@ -3680,6 +3681,7 @@ xdr.enum("LedgerVersion", {
   allowToUpdateVotingSalesAsPromotion: 37,
   allowToIssueAfterSale: 38,
   fixPaymentV2SendToSelf: 39,
+  fixPaymentV2DestAccountNotFound: 40,
 });
 
 // === xdr source ============================================================
@@ -5987,7 +5989,8 @@ xdr.struct("PaymentOpV2", [
 //       FEE_ASSET_MISMATCHED = -13,
 //       INSUFFICIENT_FEE_AMOUNT = -14,
 //       BALANCE_TO_CHARGE_FEE_FROM_NOT_FOUND = -15,
-//       PAYMENT_AMOUNT_IS_LESS_THAN_DEST_FEE = -16
+//       PAYMENT_AMOUNT_IS_LESS_THAN_DEST_FEE = -16,
+//       DESTINATION_ACCOUNT_NOT_FOUND = -17
 //   };
 //
 // ===========================================================================
@@ -6009,6 +6012,7 @@ xdr.enum("PaymentV2ResultCode", {
   insufficientFeeAmount: -14,
   balanceToChargeFeeFromNotFound: -15,
   paymentAmountIsLessThanDestFee: -16,
+  destinationAccountNotFound: -17,
 });
 
 // === xdr source ============================================================
