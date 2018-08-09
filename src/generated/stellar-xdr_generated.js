@@ -1,4 +1,4 @@
-// Automatically generated on 2018-07-12T13:50:46+03:00
+// Automatically generated on 2018-08-08T22:05:12+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -375,6 +375,8 @@ xdr.union("ManageSaleResultSuccessResponse", {
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION:
+//           bool fulfilled; // can be used for any reviewable request type created with manage sale operation
 //       }
 //
 // ===========================================================================
@@ -383,8 +385,10 @@ xdr.union("ManageSaleResultSuccessExt", {
   switchName: "v",
   switches: [
     ["emptyVersion", xdr.void()],
+    ["allowToUpdateVotingSalesAsPromotion", "fulfilled"],
   ],
   arms: {
+    fulfilled: xdr.bool(),
   },
 });
 
@@ -405,11 +409,13 @@ xdr.union("ManageSaleResultSuccessExt", {
 //   	    uint64 updateEndTimeRequestID;
 //       } response;
 //   
-//       //reserved for future use
+//       // reserved for future use
 //       union switch (LedgerVersion v)
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION:
+//           bool fulfilled; // can be used for any reviewable request type created with manage sale operation
 //       }
 //       ext;
 //   };
@@ -3624,7 +3630,13 @@ xdr.union("PublicKey", {
 //   	LIMITS_UPDATE_REQUEST_DEPRECATED_DOCUMENT_HASH = 31,
 //   	FIX_PAYMENT_V2_FEE = 32,
 //   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33,
-//   	FIX_SET_SALE_STATE_AND_CHECK_SALE_STATE_OPS = 34 // only master allowed to set sale state, max issuance after sale closure = pending + issued
+//   	FIX_SET_SALE_STATE_AND_CHECK_SALE_STATE_OPS = 34, // only master allowed to set sale state, max issuance after sale closure = pending + issued
+//   	FIX_UPDATE_MAX_ISSUANCE = 35,
+//   	ALLOW_CLOSE_SALE_WITH_NON_ZERO_BALANCE = 36,
+//   	ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION = 37,
+//   	ALLOW_TO_ISSUE_AFTER_SALE = 38,
+//   	FIX_PAYMENT_V2_SEND_TO_SELF = 39,
+//   	FIX_PAYMENT_V2_DEST_ACCOUNT_NOT_FOUND = 40
 //   };
 //
 // ===========================================================================
@@ -3664,6 +3676,12 @@ xdr.enum("LedgerVersion", {
   fixPaymentV2Fee: 32,
   addSaleIdReviewRequestResult: 33,
   fixSetSaleStateAndCheckSaleStateOp: 34,
+  fixUpdateMaxIssuance: 35,
+  allowCloseSaleWithNonZeroBalance: 36,
+  allowToUpdateVotingSalesAsPromotion: 37,
+  allowToIssueAfterSale: 38,
+  fixPaymentV2SendToSelf: 39,
+  fixPaymentV2DestAccountNotFound: 40,
 });
 
 // === xdr source ============================================================
@@ -5971,7 +5989,8 @@ xdr.struct("PaymentOpV2", [
 //       FEE_ASSET_MISMATCHED = -13,
 //       INSUFFICIENT_FEE_AMOUNT = -14,
 //       BALANCE_TO_CHARGE_FEE_FROM_NOT_FOUND = -15,
-//       PAYMENT_AMOUNT_IS_LESS_THAN_DEST_FEE = -16
+//       PAYMENT_AMOUNT_IS_LESS_THAN_DEST_FEE = -16,
+//       DESTINATION_ACCOUNT_NOT_FOUND = -17
 //   };
 //
 // ===========================================================================
@@ -5993,6 +6012,7 @@ xdr.enum("PaymentV2ResultCode", {
   insufficientFeeAmount: -14,
   balanceToChargeFeeFromNotFound: -15,
   paymentAmountIsLessThanDestFee: -16,
+  destinationAccountNotFound: -17,
 });
 
 // === xdr source ============================================================
@@ -8269,7 +8289,8 @@ xdr.enum("AccountType", {
 //   	RECOVERY_REQUEST = 1,
 //   	KYC_UPDATE = 2,
 //   	SUSPICIOUS_BEHAVIOR = 4,
-//   	TOO_MANY_KYC_UPDATE_REQUESTS = 8
+//   	TOO_MANY_KYC_UPDATE_REQUESTS = 8,
+//   	WITHDRAWAL = 16
 //   };
 //
 // ===========================================================================
@@ -8278,6 +8299,7 @@ xdr.enum("BlockReasons", {
   kycUpdate: 2,
   suspiciousBehavior: 4,
   tooManyKycUpdateRequest: 8,
+  withdrawal: 16,
 });
 
 // === xdr source ============================================================
