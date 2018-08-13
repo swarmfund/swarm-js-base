@@ -34,7 +34,7 @@ export { ManageLimitsBuilder } from "./operations/manage_limits_builder";
 export { CreateManageLimitsRequestBuilder } from "./operations/create_manage_limits_request_builder";
 export { ManageInvoiceRequestBuilder } from "./operations/manage_invoice_request_builder";
 export { ManageContractRequestBuilder } from "./operations/manage_contract_request_builder";
-export { BillPayBuilder } from "./operations/bill_pay_builder";
+export { ManageContractBuilder } from "./operations/manage_contract_builder";
 
 export * from "./strkey";
 

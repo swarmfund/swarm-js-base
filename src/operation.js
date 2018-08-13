@@ -33,6 +33,7 @@ import { ManageLimitsBuilder} from "./operations/manage_limits_builder";
 import { CreateManageLimitsRequestBuilder } from "./operations/create_manage_limits_request_builder";
 import { ManageInvoiceRequestBuilder } from "./operations/manage_invoice_request_builder";
 import { ManageContractRequestBuilder } from "./operations/manage_contract_request_builder";
+import { ManageContractBuilder } from "./operations/manage_contract_builder";
 
 export class Operation extends BaseOperation {
 
@@ -579,6 +580,9 @@ export class Operation extends BaseOperation {
             case xdr.OperationType.manageContractRequest():
                 ManageContractRequestBuilder.manageContractRequestOpToObject(result, attrs);
                 break;
+            case xdr.OperationType.manageContract():
+                ManageContractBuilder.manageContractOpToObject(result, attrs);
+                break;
             case xdr.OperationType.manageAssetPair():
                 result.action = attrs.action();
                 result.base = attrs.base();
@@ -625,9 +629,6 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.createManageLimitsRequest():
                 CreateManageLimitsRequestBuilder.createManageLimitsRequestToObject(result, attrs);
-                break;
-            case xdr.OperationType.billPay():
-                BillPayBuilder.billPayToObject(result, attrs);
                 break;
             default:
                 throw new Error("Unknown operation");
