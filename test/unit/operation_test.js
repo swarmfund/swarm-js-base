@@ -489,42 +489,6 @@ describe('Operation', function () {
 
     });
 
-
-    describe(".reviewPaymentRequest", function () {
-        let account = StellarBase.Keypair.random();
-        it("valid reviewPaymentRequest", function () {
-            let operationType = StellarBase.xdr.OperationType.reviewPaymentRequest();
-            var opts = {
-                accept: true,
-                paymentId: '1',
-                rejectReason: 'some reason'
-            };
-            let op = StellarBase.Operation.reviewPaymentRequest(opts);
-            var xdr = op.toXDR("hex");
-            var operation = StellarBase.xdr.Operation.fromXDR(new Buffer(xdr, "hex"));
-            var obj = StellarBase.Operation.operationToObject(operation);
-            expect(obj.type).to.be.equal("reviewPaymentRequest");
-            expect(obj.accept).to.be.equal(true);
-            expect(obj.rejectReason).to.be.equal('some reason');
-            expect(obj.paymentId).to.be.equal('1');
-        });
-
-
-        it("fails to create reviewPaymentRequest operation with an undefined accept", function () {
-            var opts = {
-                paymentId: '1',
-            };
-            expect(() => StellarBase.Operation.reviewPaymentRequest(opts)).to.throw(/accept should be defined/)
-        });
-
-        it("fails to create reviewPaymentRequest operation with an undefined paymentId", function () {
-            var opts = {
-                accept: true,
-            };
-            expect(() => StellarBase.Operation.reviewPaymentRequest(opts)).to.throw(/paymentId should be defined/)
-        });
-    });
-
     describe(".manageAssetPair", function () {
         let base = 'ETH';
         let quote = "USD";

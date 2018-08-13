@@ -380,34 +380,6 @@ export class Operation extends BaseOperation {
         return new xdr.Operation(opAttributes);
     }
 
-    static reviewPaymentRequest(opts) {
-        let attributes = {
-            ext: new xdr.ReviewPaymentRequestOpExt(xdr.LedgerVersion.emptyVersion())
-        };
-
-        if (isUndefined(opts.paymentId)) {
-            throw new Error("paymentId should be defined");
-        }
-        if (isUndefined(opts.accept)) {
-            throw new TypeError('accept should be defined');
-        }
-
-        if (!isUndefined(opts.rejectReason)) {
-            attributes.rejectReason = opts.rejectReason;
-        }
-
-        attributes.paymentId = UnsignedHyper.fromString(opts.paymentId);
-        attributes.accept = opts.accept;
-
-        let reviewPaymentRequestOp = new xdr.ReviewPaymentRequestOp(attributes);
-
-        let opAttributes = {};
-        opAttributes.body = xdr.OperationBody.reviewPaymentRequest(reviewPaymentRequestOp);
-        Operation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
-    }
-
-
     /**
      * Returns an XDR ManageAssetPairOp. A "manage asset pair" operations creates|updates asset pair.
      * @param {object} opts
@@ -588,13 +560,6 @@ export class Operation extends BaseOperation {
                 result.action = attrs.action();
                 result.destination = accountIdtoAddress(attrs.destination());
                 result.asset = attrs.asset();
-                break;
-            case xdr.OperationType.reviewPaymentRequest():
-                result.accept = attrs.accept();
-                result.paymentId = attrs.paymentId().toString();
-                if (attrs.rejectReason()) {
-                    result.rejectReason = attrs.rejectReason();
-                }
                 break;
             case xdr.OperationType.manageAsset():
                 ManageAssetBuilder.manageAssetToObject(result, attrs);
