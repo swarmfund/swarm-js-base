@@ -24,15 +24,15 @@ import { ManageOfferBuilder } from './operations/manage_offer_builder';
 import { ManageKeyValueBuilder } from './operations/manage_key_value_builder';
 import { SetOptionsBuilder} from "./operations/set_options_builder";
 import { ManageExternalSystemAccountIdPoolEntryBuilder } from "./operations/manage_external_system_account_id_pool_entry_builder";
-import {BindExternalSystemAccountIdBuilder} from "./operations/bind_external_system_account_id_builder";
+import { BindExternalSystemAccountIdBuilder} from "./operations/bind_external_system_account_id_builder";
 import { CreateAMLRequestBuilder } from "./operations/create_aml_request_builder";
 import { CreateUpdateKYCRequestBuilder } from "./operations/create_update_kyc_request_builder";
 import { PaymentV2Builder } from "./operations/payment_v2_builder";
 import { ManageSaleBuilder} from "./operations/manage_sale";
 import { ManageLimitsBuilder} from "./operations/manage_limits_builder";
 import { CreateManageLimitsRequestBuilder } from "./operations/create_manage_limits_request_builder";
-import {ManageInvoiceRequestBuilder} from "./operations/manage_invoice_request_builder";
-import {BillPayBuilder} from "./operations/bill_pay_builder";
+import { ManageInvoiceRequestBuilder } from "./operations/manage_invoice_request_builder";
+import { ManageContractRequestBuilder } from "./operations/manage_contract_request_builder";
 
 export class Operation extends BaseOperation {
 
@@ -575,6 +575,9 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.manageInvoiceRequest():
                 ManageInvoiceRequestBuilder.manageInvoiceRequestOpToObject(result, attrs);
+                break;
+            case xdr.OperationType.manageContractRequest():
+                ManageContractRequestBuilder.manageContractRequestOpToObject(result, attrs);
                 break;
             case xdr.OperationType.manageAssetPair():
                 result.action = attrs.action();

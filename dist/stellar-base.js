@@ -374,7 +374,16 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsBill_pay_builder = __webpack_require__(226);
+	var _operationsManage_contract_request_builder = __webpack_require__(226);
+
+	Object.defineProperty(exports, "ManageContractRequestBuilder", {
+	  enumerable: true,
+	  get: function get() {
+	    return _operationsManage_contract_request_builder.ManageContractRequestBuilder;
+	  }
+	});
+
+	var _operationsBill_pay_builder = __webpack_require__(341);
 
 	Object.defineProperty(exports, "BillPayBuilder", {
 	  enumerable: true,
@@ -43903,7 +43912,7 @@ var StellarBase =
 
 	var _operationsManage_invoice_request_builder = __webpack_require__(225);
 
-	var _operationsBill_pay_builder = __webpack_require__(226);
+	var _operationsManage_contract_request_builder = __webpack_require__(226);
 
 	var Operation = (function (_BaseOperation) {
 	    _inherits(Operation, _BaseOperation);
@@ -44470,6 +44479,9 @@ var StellarBase =
 	                case _generatedStellarXdr_generated2["default"].OperationType.manageInvoiceRequest():
 	                    _operationsManage_invoice_request_builder.ManageInvoiceRequestBuilder.manageInvoiceRequestOpToObject(result, attrs);
 	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.manageContractRequest():
+	                    _operationsManage_contract_request_builder.ManageContractRequestBuilder.manageContractRequestOpToObject(result, attrs);
+	                    break;
 	                case _generatedStellarXdr_generated2["default"].OperationType.manageAssetPair():
 	                    result.action = attrs.action();
 	                    result.base = attrs.base();
@@ -44518,7 +44530,7 @@ var StellarBase =
 	                    _operationsCreate_manage_limits_request_builder.CreateManageLimitsRequestBuilder.createManageLimitsRequestToObject(result, attrs);
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].OperationType.billPay():
-	                    _operationsBill_pay_builder.BillPayBuilder.billPayToObject(result, attrs);
+	                    BillPayBuilder.billPayToObject(result, attrs);
 	                    break;
 	                default:
 	                    throw new Error("Unknown operation");
@@ -47326,7 +47338,7 @@ var StellarBase =
 	         * @param {string} opts.asset - invoice asset
 	         * @param {string} opts.amount - invoice amount
 	         * @param {object} opts.details - invoice details
-	         * @param {object} [opts.contractID] - contract to which invoice will be attached
+	         * @param {string} [opts.contractID] - contract to which invoice will be attached
 	         * @param {string} [opts.source] - The source account for the invoice request. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageInvoiceRequestOp}
 	         */
@@ -47338,7 +47350,7 @@ var StellarBase =
 	            if (!_keypair.Keypair.isValidPublicKey(opts.sender)) {
 	                throw new Error("sender is invalid");
 	            }
-	            if (!_keypair.Keypair.isValidBalanceKey(opts.receiverBalance)) {
+	            if (!_base_operation.BaseOperation.isValidAsset(opts.asset)) {
 	                throw new Error("receiverBalance is invalid");
 	            }
 	            if (!_base_operation.BaseOperation.isValidAmount(opts.amount)) {
@@ -47347,6 +47359,11 @@ var StellarBase =
 	            invoiceRequestAttr.amount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.amount);
 	            invoiceRequestAttr.sender = _keypair.Keypair.fromAccountId(opts.sender).xdrAccountId();
 	            invoiceRequestAttr.asset = opts.asset;
+
+	            if (!(0, _lodashIsUndefined2['default'])(opts.contractID)) {
+	                invoiceRequestAttr.contractId = _jsXdr.UnsignedHyper.fromString(opts.contractID);
+	            }
+	            invoiceRequestAttr.isApproved = false;
 
 	            var invoiceRequest = new _generatedStellarXdr_generated2['default'].InvoiceRequest(invoiceRequestAttr);
 
@@ -47392,9 +47409,12 @@ var StellarBase =
 	                        var invoiceRequest = attrs.details().invoiceRequest();
 
 	                        result.sender = _base_operation.BaseOperation.accountIdtoAddress(invoiceRequest.sender());
-	                        result.receiverBalance = _base_operation.BaseOperation.balanceIdtoString(invoiceRequest.receiverBalance());
+	                        result.asset = invoiceRequest.asset();
 	                        result.amount = _base_operation.BaseOperation._fromXDRAmount(invoiceRequest.amount());
 	                        result.details = JSON.parse(invoiceRequest.details());
+	                        if (!(0, _lodashIsUndefined2['default'])(invoiceRequest.contractId())) {
+	                            result.contractID = invoiceRequest.contractId().toString();
+	                        }
 	                        break;
 	                    }
 	                case _generatedStellarXdr_generated2['default'].ManageInvoiceRequestAction.remove():
@@ -47413,128 +47433,139 @@ var StellarBase =
 
 /***/ }),
 /* 226 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
-	/*
-	import {default as xdr} from "../generated/stellar-xdr_generated";
-	import isUndefined from 'lodash/isUndefined';
-	import {BaseOperation} from './base_operation';
-	import {Keypair} from "../keypair";
-	import {UnsignedHyper, Hyper} from "js-xdr";
-	import { PaymentV2Builder } from "./payment_v2_builder";
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
 
-	export class BillPayBuilder {
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-	    /!**
-	     * Creates BillPay operation where destination is AccountID or BalanceID
-	     * @param {object} opts
-	     * @param {string} opts.requestId
-	     * @param {string} opts.sourceBalanceId
-	     * @param {string} opts.destination
-	     * @param {number|string} opts.amount
-	     * @param {object} opts.feeData
-	     * * @param {object} opts.feeData.sourceFee
-	     * * * @param {number|string} opts.feeData.sourceFee.maxPaymentFee
-	     * * * @param {number|string} opts.feeData.sourceFee.fixedFee
-	     * * * @param {string} opts.feeData.sourceFee.feeAsset
-	     * * @param {object} opts.feeData.destinationFee
-	     * * * @param {number|string} opts.feeData.destinationFee.maxPaymentFee
-	     * * * @param {number|string} opts.feeData.destinationFee.fixedFee
-	     * * * @param {string} opts.feeData.destinationFee.feeAsset
-	     * * @param {bool} opts.feeData.sourcePaysForDest
-	     * @param {string} opts.subject
-	     * @param {string} opts.reference
-	     * @returns {xdr.BillPayOp}
-	     *!/
-	    static billPay(opts) {
-	        let paymentAttrs = {};
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	        if (!Keypair.isValidBalanceKey(opts.sourceBalanceId)) {
-	            throw new TypeError('sourceBalanceId is invalid');
-	        }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	        if (Keypair.isValidPublicKey(opts.destination)) {
-	            paymentAttrs.destination = new xdr.PaymentOpV2Destination.account(Keypair.fromAccountId(opts.destination).xdrAccountId());
-	        } else if (Keypair.isValidBalanceKey(opts.destination)) {
-	            paymentAttrs.destination = new xdr.PaymentOpV2Destination.balance(Keypair.fromBalanceId(opts.destination).xdrBalanceId());
-	        } else {
-	            throw new TypeError('opts.destination is invalid');
-	        }
+	var _generatedStellarXdr_generated = __webpack_require__(2);
 
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
 
-	        if (!BaseOperation.isValidAmount(opts.amount)) {
-	            throw new TypeError('amount argument must be of type String and represent a positive number');
-	        }
+	var _lodashIsUndefined = __webpack_require__(61);
 
-	        if (isUndefined(opts.feeData)) {
-	            throw new Error("feeData argument must be defined");
-	        }
+	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
 
-	        if (!BaseOperation.isValidAsset(opts.feeData.sourceFee.feeAsset)) {
-	            throw new TypeError('Source fee asset is invalid');
-	        }
-	        if (!BaseOperation.isValidAsset(opts.feeData.destinationFee.feeAsset)) {
-	            throw new TypeError('Destination fee asset is invalid');
-	        }
+	var _base_operation = __webpack_require__(42);
 
-	        let sourceFee = new xdr.FeeDataV2({
-	            maxPaymentFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.maxPaymentFee),
-	            fixedFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.fixedFee),
-	            feeAsset: opts.feeData.sourceFee.feeAsset,
-	            ext: new xdr.FeeDataV2Ext(xdr.LedgerVersion.emptyVersion())
-	        });
-	        let destinationFee = new xdr.FeeDataV2({
-	            maxPaymentFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.maxPaymentFee),
-	            fixedFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.fixedFee),
-	            feeAsset: opts.feeData.destinationFee.feeAsset,
-	            ext: new xdr.FeeDataV2Ext(xdr.LedgerVersion.emptyVersion())
-	        });
-	        paymentAttrs.feeData = new xdr.PaymentFeeDataV2({
-	            sourceFee,
-	            destinationFee,
-	            sourcePaysForDest: opts.feeData.sourcePaysForDest,
-	            ext: new xdr.PaymentFeeDataV2Ext(xdr.LedgerVersion.emptyVersion())
-	        });
+	var _keypair = __webpack_require__(43);
 
-	        if (!BaseOperation.isValidSubject(opts.subject)) {
-	            throw new Error("subject argument must be of type String 0-256 long");
-	        }
+	var _jsXdr = __webpack_require__(3);
 
-	        if (isUndefined(opts.reference)) {
-	            opts.reference = '';
-	        }
-
-	        paymentAttrs.sourceBalanceId = Keypair.fromBalanceId(opts.sourceBalanceId).xdrBalanceId();
-	        paymentAttrs.amount = BaseOperation._toUnsignedXDRAmount(opts.amount);
-	        paymentAttrs.subject = opts.subject;
-	        paymentAttrs.reference = opts.reference;
-	        paymentAttrs.ext = new xdr.PaymentOpV2Ext(xdr.LedgerVersion.emptyVersion());
-
-	        let paymentV2 = new xdr.PaymentOpV2(paymentAttrs);
-
-	        let attrs  = {
-	            paymentDetails: paymentV2,
-	            requestId: UnsignedHyper.fromString(opts.requestId),
-	            ext: new xdr.BillPayOpExt(xdr.LedgerVersion.emptyVersion())
-	        };
-
-	        let billPayOp = new xdr.BillPayOp(attrs);
-
-	        let opAttrs = {};
-	        opAttrs.body = xdr.OperationBody.billPay(billPayOp);
-	        BaseOperation.setSourceAccount(opAttrs, opts);
-	        return new xdr.Operation(opAttrs);
+	var ManageContractRequestBuilder = (function () {
+	    function ManageContractRequestBuilder() {
+	        _classCallCheck(this, ManageContractRequestBuilder);
 	    }
 
-	    static billPayToObject(result, attrs) {
-	        result.requestId = attrs.requestId().toString();
-	        let paymentAttrs = attrs.paymentDetails();
-	        PaymentV2Builder.paymentV2ToObject(result, paymentAttrs);
-	    }
-	}
-	*/
+	    _createClass(ManageContractRequestBuilder, null, [{
+	        key: 'createContractRequest',
+
+	        /**
+	         * Create contract request
+	         * @param {object} opts
+	         * @param {string} opts.customer - contract customer
+	         * @param {string} opts.escrow - contract escrow
+	         * @param {string} opts.startTime - contract start time
+	         * @param {string} opts.endTime - contract end time
+	         * @param {object} opts.details - contract details
+	         * @param {string} [opts.source] - The source account for the contract request. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageContractRequestOp}
+	         */
+	        value: function createContractRequest(opts) {
+	            var contractRequestAttr = {
+	                ext: new _generatedStellarXdr_generated2['default'].ContractRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion()),
+	                details: JSON.stringify(opts.details)
+	            };
+	            if (!_keypair.Keypair.isValidPublicKey(opts.customer)) {
+	                throw new Error("customer is invalid");
+	            }
+	            if (!_keypair.Keypair.isValidPublicKey(opts.escrow)) {
+	                throw new Error("escrow is invalid");
+	            }
+	            if ((0, _lodashIsUndefined2['default'])(opts.startTime)) {
+	                throw new Error("opts.startTime is invalid");
+	            }
+	            if ((0, _lodashIsUndefined2['default'])(opts.endTime)) {
+
+	                throw new Error("opts.endTime is invalid");
+	            }
+	            contractRequestAttr.startTime = _jsXdr.UnsignedHyper.fromString(opts.startTime);
+	            contractRequestAttr.endTime = _jsXdr.UnsignedHyper.fromString(opts.endTime);
+	            contractRequestAttr.customer = _keypair.Keypair.fromAccountId(opts.customer).xdrAccountId();
+	            contractRequestAttr.escrow = _keypair.Keypair.fromAccountId(opts.escrow).xdrAccountId();
+
+	            var contractRequest = new _generatedStellarXdr_generated2['default'].ContractRequest(contractRequestAttr);
+
+	            var details = new _generatedStellarXdr_generated2['default'].ManageContractRequestOpDetails.create(contractRequest);
+
+	            return ManageContractRequestBuilder.manageContractRequest(details, opts);
+	        }
+
+	        /**
+	         * Remove contract request
+	         * @param {object} opts
+	         * @param {string} opts.requestId - contract request id to remove
+	         * @param {string} [opts.source] - The source account for the contract request. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageContractRequestOp}
+	         */
+	    }, {
+	        key: 'removeContractRequest',
+	        value: function removeContractRequest(opts) {
+	            var requestId = _jsXdr.UnsignedHyper.fromString(opts.requestId);
+	            var details = _generatedStellarXdr_generated2['default'].ManageContractRequestOpDetails.remove(requestId);
+
+	            return ManageContractRequestBuilder.manageContractRequest(details, opts);
+	        }
+	    }, {
+	        key: 'manageContractRequest',
+	        value: function manageContractRequest(details, opts) {
+	            var manageContractRequestOp = new _generatedStellarXdr_generated2['default'].ManageContractRequestOp({
+	                details: details,
+	                ext: new _generatedStellarXdr_generated2['default'].ManageContractRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.manageContractRequest(manageContractRequestOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
+	        }
+	    }, {
+	        key: 'manageContractRequestOpToObject',
+	        value: function manageContractRequestOpToObject(result, attrs) {
+	            switch (attrs.details()['switch']()) {
+	                case _generatedStellarXdr_generated2['default'].ManageContractRequestAction.create():
+	                    {
+	                        var contractRequest = attrs.details().contractRequest();
+
+	                        result.customer = _base_operation.BaseOperation.accountIdtoAddress(contractRequest.customer());
+	                        result.escrow = _base_operation.BaseOperation.accountIdtoAddress(contractRequest.escrow());
+	                        result.startTime = contractRequest.startTime().toString();
+	                        result.endTime = contractRequest.endTime().toString();
+	                        result.details = JSON.parse(contractRequest.details());
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageContractRequestAction.remove():
+	                    {
+	                        result.requestId = attrs.details().requestId().toString();
+	                        break;
+	                    }
+	            }
+	        }
+	    }]);
+
+	    return ManageContractRequestBuilder;
+	})();
+
+	exports.ManageContractRequestBuilder = ManageContractRequestBuilder;
 
 /***/ }),
 /* 227 */
@@ -51716,6 +51747,131 @@ var StellarBase =
 
 	module.exports = baseIsSet;
 
+
+/***/ }),
+/* 341 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	/*
+	import {default as xdr} from "../generated/stellar-xdr_generated";
+	import isUndefined from 'lodash/isUndefined';
+	import {BaseOperation} from './base_operation';
+	import {Keypair} from "../keypair";
+	import {UnsignedHyper, Hyper} from "js-xdr";
+	import { PaymentV2Builder } from "./payment_v2_builder";
+
+	export class BillPayBuilder {
+
+	    /!**
+	     * Creates BillPay operation where destination is AccountID or BalanceID
+	     * @param {object} opts
+	     * @param {string} opts.requestId
+	     * @param {string} opts.sourceBalanceId
+	     * @param {string} opts.destination
+	     * @param {number|string} opts.amount
+	     * @param {object} opts.feeData
+	     * * @param {object} opts.feeData.sourceFee
+	     * * * @param {number|string} opts.feeData.sourceFee.maxPaymentFee
+	     * * * @param {number|string} opts.feeData.sourceFee.fixedFee
+	     * * * @param {string} opts.feeData.sourceFee.feeAsset
+	     * * @param {object} opts.feeData.destinationFee
+	     * * * @param {number|string} opts.feeData.destinationFee.maxPaymentFee
+	     * * * @param {number|string} opts.feeData.destinationFee.fixedFee
+	     * * * @param {string} opts.feeData.destinationFee.feeAsset
+	     * * @param {bool} opts.feeData.sourcePaysForDest
+	     * @param {string} opts.subject
+	     * @param {string} opts.reference
+	     * @returns {xdr.BillPayOp}
+	     *!/
+	    static billPay(opts) {
+	        let paymentAttrs = {};
+
+	        if (!Keypair.isValidBalanceKey(opts.sourceBalanceId)) {
+	            throw new TypeError('sourceBalanceId is invalid');
+	        }
+
+	        if (Keypair.isValidPublicKey(opts.destination)) {
+	            paymentAttrs.destination = new xdr.PaymentOpV2Destination.account(Keypair.fromAccountId(opts.destination).xdrAccountId());
+	        } else if (Keypair.isValidBalanceKey(opts.destination)) {
+	            paymentAttrs.destination = new xdr.PaymentOpV2Destination.balance(Keypair.fromBalanceId(opts.destination).xdrBalanceId());
+	        } else {
+	            throw new TypeError('opts.destination is invalid');
+	        }
+
+
+	        if (!BaseOperation.isValidAmount(opts.amount)) {
+	            throw new TypeError('amount argument must be of type String and represent a positive number');
+	        }
+
+	        if (isUndefined(opts.feeData)) {
+	            throw new Error("feeData argument must be defined");
+	        }
+
+	        if (!BaseOperation.isValidAsset(opts.feeData.sourceFee.feeAsset)) {
+	            throw new TypeError('Source fee asset is invalid');
+	        }
+	        if (!BaseOperation.isValidAsset(opts.feeData.destinationFee.feeAsset)) {
+	            throw new TypeError('Destination fee asset is invalid');
+	        }
+
+	        let sourceFee = new xdr.FeeDataV2({
+	            maxPaymentFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.maxPaymentFee),
+	            fixedFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.fixedFee),
+	            feeAsset: opts.feeData.sourceFee.feeAsset,
+	            ext: new xdr.FeeDataV2Ext(xdr.LedgerVersion.emptyVersion())
+	        });
+	        let destinationFee = new xdr.FeeDataV2({
+	            maxPaymentFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.maxPaymentFee),
+	            fixedFee: BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.fixedFee),
+	            feeAsset: opts.feeData.destinationFee.feeAsset,
+	            ext: new xdr.FeeDataV2Ext(xdr.LedgerVersion.emptyVersion())
+	        });
+	        paymentAttrs.feeData = new xdr.PaymentFeeDataV2({
+	            sourceFee,
+	            destinationFee,
+	            sourcePaysForDest: opts.feeData.sourcePaysForDest,
+	            ext: new xdr.PaymentFeeDataV2Ext(xdr.LedgerVersion.emptyVersion())
+	        });
+
+	        if (!BaseOperation.isValidSubject(opts.subject)) {
+	            throw new Error("subject argument must be of type String 0-256 long");
+	        }
+
+	        if (isUndefined(opts.reference)) {
+	            opts.reference = '';
+	        }
+
+	        paymentAttrs.sourceBalanceId = Keypair.fromBalanceId(opts.sourceBalanceId).xdrBalanceId();
+	        paymentAttrs.amount = BaseOperation._toUnsignedXDRAmount(opts.amount);
+	        paymentAttrs.subject = opts.subject;
+	        paymentAttrs.reference = opts.reference;
+	        paymentAttrs.ext = new xdr.PaymentOpV2Ext(xdr.LedgerVersion.emptyVersion());
+
+	        let paymentV2 = new xdr.PaymentOpV2(paymentAttrs);
+
+	        let attrs  = {
+	            paymentDetails: paymentV2,
+	            requestId: UnsignedHyper.fromString(opts.requestId),
+	            ext: new xdr.BillPayOpExt(xdr.LedgerVersion.emptyVersion())
+	        };
+
+	        let billPayOp = new xdr.BillPayOp(attrs);
+
+	        let opAttrs = {};
+	        opAttrs.body = xdr.OperationBody.billPay(billPayOp);
+	        BaseOperation.setSourceAccount(opAttrs, opts);
+	        return new xdr.Operation(opAttrs);
+	    }
+
+	    static billPayToObject(result, attrs) {
+	        result.requestId = attrs.requestId().toString();
+	        let paymentAttrs = attrs.paymentDetails();
+	        PaymentV2Builder.paymentV2ToObject(result, paymentAttrs);
+	    }
+	}
+	*/
 
 /***/ })
 /******/ ]);
