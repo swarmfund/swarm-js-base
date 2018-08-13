@@ -1,3 +1,4 @@
+/*
 import {default as xdr} from "../generated/stellar-xdr_generated";
 import isUndefined from 'lodash/isUndefined';
 import {BaseOperation} from './base_operation';
@@ -7,7 +8,7 @@ import { PaymentV2Builder } from "./payment_v2_builder";
 
 export class BillPayBuilder {
 
-    /**
+    /!**
      * Creates BillPay operation where destination is AccountID or BalanceID
      * @param {object} opts
      * @param {string} opts.requestId
@@ -27,7 +28,7 @@ export class BillPayBuilder {
      * @param {string} opts.subject
      * @param {string} opts.reference
      * @returns {xdr.BillPayOp}
-     */
+     *!/
     static billPay(opts) {
         let paymentAttrs = {};
 
@@ -114,3 +115,4 @@ export class BillPayBuilder {
         PaymentV2Builder.paymentV2ToObject(result, paymentAttrs);
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 import {PaymentV2Builder} from "../../../src/operations/payment_v2_builder";
 import isEqual from "lodash/isEqual";
 
@@ -87,3 +88,4 @@ describe("BillPay op", function () {
         expect(obj.reference).to.be.equal('ref');
     })
 })
+*/

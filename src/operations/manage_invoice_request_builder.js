@@ -10,9 +10,10 @@ export class ManageInvoiceRequestBuilder {
      * Create invoice request
      * @param {object} opts
      * @param {string} opts.sender - payer account
-     * @param {string} opts.receiverBalance - invoice receive balance
+     * @param {string} opts.asset - invoice asset
      * @param {string} opts.amount - invoice amount
      * @param {object} opts.details - invoice details
+     * @param {object} [opts.contractID] - contract to which invoice will be attached
      * @param {string} [opts.source] - The source account for the invoice request. Defaults to the transaction's source account.
      * @returns {xdr.ManageInvoiceRequestOp}
      */
@@ -32,7 +33,9 @@ export class ManageInvoiceRequestBuilder {
         }
         invoiceRequestAttr.amount = BaseOperation._toUnsignedXDRAmount(opts.amount);
         invoiceRequestAttr.sender = Keypair.fromAccountId(opts.sender).xdrAccountId();
-        invoiceRequestAttr.receiverBalance = Keypair.fromBalanceId(opts.receiverBalance).xdrBalanceId();
+        invoiceRequestAttr.asset = opts.asset;
+
+
 
         let invoiceRequest = new xdr.InvoiceRequest(invoiceRequestAttr);
 
