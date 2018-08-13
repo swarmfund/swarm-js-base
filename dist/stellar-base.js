@@ -152,7 +152,7 @@ var StellarBase =
 	  }
 	});
 
-	var _pre_issuance_request = __webpack_require__(213);
+	var _pre_issuance_request = __webpack_require__(214);
 
 	Object.defineProperty(exports, "PreIssuanceRequest", {
 	  enumerable: true,
@@ -239,7 +239,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsPre_issuance_request_op_builder = __webpack_require__(212);
+	var _operationsPre_issuance_request_op_builder = __webpack_require__(213);
 
 	Object.defineProperty(exports, "PreIssuanceRequestOpBuilder", {
 	  enumerable: true,
@@ -248,7 +248,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_issuance_request_builder = __webpack_require__(214);
+	var _operationsCreate_issuance_request_builder = __webpack_require__(215);
 
 	Object.defineProperty(exports, "CreateIssuanceRequestBuilder", {
 	  enumerable: true,
@@ -257,7 +257,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_withdraw_request_builder = __webpack_require__(215);
+	var _operationsCreate_withdraw_request_builder = __webpack_require__(216);
 
 	Object.defineProperty(exports, "CreateWithdrawRequestBuilder", {
 	  enumerable: true,
@@ -266,7 +266,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsSale_request_builder = __webpack_require__(216);
+	var _operationsSale_request_builder = __webpack_require__(217);
 
 	Object.defineProperty(exports, "SaleRequestBuilder", {
 	  enumerable: true,
@@ -275,7 +275,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_offer_builder = __webpack_require__(217);
+	var _operationsManage_offer_builder = __webpack_require__(218);
 
 	Object.defineProperty(exports, "ManageOfferBuilder", {
 	  enumerable: true,
@@ -284,7 +284,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsSet_options_builder = __webpack_require__(219);
+	var _operationsSet_options_builder = __webpack_require__(220);
 
 	Object.defineProperty(exports, "SetOptionsBuilder", {
 	  enumerable: true,
@@ -293,7 +293,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(220);
+	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(221);
 
 	Object.defineProperty(exports, "ManageExternalSystemAccountIdPoolEntryBuilder", {
 	  enumerable: true,
@@ -308,7 +308,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_aml_request_builder = __webpack_require__(221);
+	var _operationsCreate_aml_request_builder = __webpack_require__(222);
 
 	Object.defineProperty(exports, "CreateAMLRequestBuilder", {
 	  enumerable: true,
@@ -317,7 +317,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_key_value_builder = __webpack_require__(218);
+	var _operationsManage_key_value_builder = __webpack_require__(219);
 
 	Object.defineProperty(exports, "ManageKeyValueBuilder", {
 	  enumerable: true,
@@ -326,7 +326,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_update_kyc_request_builder = __webpack_require__(222);
+	var _operationsCreate_update_kyc_request_builder = __webpack_require__(223);
 
 	Object.defineProperty(exports, "CreateUpdateKYCRequestBuilder", {
 	  enumerable: true,
@@ -335,7 +335,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsPayment_v2_builder = __webpack_require__(223);
+	var _operationsPayment_v2_builder = __webpack_require__(212);
 
 	Object.defineProperty(exports, "PaymentV2Builder", {
 	  enumerable: true,
@@ -43871,29 +43871,29 @@ var StellarBase =
 
 	var _operationsReview_request_builder = __webpack_require__(210);
 
-	var _operationsPre_issuance_request_op_builder = __webpack_require__(212);
+	var _operationsPre_issuance_request_op_builder = __webpack_require__(213);
 
-	var _operationsCreate_issuance_request_builder = __webpack_require__(214);
+	var _operationsCreate_issuance_request_builder = __webpack_require__(215);
 
-	var _operationsCreate_withdraw_request_builder = __webpack_require__(215);
+	var _operationsCreate_withdraw_request_builder = __webpack_require__(216);
 
-	var _operationsSale_request_builder = __webpack_require__(216);
+	var _operationsSale_request_builder = __webpack_require__(217);
 
-	var _operationsManage_offer_builder = __webpack_require__(217);
+	var _operationsManage_offer_builder = __webpack_require__(218);
 
-	var _operationsManage_key_value_builder = __webpack_require__(218);
+	var _operationsManage_key_value_builder = __webpack_require__(219);
 
-	var _operationsSet_options_builder = __webpack_require__(219);
+	var _operationsSet_options_builder = __webpack_require__(220);
 
-	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(220);
+	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(221);
 
 	var _operationsBind_external_system_account_id_builder = __webpack_require__(41);
 
-	var _operationsCreate_aml_request_builder = __webpack_require__(221);
+	var _operationsCreate_aml_request_builder = __webpack_require__(222);
 
-	var _operationsCreate_update_kyc_request_builder = __webpack_require__(222);
+	var _operationsCreate_update_kyc_request_builder = __webpack_require__(223);
 
-	var _operationsPayment_v2_builder = __webpack_require__(223);
+	var _operationsPayment_v2_builder = __webpack_require__(212);
 
 	var _operationsManage_sale = __webpack_require__(224);
 
@@ -44866,7 +44866,7 @@ var StellarBase =
 
 	var _utilHasher = __webpack_require__(211);
 
-	var _operation = __webpack_require__(208);
+	var _payment_v2_builder = __webpack_require__(212);
 
 	var ReviewRequestBuilder = (function () {
 	    function ReviewRequestBuilder() {
@@ -45091,6 +45091,29 @@ var StellarBase =
 
 	            return ReviewRequestBuilder._createOp(opts, attrs);
 	        }
+
+	        /**
+	         * Creates operation to review invoice request
+	         * @param {object} opts
+	         * @param {string} opts.requestID - request ID
+	         * @param {string} opts.requestHash - Hash of the request to be reviewed
+	         * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
+	         * @param {string} opts.reason - Reject reason
+	         * @param {object} opts.billPayDetails - invoice payment details (xdr.PaymentOpV2)
+	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * @returns {xdr.ReviewRequestOp}
+	         */
+	    }, {
+	        key: 'reviewInvoiceRequest',
+	        value: function reviewInvoiceRequest(opts) {
+	            var attrs = ReviewRequestBuilder._prepareAttrs(opts);
+	            var billPayDetails = _payment_v2_builder.PaymentV2Builder.prepareAttrs(opts.billPayDetails);
+	            attrs.requestDetails = new _generatedStellarXdr_generated2['default'].ReviewRequestOpRequestDetails.invoice(new _generatedStellarXdr_generated2['default'].BillPayDetails({
+	                paymentDetails: new _generatedStellarXdr_generated2['default'].PaymentOpV2(billPayDetails),
+	                ext: new _generatedStellarXdr_generated2['default'].BillPayDetailsExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            }));
+	            return ReviewRequestBuilder._createOp(opts, attrs);
+	        }
 	    }, {
 	        key: 'reviewRequestToObject',
 	        value: function reviewRequestToObject(result, attrs) {
@@ -45152,6 +45175,15 @@ var StellarBase =
 	                    {
 	                        result.amlAlert = {
 	                            comment: attrs.requestDetails().amlAlertDetails().comment()
+	                        };
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ReviewableRequestType.invoice():
+	                    {
+	                        var billPayDetails = {};
+	                        _payment_v2_builder.PaymentV2Builder.paymentV2ToObject(billPayDetails, attrs.requestDetails().billPay().paymentDetails());
+	                        result.invoice = {
+	                            billPayDetails: billPayDetails
 	                        };
 	                        break;
 	                    }
@@ -45297,9 +45329,182 @@ var StellarBase =
 
 	var _jsXdr = __webpack_require__(3);
 
+	var PaymentV2Builder = (function () {
+	    function PaymentV2Builder() {
+	        _classCallCheck(this, PaymentV2Builder);
+	    }
+
+	    _createClass(PaymentV2Builder, null, [{
+	        key: 'prepareAttrs',
+	        value: function prepareAttrs(opts) {
+	            var attrs = {};
+
+	            if (!_keypair.Keypair.isValidBalanceKey(opts.sourceBalanceId)) {
+	                throw new TypeError('sourceBalanceId is invalid');
+	            }
+
+	            if (_keypair.Keypair.isValidPublicKey(opts.destination)) {
+	                attrs.destination = new _generatedStellarXdr_generated2['default'].PaymentOpV2Destination.account(_keypair.Keypair.fromAccountId(opts.destination).xdrAccountId());
+	            } else if (_keypair.Keypair.isValidBalanceKey(opts.destination)) {
+	                attrs.destination = new _generatedStellarXdr_generated2['default'].PaymentOpV2Destination.balance(_keypair.Keypair.fromBalanceId(opts.destination).xdrBalanceId());
+	            } else {
+	                throw new TypeError('opts.destination is invalid');
+	            }
+
+	            if (!_base_operation.BaseOperation.isValidAmount(opts.amount)) {
+	                throw new TypeError('amount argument must be of type String and represent a positive number');
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.feeData)) {
+	                throw new Error("feeData argument must be defined");
+	            }
+
+	            if (!_base_operation.BaseOperation.isValidAsset(opts.feeData.sourceFee.feeAsset)) {
+	                throw new TypeError('Source fee asset is invalid');
+	            }
+	            if (!_base_operation.BaseOperation.isValidAsset(opts.feeData.destinationFee.feeAsset)) {
+	                throw new TypeError('Destination fee asset is invalid');
+	            }
+
+	            var sourceFee = new _generatedStellarXdr_generated2['default'].FeeDataV2({
+	                maxPaymentFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.maxPaymentFee),
+	                fixedFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.fixedFee),
+	                feeAsset: opts.feeData.sourceFee.feeAsset,
+	                ext: new _generatedStellarXdr_generated2['default'].FeeDataV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+	            var destinationFee = new _generatedStellarXdr_generated2['default'].FeeDataV2({
+	                maxPaymentFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.maxPaymentFee),
+	                fixedFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.fixedFee),
+	                feeAsset: opts.feeData.destinationFee.feeAsset,
+	                ext: new _generatedStellarXdr_generated2['default'].FeeDataV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+	            attrs.feeData = new _generatedStellarXdr_generated2['default'].PaymentFeeDataV2({
+	                sourceFee: sourceFee,
+	                destinationFee: destinationFee,
+	                sourcePaysForDest: opts.feeData.sourcePaysForDest,
+	                ext: new _generatedStellarXdr_generated2['default'].PaymentFeeDataV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            if (!_base_operation.BaseOperation.isValidSubject(opts.subject)) {
+	                throw new Error("subject argument must be of type String 0-256 long");
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.reference)) {
+	                opts.reference = '';
+	            }
+
+	            attrs.sourceBalanceId = _keypair.Keypair.fromBalanceId(opts.sourceBalanceId).xdrBalanceId();
+	            attrs.amount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.amount);
+	            attrs.subject = opts.subject;
+	            attrs.reference = opts.reference;
+	            attrs.ext = new _generatedStellarXdr_generated2['default'].PaymentOpV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
+
+	            return attrs;
+	        }
+
+	        /**
+	         * Creates PaymentV2 operation where destination is AccountID or BalanceID
+	         * @param {object} opts
+	         * @param {string} opts.sourceBalanceId
+	         * @param {string} opts.destination
+	         * @param {number|string} opts.amount
+	         * @param {object} opts.feeData
+	         * * @param {object} opts.feeData.sourceFee
+	         * * * @param {number|string} opts.feeData.sourceFee.maxPaymentFee
+	         * * * @param {number|string} opts.feeData.sourceFee.fixedFee
+	         * * * @param {string} opts.feeData.sourceFee.feeAsset
+	         * * @param {object} opts.feeData.destinationFee
+	         * * * @param {number|string} opts.feeData.destinationFee.maxPaymentFee
+	         * * * @param {number|string} opts.feeData.destinationFee.fixedFee
+	         * * * @param {string} opts.feeData.destinationFee.feeAsset
+	         * * @param {bool} opts.feeData.sourcePaysForDest
+	         * @param {string} opts.subject
+	         * @param {string} opts.reference
+	         * @returns {xdr.PaymentOpV2}
+	         */
+	    }, {
+	        key: 'paymentV2',
+	        value: function paymentV2(opts) {
+	            var attrs = PaymentV2Builder.prepareAttrs(opts);
+	            var paymentV2 = new _generatedStellarXdr_generated2['default'].PaymentOpV2(attrs);
+	            var opAttrs = {};
+	            opAttrs.body = _generatedStellarXdr_generated2['default'].OperationBody.paymentV2(paymentV2);
+	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
+	        }
+	    }, {
+	        key: 'paymentV2ToObject',
+	        value: function paymentV2ToObject(result, attrs) {
+	            result.sourceBalanceId = _base_operation.BaseOperation.balanceIdtoString(attrs.sourceBalanceId());
+	            switch (attrs.destination()['switch']()) {
+	                case _generatedStellarXdr_generated2['default'].PaymentDestinationType.account():
+	                    {
+	                        result.destination = _base_operation.BaseOperation.accountIdtoAddress(attrs.destination().accountId());
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].PaymentDestinationType.balance():
+	                    {
+	                        result.destination = _base_operation.BaseOperation.balanceIdtoString(attrs.destination().balanceId());
+	                        break;
+	                    }
+	            }
+	            result.amount = _base_operation.BaseOperation._fromXDRAmount(attrs.amount());
+	            result.feeData = {
+	                sourceFee: {
+	                    maxPaymentFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().sourceFee().maxPaymentFee()),
+	                    fixedFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().sourceFee().fixedFee()),
+	                    feeAsset: attrs.feeData().sourceFee().feeAsset()
+	                },
+	                destinationFee: {
+	                    maxPaymentFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().destinationFee().maxPaymentFee()),
+	                    fixedFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().destinationFee().fixedFee()),
+	                    feeAsset: attrs.feeData().destinationFee().feeAsset()
+	                },
+	                sourcePaysForDest: attrs.feeData().sourcePaysForDest()
+	            };
+	            result.subject = attrs.subject();
+	            result.reference = attrs.reference();
+	        }
+	    }]);
+
+	    return PaymentV2Builder;
+	})();
+
+	exports.PaymentV2Builder = PaymentV2Builder;
+
+/***/ }),
+/* 213 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _generatedStellarXdr_generated = __webpack_require__(2);
+
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
+
+	var _lodashIsUndefined = __webpack_require__(61);
+
+	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
+
+	var _base_operation = __webpack_require__(42);
+
+	var _keypair = __webpack_require__(43);
+
+	var _jsXdr = __webpack_require__(3);
+
 	var _utilHasher = __webpack_require__(211);
 
-	var _pre_issuance_request = __webpack_require__(213);
+	var _pre_issuance_request = __webpack_require__(214);
 
 	var PreIssuanceRequestOpBuilder = (function () {
 	    function PreIssuanceRequestOpBuilder() {
@@ -45340,7 +45545,7 @@ var StellarBase =
 	exports.PreIssuanceRequestOpBuilder = PreIssuanceRequestOpBuilder;
 
 /***/ }),
-/* 213 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45471,7 +45676,7 @@ var StellarBase =
 	exports.PreIssuanceRequest = PreIssuanceRequest;
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45586,7 +45791,7 @@ var StellarBase =
 	exports.CreateIssuanceRequestBuilder = CreateIssuanceRequestBuilder;
 
 /***/ }),
-/* 215 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45720,7 +45925,7 @@ var StellarBase =
 	exports.CreateWithdrawRequestBuilder = CreateWithdrawRequestBuilder;
 
 /***/ }),
-/* 216 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46006,7 +46211,7 @@ var StellarBase =
 	exports.SaleRequestBuilder = SaleRequestBuilder;
 
 /***/ }),
-/* 217 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46147,7 +46352,7 @@ var StellarBase =
 	exports.ManageOfferBuilder = ManageOfferBuilder;
 
 /***/ }),
-/* 218 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46275,7 +46480,7 @@ var StellarBase =
 	exports.ManageKeyValueBuilder = ManageKeyValueBuilder;
 
 /***/ }),
-/* 219 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46476,7 +46681,7 @@ var StellarBase =
 	exports.SetOptionsBuilder = SetOptionsBuilder;
 
 /***/ }),
-/* 220 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46626,7 +46831,7 @@ var StellarBase =
 	exports.ManageExternalSystemAccountIdPoolEntryBuilder = ManageExternalSystemAccountIdPoolEntryBuilder;
 
 /***/ }),
-/* 221 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46721,7 +46926,7 @@ var StellarBase =
 	exports.CreateAMLRequestBuilder = CreateAMLRequestBuilder;
 
 /***/ }),
-/* 222 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46818,173 +47023,6 @@ var StellarBase =
 	exports.CreateUpdateKYCRequestBuilder = CreateUpdateKYCRequestBuilder;
 
 /***/ }),
-/* 223 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _generatedStellarXdr_generated = __webpack_require__(2);
-
-	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
-
-	var _lodashIsUndefined = __webpack_require__(61);
-
-	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
-
-	var _base_operation = __webpack_require__(42);
-
-	var _keypair = __webpack_require__(43);
-
-	var _jsXdr = __webpack_require__(3);
-
-	var PaymentV2Builder = (function () {
-	    function PaymentV2Builder() {
-	        _classCallCheck(this, PaymentV2Builder);
-	    }
-
-	    _createClass(PaymentV2Builder, null, [{
-	        key: 'paymentV2',
-
-	        /**
-	         * Creates PaymentV2 operation where destination is AccountID or BalanceID
-	         * @param {object} opts
-	         * @param {string} opts.sourceBalanceId
-	         * @param {string} opts.destination
-	         * @param {number|string} opts.amount
-	         * @param {object} opts.feeData
-	         * * @param {object} opts.feeData.sourceFee
-	         * * * @param {number|string} opts.feeData.sourceFee.maxPaymentFee
-	         * * * @param {number|string} opts.feeData.sourceFee.fixedFee
-	         * * * @param {string} opts.feeData.sourceFee.feeAsset
-	         * * @param {object} opts.feeData.destinationFee
-	         * * * @param {number|string} opts.feeData.destinationFee.maxPaymentFee
-	         * * * @param {number|string} opts.feeData.destinationFee.fixedFee
-	         * * * @param {string} opts.feeData.destinationFee.feeAsset
-	         * * @param {bool} opts.feeData.sourcePaysForDest
-	         * @param {string} opts.subject
-	         * @param {string} opts.reference
-	         * @returns {xdr.PaymentOpV2}
-	         */
-	        value: function paymentV2(opts) {
-	            var attrs = {};
-
-	            if (!_keypair.Keypair.isValidBalanceKey(opts.sourceBalanceId)) {
-	                throw new TypeError('sourceBalanceId is invalid');
-	            }
-
-	            if (_keypair.Keypair.isValidPublicKey(opts.destination)) {
-	                attrs.destination = new _generatedStellarXdr_generated2['default'].PaymentOpV2Destination.account(_keypair.Keypair.fromAccountId(opts.destination).xdrAccountId());
-	            } else if (_keypair.Keypair.isValidBalanceKey(opts.destination)) {
-	                attrs.destination = new _generatedStellarXdr_generated2['default'].PaymentOpV2Destination.balance(_keypair.Keypair.fromBalanceId(opts.destination).xdrBalanceId());
-	            } else {
-	                throw new TypeError('opts.destination is invalid');
-	            }
-
-	            if (!_base_operation.BaseOperation.isValidAmount(opts.amount)) {
-	                throw new TypeError('amount argument must be of type String and represent a positive number');
-	            }
-
-	            if ((0, _lodashIsUndefined2['default'])(opts.feeData)) {
-	                throw new Error("feeData argument must be defined");
-	            }
-
-	            if (!_base_operation.BaseOperation.isValidAsset(opts.feeData.sourceFee.feeAsset)) {
-	                throw new TypeError('Source fee asset is invalid');
-	            }
-	            if (!_base_operation.BaseOperation.isValidAsset(opts.feeData.destinationFee.feeAsset)) {
-	                throw new TypeError('Destination fee asset is invalid');
-	            }
-
-	            var sourceFee = new _generatedStellarXdr_generated2['default'].FeeDataV2({
-	                maxPaymentFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.maxPaymentFee),
-	                fixedFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.fixedFee),
-	                feeAsset: opts.feeData.sourceFee.feeAsset,
-	                ext: new _generatedStellarXdr_generated2['default'].FeeDataV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
-	            });
-	            var destinationFee = new _generatedStellarXdr_generated2['default'].FeeDataV2({
-	                maxPaymentFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.maxPaymentFee),
-	                fixedFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.fixedFee),
-	                feeAsset: opts.feeData.destinationFee.feeAsset,
-	                ext: new _generatedStellarXdr_generated2['default'].FeeDataV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
-	            });
-	            attrs.feeData = new _generatedStellarXdr_generated2['default'].PaymentFeeDataV2({
-	                sourceFee: sourceFee,
-	                destinationFee: destinationFee,
-	                sourcePaysForDest: opts.feeData.sourcePaysForDest,
-	                ext: new _generatedStellarXdr_generated2['default'].PaymentFeeDataV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
-	            });
-
-	            if (!_base_operation.BaseOperation.isValidSubject(opts.subject)) {
-	                throw new Error("subject argument must be of type String 0-256 long");
-	            }
-
-	            if ((0, _lodashIsUndefined2['default'])(opts.reference)) {
-	                opts.reference = '';
-	            }
-
-	            attrs.sourceBalanceId = _keypair.Keypair.fromBalanceId(opts.sourceBalanceId).xdrBalanceId();
-	            attrs.amount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.amount);
-	            attrs.subject = opts.subject;
-	            attrs.reference = opts.reference;
-	            attrs.ext = new _generatedStellarXdr_generated2['default'].PaymentOpV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
-
-	            var paymentV2 = new _generatedStellarXdr_generated2['default'].PaymentOpV2(attrs);
-	            var opAttrs = {};
-	            opAttrs.body = _generatedStellarXdr_generated2['default'].OperationBody.paymentV2(paymentV2);
-	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
-	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
-	        }
-	    }, {
-	        key: 'paymentV2ToObject',
-	        value: function paymentV2ToObject(result, attrs) {
-	            result.sourceBalanceId = _base_operation.BaseOperation.balanceIdtoString(attrs.sourceBalanceId());
-	            switch (attrs.destination()['switch']()) {
-	                case _generatedStellarXdr_generated2['default'].PaymentDestinationType.account():
-	                    {
-	                        result.destination = _base_operation.BaseOperation.accountIdtoAddress(attrs.destination().accountId());
-	                        break;
-	                    }
-	                case _generatedStellarXdr_generated2['default'].PaymentDestinationType.balance():
-	                    {
-	                        result.destination = _base_operation.BaseOperation.balanceIdtoString(attrs.destination().balanceId());
-	                        break;
-	                    }
-	            }
-	            result.amount = _base_operation.BaseOperation._fromXDRAmount(attrs.amount());
-	            result.feeData = {
-	                sourceFee: {
-	                    maxPaymentFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().sourceFee().maxPaymentFee()),
-	                    fixedFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().sourceFee().fixedFee()),
-	                    feeAsset: attrs.feeData().sourceFee().feeAsset()
-	                },
-	                destinationFee: {
-	                    maxPaymentFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().destinationFee().maxPaymentFee()),
-	                    fixedFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().destinationFee().fixedFee()),
-	                    feeAsset: attrs.feeData().destinationFee().feeAsset()
-	                },
-	                sourcePaysForDest: attrs.feeData().sourcePaysForDest()
-	            };
-	            result.subject = attrs.subject();
-	            result.reference = attrs.reference();
-	        }
-	    }]);
-
-	    return PaymentV2Builder;
-	})();
-
-	exports.PaymentV2Builder = PaymentV2Builder;
-
-/***/ }),
 /* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -47012,7 +47050,7 @@ var StellarBase =
 
 	var _jsXdr = __webpack_require__(3);
 
-	var _sale_request_builder = __webpack_require__(216);
+	var _sale_request_builder = __webpack_require__(217);
 
 	var ManageSaleBuilder = (function () {
 	    function ManageSaleBuilder() {
