@@ -1,4 +1,4 @@
-// Automatically generated on 2018-08-09T15:40:26+03:00
+// Automatically generated on 2018-08-14T11:43:17+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -3636,7 +3636,8 @@ xdr.union("PublicKey", {
 //   	ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION = 37,
 //   	ALLOW_TO_ISSUE_AFTER_SALE = 38,
 //   	FIX_PAYMENT_V2_SEND_TO_SELF = 39,
-//   	FIX_PAYMENT_V2_DEST_ACCOUNT_NOT_FOUND = 40
+//   	FIX_PAYMENT_V2_DEST_ACCOUNT_NOT_FOUND = 40,
+//   	FIX_CREATE_KYC_REQUEST_AUTO_APPROVE = 41
 //   };
 //
 // ===========================================================================
@@ -3682,6 +3683,7 @@ xdr.enum("LedgerVersion", {
   allowToIssueAfterSale: 38,
   fixPaymentV2SendToSelf: 39,
   fixPaymentV2DestAccountNotFound: 40,
+  fixCreateKycRequestAutoApprove: 41,
 });
 
 // === xdr source ============================================================
