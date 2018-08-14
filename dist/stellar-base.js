@@ -392,6 +392,15 @@ var StellarBase =
 	  }
 	});
 
+	var _operationsBase_operation = __webpack_require__(42);
+
+	Object.defineProperty(exports, "BaseOperation", {
+	  enumerable: true,
+	  get: function get() {
+	    return _operationsBase_operation.BaseOperation;
+	  }
+	});
+
 	var _strkey = __webpack_require__(63);
 
 	_defaults(exports, _interopExportWildcard(_strkey, _defaults));
