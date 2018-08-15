@@ -411,7 +411,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-08-15T13:46:29+03:00
+	// Automatically generated on 2018-08-15T15:21:04+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -3286,8 +3286,9 @@ var StellarBase =
 	//   struct InvoiceRequest
 	//   {
 	//       AssetCode asset;
-	//       AccountID sender;
 	//       uint64 amount; // not allowed to set 0
+	//       BalanceID senderBalance;
+	//       BalanceID receiverBalance;
 	//   
 	//       uint64 *contractID;
 	//       bool isApproved;
@@ -3303,7 +3304,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("InvoiceRequest",[["asset",xdr.lookup("AssetCode")],["sender",xdr.lookup("AccountId")],["amount",xdr.lookup("Uint64")],["contractId",xdr.option(xdr.lookup("Uint64"))],["isApproved",xdr.bool()],["details",xdr.lookup("Longstring")],["ext",xdr.lookup("InvoiceRequestExt")]]); // === xdr source ============================================================
+	xdr.struct("InvoiceRequest",[["asset",xdr.lookup("AssetCode")],["amount",xdr.lookup("Uint64")],["senderBalance",xdr.lookup("BalanceId")],["receiverBalance",xdr.lookup("BalanceId")],["contractId",xdr.option(xdr.lookup("Uint64"))],["isApproved",xdr.bool()],["details",xdr.lookup("Longstring")],["ext",xdr.lookup("InvoiceRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4362,15 +4363,45 @@ var StellarBase =
 	// ===========================================================================
 	xdr["enum"]("ManageInvoiceRequestAction",{create:0,remove:1}); // === xdr source ============================================================
 	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("InvoiceCreationRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct InvoiceCreationRequest
+	//   {
+	//       AssetCode asset;
+	//       AccountID sender;
+	//       uint64 amount; // not allowed to set 0
+	//   
+	//       uint64 *contractID;
+	//       longstring details;
+	//   
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("InvoiceCreationRequest",[["asset",xdr.lookup("AssetCode")],["sender",xdr.lookup("AccountId")],["amount",xdr.lookup("Uint64")],["contractId",xdr.option(xdr.lookup("Uint64"))],["details",xdr.lookup("Longstring")],["ext",xdr.lookup("InvoiceCreationRequestExt")]]); // === xdr source ============================================================
+	//
 	//   union switch (ManageInvoiceRequestAction action){
 	//       case CREATE:
-	//           InvoiceRequest invoiceRequest;
+	//           InvoiceCreationRequest invoiceRequest;
 	//       case REMOVE:
 	//           uint64 requestID;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ManageInvoiceRequestOpDetails",{switchOn:xdr.lookup("ManageInvoiceRequestAction"),switchName:"action",switches:[["create","invoiceRequest"],["remove","requestId"]],arms:{invoiceRequest:xdr.lookup("InvoiceRequest"),requestId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
+	xdr.union("ManageInvoiceRequestOpDetails",{switchOn:xdr.lookup("ManageInvoiceRequestAction"),switchName:"action",switches:[["create","invoiceRequest"],["remove","requestId"]],arms:{invoiceRequest:xdr.lookup("InvoiceCreationRequest"),requestId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4385,7 +4416,7 @@ var StellarBase =
 	//   {
 	//       union switch (ManageInvoiceRequestAction action){
 	//       case CREATE:
-	//           InvoiceRequest invoiceRequest;
+	//           InvoiceCreationRequest invoiceRequest;
 	//       case REMOVE:
 	//           uint64 requestID;
 	//       } details;
@@ -47558,9 +47589,8 @@ var StellarBase =
 	            if (!(0, _lodashIsUndefined2['default'])(opts.contractID)) {
 	                invoiceRequestAttr.contractId = _jsXdr.UnsignedHyper.fromString(opts.contractID);
 	            }
-	            invoiceRequestAttr.isApproved = false;
 
-	            var invoiceRequest = new _generatedStellarXdr_generated2['default'].InvoiceRequest(invoiceRequestAttr);
+	            var invoiceRequest = new _generatedStellarXdr_generated2['default'].InvoiceCreationRequest(invoiceRequestAttr);
 
 	            var details = new _generatedStellarXdr_generated2['default'].ManageInvoiceRequestOpDetails.create(invoiceRequest);
 

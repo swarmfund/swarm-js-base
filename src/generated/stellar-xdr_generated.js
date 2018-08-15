@@ -1,4 +1,4 @@
-// Automatically generated on 2018-08-15T13:46:29+03:00
+// Automatically generated on 2018-08-15T15:21:04+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -4692,8 +4692,9 @@ xdr.union("InvoiceRequestExt", {
 //   struct InvoiceRequest
 //   {
 //       AssetCode asset;
-//       AccountID sender;
 //       uint64 amount; // not allowed to set 0
+//       BalanceID senderBalance;
+//       BalanceID receiverBalance;
 //   
 //       uint64 *contractID;
 //       bool isApproved;
@@ -4711,8 +4712,9 @@ xdr.union("InvoiceRequestExt", {
 // ===========================================================================
 xdr.struct("InvoiceRequest", [
   ["asset", xdr.lookup("AssetCode")],
-  ["sender", xdr.lookup("AccountId")],
   ["amount", xdr.lookup("Uint64")],
+  ["senderBalance", xdr.lookup("BalanceId")],
+  ["receiverBalance", xdr.lookup("BalanceId")],
   ["contractId", xdr.option(xdr.lookup("Uint64"))],
   ["isApproved", xdr.bool()],
   ["details", xdr.lookup("Longstring")],
@@ -6472,9 +6474,58 @@ xdr.enum("ManageInvoiceRequestAction", {
 
 // === xdr source ============================================================
 //
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("InvoiceCreationRequestExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct InvoiceCreationRequest
+//   {
+//       AssetCode asset;
+//       AccountID sender;
+//       uint64 amount; // not allowed to set 0
+//   
+//       uint64 *contractID;
+//       longstring details;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("InvoiceCreationRequest", [
+  ["asset", xdr.lookup("AssetCode")],
+  ["sender", xdr.lookup("AccountId")],
+  ["amount", xdr.lookup("Uint64")],
+  ["contractId", xdr.option(xdr.lookup("Uint64"))],
+  ["details", xdr.lookup("Longstring")],
+  ["ext", xdr.lookup("InvoiceCreationRequestExt")],
+]);
+
+// === xdr source ============================================================
+//
 //   union switch (ManageInvoiceRequestAction action){
 //       case CREATE:
-//           InvoiceRequest invoiceRequest;
+//           InvoiceCreationRequest invoiceRequest;
 //       case REMOVE:
 //           uint64 requestID;
 //       }
@@ -6488,7 +6539,7 @@ xdr.union("ManageInvoiceRequestOpDetails", {
     ["remove", "requestId"],
   ],
   arms: {
-    invoiceRequest: xdr.lookup("InvoiceRequest"),
+    invoiceRequest: xdr.lookup("InvoiceCreationRequest"),
     requestId: xdr.lookup("Uint64"),
   },
 });
@@ -6518,7 +6569,7 @@ xdr.union("ManageInvoiceRequestOpExt", {
 //   {
 //       union switch (ManageInvoiceRequestAction action){
 //       case CREATE:
-//           InvoiceRequest invoiceRequest;
+//           InvoiceCreationRequest invoiceRequest;
 //       case REMOVE:
 //           uint64 requestID;
 //       } details;

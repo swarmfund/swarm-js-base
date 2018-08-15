@@ -38,9 +38,8 @@ export class ManageInvoiceRequestBuilder {
         if (!isUndefined(opts.contractID)) {
             invoiceRequestAttr.contractId = UnsignedHyper.fromString(opts.contractID);
         }
-        invoiceRequestAttr.isApproved = false;
 
-        let invoiceRequest = new xdr.InvoiceRequest(invoiceRequestAttr);
+        let invoiceRequest = new xdr.InvoiceCreationRequest(invoiceRequestAttr);
 
         let details = new xdr.ManageInvoiceRequestOpDetails.create(invoiceRequest);
 
