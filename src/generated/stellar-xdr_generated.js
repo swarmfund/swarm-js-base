@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Automatically generated on 2018-08-13T15:27:38+03:00
+=======
+// Automatically generated on 2018-08-14T11:43:17+03:00
+>>>>>>> master
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -476,6 +480,7 @@ xdr.enum("OperationResultCode", {
 //
 //   union switch (OperationType type)
 //       {
+<<<<<<< HEAD
 //       case CREATE_ACCOUNT:
 //           CreateAccountResult createAccountResult;
 //       case PAYMENT:
@@ -597,6 +602,24 @@ xdr.union("OperationResultTr", {
     createManageLimitsRequestResult: xdr.lookup("CreateManageLimitsRequestResult"),
     manageContractRequestResult: xdr.lookup("ManageContractRequestResult"),
     manageContractResult: xdr.lookup("ManageContractResult"),
+=======
+//       case EMPTY_VERSION:
+//           void;
+//       case ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION:
+//           bool fulfilled; // can be used for any reviewable request type created with manage sale operation
+//       }
+//
+// ===========================================================================
+xdr.union("ManageSaleResultSuccessExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+    ["allowToUpdateVotingSalesAsPromotion", "fulfilled"],
+  ],
+  arms: {
+    fulfilled: xdr.bool(),
+>>>>>>> master
   },
 });
 
@@ -604,6 +627,7 @@ xdr.union("OperationResultTr", {
 //
 //   union OperationResult switch (OperationResultCode code)
 //   {
+<<<<<<< HEAD
 //   case opINNER:
 //       union switch (OperationType type)
 //       {
@@ -663,6 +687,28 @@ xdr.union("OperationResultTr", {
 //           ManageContractRequestResult manageContractRequestResult;
 //       case MANAGE_CONTRACT:
 //           ManageContractResult manageContractResult;
+=======
+//       union switch (ManageSaleAction action) {
+//       case CREATE_UPDATE_DETAILS_REQUEST:
+//           uint64 requestID;
+//       case CANCEL:
+//           void;
+//   	case SET_STATE:
+//   		void;
+//       case CREATE_PROMOTION_UPDATE_REQUEST:
+//           uint64 promotionUpdateRequestID;
+//   	case CREATE_UPDATE_END_TIME_REQUEST:
+//   	    uint64 updateEndTimeRequestID;
+//       } response;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       case ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION:
+//           bool fulfilled; // can be used for any reviewable request type created with manage sale operation
+>>>>>>> master
 //       }
 //       tr;
 //   default:
@@ -4006,6 +4052,7 @@ xdr.union("LedgerEntryExt", {
 
 // === xdr source ============================================================
 //
+<<<<<<< HEAD
 //   struct LedgerEntry
 //   {
 //       uint32 lastModifiedLedgerSeq; // ledger the LedgerEntry was last changed
@@ -4074,6 +4121,105 @@ xdr.struct("LedgerEntry", [
   ["data", xdr.lookup("LedgerEntryData")],
   ["ext", xdr.lookup("LedgerEntryExt")],
 ]);
+=======
+//   enum LedgerVersion {
+//   	EMPTY_VERSION = 0,
+//   	PASS_EXTERNAL_SYS_ACC_ID_IN_CREATE_ACC = 1,
+//   	DETAILED_LEDGER_CHANGES = 2, // write more all ledger changes to transaction meta
+//   	NEW_SIGNER_TYPES = 3, // use more comprehensive list of signer types
+//   	TYPED_SALE = 4, // sales can have type
+//   	UNIQUE_BALANCE_CREATION = 5, // allows to specify in manage balance that balance should not be created if one for such asset and account exists
+//   	ASSET_PREISSUER_MIGRATION = 6,
+//   	ASSET_PREISSUER_MIGRATED = 7,
+//   	USE_KYC_LEVEL = 8,
+//   	ERROR_ON_NON_ZERO_TASKS_TO_REMOVE_IN_REJECT_KYC = 9,
+//   	ALLOW_ACCOUNT_MANAGER_TO_CHANGE_KYC = 10,
+//   	CHANGE_ASSET_ISSUER_BAD_AUTH_EXTRA_FIXED = 11,
+//   	AUTO_CREATE_COMMISSION_BALANCE_ON_TRANSFER = 12,
+//       ALLOW_REJECT_REQUEST_OF_BLOCKED_REQUESTOR = 13,
+//   	ASSET_UPDATE_CHECK_REFERENCE_EXISTS = 14,
+//   	CROSS_ASSET_FEE = 15,
+//   	USE_PAYMENT_V2 = 16,
+//   	ALLOW_SYNDICATE_TO_UPDATE_KYC = 17,
+//   	DO_NOT_BUILD_ACCOUNT_IF_VERSION_EQUALS_OR_GREATER = 18,
+//   	ALLOW_TO_SPECIFY_REQUIRED_BASE_ASSET_AMOUNT_FOR_HARD_CAP = 19,
+//   	KYC_RULES = 20,
+//   	ALLOW_TO_CREATE_SEVERAL_SALES = 21,
+//   	KEY_VALUE_POOL_ENTRY_EXPIRES_AT = 22,
+//   	KEY_VALUE_UPDATE = 23,
+//   	ALLOW_TO_CANCEL_SALE_PARTICIP_WITHOUT_SPECIFING_BALANCE = 24,
+//   	DETAILS_MAX_LENGTH_EXTENDED = 25,
+//   	ALLOW_MASTER_TO_MANAGE_SALE = 26,
+//   	USE_SALE_ANTE = 27,
+//   	FIX_ASSET_PAIRS_CREATION_IN_SALE_CREATION = 28,
+//   	STATABLE_SALES = 29,
+//   	CREATE_ONLY_STATISTICS_V2 = 30,
+//   	LIMITS_UPDATE_REQUEST_DEPRECATED_DOCUMENT_HASH = 31,
+//   	FIX_PAYMENT_V2_FEE = 32,
+//   	ADD_SALE_ID_REVIEW_REQUEST_RESULT = 33,
+//   	FIX_SET_SALE_STATE_AND_CHECK_SALE_STATE_OPS = 34, // only master allowed to set sale state, max issuance after sale closure = pending + issued
+//   	FIX_UPDATE_MAX_ISSUANCE = 35,
+//   	ALLOW_CLOSE_SALE_WITH_NON_ZERO_BALANCE = 36,
+//   	ALLOW_TO_UPDATE_VOTING_SALES_AS_PROMOTION = 37,
+//   	ALLOW_TO_ISSUE_AFTER_SALE = 38,
+//   	FIX_PAYMENT_V2_SEND_TO_SELF = 39,
+//   	FIX_PAYMENT_V2_DEST_ACCOUNT_NOT_FOUND = 40,
+//   	FIX_CREATE_KYC_REQUEST_AUTO_APPROVE = 41
+//   };
+//
+// ===========================================================================
+xdr.enum("LedgerVersion", {
+  emptyVersion: 0,
+  passExternalSysAccIdInCreateAcc: 1,
+  detailedLedgerChange: 2,
+  newSignerType: 3,
+  typedSale: 4,
+  uniqueBalanceCreation: 5,
+  assetPreissuerMigration: 6,
+  assetPreissuerMigrated: 7,
+  useKycLevel: 8,
+  errorOnNonZeroTasksToRemoveInRejectKyc: 9,
+  allowAccountManagerToChangeKyc: 10,
+  changeAssetIssuerBadAuthExtraFixed: 11,
+  autoCreateCommissionBalanceOnTransfer: 12,
+  allowRejectRequestOfBlockedRequestor: 13,
+  assetUpdateCheckReferenceExist: 14,
+  crossAssetFee: 15,
+  usePaymentV2: 16,
+  allowSyndicateToUpdateKyc: 17,
+  doNotBuildAccountIfVersionEqualsOrGreater: 18,
+  allowToSpecifyRequiredBaseAssetAmountForHardCap: 19,
+  kycRule: 20,
+  allowToCreateSeveralSale: 21,
+  keyValuePoolEntryExpiresAt: 22,
+  keyValueUpdate: 23,
+  allowToCancelSaleParticipWithoutSpecifingBalance: 24,
+  detailsMaxLengthExtended: 25,
+  allowMasterToManageSale: 26,
+  useSaleAnte: 27,
+  fixAssetPairsCreationInSaleCreation: 28,
+  statableSale: 29,
+  createOnlyStatisticsV2: 30,
+  limitsUpdateRequestDeprecatedDocumentHash: 31,
+  fixPaymentV2Fee: 32,
+  addSaleIdReviewRequestResult: 33,
+  fixSetSaleStateAndCheckSaleStateOp: 34,
+  fixUpdateMaxIssuance: 35,
+  allowCloseSaleWithNonZeroBalance: 36,
+  allowToUpdateVotingSalesAsPromotion: 37,
+  allowToIssueAfterSale: 38,
+  fixPaymentV2SendToSelf: 39,
+  fixPaymentV2DestAccountNotFound: 40,
+  fixCreateKycRequestAutoApprove: 41,
+});
+
+// === xdr source ============================================================
+//
+//   typedef opaque Signature<64>;
+//
+// ===========================================================================
+xdr.typedef("Signature", xdr.varOpaque(64));
+>>>>>>> master
 
 // === xdr source ============================================================
 //
@@ -6479,6 +6625,7 @@ xdr.struct("ManageInvoiceRequestOp", [
 //       SUCCESS = 0,
 //   
 //       // codes considered as "failure" for the operation
+<<<<<<< HEAD
 //       MALFORMED = -1,
 //       BALANCE_NOT_FOUND = -2, // sender balance not found
 //       NOT_FOUND = -3, // not found invoice request, when try to remove
@@ -6488,12 +6635,32 @@ xdr.struct("ManageInvoiceRequestOp", [
 //       ONLY_CONTRACTOR_CAN_ATTACH_INVOICE_TO_CONTRACT = -8,
 //       SENDER_ACCOUNT_MISMATCHED = -9,
 //       INVOICE_IS_APPROVED = -10 // not allowed to remove approved invoice
+=======
+//       MALFORMED = -1, // bad input
+//       UNDERFUNDED = -2, // not enough funds in source account
+//       LINE_FULL = -3, // destination would go above their limit
+//   	DESTINATION_BALANCE_NOT_FOUND = -4,
+//       BALANCE_ASSETS_MISMATCHED = -5,
+//   	SRC_BALANCE_NOT_FOUND = -6, // source balance not found
+//       REFERENCE_DUPLICATION = -7,
+//       STATS_OVERFLOW = -8,
+//       LIMITS_EXCEEDED = -9,
+//       NOT_ALLOWED_BY_ASSET_POLICY = -10,
+//       INVALID_DESTINATION_FEE = -11,
+//       INVALID_DESTINATION_FEE_ASSET = -12, // destination fee asset must be the same as source balance asset
+//       FEE_ASSET_MISMATCHED = -13,
+//       INSUFFICIENT_FEE_AMOUNT = -14,
+//       BALANCE_TO_CHARGE_FEE_FROM_NOT_FOUND = -15,
+//       PAYMENT_AMOUNT_IS_LESS_THAN_DEST_FEE = -16,
+//       DESTINATION_ACCOUNT_NOT_FOUND = -17
+>>>>>>> master
 //   };
 //
 // ===========================================================================
 xdr.enum("ManageInvoiceRequestResultCode", {
   success: 0,
   malformed: -1,
+<<<<<<< HEAD
   balanceNotFound: -2,
   notFound: -3,
   tooManyInvoice: -4,
@@ -6502,6 +6669,24 @@ xdr.enum("ManageInvoiceRequestResultCode", {
   onlyContractorCanAttachInvoiceToContract: -8,
   senderAccountMismatched: -9,
   invoiceIsApproved: -10,
+=======
+  underfunded: -2,
+  lineFull: -3,
+  destinationBalanceNotFound: -4,
+  balanceAssetsMismatched: -5,
+  srcBalanceNotFound: -6,
+  referenceDuplication: -7,
+  statsOverflow: -8,
+  limitsExceeded: -9,
+  notAllowedByAssetPolicy: -10,
+  invalidDestinationFee: -11,
+  invalidDestinationFeeAsset: -12,
+  feeAssetMismatched: -13,
+  insufficientFeeAmount: -14,
+  balanceToChargeFeeFromNotFound: -15,
+  paymentAmountIsLessThanDestFee: -16,
+  destinationAccountNotFound: -17,
+>>>>>>> master
 });
 
 // === xdr source ============================================================
@@ -8587,11 +8772,85 @@ xdr.struct("LedgerKeyKeyValue", [
 
 // === xdr source ============================================================
 //
+<<<<<<< HEAD
 //   union switch(LedgerVersion v)
 //           {
 //           case EMPTY_VERSION:
 //               void;
 //           }
+=======
+//   enum AccountPolicies
+//   {
+//   	NO_PERMISSIONS = 0,
+//   	ALLOW_TO_CREATE_USER_VIA_API = 1
+//   };
+//
+// ===========================================================================
+xdr.enum("AccountPolicies", {
+  noPermission: 0,
+  allowToCreateUserViaApi: 1,
+});
+
+// === xdr source ============================================================
+//
+//   enum AccountType
+//   {
+//   	OPERATIONAL = 1,       // operational account of the system 
+//   	GENERAL = 2,           // general account can perform payments, setoptions, be source account for tx, etc.
+//   	COMMISSION = 3,        // commission account
+//   	MASTER = 4,            // master account
+//       NOT_VERIFIED = 5,
+//   	SYNDICATE = 6, // can create asset
+//   	EXCHANGE = 7,
+//   	ACCREDITED_INVESTOR = 8,
+//   	INSTITUTIONAL_INVESTOR = 9,
+//   	VERIFIED = 10
+//   };
+//
+// ===========================================================================
+xdr.enum("AccountType", {
+  operational: 1,
+  general: 2,
+  commission: 3,
+  master: 4,
+  notVerified: 5,
+  syndicate: 6,
+  exchange: 7,
+  accreditedInvestor: 8,
+  institutionalInvestor: 9,
+  verified: 10,
+});
+
+// === xdr source ============================================================
+//
+//   enum BlockReasons
+//   {
+//   	RECOVERY_REQUEST = 1,
+//   	KYC_UPDATE = 2,
+//   	SUSPICIOUS_BEHAVIOR = 4,
+//   	TOO_MANY_KYC_UPDATE_REQUESTS = 8,
+//   	WITHDRAWAL = 16
+//   };
+//
+// ===========================================================================
+xdr.enum("BlockReasons", {
+  recoveryRequest: 1,
+  kycUpdate: 2,
+  suspiciousBehavior: 4,
+  tooManyKycUpdateRequest: 8,
+  withdrawal: 16,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//   	case USE_KYC_LEVEL:
+//   		uint32 kycLevel;
+//       }
+>>>>>>> master
 //
 // ===========================================================================
 xdr.union("LedgerKeyAccountKycExt", {
