@@ -1,4 +1,4 @@
-// Automatically generated on 2018-08-15T15:21:04+03:00
+// Automatically generated on 2018-08-15T16:05:38+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -3694,8 +3694,8 @@ xdr.union("ManageLimitsResult", {
 //       CUSTOMER_CONFIRMED = 1,
 //       CONTRACTOR_CONFIRMED = 2,
 //       DISPUTING = 4,
-//       REVERT_RESOLVE = 8,
-//       NOT_REVERT_RESOLVE = 16
+//       REVERTING_RESOLVE = 8,
+//       NOT_REVERTING_RESOLVE = 16
 //   };
 //
 // ===========================================================================
@@ -3704,8 +3704,8 @@ xdr.enum("ContractState", {
   customerConfirmed: 1,
   contractorConfirmed: 2,
   disputing: 4,
-  revertResolve: 8,
-  notRevertResolve: 16,
+  revertingResolve: 8,
+  notRevertingResolve: 16,
 });
 
 // === xdr source ============================================================
