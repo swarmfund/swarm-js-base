@@ -47570,7 +47570,7 @@ var StellarBase =
 	         */
 	        value: function createInvoiceRequest(opts) {
 	            var invoiceRequestAttr = {
-	                ext: new _generatedStellarXdr_generated2['default'].InvoiceRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion()),
+	                ext: new _generatedStellarXdr_generated2['default'].InvoiceCreationRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion()),
 	                details: JSON.stringify(opts.details)
 	            };
 	            if (!_keypair.Keypair.isValidPublicKey(opts.sender)) {

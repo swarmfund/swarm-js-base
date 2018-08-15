@@ -19,7 +19,7 @@ export class ManageInvoiceRequestBuilder {
      */
     static createInvoiceRequest(opts) {
         let invoiceRequestAttr = {
-            ext: new xdr.InvoiceRequestExt(xdr.LedgerVersion.emptyVersion()),
+            ext: new xdr.InvoiceCreationRequestExt(xdr.LedgerVersion.emptyVersion()),
             details: JSON.stringify(opts.details),
         };
         if (!Keypair.isValidPublicKey(opts.sender)) {
