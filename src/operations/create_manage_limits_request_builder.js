@@ -7,7 +7,7 @@ export class CreateManageLimitsRequestBuilder {
     /**
      * Creates limits update request
      * @param {object} opts
-     * @param {string} opts.details - string details to review
+     * @param {object} opts.details - details to review
      * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
      * @returns {xdr.CreateManageLimitsRequestOp}
      */
@@ -16,7 +16,7 @@ export class CreateManageLimitsRequestBuilder {
             throw new Error('opts.details is not defined');
         }
 
-        let ext = xdr.LimitsUpdateRequestExt.limitsUpdateRequestDeprecatedDocumentHash(opts.details);
+        let ext = xdr.LimitsUpdateRequestExt.limitsUpdateRequestDeprecatedDocumentHash(JSON.stringify(opts.details));
 
         let limitsUpdateRequest = new xdr.LimitsUpdateRequest({
             deprecatedDocumentHash: new Buffer(32),
@@ -35,6 +35,6 @@ export class CreateManageLimitsRequestBuilder {
     }
 
     static createManageLimitsRequestToObject(result, attrs) {
-        result.details = attrs.manageLimitsRequest().ext().details();
+        result.details = JSON.parse(attrs.manageLimitsRequest().ext().details());
     }
 }

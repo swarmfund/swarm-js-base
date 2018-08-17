@@ -143,7 +143,7 @@ var StellarBase =
 	  }
 	});
 
-	var _transaction_builder = __webpack_require__(349);
+	var _transaction_builder = __webpack_require__(352);
 
 	Object.defineProperty(exports, "TransactionBuilder", {
 	  enumerable: true,
@@ -152,7 +152,7 @@ var StellarBase =
 	  }
 	});
 
-	var _pre_issuance_request = __webpack_require__(337);
+	var _pre_issuance_request = __webpack_require__(338);
 
 	Object.defineProperty(exports, "PreIssuanceRequest", {
 	  enumerable: true,
@@ -188,7 +188,7 @@ var StellarBase =
 	  }
 	});
 
-	var _memo = __webpack_require__(351);
+	var _memo = __webpack_require__(354);
 
 	Object.defineProperty(exports, "Memo", {
 	  enumerable: true,
@@ -197,7 +197,7 @@ var StellarBase =
 	  }
 	});
 
-	var _account = __webpack_require__(350);
+	var _account = __webpack_require__(353);
 
 	Object.defineProperty(exports, "Account", {
 	  enumerable: true,
@@ -239,7 +239,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsPre_issuance_request_op_builder = __webpack_require__(336);
+	var _operationsPre_issuance_request_op_builder = __webpack_require__(337);
 
 	Object.defineProperty(exports, "PreIssuanceRequestOpBuilder", {
 	  enumerable: true,
@@ -248,7 +248,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_issuance_request_builder = __webpack_require__(338);
+	var _operationsCreate_issuance_request_builder = __webpack_require__(339);
 
 	Object.defineProperty(exports, "CreateIssuanceRequestBuilder", {
 	  enumerable: true,
@@ -257,7 +257,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_withdraw_request_builder = __webpack_require__(339);
+	var _operationsCreate_withdraw_request_builder = __webpack_require__(340);
 
 	Object.defineProperty(exports, "CreateWithdrawRequestBuilder", {
 	  enumerable: true,
@@ -266,7 +266,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsSale_request_builder = __webpack_require__(340);
+	var _operationsSale_request_builder = __webpack_require__(341);
 
 	Object.defineProperty(exports, "SaleRequestBuilder", {
 	  enumerable: true,
@@ -275,7 +275,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_offer_builder = __webpack_require__(341);
+	var _operationsManage_offer_builder = __webpack_require__(342);
 
 	Object.defineProperty(exports, "ManageOfferBuilder", {
 	  enumerable: true,
@@ -284,7 +284,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsSet_options_builder = __webpack_require__(343);
+	var _operationsSet_options_builder = __webpack_require__(344);
 
 	Object.defineProperty(exports, "SetOptionsBuilder", {
 	  enumerable: true,
@@ -293,7 +293,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(344);
+	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(345);
 
 	Object.defineProperty(exports, "ManageExternalSystemAccountIdPoolEntryBuilder", {
 	  enumerable: true,
@@ -308,7 +308,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_aml_request_builder = __webpack_require__(345);
+	var _operationsCreate_aml_request_builder = __webpack_require__(346);
 
 	Object.defineProperty(exports, "CreateAMLRequestBuilder", {
 	  enumerable: true,
@@ -317,7 +317,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_key_value_builder = __webpack_require__(342);
+	var _operationsManage_key_value_builder = __webpack_require__(343);
 
 	Object.defineProperty(exports, "ManageKeyValueBuilder", {
 	  enumerable: true,
@@ -326,7 +326,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_update_kyc_request_builder = __webpack_require__(346);
+	var _operationsCreate_update_kyc_request_builder = __webpack_require__(347);
 
 	Object.defineProperty(exports, "CreateUpdateKYCRequestBuilder", {
 	  enumerable: true,
@@ -335,7 +335,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsPayment_v2_builder = __webpack_require__(347);
+	var _operationsPayment_v2_builder = __webpack_require__(336);
 
 	Object.defineProperty(exports, "PaymentV2Builder", {
 	  enumerable: true,
@@ -365,6 +365,42 @@ var StellarBase =
 	  }
 	});
 
+	var _operationsManage_invoice_request_builder = __webpack_require__(349);
+
+	Object.defineProperty(exports, "ManageInvoiceRequestBuilder", {
+	  enumerable: true,
+	  get: function get() {
+	    return _operationsManage_invoice_request_builder.ManageInvoiceRequestBuilder;
+	  }
+	});
+
+	var _operationsManage_contract_request_builder = __webpack_require__(350);
+
+	Object.defineProperty(exports, "ManageContractRequestBuilder", {
+	  enumerable: true,
+	  get: function get() {
+	    return _operationsManage_contract_request_builder.ManageContractRequestBuilder;
+	  }
+	});
+
+	var _operationsManage_contract_builder = __webpack_require__(351);
+
+	Object.defineProperty(exports, "ManageContractBuilder", {
+	  enumerable: true,
+	  get: function get() {
+	    return _operationsManage_contract_builder.ManageContractBuilder;
+	  }
+	});
+
+	var _operationsBase_operation = __webpack_require__(208);
+
+	Object.defineProperty(exports, "BaseOperation", {
+	  enumerable: true,
+	  get: function get() {
+	    return _operationsBase_operation.BaseOperation;
+	  }
+	});
+
 	var _strkey = __webpack_require__(227);
 
 	_defaults(exports, _interopExportWildcard(_strkey, _defaults));
@@ -375,7 +411,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-08-15T16:36:05+03:00
+	// Automatically generated on 2018-08-17T15:51:49+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -516,6 +552,36 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("CreateWithdrawalRequestResult",{switchOn:xdr.lookup("CreateWithdrawalRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreateWithdrawalSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("ContractRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct ContractRequest
+	//   {
+	//       AccountID customer;
+	//       AccountID escrow;
+	//       longstring details;
+	//   
+	//       uint64 startTime;
+	//       uint64 endTime;
+	//   
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("ContractRequest",[["customer",xdr.lookup("AccountId")],["escrow",xdr.lookup("AccountId")],["details",xdr.lookup("Longstring")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["ext",xdr.lookup("ContractRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -1020,11 +1086,14 @@ var StellarBase =
 	//   	FIX_PAYMENT_V2_SEND_TO_SELF = 39,
 	//   	FIX_PAYMENT_V2_DEST_ACCOUNT_NOT_FOUND = 40,
 	//   	FIX_CREATE_KYC_REQUEST_AUTO_APPROVE = 41,
-	//   	ADD_TASKS_TO_REVIEWABLE_REQUEST = 42
+	//   	ADD_TASKS_TO_REVIEWABLE_REQUEST = 42,
+	//   	USE_ONLY_PAYMENT_V2 = 43,
+	//       ADD_REVIEW_INVOICE_REQUEST_PAYMENT_RESPONSE = 44,
+	//       ADD_CONTRACT_ID_REVIEW_REQUEST_RESULT = 45
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23,allowToCancelSaleParticipWithoutSpecifingBalance:24,detailsMaxLengthExtended:25,allowMasterToManageSale:26,useSaleAnte:27,fixAssetPairsCreationInSaleCreation:28,statableSale:29,createOnlyStatisticsV2:30,limitsUpdateRequestDeprecatedDocumentHash:31,fixPaymentV2Fee:32,addSaleIdReviewRequestResult:33,fixSetSaleStateAndCheckSaleStateOp:34,fixUpdateMaxIssuance:35,allowCloseSaleWithNonZeroBalance:36,allowToUpdateVotingSalesAsPromotion:37,allowToIssueAfterSale:38,fixPaymentV2SendToSelf:39,fixPaymentV2DestAccountNotFound:40,fixCreateKycRequestAutoApprove:41,addTasksToReviewableRequest:42}); // === xdr source ============================================================
+	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23,allowToCancelSaleParticipWithoutSpecifingBalance:24,detailsMaxLengthExtended:25,allowMasterToManageSale:26,useSaleAnte:27,fixAssetPairsCreationInSaleCreation:28,statableSale:29,createOnlyStatisticsV2:30,limitsUpdateRequestDeprecatedDocumentHash:31,fixPaymentV2Fee:32,addSaleIdReviewRequestResult:33,fixSetSaleStateAndCheckSaleStateOp:34,fixUpdateMaxIssuance:35,allowCloseSaleWithNonZeroBalance:36,allowToUpdateVotingSalesAsPromotion:37,allowToIssueAfterSale:38,fixPaymentV2SendToSelf:39,fixPaymentV2DestAccountNotFound:40,fixCreateKycRequestAutoApprove:41,addTasksToReviewableRequest:42,useOnlyPaymentV2:43,addReviewInvoiceRequestPaymentResponse:44,addContractIdReviewRequestResult:45}); // === xdr source ============================================================
 	//
 	//   typedef opaque Signature<64>;
 	//
@@ -1158,14 +1227,13 @@ var StellarBase =
 	//   	MANAGE_ACCOUNT = 6,
 	//       CREATE_WITHDRAWAL_REQUEST = 7,
 	//       MANAGE_BALANCE = 9,
-	//       REVIEW_PAYMENT_REQUEST = 10,
 	//       MANAGE_ASSET = 11,
 	//       CREATE_PREISSUANCE_REQUEST = 12,
 	//       MANAGE_LIMITS = 13,
 	//       DIRECT_DEBIT = 14,
 	//   	MANAGE_ASSET_PAIR = 15,
 	//   	MANAGE_OFFER = 16,
-	//       MANAGE_INVOICE = 17,
+	//       MANAGE_INVOICE_REQUEST = 17,
 	//   	REVIEW_REQUEST = 18,
 	//   	CREATE_SALE_REQUEST = 19,
 	//   	CHECK_SALE_STATE = 20,
@@ -1176,11 +1244,13 @@ var StellarBase =
 	//       BIND_EXTERNAL_SYSTEM_ACCOUNT_ID = 25,
 	//       MANAGE_SALE = 26,
 	//       MANAGE_KEY_VALUE = 27,
-	//       CREATE_MANAGE_LIMITS_REQUEST = 28
+	//       CREATE_MANAGE_LIMITS_REQUEST = 28,
+	//       MANAGE_CONTRACT_REQUEST = 29,
+	//       MANAGE_CONTRACT = 30
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("OperationType",{createAccount:0,payment:1,setOption:2,createIssuanceRequest:3,setFee:5,manageAccount:6,createWithdrawalRequest:7,manageBalance:9,reviewPaymentRequest:10,manageAsset:11,createPreissuanceRequest:12,manageLimit:13,directDebit:14,manageAssetPair:15,manageOffer:16,manageInvoice:17,reviewRequest:18,createSaleRequest:19,checkSaleState:20,createAmlAlert:21,createKycRequest:22,paymentV2:23,manageExternalSystemAccountIdPoolEntry:24,bindExternalSystemAccountId:25,manageSale:26,manageKeyValue:27,createManageLimitsRequest:28}); // === xdr source ============================================================
+	xdr["enum"]("OperationType",{createAccount:0,payment:1,setOption:2,createIssuanceRequest:3,setFee:5,manageAccount:6,createWithdrawalRequest:7,manageBalance:9,manageAsset:11,createPreissuanceRequest:12,manageLimit:13,directDebit:14,manageAssetPair:15,manageOffer:16,manageInvoiceRequest:17,reviewRequest:18,createSaleRequest:19,checkSaleState:20,createAmlAlert:21,createKycRequest:22,paymentV2:23,manageExternalSystemAccountIdPoolEntry:24,bindExternalSystemAccountId:25,manageSale:26,manageKeyValue:27,createManageLimitsRequest:28,manageContractRequest:29,manageContract:30}); // === xdr source ============================================================
 	//
 	//   struct DecoratedSignature
 	//   {
@@ -1465,6 +1535,32 @@ var StellarBase =
 	// ===========================================================================
 	xdr.struct("KeyValueEntry",[["key",xdr.lookup("Longstring")],["value",xdr.lookup("KeyValueEntryValue")],["ext",xdr.lookup("KeyValueEntryExt")]]); // === xdr source ============================================================
 	//
+	//   enum ManageContractAction
+	//   {
+	//       ADD_DETAILS = 0,
+	//       CONFIRM_COMPLETED = 1,
+	//       START_DISPUTE = 2,
+	//       RESOLVE_DISPUTE = 3
+	//   };
+	//
+	// ===========================================================================
+	xdr["enum"]("ManageContractAction",{addDetail:0,confirmCompleted:1,startDispute:2,resolveDispute:3}); // === xdr source ============================================================
+	//
+	//   union switch (ManageContractAction action)
+	//       {
+	//       case ADD_DETAILS:
+	//           longstring details;
+	//       case CONFIRM_COMPLETED:
+	//           void;
+	//       case START_DISPUTE:
+	//           longstring disputeReason;
+	//       case RESOLVE_DISPUTE:
+	//           bool isRevert;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("ManageContractOpData",{switchOn:xdr.lookup("ManageContractAction"),switchName:"action",switches:[["addDetail","details"],["confirmCompleted",xdr["void"]()],["startDispute","disputeReason"],["resolveDispute","isRevert"]],arms:{details:xdr.lookup("Longstring"),disputeReason:xdr.lookup("Longstring"),isRevert:xdr.bool()}}); // === xdr source ============================================================
+	//
 	//   union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -1472,16 +1568,24 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ManageInvoiceOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	xdr.union("ManageContractOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
-	//   struct ManageInvoiceOp
+	//   struct ManageContractOp
 	//   {
-	//       BalanceID receiverBalance;
-	//   	AccountID sender;
-	//       int64 amount; // if set to 0, delete the invoice
+	//       uint64 contractID;
 	//   
-	//       // 0=create a new invoice, otherwise edit an existing invoice
-	//       uint64 invoiceID;
+	//       union switch (ManageContractAction action)
+	//       {
+	//       case ADD_DETAILS:
+	//           longstring details;
+	//       case CONFIRM_COMPLETED:
+	//           void;
+	//       case START_DISPUTE:
+	//           longstring disputeReason;
+	//       case RESOLVE_DISPUTE:
+	//           bool isRevert;
+	//       }
+	//       data;
 	//   
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
@@ -1493,25 +1597,38 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("ManageInvoiceOp",[["receiverBalance",xdr.lookup("BalanceId")],["sender",xdr.lookup("AccountId")],["amount",xdr.lookup("Int64")],["invoiceId",xdr.lookup("Uint64")],["ext",xdr.lookup("ManageInvoiceOpExt")]]); // === xdr source ============================================================
+	xdr.struct("ManageContractOp",[["contractId",xdr.lookup("Uint64")],["data",xdr.lookup("ManageContractOpData")],["ext",xdr.lookup("ManageContractOpExt")]]); // === xdr source ============================================================
 	//
-	//   enum ManageInvoiceResultCode
+	//   enum ManageContractResultCode
 	//   {
 	//       // codes considered as "success" for the operation
 	//       SUCCESS = 0,
 	//   
 	//       // codes considered as "failure" for the operation
 	//       MALFORMED = -1,
-	//       BALANCE_NOT_FOUND = -2,
-	//   	INVOICE_OVERFLOW = -3,
-	//   
-	//       NOT_FOUND = -4,
-	//       TOO_MANY_INVOICES = -5,
-	//       CAN_NOT_DELETE_IN_PROGRESS = -6
+	//       NOT_FOUND = -2, // not found contract
+	//       NOT_ALLOWED = -3, // only contractor or customer can add details
+	//       DETAILS_TOO_LONG = -4,
+	//       DISPUTE_REASON_TOO_LONG = -5,
+	//       ALREADY_CONFIRMED = -6,
+	//       INVOICE_NOT_APPROVED = -7, // all contract invoices must be approved
+	//       DISPUTE_ALREADY_STARTED = -8,
+	//       CUSTOMER_BALANCE_OVERFLOW = -9
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ManageInvoiceResultCode",{success:0,malformed:-1,balanceNotFound:-2,invoiceOverflow:-3,notFound:-4,tooManyInvoice:-5,canNotDeleteInProgress:-6}); // === xdr source ============================================================
+	xdr["enum"]("ManageContractResultCode",{success:0,malformed:-1,notFound:-2,notAllowed:-3,detailsTooLong:-4,disputeReasonTooLong:-5,alreadyConfirmed:-6,invoiceNotApproved:-7,disputeAlreadyStarted:-8,customerBalanceOverflow:-9}); // === xdr source ============================================================
+	//
+	//   union switch (ManageContractAction action)
+	//       {
+	//       case CONFIRM_COMPLETED:
+	//           bool isCompleted;
+	//       default:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("ManageContractResponseData",{switchOn:xdr.lookup("ManageContractAction"),switchName:"action",switches:[["confirmCompleted","isCompleted"]],arms:{isCompleted:xdr.bool()},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -1520,15 +1637,21 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("ManageInvoiceSuccessResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	xdr.union("ManageContractResponseExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
-	//   struct ManageInvoiceSuccessResult 
+	//   struct ManageContractResponse
 	//   {
-	//   	uint64 invoiceID;
-	//   	AssetCode asset;
-	//   	BalanceID senderBalance;
+	//       union switch (ManageContractAction action)
+	//       {
+	//       case CONFIRM_COMPLETED:
+	//           bool isCompleted;
+	//       default:
+	//           void;
+	//       }
+	//       data;
 	//   
-	//   	union switch (LedgerVersion v)
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
@@ -1537,18 +1660,18 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("ManageInvoiceSuccessResult",[["invoiceId",xdr.lookup("Uint64")],["asset",xdr.lookup("AssetCode")],["senderBalance",xdr.lookup("BalanceId")],["ext",xdr.lookup("ManageInvoiceSuccessResultExt")]]); // === xdr source ============================================================
+	xdr.struct("ManageContractResponse",[["data",xdr.lookup("ManageContractResponseData")],["ext",xdr.lookup("ManageContractResponseExt")]]); // === xdr source ============================================================
 	//
-	//   union ManageInvoiceResult switch (ManageInvoiceResultCode code)
+	//   union ManageContractResult switch (ManageContractResultCode code)
 	//   {
 	//   case SUCCESS:
-	//       ManageInvoiceSuccessResult success;
+	//       ManageContractResponse response;
 	//   default:
 	//       void;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("ManageInvoiceResult",{switchOn:xdr.lookup("ManageInvoiceResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageInvoiceSuccessResult")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("ManageContractResult",{switchOn:xdr.lookup("ManageContractResultCode"),switchName:"code",switches:[["success","response"]],arms:{response:xdr.lookup("ManageContractResponse")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   enum AssetPairPolicy
 	//   {
@@ -1828,6 +1951,201 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("ManageAccountResult",{switchOn:xdr.lookup("ManageAccountResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageAccountSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	//
+	//   enum ManageInvoiceRequestAction
+	//   {
+	//       CREATE = 0,
+	//       REMOVE = 1
+	//   };
+	//
+	// ===========================================================================
+	xdr["enum"]("ManageInvoiceRequestAction",{create:0,remove:1}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("InvoiceCreationRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct InvoiceCreationRequest
+	//   {
+	//       AssetCode asset;
+	//       AccountID sender;
+	//       uint64 amount; // not allowed to set 0
+	//   
+	//       uint64 *contractID;
+	//       longstring details;
+	//   
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("InvoiceCreationRequest",[["asset",xdr.lookup("AssetCode")],["sender",xdr.lookup("AccountId")],["amount",xdr.lookup("Uint64")],["contractId",xdr.option(xdr.lookup("Uint64"))],["details",xdr.lookup("Longstring")],["ext",xdr.lookup("InvoiceCreationRequestExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (ManageInvoiceRequestAction action){
+	//       case CREATE:
+	//           InvoiceCreationRequest invoiceRequest;
+	//       case REMOVE:
+	//           uint64 requestID;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("ManageInvoiceRequestOpDetails",{switchOn:xdr.lookup("ManageInvoiceRequestAction"),switchName:"action",switches:[["create","invoiceRequest"],["remove","requestId"]],arms:{invoiceRequest:xdr.lookup("InvoiceCreationRequest"),requestId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("ManageInvoiceRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct ManageInvoiceRequestOp
+	//   {
+	//       union switch (ManageInvoiceRequestAction action){
+	//       case CREATE:
+	//           InvoiceCreationRequest invoiceRequest;
+	//       case REMOVE:
+	//           uint64 requestID;
+	//       } details;
+	//   
+	//   	// reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("ManageInvoiceRequestOp",[["details",xdr.lookup("ManageInvoiceRequestOpDetails")],["ext",xdr.lookup("ManageInvoiceRequestOpExt")]]); // === xdr source ============================================================
+	//
+	//   enum ManageInvoiceRequestResultCode
+	//   {
+	//       // codes considered as "success" for the operation
+	//       SUCCESS = 0,
+	//   
+	//       // codes considered as "failure" for the operation
+	//       MALFORMED = -1,
+	//       BALANCE_NOT_FOUND = -2, // sender balance not found
+	//       NOT_FOUND = -3, // not found invoice request, when try to remove
+	//       TOO_MANY_INVOICES = -4,
+	//       DETAILS_TOO_LONG = -5,
+	//       NOT_ALLOWED_TO_REMOVE = -6, // only invoice creator can remove invoice
+	//       CONTRACT_NOT_FOUND = -7,
+	//       ONLY_CONTRACTOR_CAN_ATTACH_INVOICE_TO_CONTRACT = -8,
+	//       SENDER_ACCOUNT_MISMATCHED = -9,
+	//       INVOICE_IS_APPROVED = -10 // not allowed to remove approved invoice
+	//   };
+	//
+	// ===========================================================================
+	xdr["enum"]("ManageInvoiceRequestResultCode",{success:0,malformed:-1,balanceNotFound:-2,notFound:-3,tooManyInvoice:-4,detailsTooLong:-5,notAllowedToRemove:-6,contractNotFound:-7,onlyContractorCanAttachInvoiceToContract:-8,senderAccountMismatched:-9,invoiceIsApproved:-10}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("CreateInvoiceRequestResponseExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct CreateInvoiceRequestResponse
+	//   {
+	//   	BalanceID receiverBalance;
+	//   	BalanceID senderBalance;
+	//   
+	//   	uint64 requestID;
+	//   
+	//   	union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("CreateInvoiceRequestResponse",[["receiverBalance",xdr.lookup("BalanceId")],["senderBalance",xdr.lookup("BalanceId")],["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("CreateInvoiceRequestResponseExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (ManageInvoiceRequestAction action)
+	//           {
+	//           case CREATE:
+	//               CreateInvoiceRequestResponse response;
+	//           case REMOVE:
+	//               void;
+	//           }
+	//
+	// ===========================================================================
+	xdr.union("ManageInvoiceRequestResultSuccessDetails",{switchOn:xdr.lookup("ManageInvoiceRequestAction"),switchName:"action",switches:[["create","response"],["remove",xdr["void"]()]],arms:{response:xdr.lookup("CreateInvoiceRequestResponse")}}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//           {
+	//           case EMPTY_VERSION:
+	//               void;
+	//           }
+	//
+	// ===========================================================================
+	xdr.union("ManageInvoiceRequestResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct
+	//       {
+	//           union switch (ManageInvoiceRequestAction action)
+	//           {
+	//           case CREATE:
+	//               CreateInvoiceRequestResponse response;
+	//           case REMOVE:
+	//               void;
+	//           } details;
+	//   
+	//           // reserved for future use
+	//           union switch (LedgerVersion v)
+	//           {
+	//           case EMPTY_VERSION:
+	//               void;
+	//           } ext;
+	//       }
+	//
+	// ===========================================================================
+	xdr.struct("ManageInvoiceRequestResultSuccess",[["details",xdr.lookup("ManageInvoiceRequestResultSuccessDetails")],["ext",xdr.lookup("ManageInvoiceRequestResultSuccessExt")]]); // === xdr source ============================================================
+	//
+	//   union ManageInvoiceRequestResult switch (ManageInvoiceRequestResultCode code)
+	//   {
+	//   case SUCCESS:
+	//       struct
+	//       {
+	//           union switch (ManageInvoiceRequestAction action)
+	//           {
+	//           case CREATE:
+	//               CreateInvoiceRequestResponse response;
+	//           case REMOVE:
+	//               void;
+	//           } details;
+	//   
+	//           // reserved for future use
+	//           union switch (LedgerVersion v)
+	//           {
+	//           case EMPTY_VERSION:
+	//               void;
+	//           } ext;
+	//       } success;
+	//   default:
+	//       void;
+	//   };
+	//
+	// ===========================================================================
+	xdr.union("ManageInvoiceRequestResult",{switchOn:xdr.lookup("ManageInvoiceRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageInvoiceRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   enum ManageExternalSystemAccountIdPoolEntryAction
 	//   {
@@ -2182,29 +2500,6 @@ var StellarBase =
 	//   		}
 	//
 	// ===========================================================================
-	xdr.union("LedgerKeyPaymentRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct
-	//       {
-	//   		uint64 paymentID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyPaymentRequest",[["paymentId",xdr.lookup("Uint64")],["ext",xdr.lookup("LedgerKeyPaymentRequestExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
 	xdr.union("LedgerKeyAssetExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct
@@ -2364,28 +2659,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("LedgerKeyOffer",[["offerId",xdr.lookup("Uint64")],["ownerId",xdr.lookup("AccountId")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyInvoiceExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//           uint64 invoiceID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyInvoice",[["invoiceId",xdr.lookup("Uint64")],["ext",xdr.lookup("LedgerKeyInvoiceExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -2608,6 +2881,28 @@ var StellarBase =
 	// ===========================================================================
 	xdr.struct("LedgerKeyPendingStatistics",[["statisticsId",xdr.lookup("Uint64")],["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("LedgerKeyPendingStatisticsExt")]]); // === xdr source ============================================================
 	//
+	//   union switch (LedgerVersion v)
+	//           {
+	//           case EMPTY_VERSION:
+	//               void;
+	//           }
+	//
+	// ===========================================================================
+	xdr.union("LedgerKeyContractExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct {
+	//           uint64 contractID;
+	//           union switch (LedgerVersion v)
+	//           {
+	//           case EMPTY_VERSION:
+	//               void;
+	//           }
+	//           ext;
+	//       }
+	//
+	// ===========================================================================
+	xdr.struct("LedgerKeyContract",[["contractId",xdr.lookup("Uint64")],["ext",xdr.lookup("LedgerKeyContractExt")]]); // === xdr source ============================================================
+	//
 	//   union LedgerKey switch (LedgerEntryType type)
 	//   {
 	//   case ACCOUNT:
@@ -2644,17 +2939,6 @@ var StellarBase =
 	//   		}
 	//   		ext;
 	//       } balance;
-	//   case PAYMENT_REQUEST:
-	//       struct
-	//       {
-	//   		uint64 paymentID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } paymentRequest;
 	//   case ASSET:
 	//       struct
 	//       {
@@ -2735,16 +3019,6 @@ var StellarBase =
 	//   		uint64 offerID;
 	//   		AccountID ownerID;
 	//   	} offer;
-	//   case INVOICE:
-	//       struct {
-	//           uint64 invoiceID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } invoice;
 	//   case REVIEWABLE_REQUEST:
 	//       struct {
 	//           uint64 requestID;
@@ -2846,10 +3120,20 @@ var StellarBase =
 	//           }
 	//           ext;
 	//       } pendingStatistics;
+	//   case CONTRACT:
+	//       struct {
+	//           uint64 contractID;
+	//           union switch (LedgerVersion v)
+	//           {
+	//           case EMPTY_VERSION:
+	//               void;
+	//           }
+	//           ext;
+	//       } contract;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("LedgerKey",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["paymentRequest","paymentRequest"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["invoice","invoice"],["reviewableRequest","reviewableRequest"],["externalSystemAccountId","externalSystemAccountId"],["sale","sale"],["keyValue","keyValue"],["accountKyc","accountKyc"],["externalSystemAccountIdPoolEntry","externalSystemAccountIdPoolEntry"],["saleAnte","saleAnte"],["limitsV2","limitsV2"],["statisticsV2","statisticsV2"],["pendingStatistic","pendingStatistics"]],arms:{account:xdr.lookup("LedgerKeyAccount"),feeState:xdr.lookup("LedgerKeyFeeState"),balance:xdr.lookup("LedgerKeyBalance"),paymentRequest:xdr.lookup("LedgerKeyPaymentRequest"),asset:xdr.lookup("LedgerKeyAsset"),reference:xdr.lookup("LedgerKeyReference"),accountTypeLimits:xdr.lookup("LedgerKeyAccountTypeLimits"),stats:xdr.lookup("LedgerKeyStats"),trust:xdr.lookup("LedgerKeyTrust"),accountLimits:xdr.lookup("LedgerKeyAccountLimits"),assetPair:xdr.lookup("LedgerKeyAssetPair"),offer:xdr.lookup("LedgerKeyOffer"),invoice:xdr.lookup("LedgerKeyInvoice"),reviewableRequest:xdr.lookup("LedgerKeyReviewableRequest"),externalSystemAccountId:xdr.lookup("LedgerKeyExternalSystemAccountId"),sale:xdr.lookup("LedgerKeySale"),keyValue:xdr.lookup("LedgerKeyKeyValue"),accountKyc:xdr.lookup("LedgerKeyAccountKyc"),externalSystemAccountIdPoolEntry:xdr.lookup("LedgerKeyExternalSystemAccountIdPoolEntry"),saleAnte:xdr.lookup("LedgerKeySaleAnte"),limitsV2:xdr.lookup("LedgerKeyLimitsV2"),statisticsV2:xdr.lookup("LedgerKeyStatisticsV2"),pendingStatistics:xdr.lookup("LedgerKeyPendingStatistics")}}); // === xdr source ============================================================
+	xdr.union("LedgerKey",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["reviewableRequest","reviewableRequest"],["externalSystemAccountId","externalSystemAccountId"],["sale","sale"],["keyValue","keyValue"],["accountKyc","accountKyc"],["externalSystemAccountIdPoolEntry","externalSystemAccountIdPoolEntry"],["saleAnte","saleAnte"],["limitsV2","limitsV2"],["statisticsV2","statisticsV2"],["pendingStatistic","pendingStatistics"],["contract","contract"]],arms:{account:xdr.lookup("LedgerKeyAccount"),feeState:xdr.lookup("LedgerKeyFeeState"),balance:xdr.lookup("LedgerKeyBalance"),asset:xdr.lookup("LedgerKeyAsset"),reference:xdr.lookup("LedgerKeyReference"),accountTypeLimits:xdr.lookup("LedgerKeyAccountTypeLimits"),stats:xdr.lookup("LedgerKeyStats"),trust:xdr.lookup("LedgerKeyTrust"),accountLimits:xdr.lookup("LedgerKeyAccountLimits"),assetPair:xdr.lookup("LedgerKeyAssetPair"),offer:xdr.lookup("LedgerKeyOffer"),reviewableRequest:xdr.lookup("LedgerKeyReviewableRequest"),externalSystemAccountId:xdr.lookup("LedgerKeyExternalSystemAccountId"),sale:xdr.lookup("LedgerKeySale"),keyValue:xdr.lookup("LedgerKeyKeyValue"),accountKyc:xdr.lookup("LedgerKeyAccountKyc"),externalSystemAccountIdPoolEntry:xdr.lookup("LedgerKeyExternalSystemAccountIdPoolEntry"),saleAnte:xdr.lookup("LedgerKeySaleAnte"),limitsV2:xdr.lookup("LedgerKeyLimitsV2"),statisticsV2:xdr.lookup("LedgerKeyStatisticsV2"),pendingStatistics:xdr.lookup("LedgerKeyPendingStatistics"),contract:xdr.lookup("LedgerKeyContract")}}); // === xdr source ============================================================
 	//
 	//   enum BucketEntryType
 	//   {
@@ -3631,7 +3915,6 @@ var StellarBase =
 	//       ACCOUNT_LIMITS = 11,
 	//   	ASSET_PAIR = 12,
 	//   	OFFER_ENTRY = 13,
-	//       INVOICE = 14,
 	//   	REVIEWABLE_REQUEST = 15,
 	//   	EXTERNAL_SYSTEM_ACCOUNT_ID = 16,
 	//   	SALE = 17,
@@ -3641,11 +3924,12 @@ var StellarBase =
 	//       SALE_ANTE = 21,
 	//       LIMITS_V2 = 22,
 	//       STATISTICS_V2 = 23,
-	//       PENDING_STATISTICS = 24
+	//       PENDING_STATISTICS = 24,
+	//       CONTRACT = 25
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerEntryType",{account:0,fee:2,balance:4,paymentRequest:5,asset:6,referenceEntry:7,accountTypeLimit:8,statistic:9,trust:10,accountLimit:11,assetPair:12,offerEntry:13,invoice:14,reviewableRequest:15,externalSystemAccountId:16,sale:17,accountKyc:18,externalSystemAccountIdPoolEntry:19,keyValue:20,saleAnte:21,limitsV2:22,statisticsV2:23,pendingStatistic:24}); // === xdr source ============================================================
+	xdr["enum"]("LedgerEntryType",{account:0,fee:2,balance:4,paymentRequest:5,asset:6,referenceEntry:7,accountTypeLimit:8,statistic:9,trust:10,accountLimit:11,assetPair:12,offerEntry:13,reviewableRequest:15,externalSystemAccountId:16,sale:17,accountKyc:18,externalSystemAccountIdPoolEntry:19,keyValue:20,saleAnte:21,limitsV2:22,statisticsV2:23,pendingStatistic:24,contract:25}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerEntryType type)
 	//       {
@@ -3655,8 +3939,6 @@ var StellarBase =
 	//           FeeEntry feeState;
 	//       case BALANCE:
 	//           BalanceEntry balance;
-	//       case PAYMENT_REQUEST:
-	//           PaymentRequestEntry paymentRequest;
 	//       case ASSET:
 	//           AssetEntry asset;
 	//       case REFERENCE_ENTRY:
@@ -3673,8 +3955,6 @@ var StellarBase =
 	//   		AssetPairEntry assetPair;
 	//   	case OFFER_ENTRY:
 	//   		OfferEntry offer;
-	//       case INVOICE:
-	//           InvoiceEntry invoice;
 	//   	case REVIEWABLE_REQUEST:
 	//   		ReviewableRequestEntry reviewableRequest;
 	//   	case EXTERNAL_SYSTEM_ACCOUNT_ID:
@@ -3695,10 +3975,12 @@ var StellarBase =
 	//           StatisticsV2Entry statisticsV2;
 	//       case PENDING_STATISTICS:
 	//           PendingStatisticsEntry pendingStatistics;
+	//       case CONTRACT:
+	//           ContractEntry contract;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("LedgerEntryData",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["paymentRequest","paymentRequest"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["invoice","invoice"],["reviewableRequest","reviewableRequest"],["externalSystemAccountId","externalSystemAccountId"],["sale","sale"],["keyValue","keyValue"],["accountKyc","accountKyc"],["externalSystemAccountIdPoolEntry","externalSystemAccountIdPoolEntry"],["saleAnte","saleAnte"],["limitsV2","limitsV2"],["statisticsV2","statisticsV2"],["pendingStatistic","pendingStatistics"]],arms:{account:xdr.lookup("AccountEntry"),feeState:xdr.lookup("FeeEntry"),balance:xdr.lookup("BalanceEntry"),paymentRequest:xdr.lookup("PaymentRequestEntry"),asset:xdr.lookup("AssetEntry"),reference:xdr.lookup("ReferenceEntry"),accountTypeLimits:xdr.lookup("AccountTypeLimitsEntry"),stats:xdr.lookup("StatisticsEntry"),trust:xdr.lookup("TrustEntry"),accountLimits:xdr.lookup("AccountLimitsEntry"),assetPair:xdr.lookup("AssetPairEntry"),offer:xdr.lookup("OfferEntry"),invoice:xdr.lookup("InvoiceEntry"),reviewableRequest:xdr.lookup("ReviewableRequestEntry"),externalSystemAccountId:xdr.lookup("ExternalSystemAccountId"),sale:xdr.lookup("SaleEntry"),keyValue:xdr.lookup("KeyValueEntry"),accountKyc:xdr.lookup("AccountKycEntry"),externalSystemAccountIdPoolEntry:xdr.lookup("ExternalSystemAccountIdPoolEntry"),saleAnte:xdr.lookup("SaleAnteEntry"),limitsV2:xdr.lookup("LimitsV2Entry"),statisticsV2:xdr.lookup("StatisticsV2Entry"),pendingStatistics:xdr.lookup("PendingStatisticsEntry")}}); // === xdr source ============================================================
+	xdr.union("LedgerEntryData",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["reviewableRequest","reviewableRequest"],["externalSystemAccountId","externalSystemAccountId"],["sale","sale"],["keyValue","keyValue"],["accountKyc","accountKyc"],["externalSystemAccountIdPoolEntry","externalSystemAccountIdPoolEntry"],["saleAnte","saleAnte"],["limitsV2","limitsV2"],["statisticsV2","statisticsV2"],["pendingStatistic","pendingStatistics"],["contract","contract"]],arms:{account:xdr.lookup("AccountEntry"),feeState:xdr.lookup("FeeEntry"),balance:xdr.lookup("BalanceEntry"),asset:xdr.lookup("AssetEntry"),reference:xdr.lookup("ReferenceEntry"),accountTypeLimits:xdr.lookup("AccountTypeLimitsEntry"),stats:xdr.lookup("StatisticsEntry"),trust:xdr.lookup("TrustEntry"),accountLimits:xdr.lookup("AccountLimitsEntry"),assetPair:xdr.lookup("AssetPairEntry"),offer:xdr.lookup("OfferEntry"),reviewableRequest:xdr.lookup("ReviewableRequestEntry"),externalSystemAccountId:xdr.lookup("ExternalSystemAccountId"),sale:xdr.lookup("SaleEntry"),keyValue:xdr.lookup("KeyValueEntry"),accountKyc:xdr.lookup("AccountKycEntry"),externalSystemAccountIdPoolEntry:xdr.lookup("ExternalSystemAccountIdPoolEntry"),saleAnte:xdr.lookup("SaleAnteEntry"),limitsV2:xdr.lookup("LimitsV2Entry"),statisticsV2:xdr.lookup("StatisticsV2Entry"),pendingStatistics:xdr.lookup("PendingStatisticsEntry"),contract:xdr.lookup("ContractEntry")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3721,8 +4003,6 @@ var StellarBase =
 	//           FeeEntry feeState;
 	//       case BALANCE:
 	//           BalanceEntry balance;
-	//       case PAYMENT_REQUEST:
-	//           PaymentRequestEntry paymentRequest;
 	//       case ASSET:
 	//           AssetEntry asset;
 	//       case REFERENCE_ENTRY:
@@ -3739,8 +4019,6 @@ var StellarBase =
 	//   		AssetPairEntry assetPair;
 	//   	case OFFER_ENTRY:
 	//   		OfferEntry offer;
-	//       case INVOICE:
-	//           InvoiceEntry invoice;
 	//   	case REVIEWABLE_REQUEST:
 	//   		ReviewableRequestEntry reviewableRequest;
 	//   	case EXTERNAL_SYSTEM_ACCOUNT_ID:
@@ -3761,6 +4039,8 @@ var StellarBase =
 	//           StatisticsV2Entry statisticsV2;
 	//       case PENDING_STATISTICS:
 	//           PendingStatisticsEntry pendingStatistics;
+	//       case CONTRACT:
+	//           ContractEntry contract;
 	//       }
 	//       data;
 	//   
@@ -3785,6 +4065,163 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("EnvelopeType",{scp:1,tx:2,auth:3}); // === xdr source ============================================================
+	//
+	//   enum ManageContractRequestAction
+	//   {
+	//       CREATE = 0,
+	//       REMOVE = 1
+	//   };
+	//
+	// ===========================================================================
+	xdr["enum"]("ManageContractRequestAction",{create:0,remove:1}); // === xdr source ============================================================
+	//
+	//   union switch (ManageContractRequestAction action){
+	//       case CREATE:
+	//           ContractRequest contractRequest;
+	//       case REMOVE:
+	//           uint64 requestID;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("ManageContractRequestOpDetails",{switchOn:xdr.lookup("ManageContractRequestAction"),switchName:"action",switches:[["create","contractRequest"],["remove","requestId"]],arms:{contractRequest:xdr.lookup("ContractRequest"),requestId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("ManageContractRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct ManageContractRequestOp
+	//   {
+	//       union switch (ManageContractRequestAction action){
+	//       case CREATE:
+	//           ContractRequest contractRequest;
+	//       case REMOVE:
+	//           uint64 requestID;
+	//       } details;
+	//   
+	//   	// reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("ManageContractRequestOp",[["details",xdr.lookup("ManageContractRequestOpDetails")],["ext",xdr.lookup("ManageContractRequestOpExt")]]); // === xdr source ============================================================
+	//
+	//   enum ManageContractRequestResultCode
+	//   {
+	//       // codes considered as "success" for the operation
+	//       SUCCESS = 0,
+	//   
+	//       // codes considered as "failure" for the operation
+	//       MALFORMED = -1,
+	//       NOT_FOUND = -2, // not found contract request, when try to remove
+	//       TOO_MANY_CONTRACTS = -3,
+	//       NOT_ALLOWED_TO_REMOVE = -4, // only contract creator can remove contract
+	//       DETAILS_TOO_LONG = -5
+	//   };
+	//
+	// ===========================================================================
+	xdr["enum"]("ManageContractRequestResultCode",{success:0,malformed:-1,notFound:-2,tooManyContract:-3,notAllowedToRemove:-4,detailsTooLong:-5}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("CreateContractRequestResponseExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct CreateContractRequestResponse
+	//   {
+	//   	uint64 requestID;
+	//   
+	//   	union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("CreateContractRequestResponse",[["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("CreateContractRequestResponseExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (ManageContractRequestAction action)
+	//           {
+	//           case CREATE:
+	//               CreateContractRequestResponse response;
+	//           case REMOVE:
+	//               void;
+	//           }
+	//
+	// ===========================================================================
+	xdr.union("ManageContractRequestResultSuccessDetails",{switchOn:xdr.lookup("ManageContractRequestAction"),switchName:"action",switches:[["create","response"],["remove",xdr["void"]()]],arms:{response:xdr.lookup("CreateContractRequestResponse")}}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//           {
+	//           case EMPTY_VERSION:
+	//               void;
+	//           }
+	//
+	// ===========================================================================
+	xdr.union("ManageContractRequestResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct
+	//       {
+	//           union switch (ManageContractRequestAction action)
+	//           {
+	//           case CREATE:
+	//               CreateContractRequestResponse response;
+	//           case REMOVE:
+	//               void;
+	//           } details;
+	//   
+	//           // reserved for future use
+	//           union switch (LedgerVersion v)
+	//           {
+	//           case EMPTY_VERSION:
+	//               void;
+	//           } ext;
+	//       }
+	//
+	// ===========================================================================
+	xdr.struct("ManageContractRequestResultSuccess",[["details",xdr.lookup("ManageContractRequestResultSuccessDetails")],["ext",xdr.lookup("ManageContractRequestResultSuccessExt")]]); // === xdr source ============================================================
+	//
+	//   union ManageContractRequestResult switch (ManageContractRequestResultCode code)
+	//   {
+	//   case SUCCESS:
+	//       struct
+	//       {
+	//           union switch (ManageContractRequestAction action)
+	//           {
+	//           case CREATE:
+	//               CreateContractRequestResponse response;
+	//           case REMOVE:
+	//               void;
+	//           } details;
+	//   
+	//           // reserved for future use
+	//           union switch (LedgerVersion v)
+	//           {
+	//           case EMPTY_VERSION:
+	//               void;
+	//           } ext;
+	//       } success;
+	//   default:
+	//       void;
+	//   };
+	//
+	// ===========================================================================
+	xdr.union("ManageContractRequestResult",{switchOn:xdr.lookup("ManageContractRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageContractRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4098,8 +4535,6 @@ var StellarBase =
 	//   		CreateWithdrawalRequestOp createWithdrawalRequestOp;
 	//   	case MANAGE_BALANCE:
 	//   		ManageBalanceOp manageBalanceOp;
-	//   	case REVIEW_PAYMENT_REQUEST:
-	//   		ReviewPaymentRequestOp reviewPaymentRequestOp;
 	//       case MANAGE_ASSET:
 	//           ManageAssetOp manageAssetOp;
 	//       case CREATE_PREISSUANCE_REQUEST:
@@ -4112,8 +4547,8 @@ var StellarBase =
 	//   		ManageAssetPairOp manageAssetPairOp;
 	//   	case MANAGE_OFFER:
 	//   		ManageOfferOp manageOfferOp;
-	//       case MANAGE_INVOICE:
-	//           ManageInvoiceOp manageInvoiceOp;
+	//       case MANAGE_INVOICE_REQUEST:
+	//           ManageInvoiceRequestOp manageInvoiceRequestOp;
 	//   	case REVIEW_REQUEST:
 	//   		ReviewRequestOp reviewRequestOp;
 	//   	case CREATE_SALE_REQUEST:
@@ -4136,10 +4571,14 @@ var StellarBase =
 	//           ManageSaleOp manageSaleOp;
 	//       case CREATE_MANAGE_LIMITS_REQUEST:
 	//           CreateManageLimitsRequestOp createManageLimitsRequestOp;
+	//       case MANAGE_CONTRACT_REQUEST:
+	//           ManageContractRequestOp manageContractRequestOp;
+	//       case MANAGE_CONTRACT:
+	//           ManageContractOp manageContractOp;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("OperationBody",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountOp"],["payment","paymentOp"],["setOption","setOptionsOp"],["createIssuanceRequest","createIssuanceRequestOp"],["setFee","setFeesOp"],["manageAccount","manageAccountOp"],["createWithdrawalRequest","createWithdrawalRequestOp"],["manageBalance","manageBalanceOp"],["reviewPaymentRequest","reviewPaymentRequestOp"],["manageAsset","manageAssetOp"],["createPreissuanceRequest","createPreIssuanceRequest"],["manageLimit","manageLimitsOp"],["directDebit","directDebitOp"],["manageAssetPair","manageAssetPairOp"],["manageOffer","manageOfferOp"],["manageInvoice","manageInvoiceOp"],["reviewRequest","reviewRequestOp"],["createSaleRequest","createSaleCreationRequestOp"],["checkSaleState","checkSaleStateOp"],["createAmlAlert","createAmlAlertRequestOp"],["manageKeyValue","manageKeyValueOp"],["createKycRequest","createUpdateKycRequestOp"],["manageExternalSystemAccountIdPoolEntry","manageExternalSystemAccountIdPoolEntryOp"],["bindExternalSystemAccountId","bindExternalSystemAccountIdOp"],["paymentV2","paymentOpV2"],["manageSale","manageSaleOp"],["createManageLimitsRequest","createManageLimitsRequestOp"]],arms:{createAccountOp:xdr.lookup("CreateAccountOp"),paymentOp:xdr.lookup("PaymentOp"),setOptionsOp:xdr.lookup("SetOptionsOp"),createIssuanceRequestOp:xdr.lookup("CreateIssuanceRequestOp"),setFeesOp:xdr.lookup("SetFeesOp"),manageAccountOp:xdr.lookup("ManageAccountOp"),createWithdrawalRequestOp:xdr.lookup("CreateWithdrawalRequestOp"),manageBalanceOp:xdr.lookup("ManageBalanceOp"),reviewPaymentRequestOp:xdr.lookup("ReviewPaymentRequestOp"),manageAssetOp:xdr.lookup("ManageAssetOp"),createPreIssuanceRequest:xdr.lookup("CreatePreIssuanceRequestOp"),manageLimitsOp:xdr.lookup("ManageLimitsOp"),directDebitOp:xdr.lookup("DirectDebitOp"),manageAssetPairOp:xdr.lookup("ManageAssetPairOp"),manageOfferOp:xdr.lookup("ManageOfferOp"),manageInvoiceOp:xdr.lookup("ManageInvoiceOp"),reviewRequestOp:xdr.lookup("ReviewRequestOp"),createSaleCreationRequestOp:xdr.lookup("CreateSaleCreationRequestOp"),checkSaleStateOp:xdr.lookup("CheckSaleStateOp"),createAmlAlertRequestOp:xdr.lookup("CreateAmlAlertRequestOp"),manageKeyValueOp:xdr.lookup("ManageKeyValueOp"),createUpdateKycRequestOp:xdr.lookup("CreateUpdateKycRequestOp"),manageExternalSystemAccountIdPoolEntryOp:xdr.lookup("ManageExternalSystemAccountIdPoolEntryOp"),bindExternalSystemAccountIdOp:xdr.lookup("BindExternalSystemAccountIdOp"),paymentOpV2:xdr.lookup("PaymentOpV2"),manageSaleOp:xdr.lookup("ManageSaleOp"),createManageLimitsRequestOp:xdr.lookup("CreateManageLimitsRequestOp")}}); // === xdr source ============================================================
+	xdr.union("OperationBody",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountOp"],["payment","paymentOp"],["setOption","setOptionsOp"],["createIssuanceRequest","createIssuanceRequestOp"],["setFee","setFeesOp"],["manageAccount","manageAccountOp"],["createWithdrawalRequest","createWithdrawalRequestOp"],["manageBalance","manageBalanceOp"],["manageAsset","manageAssetOp"],["createPreissuanceRequest","createPreIssuanceRequest"],["manageLimit","manageLimitsOp"],["directDebit","directDebitOp"],["manageAssetPair","manageAssetPairOp"],["manageOffer","manageOfferOp"],["manageInvoiceRequest","manageInvoiceRequestOp"],["reviewRequest","reviewRequestOp"],["createSaleRequest","createSaleCreationRequestOp"],["checkSaleState","checkSaleStateOp"],["createAmlAlert","createAmlAlertRequestOp"],["manageKeyValue","manageKeyValueOp"],["createKycRequest","createUpdateKycRequestOp"],["manageExternalSystemAccountIdPoolEntry","manageExternalSystemAccountIdPoolEntryOp"],["bindExternalSystemAccountId","bindExternalSystemAccountIdOp"],["paymentV2","paymentOpV2"],["manageSale","manageSaleOp"],["createManageLimitsRequest","createManageLimitsRequestOp"],["manageContractRequest","manageContractRequestOp"],["manageContract","manageContractOp"]],arms:{createAccountOp:xdr.lookup("CreateAccountOp"),paymentOp:xdr.lookup("PaymentOp"),setOptionsOp:xdr.lookup("SetOptionsOp"),createIssuanceRequestOp:xdr.lookup("CreateIssuanceRequestOp"),setFeesOp:xdr.lookup("SetFeesOp"),manageAccountOp:xdr.lookup("ManageAccountOp"),createWithdrawalRequestOp:xdr.lookup("CreateWithdrawalRequestOp"),manageBalanceOp:xdr.lookup("ManageBalanceOp"),manageAssetOp:xdr.lookup("ManageAssetOp"),createPreIssuanceRequest:xdr.lookup("CreatePreIssuanceRequestOp"),manageLimitsOp:xdr.lookup("ManageLimitsOp"),directDebitOp:xdr.lookup("DirectDebitOp"),manageAssetPairOp:xdr.lookup("ManageAssetPairOp"),manageOfferOp:xdr.lookup("ManageOfferOp"),manageInvoiceRequestOp:xdr.lookup("ManageInvoiceRequestOp"),reviewRequestOp:xdr.lookup("ReviewRequestOp"),createSaleCreationRequestOp:xdr.lookup("CreateSaleCreationRequestOp"),checkSaleStateOp:xdr.lookup("CheckSaleStateOp"),createAmlAlertRequestOp:xdr.lookup("CreateAmlAlertRequestOp"),manageKeyValueOp:xdr.lookup("ManageKeyValueOp"),createUpdateKycRequestOp:xdr.lookup("CreateUpdateKycRequestOp"),manageExternalSystemAccountIdPoolEntryOp:xdr.lookup("ManageExternalSystemAccountIdPoolEntryOp"),bindExternalSystemAccountIdOp:xdr.lookup("BindExternalSystemAccountIdOp"),paymentOpV2:xdr.lookup("PaymentOpV2"),manageSaleOp:xdr.lookup("ManageSaleOp"),createManageLimitsRequestOp:xdr.lookup("CreateManageLimitsRequestOp"),manageContractRequestOp:xdr.lookup("ManageContractRequestOp"),manageContractOp:xdr.lookup("ManageContractOp")}}); // === xdr source ============================================================
 	//
 	//   struct Operation
 	//   {
@@ -4166,8 +4605,6 @@ var StellarBase =
 	//   		CreateWithdrawalRequestOp createWithdrawalRequestOp;
 	//   	case MANAGE_BALANCE:
 	//   		ManageBalanceOp manageBalanceOp;
-	//   	case REVIEW_PAYMENT_REQUEST:
-	//   		ReviewPaymentRequestOp reviewPaymentRequestOp;
 	//       case MANAGE_ASSET:
 	//           ManageAssetOp manageAssetOp;
 	//       case CREATE_PREISSUANCE_REQUEST:
@@ -4180,8 +4617,8 @@ var StellarBase =
 	//   		ManageAssetPairOp manageAssetPairOp;
 	//   	case MANAGE_OFFER:
 	//   		ManageOfferOp manageOfferOp;
-	//       case MANAGE_INVOICE:
-	//           ManageInvoiceOp manageInvoiceOp;
+	//       case MANAGE_INVOICE_REQUEST:
+	//           ManageInvoiceRequestOp manageInvoiceRequestOp;
 	//   	case REVIEW_REQUEST:
 	//   		ReviewRequestOp reviewRequestOp;
 	//   	case CREATE_SALE_REQUEST:
@@ -4204,6 +4641,10 @@ var StellarBase =
 	//           ManageSaleOp manageSaleOp;
 	//       case CREATE_MANAGE_LIMITS_REQUEST:
 	//           CreateManageLimitsRequestOp createManageLimitsRequestOp;
+	//       case MANAGE_CONTRACT_REQUEST:
+	//           ManageContractRequestOp manageContractRequestOp;
+	//       case MANAGE_CONTRACT:
+	//           ManageContractOp manageContractOp;
 	//       }
 	//       body;
 	//   };
@@ -4328,8 +4769,6 @@ var StellarBase =
 	//   		CreateWithdrawalRequestResult createWithdrawalRequestResult;
 	//       case MANAGE_BALANCE:
 	//           ManageBalanceResult manageBalanceResult;
-	//       case REVIEW_PAYMENT_REQUEST:
-	//           ReviewPaymentRequestResult reviewPaymentRequestResult;
 	//       case MANAGE_ASSET:
 	//           ManageAssetResult manageAssetResult;
 	//       case CREATE_PREISSUANCE_REQUEST:
@@ -4342,8 +4781,8 @@ var StellarBase =
 	//   		ManageAssetPairResult manageAssetPairResult;
 	//   	case MANAGE_OFFER:
 	//   		ManageOfferResult manageOfferResult;
-	//   	case MANAGE_INVOICE:
-	//   		ManageInvoiceResult manageInvoiceResult;
+	//   	case MANAGE_INVOICE_REQUEST:
+	//   		ManageInvoiceRequestResult manageInvoiceRequestResult;
 	//   	case REVIEW_REQUEST:
 	//   		ReviewRequestResult reviewRequestResult;
 	//   	case CREATE_SALE_REQUEST:
@@ -4366,10 +4805,14 @@ var StellarBase =
 	//           ManageSaleResult manageSaleResult;
 	//       case CREATE_MANAGE_LIMITS_REQUEST:
 	//           CreateManageLimitsRequestResult createManageLimitsRequestResult;
+	//       case MANAGE_CONTRACT_REQUEST:
+	//           ManageContractRequestResult manageContractRequestResult;
+	//       case MANAGE_CONTRACT:
+	//           ManageContractResult manageContractResult;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("OperationResultTr",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountResult"],["payment","paymentResult"],["setOption","setOptionsResult"],["createIssuanceRequest","createIssuanceRequestResult"],["setFee","setFeesResult"],["manageAccount","manageAccountResult"],["createWithdrawalRequest","createWithdrawalRequestResult"],["manageBalance","manageBalanceResult"],["reviewPaymentRequest","reviewPaymentRequestResult"],["manageAsset","manageAssetResult"],["createPreissuanceRequest","createPreIssuanceRequestResult"],["manageLimit","manageLimitsResult"],["directDebit","directDebitResult"],["manageAssetPair","manageAssetPairResult"],["manageOffer","manageOfferResult"],["manageInvoice","manageInvoiceResult"],["reviewRequest","reviewRequestResult"],["createSaleRequest","createSaleCreationRequestResult"],["checkSaleState","checkSaleStateResult"],["createAmlAlert","createAmlAlertRequestResult"],["manageKeyValue","manageKeyValueResult"],["createKycRequest","createUpdateKycRequestResult"],["manageExternalSystemAccountIdPoolEntry","manageExternalSystemAccountIdPoolEntryResult"],["bindExternalSystemAccountId","bindExternalSystemAccountIdResult"],["paymentV2","paymentV2Result"],["manageSale","manageSaleResult"],["createManageLimitsRequest","createManageLimitsRequestResult"]],arms:{createAccountResult:xdr.lookup("CreateAccountResult"),paymentResult:xdr.lookup("PaymentResult"),setOptionsResult:xdr.lookup("SetOptionsResult"),createIssuanceRequestResult:xdr.lookup("CreateIssuanceRequestResult"),setFeesResult:xdr.lookup("SetFeesResult"),manageAccountResult:xdr.lookup("ManageAccountResult"),createWithdrawalRequestResult:xdr.lookup("CreateWithdrawalRequestResult"),manageBalanceResult:xdr.lookup("ManageBalanceResult"),reviewPaymentRequestResult:xdr.lookup("ReviewPaymentRequestResult"),manageAssetResult:xdr.lookup("ManageAssetResult"),createPreIssuanceRequestResult:xdr.lookup("CreatePreIssuanceRequestResult"),manageLimitsResult:xdr.lookup("ManageLimitsResult"),directDebitResult:xdr.lookup("DirectDebitResult"),manageAssetPairResult:xdr.lookup("ManageAssetPairResult"),manageOfferResult:xdr.lookup("ManageOfferResult"),manageInvoiceResult:xdr.lookup("ManageInvoiceResult"),reviewRequestResult:xdr.lookup("ReviewRequestResult"),createSaleCreationRequestResult:xdr.lookup("CreateSaleCreationRequestResult"),checkSaleStateResult:xdr.lookup("CheckSaleStateResult"),createAmlAlertRequestResult:xdr.lookup("CreateAmlAlertRequestResult"),manageKeyValueResult:xdr.lookup("ManageKeyValueResult"),createUpdateKycRequestResult:xdr.lookup("CreateUpdateKycRequestResult"),manageExternalSystemAccountIdPoolEntryResult:xdr.lookup("ManageExternalSystemAccountIdPoolEntryResult"),bindExternalSystemAccountIdResult:xdr.lookup("BindExternalSystemAccountIdResult"),paymentV2Result:xdr.lookup("PaymentV2Result"),manageSaleResult:xdr.lookup("ManageSaleResult"),createManageLimitsRequestResult:xdr.lookup("CreateManageLimitsRequestResult")}}); // === xdr source ============================================================
+	xdr.union("OperationResultTr",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountResult"],["payment","paymentResult"],["setOption","setOptionsResult"],["createIssuanceRequest","createIssuanceRequestResult"],["setFee","setFeesResult"],["manageAccount","manageAccountResult"],["createWithdrawalRequest","createWithdrawalRequestResult"],["manageBalance","manageBalanceResult"],["manageAsset","manageAssetResult"],["createPreissuanceRequest","createPreIssuanceRequestResult"],["manageLimit","manageLimitsResult"],["directDebit","directDebitResult"],["manageAssetPair","manageAssetPairResult"],["manageOffer","manageOfferResult"],["manageInvoiceRequest","manageInvoiceRequestResult"],["reviewRequest","reviewRequestResult"],["createSaleRequest","createSaleCreationRequestResult"],["checkSaleState","checkSaleStateResult"],["createAmlAlert","createAmlAlertRequestResult"],["manageKeyValue","manageKeyValueResult"],["createKycRequest","createUpdateKycRequestResult"],["manageExternalSystemAccountIdPoolEntry","manageExternalSystemAccountIdPoolEntryResult"],["bindExternalSystemAccountId","bindExternalSystemAccountIdResult"],["paymentV2","paymentV2Result"],["manageSale","manageSaleResult"],["createManageLimitsRequest","createManageLimitsRequestResult"],["manageContractRequest","manageContractRequestResult"],["manageContract","manageContractResult"]],arms:{createAccountResult:xdr.lookup("CreateAccountResult"),paymentResult:xdr.lookup("PaymentResult"),setOptionsResult:xdr.lookup("SetOptionsResult"),createIssuanceRequestResult:xdr.lookup("CreateIssuanceRequestResult"),setFeesResult:xdr.lookup("SetFeesResult"),manageAccountResult:xdr.lookup("ManageAccountResult"),createWithdrawalRequestResult:xdr.lookup("CreateWithdrawalRequestResult"),manageBalanceResult:xdr.lookup("ManageBalanceResult"),manageAssetResult:xdr.lookup("ManageAssetResult"),createPreIssuanceRequestResult:xdr.lookup("CreatePreIssuanceRequestResult"),manageLimitsResult:xdr.lookup("ManageLimitsResult"),directDebitResult:xdr.lookup("DirectDebitResult"),manageAssetPairResult:xdr.lookup("ManageAssetPairResult"),manageOfferResult:xdr.lookup("ManageOfferResult"),manageInvoiceRequestResult:xdr.lookup("ManageInvoiceRequestResult"),reviewRequestResult:xdr.lookup("ReviewRequestResult"),createSaleCreationRequestResult:xdr.lookup("CreateSaleCreationRequestResult"),checkSaleStateResult:xdr.lookup("CheckSaleStateResult"),createAmlAlertRequestResult:xdr.lookup("CreateAmlAlertRequestResult"),manageKeyValueResult:xdr.lookup("ManageKeyValueResult"),createUpdateKycRequestResult:xdr.lookup("CreateUpdateKycRequestResult"),manageExternalSystemAccountIdPoolEntryResult:xdr.lookup("ManageExternalSystemAccountIdPoolEntryResult"),bindExternalSystemAccountIdResult:xdr.lookup("BindExternalSystemAccountIdResult"),paymentV2Result:xdr.lookup("PaymentV2Result"),manageSaleResult:xdr.lookup("ManageSaleResult"),createManageLimitsRequestResult:xdr.lookup("CreateManageLimitsRequestResult"),manageContractRequestResult:xdr.lookup("ManageContractRequestResult"),manageContractResult:xdr.lookup("ManageContractResult")}}); // === xdr source ============================================================
 	//
 	//   union OperationResult switch (OperationResultCode code)
 	//   {
@@ -4392,8 +4835,6 @@ var StellarBase =
 	//   		CreateWithdrawalRequestResult createWithdrawalRequestResult;
 	//       case MANAGE_BALANCE:
 	//           ManageBalanceResult manageBalanceResult;
-	//       case REVIEW_PAYMENT_REQUEST:
-	//           ReviewPaymentRequestResult reviewPaymentRequestResult;
 	//       case MANAGE_ASSET:
 	//           ManageAssetResult manageAssetResult;
 	//       case CREATE_PREISSUANCE_REQUEST:
@@ -4406,8 +4847,8 @@ var StellarBase =
 	//   		ManageAssetPairResult manageAssetPairResult;
 	//   	case MANAGE_OFFER:
 	//   		ManageOfferResult manageOfferResult;
-	//   	case MANAGE_INVOICE:
-	//   		ManageInvoiceResult manageInvoiceResult;
+	//   	case MANAGE_INVOICE_REQUEST:
+	//   		ManageInvoiceRequestResult manageInvoiceRequestResult;
 	//   	case REVIEW_REQUEST:
 	//   		ReviewRequestResult reviewRequestResult;
 	//   	case CREATE_SALE_REQUEST:
@@ -4430,6 +4871,10 @@ var StellarBase =
 	//           ManageSaleResult manageSaleResult;
 	//       case CREATE_MANAGE_LIMITS_REQUEST:
 	//           CreateManageLimitsRequestResult createManageLimitsRequestResult;
+	//       case MANAGE_CONTRACT_REQUEST:
+	//           ManageContractRequestResult manageContractRequestResult;
+	//       case MANAGE_CONTRACT:
+	//           ManageContractResult manageContractResult;
 	//       }
 	//       tr;
 	//   default:
@@ -4543,6 +4988,54 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("UpdateKycRequest",[["accountToUpdateKyc",xdr.lookup("AccountId")],["accountTypeToSet",xdr.lookup("AccountType")],["kycLevel",xdr.lookup("Uint32")],["kycData",xdr.lookup("Longstring")],["allTasks",xdr.lookup("Uint32")],["pendingTasks",xdr.lookup("Uint32")],["sequenceNumber",xdr.lookup("Uint32")],["externalDetails",xdr.varArray(xdr.lookup("Longstring"),2147483647)],["ext",xdr.lookup("UpdateKycRequestExt")]]); // === xdr source ============================================================
+	//
+	//   enum ContractState
+	//   {
+	//       NO_CONFIRMATIONS = 0,
+	//       CUSTOMER_CONFIRMED = 1,
+	//       CONTRACTOR_CONFIRMED = 2,
+	//       DISPUTING = 4,
+	//       REVERTING_RESOLVE = 8,
+	//       NOT_REVERTING_RESOLVE = 16
+	//   };
+	//
+	// ===========================================================================
+	xdr["enum"]("ContractState",{noConfirmation:0,customerConfirmed:1,contractorConfirmed:2,disputing:4,revertingResolve:8,notRevertingResolve:16}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("ContractEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct ContractEntry
+	//   {
+	//       uint64 contractID;
+	//   
+	//       AccountID contractor;
+	//       AccountID customer;
+	//       AccountID escrow;
+	//   
+	//       uint64 startTime;
+	//       uint64 endTime;
+	//       uint64 invoiceRequestsIDs<>;
+	//       longstring initialDetails;
+	//   
+	//       uint32 state;
+	//   
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("ContractEntry",[["contractId",xdr.lookup("Uint64")],["contractor",xdr.lookup("AccountId")],["customer",xdr.lookup("AccountId")],["escrow",xdr.lookup("AccountId")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["invoiceRequestsIDs",xdr.varArray(xdr.lookup("Uint64"),2147483647)],["initialDetails",xdr.lookup("Longstring")],["state",xdr.lookup("Uint32")],["ext",xdr.lookup("ContractEntryExt")]]); // === xdr source ============================================================
 	//
 	//   enum ManageAssetAction
 	//   {
@@ -5035,11 +5528,12 @@ var StellarBase =
 	//       INVOICE_WRONG_AMOUNT = -14,
 	//       INVOICE_BALANCE_MISMATCH = -15,
 	//       INVOICE_ACCOUNT_MISMATCH = -16,
-	//       INVOICE_ALREADY_PAID = -17
+	//       INVOICE_ALREADY_PAID = -17,
+	//       PAYMENT_V1_NO_LONGER_SUPPORTED = -18
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("PaymentResultCode",{success:0,malformed:-1,underfunded:-2,lineFull:-3,feeMismatched:-4,balanceNotFound:-5,balanceAccountMismatched:-6,balanceAssetsMismatched:-7,srcBalanceNotFound:-8,referenceDuplication:-9,statsOverflow:-10,limitsExceeded:-11,notAllowedByAssetPolicy:-12,invoiceNotFound:-13,invoiceWrongAmount:-14,invoiceBalanceMismatch:-15,invoiceAccountMismatch:-16,invoiceAlreadyPaid:-17}); // === xdr source ============================================================
+	xdr["enum"]("PaymentResultCode",{success:0,malformed:-1,underfunded:-2,lineFull:-3,feeMismatched:-4,balanceNotFound:-5,balanceAccountMismatched:-6,balanceAssetsMismatched:-7,srcBalanceNotFound:-8,referenceDuplication:-9,statsOverflow:-10,limitsExceeded:-11,notAllowedByAssetPolicy:-12,invoiceNotFound:-13,invoiceWrongAmount:-14,invoiceBalanceMismatch:-15,invoiceAccountMismatch:-16,invoiceAlreadyPaid:-17,paymentV1NoLongerSupported:-18}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5627,6 +6121,8 @@ var StellarBase =
 	//       BALANCE_TO_CHARGE_FEE_FROM_NOT_FOUND = -15,
 	//       PAYMENT_AMOUNT_IS_LESS_THAN_DEST_FEE = -16,
 	//       DESTINATION_ACCOUNT_NOT_FOUND = -17
+	//   
+	//        // !!! Add new result code to review invoice op too !!!
 	//   };
 	//
 	// ===========================================================================
@@ -5675,6 +6171,38 @@ var StellarBase =
 	// ===========================================================================
 	xdr.union("PaymentV2Result",{switchOn:xdr.lookup("PaymentV2ResultCode"),switchName:"code",switches:[["success","paymentV2Response"]],arms:{paymentV2Response:xdr.lookup("PaymentV2Response")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("InvoiceRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct InvoiceRequest
+	//   {
+	//       AssetCode asset;
+	//       uint64 amount; // not allowed to set 0
+	//       BalanceID senderBalance;
+	//       BalanceID receiverBalance;
+	//   
+	//       uint64 *contractID;
+	//       bool isApproved;
+	//       longstring details;
+	//   
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("InvoiceRequest",[["asset",xdr.lookup("AssetCode")],["amount",xdr.lookup("Uint64")],["senderBalance",xdr.lookup("BalanceId")],["receiverBalance",xdr.lookup("BalanceId")],["contractId",xdr.option(xdr.lookup("Uint64"))],["isApproved",xdr.bool()],["details",xdr.lookup("Longstring")],["ext",xdr.lookup("InvoiceRequestExt")]]); // === xdr source ============================================================
+	//
 	//   enum ReviewableRequestType
 	//   {
 	//       ASSET_CREATE = 0,
@@ -5690,11 +6218,14 @@ var StellarBase =
 	//   	UPDATE_SALE_DETAILS = 10,
 	//   	UPDATE_PROMOTION = 11,
 	//   	UPDATE_SALE_END_TIME = 12,
-	//   	NONE = 13 // use this request type in ReviewRequestOp extended result if additional info is not required
+	//   	NONE = 13, // use this request type in ReviewRequestOp extended result if additional info is not required
+	//   	INVOICE = 14,
+	//   	CONTRACT = 15
+	//   
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ReviewableRequestType",{assetCreate:0,assetUpdate:1,preIssuanceCreate:2,issuanceCreate:3,withdraw:4,sale:5,limitsUpdate:6,twoStepWithdrawal:7,amlAlert:8,updateKyc:9,updateSaleDetail:10,updatePromotion:11,updateSaleEndTime:12,none:13}); // === xdr source ============================================================
+	xdr["enum"]("ReviewableRequestType",{assetCreate:0,assetUpdate:1,preIssuanceCreate:2,issuanceCreate:3,withdraw:4,sale:5,limitsUpdate:6,twoStepWithdrawal:7,amlAlert:8,updateKyc:9,updateSaleDetail:10,updatePromotion:11,updateSaleEndTime:12,none:13,invoice:14,contract:15}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5750,12 +6281,16 @@ var StellarBase =
 	//               UpdateSaleDetailsRequest updateSaleDetailsRequest;
 	//           case UPDATE_PROMOTION:
 	//               PromotionUpdateRequest promotionUpdateRequest;
+	//           case INVOICE:
+	//               InvoiceRequest invoiceRequest;
 	//           case UPDATE_SALE_END_TIME:
 	//               UpdateSaleEndTimeRequest updateSaleEndTimeRequest;
+	//           case CONTRACT:
+	//               ContractRequest contractRequest;
 	//   	}
 	//
 	// ===========================================================================
-	xdr.union("ReviewableRequestEntryBody",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"type",switches:[["assetCreate","assetCreationRequest"],["assetUpdate","assetUpdateRequest"],["preIssuanceCreate","preIssuanceRequest"],["issuanceCreate","issuanceRequest"],["withdraw","withdrawalRequest"],["sale","saleCreationRequest"],["limitsUpdate","limitsUpdateRequest"],["twoStepWithdrawal","twoStepWithdrawalRequest"],["amlAlert","amlAlertRequest"],["updateKyc","updateKycRequest"],["updateSaleDetail","updateSaleDetailsRequest"],["updatePromotion","promotionUpdateRequest"],["updateSaleEndTime","updateSaleEndTimeRequest"]],arms:{assetCreationRequest:xdr.lookup("AssetCreationRequest"),assetUpdateRequest:xdr.lookup("AssetUpdateRequest"),preIssuanceRequest:xdr.lookup("PreIssuanceRequest"),issuanceRequest:xdr.lookup("IssuanceRequest"),withdrawalRequest:xdr.lookup("WithdrawalRequest"),saleCreationRequest:xdr.lookup("SaleCreationRequest"),limitsUpdateRequest:xdr.lookup("LimitsUpdateRequest"),twoStepWithdrawalRequest:xdr.lookup("WithdrawalRequest"),amlAlertRequest:xdr.lookup("AmlAlertRequest"),updateKycRequest:xdr.lookup("UpdateKycRequest"),updateSaleDetailsRequest:xdr.lookup("UpdateSaleDetailsRequest"),promotionUpdateRequest:xdr.lookup("PromotionUpdateRequest"),updateSaleEndTimeRequest:xdr.lookup("UpdateSaleEndTimeRequest")}}); // === xdr source ============================================================
+	xdr.union("ReviewableRequestEntryBody",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"type",switches:[["assetCreate","assetCreationRequest"],["assetUpdate","assetUpdateRequest"],["preIssuanceCreate","preIssuanceRequest"],["issuanceCreate","issuanceRequest"],["withdraw","withdrawalRequest"],["sale","saleCreationRequest"],["limitsUpdate","limitsUpdateRequest"],["twoStepWithdrawal","twoStepWithdrawalRequest"],["amlAlert","amlAlertRequest"],["updateKyc","updateKycRequest"],["updateSaleDetail","updateSaleDetailsRequest"],["updatePromotion","promotionUpdateRequest"],["invoice","invoiceRequest"],["updateSaleEndTime","updateSaleEndTimeRequest"],["contract","contractRequest"]],arms:{assetCreationRequest:xdr.lookup("AssetCreationRequest"),assetUpdateRequest:xdr.lookup("AssetUpdateRequest"),preIssuanceRequest:xdr.lookup("PreIssuanceRequest"),issuanceRequest:xdr.lookup("IssuanceRequest"),withdrawalRequest:xdr.lookup("WithdrawalRequest"),saleCreationRequest:xdr.lookup("SaleCreationRequest"),limitsUpdateRequest:xdr.lookup("LimitsUpdateRequest"),twoStepWithdrawalRequest:xdr.lookup("WithdrawalRequest"),amlAlertRequest:xdr.lookup("AmlAlertRequest"),updateKycRequest:xdr.lookup("UpdateKycRequest"),updateSaleDetailsRequest:xdr.lookup("UpdateSaleDetailsRequest"),promotionUpdateRequest:xdr.lookup("PromotionUpdateRequest"),invoiceRequest:xdr.lookup("InvoiceRequest"),updateSaleEndTimeRequest:xdr.lookup("UpdateSaleEndTimeRequest"),contractRequest:xdr.lookup("ContractRequest")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5802,8 +6337,12 @@ var StellarBase =
 	//               UpdateSaleDetailsRequest updateSaleDetailsRequest;
 	//           case UPDATE_PROMOTION:
 	//               PromotionUpdateRequest promotionUpdateRequest;
+	//           case INVOICE:
+	//               InvoiceRequest invoiceRequest;
 	//           case UPDATE_SALE_END_TIME:
 	//               UpdateSaleEndTimeRequest updateSaleEndTimeRequest;
+	//           case CONTRACT:
+	//               ContractRequest contractRequest;
 	//   	} body;
 	//   
 	//   	// reserved for future use
@@ -5846,46 +6385,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("PendingStatisticsEntry",[["statisticsId",xdr.lookup("Uint64")],["requestId",xdr.lookup("Uint64")],["amount",xdr.lookup("Uint64")],["ext",xdr.lookup("PendingStatisticsEntryExt")]]); // === xdr source ============================================================
-	//
-	//   enum InvoiceState
-	//   {
-	//       INVOICE_NEEDS_PAYMENT = 0,
-	//       INVOICE_NEEDS_PAYMENT_REVIEW = 1
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("InvoiceState",{invoiceNeedsPayment:0,invoiceNeedsPaymentReview:1}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("InvoiceEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct InvoiceEntry
-	//   {
-	//       uint64 invoiceID;
-	//       AccountID receiverAccount;
-	//       BalanceID receiverBalance;
-	//   	AccountID sender;
-	//       int64 amount;
-	//       
-	//       InvoiceState state;
-	//   
-	//       // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("InvoiceEntry",[["invoiceId",xdr.lookup("Uint64")],["receiverAccount",xdr.lookup("AccountId")],["receiverBalance",xdr.lookup("BalanceId")],["sender",xdr.lookup("AccountId")],["amount",xdr.lookup("Int64")],["state",xdr.lookup("InvoiceState")],["ext",xdr.lookup("InvoiceEntryExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5953,11 +6452,12 @@ var StellarBase =
 	//   	KYC_SUPER_ADMIN = 33554432,
 	//   	EXTERNAL_SYSTEM_ACCOUNT_ID_POOL_MANAGER = 67108864,
 	//       KEY_VALUE_MANAGER = 134217728, // can manage keyValue
-	//       SUPER_ISSUANCE_MANAGER = 268435456
+	//       SUPER_ISSUANCE_MANAGER = 268435456,
+	//       CONTRACT_MANAGER = 536870912
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("SignerType",{reader:1,notVerifiedAccManager:2,generalAccManager:4,directDebitOperator:8,assetManager:16,assetRateManager:32,balanceManager:64,issuanceManager:128,invoiceManager:256,paymentOperator:512,limitsManager:1024,accountManager:2048,commissionBalanceManager:4096,operationalBalanceManager:8192,eventsChecker:16384,exchangeAccManager:32768,syndicateAccManager:65536,userAssetManager:131072,userIssuanceManager:262144,withdrawManager:524288,feesManager:1048576,txSender:2097152,amlAlertManager:4194304,amlAlertReviewer:8388608,kycAccManager:16777216,kycSuperAdmin:33554432,externalSystemAccountIdPoolManager:67108864,keyValueManager:134217728,superIssuanceManager:268435456}); // === xdr source ============================================================
+	xdr["enum"]("SignerType",{reader:1,notVerifiedAccManager:2,generalAccManager:4,directDebitOperator:8,assetManager:16,assetRateManager:32,balanceManager:64,issuanceManager:128,invoiceManager:256,paymentOperator:512,limitsManager:1024,accountManager:2048,commissionBalanceManager:4096,operationalBalanceManager:8192,eventsChecker:16384,exchangeAccManager:32768,syndicateAccManager:65536,userAssetManager:131072,userIssuanceManager:262144,withdrawManager:524288,feesManager:1048576,txSender:2097152,amlAlertManager:4194304,amlAlertReviewer:8388608,kycAccManager:16777216,kycSuperAdmin:33554432,externalSystemAccountIdPoolManager:67108864,keyValueManager:134217728,superIssuanceManager:268435456,contractManager:536870912}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -6236,6 +6736,30 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
+	xdr.union("BillPayDetailsExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct BillPayDetails {
+	//       PaymentOpV2 paymentDetails;
+	//   
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("BillPayDetails",[["paymentDetails",xdr.lookup("PaymentOpV2")],["ext",xdr.lookup("BillPayDetailsExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
 	xdr.union("ReviewDetailsExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct ReviewDetails {
@@ -6330,12 +6854,14 @@ var StellarBase =
 	//           AMLAlertDetails amlAlertDetails;
 	//       case UPDATE_KYC:
 	//           UpdateKYCDetails updateKYC;
+	//       case INVOICE:
+	//           BillPayDetails billPay;
 	//   	default:
 	//   		void;
 	//   	}
 	//
 	// ===========================================================================
-	xdr.union("ReviewRequestOpRequestDetails",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"requestType",switches:[["withdraw","withdrawal"],["limitsUpdate","limitsUpdate"],["twoStepWithdrawal","twoStepWithdrawal"],["amlAlert","amlAlertDetails"],["updateKyc","updateKyc"]],arms:{withdrawal:xdr.lookup("WithdrawalDetails"),limitsUpdate:xdr.lookup("LimitsUpdateDetails"),twoStepWithdrawal:xdr.lookup("WithdrawalDetails"),amlAlertDetails:xdr.lookup("AmlAlertDetails"),updateKyc:xdr.lookup("UpdateKycDetails")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("ReviewRequestOpRequestDetails",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"requestType",switches:[["withdraw","withdrawal"],["limitsUpdate","limitsUpdate"],["twoStepWithdrawal","twoStepWithdrawal"],["amlAlert","amlAlertDetails"],["updateKyc","updateKyc"],["invoice","billPay"]],arms:{withdrawal:xdr.lookup("WithdrawalDetails"),limitsUpdate:xdr.lookup("LimitsUpdateDetails"),twoStepWithdrawal:xdr.lookup("WithdrawalDetails"),amlAlertDetails:xdr.lookup("AmlAlertDetails"),updateKyc:xdr.lookup("UpdateKycDetails"),billPay:xdr.lookup("BillPayDetails")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -6363,6 +6889,8 @@ var StellarBase =
 	//           AMLAlertDetails amlAlertDetails;
 	//       case UPDATE_KYC:
 	//           UpdateKYCDetails updateKYC;
+	//       case INVOICE:
+	//           BillPayDetails billPay;
 	//   	default:
 	//   		void;
 	//   	} requestDetails;
@@ -6423,16 +6951,48 @@ var StellarBase =
 	//   	INVALID_SALE_STATE = -80, // sale state must be "PROMOTION"
 	//   
 	//   	// Update sale end time requests
-	//       INVALID_SALE_NEW_END_TIME = -90 // new end time is before start time or current ledger close time
+	//       INVALID_SALE_NEW_END_TIME = -90, // new end time is before start time or current ledger close time
+	//   
+	//       // Invoice requests
+	//       AMOUNT_MISMATCHED = -101, // amount does not match
+	//       DESTINATION_BALANCE_MISMATCHED = -102, // invoice balance and payment balance do not match
+	//       NOT_ALLOWED_ACCOUNT_DESTINATION = -103,
+	//       REQUIRED_SOURCE_PAY_FOR_DESTINATION = -104, // not allowed shift fee responsibility to destination
+	//       SOURCE_BALANCE_MISMATCHED = -105, // source balance must match invoice sender account
+	//       CONTRACT_NOT_FOUND = -106,
+	//       INVOICE_RECEIVER_BALANCE_LOCK_AMOUNT_OVERFLOW = -107,
+	//       INVOICE_ALREADY_APPROVED = -108,
+	//       // codes considered as "failure" for the payment operation
+	//       PAYMENT_V2_MALFORMED = -110, // bad input, requestID must be > 0
+	//       UNDERFUNDED = -111, // not enough funds in source account
+	//       LINE_FULL = -112, // destination would go above their limit
+	//       DESTINATION_BALANCE_NOT_FOUND = -113,
+	//       BALANCE_ASSETS_MISMATCHED = -114,
+	//       SRC_BALANCE_NOT_FOUND = -115, // source balance not found
+	//       REFERENCE_DUPLICATION = -116,
+	//       STATS_OVERFLOW = -117,
+	//       LIMITS_EXCEEDED = -118,
+	//       NOT_ALLOWED_BY_ASSET_POLICY = -119,
+	//       INVALID_DESTINATION_FEE = -120,
+	//       INVALID_DESTINATION_FEE_ASSET = -121, // destination fee asset must be the same as source balance asset
+	//       FEE_ASSET_MISMATCHED = -122,
+	//       INSUFFICIENT_FEE_AMOUNT = -123,
+	//       BALANCE_TO_CHARGE_FEE_FROM_NOT_FOUND = -124,
+	//       PAYMENT_AMOUNT_IS_LESS_THAN_DEST_FEE = -125,
+	//       DESTINATION_ACCOUNT_NOT_FOUND = -126
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("ReviewRequestResultCode",{success:0,invalidReason:-1,invalidAction:-2,hashMismatched:-3,notFound:-4,typeMismatched:-5,rejectNotAllowed:-6,invalidExternalDetail:-7,requestorIsBlocked:-8,permanentRejectNotAllowed:-9,assetAlreadyExist:-20,assetDoesNotExist:-21,maxIssuanceAmountExceeded:-40,insufficientAvailableForIssuanceAmount:-41,fullLine:-42,systemTasksNotAllowed:-43,baseAssetDoesNotExist:-50,hardCapWillExceedMaxIssuance:-51,insufficientPreissuedForHardCap:-52,nonZeroTasksToRemoveNotAllowed:-60,saleNotFound:-70,invalidSaleState:-80,invalidSaleNewEndTime:-90}); // === xdr source ============================================================
+	xdr["enum"]("ReviewRequestResultCode",{success:0,invalidReason:-1,invalidAction:-2,hashMismatched:-3,notFound:-4,typeMismatched:-5,rejectNotAllowed:-6,invalidExternalDetail:-7,requestorIsBlocked:-8,permanentRejectNotAllowed:-9,assetAlreadyExist:-20,assetDoesNotExist:-21,maxIssuanceAmountExceeded:-40,insufficientAvailableForIssuanceAmount:-41,fullLine:-42,systemTasksNotAllowed:-43,baseAssetDoesNotExist:-50,hardCapWillExceedMaxIssuance:-51,insufficientPreissuedForHardCap:-52,nonZeroTasksToRemoveNotAllowed:-60,saleNotFound:-70,invalidSaleState:-80,invalidSaleNewEndTime:-90,amountMismatched:-101,destinationBalanceMismatched:-102,notAllowedAccountDestination:-103,requiredSourcePayForDestination:-104,sourceBalanceMismatched:-105,contractNotFound:-106,invoiceReceiverBalanceLockAmountOverflow:-107,invoiceAlreadyApproved:-108,paymentV2Malformed:-110,underfunded:-111,lineFull:-112,destinationBalanceNotFound:-113,balanceAssetsMismatched:-114,srcBalanceNotFound:-115,referenceDuplication:-116,statsOverflow:-117,limitsExceeded:-118,notAllowedByAssetPolicy:-119,invalidDestinationFee:-120,invalidDestinationFeeAsset:-121,feeAssetMismatched:-122,insufficientFeeAmount:-123,balanceToChargeFeeFromNotFound:-124,paymentAmountIsLessThanDestFee:-125,destinationAccountNotFound:-126}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
 	//   		case ADD_SALE_ID_REVIEW_REQUEST_RESULT:
 	//   		    uint64 saleID;
+	//   		case ADD_REVIEW_INVOICE_REQUEST_PAYMENT_RESPONSE:
+	//   		    PaymentV2Response paymentV2Response;
+	//   		case ADD_CONTRACT_ID_REVIEW_REQUEST_RESULT:
+	//   		    uint64 contractID;
 	//   		case EMPTY_VERSION:
 	//   			void;
 	//           case ADD_TASKS_TO_REVIEWABLE_REQUEST:
@@ -6440,7 +7000,7 @@ var StellarBase =
 	//   		}
 	//
 	// ===========================================================================
-	xdr.union("ReviewRequestResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["addSaleIdReviewRequestResult","saleId"],["emptyVersion",xdr["void"]()],["addTasksToReviewableRequest","extendedResult"]],arms:{saleId:xdr.lookup("Uint64"),extendedResult:xdr.lookup("ExtendedResult")}}); // === xdr source ============================================================
+	xdr.union("ReviewRequestResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["addSaleIdReviewRequestResult","saleId"],["addReviewInvoiceRequestPaymentResponse","paymentV2Response"],["addContractIdReviewRequestResult","contractId"],["emptyVersion",xdr["void"]()],["addTasksToReviewableRequest","extendedResult"]],arms:{saleId:xdr.lookup("Uint64"),paymentV2Response:xdr.lookup("PaymentV2Response"),contractId:xdr.lookup("Uint64"),extendedResult:xdr.lookup("ExtendedResult")}}); // === xdr source ============================================================
 	//
 	//   struct {
 	//   		// reserved for future use
@@ -6448,6 +7008,10 @@ var StellarBase =
 	//   		{
 	//   		case ADD_SALE_ID_REVIEW_REQUEST_RESULT:
 	//   		    uint64 saleID;
+	//   		case ADD_REVIEW_INVOICE_REQUEST_PAYMENT_RESPONSE:
+	//   		    PaymentV2Response paymentV2Response;
+	//   		case ADD_CONTRACT_ID_REVIEW_REQUEST_RESULT:
+	//   		    uint64 contractID;
 	//   		case EMPTY_VERSION:
 	//   			void;
 	//           case ADD_TASKS_TO_REVIEWABLE_REQUEST:
@@ -6468,6 +7032,10 @@ var StellarBase =
 	//   		{
 	//   		case ADD_SALE_ID_REVIEW_REQUEST_RESULT:
 	//   		    uint64 saleID;
+	//   		case ADD_REVIEW_INVOICE_REQUEST_PAYMENT_RESPONSE:
+	//   		    PaymentV2Response paymentV2Response;
+	//   		case ADD_CONTRACT_ID_REVIEW_REQUEST_RESULT:
+	//   		    uint64 contractID;
 	//   		case EMPTY_VERSION:
 	//   			void;
 	//           case ADD_TASKS_TO_REVIEWABLE_REQUEST:
@@ -7304,51 +7872,6 @@ var StellarBase =
 	// ===========================================================================
 	xdr.union("ManageSaleResult",{switchOn:xdr.lookup("ManageSaleResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageSaleResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
-	//   enum RequestType
-	//   {
-	//       REQUEST_TYPE_SALE = 0,
-	//       REQUEST_TYPE_WITHDRAWAL = 1,
-	//       REQUEST_TYPE_REDEEM = 2,
-	//       REQUEST_TYPE_PAYMENT = 3
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("RequestType",{requestTypeSale:0,requestTypeWithdrawal:1,requestTypeRedeem:2,requestTypePayment:3}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("PaymentRequestEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct PaymentRequestEntry
-	//   {
-	//       uint64 paymentID;
-	//       BalanceID sourceBalance;
-	//       BalanceID* destinationBalance;
-	//       int64 sourceSend;
-	//       int64 sourceSendUniversal;
-	//       int64 destinationReceive;
-	//       
-	//       uint64 createdAt;
-	//   
-	//       uint64* invoiceID;
-	//   
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("PaymentRequestEntry",[["paymentId",xdr.lookup("Uint64")],["sourceBalance",xdr.lookup("BalanceId")],["destinationBalance",xdr.option(xdr.lookup("BalanceId"))],["sourceSend",xdr.lookup("Int64")],["sourceSendUniversal",xdr.lookup("Int64")],["destinationReceive",xdr.lookup("Int64")],["createdAt",xdr.lookup("Uint64")],["invoiceId",xdr.option(xdr.lookup("Uint64"))],["ext",xdr.lookup("PaymentRequestEntryExt")]]); // === xdr source ============================================================
-	//
 	//   union switch (LedgerVersion v)
 	//   		{
 	//   		case EMPTY_VERSION:
@@ -7692,92 +8215,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("CreateAccountResult",{switchOn:xdr.lookup("CreateAccountResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreateAccountSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   	{
-	//   	case EMPTY_VERSION:
-	//   		void;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.union("ReviewPaymentRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ReviewPaymentRequestOp
-	//   {
-	//       uint64 paymentID;
-	//   
-	//   	bool accept;
-	//       longstring* rejectReason;
-	//   	// reserved for future use
-	//   	union switch (LedgerVersion v)
-	//   	{
-	//   	case EMPTY_VERSION:
-	//   		void;
-	//   	}
-	//   	ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ReviewPaymentRequestOp",[["paymentId",xdr.lookup("Uint64")],["accept",xdr.bool()],["rejectReason",xdr.option(xdr.lookup("Longstring"))],["ext",xdr.lookup("ReviewPaymentRequestOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum ReviewPaymentRequestResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,
-	//   
-	//       // codes considered as "failure" for the operation
-	//   	NOT_FOUND = -1,           // failed to find Recovery request with such ID
-	//       LINE_FULL = -2
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ReviewPaymentRequestResultCode",{success:0,notFound:-1,lineFull:-2}); // === xdr source ============================================================
-	//
-	//   enum PaymentState
-	//   {
-	//       PENDING = 0,
-	//       PROCESSED = 1,
-	//       REJECTED = 2
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("PaymentState",{pending:0,processed:1,rejected:2}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   	{
-	//   	case EMPTY_VERSION:
-	//   		void;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.union("ReviewPaymentResponseExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ReviewPaymentResponse {
-	//       PaymentState state;
-	//       
-	//       uint64* relatedInvoiceID;
-	//   	// reserved for future use
-	//   	union switch (LedgerVersion v)
-	//   	{
-	//   	case EMPTY_VERSION:
-	//   		void;
-	//   	}
-	//   	ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ReviewPaymentResponse",[["state",xdr.lookup("PaymentState")],["relatedInvoiceId",xdr.option(xdr.lookup("Uint64"))],["ext",xdr.lookup("ReviewPaymentResponseExt")]]); // === xdr source ============================================================
-	//
-	//   union ReviewPaymentRequestResult switch (ReviewPaymentRequestResultCode code)
-	//   {
-	//   case SUCCESS:
-	//       ReviewPaymentResponse reviewPaymentResponse;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("ReviewPaymentRequestResult",{switchOn:xdr.lookup("ReviewPaymentRequestResultCode"),switchName:"code",switches:[["success","reviewPaymentResponse"]],arms:{reviewPaymentResponse:xdr.lookup("ReviewPaymentResponse")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -36827,7 +37264,7 @@ var StellarBase =
 	        /**
 	         * Creates limits update request
 	         * @param {object} opts
-	         * @param {string} opts.details - string details to review
+	         * @param {object} opts.details - details to review
 	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
 	         * @returns {xdr.CreateManageLimitsRequestOp}
 	         */
@@ -36836,7 +37273,7 @@ var StellarBase =
 	                throw new Error('opts.details is not defined');
 	            }
 
-	            var ext = _generatedStellarXdr_generated2['default'].LimitsUpdateRequestExt.limitsUpdateRequestDeprecatedDocumentHash(opts.details);
+	            var ext = _generatedStellarXdr_generated2['default'].LimitsUpdateRequestExt.limitsUpdateRequestDeprecatedDocumentHash(JSON.stringify(opts.details));
 
 	            var limitsUpdateRequest = new _generatedStellarXdr_generated2['default'].LimitsUpdateRequest({
 	                deprecatedDocumentHash: new Buffer(32),
@@ -36856,7 +37293,7 @@ var StellarBase =
 	    }, {
 	        key: 'createManageLimitsRequestToObject',
 	        value: function createManageLimitsRequestToObject(result, attrs) {
-	            result.details = attrs.manageLimitsRequest().ext().details();
+	            result.details = JSON.parse(attrs.manageLimitsRequest().ext().details());
 	        }
 	    }]);
 
@@ -37085,35 +37522,41 @@ var StellarBase =
 
 	var _operationsReview_request_builder = __webpack_require__(334);
 
-	var _operationsPre_issuance_request_op_builder = __webpack_require__(336);
+	var _operationsPre_issuance_request_op_builder = __webpack_require__(337);
 
-	var _operationsCreate_issuance_request_builder = __webpack_require__(338);
+	var _operationsCreate_issuance_request_builder = __webpack_require__(339);
 
-	var _operationsCreate_withdraw_request_builder = __webpack_require__(339);
+	var _operationsCreate_withdraw_request_builder = __webpack_require__(340);
 
-	var _operationsSale_request_builder = __webpack_require__(340);
+	var _operationsSale_request_builder = __webpack_require__(341);
 
-	var _operationsManage_offer_builder = __webpack_require__(341);
+	var _operationsManage_offer_builder = __webpack_require__(342);
 
-	var _operationsManage_key_value_builder = __webpack_require__(342);
+	var _operationsManage_key_value_builder = __webpack_require__(343);
 
-	var _operationsSet_options_builder = __webpack_require__(343);
+	var _operationsSet_options_builder = __webpack_require__(344);
 
-	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(344);
+	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(345);
 
 	var _operationsBind_external_system_account_id_builder = __webpack_require__(207);
 
-	var _operationsCreate_aml_request_builder = __webpack_require__(345);
+	var _operationsCreate_aml_request_builder = __webpack_require__(346);
 
-	var _operationsCreate_update_kyc_request_builder = __webpack_require__(346);
+	var _operationsCreate_update_kyc_request_builder = __webpack_require__(347);
 
-	var _operationsPayment_v2_builder = __webpack_require__(347);
+	var _operationsPayment_v2_builder = __webpack_require__(336);
 
 	var _operationsManage_sale = __webpack_require__(348);
 
 	var _operationsManage_limits_builder = __webpack_require__(329);
 
 	var _operationsCreate_manage_limits_request_builder = __webpack_require__(330);
+
+	var _operationsManage_invoice_request_builder = __webpack_require__(349);
+
+	var _operationsManage_contract_request_builder = __webpack_require__(350);
+
+	var _operationsManage_contract_builder = __webpack_require__(351);
 
 	var Operation = (function (_BaseOperation) {
 	    _inherits(Operation, _BaseOperation);
@@ -37481,34 +37924,6 @@ var StellarBase =
 	            Operation.setSourceAccount(opAttributes, opts);
 	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
 	        }
-	    }, {
-	        key: "reviewPaymentRequest",
-	        value: function reviewPaymentRequest(opts) {
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].ReviewPaymentRequestOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            };
-
-	            if ((0, _lodashIsUndefined2["default"])(opts.paymentId)) {
-	                throw new Error("paymentId should be defined");
-	            }
-	            if ((0, _lodashIsUndefined2["default"])(opts.accept)) {
-	                throw new TypeError('accept should be defined');
-	            }
-
-	            if (!(0, _lodashIsUndefined2["default"])(opts.rejectReason)) {
-	                attributes.rejectReason = opts.rejectReason;
-	            }
-
-	            attributes.paymentId = _jsXdr.UnsignedHyper.fromString(opts.paymentId);
-	            attributes.accept = opts.accept;
-
-	            var reviewPaymentRequestOp = new _generatedStellarXdr_generated2["default"].ReviewPaymentRequestOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.reviewPaymentRequest(reviewPaymentRequestOp);
-	            Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
 
 	        /**
 	         * Returns an XDR ManageAssetPairOp. A "manage asset pair" operations creates|updates asset pair.
@@ -37569,38 +37984,6 @@ var StellarBase =
 
 	            var opAttributes = {};
 	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.manageAssetPair(manageAssetPairOp);
-	            Operation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
-	        }
-	    }, {
-	        key: "manageInvoice",
-	        value: function manageInvoice(opts) {
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].ManageInvoiceOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            };
-	            if (!_keypair.Keypair.isValidPublicKey(opts.sender)) {
-	                throw new Error("sender is invalid");
-	            }
-	            if (!_keypair.Keypair.isValidBalanceKey(opts.receiverBalance)) {
-	                throw new Error("receiverBalance is invalid");
-	            }
-	            if (!Operation.isValidAmount(opts.amount, true)) {
-	                throw new TypeError('amount argument must be of type String and represent a positive number or zero');
-	            }
-	            attributes.amount = Operation._toXDRAmount(opts.amount);
-
-	            if ((0, _lodashIsUndefined2["default"])(opts.invoiceId)) {
-	                throw new TypeError('invoiceId must be specified');
-	            }
-
-	            attributes.invoiceId = _jsXdr.UnsignedHyper.fromString(opts.invoiceId);
-	            attributes.sender = _keypair.Keypair.fromAccountId(opts.sender).xdrAccountId();
-	            attributes.receiverBalance = _keypair.Keypair.fromBalanceId(opts.receiverBalance).xdrBalanceId();
-
-	            var manageInvoiceOp = new _generatedStellarXdr_generated2["default"].ManageInvoiceOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2["default"].OperationBody.manageInvoice(manageInvoiceOp);
 	            Operation.setSourceAccount(opAttributes, opts);
 	            return new _generatedStellarXdr_generated2["default"].Operation(opAttributes);
 	        }
@@ -37725,13 +38108,6 @@ var StellarBase =
 	                    result.destination = accountIdtoAddress(attrs.destination());
 	                    result.asset = attrs.asset();
 	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.reviewPaymentRequest():
-	                    result.accept = attrs.accept();
-	                    result.paymentId = attrs.paymentId().toString();
-	                    if (attrs.rejectReason()) {
-	                        result.rejectReason = attrs.rejectReason();
-	                    }
-	                    break;
 	                case _generatedStellarXdr_generated2["default"].OperationType.manageAsset():
 	                    _operationsManage_asset_builder.ManageAssetBuilder.manageAssetToObject(result, attrs);
 	                    break;
@@ -37744,11 +38120,14 @@ var StellarBase =
 	                case _generatedStellarXdr_generated2["default"].OperationType.manageOffer():
 	                    _operationsManage_offer_builder.ManageOfferBuilder.manageOfferOpToObject(result, attrs);
 	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageInvoice():
-	                    result.amount = Operation._fromXDRAmount(attrs.amount());
-	                    result.sender = accountIdtoAddress(attrs.sender());
-	                    result.receiverBalance = balanceIdtoString(attrs.receiverBalance());
-	                    result.invoiceId = attrs.invoiceId().toString();
+	                case _generatedStellarXdr_generated2["default"].OperationType.manageInvoiceRequest():
+	                    _operationsManage_invoice_request_builder.ManageInvoiceRequestBuilder.manageInvoiceRequestOpToObject(result, attrs);
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.manageContractRequest():
+	                    _operationsManage_contract_request_builder.ManageContractRequestBuilder.manageContractRequestOpToObject(result, attrs);
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.manageContract():
+	                    _operationsManage_contract_builder.ManageContractBuilder.manageContractOpToObject(result, attrs);
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].OperationType.manageAssetPair():
 	                    result.action = attrs.action();
@@ -38143,7 +38522,7 @@ var StellarBase =
 
 	var _utilHasher = __webpack_require__(335);
 
-	var _operation = __webpack_require__(332);
+	var _payment_v2_builder = __webpack_require__(336);
 
 	var ReviewRequestBuilder = (function () {
 	    function ReviewRequestBuilder() {
@@ -38391,6 +38770,29 @@ var StellarBase =
 
 	            return ReviewRequestBuilder._createOp(opts, attrs);
 	        }
+
+	        /**
+	         * Creates operation to review invoice request
+	         * @param {object} opts
+	         * @param {string} opts.requestID - request ID
+	         * @param {string} opts.requestHash - Hash of the request to be reviewed
+	         * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
+	         * @param {string} opts.reason - Reject reason
+	         * @param {object} opts.billPayDetails - invoice payment details (xdr.PaymentOpV2)
+	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+	         * @returns {xdr.ReviewRequestOp}
+	         */
+	    }, {
+	        key: 'reviewInvoiceRequest',
+	        value: function reviewInvoiceRequest(opts) {
+	            var attrs = ReviewRequestBuilder._prepareAttrs(opts);
+	            var billPayDetails = _payment_v2_builder.PaymentV2Builder.prepareAttrs(opts.billPayDetails);
+	            attrs.requestDetails = new _generatedStellarXdr_generated2['default'].ReviewRequestOpRequestDetails.invoice(new _generatedStellarXdr_generated2['default'].BillPayDetails({
+	                paymentDetails: new _generatedStellarXdr_generated2['default'].PaymentOpV2(billPayDetails),
+	                ext: new _generatedStellarXdr_generated2['default'].BillPayDetailsExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            }));
+	            return ReviewRequestBuilder._createOp(opts, attrs);
+	        }
 	    }, {
 	        key: 'reviewRequestToObject',
 	        value: function reviewRequestToObject(result, attrs) {
@@ -38452,6 +38854,15 @@ var StellarBase =
 	                    {
 	                        result.amlAlert = {
 	                            comment: attrs.requestDetails().amlAlertDetails().comment()
+	                        };
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ReviewableRequestType.invoice():
+	                    {
+	                        var billPayDetails = {};
+	                        _payment_v2_builder.PaymentV2Builder.paymentV2ToObject(billPayDetails, attrs.requestDetails().billPay().paymentDetails());
+	                        result.invoice = {
+	                            billPayDetails: billPayDetails
 	                        };
 	                        break;
 	                    }
@@ -38608,9 +39019,182 @@ var StellarBase =
 
 	var _jsXdr = __webpack_require__(3);
 
+	var PaymentV2Builder = (function () {
+	    function PaymentV2Builder() {
+	        _classCallCheck(this, PaymentV2Builder);
+	    }
+
+	    _createClass(PaymentV2Builder, null, [{
+	        key: 'prepareAttrs',
+	        value: function prepareAttrs(opts) {
+	            var attrs = {};
+
+	            if (!_keypair.Keypair.isValidBalanceKey(opts.sourceBalanceId)) {
+	                throw new TypeError('sourceBalanceId is invalid');
+	            }
+
+	            if (_keypair.Keypair.isValidPublicKey(opts.destination)) {
+	                attrs.destination = new _generatedStellarXdr_generated2['default'].PaymentOpV2Destination.account(_keypair.Keypair.fromAccountId(opts.destination).xdrAccountId());
+	            } else if (_keypair.Keypair.isValidBalanceKey(opts.destination)) {
+	                attrs.destination = new _generatedStellarXdr_generated2['default'].PaymentOpV2Destination.balance(_keypair.Keypair.fromBalanceId(opts.destination).xdrBalanceId());
+	            } else {
+	                throw new TypeError('opts.destination is invalid');
+	            }
+
+	            if (!_base_operation.BaseOperation.isValidAmount(opts.amount)) {
+	                throw new TypeError('amount argument must be of type String and represent a positive number');
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.feeData)) {
+	                throw new Error("feeData argument must be defined");
+	            }
+
+	            if (!_base_operation.BaseOperation.isValidAsset(opts.feeData.sourceFee.feeAsset)) {
+	                throw new TypeError('Source fee asset is invalid');
+	            }
+	            if (!_base_operation.BaseOperation.isValidAsset(opts.feeData.destinationFee.feeAsset)) {
+	                throw new TypeError('Destination fee asset is invalid');
+	            }
+
+	            var sourceFee = new _generatedStellarXdr_generated2['default'].FeeDataV2({
+	                maxPaymentFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.maxPaymentFee),
+	                fixedFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.fixedFee),
+	                feeAsset: opts.feeData.sourceFee.feeAsset,
+	                ext: new _generatedStellarXdr_generated2['default'].FeeDataV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+	            var destinationFee = new _generatedStellarXdr_generated2['default'].FeeDataV2({
+	                maxPaymentFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.maxPaymentFee),
+	                fixedFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.fixedFee),
+	                feeAsset: opts.feeData.destinationFee.feeAsset,
+	                ext: new _generatedStellarXdr_generated2['default'].FeeDataV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+	            attrs.feeData = new _generatedStellarXdr_generated2['default'].PaymentFeeDataV2({
+	                sourceFee: sourceFee,
+	                destinationFee: destinationFee,
+	                sourcePaysForDest: opts.feeData.sourcePaysForDest,
+	                ext: new _generatedStellarXdr_generated2['default'].PaymentFeeDataV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            if (!_base_operation.BaseOperation.isValidSubject(opts.subject)) {
+	                throw new Error("subject argument must be of type String 0-256 long");
+	            }
+
+	            if ((0, _lodashIsUndefined2['default'])(opts.reference)) {
+	                opts.reference = '';
+	            }
+
+	            attrs.sourceBalanceId = _keypair.Keypair.fromBalanceId(opts.sourceBalanceId).xdrBalanceId();
+	            attrs.amount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.amount);
+	            attrs.subject = opts.subject;
+	            attrs.reference = opts.reference;
+	            attrs.ext = new _generatedStellarXdr_generated2['default'].PaymentOpV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
+
+	            return attrs;
+	        }
+
+	        /**
+	         * Creates PaymentV2 operation where destination is AccountID or BalanceID
+	         * @param {object} opts
+	         * @param {string} opts.sourceBalanceId
+	         * @param {string} opts.destination
+	         * @param {number|string} opts.amount
+	         * @param {object} opts.feeData
+	         * * @param {object} opts.feeData.sourceFee
+	         * * * @param {number|string} opts.feeData.sourceFee.maxPaymentFee
+	         * * * @param {number|string} opts.feeData.sourceFee.fixedFee
+	         * * * @param {string} opts.feeData.sourceFee.feeAsset
+	         * * @param {object} opts.feeData.destinationFee
+	         * * * @param {number|string} opts.feeData.destinationFee.maxPaymentFee
+	         * * * @param {number|string} opts.feeData.destinationFee.fixedFee
+	         * * * @param {string} opts.feeData.destinationFee.feeAsset
+	         * * @param {bool} opts.feeData.sourcePaysForDest
+	         * @param {string} opts.subject
+	         * @param {string} opts.reference
+	         * @returns {xdr.PaymentOpV2}
+	         */
+	    }, {
+	        key: 'paymentV2',
+	        value: function paymentV2(opts) {
+	            var attrs = PaymentV2Builder.prepareAttrs(opts);
+	            var paymentV2 = new _generatedStellarXdr_generated2['default'].PaymentOpV2(attrs);
+	            var opAttrs = {};
+	            opAttrs.body = _generatedStellarXdr_generated2['default'].OperationBody.paymentV2(paymentV2);
+	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
+	        }
+	    }, {
+	        key: 'paymentV2ToObject',
+	        value: function paymentV2ToObject(result, attrs) {
+	            result.sourceBalanceId = _base_operation.BaseOperation.balanceIdtoString(attrs.sourceBalanceId());
+	            switch (attrs.destination()['switch']()) {
+	                case _generatedStellarXdr_generated2['default'].PaymentDestinationType.account():
+	                    {
+	                        result.destination = _base_operation.BaseOperation.accountIdtoAddress(attrs.destination().accountId());
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].PaymentDestinationType.balance():
+	                    {
+	                        result.destination = _base_operation.BaseOperation.balanceIdtoString(attrs.destination().balanceId());
+	                        break;
+	                    }
+	            }
+	            result.amount = _base_operation.BaseOperation._fromXDRAmount(attrs.amount());
+	            result.feeData = {
+	                sourceFee: {
+	                    maxPaymentFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().sourceFee().maxPaymentFee()),
+	                    fixedFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().sourceFee().fixedFee()),
+	                    feeAsset: attrs.feeData().sourceFee().feeAsset()
+	                },
+	                destinationFee: {
+	                    maxPaymentFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().destinationFee().maxPaymentFee()),
+	                    fixedFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().destinationFee().fixedFee()),
+	                    feeAsset: attrs.feeData().destinationFee().feeAsset()
+	                },
+	                sourcePaysForDest: attrs.feeData().sourcePaysForDest()
+	            };
+	            result.subject = attrs.subject();
+	            result.reference = attrs.reference();
+	        }
+	    }]);
+
+	    return PaymentV2Builder;
+	})();
+
+	exports.PaymentV2Builder = PaymentV2Builder;
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _generatedStellarXdr_generated = __webpack_require__(2);
+
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
+
+	var _lodashIsUndefined = __webpack_require__(186);
+
+	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
+
+	var _base_operation = __webpack_require__(208);
+
+	var _keypair = __webpack_require__(209);
+
+	var _jsXdr = __webpack_require__(3);
+
 	var _utilHasher = __webpack_require__(335);
 
-	var _pre_issuance_request = __webpack_require__(337);
+	var _pre_issuance_request = __webpack_require__(338);
 
 	var PreIssuanceRequestOpBuilder = (function () {
 	    function PreIssuanceRequestOpBuilder() {
@@ -38651,7 +39235,7 @@ var StellarBase =
 	exports.PreIssuanceRequestOpBuilder = PreIssuanceRequestOpBuilder;
 
 /***/ }),
-/* 337 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38782,7 +39366,7 @@ var StellarBase =
 	exports.PreIssuanceRequest = PreIssuanceRequest;
 
 /***/ }),
-/* 338 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38908,7 +39492,7 @@ var StellarBase =
 	exports.CreateIssuanceRequestBuilder = CreateIssuanceRequestBuilder;
 
 /***/ }),
-/* 339 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39042,7 +39626,7 @@ var StellarBase =
 	exports.CreateWithdrawRequestBuilder = CreateWithdrawRequestBuilder;
 
 /***/ }),
-/* 340 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39328,7 +39912,7 @@ var StellarBase =
 	exports.SaleRequestBuilder = SaleRequestBuilder;
 
 /***/ }),
-/* 341 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39469,7 +40053,7 @@ var StellarBase =
 	exports.ManageOfferBuilder = ManageOfferBuilder;
 
 /***/ }),
-/* 342 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -39597,7 +40181,7 @@ var StellarBase =
 	exports.ManageKeyValueBuilder = ManageKeyValueBuilder;
 
 /***/ }),
-/* 343 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39798,7 +40382,7 @@ var StellarBase =
 	exports.SetOptionsBuilder = SetOptionsBuilder;
 
 /***/ }),
-/* 344 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39948,7 +40532,7 @@ var StellarBase =
 	exports.ManageExternalSystemAccountIdPoolEntryBuilder = ManageExternalSystemAccountIdPoolEntryBuilder;
 
 /***/ }),
-/* 345 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40043,7 +40627,7 @@ var StellarBase =
 	exports.CreateAMLRequestBuilder = CreateAMLRequestBuilder;
 
 /***/ }),
-/* 346 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40140,173 +40724,6 @@ var StellarBase =
 	exports.CreateUpdateKYCRequestBuilder = CreateUpdateKYCRequestBuilder;
 
 /***/ }),
-/* 347 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _generatedStellarXdr_generated = __webpack_require__(2);
-
-	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
-
-	var _lodashIsUndefined = __webpack_require__(186);
-
-	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
-
-	var _base_operation = __webpack_require__(208);
-
-	var _keypair = __webpack_require__(209);
-
-	var _jsXdr = __webpack_require__(3);
-
-	var PaymentV2Builder = (function () {
-	    function PaymentV2Builder() {
-	        _classCallCheck(this, PaymentV2Builder);
-	    }
-
-	    _createClass(PaymentV2Builder, null, [{
-	        key: 'paymentV2',
-
-	        /**
-	         * Creates PaymentV2 operation where destination is AccountID or BalanceID
-	         * @param {object} opts
-	         * @param {string} opts.sourceBalanceId
-	         * @param {string} opts.destination
-	         * @param {number|string} opts.amount
-	         * @param {object} opts.feeData
-	         * * @param {object} opts.feeData.sourceFee
-	         * * * @param {number|string} opts.feeData.sourceFee.maxPaymentFee
-	         * * * @param {number|string} opts.feeData.sourceFee.fixedFee
-	         * * * @param {string} opts.feeData.sourceFee.feeAsset
-	         * * @param {object} opts.feeData.destinationFee
-	         * * * @param {number|string} opts.feeData.destinationFee.maxPaymentFee
-	         * * * @param {number|string} opts.feeData.destinationFee.fixedFee
-	         * * * @param {string} opts.feeData.destinationFee.feeAsset
-	         * * @param {bool} opts.feeData.sourcePaysForDest
-	         * @param {string} opts.subject
-	         * @param {string} opts.reference
-	         * @returns {xdr.PaymentOpV2}
-	         */
-	        value: function paymentV2(opts) {
-	            var attrs = {};
-
-	            if (!_keypair.Keypair.isValidBalanceKey(opts.sourceBalanceId)) {
-	                throw new TypeError('sourceBalanceId is invalid');
-	            }
-
-	            if (_keypair.Keypair.isValidPublicKey(opts.destination)) {
-	                attrs.destination = new _generatedStellarXdr_generated2['default'].PaymentOpV2Destination.account(_keypair.Keypair.fromAccountId(opts.destination).xdrAccountId());
-	            } else if (_keypair.Keypair.isValidBalanceKey(opts.destination)) {
-	                attrs.destination = new _generatedStellarXdr_generated2['default'].PaymentOpV2Destination.balance(_keypair.Keypair.fromBalanceId(opts.destination).xdrBalanceId());
-	            } else {
-	                throw new TypeError('opts.destination is invalid');
-	            }
-
-	            if (!_base_operation.BaseOperation.isValidAmount(opts.amount)) {
-	                throw new TypeError('amount argument must be of type String and represent a positive number');
-	            }
-
-	            if ((0, _lodashIsUndefined2['default'])(opts.feeData)) {
-	                throw new Error("feeData argument must be defined");
-	            }
-
-	            if (!_base_operation.BaseOperation.isValidAsset(opts.feeData.sourceFee.feeAsset)) {
-	                throw new TypeError('Source fee asset is invalid');
-	            }
-	            if (!_base_operation.BaseOperation.isValidAsset(opts.feeData.destinationFee.feeAsset)) {
-	                throw new TypeError('Destination fee asset is invalid');
-	            }
-
-	            var sourceFee = new _generatedStellarXdr_generated2['default'].FeeDataV2({
-	                maxPaymentFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.maxPaymentFee),
-	                fixedFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.sourceFee.fixedFee),
-	                feeAsset: opts.feeData.sourceFee.feeAsset,
-	                ext: new _generatedStellarXdr_generated2['default'].FeeDataV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
-	            });
-	            var destinationFee = new _generatedStellarXdr_generated2['default'].FeeDataV2({
-	                maxPaymentFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.maxPaymentFee),
-	                fixedFee: _base_operation.BaseOperation._toUnsignedXDRAmount(opts.feeData.destinationFee.fixedFee),
-	                feeAsset: opts.feeData.destinationFee.feeAsset,
-	                ext: new _generatedStellarXdr_generated2['default'].FeeDataV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
-	            });
-	            attrs.feeData = new _generatedStellarXdr_generated2['default'].PaymentFeeDataV2({
-	                sourceFee: sourceFee,
-	                destinationFee: destinationFee,
-	                sourcePaysForDest: opts.feeData.sourcePaysForDest,
-	                ext: new _generatedStellarXdr_generated2['default'].PaymentFeeDataV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
-	            });
-
-	            if (!_base_operation.BaseOperation.isValidSubject(opts.subject)) {
-	                throw new Error("subject argument must be of type String 0-256 long");
-	            }
-
-	            if ((0, _lodashIsUndefined2['default'])(opts.reference)) {
-	                opts.reference = '';
-	            }
-
-	            attrs.sourceBalanceId = _keypair.Keypair.fromBalanceId(opts.sourceBalanceId).xdrBalanceId();
-	            attrs.amount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.amount);
-	            attrs.subject = opts.subject;
-	            attrs.reference = opts.reference;
-	            attrs.ext = new _generatedStellarXdr_generated2['default'].PaymentOpV2Ext(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
-
-	            var paymentV2 = new _generatedStellarXdr_generated2['default'].PaymentOpV2(attrs);
-	            var opAttrs = {};
-	            opAttrs.body = _generatedStellarXdr_generated2['default'].OperationBody.paymentV2(paymentV2);
-	            _base_operation.BaseOperation.setSourceAccount(opAttrs, opts);
-	            return new _generatedStellarXdr_generated2['default'].Operation(opAttrs);
-	        }
-	    }, {
-	        key: 'paymentV2ToObject',
-	        value: function paymentV2ToObject(result, attrs) {
-	            result.sourceBalanceId = _base_operation.BaseOperation.balanceIdtoString(attrs.sourceBalanceId());
-	            switch (attrs.destination()['switch']()) {
-	                case _generatedStellarXdr_generated2['default'].PaymentDestinationType.account():
-	                    {
-	                        result.destination = _base_operation.BaseOperation.accountIdtoAddress(attrs.destination().accountId());
-	                        break;
-	                    }
-	                case _generatedStellarXdr_generated2['default'].PaymentDestinationType.balance():
-	                    {
-	                        result.destination = _base_operation.BaseOperation.balanceIdtoString(attrs.destination().balanceId());
-	                        break;
-	                    }
-	            }
-	            result.amount = _base_operation.BaseOperation._fromXDRAmount(attrs.amount());
-	            result.feeData = {
-	                sourceFee: {
-	                    maxPaymentFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().sourceFee().maxPaymentFee()),
-	                    fixedFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().sourceFee().fixedFee()),
-	                    feeAsset: attrs.feeData().sourceFee().feeAsset()
-	                },
-	                destinationFee: {
-	                    maxPaymentFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().destinationFee().maxPaymentFee()),
-	                    fixedFee: _base_operation.BaseOperation._fromXDRAmount(attrs.feeData().destinationFee().fixedFee()),
-	                    feeAsset: attrs.feeData().destinationFee().feeAsset()
-	                },
-	                sourcePaysForDest: attrs.feeData().sourcePaysForDest()
-	            };
-	            result.subject = attrs.subject();
-	            result.reference = attrs.reference();
-	        }
-	    }]);
-
-	    return PaymentV2Builder;
-	})();
-
-	exports.PaymentV2Builder = PaymentV2Builder;
-
-/***/ }),
 /* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40334,7 +40751,7 @@ var StellarBase =
 
 	var _jsXdr = __webpack_require__(3);
 
-	var _sale_request_builder = __webpack_require__(340);
+	var _sale_request_builder = __webpack_require__(341);
 
 	var ManageSaleBuilder = (function () {
 	    function ManageSaleBuilder() {
@@ -40607,6 +41024,427 @@ var StellarBase =
 /* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _generatedStellarXdr_generated = __webpack_require__(2);
+
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
+
+	var _lodashIsUndefined = __webpack_require__(186);
+
+	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
+
+	var _base_operation = __webpack_require__(208);
+
+	var _keypair = __webpack_require__(209);
+
+	var _jsXdr = __webpack_require__(3);
+
+	var ManageInvoiceRequestBuilder = (function () {
+	    function ManageInvoiceRequestBuilder() {
+	        _classCallCheck(this, ManageInvoiceRequestBuilder);
+	    }
+
+	    _createClass(ManageInvoiceRequestBuilder, null, [{
+	        key: 'createInvoiceRequest',
+
+	        /**
+	         * Create invoice request
+	         * @param {object} opts
+	         * @param {string} opts.sender - payer account
+	         * @param {string} opts.asset - invoice asset
+	         * @param {string} opts.amount - invoice amount
+	         * @param {object} opts.details - invoice details
+	         * @param {string} [opts.contractID] - contract to which invoice will be attached
+	         * @param {string} [opts.source] - The source account for the invoice request. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageInvoiceRequestOp}
+	         */
+	        value: function createInvoiceRequest(opts) {
+	            var invoiceRequestAttr = {
+	                ext: new _generatedStellarXdr_generated2['default'].InvoiceCreationRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion()),
+	                details: JSON.stringify(opts.details)
+	            };
+	            if (!_keypair.Keypair.isValidPublicKey(opts.sender)) {
+	                throw new Error("sender is invalid");
+	            }
+	            if (!_base_operation.BaseOperation.isValidAsset(opts.asset)) {
+	                throw new Error("receiverBalance is invalid");
+	            }
+	            if (!_base_operation.BaseOperation.isValidAmount(opts.amount)) {
+	                throw new TypeError('amount argument must be of type String and represent a positive number');
+	            }
+	            invoiceRequestAttr.amount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.amount);
+	            invoiceRequestAttr.sender = _keypair.Keypair.fromAccountId(opts.sender).xdrAccountId();
+	            invoiceRequestAttr.asset = opts.asset;
+
+	            if (!(0, _lodashIsUndefined2['default'])(opts.contractID)) {
+	                invoiceRequestAttr.contractId = _jsXdr.UnsignedHyper.fromString(opts.contractID);
+	            }
+
+	            var invoiceRequest = new _generatedStellarXdr_generated2['default'].InvoiceCreationRequest(invoiceRequestAttr);
+
+	            var details = new _generatedStellarXdr_generated2['default'].ManageInvoiceRequestOpDetails.create(invoiceRequest);
+
+	            return ManageInvoiceRequestBuilder.manageInvoiceRequest(details, opts);
+	        }
+
+	        /**
+	         * Remove invoice request
+	         * @param {object} opts
+	         * @param {string} opts.requestId - invoice request id to remove
+	         * @param {string} [opts.source] - The source account for the invoice request. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageInvoiceRequestOp}
+	         */
+	    }, {
+	        key: 'removeInvoiceRequest',
+	        value: function removeInvoiceRequest(opts) {
+	            var requestId = _jsXdr.UnsignedHyper.fromString(opts.requestId);
+	            var details = _generatedStellarXdr_generated2['default'].ManageInvoiceRequestOpDetails.remove(requestId);
+
+	            return ManageInvoiceRequestBuilder.manageInvoiceRequest(details, opts);
+	        }
+	    }, {
+	        key: 'manageInvoiceRequest',
+	        value: function manageInvoiceRequest(details, opts) {
+	            var manageInvoiceRequestOp = new _generatedStellarXdr_generated2['default'].ManageInvoiceRequestOp({
+	                details: details,
+	                ext: new _generatedStellarXdr_generated2['default'].ManageInvoiceRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.manageInvoiceRequest(manageInvoiceRequestOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
+	        }
+	    }, {
+	        key: 'manageInvoiceRequestOpToObject',
+	        value: function manageInvoiceRequestOpToObject(result, attrs) {
+	            switch (attrs.details()['switch']()) {
+	                case _generatedStellarXdr_generated2['default'].ManageInvoiceRequestAction.create():
+	                    {
+	                        var invoiceRequest = attrs.details().invoiceRequest();
+
+	                        result.sender = _base_operation.BaseOperation.accountIdtoAddress(invoiceRequest.sender());
+	                        result.asset = invoiceRequest.asset();
+	                        result.amount = _base_operation.BaseOperation._fromXDRAmount(invoiceRequest.amount());
+	                        result.details = JSON.parse(invoiceRequest.details());
+	                        if (!(0, _lodashIsUndefined2['default'])(invoiceRequest.contractId())) {
+	                            result.contractID = invoiceRequest.contractId().toString();
+	                        }
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageInvoiceRequestAction.remove():
+	                    {
+	                        result.requestId = attrs.details().requestId().toString();
+	                        break;
+	                    }
+	            }
+	        }
+	    }]);
+
+	    return ManageInvoiceRequestBuilder;
+	})();
+
+	exports.ManageInvoiceRequestBuilder = ManageInvoiceRequestBuilder;
+
+/***/ }),
+/* 350 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _generatedStellarXdr_generated = __webpack_require__(2);
+
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
+
+	var _lodashIsUndefined = __webpack_require__(186);
+
+	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
+
+	var _base_operation = __webpack_require__(208);
+
+	var _keypair = __webpack_require__(209);
+
+	var _jsXdr = __webpack_require__(3);
+
+	var ManageContractRequestBuilder = (function () {
+	    function ManageContractRequestBuilder() {
+	        _classCallCheck(this, ManageContractRequestBuilder);
+	    }
+
+	    _createClass(ManageContractRequestBuilder, null, [{
+	        key: 'createContractRequest',
+
+	        /**
+	         * Create contract request
+	         * @param {object} opts
+	         * @param {string} opts.customer - contract customer
+	         * @param {string} opts.escrow - contract escrow
+	         * @param {string} opts.startTime - contract start time
+	         * @param {string} opts.endTime - contract end time
+	         * @param {object} opts.details - contract details
+	         * @param {string} [opts.source] - The source account for the contract request. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageContractRequestOp}
+	         */
+	        value: function createContractRequest(opts) {
+	            var contractRequestAttr = {
+	                ext: new _generatedStellarXdr_generated2['default'].ContractRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion()),
+	                details: JSON.stringify(opts.details)
+	            };
+	            if (!_keypair.Keypair.isValidPublicKey(opts.customer)) {
+	                throw new Error("customer is invalid");
+	            }
+	            if (!_keypair.Keypair.isValidPublicKey(opts.escrow)) {
+	                throw new Error("escrow is invalid");
+	            }
+	            if ((0, _lodashIsUndefined2['default'])(opts.startTime)) {
+	                throw new Error("opts.startTime is invalid");
+	            }
+	            if ((0, _lodashIsUndefined2['default'])(opts.endTime)) {
+
+	                throw new Error("opts.endTime is invalid");
+	            }
+	            contractRequestAttr.startTime = _jsXdr.UnsignedHyper.fromString(opts.startTime);
+	            contractRequestAttr.endTime = _jsXdr.UnsignedHyper.fromString(opts.endTime);
+	            contractRequestAttr.customer = _keypair.Keypair.fromAccountId(opts.customer).xdrAccountId();
+	            contractRequestAttr.escrow = _keypair.Keypair.fromAccountId(opts.escrow).xdrAccountId();
+
+	            var contractRequest = new _generatedStellarXdr_generated2['default'].ContractRequest(contractRequestAttr);
+
+	            var details = new _generatedStellarXdr_generated2['default'].ManageContractRequestOpDetails.create(contractRequest);
+
+	            return ManageContractRequestBuilder.manageContractRequest(details, opts);
+	        }
+
+	        /**
+	         * Remove contract request
+	         * @param {object} opts
+	         * @param {string} opts.requestId - contract request id to remove
+	         * @param {string} [opts.source] - The source account for the contract request. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageContractRequestOp}
+	         */
+	    }, {
+	        key: 'removeContractRequest',
+	        value: function removeContractRequest(opts) {
+	            var requestId = _jsXdr.UnsignedHyper.fromString(opts.requestId);
+	            var details = _generatedStellarXdr_generated2['default'].ManageContractRequestOpDetails.remove(requestId);
+
+	            return ManageContractRequestBuilder.manageContractRequest(details, opts);
+	        }
+	    }, {
+	        key: 'manageContractRequest',
+	        value: function manageContractRequest(details, opts) {
+	            var manageContractRequestOp = new _generatedStellarXdr_generated2['default'].ManageContractRequestOp({
+	                details: details,
+	                ext: new _generatedStellarXdr_generated2['default'].ManageContractRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.manageContractRequest(manageContractRequestOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
+	        }
+	    }, {
+	        key: 'manageContractRequestOpToObject',
+	        value: function manageContractRequestOpToObject(result, attrs) {
+	            switch (attrs.details()['switch']()) {
+	                case _generatedStellarXdr_generated2['default'].ManageContractRequestAction.create():
+	                    {
+	                        var contractRequest = attrs.details().contractRequest();
+
+	                        result.customer = _base_operation.BaseOperation.accountIdtoAddress(contractRequest.customer());
+	                        result.escrow = _base_operation.BaseOperation.accountIdtoAddress(contractRequest.escrow());
+	                        result.startTime = contractRequest.startTime().toString();
+	                        result.endTime = contractRequest.endTime().toString();
+	                        result.details = JSON.parse(contractRequest.details());
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageContractRequestAction.remove():
+	                    {
+	                        result.requestId = attrs.details().requestId().toString();
+	                        break;
+	                    }
+	            }
+	        }
+	    }]);
+
+	    return ManageContractRequestBuilder;
+	})();
+
+	exports.ManageContractRequestBuilder = ManageContractRequestBuilder;
+
+/***/ }),
+/* 351 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _generatedStellarXdr_generated = __webpack_require__(2);
+
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
+
+	var _lodashIsUndefined = __webpack_require__(186);
+
+	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
+
+	var _base_operation = __webpack_require__(208);
+
+	var _keypair = __webpack_require__(209);
+
+	var _jsXdr = __webpack_require__(3);
+
+	var ManageContractBuilder = (function () {
+	    function ManageContractBuilder() {
+	        _classCallCheck(this, ManageContractBuilder);
+	    }
+
+	    _createClass(ManageContractBuilder, null, [{
+	        key: 'addDetails',
+
+	        /**
+	         * Add contract details
+	         * @param {object} opts
+	         * @param {string} opts.contractID - contract id
+	         * @param {object} opts.details - contract details
+	         * @param {string} [opts.source] - The source account for the manage contract. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageContractOp}
+	         */
+	        value: function addDetails(opts) {
+	            var details = _generatedStellarXdr_generated2['default'].ManageContractOpData.addDetail(JSON.stringify(opts.details));
+
+	            return ManageContractBuilder.manageContract(details, opts);
+	        }
+
+	        /**
+	         * Confirm completed
+	         * @param {object} opts
+	         * @param {string} opts.contractID - contract id
+	         * @param {string} [opts.source] - The source account for the confirm contract. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageContractOp}
+	         */
+	    }, {
+	        key: 'confirmCompleted',
+	        value: function confirmCompleted(opts) {
+	            var details = new _generatedStellarXdr_generated2['default'].ManageContractOpData(_generatedStellarXdr_generated2['default'].ManageContractAction.confirmCompleted());
+
+	            return ManageContractBuilder.manageContract(details, opts);
+	        }
+
+	        /**
+	         * Start dispute
+	         * @param {object} opts
+	         * @param {string} opts.contractID - contract id
+	         * @param {object} opts.disputeReason - contract disputeReason
+	         * @param {string} [opts.source] - The source account for the manage contract. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageContractOp}
+	         */
+	    }, {
+	        key: 'startDispute',
+	        value: function startDispute(opts) {
+	            var details = _generatedStellarXdr_generated2['default'].ManageContractOpData.startDispute(JSON.stringify(opts.disputeReason));
+
+	            return ManageContractBuilder.manageContract(details, opts);
+	        }
+
+	        /**
+	         * Resolve dispute
+	         * @param {object} opts
+	         * @param {string} opts.contractID - contract id
+	         * @param {boolean} opts.isRevert - if true all invoice payment will be reverted
+	         * @param {string} [opts.source] - The source account for the confirm contract. Defaults to the transaction's source account.
+	         * @returns {xdr.ManageContractOp}
+	         */
+	    }, {
+	        key: 'resolveDispute',
+	        value: function resolveDispute(opts) {
+	            if (typeof opts.isRevert !== "boolean") {
+	                throw new Error("isRevert must be boolean");
+	            }
+	            var details = _generatedStellarXdr_generated2['default'].ManageContractOpData.resolveDispute(opts.isRevert);
+
+	            return ManageContractBuilder.manageContract(details, opts);
+	        }
+	    }, {
+	        key: 'manageContract',
+	        value: function manageContract(data, opts) {
+	            var manageContractOp = new _generatedStellarXdr_generated2['default'].ManageContractOp({
+	                contractId: _jsXdr.UnsignedHyper.fromString(opts.contractID),
+	                data: data,
+	                ext: new _generatedStellarXdr_generated2['default'].ManageContractOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            });
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.manageContract(manageContractOp);
+	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
+	        }
+	    }, {
+	        key: 'manageContractOpToObject',
+	        value: function manageContractOpToObject(result, attrs) {
+	            result.contractID = attrs.contractId().toString();
+	            switch (attrs.data()['switch']()) {
+	                case _generatedStellarXdr_generated2['default'].ManageContractAction.addDetail():
+	                    {
+	                        result.details = JSON.parse(attrs.data().details());
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageContractAction.confirmCompleted():
+	                    {
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageContractAction.startDispute():
+	                    {
+	                        result.disputeReason = JSON.parse(attrs.data().disputeReason());
+	                        break;
+	                    }
+	                case _generatedStellarXdr_generated2['default'].ManageContractAction.resolveDispute():
+	                    {
+	                        result.isRevert = attrs.data().isRevert();
+	                        break;
+	                    }
+	            }
+	        }
+	    }]);
+
+	    return ManageContractBuilder;
+	})();
+
+	exports.ManageContractBuilder = ManageContractBuilder;
+
+/***/ }),
+/* 352 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
@@ -40631,19 +41469,19 @@ var StellarBase =
 
 	var _keypair = __webpack_require__(209);
 
-	var _account = __webpack_require__(350);
+	var _account = __webpack_require__(353);
 
 	var _operation = __webpack_require__(332);
 
 	var _transaction = __webpack_require__(331);
 
-	var _memo = __webpack_require__(351);
+	var _memo = __webpack_require__(354);
 
 	var _bignumberJs = __webpack_require__(259);
 
 	var _bignumberJs2 = _interopRequireDefault(_bignumberJs);
 
-	var _lodashClone = __webpack_require__(352);
+	var _lodashClone = __webpack_require__(355);
 
 	var _lodashClone2 = _interopRequireDefault(_lodashClone);
 
@@ -40798,7 +41636,7 @@ var StellarBase =
 	exports.TransactionBuilder = TransactionBuilder;
 
 /***/ }),
-/* 350 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40886,7 +41724,7 @@ var StellarBase =
 	exports.Account = Account;
 
 /***/ }),
-/* 351 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
@@ -41065,10 +41903,10 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15).Buffer))
 
 /***/ }),
-/* 352 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseClone = __webpack_require__(353);
+	var baseClone = __webpack_require__(356);
 
 	/** Used to compose bitmasks for cloning. */
 	var CLONE_SYMBOLS_FLAG = 4;
@@ -41107,29 +41945,29 @@ var StellarBase =
 
 
 /***/ }),
-/* 353 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var Stack = __webpack_require__(59),
 	    arrayEach = __webpack_require__(177),
 	    assignValue = __webpack_require__(146),
-	    baseAssign = __webpack_require__(354),
-	    baseAssignIn = __webpack_require__(355),
-	    cloneBuffer = __webpack_require__(356),
-	    copyArray = __webpack_require__(357),
-	    copySymbols = __webpack_require__(358),
-	    copySymbolsIn = __webpack_require__(359),
+	    baseAssign = __webpack_require__(357),
+	    baseAssignIn = __webpack_require__(358),
+	    cloneBuffer = __webpack_require__(359),
+	    copyArray = __webpack_require__(360),
+	    copySymbols = __webpack_require__(361),
+	    copySymbolsIn = __webpack_require__(362),
 	    getAllKeys = __webpack_require__(108),
-	    getAllKeysIn = __webpack_require__(361),
+	    getAllKeysIn = __webpack_require__(364),
 	    getTag = __webpack_require__(114),
-	    initCloneArray = __webpack_require__(362),
-	    initCloneByTag = __webpack_require__(363),
-	    initCloneObject = __webpack_require__(369),
+	    initCloneArray = __webpack_require__(365),
+	    initCloneByTag = __webpack_require__(366),
+	    initCloneObject = __webpack_require__(372),
 	    isArray = __webpack_require__(38),
 	    isBuffer = __webpack_require__(39),
-	    isMap = __webpack_require__(371),
+	    isMap = __webpack_require__(374),
 	    isObject = __webpack_require__(54),
-	    isSet = __webpack_require__(373),
+	    isSet = __webpack_require__(376),
 	    keys = __webpack_require__(33);
 
 	/** Used to compose bitmasks for cloning. */
@@ -41284,7 +42122,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 354 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var copyObject = __webpack_require__(145),
@@ -41307,7 +42145,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 355 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var copyObject = __webpack_require__(145),
@@ -41330,7 +42168,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 356 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(9);
@@ -41372,7 +42210,7 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)(module)))
 
 /***/ }),
-/* 357 */
+/* 360 */
 /***/ (function(module, exports) {
 
 	/**
@@ -41398,7 +42236,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 358 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var copyObject = __webpack_require__(145),
@@ -41420,11 +42258,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 359 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var copyObject = __webpack_require__(145),
-	    getSymbolsIn = __webpack_require__(360);
+	    getSymbolsIn = __webpack_require__(363);
 
 	/**
 	 * Copies own and inherited symbols of `source` to `object`.
@@ -41442,7 +42280,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 360 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var arrayPush = __webpack_require__(110),
@@ -41473,11 +42311,11 @@ var StellarBase =
 
 
 /***/ }),
-/* 361 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var baseGetAllKeys = __webpack_require__(109),
-	    getSymbolsIn = __webpack_require__(360),
+	    getSymbolsIn = __webpack_require__(363),
 	    keysIn = __webpack_require__(157);
 
 	/**
@@ -41496,7 +42334,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 362 */
+/* 365 */
 /***/ (function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -41528,14 +42366,14 @@ var StellarBase =
 
 
 /***/ }),
-/* 363 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var cloneArrayBuffer = __webpack_require__(364),
-	    cloneDataView = __webpack_require__(365),
-	    cloneRegExp = __webpack_require__(366),
-	    cloneSymbol = __webpack_require__(367),
-	    cloneTypedArray = __webpack_require__(368);
+	var cloneArrayBuffer = __webpack_require__(367),
+	    cloneDataView = __webpack_require__(368),
+	    cloneRegExp = __webpack_require__(369),
+	    cloneSymbol = __webpack_require__(370),
+	    cloneTypedArray = __webpack_require__(371);
 
 	/** `Object#toString` result references. */
 	var boolTag = '[object Boolean]',
@@ -41611,7 +42449,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 364 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var Uint8Array = __webpack_require__(104);
@@ -41633,10 +42471,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 365 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var cloneArrayBuffer = __webpack_require__(364);
+	var cloneArrayBuffer = __webpack_require__(367);
 
 	/**
 	 * Creates a clone of `dataView`.
@@ -41655,7 +42493,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 366 */
+/* 369 */
 /***/ (function(module, exports) {
 
 	/** Used to match `RegExp` flags from their coerced string values. */
@@ -41678,7 +42516,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 367 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var Symbol = __webpack_require__(8);
@@ -41702,10 +42540,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 368 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var cloneArrayBuffer = __webpack_require__(364);
+	var cloneArrayBuffer = __webpack_require__(367);
 
 	/**
 	 * Creates a clone of `typedArray`.
@@ -41724,10 +42562,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 369 */
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseCreate = __webpack_require__(370),
+	var baseCreate = __webpack_require__(373),
 	    getPrototype = __webpack_require__(197),
 	    isPrototype = __webpack_require__(49);
 
@@ -41748,7 +42586,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 370 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(54);
@@ -41784,10 +42622,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 371 */
+/* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsMap = __webpack_require__(372),
+	var baseIsMap = __webpack_require__(375),
 	    baseUnary = __webpack_require__(46),
 	    nodeUtil = __webpack_require__(47);
 
@@ -41817,7 +42655,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 372 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getTag = __webpack_require__(114),
@@ -41841,10 +42679,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 373 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsSet = __webpack_require__(374),
+	var baseIsSet = __webpack_require__(377),
 	    baseUnary = __webpack_require__(46),
 	    nodeUtil = __webpack_require__(47);
 
@@ -41874,7 +42712,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 374 */
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getTag = __webpack_require__(114),

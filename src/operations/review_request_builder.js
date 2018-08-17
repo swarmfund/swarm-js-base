@@ -4,7 +4,7 @@ import {BaseOperation} from './base_operation';
 import {Keypair} from "../keypair";
 import {UnsignedHyper, Hyper} from "js-xdr";
 import {Hasher} from '../util/hasher';
-import {Operation} from "../operation";
+import {PaymentV2Builder} from "./payment_v2_builder";
 
 export class ReviewRequestBuilder {
 
@@ -237,6 +237,27 @@ export class ReviewRequestBuilder {
         return ReviewRequestBuilder._createOp(opts, attrs);
     }
 
+    /**
+     * Creates operation to review invoice request
+     * @param {object} opts
+     * @param {string} opts.requestID - request ID
+     * @param {string} opts.requestHash - Hash of the request to be reviewed
+     * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
+     * @param {string} opts.reason - Reject reason
+     * @param {object} opts.billPayDetails - invoice payment details (xdr.PaymentOpV2)
+     * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+     * @returns {xdr.ReviewRequestOp}
+     */
+    static reviewInvoiceRequest(opts) {
+        let attrs = ReviewRequestBuilder._prepareAttrs(opts);
+        let billPayDetails = PaymentV2Builder.prepareAttrs(opts.billPayDetails);
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.invoice(new xdr.BillPayDetails({
+            paymentDetails: new xdr.PaymentOpV2(billPayDetails),
+            ext: new xdr.BillPayDetailsExt(xdr.LedgerVersion.emptyVersion())
+        }));
+        return ReviewRequestBuilder._createOp(opts, attrs);
+    }
+
     static reviewRequestToObject(result, attrs) {
         result.requestID = attrs.requestId().toString();
         result.requestHash = attrs.requestHash().toString('hex');
@@ -291,6 +312,14 @@ export class ReviewRequestBuilder {
             case xdr.ReviewableRequestType.amlAlert(): {
                 result.amlAlert = {
                     comment: attrs.requestDetails().amlAlertDetails().comment(),
+                };
+                break;
+            }
+            case xdr.ReviewableRequestType.invoice(): {
+                let billPayDetails = {};
+                PaymentV2Builder.paymentV2ToObject(billPayDetails, attrs.requestDetails().billPay().paymentDetails());
+                result.invoice = {
+                    billPayDetails: billPayDetails
                 };
                 break;
             }
