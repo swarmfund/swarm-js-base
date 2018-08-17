@@ -8,6 +8,7 @@ export class CreateManageLimitsRequestBuilder {
      * Creates limits update request
      * @param {object} opts
      * @param {object} opts.details - details to review
+     * @param {string|number} opts.requestID - if 0 - create request, else - update existing request
      * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
      * @returns {xdr.CreateManageLimitsRequestOp}
      */
@@ -16,16 +17,19 @@ export class CreateManageLimitsRequestBuilder {
             throw new Error('opts.details is not defined');
         }
 
-        let ext = xdr.LimitsUpdateRequestExt.limitsUpdateRequestDeprecatedDocumentHash(JSON.stringify(opts.details));
+        if (isUndefined(opts.requestID)) {
+            throw new Error('opts.requestID is not defined');
+        }
 
         let limitsUpdateRequest = new xdr.LimitsUpdateRequest({
             deprecatedDocumentHash: new Buffer(32),
-            ext: ext,
+            ext: new xdr.LimitsUpdateRequestExt.limitsUpdateRequestDeprecatedDocumentHash(JSON.stringify(opts.details)),
         });
 
         let createManageLimitsRequestOp = new xdr.CreateManageLimitsRequestOp({
             manageLimitsRequest: limitsUpdateRequest,
-            ext: new xdr.CreateManageLimitsRequestOpExt(xdr.LedgerVersion.emptyVersion()),
+            ext: new xdr.CreateManageLimitsRequestOpExt.allowToUpdateAndRejectLimitsUpdateRequest(
+                UnsignedHyper.fromString(opts.requestID)),
         });
 
         let opAttrs = {};
@@ -36,5 +40,6 @@ export class CreateManageLimitsRequestBuilder {
 
     static createManageLimitsRequestToObject(result, attrs) {
         result.details = JSON.parse(attrs.manageLimitsRequest().ext().details());
+        result.requestID = attrs.ext().requestId().toString();
     }
 }
