@@ -1,4 +1,4 @@
-// Automatically generated on 2018-08-15T16:05:38+03:00
+// Automatically generated on 2018-08-17T12:11:57+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -2897,15 +2897,12 @@ xdr.struct("ManageContractOp", [
 //       MALFORMED = -1,
 //       NOT_FOUND = -2, // not found contract
 //       NOT_ALLOWED = -3, // only contractor or customer can add details
-//       TOO_MANY_CONTRACT_DETAILS = -4,
-//       DETAILS_TOO_LONG = -5,
-//       DISPUTE_REASON_TOO_LONG = -6,
-//       ALREADY_CONFIRMED = -7,
-//       INVOICE_NOT_APPROVED = -9, // all contract invoices must be approved
-//       DISPUTE_ALREADY_STARTED = -10,
-//       RESOLVE_DISPUTE_NOW_ALLOWED = -11,
-//       CONFIRM_NOT_ALLOWED = -12,
-//       CUSTOMER_BALANCE_OVERFLOW = -13
+//       DETAILS_TOO_LONG = -4,
+//       DISPUTE_REASON_TOO_LONG = -5,
+//       ALREADY_CONFIRMED = -6,
+//       INVOICE_NOT_APPROVED = -7, // all contract invoices must be approved
+//       DISPUTE_ALREADY_STARTED = -8,
+//       CUSTOMER_BALANCE_OVERFLOW = -9
 //   };
 //
 // ===========================================================================
@@ -2914,15 +2911,12 @@ xdr.enum("ManageContractResultCode", {
   malformed: -1,
   notFound: -2,
   notAllowed: -3,
-  tooManyContractDetail: -4,
-  detailsTooLong: -5,
-  disputeReasonTooLong: -6,
-  alreadyConfirmed: -7,
-  invoiceNotApproved: -9,
-  disputeAlreadyStarted: -10,
-  resolveDisputeNowAllowed: -11,
-  confirmNotAllowed: -12,
-  customerBalanceOverflow: -13,
+  detailsTooLong: -4,
+  disputeReasonTooLong: -5,
+  alreadyConfirmed: -6,
+  invoiceNotApproved: -7,
+  disputeAlreadyStarted: -8,
+  customerBalanceOverflow: -9,
 });
 
 // === xdr source ============================================================
@@ -3717,47 +3711,6 @@ xdr.enum("ContractState", {
 //       }
 //
 // ===========================================================================
-xdr.union("DisputeDetailsExt", {
-  switchOn: xdr.lookup("LedgerVersion"),
-  switchName: "v",
-  switches: [
-    ["emptyVersion", xdr.void()],
-  ],
-  arms: {
-  },
-});
-
-// === xdr source ============================================================
-//
-//   struct DisputeDetails
-//   {
-//       AccountID disputer;
-//       longstring reason;
-//   
-//       union switch (LedgerVersion v)
-//       {
-//       case EMPTY_VERSION:
-//           void;
-//       }
-//       ext;
-//   };
-//
-// ===========================================================================
-xdr.struct("DisputeDetails", [
-  ["disputer", xdr.lookup("AccountId")],
-  ["reason", xdr.lookup("Longstring")],
-  ["ext", xdr.lookup("DisputeDetailsExt")],
-]);
-
-// === xdr source ============================================================
-//
-//   union switch (LedgerVersion v)
-//       {
-//       case EMPTY_VERSION:
-//           void;
-//       }
-//
-// ===========================================================================
 xdr.union("ContractEntryExt", {
   switchOn: xdr.lookup("LedgerVersion"),
   switchName: "v",
@@ -3780,11 +3733,10 @@ xdr.union("ContractEntryExt", {
 //   
 //       uint64 startTime;
 //       uint64 endTime;
-//       longstring details<>;
 //       uint64 invoiceRequestsIDs<>;
+//       longstring initialDetails;
 //   
 //       uint32 state;
-//       DisputeDetails *disputeDetails;
 //   
 //       union switch (LedgerVersion v)
 //       {
@@ -3802,10 +3754,9 @@ xdr.struct("ContractEntry", [
   ["escrow", xdr.lookup("AccountId")],
   ["startTime", xdr.lookup("Uint64")],
   ["endTime", xdr.lookup("Uint64")],
-  ["details", xdr.varArray(xdr.lookup("Longstring"), 2147483647)],
   ["invoiceRequestsIDs", xdr.varArray(xdr.lookup("Uint64"), 2147483647)],
+  ["initialDetails", xdr.lookup("Longstring")],
   ["state", xdr.lookup("Uint32")],
-  ["disputeDetails", xdr.option(xdr.lookup("DisputeDetails"))],
   ["ext", xdr.lookup("ContractEntryExt")],
 ]);
 
@@ -6601,6 +6552,7 @@ xdr.struct("ManageInvoiceRequestOp", [
 //       BALANCE_NOT_FOUND = -2, // sender balance not found
 //       NOT_FOUND = -3, // not found invoice request, when try to remove
 //       TOO_MANY_INVOICES = -4,
+//       DETAILS_TOO_LONG = -5,
 //       NOT_ALLOWED_TO_REMOVE = -6, // only invoice creator can remove invoice
 //       CONTRACT_NOT_FOUND = -7,
 //       ONLY_CONTRACTOR_CAN_ATTACH_INVOICE_TO_CONTRACT = -8,
@@ -6615,6 +6567,7 @@ xdr.enum("ManageInvoiceRequestResultCode", {
   balanceNotFound: -2,
   notFound: -3,
   tooManyInvoice: -4,
+  detailsTooLong: -5,
   notAllowedToRemove: -6,
   contractNotFound: -7,
   onlyContractorCanAttachInvoiceToContract: -8,
