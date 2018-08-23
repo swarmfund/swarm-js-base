@@ -1,4 +1,4 @@
-// Automatically generated on 2018-08-22T17:20:19+03:00
+// Automatically generated on 2018-08-23T10:54:05+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -752,7 +752,7 @@ xdr.union("OperationFeeExt", {
 //
 //   struct OperationFee
 //   {
-//       Operation operation;
+//       OperationType operationType;
 //       uint64 amount;
 //   
 //       // reserved for future use
@@ -766,7 +766,7 @@ xdr.union("OperationFeeExt", {
 //
 // ===========================================================================
 xdr.struct("OperationFee", [
-  ["operation", xdr.lookup("Operation")],
+  ["operationType", xdr.lookup("OperationType")],
   ["amount", xdr.lookup("Uint64")],
   ["ext", xdr.lookup("OperationFeeExt")],
 ]);

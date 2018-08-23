@@ -411,7 +411,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-08-22T17:20:19+03:00
+	// Automatically generated on 2018-08-23T10:54:05+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -877,7 +877,7 @@ var StellarBase =
 	//
 	//   struct OperationFee
 	//   {
-	//       Operation operation;
+	//       OperationType operationType;
 	//       uint64 amount;
 	//   
 	//       // reserved for future use
@@ -890,7 +890,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("OperationFee",[["operation",xdr.lookup("Operation")],["amount",xdr.lookup("Uint64")],["ext",xdr.lookup("OperationFeeExt")]]); // === xdr source ============================================================
+	xdr.struct("OperationFee",[["operationType",xdr.lookup("OperationType")],["amount",xdr.lookup("Uint64")],["ext",xdr.lookup("OperationFeeExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
