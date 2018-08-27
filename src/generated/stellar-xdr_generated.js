@@ -1,4 +1,4 @@
-// Automatically generated on 2018-08-21T12:04:03+03:00
+// Automatically generated on 2018-08-27T17:32:37+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -3726,6 +3726,8 @@ xdr.enum("ContractState", {
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case ADD_CUSTOMER_DETAILS_TO_CONTRACT:
+//           longstring customerDetails;
 //       }
 //
 // ===========================================================================
@@ -3734,8 +3736,10 @@ xdr.union("ContractEntryExt", {
   switchName: "v",
   switches: [
     ["emptyVersion", xdr.void()],
+    ["addCustomerDetailsToContract", "customerDetails"],
   ],
   arms: {
+    customerDetails: xdr.lookup("Longstring"),
   },
 });
 
@@ -3760,6 +3764,8 @@ xdr.union("ContractEntryExt", {
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case ADD_CUSTOMER_DETAILS_TO_CONTRACT:
+//           longstring customerDetails;
 //       }
 //       ext;
 //   };
@@ -11331,7 +11337,8 @@ xdr.union("PublicKey", {
 //   	USE_ONLY_PAYMENT_V2 = 43,
 //       ADD_REVIEW_INVOICE_REQUEST_PAYMENT_RESPONSE = 44,
 //       ADD_CONTRACT_ID_REVIEW_REQUEST_RESULT = 45,
-//       ALLOW_TO_UPDATE_AND_REJECT_LIMITS_UPDATE_REQUESTS = 46
+//       ALLOW_TO_UPDATE_AND_REJECT_LIMITS_UPDATE_REQUESTS = 46,
+//       ADD_CUSTOMER_DETAILS_TO_CONTRACT = 47
 //   };
 //
 // ===========================================================================
@@ -11383,6 +11390,7 @@ xdr.enum("LedgerVersion", {
   addReviewInvoiceRequestPaymentResponse: 44,
   addContractIdReviewRequestResult: 45,
   allowToUpdateAndRejectLimitsUpdateRequest: 46,
+  addCustomerDetailsToContract: 47,
 });
 
 // === xdr source ============================================================
@@ -11824,6 +11832,45 @@ xdr.struct("UpdateKycDetails", [
 //       }
 //
 // ===========================================================================
+xdr.union("ContractDetailsExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct ContractDetails {
+//       longstring details;
+//   
+//       // Reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("ContractDetails", [
+  ["details", xdr.lookup("Longstring")],
+  ["ext", xdr.lookup("ContractDetailsExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
 xdr.union("BillPayDetailsExt", {
   switchOn: xdr.lookup("LedgerVersion"),
   switchName: "v",
@@ -12019,6 +12066,8 @@ xdr.struct("ExtendedResult", [
 //           UpdateKYCDetails updateKYC;
 //       case INVOICE:
 //           BillPayDetails billPay;
+//       case CONTRACT:
+//           ContractDetails contract;
 //   	default:
 //   		void;
 //   	}
@@ -12034,6 +12083,7 @@ xdr.union("ReviewRequestOpRequestDetails", {
     ["amlAlert", "amlAlertDetails"],
     ["updateKyc", "updateKyc"],
     ["invoice", "billPay"],
+    ["contract", "contract"],
   ],
   arms: {
     withdrawal: xdr.lookup("WithdrawalDetails"),
@@ -12042,6 +12092,7 @@ xdr.union("ReviewRequestOpRequestDetails", {
     amlAlertDetails: xdr.lookup("AmlAlertDetails"),
     updateKyc: xdr.lookup("UpdateKycDetails"),
     billPay: xdr.lookup("BillPayDetails"),
+    contract: xdr.lookup("ContractDetails"),
   },
   defaultArm: xdr.void(),
 });
@@ -12088,6 +12139,8 @@ xdr.union("ReviewRequestOpExt", {
 //           UpdateKYCDetails updateKYC;
 //       case INVOICE:
 //           BillPayDetails billPay;
+//       case CONTRACT:
+//           ContractDetails contract;
 //   	default:
 //   		void;
 //   	} requestDetails;
@@ -12190,7 +12243,10 @@ xdr.struct("ReviewRequestOp", [
 //   
 //       // Limits update requests
 //       CANNOT_CREATE_FOR_ACC_ID_AND_ACC_TYPE = 130, // limits cannot be created for account ID and account type simultaneously
-//       INVALID_LIMITS = 131
+//       INVALID_LIMITS = 131,
+//   
+//       // Contract requests
+//       CONTRACT_DETAILS_TOO_LONG = -140 // customer details reached length limit
 //   };
 //
 // ===========================================================================
@@ -12245,6 +12301,7 @@ xdr.enum("ReviewRequestResultCode", {
   destinationAccountNotFound: -126,
   cannotCreateForAccIdAndAccType: 130,
   invalidLimit: 131,
+  contractDetailsTooLong: -140,
 });
 
 // === xdr source ============================================================
