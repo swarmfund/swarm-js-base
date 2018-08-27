@@ -1,1 +1,1 @@
- export const SaleTypes = Object.freeze({"BasicSale":0, "Crowdfunding":1, "FixedPrice":2});
+ export const SaleTypes = Object.freeze({"BasicSale":1, "Crowdfunding":2, "FixedPrice":3});
