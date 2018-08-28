@@ -258,6 +258,26 @@ export class ReviewRequestBuilder {
         return ReviewRequestBuilder._createOp(opts, attrs);
     }
 
+    /**
+     * Creates operation to review contract request
+     * @param {object} opts
+     * @param {string} opts.requestID - request ID
+     * @param {string} opts.requestHash - Hash of the request to be reviewed
+     * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
+     * @param {string} opts.reason - Reject reason
+     * @param {object} opts.details - customer details about contract
+     * @param {string} [opts.source] - The source account for the review request. Defaults to the transaction's source account.
+     * @returns {xdr.ReviewRequestOp}
+     */
+    static reviewContractRequest(opts) {
+        let attrs = ReviewRequestBuilder._prepareAttrs(opts);
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.contract(new xdr.ContractDetails({
+            details: JSON.stringify(opts.details),
+            ext: new xdr.ContractDetailsExt(xdr.LedgerVersion.emptyVersion())
+        }));
+        return ReviewRequestBuilder._createOp(opts, attrs);
+    }
+
     static reviewRequestToObject(result, attrs) {
         result.requestID = attrs.requestId().toString();
         result.requestHash = attrs.requestHash().toString('hex');
@@ -320,6 +340,12 @@ export class ReviewRequestBuilder {
                 PaymentV2Builder.paymentV2ToObject(billPayDetails, attrs.requestDetails().billPay().paymentDetails());
                 result.invoice = {
                     billPayDetails: billPayDetails
+                };
+                break;
+            }
+            case xdr.ReviewableRequestType.contract(): {
+                result.contract = {
+                    details: JSON.parse(attrs.requestDetails().contract().details())
                 };
                 break;
             }
