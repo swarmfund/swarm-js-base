@@ -1,9 +1,7 @@
 import {default as xdr} from "../generated/stellar-xdr_generated";
 import isUndefined from 'lodash/isUndefined';
 import {BaseOperation} from './base_operation';
-import {Keypair} from "../keypair";
 import {UnsignedHyper, Hyper} from "js-xdr";
-import {SaleTypes} from "../util/sale_types";
 
 export class SaleRequestBuilder {
 
@@ -25,7 +23,7 @@ export class SaleRequestBuilder {
      * @param {array} opts.quoteAssets - accepted assets
      * @param {object} opts.quoteAssets.price - price for 1 baseAsset in terms of quote asset
      * @param {object} opts.quoteAssets.asset - asset code of the quote asset
-     * @param {object} opts.SaleType - states sale type (see utils/sale_types.js)
+     * @param {number} opts.saleType - Sale type
      * @param {string} opts.baseAssetForHardCap - specifies the amount of base asset required for hard cap
      * @param {SaleState} opts.saleState - specifies the initial state of the sale
      * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
@@ -47,7 +45,6 @@ export class SaleRequestBuilder {
 
     static validateSaleCreationRequest(opts) {
         let attrs = {};
-        let saleTypesEnum = SaleTypes;
         if (!BaseOperation.isValidAsset(opts.baseAsset)) {
             throw new Error("opts.baseAsset is invalid");
         }
@@ -83,10 +80,10 @@ export class SaleRequestBuilder {
         attrs.ext = new xdr.SaleCreationRequestExt(xdr.LedgerVersion.emptyVersion());
 
         if (isUndefined(opts.saleType) || !opts.saleType) {
-            attrs.saleType = saleTypesEnum.BasicSale;
+            attrs.saleType = xdr.SaleType.basicSale().value;
         }
         else if (opts.saleType === true) {
-            attrs.saleType = saleTypesEnum.Crowdfunding;
+            attrs.saleType = xdr.SaleType.crowdFunding().value;
         } else {
             attrs.saleType = opts.saleType;
         }
@@ -95,8 +92,12 @@ export class SaleRequestBuilder {
 
         var saleTypeExt;
         var saleTypeExtTypedSale;
+        console.log(xdr.SaleType);
+        console.log(xdr.SaleType.basicSale);
+        console.log(xdr.SaleType.basicSale());
+        console.log(xdr.SaleType.basicSale().value);
         switch(attrs.saleType) {
-            case saleTypesEnum.BasicSale: {
+            case xdr.SaleType.basicSale().value: {
                 var basicSale = new xdr.BasicSale({
                     ext: new xdr.BasicSaleExt(xdr.LedgerVersion.emptyVersion())
                 });
@@ -106,7 +107,7 @@ export class SaleRequestBuilder {
                 });
                 break;
             }
-            case saleTypesEnum.Crowdfunding: {
+            case xdr.SaleType.crowdFunding().value: {
                 var crowdFundingSale = new xdr.CrowdFundingSale({
                     ext: new xdr.CrowdFundingSaleExt(xdr.LedgerVersion.emptyVersion())
                 });
@@ -116,7 +117,7 @@ export class SaleRequestBuilder {
                 });
                 break;
             }
-            case saleTypesEnum.FixedPrice: {
+            case xdr.SaleType.fixedPrice().value: {
                 var fixedPriceSale = new xdr.FixedPriceSale({
                     ext: new xdr.FixedPriceSaleExt(xdr.LedgerVersion.emptyVersion())
                 });
@@ -129,7 +130,7 @@ export class SaleRequestBuilder {
         }
 
         if (hasBaseAssetForHardCap && isUndefined(opts.saleState) &&
-        attrs.saleType !== saleTypesEnum.FixedPrice) {
+        attrs.saleType !== xdr.SaleType.fixedPrice().value) {
             var extV2 = new xdr.SaleCreationRequestExtV2({
                 saleTypeExt: saleTypeExt,
                 requiredBaseAssetForHardCap: BaseOperation._toUnsignedXDRAmount(opts.baseAssetForHardCap) });
@@ -142,9 +143,9 @@ export class SaleRequestBuilder {
                 state: opts.saleState });
 
             attrs.ext = xdr.SaleCreationRequestExt.statableSale(extV3);
-        } else if (attrs.saleType === saleTypesEnum.Crowdfunding) {
+        } else if (attrs.saleType === xdr.SaleType.crowdFunding().value) {
             attrs.ext = xdr.SaleCreationRequestExt.typedSale(saleTypeExt);
-        } else if (attrs.saleType === saleTypesEnum.FixedPrice &&
+        } else if (attrs.saleType === xdr.SaleType.fixedPrice().value &&
             (!hasBaseAssetForHardCap || isUndefined(opts.saleState))) {
             throw new Error("opts.saleType is FixedPrice, but no baseAssetForHardCap and/or saleState not provided");
         }
@@ -163,7 +164,7 @@ export class SaleRequestBuilder {
         for (var i = 0; i < opts.quoteAssets.length; i++) {
             var quoteAsset = opts.quoteAssets[i];
             var minAmount, maxAmount;
-            if (attrs.saleType === saleTypesEnum.Crowdfunding) {
+            if (attrs.saleType === xdr.SaleType.crowdFunding().value) {
                 minAmount = 1;
                 maxAmount = 1;
             }
