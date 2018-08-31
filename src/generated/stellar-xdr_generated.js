@@ -1,4 +1,4 @@
-// Automatically generated on 2018-08-30T20:54:38+03:00
+// Automatically generated on 2018-08-31T12:48:18+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -4648,15 +4648,52 @@ xdr.enum("SaleState", {
 //
 //   enum SaleType {
 //   	BASIC_SALE = 1, // sale creator specifies price for each quote asset
-//   	CROWD_FUNDING = 2 // sale creator does not specify price,
+//   	CROWD_FUNDING = 2, // sale creator does not specify price,
 //   	                  // price is defined on sale close based on amount of base asset to be sold and amount of quote assets collected
+//       FIXED_PRICE=3
 //   };
 //
 // ===========================================================================
 xdr.enum("SaleType", {
   basicSale: 1,
   crowdFunding: 2,
+  fixedPrice: 3,
 });
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("FixedPriceSaleExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct FixedPriceSale {
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("FixedPriceSale", [
+  ["ext", xdr.lookup("FixedPriceSaleExt")],
+]);
 
 // === xdr source ============================================================
 //
@@ -4736,6 +4773,8 @@ xdr.struct("BasicSale", [
 //   		BasicSale basicSale;
 //       case CROWD_FUNDING:
 //           CrowdFundingSale crowdFundingSale;
+//       case FIXED_PRICE:
+//           FixedPriceSale fixedPriceSale;
 //       }
 //
 // ===========================================================================
@@ -4745,10 +4784,12 @@ xdr.union("SaleTypeExtTypedSale", {
   switches: [
     ["basicSale", "basicSale"],
     ["crowdFunding", "crowdFundingSale"],
+    ["fixedPrice", "fixedPriceSale"],
   ],
   arms: {
     basicSale: xdr.lookup("BasicSale"),
     crowdFundingSale: xdr.lookup("CrowdFundingSale"),
+    fixedPriceSale: xdr.lookup("FixedPriceSale"),
   },
 });
 
@@ -4761,6 +4802,8 @@ xdr.union("SaleTypeExtTypedSale", {
 //   		BasicSale basicSale;
 //       case CROWD_FUNDING:
 //           CrowdFundingSale crowdFundingSale;
+//       case FIXED_PRICE:
+//           FixedPriceSale fixedPriceSale;
 //       }
 //       typedSale;
 //   };
