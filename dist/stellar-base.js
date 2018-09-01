@@ -46319,7 +46319,7 @@ var StellarBase =
 	            var createSaleCreationRequestOp = new _generatedStellarXdr_generated2['default'].CreateSaleCreationRequestOp({
 	                requestId: _jsXdr.UnsignedHyper.fromString(opts.requestID),
 	                request: request,
-	                ext: new _generatedStellarXdr_generated2['default'].CreateSaleCreationRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.statableSale())
+	                ext: new _generatedStellarXdr_generated2['default'].CreateSaleCreationRequestOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
 	            });
 	            var opAttributes = {};
 	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.createSaleRequest(createSaleCreationRequestOp);
