@@ -35,7 +35,7 @@ export class SaleRequestBuilder {
         let createSaleCreationRequestOp = new xdr.CreateSaleCreationRequestOp({
             requestId: UnsignedHyper.fromString(opts.requestID),
             request: request,
-            ext: new xdr.CreateSaleCreationRequestOpExt(xdr.LedgerVersion.emptyVersion())
+            ext: new xdr.CreateSaleCreationRequestOpExt(xdr.LedgerVersion.statableSale())
         });
         let opAttributes = {};
         opAttributes.body = xdr.OperationBody.createSaleRequest(createSaleCreationRequestOp);
