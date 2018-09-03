@@ -92,10 +92,6 @@ export class SaleRequestBuilder {
 
         var saleTypeExt;
         var saleTypeExtTypedSale;
-        console.log(xdr.SaleType);
-        console.log(xdr.SaleType.basicSale);
-        console.log(xdr.SaleType.basicSale());
-        console.log(xdr.SaleType.basicSale().value);
         switch(attrs.saleType) {
             case xdr.SaleType.basicSale().value: {
                 var basicSale = new xdr.BasicSale({
