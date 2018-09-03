@@ -1,4 +1,4 @@
-// Automatically generated on 2018-08-31T15:32:18+03:00
+// Automatically generated on 2018-09-03T13:41:27+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -7236,7 +7236,7 @@ xdr.union("SetFeesResult", {
 //       WITHDRAWAL_FEE = 2,
 //       ISSUANCE_FEE = 3,
 //       INVEST_FEE = 4, // fee to be taken while creating sale participation
-//       CAPITAL_DEPLOYMENT = 5 // fee to be taken when sale close
+//       CAPITAL_DEPLOYMENT_FEE = 5 // fee to be taken when sale close
 //   };
 //
 // ===========================================================================
@@ -7246,7 +7246,7 @@ xdr.enum("FeeType", {
   withdrawalFee: 2,
   issuanceFee: 3,
   investFee: 4,
-  capitalDeployment: 5,
+  capitalDeploymentFee: 5,
 });
 
 // === xdr source ============================================================
