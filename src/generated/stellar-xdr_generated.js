@@ -1,4 +1,4 @@
-// Automatically generated on 2018-08-23T10:54:05+03:00
+// Automatically generated on 2018-09-04T15:23:55+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -3828,6 +3828,8 @@ xdr.enum("ContractState", {
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case ADD_CUSTOMER_DETAILS_TO_CONTRACT:
+//           longstring customerDetails;
 //       }
 //
 // ===========================================================================
@@ -3836,8 +3838,10 @@ xdr.union("ContractEntryExt", {
   switchName: "v",
   switches: [
     ["emptyVersion", xdr.void()],
+    ["addCustomerDetailsToContract", "customerDetails"],
   ],
   arms: {
+    customerDetails: xdr.lookup("Longstring"),
   },
 });
 
@@ -3862,6 +3866,8 @@ xdr.union("ContractEntryExt", {
 //       {
 //       case EMPTY_VERSION:
 //           void;
+//       case ADD_CUSTOMER_DETAILS_TO_CONTRACT:
+//           longstring customerDetails;
 //       }
 //       ext;
 //   };
@@ -7332,7 +7338,8 @@ xdr.union("SetFeesResult", {
 //       WITHDRAWAL_FEE = 2,
 //       ISSUANCE_FEE = 3,
 //       INVEST_FEE = 4, // fee to be taken while creating sale participation
-//       OPERATION_FEE = 5
+//       CAPITAL_DEPLOYMENT_FEE = 5, // fee to be taken when sale close
+//       OPERATION_FEE = 6
 //   };
 //
 // ===========================================================================
@@ -7342,7 +7349,8 @@ xdr.enum("FeeType", {
   withdrawalFee: 2,
   issuanceFee: 3,
   investFee: 4,
-  operationFee: 5,
+  capitalDeploymentFee: 5,
+  operationFee: 6,
 });
 
 // === xdr source ============================================================
@@ -10559,15 +10567,52 @@ xdr.enum("SaleState", {
 //
 //   enum SaleType {
 //   	BASIC_SALE = 1, // sale creator specifies price for each quote asset
-//   	CROWD_FUNDING = 2 // sale creator does not specify price,
+//   	CROWD_FUNDING = 2, // sale creator does not specify price,
 //   	                  // price is defined on sale close based on amount of base asset to be sold and amount of quote assets collected
+//       FIXED_PRICE=3
 //   };
 //
 // ===========================================================================
 xdr.enum("SaleType", {
   basicSale: 1,
   crowdFunding: 2,
+  fixedPrice: 3,
 });
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("FixedPriceSaleExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct FixedPriceSale {
+//   	union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("FixedPriceSale", [
+  ["ext", xdr.lookup("FixedPriceSaleExt")],
+]);
 
 // === xdr source ============================================================
 //
@@ -10647,6 +10692,8 @@ xdr.struct("BasicSale", [
 //   		BasicSale basicSale;
 //       case CROWD_FUNDING:
 //           CrowdFundingSale crowdFundingSale;
+//       case FIXED_PRICE:
+//           FixedPriceSale fixedPriceSale;
 //       }
 //
 // ===========================================================================
@@ -10656,10 +10703,12 @@ xdr.union("SaleTypeExtTypedSale", {
   switches: [
     ["basicSale", "basicSale"],
     ["crowdFunding", "crowdFundingSale"],
+    ["fixedPrice", "fixedPriceSale"],
   ],
   arms: {
     basicSale: xdr.lookup("BasicSale"),
     crowdFundingSale: xdr.lookup("CrowdFundingSale"),
+    fixedPriceSale: xdr.lookup("FixedPriceSale"),
   },
 });
 
@@ -10672,6 +10721,8 @@ xdr.union("SaleTypeExtTypedSale", {
 //   		BasicSale basicSale;
 //       case CROWD_FUNDING:
 //           CrowdFundingSale crowdFundingSale;
+//       case FIXED_PRICE:
+//           FixedPriceSale fixedPriceSale;
 //       }
 //       typedSale;
 //   };
@@ -11436,7 +11487,9 @@ xdr.union("PublicKey", {
 //       ADD_REVIEW_INVOICE_REQUEST_PAYMENT_RESPONSE = 44,
 //       ADD_CONTRACT_ID_REVIEW_REQUEST_RESULT = 45,
 //       ALLOW_TO_UPDATE_AND_REJECT_LIMITS_UPDATE_REQUESTS = 46,
-//       ADD_TRANSACTION_FEE = 47
+//       ADD_CUSTOMER_DETAILS_TO_CONTRACT = 47,
+//       ADD_CAPITAL_DEPLOYMENT_FEE_TYPE = 48,
+//       ADD_TRANSACTION_FEE = 49
 //   };
 //
 // ===========================================================================
@@ -11488,7 +11541,9 @@ xdr.enum("LedgerVersion", {
   addReviewInvoiceRequestPaymentResponse: 44,
   addContractIdReviewRequestResult: 45,
   allowToUpdateAndRejectLimitsUpdateRequest: 46,
-  addTransactionFee: 47,
+  addCustomerDetailsToContract: 47,
+  addCapitalDeploymentFeeType: 48,
+  addTransactionFee: 49,
 });
 
 // === xdr source ============================================================
@@ -11930,6 +11985,45 @@ xdr.struct("UpdateKycDetails", [
 //       }
 //
 // ===========================================================================
+xdr.union("ContractDetailsExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct ContractDetails {
+//       longstring details;
+//   
+//       // Reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("ContractDetails", [
+  ["details", xdr.lookup("Longstring")],
+  ["ext", xdr.lookup("ContractDetailsExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
 xdr.union("BillPayDetailsExt", {
   switchOn: xdr.lookup("LedgerVersion"),
   switchName: "v",
@@ -12125,6 +12219,8 @@ xdr.struct("ExtendedResult", [
 //           UpdateKYCDetails updateKYC;
 //       case INVOICE:
 //           BillPayDetails billPay;
+//       case CONTRACT:
+//           ContractDetails contract;
 //   	default:
 //   		void;
 //   	}
@@ -12140,6 +12236,7 @@ xdr.union("ReviewRequestOpRequestDetails", {
     ["amlAlert", "amlAlertDetails"],
     ["updateKyc", "updateKyc"],
     ["invoice", "billPay"],
+    ["contract", "contract"],
   ],
   arms: {
     withdrawal: xdr.lookup("WithdrawalDetails"),
@@ -12148,6 +12245,7 @@ xdr.union("ReviewRequestOpRequestDetails", {
     amlAlertDetails: xdr.lookup("AmlAlertDetails"),
     updateKyc: xdr.lookup("UpdateKycDetails"),
     billPay: xdr.lookup("BillPayDetails"),
+    contract: xdr.lookup("ContractDetails"),
   },
   defaultArm: xdr.void(),
 });
@@ -12194,6 +12292,8 @@ xdr.union("ReviewRequestOpExt", {
 //           UpdateKYCDetails updateKYC;
 //       case INVOICE:
 //           BillPayDetails billPay;
+//       case CONTRACT:
+//           ContractDetails contract;
 //   	default:
 //   		void;
 //   	} requestDetails;
@@ -12296,7 +12396,10 @@ xdr.struct("ReviewRequestOp", [
 //   
 //       // Limits update requests
 //       CANNOT_CREATE_FOR_ACC_ID_AND_ACC_TYPE = 130, // limits cannot be created for account ID and account type simultaneously
-//       INVALID_LIMITS = 131
+//       INVALID_LIMITS = 131,
+//   
+//       // Contract requests
+//       CONTRACT_DETAILS_TOO_LONG = -140 // customer details reached length limit
 //   };
 //
 // ===========================================================================
@@ -12351,6 +12454,7 @@ xdr.enum("ReviewRequestResultCode", {
   destinationAccountNotFound: -126,
   cannotCreateForAccIdAndAccType: 130,
   invalidLimit: 131,
+  contractDetailsTooLong: -140,
 });
 
 // === xdr source ============================================================

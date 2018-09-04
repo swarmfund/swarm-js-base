@@ -72,7 +72,7 @@ describe('Create Sale Creation request op', function () {
                     asset: "BTC",
                 },
             ],
-            isCrowdfunding: true,
+            saleType: true,
             baseAssetForHardCap: "648251"
         }
         let op = StellarBase.SaleRequestBuilder.createSaleCreationRequest(opt);
@@ -115,7 +115,7 @@ describe('Create Sale Creation request op', function () {
                     asset: "BTC",
                 },
             ],
-            isCrowdfunding: false,
+            saleType: false,
             baseAssetForHardCap: "648251"
         }
         let op = StellarBase.SaleRequestBuilder.createSaleCreationRequest(opt);
