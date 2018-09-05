@@ -411,7 +411,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-09-03T13:41:27+03:00
+	// Automatically generated on 2018-09-04T15:23:55+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -648,10 +648,12 @@ var StellarBase =
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
+	//       case ADD_TRANSACTION_FEE:
+	//           uint64 maxTotalFee;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("TransactionExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	xdr.union("TransactionExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["addTransactionFee","maxTotalFee"]],arms:{maxTotalFee:xdr.lookup("Uint64")}}); // === xdr source ============================================================
 	//
 	//   struct Transaction
 	//   {
@@ -672,6 +674,8 @@ var StellarBase =
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
+	//       case ADD_TRANSACTION_FEE:
+	//           uint64 maxTotalFee;
 	//       }
 	//       ext;
 	//   };
@@ -850,14 +854,69 @@ var StellarBase =
 	//   
 	//       txBAD_AUTH = -5,             // too few valid signatures / wrong network
 	//       txNO_ACCOUNT = -6,           // source account not found
-	//       txBAD_AUTH_EXTRA = -7,      // unused signatures attached to transaction
-	//       txINTERNAL_ERROR = -8,      // an unknown error occured
-	//   	txACCOUNT_BLOCKED = -9,     // account is blocked and cannot be source of tx
-	//       txDUPLICATION = -10         // if timing is stored
+	//       txBAD_AUTH_EXTRA = -7,       // unused signatures attached to transaction
+	//       txINTERNAL_ERROR = -8,       // an unknown error occured
+	//   	txACCOUNT_BLOCKED = -9,      // account is blocked and cannot be source of tx
+	//       txDUPLICATION = -10,         // if timing is stored
+	//       txINSUFFICIENT_FEE = -11,    // the actual total fee amount is greater than the max total fee amount, provided by the source
+	//       txSOURCE_UNDERFUNDED = -12,  // not enough tx fee asset on source balance
+	//       txCOMMISSION_LINE_FULL = -13 // commission tx fee asset balance amount overflow
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("TransactionResultCode",{txSuccess:0,txFailed:-1,txTooEarly:-2,txTooLate:-3,txMissingOperation:-4,txBadAuth:-5,txNoAccount:-6,txBadAuthExtra:-7,txInternalError:-8,txAccountBlocked:-9,txDuplication:-10}); // === xdr source ============================================================
+	xdr["enum"]("TransactionResultCode",{txSuccess:0,txFailed:-1,txTooEarly:-2,txTooLate:-3,txMissingOperation:-4,txBadAuth:-5,txNoAccount:-6,txBadAuthExtra:-7,txInternalError:-8,txAccountBlocked:-9,txDuplication:-10,txInsufficientFee:-11,txSourceUnderfunded:-12,txCommissionLineFull:-13}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("OperationFeeExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct OperationFee
+	//   {
+	//       OperationType operationType;
+	//       uint64 amount;
+	//   
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("OperationFee",[["operationType",xdr.lookup("OperationType")],["amount",xdr.lookup("Uint64")],["ext",xdr.lookup("OperationFeeExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("TransactionFeeExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct TransactionFee
+	//   {
+	//       AssetCode assetCode;
+	//       OperationFee operationFees<100>;
+	//   
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("TransactionFee",[["assetCode",xdr.lookup("AssetCode")],["operationFees",xdr.varArray(xdr.lookup("OperationFee"),100)],["ext",xdr.lookup("TransactionFeeExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (TransactionResultCode code)
 	//       {
@@ -875,10 +934,12 @@ var StellarBase =
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
+	//       case ADD_TRANSACTION_FEE:
+	//           TransactionFee transactionFee;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("TransactionResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	xdr.union("TransactionResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["addTransactionFee","transactionFee"]],arms:{transactionFee:xdr.lookup("TransactionFee")}}); // === xdr source ============================================================
 	//
 	//   struct TransactionResult
 	//   {
@@ -899,6 +960,8 @@ var StellarBase =
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
+	//       case ADD_TRANSACTION_FEE:
+	//           TransactionFee transactionFee;
 	//       }
 	//       ext;
 	//   };
@@ -4826,11 +4889,12 @@ var StellarBase =
 	//       WITHDRAWAL_FEE = 2,
 	//       ISSUANCE_FEE = 3,
 	//       INVEST_FEE = 4, // fee to be taken while creating sale participation
-	//       CAPITAL_DEPLOYMENT_FEE = 5 // fee to be taken when sale close
+	//       CAPITAL_DEPLOYMENT_FEE = 5, // fee to be taken when sale close
+	//       OPERATION_FEE = 6
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("FeeType",{paymentFee:0,offerFee:1,withdrawalFee:2,issuanceFee:3,investFee:4,capitalDeploymentFee:5}); // === xdr source ============================================================
+	xdr["enum"]("FeeType",{paymentFee:0,offerFee:1,withdrawalFee:2,issuanceFee:3,investFee:4,capitalDeploymentFee:5,operationFee:6}); // === xdr source ============================================================
 	//
 	//   enum EmissionFeeType
 	//   {
@@ -7380,11 +7444,12 @@ var StellarBase =
 	//       ADD_CONTRACT_ID_REVIEW_REQUEST_RESULT = 45,
 	//       ALLOW_TO_UPDATE_AND_REJECT_LIMITS_UPDATE_REQUESTS = 46,
 	//       ADD_CUSTOMER_DETAILS_TO_CONTRACT = 47,
-	//       ADD_CAPITAL_DEPLOYMENT_FEE_TYPE = 48
+	//       ADD_CAPITAL_DEPLOYMENT_FEE_TYPE = 48,
+	//       ADD_TRANSACTION_FEE = 49
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23,allowToCancelSaleParticipWithoutSpecifingBalance:24,detailsMaxLengthExtended:25,allowMasterToManageSale:26,useSaleAnte:27,fixAssetPairsCreationInSaleCreation:28,statableSale:29,createOnlyStatisticsV2:30,limitsUpdateRequestDeprecatedDocumentHash:31,fixPaymentV2Fee:32,addSaleIdReviewRequestResult:33,fixSetSaleStateAndCheckSaleStateOp:34,fixUpdateMaxIssuance:35,allowCloseSaleWithNonZeroBalance:36,allowToUpdateVotingSalesAsPromotion:37,allowToIssueAfterSale:38,fixPaymentV2SendToSelf:39,fixPaymentV2DestAccountNotFound:40,fixCreateKycRequestAutoApprove:41,addTasksToReviewableRequest:42,useOnlyPaymentV2:43,addReviewInvoiceRequestPaymentResponse:44,addContractIdReviewRequestResult:45,allowToUpdateAndRejectLimitsUpdateRequest:46,addCustomerDetailsToContract:47,addCapitalDeploymentFeeType:48}); // === xdr source ============================================================
+	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1,detailedLedgerChange:2,newSignerType:3,typedSale:4,uniqueBalanceCreation:5,assetPreissuerMigration:6,assetPreissuerMigrated:7,useKycLevel:8,errorOnNonZeroTasksToRemoveInRejectKyc:9,allowAccountManagerToChangeKyc:10,changeAssetIssuerBadAuthExtraFixed:11,autoCreateCommissionBalanceOnTransfer:12,allowRejectRequestOfBlockedRequestor:13,assetUpdateCheckReferenceExist:14,crossAssetFee:15,usePaymentV2:16,allowSyndicateToUpdateKyc:17,doNotBuildAccountIfVersionEqualsOrGreater:18,allowToSpecifyRequiredBaseAssetAmountForHardCap:19,kycRule:20,allowToCreateSeveralSale:21,keyValuePoolEntryExpiresAt:22,keyValueUpdate:23,allowToCancelSaleParticipWithoutSpecifingBalance:24,detailsMaxLengthExtended:25,allowMasterToManageSale:26,useSaleAnte:27,fixAssetPairsCreationInSaleCreation:28,statableSale:29,createOnlyStatisticsV2:30,limitsUpdateRequestDeprecatedDocumentHash:31,fixPaymentV2Fee:32,addSaleIdReviewRequestResult:33,fixSetSaleStateAndCheckSaleStateOp:34,fixUpdateMaxIssuance:35,allowCloseSaleWithNonZeroBalance:36,allowToUpdateVotingSalesAsPromotion:37,allowToIssueAfterSale:38,fixPaymentV2SendToSelf:39,fixPaymentV2DestAccountNotFound:40,fixCreateKycRequestAutoApprove:41,addTasksToReviewableRequest:42,useOnlyPaymentV2:43,addReviewInvoiceRequestPaymentResponse:44,addContractIdReviewRequestResult:45,allowToUpdateAndRejectLimitsUpdateRequest:46,addCustomerDetailsToContract:47,addCapitalDeploymentFeeType:48,addTransactionFee:49}); // === xdr source ============================================================
 	//
 	//   typedef opaque Signature<64>;
 	//
@@ -43976,6 +44041,9 @@ var StellarBase =
 	        this.signatures = (0, _lodashMap2["default"])(signatures, function (s) {
 	            return s;
 	        });
+
+	        var maxTotalFee = envelope.tx().ext().maxTotalFee() || 0;
+	        this.maxTotalFee = _operation.Operation._fromXDRAmount(maxTotalFee);
 	    }
 
 	    /**
@@ -46756,7 +46824,12 @@ var StellarBase =
 	        value: function putKeyValue(opts) {
 	            var attributes = {};
 
-	            var value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue.uint32(Number(opts.value));
+	            var value = undefined;
+	            if (isNaN(opts.value)) {
+	                value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue.string(opts.value);
+	            } else {
+	                value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue.uint32(Number(opts.value));
+	            }
 
 	            var KVEntry = new _generatedStellarXdr_generated2["default"].KeyValueEntry({
 	                key: opts.key,
@@ -46795,7 +46868,7 @@ var StellarBase =
 	                throw new Error("key_value key must be defined");
 	            }
 	            if (!(0, _lodashIsString2["default"])(opts.key)) {
-	                throw new Error("key value key must be string");
+	                throw new Error("key_value key must be string");
 	            }
 
 	            attributes.key = opts.key;
@@ -46816,7 +46889,14 @@ var StellarBase =
 	            switch (attrs.action()["switch"]()) {
 	                case _generatedStellarXdr_generated2["default"].ManageKvAction.put():
 	                    result.action = new _generatedStellarXdr_generated2["default"].ManageKvAction.put().value;
-	                    result.value = action.value().ui32Value().toString();
+	                    switch (action.value()["switch"]()) {
+	                        case _generatedStellarXdr_generated2["default"].KeyValueEntryType.string():
+	                            result.value = action.value().stringValue().toString();
+	                            break;
+	                        case _generatedStellarXdr_generated2["default"].KeyValueEntryType.uint32():
+	                            result.value = action.value().ui32Value().toString();
+	                            break;
+	                    }
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].ManageKvAction.remove():
 	                    result.action = new _generatedStellarXdr_generated2["default"].ManageKvAction.remove().value;
@@ -50835,6 +50915,7 @@ var StellarBase =
 	     * @param {string} [opts.timebounds.minTime] - 64 bit unix timestamp
 	     * @param {string} [opts.timebounds.maxTime] - 64 bit unix timestamp
 	     * @param {Memo} [opts.memo] - The memo for the transaction
+	     * @param {number|string} [opts.MaxTotalFee] - Max fee amount that source is willing to pay
 	     */
 
 	    function TransactionBuilder(sourceAccount) {
@@ -50852,6 +50933,7 @@ var StellarBase =
 	        this.timebounds = (0, _lodashClone2["default"])(opts.timebounds);
 	        this.salt = opts.salt;
 	        this.memo = opts.memo || _memo.Memo.none();
+	        this.maxTotalFee = opts.MaxTotalFee;
 
 	        // the signed base64 form of the transaction to be sent to Horizon
 	        this.blob = null;
@@ -50879,6 +50961,18 @@ var StellarBase =
 	        key: "addMemo",
 	        value: function addMemo(memo) {
 	            this.memo = memo;
+	            return this;
+	        }
+
+	        /**
+	         * Adds max total fee to the transaction.
+	         * @param {number|string} maxTotalFee.
+	         * @returns {TransactionBuilder}
+	         */
+	    }, {
+	        key: "addMaxTotalFee",
+	        value: function addMaxTotalFee(maxTotalFee) {
+	            this.maxTotalFee = maxTotalFee;
 	            return this;
 	        }
 
@@ -50914,6 +51008,10 @@ var StellarBase =
 	            };
 
 	            attrs.timeBounds = new _generatedStellarXdr_generated2["default"].TimeBounds(this.timebounds);
+
+	            if (!(0, _lodashIsUndefined2["default"])(this.maxTotalFee)) {
+	                attrs.ext = new _generatedStellarXdr_generated2["default"].TransactionExt.addTransactionFee(_operation.Operation._toUnsignedXDRAmount(this.maxTotalFee));
+	            }
 
 	            var xtx = new _generatedStellarXdr_generated2["default"].Transaction(attrs);
 	            xtx.operations(this.operations);

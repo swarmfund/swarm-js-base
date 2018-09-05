@@ -19,7 +19,13 @@ export class  ManageKeyValueBuilder {
     static putKeyValue(opts){
         let attributes = {};
 
-        let value = new xdr.KeyValueEntryValue.uint32(Number(opts.value));
+        let value;
+        if (isNaN(opts.value)) {
+            value = new xdr.KeyValueEntryValue.string(opts.value);
+        }
+        else {
+            value = new xdr.KeyValueEntryValue.uint32(Number(opts.value));
+        }
 
         let KVEntry = new xdr.KeyValueEntry({
             key: opts.key,
@@ -58,7 +64,7 @@ export class  ManageKeyValueBuilder {
         }
         if(!isString(opts.key))
         {
-            throw new Error("key value key must be string");
+            throw new Error("key_value key must be string");
         }
 
         attributes.key = opts.key;
@@ -78,7 +84,14 @@ export class  ManageKeyValueBuilder {
         switch (attrs.action().switch()) {
             case xdr.ManageKvAction.put():
                 result.action = new xdr.ManageKvAction.put().value;
-                result.value = action.value().ui32Value().toString();
+                switch (action.value().switch()) {
+                    case xdr.KeyValueEntryType.string():
+                        result.value = action.value().stringValue().toString();
+                        break;
+                    case xdr.KeyValueEntryType.uint32():
+                        result.value = action.value().ui32Value().toString();
+                        break;
+                }
                 break;
             case xdr.ManageKvAction.remove():
                 result.action = new xdr.ManageKvAction.remove().value;
