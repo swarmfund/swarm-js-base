@@ -2,7 +2,7 @@ import {BaseOperation} from "./base_operation";
 import {default as xdr} from "../generated/stellar-xdr_generated";
 import isUndefined from 'lodash/isUndefined';
 import isString from 'lodash/isString';
-
+import {UnsignedHyper} from "js-xdr";
 export class  ManageKeyValueBuilder {
 
     /**
@@ -20,11 +20,15 @@ export class  ManageKeyValueBuilder {
         let attributes = {};
 
         let value;
-        if (isNaN(opts.value)) {
+        if (isNaN(opts.value) || opts.entryType === xdr.KeyValueEntryType.string().value) {
             value = new xdr.KeyValueEntryValue.string(opts.value);
         }
-        else {
+        else if (isUndefined(opts.entryType) || opts.entryType === xdr.KeyValueEntryType.uint32().value){
             value = new xdr.KeyValueEntryValue.uint32(Number(opts.value));
+        } else if (opts.entryType === xdr.KeyValueEntryType.uint64().value){
+            value = new xdr.KeyValueEntryValue.uint64((UnsignedHyper.fromString(opts.value)));
+        } else {
+            throw new Error("Cannot figure out value type");
         }
 
         let KVEntry = new xdr.KeyValueEntry({
@@ -90,6 +94,9 @@ export class  ManageKeyValueBuilder {
                         break;
                     case xdr.KeyValueEntryType.uint32():
                         result.value = action.value().ui32Value().toString();
+                        break;
+                    case xdr.KeyValueEntryType.uint64():
+                        result.value = action.value().ui64Value().toString();
                         break;
                 }
                 break;
