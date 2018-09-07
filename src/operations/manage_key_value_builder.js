@@ -20,7 +20,7 @@ export class  ManageKeyValueBuilder {
         let attributes = {};
 
         let value;
-        if (isNaN(opts.value) || opts.entryType === xdr.KeyValueEntryType.uint32()) {
+        if (isNaN(opts.value) || opts.entryType === xdr.KeyValueEntryType.string()) {
             value = new xdr.KeyValueEntryValue.string(opts.value);
         }
         else if (isUndefined(opts.entryType) || opts.entryType === xdr.KeyValueEntryType.uint32()){
