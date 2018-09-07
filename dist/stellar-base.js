@@ -46808,6 +46808,8 @@ var StellarBase =
 
 	var _lodashIsString2 = _interopRequireDefault(_lodashIsString);
 
+	var _jsXdr = __webpack_require__(3);
+
 	var ManageKeyValueBuilder = (function () {
 	    function ManageKeyValueBuilder() {
 	        _classCallCheck(this, ManageKeyValueBuilder);
@@ -46831,12 +46833,12 @@ var StellarBase =
 	            var attributes = {};
 
 	            var value = undefined;
-	            if (isNaN(opts.value) || opts.entryType === _generatedStellarXdr_generated2["default"].KeyValueEntryType.string()) {
+	            if (isNaN(opts.value) || opts.entryType === _generatedStellarXdr_generated2["default"].KeyValueEntryType.string().value) {
 	                value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue.string(opts.value);
-	            } else if ((0, _lodashIsUndefined2["default"])(opts.entryType) || opts.entryType === _generatedStellarXdr_generated2["default"].KeyValueEntryType.uint32()) {
+	            } else if ((0, _lodashIsUndefined2["default"])(opts.entryType) || opts.entryType === _generatedStellarXdr_generated2["default"].KeyValueEntryType.uint32().value) {
 	                value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue.uint32(Number(opts.value));
-	            } else if (opts.entryType === _generatedStellarXdr_generated2["default"].KeyValueEntryType.uint64()) {
-	                value = new KeyValueEntryValue.uint64(Number(opts.value));
+	            } else if (opts.entryType === _generatedStellarXdr_generated2["default"].KeyValueEntryType.uint64().value) {
+	                value = new _generatedStellarXdr_generated2["default"].KeyValueEntryValue.uint64(_jsXdr.UnsignedHyper.fromString(opts.value));
 	            } else {
 	                throw new Error("Cannot figure out value type");
 	            }

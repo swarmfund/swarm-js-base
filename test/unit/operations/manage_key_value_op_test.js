@@ -71,7 +71,7 @@ describe('Manage Key Value', function () {
             let opts = {
                 key: key,
                 value: value,
-                entryType: StellarBase.xdr.KeyValueEntryType.uint64()
+                entryType: StellarBase.xdr.KeyValueEntryType.uint64().value
             };
 
             let op = StellarBase.ManageKeyValueBuilder.putKeyValue(opts);
