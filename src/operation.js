@@ -630,6 +630,9 @@ export class Operation extends BaseOperation {
             case xdr.OperationType.createManageLimitsRequest():
                 CreateManageLimitsRequestBuilder.createManageLimitsRequestToObject(result, attrs);
                 break;
+            case xdr.OperationType.cancelSaleRequest():
+                SaleRequestBuilder.cancelSaleCreationRequestToObject(result, attrs);
+                break;
             default:
                 throw new Error("Unknown operation");
 

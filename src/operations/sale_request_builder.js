@@ -6,7 +6,7 @@ import {UnsignedHyper, Hyper} from "js-xdr";
 export class SaleRequestBuilder {
 
     /**
-     * Creates operation to create withdraw request with autoconversion
+     * Creates operation to create sale request
      * @param {object} opts
      * @param {string} opts.requestID - ID of the request. 0 - to create new;
      * @param {string} opts.baseAsset - asset for which sale will be performed
@@ -39,6 +39,27 @@ export class SaleRequestBuilder {
         });
         let opAttributes = {};
         opAttributes.body = xdr.OperationBody.createSaleRequest(createSaleCreationRequestOp);
+        BaseOperation.setSourceAccount(opAttributes, opts);
+        return new xdr.Operation(opAttributes);
+    }
+
+    /**
+     * Creates operation to cancel sale request
+     * @param {object} opts
+     * @param {string} opts.requestID - ID of the request
+     * @param {string} [opts.source] - The source account for the operation.
+     * Defaults to the transaction's source account.
+     * @returns {xdr.CancelSaleCreationRequestOp}
+     */
+    static cancelSaleCreationRequest(opts) {
+        let cancelSaleCreationRequestOp = new xdr.CancelSaleCreationRequestOp({
+            requestId: UnsignedHyper.fromString(opts.requestID),
+            ext: new xdr.CancelSaleCreationRequestOpExt(
+                xdr.LedgerVersion.emptyVersion())
+        });
+        let opAttributes = {};
+        opAttributes.body = xdr.OperationBody.cancelSaleRequest(
+            cancelSaleCreationRequestOp);
         BaseOperation.setSourceAccount(opAttributes, opts);
         return new xdr.Operation(opAttributes);
     }
@@ -233,6 +254,10 @@ export class SaleRequestBuilder {
                 break;
             }
         }
+    }
+
+    static cancelSaleCreationRequestToObject(result, attrs) {
+        result.requestID = attrs.requestId().toString();
     }
 
     /**
