@@ -1,4 +1,4 @@
-// Automatically generated on 2018-09-11T16:26:05+03:00
+// Automatically generated on 2018-09-13T19:30:07+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -7364,9 +7364,9 @@ xdr.union("CancelSaleCreationRequestOpExt", {
 //
 //   struct CancelSaleCreationRequestOp
 //   {
-//   	uint64 requestID;
+//       uint64 requestID;
 //   
-//   	union switch (LedgerVersion v)
+//       union switch (LedgerVersion v)
 //       {
 //       case EMPTY_VERSION:
 //           void;
@@ -7390,7 +7390,7 @@ xdr.struct("CancelSaleCreationRequestOp", [
 //   
 //       // codes considered as "failure" for the operation
 //       REQUEST_ID_INVALID = -1, // request id can not be equal zero
-//   	REQUEST_NOT_FOUND = -2 // trying to cancel not existing reviewable request
+//       REQUEST_NOT_FOUND = -2 // trying to cancel not existing reviewable request
 //   };
 //
 // ===========================================================================
@@ -7423,7 +7423,7 @@ xdr.union("CancelSaleCreationSuccessExt", {
 //
 //   struct CancelSaleCreationSuccess {
 //   
-//   	union switch (LedgerVersion v)
+//       union switch (LedgerVersion v)
 //       {
 //       case EMPTY_VERSION:
 //           void;

@@ -411,7 +411,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-09-11T16:26:05+03:00
+	// Automatically generated on 2018-09-13T19:30:07+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -4901,9 +4901,9 @@ var StellarBase =
 	//
 	//   struct CancelSaleCreationRequestOp
 	//   {
-	//   	uint64 requestID;
+	//       uint64 requestID;
 	//   
-	//   	union switch (LedgerVersion v)
+	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
@@ -4922,7 +4922,7 @@ var StellarBase =
 	//   
 	//       // codes considered as "failure" for the operation
 	//       REQUEST_ID_INVALID = -1, // request id can not be equal zero
-	//   	REQUEST_NOT_FOUND = -2 // trying to cancel not existing reviewable request
+	//       REQUEST_NOT_FOUND = -2 // trying to cancel not existing reviewable request
 	//   };
 	//
 	// ===========================================================================
@@ -4939,7 +4939,7 @@ var StellarBase =
 	//
 	//   struct CancelSaleCreationSuccess {
 	//   
-	//   	union switch (LedgerVersion v)
+	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
