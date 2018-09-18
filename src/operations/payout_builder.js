@@ -5,13 +5,20 @@ import {Keypair} from "../keypair";
 import {UnsignedHyper, Hyper} from "js-xdr";
 
 export class PayoutOpBuilder {
+
     /**
      * Create a payout operation.
      * @param {object} opts
      * @param {string} opts.asset - Asset, whose holders will receive dividends
-     * @param {string} opts.sourceBalanceId - Id of balance from which payout will be performed
-     * @param {string} opts.maxPayoutAmount - The maximum amount of payout
-     * @param {string} opts.fee - fee to be charged
+     * @param {string} opts.sourceBalanceId - Id of balance from
+     * which payout will be performed
+     * @param {string} opts.maxPayoutAmount -
+     *                  The maximum amount of payout for all balances
+     * @param {string} opts.minPayoutAmount -
+     *                  The minimum amount of payout to each balance
+     * @param {string} opts.minAssetHolderAmount -
+     *                  The minimum amount of tokens on holders balances
+     * @param {object} opts.fee - fee to be charged
      * @param {string} opts.fee.fixed - The fixed fee
      * @param {string} opts.fee.percent - The payout fee
      * @param {string} [opts.source] - The source account for the payout.

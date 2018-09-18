@@ -120,7 +120,7 @@ export class BaseOperation {
     }
 
 
-    static isValidAmount(value, allowZero = false, max = undefined) {
+    static isValidAmount(value, allowZero = false, max = undefined, min = undefined) {
         if (!isString(value)) {
             return false;
         }
@@ -148,6 +148,10 @@ export class BaseOperation {
         }
 
         if (max && amount.greaterThan(new BigNumber(max).toString())) {
+            return false;
+        }
+
+        if (min && new BigNumber(min).greaterThan(amount.toString())) {
             return false;
         }
 
@@ -273,6 +277,30 @@ export class BaseOperation {
         return xdr.AccountType._byValue.get(rawAccountType);
     }
 
+    static _statsOpTypeFromNumber(rawStatsOpType) {
+        if (!BaseOperation._isValidStatsOpType(rawStatsOpType)) {
+            throw new Error(`XDR Read Error: Unknown StatsOpType member for value ${rawStatsOpType}`);
+        }
+
+        return xdr.StatsOpType._byValue.get(rawStatsOpType);
+    }
+
+    static _keyValueTypeFromNumber(rawKVType){
+        if (!BaseOperation._isValidKVType(rawKVType)) {
+            throw new Error(`XDR Read Error: Unknown KeyValueType number for value ${rawKVType}`);
+        }
+
+        return xdr.KeyValueEntryType._byValue.get(rawKVType);
+    }
+
+    static _keyValueActionFromNumber(rawKVAction){
+        if (!BaseOperation._isValidKVAction(rawKVAction)) {
+            throw new Error(`XDR Read Error: Unknown KeyValueAction number for value ${rawKVAction}`);
+        }
+
+        return xdr.ManageKvAction._byValue.get(rawKVAction);
+    }
+
     static isFeeValid(fee) {
         return BaseOperation.isValidAmount(fee.fixed, true) && BaseOperation.isValidAmount(fee.percent, true);
     }
@@ -295,9 +323,20 @@ export class BaseOperation {
         return xdr.RequestType._byValue.get(rawRequestType);
     }
 
-
     static _isValidAccountType(rawAccountType) {
         return xdr.AccountType._byValue.has(rawAccountType);
+    }
+
+    static _isValidStatsOpType(rawStatsOpType) {
+        return xdr.StatsOpType._byValue.has(rawStatsOpType);
+    }
+
+    static _isValidKVType(rawKVType) {
+        return xdr.KeyValueEntryType._byValue.has(rawKVType);
+    }
+
+    static _isValidKVAction(rawKVAction) {
+        return xdr.ManageKvAction._byValue.has(rawKVAction);
     }
 
     static _isValidRequestType(rawRequestType) {
@@ -325,4 +364,5 @@ export class BaseOperation {
             opAttributes.sourceAccount = Keypair.fromAccountId(opts.source).xdrAccountId();
         }
     }
+
 }

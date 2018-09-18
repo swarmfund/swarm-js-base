@@ -1,10 +1,10 @@
-import { default as xdr } from "../generated/stellar-xdr_generated";
+import {default as xdr} from "../generated/stellar-xdr_generated";
 import isUndefined from 'lodash/isUndefined';
-import { BaseOperation } from './base_operation';
-import { Keypair } from "../keypair";
-import { UnsignedHyper, Hyper } from "js-xdr";
+import {BaseOperation} from './base_operation';
+import {Keypair} from "../keypair";
+import {UnsignedHyper, Hyper} from "js-xdr";
 import {Hasher} from '../util/hasher';
-import {Operation} from "../operation";
+import {PaymentV2Builder} from "./payment_v2_builder";
 
 export class ReviewRequestBuilder {
 
@@ -17,6 +17,9 @@ export class ReviewRequestBuilder {
      * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
      * @param {string} opts.reason - Reject reason
      * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+     * @param {number|string} opts.tasksToAdd - new tasks for reviewable request to be accomplished before fulfill
+     * @param {number|string} opts.tasksToRemove - tasks, which were done by the reviewer and should be removed
+     * @param {string} opts.ExternalDetails - the reviewer's commentary
      * @returns {xdr.ReviewRequestOp}
      */
     static reviewRequest(opts) {
@@ -60,7 +63,27 @@ export class ReviewRequestBuilder {
         }
 
         attrs.reason = opts.reason;
-        attrs.ext = new xdr.ReviewRequestOpExt(xdr.LedgerVersion.emptyVersion());
+
+        if (isUndefined(opts.tasksToAdd)) {
+            opts.tasksToAdd = 0;
+        }
+
+        if (isUndefined(opts.tasksToRemove)) {
+            opts.tasksToRemove = 0;
+        }
+
+        if (isUndefined(opts.externalDetails)) {
+            opts.externalDetails = {};
+        }
+
+        let reviewDetails = new xdr.ReviewDetails({
+            tasksToAdd: opts.tasksToAdd,
+            tasksToRemove: opts.tasksToRemove,
+            externalDetails: JSON.stringify(opts.externalDetails),
+            ext: new xdr.ReviewDetailsExt(xdr.LedgerVersion.emptyVersion())
+        });
+
+        attrs.ext = new xdr.ReviewRequestOpExt.addTasksToReviewableRequest(reviewDetails);
 
         return attrs;
     }
@@ -86,6 +109,32 @@ export class ReviewRequestBuilder {
         attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.withdraw(new xdr.WithdrawalDetails({
             ext: new xdr.WithdrawalDetailsExt(xdr.LedgerVersion.emptyVersion()),
             externalDetails: JSON.stringify(opts.externalDetails),
+        }));
+
+        return ReviewRequestBuilder._createOp(opts, attrs);
+    }
+
+    /**
+     * Creates operation to review aml alert request
+     * @param {object} opts
+     * @param {string} opts.requestID - request ID
+     * @param {string} opts.requestHash - Hash of the request to be reviewed
+     * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
+     * @param {string} opts.reason - Reject reason
+     * @param {string} opts.comment - Comment to review
+     * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+     * @returns {xdr.ReviewRequestOp}
+     */
+    static reviewAmlAlertRequest(opts) {
+        if (isUndefined(opts.comment)) {
+            throw new Error("opts.comment is invalid");
+        }
+
+        let attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.amlAlert(new xdr.AmlAlertDetails({
+            ext: new xdr.AmlAlertDetailsExt(xdr.LedgerVersion.emptyVersion()),
+            comment: opts.comment,
         }));
 
         return ReviewRequestBuilder._createOp(opts, attrs);
@@ -124,17 +173,108 @@ export class ReviewRequestBuilder {
 
         let attrs = ReviewRequestBuilder._prepareAttrs(opts);
 
+        let rawLimitsV2Entry = {};
+
+        if(isUndefined(opts.newLimits.id)) {
+            throw new Error('opts.newLimits.id is not defined');
+        }
+        rawLimitsV2Entry.id = UnsignedHyper.fromString(opts.newLimits.id);
+
+        if (!isUndefined(opts.newLimits.accountID) && !isUndefined(opts.newLimits.accountType)) {
+            throw new Error('opts.newLimits.accountID and opts.newLimits.accountType cannot be set for same limits');
+        }
+
+        if (!isUndefined(opts.newLimits.accountID)) {
+            if (!Keypair.isValidPublicKey(opts.newLimits.accountID)) {
+                throw new Error('opts.newLimits.accountID is invalid');
+            }
+            rawLimitsV2Entry.accountId = Keypair.fromAccountId(opts.newLimits.accountID).xdrAccountId();
+        }
+
+        if (!isUndefined(opts.newLimits.accountType)) {
+            rawLimitsV2Entry.accountType = BaseOperation._accountTypeFromNumber(opts.newLimits.accountType);
+        }
+
+        if (isUndefined(opts.newLimits.statsOpType)) {
+            throw new Error('opts.newLimits.statsOpType is not defined');
+        }
+        rawLimitsV2Entry.statsOpType = BaseOperation._statsOpTypeFromNumber(opts.newLimits.statsOpType);
+
+        if (isUndefined(opts.newLimits.assetCode) || !BaseOperation.isValidAsset(opts.newLimits.assetCode)) {
+            throw new Error('opts.newLimits.assetCode is invalid');
+        }
+        rawLimitsV2Entry.assetCode = opts.newLimits.assetCode;
+
+        if (isUndefined(opts.newLimits.isConvertNeeded)) {
+            throw new Error('opts.newLimits.isConvertNeeded is not defined');
+        }
+        rawLimitsV2Entry.isConvertNeeded = opts.newLimits.isConvertNeeded;
+
+        rawLimitsV2Entry.dailyOut = BaseOperation._toUnsignedXDRAmount(opts.newLimits.dailyOut);
+        rawLimitsV2Entry.weeklyOut = BaseOperation._toUnsignedXDRAmount(opts.newLimits.weeklyOut);
+        rawLimitsV2Entry.monthlyOut = BaseOperation._toUnsignedXDRAmount(opts.newLimits.monthlyOut);
+        rawLimitsV2Entry.annualOut = BaseOperation._toUnsignedXDRAmount(opts.newLimits.annualOut);
+        rawLimitsV2Entry.ext = new xdr.LimitsV2EntryExt(xdr.LedgerVersion.emptyVersion());
+
         attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.limitsUpdate(new xdr.LimitsUpdateDetails({
-            newLimits: new xdr.Limits({
-                dailyOut: BaseOperation._toXDRAmount(opts.newLimits.dailyOut),
-                weeklyOut: BaseOperation._toXDRAmount(opts.newLimits.weeklyOut),
-                monthlyOut: BaseOperation._toXDRAmount(opts.newLimits.monthlyOut),
-                annualOut: BaseOperation._toXDRAmount(opts.newLimits.annualOut),
-                ext: new xdr.LimitsExt(xdr.LedgerVersion.emptyVersion())
-            }),
-            ext: new xdr.LimitsUpdateDetailsExt(xdr.LedgerVersion.emptyVersion())
+            newLimitsV2: new xdr.LimitsV2Entry(rawLimitsV2Entry),
+            ext: new xdr.LimitsUpdateDetailsExt(xdr.LedgerVersion.emptyVersion()),
         }));
 
+        return ReviewRequestBuilder._createOp(opts, attrs);
+    }
+
+    static reviewUpdateKYCRequest(opts) {
+        let attrs = ReviewRequestBuilder._prepareAttrs(opts);
+
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.updateKyc(new xdr.UpdateKycDetails({
+            tasksToAdd: opts.tasksToAdd,
+            tasksToRemove: opts.tasksToRemove,
+            externalDetails: JSON.stringify(opts.externalDetails),
+            ext: new xdr.UpdateKycDetailsExt(xdr.LedgerVersion.emptyVersion())
+        }));
+
+        return ReviewRequestBuilder._createOp(opts, attrs);
+    }
+
+    /**
+     * Creates operation to review invoice request
+     * @param {object} opts
+     * @param {string} opts.requestID - request ID
+     * @param {string} opts.requestHash - Hash of the request to be reviewed
+     * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
+     * @param {string} opts.reason - Reject reason
+     * @param {object} opts.billPayDetails - invoice payment details (xdr.PaymentOpV2)
+     * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+     * @returns {xdr.ReviewRequestOp}
+     */
+    static reviewInvoiceRequest(opts) {
+        let attrs = ReviewRequestBuilder._prepareAttrs(opts);
+        let billPayDetails = PaymentV2Builder.prepareAttrs(opts.billPayDetails);
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.invoice(new xdr.BillPayDetails({
+            paymentDetails: new xdr.PaymentOpV2(billPayDetails),
+            ext: new xdr.BillPayDetailsExt(xdr.LedgerVersion.emptyVersion())
+        }));
+        return ReviewRequestBuilder._createOp(opts, attrs);
+    }
+
+    /**
+     * Creates operation to review contract request
+     * @param {object} opts
+     * @param {string} opts.requestID - request ID
+     * @param {string} opts.requestHash - Hash of the request to be reviewed
+     * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
+     * @param {string} opts.reason - Reject reason
+     * @param {object} opts.details - customer details about contract
+     * @param {string} [opts.source] - The source account for the review request. Defaults to the transaction's source account.
+     * @returns {xdr.ReviewRequestOp}
+     */
+    static reviewContractRequest(opts) {
+        let attrs = ReviewRequestBuilder._prepareAttrs(opts);
+        attrs.requestDetails = new xdr.ReviewRequestOpRequestDetails.contract(new xdr.ContractDetails({
+            details: JSON.stringify(opts.details),
+            ext: new xdr.ContractDetailsExt(xdr.LedgerVersion.emptyVersion())
+        }));
         return ReviewRequestBuilder._createOp(opts, attrs);
     }
 
@@ -150,14 +290,29 @@ export class ReviewRequestBuilder {
                 break;
             }
             case xdr.ReviewableRequestType.limitsUpdate(): {
+                let newLimitsV2 = attrs.requestDetails().limitsUpdate().newLimitsV2();
+
                 result.limitsUpdate = {
                     newLimits: {
-                        dailyOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().dailyOut()),
-                        weeklyOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().weeklyOut()),
-                        monthlyOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().monthlyOut()),
-                        annualOut: BaseOperation._fromXDRAmount(attrs.requestDetails().limitsUpdate().newLimits().annualOut())
+                        id: newLimitsV2.id().toString(),
+                        statsOpType: newLimitsV2.statsOpType().value,
+                        assetCode: newLimitsV2.assetCode(),
+                        isConvertNeeded: newLimitsV2.isConvertNeeded(),
+                        dailyOut: BaseOperation._fromXDRAmount(newLimitsV2.dailyOut()),
+                        weeklyOut: BaseOperation._fromXDRAmount(newLimitsV2.weeklyOut()),
+                        monthlyOut: BaseOperation._fromXDRAmount(newLimitsV2.monthlyOut()),
+                        annualOut: BaseOperation._fromXDRAmount(newLimitsV2.annualOut())
                     }
                 };
+
+                if (newLimitsV2.accountId()) {
+                    result.limitsUpdate.newLimits.accountID = BaseOperation.accountIdtoAddress(newLimitsV2.accountId());
+                }
+
+                if (newLimitsV2.accountType()) {
+                    result.limitsUpdate.newLimits.accountType = newLimitsV2.accountType().value;
+                }
+
                 break;
             }
             case xdr.ReviewableRequestType.twoStepWithdrawal(): {
@@ -166,9 +321,47 @@ export class ReviewRequestBuilder {
                 };
                 break;
             }
+            case xdr.ReviewableRequestType.updateKyc(): {
+                result.updateKyc = {
+                    tasksToAdd: attrs.requestDetails().updateKyc().tasksToAdd(),
+                    tasksToRemove: attrs.requestDetails().updateKyc().tasksToRemove(),
+                    externalDetails: attrs.requestDetails().updateKyc().externalDetails(),
+                };
+                break;
+            }
+            case xdr.ReviewableRequestType.amlAlert(): {
+                result.amlAlert = {
+                    comment: attrs.requestDetails().amlAlertDetails().comment(),
+                };
+                break;
+            }
+            case xdr.ReviewableRequestType.invoice(): {
+                let billPayDetails = {};
+                PaymentV2Builder.paymentV2ToObject(billPayDetails, attrs.requestDetails().billPay().paymentDetails());
+                result.invoice = {
+                    billPayDetails: billPayDetails
+                };
+                break;
+            }
+            case xdr.ReviewableRequestType.contract(): {
+                result.contract = {
+                    details: JSON.parse(attrs.requestDetails().contract().details())
+                };
+                break;
+            }
         }
         result.action = attrs.action().value;
         result.reason = attrs.reason();
-        
+
+        switch (attrs.ext().switch())
+        {
+            case xdr.LedgerVersion.addTasksToReviewableRequest(): {
+                let reviewDetails = attrs.ext().reviewDetails();
+                result.tasksToAdd = reviewDetails.tasksToAdd();
+                result.tasksToRemove = reviewDetails.tasksToRemove();
+                result.externalDetails = reviewDetails.externalDetails();
+                break;
+            }
+        }
     }
 }

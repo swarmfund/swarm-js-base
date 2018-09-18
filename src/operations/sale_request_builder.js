@@ -1,13 +1,12 @@
-import { default as xdr } from "../generated/stellar-xdr_generated";
+import {default as xdr} from "../generated/stellar-xdr_generated";
 import isUndefined from 'lodash/isUndefined';
-import { BaseOperation } from './base_operation';
-import { Keypair } from "../keypair";
-import { UnsignedHyper, Hyper } from "js-xdr";
+import {BaseOperation} from './base_operation';
+import {UnsignedHyper, Hyper} from "js-xdr";
 
 export class SaleRequestBuilder {
 
     /**
-     * Creates operation to create withdraw request with autoconversion
+     * Creates operation to create sale request
      * @param {object} opts
      * @param {string} opts.requestID - ID of the request. 0 - to create new;
      * @param {string} opts.baseAsset - asset for which sale will be performed
@@ -22,14 +21,51 @@ export class SaleRequestBuilder {
      * @param {object} opts.details.desciption - sale specific details
      * @param {object} opts.details.logo - details of the logo
      * @param {array} opts.quoteAssets - accepted assets
-     * @param {object} opts.quoteAssets.price - price for 1 baseAsset in terms of quote asset 
+     * @param {object} opts.quoteAssets.price - price for 1 baseAsset in terms of quote asset
      * @param {object} opts.quoteAssets.asset - asset code of the quote asset
+     * @param {number} opts.saleType - Sale type
+     * @param {string} opts.baseAssetForHardCap - specifies the amount of base asset required for hard cap
+     * @param {SaleState} opts.saleState - specifies the initial state of the sale
      * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
      * @returns {xdr.CreateSaleCreationRequestOp}
      */
     static createSaleCreationRequest(opts) {
-        let attrs = {};
+        let request = this.validateSaleCreationRequest(opts);
 
+        let createSaleCreationRequestOp = new xdr.CreateSaleCreationRequestOp({
+            requestId: UnsignedHyper.fromString(opts.requestID),
+            request: request,
+            ext: new xdr.CreateSaleCreationRequestOpExt(xdr.LedgerVersion.emptyVersion())
+        });
+        let opAttributes = {};
+        opAttributes.body = xdr.OperationBody.createSaleRequest(createSaleCreationRequestOp);
+        BaseOperation.setSourceAccount(opAttributes, opts);
+        return new xdr.Operation(opAttributes);
+    }
+
+    /**
+     * Creates operation to cancel sale request
+     * @param {object} opts
+     * @param {string} opts.requestID - ID of the request
+     * @param {string} [opts.source] - The source account for the operation.
+     * Defaults to the transaction's source account.
+     * @returns {xdr.CancelSaleCreationRequestOp}
+     */
+    static cancelSaleCreationRequest(opts) {
+        let cancelSaleCreationRequestOp = new xdr.CancelSaleCreationRequestOp({
+            requestId: UnsignedHyper.fromString(opts.requestID),
+            ext: new xdr.CancelSaleCreationRequestOpExt(
+                xdr.LedgerVersion.emptyVersion())
+        });
+        let opAttributes = {};
+        opAttributes.body = xdr.OperationBody.cancelSaleRequest(
+            cancelSaleCreationRequestOp);
+        BaseOperation.setSourceAccount(opAttributes, opts);
+        return new xdr.Operation(opAttributes);
+    }
+
+    static validateSaleCreationRequest(opts) {
+        let attrs = {};
         if (!BaseOperation.isValidAsset(opts.baseAsset)) {
             throw new Error("opts.baseAsset is invalid");
         }
@@ -63,21 +99,95 @@ export class SaleRequestBuilder {
         SaleRequestBuilder.validateDetail(opts.details);
         attrs.details = JSON.stringify(opts.details);
         attrs.ext = new xdr.SaleCreationRequestExt(xdr.LedgerVersion.emptyVersion());
-        let request = new xdr.SaleCreationRequest(attrs);
+
+        if (isUndefined(opts.saleType) || !opts.saleType) {
+            attrs.saleType = xdr.SaleType.basicSale().value;
+        }
+        else if (opts.saleType === true) {
+            attrs.saleType = xdr.SaleType.crowdFunding().value;
+        } else {
+            attrs.saleType = opts.saleType;
+        }
+
+        var hasBaseAssetForHardCap = !isUndefined(opts.baseAssetForHardCap);
+
+        var saleTypeExt;
+        var saleTypeExtTypedSale;
+        switch(attrs.saleType) {
+            case xdr.SaleType.basicSale().value: {
+                var basicSale = new xdr.BasicSale({
+                    ext: new xdr.BasicSaleExt(xdr.LedgerVersion.emptyVersion())
+                });
+                saleTypeExtTypedSale = xdr.SaleTypeExtTypedSale.basicSale(basicSale);
+                saleTypeExt = new xdr.SaleTypeExt({
+                    typedSale: saleTypeExtTypedSale
+                });
+                break;
+            }
+            case xdr.SaleType.crowdFunding().value: {
+                var crowdFundingSale = new xdr.CrowdFundingSale({
+                    ext: new xdr.CrowdFundingSaleExt(xdr.LedgerVersion.emptyVersion())
+                });
+                saleTypeExtTypedSale = xdr.SaleTypeExtTypedSale.crowdFunding(crowdFundingSale);
+                saleTypeExt = new xdr.SaleTypeExt({
+                    typedSale: saleTypeExtTypedSale
+                });
+                break;
+            }
+            case xdr.SaleType.fixedPrice().value: {
+                var fixedPriceSale = new xdr.FixedPriceSale({
+                    ext: new xdr.FixedPriceSaleExt(xdr.LedgerVersion.emptyVersion())
+                });
+                saleTypeExtTypedSale = xdr.SaleTypeExtTypedSale.fixedPrice(fixedPriceSale);
+                saleTypeExt = new xdr.SaleTypeExt({
+                    typedSale: saleTypeExtTypedSale
+                });
+                break;
+            }
+        }
+
+        if (hasBaseAssetForHardCap && isUndefined(opts.saleState) &&
+        attrs.saleType !== xdr.SaleType.fixedPrice().value) {
+            var extV2 = new xdr.SaleCreationRequestExtV2({
+                saleTypeExt: saleTypeExt,
+                requiredBaseAssetForHardCap: BaseOperation._toUnsignedXDRAmount(opts.baseAssetForHardCap) });
+
+            attrs.ext = xdr.SaleCreationRequestExt.allowToSpecifyRequiredBaseAssetAmountForHardCap(extV2);
+        } else if (!isUndefined(opts.saleState)) {
+            var extV3 = new xdr.SaleCreationRequestExtV3({
+                saleTypeExt: saleTypeExt,
+                requiredBaseAssetForHardCap: BaseOperation._toUnsignedXDRAmount(opts.baseAssetForHardCap),
+                state: opts.saleState });
+
+            attrs.ext = xdr.SaleCreationRequestExt.statableSale(extV3);
+        } else if (attrs.saleType === xdr.SaleType.crowdFunding().value) {
+            attrs.ext = xdr.SaleCreationRequestExt.typedSale(saleTypeExt);
+        } else if (attrs.saleType === xdr.SaleType.fixedPrice().value &&
+            (!hasBaseAssetForHardCap || isUndefined(opts.saleState))) {
+            throw new Error("opts.saleType is FixedPrice, but no baseAssetForHardCap and/or saleState not provided");
+        }
+
+        var request = new xdr.SaleCreationRequest(attrs);
 
         if (isUndefined(opts.requestID)) {
             opts.requestID = "0";
         }
 
-        if (isUndefined(opts.quoteAssets) || opts.quoteAssets.length == 0) {
+        if (isUndefined(opts.quoteAssets) || opts.quoteAssets.length === 0) {
             throw new Error("opts.quoteAssets is invalid");
         }
 
         attrs.quoteAssets = [];
         for (var i = 0; i < opts.quoteAssets.length; i++) {
-            let quoteAsset = opts.quoteAssets[i];
-            if (!BaseOperation.isValidAmount(quoteAsset.price, false)) {
-                throw new Error("opts.quoteAssets[i].price is invalid");
+            var quoteAsset = opts.quoteAssets[i];
+            var minAmount, maxAmount;
+            if (attrs.saleType === xdr.SaleType.crowdFunding().value) {
+                minAmount = 1;
+                maxAmount = 1;
+            }
+
+            if (!BaseOperation.isValidAmount(quoteAsset.price, false, minAmount, maxAmount)) {
+                throw new Error("opts.quoteAssets[i].price is invalid: " + quoteAsset.price);
             }
 
             if (isUndefined(quoteAsset.asset)) {
@@ -91,15 +201,7 @@ export class SaleRequestBuilder {
             }));
         }
 
-        let withdrawRequestOp = new xdr.CreateSaleCreationRequestOp({
-            requestId: UnsignedHyper.fromString(opts.requestID),
-            request: request,
-            ext: new xdr.CreateSaleCreationRequestOpExt(xdr.LedgerVersion.emptyVersion())
-        });
-        let opAttributes = {};
-        opAttributes.body = xdr.OperationBody.createSaleRequest(withdrawRequestOp);
-        BaseOperation.setSourceAccount(opAttributes, opts);
-        return new xdr.Operation(opAttributes);
+        return request;
     }
 
     static validateDetail(details) {
@@ -141,6 +243,21 @@ export class SaleRequestBuilder {
                 asset: request.quoteAssets()[i].quoteAsset(),
             });
         }
+        switch (request.ext().switch()) {
+            case xdr.LedgerVersion.allowToSpecifyRequiredBaseAssetAmountForHardCap(): {
+                result.baseAssetForHardCap = BaseOperation._fromXDRAmount(request.ext().extV2().requiredBaseAssetForHardCap());
+                break;
+            }
+            case xdr.LedgerVersion.statableSale(): {
+                result.baseAssetForHardCap = BaseOperation._fromXDRAmount(request.ext().extV3().requiredBaseAssetForHardCap());
+                result.saleState = request.ext().extV3().state();
+                break;
+            }
+        }
+    }
+
+    static cancelSaleCreationRequestToObject(result, attrs) {
+        result.requestID = attrs.requestId().toString();
     }
 
     /**

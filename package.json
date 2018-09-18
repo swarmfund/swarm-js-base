@@ -1,6 +1,6 @@
 {
   "name": "swarm-js-base",
-  "version": "0.8.8",
+  "version": "0.8.10",
   "description": "Low level stellar support library",
   "main": "lib/index.js",
   "scripts": {
@@ -26,7 +26,7 @@
     "babel-loader": "~5.3.2",
     "chai": "^2.2.0",
     "coveralls": "^2.11.4",
-    "express": "^4.9.8",
+    "express": "^4.16.3",
     "ghooks": "^0.3.0",
     "gulp": "^3.8.11",
     "gulp-babel": "^4.0.1",
@@ -36,7 +36,7 @@
     "gulp-jshint": "^1.10.0",
     "gulp-load-plugins": "^0.9.0",
     "gulp-mocha": "^2.0.1",
-    "gulp-plumber": "^1.0.0",
+    "gulp-plumber": "^1.2.0",
     "gulp-rename": "~1.2.0",
     "gulp-rimraf": "~0.1.0",
     "gulp-uglify": "~0.3.1",
@@ -63,11 +63,11 @@
     "base32.js": "~0.1.0",
     "bignumber.js": "^2.0.7",
     "crc": "^3.3.0",
-    "js-xdr": "^1.0.0",
-    "lodash": "^4.0.1",
-    "sha.js": "^2.3.6",
-    "tweetnacl": "^0.13.0",
-    "ed25519": "0.0.4"
+    "ed25519": "0.0.4",
+    "js-xdr": "^1.0.2",
+    "lodash": "^4.17.10",
+    "sha.js": "^2.4.11",
+    "tweetnacl": "^0.13.0"
   },
   "optionalDependencies": {
     "ed25519": "0.0.4"

@@ -107,6 +107,37 @@ export class ManageAssetBuilder {
         return ManageAssetBuilder._createManageAssetOp(opts, new xdr.ManageAssetOpRequest.cancelAssetRequest(cancelAssetRequest));
     }
 
+
+    /**
+     * Creates operation to cancel asset creation/update request
+     * @param {object} opts
+     * @param {string} opts.accountID - accountID to whome rights will be passed
+     * @param {string} opts.code - asset code for which to rights will be passed
+     * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
+     * @returns {xdr.ManageAssetOp}
+     */
+    static changeAssetPreIssuer(opts) {
+        if (!Keypair.isValidPublicKey(opts.accountID)) {
+            throw new Error("opts.accountID is invalid");
+        }
+
+        if (isUndefined(opts.code)) {
+            throw new Error("opts.code is invalid - must be string");
+        }
+
+        opts.requestID = "0";
+
+
+        let attrs = {
+            ext: new xdr.AssetChangePreissuedSignerExt(xdr.LedgerVersion.emptyVersion()),
+            accountId: Keypair.fromAccountId(opts.accountID).xdrAccountId(),
+            code: opts.code,
+        };
+        let changePreissuedSigner = new xdr.AssetChangePreissuedSigner(attrs);
+
+        return ManageAssetBuilder._createManageAssetOp(opts, new xdr.ManageAssetOpRequest.changePreissuedAssetSigner(changePreissuedSigner));
+    }
+
     static _getValidDetails(opts) {
         let details = opts.details;
 
@@ -146,11 +177,7 @@ export class ManageAssetBuilder {
             details.logo.type = "";
         }
 
-        return {
-          name: details.name,
-          logo: details.logo,
-          terms: details.terms
-        };
+        return details;
     }
 
     static _createUpdateAttrs(opts) {
@@ -216,6 +243,14 @@ export class ManageAssetBuilder {
             case xdr.ManageAssetAction.cancelAssetRequest():
             {
                 // nothing to do here
+                break;
+            }
+            case xdr.ManageAssetAction.changePreissuedAssetSigner():
+            {
+                let request = attrs.request().changePreissuedSigner();
+                result.code = request.code();
+                result.accountID = BaseOperation.accountIdtoAddress(request.accountId());
+                break;
             }
         }
     }
