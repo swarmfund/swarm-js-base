@@ -41,11 +41,11 @@ export class PayoutOpBuilder {
             throw new TypeError('opts.maxPayoutAmount is invalid');
         }
 
-        if (!BaseOperation.isValidAmount(opts.minPayoutAmount)) {
+        if (!BaseOperation.isValidAmount(opts.minPayoutAmount, true)) {
             throw new TypeError('opts.minPayoutAmount is invalid');
         }
 
-        if (!BaseOperation.isValidAmount(opts.minAssetHolderAmount)) {
+        if (!BaseOperation.isValidAmount(opts.minAssetHolderAmount, true)) {
             throw new TypeError('opts.minAssetHolderAmount is invalid');
         }
 

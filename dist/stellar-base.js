@@ -47456,11 +47456,11 @@ var StellarBase =
 	                throw new TypeError('opts.maxPayoutAmount is invalid');
 	            }
 
-	            if (!_base_operation.BaseOperation.isValidAmount(opts.minPayoutAmount)) {
+	            if (!_base_operation.BaseOperation.isValidAmount(opts.minPayoutAmount, true)) {
 	                throw new TypeError('opts.minPayoutAmount is invalid');
 	            }
 
-	            if (!_base_operation.BaseOperation.isValidAmount(opts.minAssetHolderAmount)) {
+	            if (!_base_operation.BaseOperation.isValidAmount(opts.minAssetHolderAmount, true)) {
 	                throw new TypeError('opts.minAssetHolderAmount is invalid');
 	            }
 
