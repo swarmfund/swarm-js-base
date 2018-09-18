@@ -20,7 +20,7 @@ export class PayoutOpBuilder {
      *                  The minimum amount of tokens on holders balances
      * @param {object} opts.fee - fee to be charged
      * @param {string} opts.fee.fixed - The fixed fee
-     * @param {string} opts.fee.percent - The payout fee
+     * @param {string} opts.fee.percent - The calculated payout fee
      * @param {string} [opts.source] - The source account for the payout.
      * @returns {xdr.PayoutOp}
      */
@@ -41,13 +41,27 @@ export class PayoutOpBuilder {
             throw new TypeError('opts.maxPayoutAmount is invalid');
         }
 
+        if (!BaseOperation.isValidAmount(opts.minPayoutAmount)) {
+            throw new TypeError('opts.minPayoutAmount is invalid');
+        }
+
+        if (!BaseOperation.isValidAmount(opts.minAssetHolderAmount)) {
+            throw new TypeError('opts.minAssetHolderAmount is invalid');
+        }
+
         if (!BaseOperation.isFeeValid(opts.fee)) {
             throw new TypeError('opts.fee is invalid');
         }
 
         attributes.asset = opts.asset;
-        attributes.sourceBalanceId = Keypair.fromBalanceId(opts.sourceBalanceId).xdrBalanceId();
-        attributes.maxPayoutAmount = BaseOperation._toUnsignedXDRAmount(opts.maxPayoutAmount);
+        attributes.sourceBalanceId =
+            Keypair.fromBalanceId(opts.sourceBalanceId).xdrBalanceId();
+        attributes.maxPayoutAmount =
+            BaseOperation._toUnsignedXDRAmount(opts.maxPayoutAmount);
+        attributes.minPayoutAmount =
+            BaseOperation._toUnsignedXDRAmount(opts.minPayoutAmount);
+        attributes.minAssetHolderAmount =
+            BaseOperation._toUnsignedXDRAmount(opts.minAssetHolderAmount);
         attributes.fee = BaseOperation.feeToXdr(opts.fee);
 
         let payout = new xdr.PayoutOp(attributes);
@@ -62,6 +76,8 @@ export class PayoutOpBuilder {
         result.asset = attrs.asset();
         result.sourceBalanceId = BaseOperation.balanceIdtoString(attrs.sourceBalanceId());
         result.maxPayoutAmount = BaseOperation._fromXDRAmount(attrs.maxPayoutAmount());
+        result.minAssetHolderAmount = BaseOperation._fromXDRAmount(attrs.minAssetHolderAmount());
+        result.minPayoutAmount = BaseOperation._fromXDRAmount(attrs.minPayoutAmount());
         result.fee = {
             fixed: BaseOperation._fromXDRAmount(attrs.fee().fixed()),
             percent: BaseOperation._fromXDRAmount(attrs.fee().percent()),

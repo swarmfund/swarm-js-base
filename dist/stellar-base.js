@@ -143,11 +143,7 @@ var StellarBase =
 	  }
 	});
 
-<<<<<<< HEAD
-	var _transaction_builder = __webpack_require__(306);
-=======
-	var _transaction_builder = __webpack_require__(308);
->>>>>>> master
+	var _transaction_builder = __webpack_require__(309);
 
 	Object.defineProperty(exports, "TransactionBuilder", {
 	  enumerable: true,
@@ -192,11 +188,7 @@ var StellarBase =
 	  }
 	});
 
-<<<<<<< HEAD
-	var _memo = __webpack_require__(308);
-=======
-	var _memo = __webpack_require__(310);
->>>>>>> master
+	var _memo = __webpack_require__(311);
 
 	Object.defineProperty(exports, "Memo", {
 	  enumerable: true,
@@ -205,11 +197,7 @@ var StellarBase =
 	  }
 	});
 
-<<<<<<< HEAD
-	var _account = __webpack_require__(307);
-=======
-	var _account = __webpack_require__(309);
->>>>>>> master
+	var _account = __webpack_require__(310);
 
 	Object.defineProperty(exports, "Account", {
 	  enumerable: true,
@@ -305,8 +293,7 @@ var StellarBase =
 	  }
 	});
 
-<<<<<<< HEAD
-	var _operationsPayout_builder = __webpack_require__(225);
+	var _operationsPayout_builder = __webpack_require__(221);
 
 	Object.defineProperty(exports, "PayoutOpBuilder", {
 	  enumerable: true,
@@ -315,9 +302,7 @@ var StellarBase =
 	  }
 	});
 
-	var _strkey = __webpack_require__(70);
-=======
-	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(221);
+	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(222);
 
 	Object.defineProperty(exports, "ManageExternalSystemAccountIdPoolEntryBuilder", {
 	  enumerable: true,
@@ -332,7 +317,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_aml_request_builder = __webpack_require__(222);
+	var _operationsCreate_aml_request_builder = __webpack_require__(223);
 
 	Object.defineProperty(exports, "CreateAMLRequestBuilder", {
 	  enumerable: true,
@@ -350,7 +335,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsCreate_update_kyc_request_builder = __webpack_require__(223);
+	var _operationsCreate_update_kyc_request_builder = __webpack_require__(224);
 
 	Object.defineProperty(exports, "CreateUpdateKYCRequestBuilder", {
 	  enumerable: true,
@@ -368,7 +353,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_sale = __webpack_require__(224);
+	var _operationsManage_sale = __webpack_require__(225);
 
 	Object.defineProperty(exports, "ManageSaleBuilder", {
 	  enumerable: true,
@@ -389,7 +374,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_invoice_request_builder = __webpack_require__(225);
+	var _operationsManage_invoice_request_builder = __webpack_require__(226);
 
 	Object.defineProperty(exports, "ManageInvoiceRequestBuilder", {
 	  enumerable: true,
@@ -398,7 +383,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_contract_request_builder = __webpack_require__(226);
+	var _operationsManage_contract_request_builder = __webpack_require__(227);
 
 	Object.defineProperty(exports, "ManageContractRequestBuilder", {
 	  enumerable: true,
@@ -407,7 +392,7 @@ var StellarBase =
 	  }
 	});
 
-	var _operationsManage_contract_builder = __webpack_require__(227);
+	var _operationsManage_contract_builder = __webpack_require__(228);
 
 	Object.defineProperty(exports, "ManageContractBuilder", {
 	  enumerable: true,
@@ -426,7 +411,6 @@ var StellarBase =
 	});
 
 	var _strkey = __webpack_require__(63);
->>>>>>> master
 
 	_defaults(exports, _interopExportWildcard(_strkey, _defaults));
 
@@ -436,11 +420,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-	// Automatically generated on 2018-01-26T21:41:22+02:00
-=======
-	// Automatically generated on 2018-09-13T19:30:07+03:00
->>>>>>> master
+	// Automatically generated on 2018-09-18T15:10:15+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -451,105 +431,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("BalanceEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct BalanceEntry
-	//   {
-	//       BalanceID balanceID;
-	//       AssetCode asset;
-	//       AccountID accountID;
-	//       uint64 amount;
-	//       uint64 locked;
-	//   
-	//       // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("BalanceEntry",[["balanceId",xdr.lookup("BalanceId")],["asset",xdr.lookup("AssetCode")],["accountId",xdr.lookup("AccountId")],["amount",xdr.lookup("Uint64")],["locked",xdr.lookup("Uint64")],["ext",xdr.lookup("BalanceEntryExt")]]); // === xdr source ============================================================
-	//
-	//   enum ReviewableRequestType
-	//   {
-	//       ASSET_CREATE = 0,
-	//   	ASSET_UPDATE = 1,
-	//   	PRE_ISSUANCE_CREATE = 2,
-	//   	ISSUANCE_CREATE = 3,
-	//   	WITHDRAW = 4,
-	//   	SALE = 5,
-	//   	LIMITS_UPDATE = 6,
-	//   	TWO_STEP_WITHDRAWAL = 7
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ReviewableRequestType",{assetCreate:0,assetUpdate:1,preIssuanceCreate:2,issuanceCreate:3,withdraw:4,sale:5,limitsUpdate:6,twoStepWithdrawal:7}); // === xdr source ============================================================
-	//
-	//   union switch (ReviewableRequestType type) {
-	//   		case ASSET_CREATE:
-	//   			AssetCreationRequest assetCreationRequest;
-	//   		case ASSET_UPDATE:
-	//   			AssetUpdateRequest assetUpdateRequest;
-	//   		case PRE_ISSUANCE_CREATE:
-	//   			PreIssuanceRequest preIssuanceRequest;
-	//   		case ISSUANCE_CREATE:
-	//   			IssuanceRequest issuanceRequest;
-	//   		case WITHDRAW:
-	//   			WithdrawalRequest withdrawalRequest;
-	//   		case SALE:
-	//   			SaleCreationRequest saleCreationRequest;
-	//           case LIMITS_UPDATE:
-	//               LimitsUpdateRequest limitsUpdateRequest;
-	//   		case TWO_STEP_WITHDRAWAL:
-	//   			WithdrawalRequest twoStepWithdrawalRequest;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.union("ReviewableRequestEntryBody",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"type",switches:[["assetCreate","assetCreationRequest"],["assetUpdate","assetUpdateRequest"],["preIssuanceCreate","preIssuanceRequest"],["issuanceCreate","issuanceRequest"],["withdraw","withdrawalRequest"],["sale","saleCreationRequest"],["limitsUpdate","limitsUpdateRequest"],["twoStepWithdrawal","twoStepWithdrawalRequest"]],arms:{assetCreationRequest:xdr.lookup("AssetCreationRequest"),assetUpdateRequest:xdr.lookup("AssetUpdateRequest"),preIssuanceRequest:xdr.lookup("PreIssuanceRequest"),issuanceRequest:xdr.lookup("IssuanceRequest"),withdrawalRequest:xdr.lookup("WithdrawalRequest"),saleCreationRequest:xdr.lookup("SaleCreationRequest"),limitsUpdateRequest:xdr.lookup("LimitsUpdateRequest"),twoStepWithdrawalRequest:xdr.lookup("WithdrawalRequest")}}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("ReviewableRequestEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ReviewableRequestEntry {
-	//   	uint64 requestID;
-	//   	Hash hash; // hash of the request body
-	//   	AccountID requestor;
-	//   	string256 rejectReason;
-	//   	AccountID reviewer;
-	//   	string64* reference; // reference for request which will act as an unique key for the request (will reject request with the same reference from same requestor)
-	//   	int64 createdAt; // when request was created
-	//   
-	//   	union switch (ReviewableRequestType type) {
-	//   		case ASSET_CREATE:
-	//   			AssetCreationRequest assetCreationRequest;
-	//   		case ASSET_UPDATE:
-	//   			AssetUpdateRequest assetUpdateRequest;
-	//   		case PRE_ISSUANCE_CREATE:
-	//   			PreIssuanceRequest preIssuanceRequest;
-	//   		case ISSUANCE_CREATE:
-	//   			IssuanceRequest issuanceRequest;
-	//   		case WITHDRAW:
-	//   			WithdrawalRequest withdrawalRequest;
-	//   		case SALE:
-	//   			SaleCreationRequest saleCreationRequest;
-	//           case LIMITS_UPDATE:
-	//               LimitsUpdateRequest limitsUpdateRequest;
-	//   		case TWO_STEP_WITHDRAWAL:
-	//   			WithdrawalRequest twoStepWithdrawalRequest;
-	//   	} body;
-	//   
-	//   	// reserved for future use
-=======
 	xdr.union("PendingStatisticsEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct PendingStatisticsEntry
@@ -559,7 +440,6 @@ var StellarBase =
 	//       uint64 amount;
 	//   
 	//       // reserved for future use
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -569,11 +449,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("ReviewableRequestEntry",[["requestId",xdr.lookup("Uint64")],["hash",xdr.lookup("Hash")],["requestor",xdr.lookup("AccountId")],["rejectReason",xdr.lookup("String256")],["reviewer",xdr.lookup("AccountId")],["reference",xdr.option(xdr.lookup("String64"))],["createdAt",xdr.lookup("Int64")],["body",xdr.lookup("ReviewableRequestEntryBody")],["ext",xdr.lookup("ReviewableRequestEntryExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("PendingStatisticsEntry",[["statisticsId",xdr.lookup("Uint64")],["requestId",xdr.lookup("Uint64")],["amount",xdr.lookup("Uint64")],["ext",xdr.lookup("PendingStatisticsEntryExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -582,21 +458,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("StatisticsEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct StatisticsEntry
-	//   {
-	//   	AccountID accountID;
-	//   
-	//   	uint64 dailyOutcome;
-	//   	uint64 weeklyOutcome;
-	//   	uint64 monthlyOutcome;
-	//   	uint64 annualOutcome;
-	//   
-	//   	int64 updatedAt;
-	//   
-=======
 	xdr.union("BalanceEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct BalanceEntry
@@ -607,7 +468,6 @@ var StellarBase =
 	//       uint64 amount;
 	//       uint64 locked;
 	//   
->>>>>>> master
 	//       // reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -618,11 +478,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("StatisticsEntry",[["accountId",xdr.lookup("AccountId")],["dailyOutcome",xdr.lookup("Uint64")],["weeklyOutcome",xdr.lookup("Uint64")],["monthlyOutcome",xdr.lookup("Uint64")],["annualOutcome",xdr.lookup("Uint64")],["updatedAt",xdr.lookup("Int64")],["ext",xdr.lookup("StatisticsEntryExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("BalanceEntry",[["balanceId",xdr.lookup("BalanceId")],["asset",xdr.lookup("AssetCode")],["accountId",xdr.lookup("AccountId")],["amount",xdr.lookup("Uint64")],["locked",xdr.lookup("Uint64")],["ext",xdr.lookup("BalanceEntryExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (OperationType type)
 	//       {
@@ -662,6 +518,8 @@ var StellarBase =
 	//   		CreateSaleCreationRequestOp createSaleCreationRequestOp;
 	//   	case CHECK_SALE_STATE:
 	//   		CheckSaleStateOp checkSaleStateOp;
+	//   	case PAYOUT:
+	//   	    PayoutOp payoutOp;
 	//   	case CREATE_AML_ALERT:
 	//   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 	//   	case MANAGE_KEY_VALUE:
@@ -687,22 +545,7 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("ManageInvoiceOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ManageInvoiceOp
-	//   {
-	//       BalanceID receiverBalance;
-	//   	AccountID sender;
-	//       int64 amount; // if set to 0, delete the invoice
-	//   
-	//       // 0=create a new invoice, otherwise edit an existing invoice
-	//       uint64 invoiceID;
-	//   
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-=======
-	xdr.union("OperationBody",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountOp"],["payment","paymentOp"],["setOption","setOptionsOp"],["createIssuanceRequest","createIssuanceRequestOp"],["setFee","setFeesOp"],["manageAccount","manageAccountOp"],["createWithdrawalRequest","createWithdrawalRequestOp"],["manageBalance","manageBalanceOp"],["manageAsset","manageAssetOp"],["createPreissuanceRequest","createPreIssuanceRequest"],["manageLimit","manageLimitsOp"],["directDebit","directDebitOp"],["manageAssetPair","manageAssetPairOp"],["manageOffer","manageOfferOp"],["manageInvoiceRequest","manageInvoiceRequestOp"],["reviewRequest","reviewRequestOp"],["createSaleRequest","createSaleCreationRequestOp"],["checkSaleState","checkSaleStateOp"],["createAmlAlert","createAmlAlertRequestOp"],["manageKeyValue","manageKeyValueOp"],["createKycRequest","createUpdateKycRequestOp"],["manageExternalSystemAccountIdPoolEntry","manageExternalSystemAccountIdPoolEntryOp"],["bindExternalSystemAccountId","bindExternalSystemAccountIdOp"],["paymentV2","paymentOpV2"],["manageSale","manageSaleOp"],["createManageLimitsRequest","createManageLimitsRequestOp"],["manageContractRequest","manageContractRequestOp"],["manageContract","manageContractOp"],["cancelSaleRequest","cancelSaleCreationRequestOp"]],arms:{createAccountOp:xdr.lookup("CreateAccountOp"),paymentOp:xdr.lookup("PaymentOp"),setOptionsOp:xdr.lookup("SetOptionsOp"),createIssuanceRequestOp:xdr.lookup("CreateIssuanceRequestOp"),setFeesOp:xdr.lookup("SetFeesOp"),manageAccountOp:xdr.lookup("ManageAccountOp"),createWithdrawalRequestOp:xdr.lookup("CreateWithdrawalRequestOp"),manageBalanceOp:xdr.lookup("ManageBalanceOp"),manageAssetOp:xdr.lookup("ManageAssetOp"),createPreIssuanceRequest:xdr.lookup("CreatePreIssuanceRequestOp"),manageLimitsOp:xdr.lookup("ManageLimitsOp"),directDebitOp:xdr.lookup("DirectDebitOp"),manageAssetPairOp:xdr.lookup("ManageAssetPairOp"),manageOfferOp:xdr.lookup("ManageOfferOp"),manageInvoiceRequestOp:xdr.lookup("ManageInvoiceRequestOp"),reviewRequestOp:xdr.lookup("ReviewRequestOp"),createSaleCreationRequestOp:xdr.lookup("CreateSaleCreationRequestOp"),checkSaleStateOp:xdr.lookup("CheckSaleStateOp"),createAmlAlertRequestOp:xdr.lookup("CreateAmlAlertRequestOp"),manageKeyValueOp:xdr.lookup("ManageKeyValueOp"),createUpdateKycRequestOp:xdr.lookup("CreateUpdateKycRequestOp"),manageExternalSystemAccountIdPoolEntryOp:xdr.lookup("ManageExternalSystemAccountIdPoolEntryOp"),bindExternalSystemAccountIdOp:xdr.lookup("BindExternalSystemAccountIdOp"),paymentOpV2:xdr.lookup("PaymentOpV2"),manageSaleOp:xdr.lookup("ManageSaleOp"),createManageLimitsRequestOp:xdr.lookup("CreateManageLimitsRequestOp"),manageContractRequestOp:xdr.lookup("ManageContractRequestOp"),manageContractOp:xdr.lookup("ManageContractOp"),cancelSaleCreationRequestOp:xdr.lookup("CancelSaleCreationRequestOp")}}); // === xdr source ============================================================
+	xdr.union("OperationBody",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountOp"],["payment","paymentOp"],["setOption","setOptionsOp"],["createIssuanceRequest","createIssuanceRequestOp"],["setFee","setFeesOp"],["manageAccount","manageAccountOp"],["createWithdrawalRequest","createWithdrawalRequestOp"],["manageBalance","manageBalanceOp"],["manageAsset","manageAssetOp"],["createPreissuanceRequest","createPreIssuanceRequest"],["manageLimit","manageLimitsOp"],["directDebit","directDebitOp"],["manageAssetPair","manageAssetPairOp"],["manageOffer","manageOfferOp"],["manageInvoiceRequest","manageInvoiceRequestOp"],["reviewRequest","reviewRequestOp"],["createSaleRequest","createSaleCreationRequestOp"],["checkSaleState","checkSaleStateOp"],["payout","payoutOp"],["createAmlAlert","createAmlAlertRequestOp"],["manageKeyValue","manageKeyValueOp"],["createKycRequest","createUpdateKycRequestOp"],["manageExternalSystemAccountIdPoolEntry","manageExternalSystemAccountIdPoolEntryOp"],["bindExternalSystemAccountId","bindExternalSystemAccountIdOp"],["paymentV2","paymentOpV2"],["manageSale","manageSaleOp"],["createManageLimitsRequest","createManageLimitsRequestOp"],["manageContractRequest","manageContractRequestOp"],["manageContract","manageContractOp"],["cancelSaleRequest","cancelSaleCreationRequestOp"]],arms:{createAccountOp:xdr.lookup("CreateAccountOp"),paymentOp:xdr.lookup("PaymentOp"),setOptionsOp:xdr.lookup("SetOptionsOp"),createIssuanceRequestOp:xdr.lookup("CreateIssuanceRequestOp"),setFeesOp:xdr.lookup("SetFeesOp"),manageAccountOp:xdr.lookup("ManageAccountOp"),createWithdrawalRequestOp:xdr.lookup("CreateWithdrawalRequestOp"),manageBalanceOp:xdr.lookup("ManageBalanceOp"),manageAssetOp:xdr.lookup("ManageAssetOp"),createPreIssuanceRequest:xdr.lookup("CreatePreIssuanceRequestOp"),manageLimitsOp:xdr.lookup("ManageLimitsOp"),directDebitOp:xdr.lookup("DirectDebitOp"),manageAssetPairOp:xdr.lookup("ManageAssetPairOp"),manageOfferOp:xdr.lookup("ManageOfferOp"),manageInvoiceRequestOp:xdr.lookup("ManageInvoiceRequestOp"),reviewRequestOp:xdr.lookup("ReviewRequestOp"),createSaleCreationRequestOp:xdr.lookup("CreateSaleCreationRequestOp"),checkSaleStateOp:xdr.lookup("CheckSaleStateOp"),payoutOp:xdr.lookup("PayoutOp"),createAmlAlertRequestOp:xdr.lookup("CreateAmlAlertRequestOp"),manageKeyValueOp:xdr.lookup("ManageKeyValueOp"),createUpdateKycRequestOp:xdr.lookup("CreateUpdateKycRequestOp"),manageExternalSystemAccountIdPoolEntryOp:xdr.lookup("ManageExternalSystemAccountIdPoolEntryOp"),bindExternalSystemAccountIdOp:xdr.lookup("BindExternalSystemAccountIdOp"),paymentOpV2:xdr.lookup("PaymentOpV2"),manageSaleOp:xdr.lookup("ManageSaleOp"),createManageLimitsRequestOp:xdr.lookup("CreateManageLimitsRequestOp"),manageContractRequestOp:xdr.lookup("ManageContractRequestOp"),manageContractOp:xdr.lookup("ManageContractOp"),cancelSaleCreationRequestOp:xdr.lookup("CancelSaleCreationRequestOp")}}); // === xdr source ============================================================
 	//
 	//   struct Operation
 	//   {
@@ -712,7 +555,6 @@ var StellarBase =
 	//       AccountID* sourceAccount;
 	//   
 	//       union switch (OperationType type)
->>>>>>> master
 	//       {
 	//       case CREATE_ACCOUNT:
 	//           CreateAccountOp createAccountOp;
@@ -750,6 +592,8 @@ var StellarBase =
 	//   		CreateSaleCreationRequestOp createSaleCreationRequestOp;
 	//   	case CHECK_SALE_STATE:
 	//   		CheckSaleStateOp checkSaleStateOp;
+	//   	case PAYOUT:
+	//   	    PayoutOp payoutOp;
 	//   	case CREATE_AML_ALERT:
 	//   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 	//   	case MANAGE_KEY_VALUE:
@@ -773,31 +617,6 @@ var StellarBase =
 	//       case CANCEL_SALE_REQUEST:
 	//           CancelSaleCreationRequestOp cancelSaleCreationRequestOp;
 	//       }
-<<<<<<< HEAD
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ManageInvoiceOp",[["receiverBalance",xdr.lookup("BalanceId")],["sender",xdr.lookup("AccountId")],["amount",xdr.lookup("Int64")],["invoiceId",xdr.lookup("Uint64")],["ext",xdr.lookup("ManageInvoiceOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum ManageInvoiceResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,
-	//   
-	//       // codes considered as "failure" for the operation
-	//       MALFORMED = -1,
-	//       BALANCE_NOT_FOUND = -2,
-	//   	INVOICE_OVERFLOW = -3,
-	//   
-	//       NOT_FOUND = -4,
-	//       TOO_MANY_INVOICES = -5,
-	//       CAN_NOT_DELETE_IN_PROGRESS = -6
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ManageInvoiceResultCode",{success:0,malformed:-1,balanceNotFound:-2,invoiceOverflow:-3,notFound:-4,tooManyInvoice:-5,canNotDeleteInProgress:-6}); // === xdr source ============================================================
-=======
 	//       body;
 	//   };
 	//
@@ -841,7 +660,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("TimeBounds",[["minTime",xdr.lookup("Uint64")],["maxTime",xdr.lookup("Uint64")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -852,15 +670,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("ManageInvoiceSuccessResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ManageInvoiceSuccessResult 
-	//   {
-	//   	uint64 invoiceID;
-	//   	AssetCode asset;
-	//   	BalanceID senderBalance;
-=======
 	xdr.union("TransactionExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["addTransactionFee","maxTotalFee"]],arms:{maxTotalFee:xdr.lookup("Uint64")}}); // === xdr source ============================================================
 	//
 	//   struct Transaction
@@ -876,9 +685,9 @@ var StellarBase =
 	//       Memo memo;
 	//   
 	//       Operation operations<100>;
->>>>>>> master
 	//   
-	//   	union switch (LedgerVersion v)
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
@@ -889,20 +698,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("ManageInvoiceSuccessResult",[["invoiceId",xdr.lookup("Uint64")],["asset",xdr.lookup("AssetCode")],["senderBalance",xdr.lookup("BalanceId")],["ext",xdr.lookup("ManageInvoiceSuccessResultExt")]]); // === xdr source ============================================================
-	//
-	//   union ManageInvoiceResult switch (ManageInvoiceResultCode code)
-	//   {
-	//   case SUCCESS:
-	//       ManageInvoiceSuccessResult success;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("ManageInvoiceResult",{switchOn:xdr.lookup("ManageInvoiceResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageInvoiceSuccessResult")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-=======
 	xdr.struct("Transaction",[["sourceAccount",xdr.lookup("AccountId")],["salt",xdr.lookup("Salt")],["timeBounds",xdr.lookup("TimeBounds")],["memo",xdr.lookup("Memo")],["operations",xdr.varArray(xdr.lookup("Operation"),100)],["ext",xdr.lookup("TransactionExt")]]); // === xdr source ============================================================
 	//
 	//   struct TransactionEnvelope
@@ -913,7 +708,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("TransactionEnvelope",[["tx",xdr.lookup("Transaction")],["signatures",xdr.varArray(xdr.lookup("DecoratedSignature"),20)]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   enum OperationResultCode
 	//   {
@@ -930,36 +724,9 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("OfferEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct OfferEntry
-	//   {	
-	//       uint64 offerID;
-	//   	uint64 orderBookID;
-	//   	AccountID ownerID;
-	//   	bool isBuy;
-	//       AssetCode base; // A
-	//       AssetCode quote;  // B
-	//   	BalanceID baseBalance; 
-	//   	BalanceID quoteBalance;
-	//       int64 baseAmount;
-	//   	int64 quoteAmount;
-	//   	uint64 createdAt;
-	//   	int64 fee;
-	//   
-	//       int64 percentFee;
-	//   
-	//   	// price of A in terms of B
-	//       int64 price;
-	//   
-	//       // reserved for future use
-	//       union switch (LedgerVersion v)
-=======
 	xdr["enum"]("OperationResultCode",{opInner:0,opBadAuth:-1,opNoAccount:-2,opNotAllowed:-3,opAccountBlocked:-4,opNoCounterparty:-5,opCounterpartyBlocked:-6,opCounterpartyWrongType:-7,opBadAuthExtra:-8}); // === xdr source ============================================================
 	//
 	//   union switch (OperationType type)
->>>>>>> master
 	//       {
 	//       case CREATE_ACCOUNT:
 	//           CreateAccountResult createAccountResult;
@@ -997,6 +764,8 @@ var StellarBase =
 	//   		CreateSaleCreationRequestResult createSaleCreationRequestResult;
 	//   	case CHECK_SALE_STATE:
 	//   		CheckSaleStateResult checkSaleStateResult;
+	//   	case PAYOUT:
+	//   	    PayoutResult payoutResult;
 	//   	case CREATE_AML_ALERT:
 	//   	    CreateAMLAlertRequestResult createAMLAlertRequestResult;
 	//   	case MANAGE_KEY_VALUE:
@@ -1022,10 +791,7 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("OfferEntry",[["offerId",xdr.lookup("Uint64")],["orderBookId",xdr.lookup("Uint64")],["ownerId",xdr.lookup("AccountId")],["isBuy",xdr.bool()],["base",xdr.lookup("AssetCode")],["quote",xdr.lookup("AssetCode")],["baseBalance",xdr.lookup("BalanceId")],["quoteBalance",xdr.lookup("BalanceId")],["baseAmount",xdr.lookup("Int64")],["quoteAmount",xdr.lookup("Int64")],["createdAt",xdr.lookup("Uint64")],["fee",xdr.lookup("Int64")],["percentFee",xdr.lookup("Int64")],["price",xdr.lookup("Int64")],["ext",xdr.lookup("OfferEntryExt")]]); // === xdr source ============================================================
-=======
-	xdr.union("OperationResultTr",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountResult"],["payment","paymentResult"],["setOption","setOptionsResult"],["createIssuanceRequest","createIssuanceRequestResult"],["setFee","setFeesResult"],["manageAccount","manageAccountResult"],["createWithdrawalRequest","createWithdrawalRequestResult"],["manageBalance","manageBalanceResult"],["manageAsset","manageAssetResult"],["createPreissuanceRequest","createPreIssuanceRequestResult"],["manageLimit","manageLimitsResult"],["directDebit","directDebitResult"],["manageAssetPair","manageAssetPairResult"],["manageOffer","manageOfferResult"],["manageInvoiceRequest","manageInvoiceRequestResult"],["reviewRequest","reviewRequestResult"],["createSaleRequest","createSaleCreationRequestResult"],["checkSaleState","checkSaleStateResult"],["createAmlAlert","createAmlAlertRequestResult"],["manageKeyValue","manageKeyValueResult"],["createKycRequest","createUpdateKycRequestResult"],["manageExternalSystemAccountIdPoolEntry","manageExternalSystemAccountIdPoolEntryResult"],["bindExternalSystemAccountId","bindExternalSystemAccountIdResult"],["paymentV2","paymentV2Result"],["manageSale","manageSaleResult"],["createManageLimitsRequest","createManageLimitsRequestResult"],["manageContractRequest","manageContractRequestResult"],["manageContract","manageContractResult"],["cancelSaleRequest","cancelSaleCreationRequestResult"]],arms:{createAccountResult:xdr.lookup("CreateAccountResult"),paymentResult:xdr.lookup("PaymentResult"),setOptionsResult:xdr.lookup("SetOptionsResult"),createIssuanceRequestResult:xdr.lookup("CreateIssuanceRequestResult"),setFeesResult:xdr.lookup("SetFeesResult"),manageAccountResult:xdr.lookup("ManageAccountResult"),createWithdrawalRequestResult:xdr.lookup("CreateWithdrawalRequestResult"),manageBalanceResult:xdr.lookup("ManageBalanceResult"),manageAssetResult:xdr.lookup("ManageAssetResult"),createPreIssuanceRequestResult:xdr.lookup("CreatePreIssuanceRequestResult"),manageLimitsResult:xdr.lookup("ManageLimitsResult"),directDebitResult:xdr.lookup("DirectDebitResult"),manageAssetPairResult:xdr.lookup("ManageAssetPairResult"),manageOfferResult:xdr.lookup("ManageOfferResult"),manageInvoiceRequestResult:xdr.lookup("ManageInvoiceRequestResult"),reviewRequestResult:xdr.lookup("ReviewRequestResult"),createSaleCreationRequestResult:xdr.lookup("CreateSaleCreationRequestResult"),checkSaleStateResult:xdr.lookup("CheckSaleStateResult"),createAmlAlertRequestResult:xdr.lookup("CreateAmlAlertRequestResult"),manageKeyValueResult:xdr.lookup("ManageKeyValueResult"),createUpdateKycRequestResult:xdr.lookup("CreateUpdateKycRequestResult"),manageExternalSystemAccountIdPoolEntryResult:xdr.lookup("ManageExternalSystemAccountIdPoolEntryResult"),bindExternalSystemAccountIdResult:xdr.lookup("BindExternalSystemAccountIdResult"),paymentV2Result:xdr.lookup("PaymentV2Result"),manageSaleResult:xdr.lookup("ManageSaleResult"),createManageLimitsRequestResult:xdr.lookup("CreateManageLimitsRequestResult"),manageContractRequestResult:xdr.lookup("ManageContractRequestResult"),manageContractResult:xdr.lookup("ManageContractResult"),cancelSaleCreationRequestResult:xdr.lookup("CancelSaleCreationRequestResult")}}); // === xdr source ============================================================
+	xdr.union("OperationResultTr",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountResult"],["payment","paymentResult"],["setOption","setOptionsResult"],["createIssuanceRequest","createIssuanceRequestResult"],["setFee","setFeesResult"],["manageAccount","manageAccountResult"],["createWithdrawalRequest","createWithdrawalRequestResult"],["manageBalance","manageBalanceResult"],["manageAsset","manageAssetResult"],["createPreissuanceRequest","createPreIssuanceRequestResult"],["manageLimit","manageLimitsResult"],["directDebit","directDebitResult"],["manageAssetPair","manageAssetPairResult"],["manageOffer","manageOfferResult"],["manageInvoiceRequest","manageInvoiceRequestResult"],["reviewRequest","reviewRequestResult"],["createSaleRequest","createSaleCreationRequestResult"],["checkSaleState","checkSaleStateResult"],["payout","payoutResult"],["createAmlAlert","createAmlAlertRequestResult"],["manageKeyValue","manageKeyValueResult"],["createKycRequest","createUpdateKycRequestResult"],["manageExternalSystemAccountIdPoolEntry","manageExternalSystemAccountIdPoolEntryResult"],["bindExternalSystemAccountId","bindExternalSystemAccountIdResult"],["paymentV2","paymentV2Result"],["manageSale","manageSaleResult"],["createManageLimitsRequest","createManageLimitsRequestResult"],["manageContractRequest","manageContractRequestResult"],["manageContract","manageContractResult"],["cancelSaleRequest","cancelSaleCreationRequestResult"]],arms:{createAccountResult:xdr.lookup("CreateAccountResult"),paymentResult:xdr.lookup("PaymentResult"),setOptionsResult:xdr.lookup("SetOptionsResult"),createIssuanceRequestResult:xdr.lookup("CreateIssuanceRequestResult"),setFeesResult:xdr.lookup("SetFeesResult"),manageAccountResult:xdr.lookup("ManageAccountResult"),createWithdrawalRequestResult:xdr.lookup("CreateWithdrawalRequestResult"),manageBalanceResult:xdr.lookup("ManageBalanceResult"),manageAssetResult:xdr.lookup("ManageAssetResult"),createPreIssuanceRequestResult:xdr.lookup("CreatePreIssuanceRequestResult"),manageLimitsResult:xdr.lookup("ManageLimitsResult"),directDebitResult:xdr.lookup("DirectDebitResult"),manageAssetPairResult:xdr.lookup("ManageAssetPairResult"),manageOfferResult:xdr.lookup("ManageOfferResult"),manageInvoiceRequestResult:xdr.lookup("ManageInvoiceRequestResult"),reviewRequestResult:xdr.lookup("ReviewRequestResult"),createSaleCreationRequestResult:xdr.lookup("CreateSaleCreationRequestResult"),checkSaleStateResult:xdr.lookup("CheckSaleStateResult"),payoutResult:xdr.lookup("PayoutResult"),createAmlAlertRequestResult:xdr.lookup("CreateAmlAlertRequestResult"),manageKeyValueResult:xdr.lookup("ManageKeyValueResult"),createUpdateKycRequestResult:xdr.lookup("CreateUpdateKycRequestResult"),manageExternalSystemAccountIdPoolEntryResult:xdr.lookup("ManageExternalSystemAccountIdPoolEntryResult"),bindExternalSystemAccountIdResult:xdr.lookup("BindExternalSystemAccountIdResult"),paymentV2Result:xdr.lookup("PaymentV2Result"),manageSaleResult:xdr.lookup("ManageSaleResult"),createManageLimitsRequestResult:xdr.lookup("CreateManageLimitsRequestResult"),manageContractRequestResult:xdr.lookup("ManageContractRequestResult"),manageContractResult:xdr.lookup("ManageContractResult"),cancelSaleCreationRequestResult:xdr.lookup("CancelSaleCreationRequestResult")}}); // === xdr source ============================================================
 	//
 	//   union OperationResult switch (OperationResultCode code)
 	//   {
@@ -1068,6 +834,8 @@ var StellarBase =
 	//   		CreateSaleCreationRequestResult createSaleCreationRequestResult;
 	//   	case CHECK_SALE_STATE:
 	//   		CheckSaleStateResult checkSaleStateResult;
+	//   	case PAYOUT:
+	//   	    PayoutResult payoutResult;
 	//   	case CREATE_AML_ALERT:
 	//   	    CreateAMLAlertRequestResult createAMLAlertRequestResult;
 	//   	case MANAGE_KEY_VALUE:
@@ -1122,7 +890,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("TransactionResultCode",{txSuccess:0,txFailed:-1,txTooEarly:-2,txTooLate:-3,txMissingOperation:-4,txBadAuth:-5,txNoAccount:-6,txBadAuthExtra:-7,txInternalError:-8,txAccountBlocked:-9,txDuplication:-10,txInsufficientFee:-11,txSourceUnderfunded:-12,txCommissionLineFull:-13}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -1131,60 +898,24 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("CreateSaleCreationRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct CreateSaleCreationRequestOp
-	//   {
-	//   	uint64 requestID;
-	//       SaleCreationRequest request;
-=======
 	xdr.union("OperationFeeExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct OperationFee
 	//   {
 	//       OperationType operationType;
 	//       uint64 amount;
->>>>>>> master
 	//   
-	//   	union switch (LedgerVersion v)
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
 	//       }
 	//       ext;
-	//   
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("CreateSaleCreationRequestOp",[["requestId",xdr.lookup("Uint64")],["request",xdr.lookup("SaleCreationRequest")],["ext",xdr.lookup("CreateSaleCreationRequestOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum CreateSaleCreationRequestResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,
-	//   
-	//       // codes considered as "failure" for the operation
-	//   	REQUEST_NOT_FOUND = -1, // trying to update reviewable request which does not exists
-	//   	BASE_ASSET_OR_ASSET_REQUEST_NOT_FOUND = -2, // failed to find asset or asset request for sale
-	//   	QUOTE_ASSET_NOT_FOUND = -3, // failed to find quote asset
-	//   	START_END_INVALID = -4, // sale ends before start
-	//   	INVALID_END = -5, // end date is in the past
-	//   	INVALID_PRICE = -6, // price can not be 0
-	//   	INVALID_CAP = -7, // hard cap is < soft cap
-	//   	INSUFFICIENT_MAX_ISSUANCE = -8, // max number of tokens is less then number of tokens required for soft cap
-	//   	INVALID_ASSET_PAIR = -9, // one of the assets has invalid code or base asset is equal to quote asset
-	//   	REQUEST_OR_SALE_ALREADY_EXISTS = -10,
-	//   	INSUFFICIENT_PREISSUED = -11, // amount of pre issued tokens is insufficient for hard cap
-	//   	INVALID_DETAILS = -12 // details must be a valid json
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("CreateSaleCreationRequestResultCode",{success:0,requestNotFound:-1,baseAssetOrAssetRequestNotFound:-2,quoteAssetNotFound:-3,startEndInvalid:-4,invalidEnd:-5,invalidPrice:-6,invalidCap:-7,insufficientMaxIssuance:-8,invalidAssetPair:-9,requestOrSaleAlreadyExist:-10,insufficientPreissued:-11,invalidDetail:-12}); // === xdr source ============================================================
-=======
 	xdr.struct("OperationFee",[["operationType",xdr.lookup("OperationType")],["amount",xdr.lookup("Uint64")],["ext",xdr.lookup("OperationFeeExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -1193,21 +924,15 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("CreateSaleCreationSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct CreateSaleCreationSuccess {
-	//   	uint64 requestID;
-=======
 	xdr.union("TransactionFeeExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct TransactionFee
 	//   {
 	//       AssetCode assetCode;
 	//       OperationFee operationFees<100>;
->>>>>>> master
 	//   
-	//   	union switch (LedgerVersion v)
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
@@ -1216,20 +941,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("CreateSaleCreationSuccess",[["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("CreateSaleCreationSuccessExt")]]); // === xdr source ============================================================
-	//
-	//   union CreateSaleCreationRequestResult switch (CreateSaleCreationRequestResultCode code)
-	//   {
-	//       case SUCCESS:
-	//           CreateSaleCreationSuccess success;
-	//       default:
-	//           void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("CreateSaleCreationRequestResult",{switchOn:xdr.lookup("CreateSaleCreationRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreateSaleCreationSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-=======
 	xdr.struct("TransactionFee",[["assetCode",xdr.lookup("AssetCode")],["operationFees",xdr.varArray(xdr.lookup("OperationFee"),100)],["ext",xdr.lookup("TransactionFeeExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (TransactionResultCode code)
@@ -1243,66 +954,10 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("TransactionResultResult",{switchOn:xdr.lookup("TransactionResultCode"),switchName:"code",switches:[["txSuccess","results"],["txFailed","results"]],arms:{results:xdr.varArray(xdr.lookup("OperationResult"),2147483647)},defaultArm:xdr["void"]()}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
-<<<<<<< HEAD
-	//           void;		
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("CheckSaleStateOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct CheckSaleStateOp
-	//   {
-	//   	uint64 saleID;
-	//   	 // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;		
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("CheckSaleStateOp",[["saleId",xdr.lookup("Uint64")],["ext",xdr.lookup("CheckSaleStateOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum CheckSaleStateResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0, // sale was processed
-	//   
-	//       // codes considered as "failure" for the operation
-	//       NOT_FOUND = -1, // sale was not found
-	//   	NOT_READY = -2 // sale is not ready to be closed or canceled
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("CheckSaleStateResultCode",{success:0,notFound:-1,notReady:-2}); // === xdr source ============================================================
-	//
-	//   enum CheckSaleStateEffect {
-	//   	CANCELED = 1, // sale did not managed to go over soft cap in time
-	//   	CLOSED = 2 // sale met hard cap or (end time and soft cap)
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("CheckSaleStateEffect",{canceled:1,closed:2}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("SaleCanceledExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct SaleCanceled {
-	//   	 // reserved for future use
-=======
 	//           void;
 	//       case ADD_TRANSACTION_FEE:
 	//           TransactionFee transactionFee;
@@ -1326,7 +981,6 @@ var StellarBase =
 	//       result;
 	//   
 	//       // reserved for future use
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -1338,11 +992,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("SaleCanceled",[["ext",xdr.lookup("SaleCanceledExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("TransactionResult",[["feeCharged",xdr.lookup("Int64")],["result",xdr.lookup("TransactionResultResult")],["ext",xdr.lookup("TransactionResultExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -1351,14 +1001,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("CheckSubSaleClosedResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct CheckSubSaleClosedResult {
-	//   	BalanceID saleBaseBalance;
-	//   	BalanceID saleQuoteBalance;
-	//   	ManageOfferSuccessResult saleDetails;
-=======
 	xdr.union("ManageAccountOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct ManageAccountOp
@@ -1367,7 +1009,6 @@ var StellarBase =
 	//       AccountType accountType;
 	//       uint32 blockReasonsToAdd;
 	//       uint32 blockReasonsToRemove; 
->>>>>>> master
 	//   	 // reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -1378,9 +1019,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("CheckSubSaleClosedResult",[["saleBaseBalance",xdr.lookup("BalanceId")],["saleQuoteBalance",xdr.lookup("BalanceId")],["saleDetails",xdr.lookup("ManageOfferSuccessResult")],["ext",xdr.lookup("CheckSubSaleClosedResultExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("ManageAccountOp",[["account",xdr.lookup("AccountId")],["accountType",xdr.lookup("AccountType")],["blockReasonsToAdd",xdr.lookup("Uint32")],["blockReasonsToRemove",xdr.lookup("Uint32")],["ext",xdr.lookup("ManageAccountOpExt")]]); // === xdr source ============================================================
 	//
 	//   enum ManageAccountResultCode
@@ -1397,7 +1035,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("ManageAccountResultCode",{success:0,notFound:-1,malformed:-2,notAllowed:-3,typeMismatch:-4}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -1406,20 +1043,11 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("CheckSaleClosedResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct CheckSaleClosedResult {
-	//   	AccountID saleOwner;
-	//   	CheckSubSaleClosedResult results<>;
-	//   	 // reserved for future use
-=======
 	xdr.union("ManageAccountSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct ManageAccountSuccess {
 	//   	uint32 blockReasons;
 	//    // reserved for future use
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -1429,20 +1057,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("CheckSaleClosedResult",[["saleOwner",xdr.lookup("AccountId")],["results",xdr.varArray(xdr.lookup("CheckSubSaleClosedResult"),2147483647)],["ext",xdr.lookup("CheckSaleClosedResultExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (CheckSaleStateEffect effect)
-	//       {
-	//       case CANCELED:
-	//           SaleCanceled saleCanceled;
-	//   	case CLOSED:
-	//   		CheckSaleClosedResult saleClosed;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("CheckSaleStateSuccessEffect",{switchOn:xdr.lookup("CheckSaleStateEffect"),switchName:"effect",switches:[["canceled","saleCanceled"],["closed","saleClosed"]],arms:{saleCanceled:xdr.lookup("SaleCanceled"),saleClosed:xdr.lookup("CheckSaleClosedResult")}}); // === xdr source ============================================================
-=======
 	xdr.struct("ManageAccountSuccess",[["blockReasons",xdr.lookup("Uint32")],["ext",xdr.lookup("ManageAccountSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union ManageAccountResult switch (ManageAccountResultCode code)
@@ -1455,7 +1069,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("ManageAccountResult",{switchOn:xdr.lookup("ManageAccountResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageAccountSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -1464,14 +1077,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("CheckSaleStateSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct CheckSaleStateSuccess
-	//   {
-	//   	uint64 saleID;
-	//   	union switch (CheckSaleStateEffect effect)
-=======
 	xdr.union("CreateAmlAlertRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct CreateAMLAlertRequestOp
@@ -1508,18 +1113,10 @@ var StellarBase =
 	xdr["enum"]("CreateAmlAlertRequestResultCode",{success:0,balanceNotExist:1,invalidReason:2,underfunded:3,referenceDuplication:4,invalidAmount:5}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
->>>>>>> master
 	//       {
-	//       case CANCELED:
-	//           SaleCanceled saleCanceled;
-	//   	case CLOSED:
-	//   		CheckSaleClosedResult saleClosed;
+	//       case EMPTY_VERSION:
+	//           void;
 	//       }
-<<<<<<< HEAD
-	//       effect;
-	//   	 // reserved for future use
-	//       union switch (LedgerVersion v)
-=======
 	//
 	// ===========================================================================
 	xdr.union("CreateAmlAlertRequestSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
@@ -1528,7 +1125,6 @@ var StellarBase =
 	//   	uint64 requestID;
 	//   
 	//   	union switch (LedgerVersion v)
->>>>>>> master
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
@@ -1537,27 +1133,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("CheckSaleStateSuccess",[["saleId",xdr.lookup("Uint64")],["effect",xdr.lookup("CheckSaleStateSuccessEffect")],["ext",xdr.lookup("CheckSaleStateSuccessExt")]]); // === xdr source ============================================================
-	//
-	//   union CheckSaleStateResult switch (CheckSaleStateResultCode code)
-	//   {
-	//   case SUCCESS:
-	//       CheckSaleStateSuccess success;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("CheckSaleStateResult",{switchOn:xdr.lookup("CheckSaleStateResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CheckSaleStateSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-	//
-	//   enum WithdrawalType {
-	//   	AUTO_CONVERSION = 0
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("WithdrawalType",{autoConversion:0}); // === xdr source ============================================================
-=======
 	xdr.struct("CreateAmlAlertRequestSuccess",[["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("CreateAmlAlertRequestSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union CreateAMLAlertRequestResult switch (CreateAMLAlertRequestResultCode code)
@@ -1570,7 +1145,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("CreateAmlAlertRequestResult",{switchOn:xdr.lookup("CreateAmlAlertRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreateAmlAlertRequestSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -1579,15 +1153,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("AutoConversionWithdrawalDetailsExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct AutoConversionWithdrawalDetails {
-	//   	AssetCode destAsset; // asset in which withdrawal will be converted
-	//   	uint64 expectedAmount; // expected amount to be received in specified asset
-	//   
-	//   	union switch (LedgerVersion v)
-=======
 	xdr.union("ContractRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct ContractRequest
@@ -1601,7 +1166,6 @@ var StellarBase =
 	//   
 	//       // reserved for future use
 	//       union switch (LedgerVersion v)
->>>>>>> master
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
@@ -1610,16 +1174,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("AutoConversionWithdrawalDetails",[["destAsset",xdr.lookup("AssetCode")],["expectedAmount",xdr.lookup("Uint64")],["ext",xdr.lookup("AutoConversionWithdrawalDetailsExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (WithdrawalType withdrawalType) {
-	//   	case AUTO_CONVERSION:
-	//   		AutoConversionWithdrawalDetails autoConversion;
-	//   	}
-	//
-	// ===========================================================================
-=======
 	xdr.struct("ContractRequest",[["customer",xdr.lookup("AccountId")],["escrow",xdr.lookup("AccountId")],["details",xdr.lookup("Longstring")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["ext",xdr.lookup("ContractRequestExt")]]); // === xdr source ============================================================
 	//
 	//   enum WithdrawalType {
@@ -1659,7 +1213,6 @@ var StellarBase =
 	//   	}
 	//
 	// ===========================================================================
->>>>>>> master
 	xdr.union("WithdrawalRequestDetails",{switchOn:xdr.lookup("WithdrawalType"),switchName:"withdrawalType",switches:[["autoConversion","autoConversion"]],arms:{autoConversion:xdr.lookup("AutoConversionWithdrawalDetails")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
@@ -1701,19 +1254,133 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("LimitsUpdateRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	xdr.union("PayoutOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
-	//   struct LimitsUpdateRequest {
-	//       Hash documentHash;
-=======
+	//   struct PayoutOp
+	//   {
+	//       AssetCode asset; // asset, which holders will receive dividends
+	//       BalanceID sourceBalanceID; // balance, from which payout will be performed
+	//   
+	//       uint64 maxPayoutAmount; // max amount of asset, that owner wants to pay out
+	//       uint64 minPayoutAmount; // min tokens amount which will be payed for one balance;
+	//       uint64 minAssetHolderAmount; // min tokens amount for which holder will received dividends
+	//   
+	//       Fee fee;
+	//   
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("PayoutOp",[["asset",xdr.lookup("AssetCode")],["sourceBalanceId",xdr.lookup("BalanceId")],["maxPayoutAmount",xdr.lookup("Uint64")],["minPayoutAmount",xdr.lookup("Uint64")],["minAssetHolderAmount",xdr.lookup("Uint64")],["fee",xdr.lookup("Fee")],["ext",xdr.lookup("PayoutOpExt")]]); // === xdr source ============================================================
+	//
+	//   enum PayoutResultCode
+	//   {
+	//       // codes considered as "success" for the operation
+	//       SUCCESS = 0,    // payout successfully completed
+	//   
+	//       // codes considered as "failure" for the operation
+	//       INVALID_AMOUNT = -1, // max payout amount can not be zero
+	//       INVALID_ASSET = -2,
+	//       ASSET_NOT_FOUND = -3,
+	//       ASSET_NOT_TRANSFERABLE = -4, // asset must have policy transferable
+	//       BALANCE_NOT_FOUND = -5,
+	//       INSUFFICIENT_FEE_AMOUNT = -6,
+	//       FEE_EXCEEDS_ACTUAL_AMOUNT = -7,
+	//       TOTAL_FEE_OVERFLOW = -8,
+	//       UNDERFUNDED = -9, // not enough amount on source balance
+	//       HOLDERS_NOT_FOUND = -10, // there is no holders of such asset
+	//       MIN_AMOUNT_TOO_MUCH = -11, // there is no appropriate holders balances
+	//       LINE_FULL = -12, // destination balance amount overflows
+	//       STATS_OVERFLOW = -13, // source statistics overflow
+	//       LIMITS_EXCEEDED = -14 // source account limit exceeded
+	//   };
+	//
+	// ===========================================================================
+	xdr["enum"]("PayoutResultCode",{success:0,invalidAmount:-1,invalidAsset:-2,assetNotFound:-3,assetNotTransferable:-4,balanceNotFound:-5,insufficientFeeAmount:-6,feeExceedsActualAmount:-7,totalFeeOverflow:-8,underfunded:-9,holdersNotFound:-10,minAmountTooMuch:-11,lineFull:-12,statsOverflow:-13,limitsExceeded:-14}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("PayoutResponseExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct PayoutResponse
+	//   {
+	//       AccountID receiverID;
+	//       BalanceID receiverBalanceID;
+	//       uint64 receivedAmount;
+	//   
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("PayoutResponse",[["receiverId",xdr.lookup("AccountId")],["receiverBalanceId",xdr.lookup("BalanceId")],["receivedAmount",xdr.lookup("Uint64")],["ext",xdr.lookup("PayoutResponseExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("PayoutSuccessResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct PayoutSuccessResult
+	//   {
+	//       PayoutResponse payoutResponses<>;
+	//       uint64 actualPayoutAmount;
+	//   
+	//       // reserved for future use
+	//       union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//       ext;
+	//   };
+	//
+	// ===========================================================================
+	xdr.struct("PayoutSuccessResult",[["payoutResponses",xdr.varArray(xdr.lookup("PayoutResponse"),2147483647)],["actualPayoutAmount",xdr.lookup("Uint64")],["ext",xdr.lookup("PayoutSuccessResultExt")]]); // === xdr source ============================================================
+	//
+	//   union PayoutResult switch (PayoutResultCode code)
+	//   {
+	//       case SUCCESS:
+	//           PayoutSuccessResult payoutSuccessResult;
+	//       default:
+	//           void;
+	//   };
+	//
+	// ===========================================================================
+	xdr.union("PayoutResult",{switchOn:xdr.lookup("PayoutResultCode"),switchName:"code",switches:[["success","payoutSuccessResult"]],arms:{payoutSuccessResult:xdr.lookup("PayoutSuccessResult")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
+	//
+	// ===========================================================================
 	xdr.union("AccountTypeLimitsEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct AccountTypeLimitsEntry
 	//   {
 	//   	AccountType accountType;
 	//       Limits limits;
->>>>>>> master
 	//   
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
@@ -1725,9 +1392,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("LimitsUpdateRequest",[["documentHash",xdr.lookup("Hash")],["ext",xdr.lookup("LimitsUpdateRequestExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("AccountTypeLimitsEntry",[["accountType",xdr.lookup("AccountType")],["limits",xdr.lookup("Limits")],["ext",xdr.lookup("AccountTypeLimitsEntryExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
@@ -1774,7 +1438,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("CreateManageLimitsRequestResultCode",{success:0,manageLimitsRequestReferenceDuplication:-1,manageLimitsRequestNotFound:-2,invalidDetail:-3,invalidManageLimitsRequestVersion:-4}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -1783,80 +1446,6 @@ var StellarBase =
 	//   		}
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("ManageOfferOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ManageOfferOp
-	//   {
-	//       BalanceID baseBalance; // balance for base asset
-	//   	BalanceID quoteBalance; // balance for quote asset
-	//   	bool isBuy;
-	//       int64 amount; // if set to 0, delete the offer
-	//       int64 price;  // price of base asset in terms of quote
-	//   
-	//       int64 fee;
-	//   
-	//       // 0=create a new offer, otherwise edit an existing offer
-	//       uint64 offerID;
-	//   	uint64 orderBookID;
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ManageOfferOp",[["baseBalance",xdr.lookup("BalanceId")],["quoteBalance",xdr.lookup("BalanceId")],["isBuy",xdr.bool()],["amount",xdr.lookup("Int64")],["price",xdr.lookup("Int64")],["fee",xdr.lookup("Int64")],["offerId",xdr.lookup("Uint64")],["orderBookId",xdr.lookup("Uint64")],["ext",xdr.lookup("ManageOfferOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum ManageOfferResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,
-	//   
-	//       // codes considered as "failure" for the operation
-	//       MALFORMED = -1,     // generated offer would be invalid
-	//       PAIR_NOT_TRADED = -2, // it's not allowed to trage with this pair
-	//       BALANCE_NOT_FOUND = -3,  // does not own balance for buying or selling
-	//       UNDERFUNDED = -4,    // doesn't hold what it's trying to sell
-	//       CROSS_SELF = -5,     // would cross an offer from the same user
-	//   	OFFER_OVERFLOW = -6,
-	//   	ASSET_PAIR_NOT_TRADABLE = -7,
-	//   	PHYSICAL_PRICE_RESTRICTION = -8, // offer price violates physical price restriction
-	//   	CURRENT_PRICE_RESTRICTION = -9,
-	//       NOT_FOUND = -10, // offerID does not match an existing offer
-	//       INVALID_PERCENT_FEE = -11,
-	//   	INSUFFICIENT_PRICE = -12,
-	//   	ORDER_BOOK_DOES_NOT_EXISTS = -13, // specified order book does not exists
-	//   	SALE_IS_NOT_STARTED_YET = -14, // sale is not started yet
-	//   	SALE_ALREADY_ENDED = -15, // sale has already ended
-	//   	ORDER_VIOLATES_HARD_CAP = -16, // currentcap + order will exceed hard cap
-	//   	CANT_PARTICIPATE_OWN_SALE = -17, // it's not allowed to participate in own sale
-	//   	ASSET_MISMATCHED = -18, // sale assets does not match assets for specified balances
-	//   	PRICE_DOES_NOT_MATCH = -19, // price does not match sale price
-	//   	PRICE_IS_INVALID = -20, // price must be positive
-	//   	UPDATE_IS_NOT_ALLOWED = -21, // update of the offer is not allowed
-	//   	INVALID_AMOUNT = -22, // amount must be positive 
-	//   	SALE_IS_NOT_ACTIVE = -23,
-	//   	REQUIRES_KYC = -24 // source must have KYC in order to participate
-	//   
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ManageOfferResultCode",{success:0,malformed:-1,pairNotTraded:-2,balanceNotFound:-3,underfunded:-4,crossSelf:-5,offerOverflow:-6,assetPairNotTradable:-7,physicalPriceRestriction:-8,currentPriceRestriction:-9,notFound:-10,invalidPercentFee:-11,insufficientPrice:-12,orderBookDoesNotExist:-13,saleIsNotStartedYet:-14,saleAlreadyEnded:-15,orderViolatesHardCap:-16,cantParticipateOwnSale:-17,assetMismatched:-18,priceDoesNotMatch:-19,priceIsInvalid:-20,updateIsNotAllowed:-21,invalidAmount:-22,saleIsNotActive:-23,requiresKyc:-24}); // === xdr source ============================================================
-	//
-	//   enum ManageOfferEffect
-	//   {
-	//       CREATED = 0,
-	//       UPDATED = 1,
-	//       DELETED = 2
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ManageOfferEffect",{created:0,updated:1,deleted:2}); // === xdr source ============================================================
-=======
 	xdr.union("CreateManageLimitsRequestResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct {
@@ -1906,7 +1495,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("ScpBallot",[["counter",xdr.lookup("Uint32")],["value",xdr.lookup("Value")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   enum SCPStatementType
 	//   {
@@ -1917,46 +1505,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("ClaimOfferAtomExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ClaimOfferAtom
-	//   {
-	//       // emitted to identify the offer
-	//       AccountID bAccountID; // Account that owns the offer
-	//       uint64 offerID;
-	//   	int64 baseAmount;
-	//   	int64 quoteAmount;
-	//   	int64 bFeePaid;
-	//   	int64 aFeePaid;
-	//   	BalanceID baseBalance;
-	//   	BalanceID quoteBalance;
-	//   
-	//   	int64 currentPrice;
-	//   
-	//   	union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ClaimOfferAtom",[["bAccountId",xdr.lookup("AccountId")],["offerId",xdr.lookup("Uint64")],["baseAmount",xdr.lookup("Int64")],["quoteAmount",xdr.lookup("Int64")],["bFeePaid",xdr.lookup("Int64")],["aFeePaid",xdr.lookup("Int64")],["baseBalance",xdr.lookup("BalanceId")],["quoteBalance",xdr.lookup("BalanceId")],["currentPrice",xdr.lookup("Int64")],["ext",xdr.lookup("ClaimOfferAtomExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (ManageOfferEffect effect)
-	//       {
-	//       case CREATED:
-	//       case UPDATED:
-	//           OfferEntry offer;
-	//       default:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("ManageOfferSuccessResultOffer",{switchOn:xdr.lookup("ManageOfferEffect"),switchName:"effect",switches:[["created","offer"],["updated","offer"]],arms:{offer:xdr.lookup("OfferEntry")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-=======
 	xdr["enum"]("ScpStatementType",{prepare:0,confirm:1,externalize:2,nominate:3}); // === xdr source ============================================================
 	//
 	//   struct SCPNomination
@@ -1981,7 +1529,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("ScpStatementPrepare",[["quorumSetHash",xdr.lookup("Hash")],["ballot",xdr.lookup("ScpBallot")],["prepared",xdr.option(xdr.lookup("ScpBallot"))],["preparedPrime",xdr.option(xdr.lookup("ScpBallot"))],["nC",xdr.lookup("Uint32")],["nH",xdr.lookup("Uint32")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   struct
 	//           {
@@ -2038,29 +1585,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("ManageOfferSuccessResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ManageOfferSuccessResult
-	//   {
-	//   
-	//       // offers that got claimed while creating this offer
-	//       ClaimOfferAtom offersClaimed<>;
-	//   	AssetCode baseAsset;
-	//   	AssetCode quoteAsset;
-	//   
-	//       union switch (ManageOfferEffect effect)
-	//       {
-	//       case CREATED:
-	//       case UPDATED:
-	//           OfferEntry offer;
-	//       default:
-	//           void;
-	//       }
-	//       offer;
-	//   
-	//   	union switch (LedgerVersion v)
-=======
 	xdr.union("ScpStatementPledges",{switchOn:xdr.lookup("ScpStatementType"),switchName:"type",switches:[["prepare","prepare"],["confirm","confirm"],["externalize","externalize"],["nominate","nominate"]],arms:{prepare:xdr.lookup("ScpStatementPrepare"),confirm:xdr.lookup("ScpStatementConfirm"),externalize:xdr.lookup("ScpStatementExternalize"),nominate:xdr.lookup("ScpNomination")}}); // === xdr source ============================================================
 	//
 	//   struct SCPStatement
@@ -2069,7 +1593,6 @@ var StellarBase =
 	//       uint64 slotIndex; // i
 	//   
 	//       union switch (SCPStatementType type)
->>>>>>> master
 	//       {
 	//       case PREPARE:
 	//           struct
@@ -2104,9 +1627,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("ManageOfferSuccessResult",[["offersClaimed",xdr.varArray(xdr.lookup("ClaimOfferAtom"),2147483647)],["baseAsset",xdr.lookup("AssetCode")],["quoteAsset",xdr.lookup("AssetCode")],["offer",xdr.lookup("ManageOfferSuccessResultOffer")],["ext",xdr.lookup("ManageOfferSuccessResultExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("ScpStatement",[["nodeId",xdr.lookup("NodeId")],["slotIndex",xdr.lookup("Uint64")],["pledges",xdr.lookup("ScpStatementPledges")]]); // === xdr source ============================================================
 	//
 	//   struct SCPEnvelope
@@ -2127,7 +1647,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("ScpQuorumSet",[["threshold",xdr.lookup("Uint32")],["validators",xdr.varArray(xdr.lookup("PublicKey"),2147483647)],["innerSets",xdr.varArray(xdr.lookup("ScpQuorumSet"),2147483647)]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2136,22 +1655,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("ManageOfferResultPhysicalPriceRestrictionExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//   		int64 physicalPrice;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.struct("ManageOfferResultPhysicalPriceRestriction",[["physicalPrice",xdr.lookup("Int64")],["ext",xdr.lookup("ManageOfferResultPhysicalPriceRestrictionExt")]]); // === xdr source ============================================================
-=======
 	xdr.union("BindExternalSystemAccountIdOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct BindExternalSystemAccountIdOp
@@ -2168,7 +1671,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("BindExternalSystemAccountIdOp",[["externalSystemType",xdr.lookup("Int32")],["ext",xdr.lookup("BindExternalSystemAccountIdOpExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   enum BindExternalSystemAccountIdResultCode
 	//   {
@@ -2182,48 +1684,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("ManageOfferResultCurrentPriceRestrictionExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//   		int64 currentPrice;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.struct("ManageOfferResultCurrentPriceRestriction",[["currentPrice",xdr.lookup("Int64")],["ext",xdr.lookup("ManageOfferResultCurrentPriceRestrictionExt")]]); // === xdr source ============================================================
-	//
-	//   union ManageOfferResult switch (ManageOfferResultCode code)
-	//   {
-	//   case SUCCESS:
-	//       ManageOfferSuccessResult success;
-	//   case PHYSICAL_PRICE_RESTRICTION:
-	//   	struct {
-	//   		int64 physicalPrice;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//   	} physicalPriceRestriction;
-	//   case CURRENT_PRICE_RESTRICTION:
-	//   	struct {
-	//   		int64 currentPrice;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//   	} currentPriceRestriction;
-	//   
-=======
 	xdr["enum"]("BindExternalSystemAccountIdResultCode",{success:0,malformed:-1,noAvailableId:-2,autoGeneratedTypeNotAllowed:-3}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
@@ -2253,42 +1713,11 @@ var StellarBase =
 	//   {
 	//   case SUCCESS:
 	//       BindExternalSystemAccountIdSuccess success;
->>>>>>> master
 	//   default:
 	//       void;
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("ManageOfferResult",{switchOn:xdr.lookup("ManageOfferResultCode"),switchName:"code",switches:[["success","success"],["physicalPriceRestriction","physicalPriceRestriction"],["currentPriceRestriction","currentPriceRestriction"]],arms:{success:xdr.lookup("ManageOfferSuccessResult"),physicalPriceRestriction:xdr.lookup("ManageOfferResultPhysicalPriceRestriction"),currentPriceRestriction:xdr.lookup("ManageOfferResultCurrentPriceRestriction")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;	
-	//   	case PASS_EXTERNAL_SYS_ACC_ID_IN_CREATE_ACC:
-	//   		ExternalSystemAccountID externalSystemIDs<>;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("CreateAccountOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["passExternalSysAccIdInCreateAcc","externalSystemIDs"]],arms:{externalSystemIDs:xdr.varArray(xdr.lookup("ExternalSystemAccountId"),2147483647)}}); // === xdr source ============================================================
-	//
-	//   struct CreateAccountOp
-	//   {
-	//       AccountID destination; // account to create
-	//       AccountID recoveryKey; // recovery signer's public key
-	//       AccountID* referrer;     // parent account
-	//   	AccountType accountType;
-	//   	uint32 policies;
-	//   
-	//   	 // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;	
-	//   	case PASS_EXTERNAL_SYS_ACC_ID_IN_CREATE_ACC:
-	//   		ExternalSystemAccountID externalSystemIDs<>;
-=======
 	xdr.union("BindExternalSystemAccountIdResult",{switchOn:xdr.lookup("BindExternalSystemAccountIdResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("BindExternalSystemAccountIdSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   enum ManageContractRequestAction
@@ -2305,37 +1734,10 @@ var StellarBase =
 	//           ContractRequest contractRequest;
 	//       case REMOVE:
 	//           uint64 requestID;
->>>>>>> master
 	//       }
-	//       ext;
-	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("CreateAccountOp",[["destination",xdr.lookup("AccountId")],["recoveryKey",xdr.lookup("AccountId")],["referrer",xdr.option(xdr.lookup("AccountId"))],["accountType",xdr.lookup("AccountType")],["policies",xdr.lookup("Uint32")],["ext",xdr.lookup("CreateAccountOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum CreateAccountResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0, // account was created
-	//   
-	//       // codes considered as "failure" for the operation
-	//       MALFORMED = -1,       // invalid destination
-	//   	ACCOUNT_TYPE_MISMATCHED = -2, // account already exist and change of account type is not allowed
-	//   	TYPE_NOT_ALLOWED = -3, // master or commission account types are not allowed
-	//       NAME_DUPLICATION = -4,
-	//       REFERRER_NOT_FOUND = -5,
-	//   	INVALID_ACCOUNT_VERSION = -6, // if account version is higher than ledger version
-	//   	NOT_VERIFIED_CANNOT_HAVE_POLICIES = -7,
-	//   	EXTERNAL_SYS_ACC_NOT_ALLOWED = -8, // op contains external system account ID which should be generated on core level
-	//   	EXTERNAL_SYS_ID_EXISTS = -9 // external system account ID already exists
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("CreateAccountResultCode",{success:0,malformed:-1,accountTypeMismatched:-2,typeNotAllowed:-3,nameDuplication:-4,referrerNotFound:-5,invalidAccountVersion:-6,notVerifiedCannotHavePolicy:-7,externalSysAccNotAllowed:-8,externalSysIdExist:-9}); // === xdr source ============================================================
-=======
 	xdr.union("ManageContractRequestOpDetails",{switchOn:xdr.lookup("ManageContractRequestAction"),switchName:"action",switches:[["create","contractRequest"],["remove","requestId"]],arms:{contractRequest:xdr.lookup("ContractRequest"),requestId:xdr.lookup("Uint64")}}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2344,14 +1746,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("CreateAccountSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct CreateAccountSuccess
-	//   {
-	//   	ExternalSystemAccountID externalSystemIDs<>;
-	//   	 // reserved for future use
-=======
 	xdr.union("ManageContractRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct ManageContractRequestOp
@@ -2364,7 +1758,6 @@ var StellarBase =
 	//       } details;
 	//   
 	//   	// reserved for future use
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -2374,20 +1767,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("CreateAccountSuccess",[["externalSystemIDs",xdr.varArray(xdr.lookup("ExternalSystemAccountId"),2147483647)],["ext",xdr.lookup("CreateAccountSuccessExt")]]); // === xdr source ============================================================
-	//
-	//   union CreateAccountResult switch (CreateAccountResultCode code)
-	//   {
-	//   case SUCCESS:
-	//       CreateAccountSuccess success;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("CreateAccountResult",{switchOn:xdr.lookup("CreateAccountResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreateAccountSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-=======
 	xdr.struct("ManageContractRequestOp",[["details",xdr.lookup("ManageContractRequestOpDetails")],["ext",xdr.lookup("ManageContractRequestOpExt")]]); // === xdr source ============================================================
 	//
 	//   enum ManageContractRequestResultCode
@@ -2405,7 +1784,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("ManageContractRequestResultCode",{success:0,malformed:-1,notFound:-2,tooManyContract:-3,notAllowedToRemove:-4,detailsTooLong:-5}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -2414,16 +1792,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("AccountLimitsEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct AccountLimitsEntry
-	//   {
-	//       AccountID accountID;
-	//       Limits limits;
-	//   
-	//       union switch (LedgerVersion v)
-=======
 	xdr.union("CreateContractRequestResponseExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct CreateContractRequestResponse
@@ -2431,7 +1799,6 @@ var StellarBase =
 	//   	uint64 requestID;
 	//   
 	//   	union switch (LedgerVersion v)
->>>>>>> master
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
@@ -2440,285 +1807,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("AccountLimitsEntry",[["accountId",xdr.lookup("AccountId")],["limits",xdr.lookup("Limits")],["ext",xdr.lookup("AccountLimitsEntryExt")]]); // === xdr source ============================================================
-	//
-	//   typedef opaque Value<>;
-	//
-	// ===========================================================================
-	xdr.typedef("Value",xdr.varOpaque()); // === xdr source ============================================================
-	//
-	//   struct SCPBallot
-	//   {
-	//       uint32 counter; // n
-	//       Value value;    // x
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ScpBallot",[["counter",xdr.lookup("Uint32")],["value",xdr.lookup("Value")]]); // === xdr source ============================================================
-	//
-	//   enum SCPStatementType
-	//   {
-	//       PREPARE = 0,
-	//       CONFIRM = 1,
-	//       EXTERNALIZE = 2,
-	//       NOMINATE = 3
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ScpStatementType",{prepare:0,confirm:1,externalize:2,nominate:3}); // === xdr source ============================================================
-	//
-	//   struct SCPNomination
-	//   {
-	//       Hash quorumSetHash; // D
-	//       Value votes<>;      // X
-	//       Value accepted<>;   // Y
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ScpNomination",[["quorumSetHash",xdr.lookup("Hash")],["votes",xdr.varArray(xdr.lookup("Value"),2147483647)],["accepted",xdr.varArray(xdr.lookup("Value"),2147483647)]]); // === xdr source ============================================================
-	//
-	//   struct
-	//           {
-	//               Hash quorumSetHash;       // D
-	//               SCPBallot ballot;         // b
-	//               SCPBallot* prepared;      // p
-	//               SCPBallot* preparedPrime; // p'
-	//               uint32 nC;                // c.n
-	//               uint32 nH;                // h.n
-	//           }
-	//
-	// ===========================================================================
-	xdr.struct("ScpStatementPrepare",[["quorumSetHash",xdr.lookup("Hash")],["ballot",xdr.lookup("ScpBallot")],["prepared",xdr.option(xdr.lookup("ScpBallot"))],["preparedPrime",xdr.option(xdr.lookup("ScpBallot"))],["nC",xdr.lookup("Uint32")],["nH",xdr.lookup("Uint32")]]); // === xdr source ============================================================
-	//
-	//   struct
-	//           {
-	//               SCPBallot ballot;   // b
-	//               uint32 nPrepared;   // p.n
-	//               uint32 nCommit;     // c.n
-	//               uint32 nH;          // h.n
-	//               Hash quorumSetHash; // D
-	//           }
-	//
-	// ===========================================================================
-	xdr.struct("ScpStatementConfirm",[["ballot",xdr.lookup("ScpBallot")],["nPrepared",xdr.lookup("Uint32")],["nCommit",xdr.lookup("Uint32")],["nH",xdr.lookup("Uint32")],["quorumSetHash",xdr.lookup("Hash")]]); // === xdr source ============================================================
-	//
-	//   struct
-	//           {
-	//               SCPBallot commit;         // c
-	//               uint32 nH;                // h.n
-	//               Hash commitQuorumSetHash; // D used before EXTERNALIZE
-	//           }
-	//
-	// ===========================================================================
-	xdr.struct("ScpStatementExternalize",[["commit",xdr.lookup("ScpBallot")],["nH",xdr.lookup("Uint32")],["commitQuorumSetHash",xdr.lookup("Hash")]]); // === xdr source ============================================================
-	//
-	//   union switch (SCPStatementType type)
-	//       {
-	//       case PREPARE:
-	//           struct
-	//           {
-	//               Hash quorumSetHash;       // D
-	//               SCPBallot ballot;         // b
-	//               SCPBallot* prepared;      // p
-	//               SCPBallot* preparedPrime; // p'
-	//               uint32 nC;                // c.n
-	//               uint32 nH;                // h.n
-	//           } prepare;
-	//       case CONFIRM:
-	//           struct
-	//           {
-	//               SCPBallot ballot;   // b
-	//               uint32 nPrepared;   // p.n
-	//               uint32 nCommit;     // c.n
-	//               uint32 nH;          // h.n
-	//               Hash quorumSetHash; // D
-	//           } confirm;
-	//       case EXTERNALIZE:
-	//           struct
-	//           {
-	//               SCPBallot commit;         // c
-	//               uint32 nH;                // h.n
-	//               Hash commitQuorumSetHash; // D used before EXTERNALIZE
-	//           } externalize;
-	//       case NOMINATE:
-	//           SCPNomination nominate;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("ScpStatementPledges",{switchOn:xdr.lookup("ScpStatementType"),switchName:"type",switches:[["prepare","prepare"],["confirm","confirm"],["externalize","externalize"],["nominate","nominate"]],arms:{prepare:xdr.lookup("ScpStatementPrepare"),confirm:xdr.lookup("ScpStatementConfirm"),externalize:xdr.lookup("ScpStatementExternalize"),nominate:xdr.lookup("ScpNomination")}}); // === xdr source ============================================================
-	//
-	//   struct SCPStatement
-	//   {
-	//       NodeID nodeID;    // v
-	//       uint64 slotIndex; // i
-	//   
-	//       union switch (SCPStatementType type)
-	//       {
-	//       case PREPARE:
-	//           struct
-	//           {
-	//               Hash quorumSetHash;       // D
-	//               SCPBallot ballot;         // b
-	//               SCPBallot* prepared;      // p
-	//               SCPBallot* preparedPrime; // p'
-	//               uint32 nC;                // c.n
-	//               uint32 nH;                // h.n
-	//           } prepare;
-	//       case CONFIRM:
-	//           struct
-	//           {
-	//               SCPBallot ballot;   // b
-	//               uint32 nPrepared;   // p.n
-	//               uint32 nCommit;     // c.n
-	//               uint32 nH;          // h.n
-	//               Hash quorumSetHash; // D
-	//           } confirm;
-	//       case EXTERNALIZE:
-	//           struct
-	//           {
-	//               SCPBallot commit;         // c
-	//               uint32 nH;                // h.n
-	//               Hash commitQuorumSetHash; // D used before EXTERNALIZE
-	//           } externalize;
-	//       case NOMINATE:
-	//           SCPNomination nominate;
-	//       }
-	//       pledges;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ScpStatement",[["nodeId",xdr.lookup("NodeId")],["slotIndex",xdr.lookup("Uint64")],["pledges",xdr.lookup("ScpStatementPledges")]]); // === xdr source ============================================================
-	//
-	//   struct SCPEnvelope
-	//   {
-	//       SCPStatement statement;
-	//       Signature signature;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ScpEnvelope",[["statement",xdr.lookup("ScpStatement")],["signature",xdr.lookup("Signature")]]); // === xdr source ============================================================
-	//
-	//   struct SCPQuorumSet
-	//   {
-	//       uint32 threshold;
-	//       PublicKey validators<>;
-	//       SCPQuorumSet innerSets<>;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ScpQuorumSet",[["threshold",xdr.lookup("Uint32")],["validators",xdr.varArray(xdr.lookup("PublicKey"),2147483647)],["innerSets",xdr.varArray(xdr.lookup("ScpQuorumSet"),2147483647)]]); // === xdr source ============================================================
-	//
-	//   typedef opaque Hash[32];
-	//
-	// ===========================================================================
-	xdr.typedef("Hash",xdr.opaque(32)); // === xdr source ============================================================
-	//
-	//   typedef opaque uint256[32];
-	//
-	// ===========================================================================
-	xdr.typedef("Uint256",xdr.opaque(32)); // === xdr source ============================================================
-	//
-	//   typedef unsigned int uint32;
-	//
-	// ===========================================================================
-	xdr.typedef("Uint32",xdr.uint()); // === xdr source ============================================================
-	//
-	//   typedef int int32;
-	//
-	// ===========================================================================
-	xdr.typedef("Int32",xdr.int()); // === xdr source ============================================================
-	//
-	//   typedef unsigned hyper uint64;
-	//
-	// ===========================================================================
-	xdr.typedef("Uint64",xdr.uhyper()); // === xdr source ============================================================
-	//
-	//   typedef hyper int64;
-	//
-	// ===========================================================================
-	xdr.typedef("Int64",xdr.hyper()); // === xdr source ============================================================
-	//
-	//   enum CryptoKeyType
-	//   {
-	//       KEY_TYPE_ED25519 = 0
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("CryptoKeyType",{keyTypeEd25519:0}); // === xdr source ============================================================
-	//
-	//   enum PublicKeyType
-	//   {
-	//   	PUBLIC_KEY_TYPE_ED25519 = 0
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("PublicKeyType",{publicKeyTypeEd25519:0}); // === xdr source ============================================================
-	//
-	//   union PublicKey switch (CryptoKeyType type)
-	//   {
-	//   case KEY_TYPE_ED25519:
-	//       uint256 ed25519;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("PublicKey",{switchOn:xdr.lookup("CryptoKeyType"),switchName:"type",switches:[["keyTypeEd25519","ed25519"]],arms:{ed25519:xdr.lookup("Uint256")}}); // === xdr source ============================================================
-	//
-	//   enum LedgerVersion {
-	//   	EMPTY_VERSION = 0,
-	//   	PASS_EXTERNAL_SYS_ACC_ID_IN_CREATE_ACC = 1
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("LedgerVersion",{emptyVersion:0,passExternalSysAccIdInCreateAcc:1}); // === xdr source ============================================================
-	//
-	//   typedef opaque Signature<64>;
-	//
-	// ===========================================================================
-	xdr.typedef("Signature",xdr.varOpaque(64)); // === xdr source ============================================================
-	//
-	//   typedef opaque SignatureHint[4];
-	//
-	// ===========================================================================
-	xdr.typedef("SignatureHint",xdr.opaque(4)); // === xdr source ============================================================
-	//
-	//   typedef PublicKey NodeID;
-	//
-	// ===========================================================================
-	xdr.typedef("NodeId",xdr.lookup("PublicKey")); // === xdr source ============================================================
-	//
-	//   struct Curve25519Secret
-	//   {
-	//           opaque key[32];
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("Curve25519Secret",[["key",xdr.opaque(32)]]); // === xdr source ============================================================
-	//
-	//   struct Curve25519Public
-	//   {
-	//           opaque key[32];
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("Curve25519Public",[["key",xdr.opaque(32)]]); // === xdr source ============================================================
-	//
-	//   struct HmacSha256Key
-	//   {
-	//           opaque key[32];
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("HmacSha256Key",[["key",xdr.opaque(32)]]); // === xdr source ============================================================
-	//
-	//   struct HmacSha256Mac
-	//   {
-	//           opaque mac[32];
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("HmacSha256Mac",[["mac",xdr.opaque(32)]]); // === xdr source ============================================================
-=======
 	xdr.struct("CreateContractRequestResponse",[["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("CreateContractRequestResponseExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (ManageContractRequestAction action)
@@ -3085,19 +2173,14 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("SignerType",{reader:1,notVerifiedAccManager:2,generalAccManager:4,directDebitOperator:8,assetManager:16,assetRateManager:32,balanceManager:64,issuanceManager:128,invoiceManager:256,paymentOperator:512,limitsManager:1024,accountManager:2048,commissionBalanceManager:4096,operationalBalanceManager:8192,eventsChecker:16384,exchangeAccManager:32768,syndicateAccManager:65536,userAssetManager:131072,userIssuanceManager:262144,withdrawManager:524288,feesManager:1048576,txSender:2097152,amlAlertManager:4194304,amlAlertReviewer:8388608,kycAccManager:16777216,kycSuperAdmin:33554432,externalSystemAccountIdPoolManager:67108864,keyValueManager:134217728,superIssuanceManager:268435456,contractManager:536870912}); // === xdr source ============================================================
->>>>>>> master
 	//
-	//   typedef PublicKey AccountID;
-	//
-	// ===========================================================================
-<<<<<<< HEAD
-	xdr.typedef("AccountId",xdr.lookup("PublicKey")); // === xdr source ============================================================
-	//
-	//   typedef PublicKey BalanceID;
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
 	//
 	// ===========================================================================
-	xdr.typedef("BalanceId",xdr.lookup("PublicKey")); // === xdr source ============================================================
-=======
 	xdr.union("SignerExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct Signer
@@ -3119,19 +2202,14 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("Signer",[["pubKey",xdr.lookup("AccountId")],["weight",xdr.lookup("Uint32")],["signerType",xdr.lookup("Uint32")],["identity",xdr.lookup("Uint32")],["name",xdr.lookup("String256")],["ext",xdr.lookup("SignerExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
-	//   typedef opaque Thresholds[4];
-	//
-	// ===========================================================================
-<<<<<<< HEAD
-	xdr.typedef("Thresholds",xdr.opaque(4)); // === xdr source ============================================================
-	//
-	//   typedef string string32<32>;
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
 	//
 	// ===========================================================================
-	xdr.typedef("String32",xdr.string(32)); // === xdr source ============================================================
-=======
 	xdr.union("TrustEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct TrustEntry
@@ -3150,100 +2228,14 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("TrustEntry",[["allowedAccount",xdr.lookup("AccountId")],["balanceToUse",xdr.lookup("BalanceId")],["ext",xdr.lookup("TrustEntryExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
-	//   typedef string string64<64>;
-	//
-	// ===========================================================================
-<<<<<<< HEAD
-	xdr.typedef("String64",xdr.string(64)); // === xdr source ============================================================
-	//
-	//   typedef string string256<256>;
-	//
-	// ===========================================================================
-	xdr.typedef("String256",xdr.string(256)); // === xdr source ============================================================
-	//
-	//   typedef string longstring<>;
-	//
-	// ===========================================================================
-	xdr.typedef("Longstring",xdr.string()); // === xdr source ============================================================
-	//
-	//   typedef string AssetCode<16>;
-	//
-	// ===========================================================================
-	xdr.typedef("AssetCode",xdr.string(16)); // === xdr source ============================================================
-	//
-	//   typedef uint64 Salt;
-	//
-	// ===========================================================================
-	xdr.typedef("Salt",xdr.lookup("Uint64")); // === xdr source ============================================================
-	//
-	//   typedef opaque DataValue<64>;
-	//
-	// ===========================================================================
-	xdr.typedef("DataValue",xdr.varOpaque(64)); // === xdr source ============================================================
-	//
-	//   union switch(LedgerVersion v)
+	//   union switch (LedgerVersion v)
 	//       {
-	//           case EMPTY_VERSION:
-	//               void;
+	//       case EMPTY_VERSION:
+	//           void;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("FeeExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct Fee {
-	//   	uint64 fixed;
-	//   	uint64 percent;
-	//   
-	//       // reserved for future use
-	//       union switch(LedgerVersion v)
-	//       {
-	//           case EMPTY_VERSION:
-	//               void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("Fee",[["fixed",xdr.lookup("Uint64")],["percent",xdr.lookup("Uint64")],["ext",xdr.lookup("FeeExt")]]); // === xdr source ============================================================
-	//
-	//   enum OperationType
-	//   {
-	//       CREATE_ACCOUNT = 0,
-	//       PAYMENT = 1,
-	//       SET_OPTIONS = 2,
-	//       CREATE_ISSUANCE_REQUEST = 3,
-	//       SET_FEES = 5,
-	//   	MANAGE_ACCOUNT = 6,
-	//       CREATE_WITHDRAWAL_REQUEST = 7,
-	//       MANAGE_BALANCE = 9,
-	//       REVIEW_PAYMENT_REQUEST = 10,
-	//       MANAGE_ASSET = 11,
-	//       CREATE_PREISSUANCE_REQUEST = 12,
-	//       SET_LIMITS = 13,
-	//       DIRECT_DEBIT = 14,
-	//   	MANAGE_ASSET_PAIR = 15,
-	//   	MANAGE_OFFER = 16,
-	//       MANAGE_INVOICE = 17,
-	//   	REVIEW_REQUEST = 18,
-	//   	CREATE_SALE_REQUEST = 19,
-	//   	CHECK_SALE_STATE = 20,
-	//   	PAYOUT = 21
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("OperationType",{createAccount:0,payment:1,setOption:2,createIssuanceRequest:3,setFee:5,manageAccount:6,createWithdrawalRequest:7,manageBalance:9,reviewPaymentRequest:10,manageAsset:11,createPreissuanceRequest:12,setLimit:13,directDebit:14,manageAssetPair:15,manageOffer:16,manageInvoice:17,reviewRequest:18,createSaleRequest:19,checkSaleState:20,payout:21}); // === xdr source ============================================================
-	//
-	//   struct DecoratedSignature
-	//   {
-	//       SignatureHint hint;  // last 4 bytes of the public key, used as a hint
-	//       Signature signature; // actual signature
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("DecoratedSignature",[["hint",xdr.lookup("SignatureHint")],["signature",xdr.lookup("Signature")]]); // === xdr source ============================================================
-=======
 	xdr.union("LimitsExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct Limits
@@ -3375,106 +2367,9 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("ManageContractOpData",{switchOn:xdr.lookup("ManageContractAction"),switchName:"action",switches:[["addDetail","details"],["confirmCompleted",xdr["void"]()],["startDispute","disputeReason"],["resolveDispute","isRevert"]],arms:{details:xdr.lookup("Longstring"),disputeReason:xdr.lookup("Longstring"),isRevert:xdr.bool()}}); // === xdr source ============================================================
->>>>>>> master
 	//
-	//   union switch (OperationType type)
+	//   union switch (LedgerVersion v)
 	//       {
-<<<<<<< HEAD
-	//       case CREATE_ACCOUNT:
-	//           CreateAccountOp createAccountOp;
-	//       case PAYMENT:
-	//           PaymentOp paymentOp;
-	//       case SET_OPTIONS:
-	//           SetOptionsOp setOptionsOp;
-	//   	case CREATE_ISSUANCE_REQUEST:
-	//   		CreateIssuanceRequestOp createIssuanceRequestOp;
-	//       case SET_FEES:
-	//           SetFeesOp setFeesOp;
-	//   	case MANAGE_ACCOUNT:
-	//   		ManageAccountOp manageAccountOp;
-	//   	case CREATE_WITHDRAWAL_REQUEST:
-	//   		CreateWithdrawalRequestOp createWithdrawalRequestOp;
-	//   	case MANAGE_BALANCE:
-	//   		ManageBalanceOp manageBalanceOp;
-	//   	case REVIEW_PAYMENT_REQUEST:
-	//   		ReviewPaymentRequestOp reviewPaymentRequestOp;
-	//       case MANAGE_ASSET:
-	//           ManageAssetOp manageAssetOp;
-	//       case CREATE_PREISSUANCE_REQUEST:
-	//           CreatePreIssuanceRequestOp createPreIssuanceRequest;
-	//       case SET_LIMITS:
-	//           SetLimitsOp setLimitsOp;
-	//       case DIRECT_DEBIT:
-	//           DirectDebitOp directDebitOp;
-	//   	case MANAGE_ASSET_PAIR:
-	//   		ManageAssetPairOp manageAssetPairOp;
-	//   	case MANAGE_OFFER:
-	//   		ManageOfferOp manageOfferOp;
-	//       case MANAGE_INVOICE:
-	//           ManageInvoiceOp manageInvoiceOp;
-	//   	case REVIEW_REQUEST:
-	//   		ReviewRequestOp reviewRequestOp;
-	//   	case CREATE_SALE_REQUEST:
-	//   		CreateSaleCreationRequestOp createSaleCreationRequestOp;
-	//   	case CHECK_SALE_STATE:
-	//   		CheckSaleStateOp checkSaleStateOp;
-	//   	case PAYOUT:
-	//   	    PayoutOp payoutOp;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("OperationBody",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountOp"],["payment","paymentOp"],["setOption","setOptionsOp"],["createIssuanceRequest","createIssuanceRequestOp"],["setFee","setFeesOp"],["manageAccount","manageAccountOp"],["createWithdrawalRequest","createWithdrawalRequestOp"],["manageBalance","manageBalanceOp"],["reviewPaymentRequest","reviewPaymentRequestOp"],["manageAsset","manageAssetOp"],["createPreissuanceRequest","createPreIssuanceRequest"],["setLimit","setLimitsOp"],["directDebit","directDebitOp"],["manageAssetPair","manageAssetPairOp"],["manageOffer","manageOfferOp"],["manageInvoice","manageInvoiceOp"],["reviewRequest","reviewRequestOp"],["createSaleRequest","createSaleCreationRequestOp"],["checkSaleState","checkSaleStateOp"],["payout","payoutOp"]],arms:{createAccountOp:xdr.lookup("CreateAccountOp"),paymentOp:xdr.lookup("PaymentOp"),setOptionsOp:xdr.lookup("SetOptionsOp"),createIssuanceRequestOp:xdr.lookup("CreateIssuanceRequestOp"),setFeesOp:xdr.lookup("SetFeesOp"),manageAccountOp:xdr.lookup("ManageAccountOp"),createWithdrawalRequestOp:xdr.lookup("CreateWithdrawalRequestOp"),manageBalanceOp:xdr.lookup("ManageBalanceOp"),reviewPaymentRequestOp:xdr.lookup("ReviewPaymentRequestOp"),manageAssetOp:xdr.lookup("ManageAssetOp"),createPreIssuanceRequest:xdr.lookup("CreatePreIssuanceRequestOp"),setLimitsOp:xdr.lookup("SetLimitsOp"),directDebitOp:xdr.lookup("DirectDebitOp"),manageAssetPairOp:xdr.lookup("ManageAssetPairOp"),manageOfferOp:xdr.lookup("ManageOfferOp"),manageInvoiceOp:xdr.lookup("ManageInvoiceOp"),reviewRequestOp:xdr.lookup("ReviewRequestOp"),createSaleCreationRequestOp:xdr.lookup("CreateSaleCreationRequestOp"),checkSaleStateOp:xdr.lookup("CheckSaleStateOp"),payoutOp:xdr.lookup("PayoutOp")}}); // === xdr source ============================================================
-	//
-	//   struct Operation
-	//   {
-	//       // sourceAccount is the account used to run the operation
-	//       // if not set, the runtime defaults to "sourceAccount" specified at
-	//       // the transaction level
-	//       AccountID* sourceAccount;
-	//   
-	//       union switch (OperationType type)
-	//       {
-	//       case CREATE_ACCOUNT:
-	//           CreateAccountOp createAccountOp;
-	//       case PAYMENT:
-	//           PaymentOp paymentOp;
-	//       case SET_OPTIONS:
-	//           SetOptionsOp setOptionsOp;
-	//   	case CREATE_ISSUANCE_REQUEST:
-	//   		CreateIssuanceRequestOp createIssuanceRequestOp;
-	//       case SET_FEES:
-	//           SetFeesOp setFeesOp;
-	//   	case MANAGE_ACCOUNT:
-	//   		ManageAccountOp manageAccountOp;
-	//   	case CREATE_WITHDRAWAL_REQUEST:
-	//   		CreateWithdrawalRequestOp createWithdrawalRequestOp;
-	//   	case MANAGE_BALANCE:
-	//   		ManageBalanceOp manageBalanceOp;
-	//   	case REVIEW_PAYMENT_REQUEST:
-	//   		ReviewPaymentRequestOp reviewPaymentRequestOp;
-	//       case MANAGE_ASSET:
-	//           ManageAssetOp manageAssetOp;
-	//       case CREATE_PREISSUANCE_REQUEST:
-	//           CreatePreIssuanceRequestOp createPreIssuanceRequest;
-	//       case SET_LIMITS:
-	//           SetLimitsOp setLimitsOp;
-	//       case DIRECT_DEBIT:
-	//           DirectDebitOp directDebitOp;
-	//   	case MANAGE_ASSET_PAIR:
-	//   		ManageAssetPairOp manageAssetPairOp;
-	//   	case MANAGE_OFFER:
-	//   		ManageOfferOp manageOfferOp;
-	//       case MANAGE_INVOICE:
-	//           ManageInvoiceOp manageInvoiceOp;
-	//   	case REVIEW_REQUEST:
-	//   		ReviewRequestOp reviewRequestOp;
-	//   	case CREATE_SALE_REQUEST:
-	//   		CreateSaleCreationRequestOp createSaleCreationRequestOp;
-	//   	case CHECK_SALE_STATE:
-	//   		CheckSaleStateOp checkSaleStateOp;
-	//   	case PAYOUT:
-	//   	    PayoutOp payoutOp;
-=======
 	//       case EMPTY_VERSION:
 	//           void;
 	//       }
@@ -3504,53 +2399,11 @@ var StellarBase =
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
->>>>>>> master
 	//       }
-	//       body;
+	//       ext;
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("Operation",[["sourceAccount",xdr.option(xdr.lookup("AccountId"))],["body",xdr.lookup("OperationBody")]]); // === xdr source ============================================================
-	//
-	//   enum MemoType
-	//   {
-	//       MEMO_NONE = 0,
-	//       MEMO_TEXT = 1,
-	//       MEMO_ID = 2,
-	//       MEMO_HASH = 3,
-	//       MEMO_RETURN = 4
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("MemoType",{memoNone:0,memoText:1,memoId:2,memoHash:3,memoReturn:4}); // === xdr source ============================================================
-	//
-	//   union Memo switch (MemoType type)
-	//   {
-	//   case MEMO_NONE:
-	//       void;
-	//   case MEMO_TEXT:
-	//       string text<28>;
-	//   case MEMO_ID:
-	//       uint64 id;
-	//   case MEMO_HASH:
-	//       Hash hash; // the hash of what to pull from the content server
-	//   case MEMO_RETURN:
-	//       Hash retHash; // the hash of the tx you are rejecting
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("Memo",{switchOn:xdr.lookup("MemoType"),switchName:"type",switches:[["memoNone",xdr["void"]()],["memoText","text"],["memoId","id"],["memoHash","hash"],["memoReturn","retHash"]],arms:{text:xdr.string(28),id:xdr.lookup("Uint64"),hash:xdr.lookup("Hash"),retHash:xdr.lookup("Hash")}}); // === xdr source ============================================================
-	//
-	//   struct TimeBounds
-	//   {
-	//       uint64 minTime;
-	//       uint64 maxTime; // 0 here means no maxTime
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("TimeBounds",[["minTime",xdr.lookup("Uint64")],["maxTime",xdr.lookup("Uint64")]]); // === xdr source ============================================================
-=======
 	xdr.struct("ManageContractOp",[["contractId",xdr.lookup("Uint64")],["data",xdr.lookup("ManageContractOpData")],["ext",xdr.lookup("ManageContractOpExt")]]); // === xdr source ============================================================
 	//
 	//   enum ManageContractResultCode
@@ -3638,7 +2491,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("ManageAssetAction",{createAssetCreationRequest:0,createAssetUpdateRequest:1,cancelAssetRequest:2,changePreissuedAssetSigner:3,updateMaxIssuance:4}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3647,31 +2499,11 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("TransactionExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct Transaction
-	//   {
-	//       // account used to run the transaction
-	//       AccountID sourceAccount;
-	//   
-	//       Salt salt;
-	//   
-	//       // validity range (inclusive) for the last ledger close time
-	//       TimeBounds timeBounds;
-	//   
-	//       Memo memo;
-	//   
-	//       Operation operations<100>;
-	//   
-	//       // reserved for future use
-=======
 	xdr.union("CancelAssetRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct CancelAssetRequest {
 	//   
 	//   	// reserved for future use
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -3681,86 +2513,15 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("Transaction",[["sourceAccount",xdr.lookup("AccountId")],["salt",xdr.lookup("Salt")],["timeBounds",xdr.lookup("TimeBounds")],["memo",xdr.lookup("Memo")],["operations",xdr.varArray(xdr.lookup("Operation"),100)],["ext",xdr.lookup("TransactionExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("CancelAssetRequest",[["ext",xdr.lookup("CancelAssetRequestExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
-	//   struct TransactionEnvelope
-	//   {
-	//       Transaction tx;
-	//       DecoratedSignature signatures<20>;
-	//   };
-	//
-	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("TransactionEnvelope",[["tx",xdr.lookup("Transaction")],["signatures",xdr.varArray(xdr.lookup("DecoratedSignature"),20)]]); // === xdr source ============================================================
-	//
-	//   enum OperationResultCode
-	//   {
-	//       opINNER = 0, // inner object result is valid
-	//   
-	//       opBAD_AUTH = -1,      // too few valid signatures / wrong network
-	//       opNO_ACCOUNT = -2,    // source account was not found
-	//   	opNOT_ALLOWED = -3,   // operation is not allowed for this type of source account
-	//   	opACCOUNT_BLOCKED = -4, // account is blocked
-	//       opNO_COUNTERPARTY = -5,
-	//       opCOUNTERPARTY_BLOCKED = -6,
-	//       opCOUNTERPARTY_WRONG_TYPE = -7,
-	//   	opBAD_AUTH_EXTRA = -8
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("OperationResultCode",{opInner:0,opBadAuth:-1,opNoAccount:-2,opNotAllowed:-3,opAccountBlocked:-4,opNoCounterparty:-5,opCounterpartyBlocked:-6,opCounterpartyWrongType:-7,opBadAuthExtra:-8}); // === xdr source ============================================================
-	//
-	//   union switch (OperationType type)
+	//   union switch (LedgerVersion v)
 	//       {
-	//       case CREATE_ACCOUNT:
-	//           CreateAccountResult createAccountResult;
-	//       case PAYMENT:
-	//           PaymentResult paymentResult;
-	//       case SET_OPTIONS:
-	//           SetOptionsResult setOptionsResult;
-	//   	case CREATE_ISSUANCE_REQUEST:
-	//   		CreateIssuanceRequestResult createIssuanceRequestResult;
-	//       case SET_FEES:
-	//           SetFeesResult setFeesResult;
-	//   	case MANAGE_ACCOUNT:
-	//   		ManageAccountResult manageAccountResult;
-	//       case CREATE_WITHDRAWAL_REQUEST:
-	//   		CreateWithdrawalRequestResult createWithdrawalRequestResult;
-	//       case MANAGE_BALANCE:
-	//           ManageBalanceResult manageBalanceResult;
-	//       case REVIEW_PAYMENT_REQUEST:
-	//           ReviewPaymentRequestResult reviewPaymentRequestResult;
-	//       case MANAGE_ASSET:
-	//           ManageAssetResult manageAssetResult;
-	//       case CREATE_PREISSUANCE_REQUEST:
-	//           CreatePreIssuanceRequestResult createPreIssuanceRequestResult;
-	//       case SET_LIMITS:
-	//           SetLimitsResult setLimitsResult;
-	//       case DIRECT_DEBIT:
-	//           DirectDebitResult directDebitResult;
-	//   	case MANAGE_ASSET_PAIR:
-	//   		ManageAssetPairResult manageAssetPairResult;
-	//   	case MANAGE_OFFER:
-	//   		ManageOfferResult manageOfferResult;
-	//   	case MANAGE_INVOICE:
-	//   		ManageInvoiceResult manageInvoiceResult;
-	//   	case REVIEW_REQUEST:
-	//   		ReviewRequestResult reviewRequestResult;
-	//   	case CREATE_SALE_REQUEST:
-	//   		CreateSaleCreationRequestResult createSaleCreationRequestResult;
-	//   	case CHECK_SALE_STATE:
-	//   		CheckSaleStateResult checkSaleStateResult;
-	//   	case PAYOUT:
-	//   	    PayoutResult payoutResult;
+	//       case EMPTY_VERSION:
+	//           void;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("OperationResultTr",{switchOn:xdr.lookup("OperationType"),switchName:"type",switches:[["createAccount","createAccountResult"],["payment","paymentResult"],["setOption","setOptionsResult"],["createIssuanceRequest","createIssuanceRequestResult"],["setFee","setFeesResult"],["manageAccount","manageAccountResult"],["createWithdrawalRequest","createWithdrawalRequestResult"],["manageBalance","manageBalanceResult"],["reviewPaymentRequest","reviewPaymentRequestResult"],["manageAsset","manageAssetResult"],["createPreissuanceRequest","createPreIssuanceRequestResult"],["setLimit","setLimitsResult"],["directDebit","directDebitResult"],["manageAssetPair","manageAssetPairResult"],["manageOffer","manageOfferResult"],["manageInvoice","manageInvoiceResult"],["reviewRequest","reviewRequestResult"],["createSaleRequest","createSaleCreationRequestResult"],["checkSaleState","checkSaleStateResult"],["payout","payoutResult"]],arms:{createAccountResult:xdr.lookup("CreateAccountResult"),paymentResult:xdr.lookup("PaymentResult"),setOptionsResult:xdr.lookup("SetOptionsResult"),createIssuanceRequestResult:xdr.lookup("CreateIssuanceRequestResult"),setFeesResult:xdr.lookup("SetFeesResult"),manageAccountResult:xdr.lookup("ManageAccountResult"),createWithdrawalRequestResult:xdr.lookup("CreateWithdrawalRequestResult"),manageBalanceResult:xdr.lookup("ManageBalanceResult"),reviewPaymentRequestResult:xdr.lookup("ReviewPaymentRequestResult"),manageAssetResult:xdr.lookup("ManageAssetResult"),createPreIssuanceRequestResult:xdr.lookup("CreatePreIssuanceRequestResult"),setLimitsResult:xdr.lookup("SetLimitsResult"),directDebitResult:xdr.lookup("DirectDebitResult"),manageAssetPairResult:xdr.lookup("ManageAssetPairResult"),manageOfferResult:xdr.lookup("ManageOfferResult"),manageInvoiceResult:xdr.lookup("ManageInvoiceResult"),reviewRequestResult:xdr.lookup("ReviewRequestResult"),createSaleCreationRequestResult:xdr.lookup("CreateSaleCreationRequestResult"),checkSaleStateResult:xdr.lookup("CheckSaleStateResult"),payoutResult:xdr.lookup("PayoutResult")}}); // === xdr source ============================================================
-=======
 	xdr.union("UpdateMaxIssuanceExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct UpdateMaxIssuance {
@@ -3795,96 +2556,14 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("ManageAssetOpRequest",{switchOn:xdr.lookup("ManageAssetAction"),switchName:"action",switches:[["createAssetCreationRequest","createAsset"],["createAssetUpdateRequest","updateAsset"],["cancelAssetRequest","cancelRequest"],["changePreissuedAssetSigner","changePreissuedSigner"],["updateMaxIssuance","updateMaxIssuance"]],arms:{createAsset:xdr.lookup("AssetCreationRequest"),updateAsset:xdr.lookup("AssetUpdateRequest"),cancelRequest:xdr.lookup("CancelAssetRequest"),changePreissuedSigner:xdr.lookup("AssetChangePreissuedSigner"),updateMaxIssuance:xdr.lookup("UpdateMaxIssuance")}}); // === xdr source ============================================================
->>>>>>> master
 	//
-	//   union OperationResult switch (OperationResultCode code)
-	//   {
-	//   case opINNER:
-	//       union switch (OperationType type)
+	//   union switch (LedgerVersion v)
 	//       {
-	//       case CREATE_ACCOUNT:
-	//           CreateAccountResult createAccountResult;
-	//       case PAYMENT:
-	//           PaymentResult paymentResult;
-	//       case SET_OPTIONS:
-	//           SetOptionsResult setOptionsResult;
-	//   	case CREATE_ISSUANCE_REQUEST:
-	//   		CreateIssuanceRequestResult createIssuanceRequestResult;
-	//       case SET_FEES:
-	//           SetFeesResult setFeesResult;
-	//   	case MANAGE_ACCOUNT:
-	//   		ManageAccountResult manageAccountResult;
-	//       case CREATE_WITHDRAWAL_REQUEST:
-	//   		CreateWithdrawalRequestResult createWithdrawalRequestResult;
-	//       case MANAGE_BALANCE:
-	//           ManageBalanceResult manageBalanceResult;
-	//       case REVIEW_PAYMENT_REQUEST:
-	//           ReviewPaymentRequestResult reviewPaymentRequestResult;
-	//       case MANAGE_ASSET:
-	//           ManageAssetResult manageAssetResult;
-	//       case CREATE_PREISSUANCE_REQUEST:
-	//           CreatePreIssuanceRequestResult createPreIssuanceRequestResult;
-	//       case SET_LIMITS:
-	//           SetLimitsResult setLimitsResult;
-	//       case DIRECT_DEBIT:
-	//           DirectDebitResult directDebitResult;
-	//   	case MANAGE_ASSET_PAIR:
-	//   		ManageAssetPairResult manageAssetPairResult;
-	//   	case MANAGE_OFFER:
-	//   		ManageOfferResult manageOfferResult;
-	//   	case MANAGE_INVOICE:
-	//   		ManageInvoiceResult manageInvoiceResult;
-	//   	case REVIEW_REQUEST:
-	//   		ReviewRequestResult reviewRequestResult;
-	//   	case CREATE_SALE_REQUEST:
-	//   		CreateSaleCreationRequestResult createSaleCreationRequestResult;
-	//   	case CHECK_SALE_STATE:
-	//   		CheckSaleStateResult checkSaleStateResult;
-	//   	case PAYOUT:
-	//   	    PayoutResult payoutResult;
-	//       }
-	//       tr;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("OperationResult",{switchOn:xdr.lookup("OperationResultCode"),switchName:"code",switches:[["opInner","tr"]],arms:{tr:xdr.lookup("OperationResultTr")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-	//
-	//   enum TransactionResultCode
-	//   {
-	//       txSUCCESS = 0, // all operations succeeded
-	//   
-	//       txFAILED = -1, // one of the operations failed (none were applied)
-	//   
-	//       txTOO_EARLY = -2,         // ledger closeTime before minTime
-	//       txTOO_LATE = -3,          // ledger closeTime after maxTime
-	//       txMISSING_OPERATION = -4, // no operation was specified
-	//   
-	//       txBAD_AUTH = -5,             // too few valid signatures / wrong network
-	//       txNO_ACCOUNT = -6,           // source account not found
-	//       txBAD_AUTH_EXTRA = -7,      // unused signatures attached to transaction
-	//       txINTERNAL_ERROR = -8,      // an unknown error occured
-	//   	txACCOUNT_BLOCKED = -9,     // account is blocked and cannot be source of tx
-	//       txDUPLICATION = -10         // if timing is stored
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("TransactionResultCode",{txSuccess:0,txFailed:-1,txTooEarly:-2,txTooLate:-3,txMissingOperation:-4,txBadAuth:-5,txNoAccount:-6,txBadAuthExtra:-7,txInternalError:-8,txAccountBlocked:-9,txDuplication:-10}); // === xdr source ============================================================
-	//
-	//   union switch (TransactionResultCode code)
-	//       {
-	//       case txSUCCESS:
-	//       case txFAILED:
-	//           OperationResult results<>;
-	//       default:
+	//       case EMPTY_VERSION:
 	//           void;
 	//       }
 	//
 	// ===========================================================================
-	xdr.union("TransactionResultResult",{switchOn:xdr.lookup("TransactionResultCode"),switchName:"code",switches:[["txSuccess","results"],["txFailed","results"]],arms:{results:xdr.varArray(xdr.lookup("OperationResult"),2147483647)},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-=======
 	xdr.union("ManageAssetOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct ManageAssetOp
@@ -3936,7 +2615,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("ManageAssetResultCode",{success:0,requestNotFound:-1,assetAlreadyExist:-3,invalidMaxIssuanceAmount:-4,invalidCode:-5,invalidPolicy:-7,assetNotFound:-8,requestAlreadyExist:-9,statsAssetAlreadyExist:-10,initialPreissuedExceedsMaxIssuance:-11,invalidDetail:-12}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -3945,31 +2623,12 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("TransactionResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct TransactionResult
-	//   {
-	//       int64 feeCharged; // actual fee charged for the transaction
-	//   
-	//       union switch (TransactionResultCode code)
-	//       {
-	//       case txSUCCESS:
-	//       case txFAILED:
-	//           OperationResult results<>;
-	//       default:
-	//           void;
-	//       }
-	//       result;
-	//   
-=======
 	xdr.union("ManageAssetSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct ManageAssetSuccess
 	//   {
 	//   	uint64 requestID;
 	//   	bool fulfilled;
->>>>>>> master
 	//       // reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -3980,19 +2639,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("TransactionResult",[["feeCharged",xdr.lookup("Int64")],["result",xdr.lookup("TransactionResultResult")],["ext",xdr.lookup("TransactionResultExt")]]); // === xdr source ============================================================
-	//
-	//   enum ManageAssetAction
-	//   {
-	//       CREATE_ASSET_CREATION_REQUEST = 0,
-	//       CREATE_ASSET_UPDATE_REQUEST = 1,
-	//   	CANCEL_ASSET_REQUEST = 2
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ManageAssetAction",{createAssetCreationRequest:0,createAssetUpdateRequest:1,cancelAssetRequest:2}); // === xdr source ============================================================
-=======
 	xdr.struct("ManageAssetSuccess",[["requestId",xdr.lookup("Uint64")],["fulfilled",xdr.bool()],["ext",xdr.lookup("ManageAssetSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union ManageAssetResult switch (ManageAssetResultCode code)
@@ -4005,7 +2651,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("ManageAssetResult",{switchOn:xdr.lookup("ManageAssetResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageAssetSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4014,13 +2659,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("CancelAssetRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct CancelAssetRequest {
-	//   
-	//   	// reserved for future use
-=======
 	xdr.union("OfferEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct OfferEntry
@@ -4044,7 +2682,6 @@ var StellarBase =
 	//       int64 price;
 	//   
 	//       // reserved for future use
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -4054,22 +2691,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("CancelAssetRequest",[["ext",xdr.lookup("CancelAssetRequestExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (ManageAssetAction action)
-	//   	{
-	//   	case CREATE_ASSET_CREATION_REQUEST:
-	//   		AssetCreationRequest createAsset;
-	//   	case CREATE_ASSET_UPDATE_REQUEST:
-	//   		AssetUpdateRequest updateAsset;
-	//   	case CANCEL_ASSET_REQUEST:
-	//   		CancelAssetRequest cancelRequest;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.union("ManageAssetOpRequest",{switchOn:xdr.lookup("ManageAssetAction"),switchName:"action",switches:[["createAssetCreationRequest","createAsset"],["createAssetUpdateRequest","updateAsset"],["cancelAssetRequest","cancelRequest"]],arms:{createAsset:xdr.lookup("AssetCreationRequest"),updateAsset:xdr.lookup("AssetUpdateRequest"),cancelRequest:xdr.lookup("CancelAssetRequest")}}); // === xdr source ============================================================
-=======
 	xdr.struct("OfferEntry",[["offerId",xdr.lookup("Uint64")],["orderBookId",xdr.lookup("Uint64")],["ownerId",xdr.lookup("AccountId")],["isBuy",xdr.bool()],["base",xdr.lookup("AssetCode")],["quote",xdr.lookup("AssetCode")],["baseBalance",xdr.lookup("BalanceId")],["quoteBalance",xdr.lookup("BalanceId")],["baseAmount",xdr.lookup("Int64")],["quoteAmount",xdr.lookup("Int64")],["createdAt",xdr.lookup("Uint64")],["fee",xdr.lookup("Int64")],["percentFee",xdr.lookup("Int64")],["price",xdr.lookup("Int64")],["ext",xdr.lookup("OfferEntryExt")]]); // === xdr source ============================================================
 	//
 	//   enum AssetPairPolicy
@@ -4081,7 +2702,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("AssetPairPolicy",{tradeableSecondaryMarket:1,physicalPriceRestriction:2,currentPriceRestriction:4}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4090,24 +2710,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("ManageAssetOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ManageAssetOp
-	//   {
-	//   	uint64 requestID; // 0 to create, non zero will try to update
-	//       union switch (ManageAssetAction action)
-	//   	{
-	//   	case CREATE_ASSET_CREATION_REQUEST:
-	//   		AssetCreationRequest createAsset;
-	//   	case CREATE_ASSET_UPDATE_REQUEST:
-	//   		AssetUpdateRequest updateAsset;
-	//   	case CANCEL_ASSET_REQUEST:
-	//   		CancelAssetRequest cancelRequest;
-	//   	} request;
-	//   
-	//   	// reserved for future use
-=======
 	xdr.union("AssetPairEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct AssetPairEntry
@@ -4125,7 +2727,6 @@ var StellarBase =
 	//   	int32 policies;
 	//   
 	//       // reserved for future use
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -4135,66 +2736,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("ManageAssetOp",[["requestId",xdr.lookup("Uint64")],["request",xdr.lookup("ManageAssetOpRequest")],["ext",xdr.lookup("ManageAssetOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum ManageAssetResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,                       // request was successfully created/updated/canceled
-	//   
-	//       // codes considered as "failure" for the operation
-	//   	REQUEST_NOT_FOUND = -1,           // failed to find asset request with such id
-	//   	ASSET_ALREADY_EXISTS = -3,			   // asset with such code already exist
-	//       INVALID_MAX_ISSUANCE_AMOUNT = -4, // max issuance amount is 0
-	//   	INVALID_CODE = -5,                // asset code is invalid (empty or contains space)
-	//   	INVALID_POLICIES = -7,            // asset policies (has flag which does not belong to AssetPolicies enum)
-	//   	ASSET_NOT_FOUND = -8,             // asset does not exists
-	//   	REQUEST_ALREADY_EXISTS = -9,      // request for creation of unique entry already exists
-	//   	STATS_ASSET_ALREADY_EXISTS = -10, // statistics quote asset already exists
-	//   	INITIAL_PREISSUED_EXCEEDS_MAX_ISSUANCE = -11, // initial pre issued amount exceeds max issuance amount
-	//   	INVALID_DETAILS = -12 // details must be a valid json
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ManageAssetResultCode",{success:0,requestNotFound:-1,assetAlreadyExist:-3,invalidMaxIssuanceAmount:-4,invalidCode:-5,invalidPolicy:-7,assetNotFound:-8,requestAlreadyExist:-9,statsAssetAlreadyExist:-10,initialPreissuedExceedsMaxIssuance:-11,invalidDetail:-12}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("ManageAssetSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ManageAssetSuccess
-	//   {
-	//   	uint64 requestID;
-	//   	bool fulfilled;
-	//       // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ManageAssetSuccess",[["requestId",xdr.lookup("Uint64")],["fulfilled",xdr.bool()],["ext",xdr.lookup("ManageAssetSuccessExt")]]); // === xdr source ============================================================
-	//
-	//   union ManageAssetResult switch (ManageAssetResultCode code)
-	//   {
-	//   case SUCCESS:
-	//       ManageAssetSuccess success;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("ManageAssetResult",{switchOn:xdr.lookup("ManageAssetResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageAssetSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-=======
 	xdr.struct("AssetPairEntry",[["base",xdr.lookup("AssetCode")],["quote",xdr.lookup("AssetCode")],["currentPrice",xdr.lookup("Int64")],["physicalPrice",xdr.lookup("Int64")],["physicalPriceCorrection",xdr.lookup("Int64")],["maxPriceStep",xdr.lookup("Int64")],["policies",xdr.lookup("Int32")],["ext",xdr.lookup("AssetPairEntryExt")]]); // === xdr source ============================================================
 	//
 	//   enum ManageLimitsAction
@@ -4233,7 +2774,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("ManageLimitsOpDetails",{switchOn:xdr.lookup("ManageLimitsAction"),switchName:"action",switches:[["create","limitsCreateDetails"],["remove","id"]],arms:{limitsCreateDetails:xdr.lookup("LimitsCreateDetails"),id:xdr.lookup("Uint64")}}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4242,16 +2782,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("SaleQuoteAssetExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct SaleQuoteAsset {
-	//   	AssetCode quoteAsset; // asset in which participation will be accepted
-	//   	uint64 price; // price for 1 baseAsset in terms of quote asset
-	//   	BalanceID quoteBalance;
-	//   	uint64 currentCap; // current capitalization
-	//   	union switch (LedgerVersion v)
-=======
 	xdr.union("ManageLimitsOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct ManageLimitsOp
@@ -4266,7 +2796,6 @@ var StellarBase =
 	//   
 	//        // reserved for future use
 	//       union switch (LedgerVersion v)
->>>>>>> master
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
@@ -4275,9 +2804,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("SaleQuoteAsset",[["quoteAsset",xdr.lookup("AssetCode")],["price",xdr.lookup("Uint64")],["quoteBalance",xdr.lookup("BalanceId")],["currentCap",xdr.lookup("Uint64")],["ext",xdr.lookup("SaleQuoteAssetExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("ManageLimitsOp",[["details",xdr.lookup("ManageLimitsOpDetails")],["ext",xdr.lookup("ManageLimitsOpExt")]]); // === xdr source ============================================================
 	//
 	//   enum ManageLimitsResultCode
@@ -4376,7 +2902,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("ContractState",{noConfirmation:0,customerConfirmed:1,contractorConfirmed:2,disputing:4,revertingResolve:8,notRevertingResolve:16}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4387,30 +2912,11 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("SaleEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct SaleEntry
-	//   {
-	//   	uint64 saleID;
-	//   	AccountID ownerID;
-	//       AssetCode baseAsset; // asset for which sale will be performed
-	//   	uint64 startTime; // start time of the sale
-	//   	uint64 endTime; // close time of the sale
-	//   	AssetCode defaultQuoteAsset; // asset for soft and hard cap
-	//   	uint64 softCap; // minimum amount of quote asset to be received at which sale will be considered a successful
-	//   	uint64 hardCap; // max amount of quote asset to be received
-	//   	longstring details; // sale specific details
-	//   	SaleQuoteAsset quoteAssets<100>;
-	//   
-	//   	BalanceID baseBalance;
-=======
 	xdr.union("ContractEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["addCustomerDetailsToContract","customerDetails"]],arms:{customerDetails:xdr.lookup("Longstring")}}); // === xdr source ============================================================
 	//
 	//   struct ContractEntry
 	//   {
 	//       uint64 contractID;
->>>>>>> master
 	//   
 	//       AccountID contractor;
 	//       AccountID customer;
@@ -4434,18 +2940,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("SaleEntry",[["saleId",xdr.lookup("Uint64")],["ownerId",xdr.lookup("AccountId")],["baseAsset",xdr.lookup("AssetCode")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["defaultQuoteAsset",xdr.lookup("AssetCode")],["softCap",xdr.lookup("Uint64")],["hardCap",xdr.lookup("Uint64")],["details",xdr.lookup("Longstring")],["quoteAssets",xdr.varArray(xdr.lookup("SaleQuoteAsset"),100)],["baseBalance",xdr.lookup("BalanceId")],["ext",xdr.lookup("SaleEntryExt")]]); // === xdr source ============================================================
-	//
-	//   enum ManageBalanceAction
-	//   {
-	//       CREATE = 0,
-	//       DELETE_BALANCE = 1
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ManageBalanceAction",{create:0,deleteBalance:1}); // === xdr source ============================================================
-=======
 	xdr.struct("ContractEntry",[["contractId",xdr.lookup("Uint64")],["contractor",xdr.lookup("AccountId")],["customer",xdr.lookup("AccountId")],["escrow",xdr.lookup("AccountId")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["invoiceRequestsIDs",xdr.varArray(xdr.lookup("Uint64"),2147483647)],["initialDetails",xdr.lookup("Longstring")],["state",xdr.lookup("Uint32")],["ext",xdr.lookup("ContractEntryExt")]]); // === xdr source ============================================================
 	//
 	//   enum ThresholdIndexes
@@ -4458,7 +2952,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("ThresholdIndices",{masterWeight:0,low:1,med:2,high:3}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   enum LedgerEntryType
 	//   {
@@ -4488,20 +2981,9 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("ManageBalanceOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ManageBalanceOp
-	//   {
-	//       ManageBalanceAction action;
-	//       AccountID destination;
-	//       AssetCode asset;
-	//   	union switch (LedgerVersion v)
-=======
 	xdr["enum"]("LedgerEntryType",{account:0,fee:2,balance:4,paymentRequest:5,asset:6,referenceEntry:7,accountTypeLimit:8,statistic:9,trust:10,accountLimit:11,assetPair:12,offerEntry:13,reviewableRequest:15,externalSystemAccountId:16,sale:17,accountKyc:18,externalSystemAccountIdPoolEntry:19,keyValue:20,saleAnte:21,limitsV2:22,statisticsV2:23,pendingStatistic:24,contract:25}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerEntryType type)
->>>>>>> master
 	//       {
 	//       case ACCOUNT:
 	//           AccountEntry account;
@@ -4548,33 +3030,9 @@ var StellarBase =
 	//       case CONTRACT:
 	//           ContractEntry contract;
 	//       }
-<<<<<<< HEAD
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ManageBalanceOp",[["action",xdr.lookup("ManageBalanceAction")],["destination",xdr.lookup("AccountId")],["asset",xdr.lookup("AssetCode")],["ext",xdr.lookup("ManageBalanceOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum ManageBalanceResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,
-	//   
-	//       // codes considered as "failure" for the operation
-	//       MALFORMED = -1,       // invalid destination
-	//       NOT_FOUND = -2,
-	//       DESTINATION_NOT_FOUND = -3,
-	//       ASSET_NOT_FOUND = -4,
-	//       INVALID_ASSET = -5
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ManageBalanceResultCode",{success:0,malformed:-1,notFound:-2,destinationNotFound:-3,assetNotFound:-4,invalidAsset:-5}); // === xdr source ============================================================
-=======
 	//
 	// ===========================================================================
 	xdr.union("LedgerEntryData",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["reviewableRequest","reviewableRequest"],["externalSystemAccountId","externalSystemAccountId"],["sale","sale"],["keyValue","keyValue"],["accountKyc","accountKyc"],["externalSystemAccountIdPoolEntry","externalSystemAccountIdPoolEntry"],["saleAnte","saleAnte"],["limitsV2","limitsV2"],["statisticsV2","statisticsV2"],["pendingStatistic","pendingStatistics"],["contract","contract"]],arms:{account:xdr.lookup("AccountEntry"),feeState:xdr.lookup("FeeEntry"),balance:xdr.lookup("BalanceEntry"),asset:xdr.lookup("AssetEntry"),reference:xdr.lookup("ReferenceEntry"),accountTypeLimits:xdr.lookup("AccountTypeLimitsEntry"),stats:xdr.lookup("StatisticsEntry"),trust:xdr.lookup("TrustEntry"),accountLimits:xdr.lookup("AccountLimitsEntry"),assetPair:xdr.lookup("AssetPairEntry"),offer:xdr.lookup("OfferEntry"),reviewableRequest:xdr.lookup("ReviewableRequestEntry"),externalSystemAccountId:xdr.lookup("ExternalSystemAccountId"),sale:xdr.lookup("SaleEntry"),keyValue:xdr.lookup("KeyValueEntry"),accountKyc:xdr.lookup("AccountKycEntry"),externalSystemAccountIdPoolEntry:xdr.lookup("ExternalSystemAccountIdPoolEntry"),saleAnte:xdr.lookup("SaleAnteEntry"),limitsV2:xdr.lookup("LimitsV2Entry"),statisticsV2:xdr.lookup("StatisticsV2Entry"),pendingStatistics:xdr.lookup("PendingStatisticsEntry"),contract:xdr.lookup("ContractEntry")}}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4583,13 +3041,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("ManageBalanceSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ManageBalanceSuccess {
-	//   	BalanceID balanceID;
-	//   	// reserved for future use
-=======
 	xdr.union("LedgerEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct LedgerEntry
@@ -4646,7 +3097,6 @@ var StellarBase =
 	//       data;
 	//   
 	//       // reserved for future use
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -4656,51 +3106,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("ManageBalanceSuccess",[["balanceId",xdr.lookup("BalanceId")],["ext",xdr.lookup("ManageBalanceSuccessExt")]]); // === xdr source ============================================================
-	//
-	//   union ManageBalanceResult switch (ManageBalanceResultCode code)
-	//   {
-	//   case SUCCESS:
-	//       ManageBalanceSuccess success;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("ManageBalanceResult",{switchOn:xdr.lookup("ManageBalanceResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageBalanceSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-	//
-	//   enum ReviewRequestOpAction {
-	//   	APPROVE = 1,
-	//   	REJECT = 2,
-	//   	PERMANENT_REJECT = 3
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ReviewRequestOpAction",{approve:1,reject:2,permanentReject:3}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//           {
-	//           case EMPTY_VERSION:
-	//               void;
-	//           }
-	//
-	// ===========================================================================
-	xdr.union("LimitsUpdateDetailsExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct LimitsUpdateDetails {
-	//       Limits newLimits;
-	//       union switch (LedgerVersion v)
-	//           {
-	//           case EMPTY_VERSION:
-	//               void;
-	//           }
-	//           ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("LimitsUpdateDetails",[["newLimits",xdr.lookup("Limits")],["ext",xdr.lookup("LimitsUpdateDetailsExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("LedgerEntry",[["lastModifiedLedgerSeq",xdr.lookup("Uint32")],["data",xdr.lookup("LedgerEntryData")],["ext",xdr.lookup("LedgerEntryExt")]]); // === xdr source ============================================================
 	//
 	//   enum EnvelopeType
@@ -4712,7 +3117,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("EnvelopeType",{scp:1,tx:2,auth:3}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4721,13 +3125,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("WithdrawalDetailsExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct WithdrawalDetails {
-	//   	string externalDetails<>;
-	//   	// reserved for future use
-=======
 	xdr.union("AccountLimitsEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct AccountLimitsEntry
@@ -4735,7 +3132,6 @@ var StellarBase =
 	//       AccountID accountID;
 	//       Limits limits;
 	//   
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -4745,134 +3141,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("WithdrawalDetails",[["externalDetails",xdr.string()],["ext",xdr.lookup("WithdrawalDetailsExt")]]); // === xdr source ============================================================
-	//
-	//   union switch(ReviewableRequestType requestType) {
-	//   	case WITHDRAW:
-	//   		WithdrawalDetails withdrawal;
-	//       case LIMITS_UPDATE:
-	//           LimitsUpdateDetails limitsUpdate;
-	//   	case TWO_STEP_WITHDRAWAL:
-	//   		WithdrawalDetails twoStepWithdrawal;
-	//   	default:
-	//   		void;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.union("ReviewRequestOpRequestDetails",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"requestType",switches:[["withdraw","withdrawal"],["limitsUpdate","limitsUpdate"],["twoStepWithdrawal","twoStepWithdrawal"]],arms:{withdrawal:xdr.lookup("WithdrawalDetails"),limitsUpdate:xdr.lookup("LimitsUpdateDetails"),twoStepWithdrawal:xdr.lookup("WithdrawalDetails")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("ReviewRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ReviewRequestOp
-	//   {
-	//   	uint64 requestID;
-	//   	Hash requestHash;
-	//   	union switch(ReviewableRequestType requestType) {
-	//   	case WITHDRAW:
-	//   		WithdrawalDetails withdrawal;
-	//       case LIMITS_UPDATE:
-	//           LimitsUpdateDetails limitsUpdate;
-	//   	case TWO_STEP_WITHDRAWAL:
-	//   		WithdrawalDetails twoStepWithdrawal;
-	//   	default:
-	//   		void;
-	//   	} requestDetails;
-	//   	ReviewRequestOpAction action;
-	//   	string256 reason;
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ReviewRequestOp",[["requestId",xdr.lookup("Uint64")],["requestHash",xdr.lookup("Hash")],["requestDetails",xdr.lookup("ReviewRequestOpRequestDetails")],["action",xdr.lookup("ReviewRequestOpAction")],["reason",xdr.lookup("String256")],["ext",xdr.lookup("ReviewRequestOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum ReviewRequestResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,
-	//   
-	//       // codes considered as "failure" for the operation
-	//       INVALID_REASON = -1,        // reason must be empty if approving and not empty if rejecting
-	//   	INVALID_ACTION = -2,
-	//   	HASH_MISMATCHED = -3,
-	//   	NOT_FOUND = -4,
-	//   	TYPE_MISMATCHED = -5,
-	//   	REJECT_NOT_ALLOWED = -6, // reject not allowed, use permanent reject
-	//   	INVALID_EXTERNAL_DETAILS = -7,
-	//   
-	//   	// Asset requests
-	//   	ASSET_ALREADY_EXISTS = -20,
-	//   	ASSET_DOES_NOT_EXISTS = -21,
-	//   
-	//   	// Issuance requests
-	//   	MAX_ISSUANCE_AMOUNT_EXCEEDED = -40,
-	//   	INSUFFICIENT_AVAILABLE_FOR_ISSUANCE_AMOUNT = -41,
-	//   	FULL_LINE = -42, // can't fund balance - total funds exceed UINT64_MAX
-	//   
-	//   	// sale creation requests
-	//   	BASE_ASSET_DOES_NOT_EXISTS = -50,
-	//   	HARD_CAP_WILL_EXCEED_MAX_ISSUANCE = -51,
-	//   	INSUFFICIENT_PREISSUED_FOR_HARD_CAP = -52
-	//   	
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ReviewRequestResultCode",{success:0,invalidReason:-1,invalidAction:-2,hashMismatched:-3,notFound:-4,typeMismatched:-5,rejectNotAllowed:-6,invalidExternalDetail:-7,assetAlreadyExist:-20,assetDoesNotExist:-21,maxIssuanceAmountExceeded:-40,insufficientAvailableForIssuanceAmount:-41,fullLine:-42,baseAssetDoesNotExist:-50,hardCapWillExceedMaxIssuance:-51,insufficientPreissuedForHardCap:-52}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("ReviewRequestResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//   		// reserved for future use
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.struct("ReviewRequestResultSuccess",[["ext",xdr.lookup("ReviewRequestResultSuccessExt")]]); // === xdr source ============================================================
-	//
-	//   union ReviewRequestResult switch (ReviewRequestResultCode code)
-	//   {
-	//   case SUCCESS:
-	//   	struct {
-	//   		// reserved for future use
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//   	} success;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("ReviewRequestResult",{switchOn:xdr.lookup("ReviewRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ReviewRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-=======
 	xdr.struct("AccountLimitsEntry",[["accountId",xdr.lookup("AccountId")],["limits",xdr.lookup("Limits")],["ext",xdr.lookup("AccountLimitsEntryExt")]]); // === xdr source ============================================================
 	//
 	//   enum ManageExternalSystemAccountIdPoolEntryAction
@@ -4883,7 +3151,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("ManageExternalSystemAccountIdPoolEntryAction",{create:0,remove:1}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -4953,67 +3220,7 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("AssetCreationRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct AssetCreationRequest {
-	//   
-	//   	AssetCode code;
-	//   	AccountID preissuedAssetSigner;
-	//   	uint64 maxIssuanceAmount;
-	//   	uint64 initialPreissuedAmount;
-	//       uint32 policies;
-	//       longstring details;
-	//   
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("AssetCreationRequest",[["code",xdr.lookup("AssetCode")],["preissuedAssetSigner",xdr.lookup("AccountId")],["maxIssuanceAmount",xdr.lookup("Uint64")],["initialPreissuedAmount",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["details",xdr.lookup("Longstring")],["ext",xdr.lookup("AssetCreationRequestExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("AssetUpdateRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct AssetUpdateRequest {
-	//   	AssetCode code;
-	//   	longstring details;
-	//   	uint32 policies;
-	//   
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("AssetUpdateRequest",[["code",xdr.lookup("AssetCode")],["details",xdr.lookup("Longstring")],["policies",xdr.lookup("Uint32")],["ext",xdr.lookup("AssetUpdateRequestExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("ManageAccountOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-=======
 	xdr.union("ManageExternalSystemAccountIdPoolEntryOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   struct ManageExternalSystemAccountIdPoolEntryOp
 	//   {
@@ -5083,11 +3290,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("ManageAccountResult",{switchOn:xdr.lookup("ManageAccountResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageAccountSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-=======
 	xdr.union("ManageExternalSystemAccountIdPoolEntryResult",{switchOn:xdr.lookup("ManageExternalSystemAccountIdPoolEntryResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageExternalSystemAccountIdPoolEntrySuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5096,22 +3299,12 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("InvoiceReferenceExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct InvoiceReference {
-	//       uint64 invoiceID;
-	//       bool accept;
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-=======
 	xdr.union("SaleCreationRequestQuoteAssetExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct SaleCreationRequestQuoteAsset {
 	//   	AssetCode quoteAsset; // asset in which participation will be accepted
 	//   	uint64 price; // price for 1 baseAsset in terms of quote asset
 	//   	union switch (LedgerVersion v)
->>>>>>> master
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
@@ -5120,9 +3313,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("InvoiceReference",[["invoiceId",xdr.lookup("Uint64")],["accept",xdr.bool()],["ext",xdr.lookup("InvoiceReferenceExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("SaleCreationRequestQuoteAsset",[["quoteAsset",xdr.lookup("AssetCode")],["price",xdr.lookup("Uint64")],["ext",xdr.lookup("SaleCreationRequestQuoteAssetExt")]]); // === xdr source ============================================================
 	//
 	//   struct {
@@ -5141,7 +3331,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("SaleCreationRequestExtV3",[["saleTypeExt",xdr.lookup("SaleTypeExt")],["requiredBaseAssetForHardCap",xdr.lookup("Uint64")],["state",xdr.lookup("SaleState")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5163,15 +3352,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("FeeDataExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct FeeData {
-	//       int64 paymentFee;
-	//       int64 fixedFee;
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-=======
 	xdr.union("SaleCreationRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["typedSale","saleTypeExt"],["allowToSpecifyRequiredBaseAssetAmountForHardCap","extV2"],["statableSale","extV3"]],arms:{saleTypeExt:xdr.lookup("SaleTypeExt"),extV2:xdr.lookup("SaleCreationRequestExtV2"),extV3:xdr.lookup("SaleCreationRequestExtV3")}}); // === xdr source ============================================================
 	//
 	//   struct SaleCreationRequest {
@@ -5186,7 +3366,6 @@ var StellarBase =
 	//   	SaleCreationRequestQuoteAsset quoteAssets<100>;
 	//   
 	//   	union switch (LedgerVersion v)
->>>>>>> master
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
@@ -5208,9 +3387,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("FeeData",[["paymentFee",xdr.lookup("Int64")],["fixedFee",xdr.lookup("Int64")],["ext",xdr.lookup("FeeDataExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("SaleCreationRequest",[["baseAsset",xdr.lookup("AssetCode")],["defaultQuoteAsset",xdr.lookup("AssetCode")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["softCap",xdr.lookup("Uint64")],["hardCap",xdr.lookup("Uint64")],["details",xdr.lookup("Longstring")],["quoteAssets",xdr.varArray(xdr.lookup("SaleCreationRequestQuoteAsset"),100)],["ext",xdr.lookup("SaleCreationRequestExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
@@ -5242,7 +3418,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("AssetCreationRequest",[["code",xdr.lookup("AssetCode")],["preissuedAssetSigner",xdr.lookup("AccountId")],["maxIssuanceAmount",xdr.lookup("Uint64")],["initialPreissuedAmount",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["details",xdr.lookup("Longstring")],["ext",xdr.lookup("AssetCreationRequestExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5251,14 +3426,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("PaymentFeeDataExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct PaymentFeeData {
-	//       FeeData sourceFee;
-	//       FeeData destinationFee;
-	//       bool sourcePaysForDest;    // if true source account pays fee, else destination
-=======
 	xdr.union("AssetUpdateRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct AssetUpdateRequest {
@@ -5266,7 +3433,6 @@ var StellarBase =
 	//   	longstring details;
 	//   	uint32 policies;
 	//   
->>>>>>> master
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -5277,11 +3443,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("PaymentFeeData",[["sourceFee",xdr.lookup("FeeData")],["destinationFee",xdr.lookup("FeeData")],["sourcePaysForDest",xdr.bool()],["ext",xdr.lookup("PaymentFeeDataExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("AssetUpdateRequest",[["code",xdr.lookup("AssetCode")],["details",xdr.lookup("Longstring")],["policies",xdr.lookup("Uint32")],["ext",xdr.lookup("AssetUpdateRequestExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5290,29 +3452,11 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("PaymentOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct PaymentOp
-	//   {
-	//       BalanceID sourceBalanceID;
-	//       BalanceID destinationBalanceID;
-	//       int64 amount;          // amount they end up with
-	//   
-	//       PaymentFeeData feeData;
-	//   
-	//       string256 subject;
-	//       string64 reference;
-	//       
-	//       InvoiceReference* invoiceReference;
-	//   
-=======
 	xdr.union("AssetChangePreissuedSignerExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct AssetChangePreissuedSigner {
 	//   	AssetCode code;
 	//   	AccountID accountID;
->>>>>>> master
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -5323,37 +3467,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("PaymentOp",[["sourceBalanceId",xdr.lookup("BalanceId")],["destinationBalanceId",xdr.lookup("BalanceId")],["amount",xdr.lookup("Int64")],["feeData",xdr.lookup("PaymentFeeData")],["subject",xdr.lookup("String256")],["reference",xdr.lookup("String64")],["invoiceReference",xdr.option(xdr.lookup("InvoiceReference"))],["ext",xdr.lookup("PaymentOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum PaymentResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0, // payment successfuly completed
-	//   
-	//       // codes considered as "failure" for the operation
-	//       MALFORMED = -1,       // bad input
-	//       UNDERFUNDED = -2,     // not enough funds in source account
-	//       LINE_FULL = -3,       // destination would go above their limit
-	//   	FEE_MISMATCHED = -4,   // fee is not equal to expected fee
-	//       BALANCE_NOT_FOUND = -5, // destination balance not found
-	//       BALANCE_ACCOUNT_MISMATCHED = -6,
-	//       BALANCE_ASSETS_MISMATCHED = -7,
-	//   	SRC_BALANCE_NOT_FOUND = -8, // source balance not found
-	//       REFERENCE_DUPLICATION = -9,
-	//       STATS_OVERFLOW = -10,
-	//       LIMITS_EXCEEDED = -11,
-	//       NOT_ALLOWED_BY_ASSET_POLICY = -12,
-	//       INVOICE_NOT_FOUND = -13,
-	//       INVOICE_WRONG_AMOUNT = -14,
-	//       INVOICE_BALANCE_MISMATCH = -15,
-	//       INVOICE_ACCOUNT_MISMATCH = -16,
-	//       INVOICE_ALREADY_PAID = -17
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("PaymentResultCode",{success:0,malformed:-1,underfunded:-2,lineFull:-3,feeMismatched:-4,balanceNotFound:-5,balanceAccountMismatched:-6,balanceAssetsMismatched:-7,srcBalanceNotFound:-8,referenceDuplication:-9,statsOverflow:-10,limitsExceeded:-11,notAllowedByAssetPolicy:-12,invoiceNotFound:-13,invoiceWrongAmount:-14,invoiceBalanceMismatch:-15,invoiceAccountMismatch:-16,invoiceAlreadyPaid:-17}); // === xdr source ============================================================
-=======
 	xdr.struct("AssetChangePreissuedSigner",[["code",xdr.lookup("AssetCode")],["accountId",xdr.lookup("AccountId")],["ext",xdr.lookup("AssetChangePreissuedSignerExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
@@ -5387,7 +3500,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("InvoiceRequest",[["asset",xdr.lookup("AssetCode")],["amount",xdr.lookup("Uint64")],["senderBalance",xdr.lookup("BalanceId")],["receiverBalance",xdr.lookup("BalanceId")],["contractId",xdr.option(xdr.lookup("Uint64"))],["isApproved",xdr.bool()],["details",xdr.lookup("Longstring")],["ext",xdr.lookup("InvoiceRequestExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5398,20 +3510,11 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("PaymentResponseExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct PaymentResponse {
-	//       AccountID destination;
-	//       uint64 paymentID;
-	//       AssetCode asset;
-=======
 	xdr.union("LimitsUpdateRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["limitsUpdateRequestDeprecatedDocumentHash","details"]],arms:{details:xdr.lookup("Longstring")}}); // === xdr source ============================================================
 	//
 	//   struct LimitsUpdateRequest {
 	//       Hash deprecatedDocumentHash;
 	//   
->>>>>>> master
 	//       // reserved for future use
 	//       union switch (LedgerVersion v)
 	//       {
@@ -5424,20 +3527,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("PaymentResponse",[["destination",xdr.lookup("AccountId")],["paymentId",xdr.lookup("Uint64")],["asset",xdr.lookup("AssetCode")],["ext",xdr.lookup("PaymentResponseExt")]]); // === xdr source ============================================================
-	//
-	//   union PaymentResult switch (PaymentResultCode code)
-	//   {
-	//   case SUCCESS:
-	//       PaymentResponse paymentResponse;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("PaymentResult",{switchOn:xdr.lookup("PaymentResultCode"),switchName:"code",switches:[["success","paymentResponse"]],arms:{paymentResponse:xdr.lookup("PaymentResponse")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-=======
 	xdr.struct("LimitsUpdateRequest",[["deprecatedDocumentHash",xdr.lookup("Hash")],["ext",xdr.lookup("LimitsUpdateRequestExt")]]); // === xdr source ============================================================
 	//
 	//   enum AssetPolicy
@@ -5462,7 +3551,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("AssetSystemPolicies",{twoStepWithdraw:1}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5471,14 +3559,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("SaleCreationRequestQuoteAssetExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct SaleCreationRequestQuoteAsset {
-	//   	AssetCode quoteAsset; // asset in which participation will be accepted
-	//   	uint64 price; // price for 1 baseAsset in terms of quote asset
-	//   	union switch (LedgerVersion v)
-=======
 	xdr.union("AssetEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct AssetEntry
@@ -5495,7 +3575,6 @@ var StellarBase =
 	//   
 	//       // reserved for future use
 	//       union switch (LedgerVersion v)
->>>>>>> master
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
@@ -5504,11 +3583,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("SaleCreationRequestQuoteAsset",[["quoteAsset",xdr.lookup("AssetCode")],["price",xdr.lookup("Uint64")],["ext",xdr.lookup("SaleCreationRequestQuoteAssetExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("AssetEntry",[["code",xdr.lookup("AssetCode")],["owner",xdr.lookup("AccountId")],["preissuedAssetSigner",xdr.lookup("AccountId")],["details",xdr.lookup("Longstring")],["maxIssuanceAmount",xdr.lookup("Uint64")],["availableForIssueance",xdr.lookup("Uint64")],["issued",xdr.lookup("Uint64")],["pendingIssuance",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["ext",xdr.lookup("AssetEntryExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5517,22 +3592,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("SaleCreationRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct SaleCreationRequest {
-	//   	AssetCode baseAsset; // asset for which sale will be performed
-	//   	AssetCode defaultQuoteAsset; // asset for soft and hard cap
-	//   	uint64 startTime; // start time of the sale
-	//   	uint64 endTime; // close time of the sale
-	//   	uint64 softCap; // minimum amount of quote asset to be received at which sale will be considered a successful
-	//   	uint64 hardCap; // max amount of quote asset to be received
-	//   	longstring details; // sale specific details
-	//   
-	//   	SaleCreationRequestQuoteAsset quoteAssets<100>;
-	//   
-	//   	union switch (LedgerVersion v)
-=======
 	xdr.union("PromotionUpdateRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct PromotionUpdateRequest {
@@ -5540,7 +3599,6 @@ var StellarBase =
 	//       SaleCreationRequest newPromotionData;
 	//   
 	//       union switch (LedgerVersion v)
->>>>>>> master
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
@@ -5549,9 +3607,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("SaleCreationRequest",[["baseAsset",xdr.lookup("AssetCode")],["defaultQuoteAsset",xdr.lookup("AssetCode")],["startTime",xdr.lookup("Uint64")],["endTime",xdr.lookup("Uint64")],["softCap",xdr.lookup("Uint64")],["hardCap",xdr.lookup("Uint64")],["details",xdr.lookup("Longstring")],["quoteAssets",xdr.varArray(xdr.lookup("SaleCreationRequestQuoteAsset"),100)],["ext",xdr.lookup("SaleCreationRequestExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("PromotionUpdateRequest",[["promotionId",xdr.lookup("Uint64")],["newPromotionData",xdr.lookup("SaleCreationRequest")],["ext",xdr.lookup("PromotionUpdateRequestExt")]]); // === xdr source ============================================================
 	//
 	//   enum ManageKVAction
@@ -5650,7 +3705,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("ManageKeyValueResult",{switchOn:xdr.lookup("ManageKeyValueResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageKeyValueSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5659,15 +3713,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("CreateIssuanceRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct CreateIssuanceRequestOp
-	//   {
-	//   	IssuanceRequest request;
-	//   	string64 reference;
-	//   	// reserved for future use
-=======
 	xdr.union("UpdateSaleDetailsRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct UpdateSaleDetailsRequest {
@@ -5675,7 +3720,6 @@ var StellarBase =
 	//       longstring newDetails;
 	//   
 	//       // Reserved for future use
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -5685,30 +3729,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("CreateIssuanceRequestOp",[["request",xdr.lookup("IssuanceRequest")],["reference",xdr.lookup("String64")],["ext",xdr.lookup("CreateIssuanceRequestOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum CreateIssuanceRequestResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,
-	//   
-	//       // codes considered as "failure" for the operation
-	//       ASSET_NOT_FOUND = -1,
-	//   	INVALID_AMOUNT = -2,
-	//   	REFERENCE_DUPLICATION = -3,
-	//   	NO_COUNTERPARTY = -4,
-	//   	NOT_AUTHORIZED = -5,
-	//   	EXCEEDS_MAX_ISSUANCE_AMOUNT = -6,
-	//   	RECEIVER_FULL_LINE = -7,
-	//   	INVALID_EXTERNAL_DETAILS = -8, // external details size exceeds max allowed
-	//   	FEE_EXCEEDS_AMOUNT = -9, // fee more than amount to issue
-	//       REQUIRES_KYC = -10 // asset requires receiver to have KYC
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("CreateIssuanceRequestResultCode",{success:0,assetNotFound:-1,invalidAmount:-2,referenceDuplication:-3,noCounterparty:-4,notAuthorized:-5,exceedsMaxIssuanceAmount:-6,receiverFullLine:-7,invalidExternalDetail:-8,feeExceedsAmount:-9,requiresKyc:-10}); // === xdr source ============================================================
-=======
 	xdr.struct("UpdateSaleDetailsRequest",[["saleId",xdr.lookup("Uint64")],["newDetails",xdr.lookup("Longstring")],["ext",xdr.lookup("UpdateSaleDetailsRequestExt")]]); // === xdr source ============================================================
 	//
 	//   enum ReviewableRequestType
@@ -5734,45 +3754,14 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("ReviewableRequestType",{assetCreate:0,assetUpdate:1,preIssuanceCreate:2,issuanceCreate:3,withdraw:4,sale:5,limitsUpdate:6,twoStepWithdrawal:7,amlAlert:8,updateKyc:9,updateSaleDetail:10,updatePromotion:11,updateSaleEndTime:12,none:13,invoice:14,contract:15}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
-	//   	{
-	//   	case EMPTY_VERSION:
-	//   		void;
-	//   	}
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("CreateIssuanceRequestSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct CreateIssuanceRequestSuccess {
-	//   	uint64 requestID;
-	//   	AccountID receiver;
-	//   	bool fulfilled;
-	//   	Fee fee;
-	//   	union switch (LedgerVersion v)
-	//   	{
-	//   	case EMPTY_VERSION:
-	//   		void;
-	//   	}
-	//   	ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("CreateIssuanceRequestSuccess",[["requestId",xdr.lookup("Uint64")],["receiver",xdr.lookup("AccountId")],["fulfilled",xdr.bool()],["fee",xdr.lookup("Fee")],["ext",xdr.lookup("CreateIssuanceRequestSuccessExt")]]); // === xdr source ============================================================
-	//
-	//   union CreateIssuanceRequestResult switch (CreateIssuanceRequestResultCode code)
-	//   {
-	//   case SUCCESS:
-	//       CreateIssuanceRequestSuccess success;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("CreateIssuanceRequestResult",{switchOn:xdr.lookup("CreateIssuanceRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreateIssuanceRequestSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-=======
 	xdr.union("TasksExtExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct TasksExt {
@@ -5830,7 +3819,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.union("ReviewableRequestEntryBody",{switchOn:xdr.lookup("ReviewableRequestType"),switchName:"type",switches:[["assetCreate","assetCreationRequest"],["assetUpdate","assetUpdateRequest"],["preIssuanceCreate","preIssuanceRequest"],["issuanceCreate","issuanceRequest"],["withdraw","withdrawalRequest"],["sale","saleCreationRequest"],["limitsUpdate","limitsUpdateRequest"],["twoStepWithdrawal","twoStepWithdrawalRequest"],["amlAlert","amlAlertRequest"],["updateKyc","updateKycRequest"],["updateSaleDetail","updateSaleDetailsRequest"],["updatePromotion","promotionUpdateRequest"],["invoice","invoiceRequest"],["updateSaleEndTime","updateSaleEndTimeRequest"],["contract","contractRequest"]],arms:{assetCreationRequest:xdr.lookup("AssetCreationRequest"),assetUpdateRequest:xdr.lookup("AssetUpdateRequest"),preIssuanceRequest:xdr.lookup("PreIssuanceRequest"),issuanceRequest:xdr.lookup("IssuanceRequest"),withdrawalRequest:xdr.lookup("WithdrawalRequest"),saleCreationRequest:xdr.lookup("SaleCreationRequest"),limitsUpdateRequest:xdr.lookup("LimitsUpdateRequest"),twoStepWithdrawalRequest:xdr.lookup("WithdrawalRequest"),amlAlertRequest:xdr.lookup("AmlAlertRequest"),updateKycRequest:xdr.lookup("UpdateKycRequest"),updateSaleDetailsRequest:xdr.lookup("UpdateSaleDetailsRequest"),promotionUpdateRequest:xdr.lookup("PromotionUpdateRequest"),invoiceRequest:xdr.lookup("InvoiceRequest"),updateSaleEndTimeRequest:xdr.lookup("UpdateSaleEndTimeRequest"),contractRequest:xdr.lookup("ContractRequest")}}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5841,18 +3829,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("PayoutOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct PayoutOp {
-	//       AssetCode asset; // asset, whose holders will receive dividends
-	//       BalanceID sourceBalanceID; // balance, from which payout will be performed
-	//       uint64 maxPayoutAmount; // max amount of asset, that owner wants to pay out
-	//   
-	//       Fee fee;
-	//   
-	//       // reserved for future use
-=======
 	xdr.union("ReviewableRequestEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()],["addTasksToReviewableRequest","tasksExt"]],arms:{tasksExt:xdr.lookup("TasksExt")}}); // === xdr source ============================================================
 	//
 	//   struct ReviewableRequestEntry {
@@ -5898,7 +3874,6 @@ var StellarBase =
 	//   	} body;
 	//   
 	//   	// reserved for future use
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -5910,30 +3885,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("PayoutOp",[["asset",xdr.lookup("AssetCode")],["sourceBalanceId",xdr.lookup("BalanceId")],["maxPayoutAmount",xdr.lookup("Uint64")],["fee",xdr.lookup("Fee")],["ext",xdr.lookup("PayoutOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum PayoutResultCode {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,    // payout successfully completed
-	//   
-	//       // codes considered as "failure" for the operation
-	//       MALFORMED = -1, // bad input
-	//       ASSET_NOT_FOUND = -2,
-	//       BALANCE_NOT_FOUND = -3,
-	//       BALANCE_ACCOUNT_MISMATCHED = -4,
-	//       UNDERFUNDED = -5,
-	//       FEE_MISMATCHED = -6,
-	//       LIMITS_EXCEEDED = -7,
-	//       NOT_ALLOWED_BY_ASSET_POLICY = -8,
-	//       HOLDERS_NOT_FOUND = -9,
-	//       STATS_OVERFLOW = -10,
-	//       LINE_FULL = -11
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("PayoutResultCode",{success:0,malformed:-1,assetNotFound:-2,balanceNotFound:-3,balanceAccountMismatched:-4,underfunded:-5,feeMismatched:-6,limitsExceeded:-7,notAllowedByAssetPolicy:-8,holdersNotFound:-9,statsOverflow:-10,lineFull:-11}); // === xdr source ============================================================
-=======
 	xdr.struct("ReviewableRequestEntry",[["requestId",xdr.lookup("Uint64")],["hash",xdr.lookup("Hash")],["requestor",xdr.lookup("AccountId")],["rejectReason",xdr.lookup("Longstring")],["reviewer",xdr.lookup("AccountId")],["reference",xdr.option(xdr.lookup("String64"))],["createdAt",xdr.lookup("Int64")],["body",xdr.lookup("ReviewableRequestEntryBody")],["ext",xdr.lookup("ReviewableRequestEntryExt")]]); // === xdr source ============================================================
 	//
 	//   enum ManageTrustAction
@@ -5968,7 +3919,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("TrustData",[["trust",xdr.lookup("TrustEntry")],["action",xdr.lookup("ManageTrustAction")],["ext",xdr.lookup("TrustDataExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -5977,21 +3927,10 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("PayoutResponseExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct PayoutResponse {
-	//       AccountID receiverID;
-	//       BalanceID receiverBalanceID;
-	//       uint64 receivedAmount;
-	//   
-	//       // reserved for future use
-=======
 	xdr.union("LimitsUpdateRequestDataExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct LimitsUpdateRequestData {
 	//       Hash documentHash;
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -6001,11 +3940,7 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("PayoutResponse",[["receiverId",xdr.lookup("AccountId")],["receiverBalanceId",xdr.lookup("BalanceId")],["receivedAmount",xdr.lookup("Uint64")],["ext",xdr.lookup("PayoutResponseExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("LimitsUpdateRequestData",[["documentHash",xdr.lookup("Hash")],["ext",xdr.lookup("LimitsUpdateRequestDataExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//   	{
@@ -6014,13 +3949,6 @@ var StellarBase =
 	//   	}
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("PayoutSuccessResultExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct PayoutSuccessResult {
-	//       PayoutResponse payoutResponses<>;
-	//       uint64 actualPayoutAmount;
-=======
 	xdr.union("SetOptionsOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct SetOptionsOp
@@ -6268,10 +4196,8 @@ var StellarBase =
 	//           void;
 	//       }
 	//       offer;
->>>>>>> master
 	//   
-	//       // reserved for future use
-	//       union switch (LedgerVersion v)
+	//   	union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
@@ -6280,28 +4206,83 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("PayoutSuccessResult",[["payoutResponses",xdr.varArray(xdr.lookup("PayoutResponse"),2147483647)],["actualPayoutAmount",xdr.lookup("Uint64")],["ext",xdr.lookup("PayoutSuccessResultExt")]]); // === xdr source ============================================================
+	xdr.struct("ManageOfferSuccessResult",[["offersClaimed",xdr.varArray(xdr.lookup("ClaimOfferAtom"),2147483647)],["baseAsset",xdr.lookup("AssetCode")],["quoteAsset",xdr.lookup("AssetCode")],["offer",xdr.lookup("ManageOfferSuccessResultOffer")],["ext",xdr.lookup("ManageOfferSuccessResultExt")]]); // === xdr source ============================================================
 	//
-	//   union PayoutResult switch (PayoutResultCode code) {
-	//       case SUCCESS:
-	//           PayoutSuccessResult payoutSuccessResult;
-	//       default:
-	//           void;
-	//   };
+	//   union switch (LedgerVersion v)
+	//   		{
+	//   		case EMPTY_VERSION:
+	//   			void;
+	//   		}
 	//
 	// ===========================================================================
-	xdr.union("PayoutResult",{switchOn:xdr.lookup("PayoutResultCode"),switchName:"code",switches:[["success","payoutSuccessResult"]],arms:{payoutSuccessResult:xdr.lookup("PayoutSuccessResult")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("ManageOfferResultPhysicalPriceRestrictionExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
-	//   enum RequestType
+	//   struct {
+	//   		int64 physicalPrice;
+	//   		union switch (LedgerVersion v)
+	//   		{
+	//   		case EMPTY_VERSION:
+	//   			void;
+	//   		}
+	//   		ext;
+	//   	}
+	//
+	// ===========================================================================
+	xdr.struct("ManageOfferResultPhysicalPriceRestriction",[["physicalPrice",xdr.lookup("Int64")],["ext",xdr.lookup("ManageOfferResultPhysicalPriceRestrictionExt")]]); // === xdr source ============================================================
+	//
+	//   union switch (LedgerVersion v)
+	//   		{
+	//   		case EMPTY_VERSION:
+	//   			void;
+	//   		}
+	//
+	// ===========================================================================
+	xdr.union("ManageOfferResultCurrentPriceRestrictionExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	//
+	//   struct {
+	//   		int64 currentPrice;
+	//   		union switch (LedgerVersion v)
+	//   		{
+	//   		case EMPTY_VERSION:
+	//   			void;
+	//   		}
+	//   		ext;
+	//   	}
+	//
+	// ===========================================================================
+	xdr.struct("ManageOfferResultCurrentPriceRestriction",[["currentPrice",xdr.lookup("Int64")],["ext",xdr.lookup("ManageOfferResultCurrentPriceRestrictionExt")]]); // === xdr source ============================================================
+	//
+	//   union ManageOfferResult switch (ManageOfferResultCode code)
 	//   {
-	//       REQUEST_TYPE_SALE = 0,
-	//       REQUEST_TYPE_WITHDRAWAL = 1,
-	//       REQUEST_TYPE_REDEEM = 2,
-	//       REQUEST_TYPE_PAYMENT = 3
+	//   case SUCCESS:
+	//       ManageOfferSuccessResult success;
+	//   case PHYSICAL_PRICE_RESTRICTION:
+	//   	struct {
+	//   		int64 physicalPrice;
+	//   		union switch (LedgerVersion v)
+	//   		{
+	//   		case EMPTY_VERSION:
+	//   			void;
+	//   		}
+	//   		ext;
+	//   	} physicalPriceRestriction;
+	//   case CURRENT_PRICE_RESTRICTION:
+	//   	struct {
+	//   		int64 currentPrice;
+	//   		union switch (LedgerVersion v)
+	//   		{
+	//   		case EMPTY_VERSION:
+	//   			void;
+	//   		}
+	//   		ext;
+	//   	} currentPriceRestriction;
+	//   
+	//   default:
+	//       void;
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("RequestType",{requestTypeSale:0,requestTypeWithdrawal:1,requestTypeRedeem:2,requestTypePayment:3}); // === xdr source ============================================================
+	xdr.union("ManageOfferResult",{switchOn:xdr.lookup("ManageOfferResultCode"),switchName:"code",switches:[["success","success"],["physicalPriceRestriction","physicalPriceRestriction"],["currentPriceRestriction","currentPriceRestriction"]],arms:{success:xdr.lookup("ManageOfferSuccessResult"),physicalPriceRestriction:xdr.lookup("ManageOfferResultPhysicalPriceRestriction"),currentPriceRestriction:xdr.lookup("ManageOfferResultCurrentPriceRestriction")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -6310,24 +4291,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("PaymentRequestEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct PaymentRequestEntry
-	//   {
-	//       uint64 paymentID;
-	//       BalanceID sourceBalance;
-	//       BalanceID* destinationBalance;
-	//       int64 sourceSend;
-	//       int64 sourceSendUniversal;
-	//       int64 destinationReceive;
-	//       
-	//       uint64 createdAt;
-	//   
-	//       uint64* invoiceID;
-	//   
-	//   	// reserved for future use
-=======
 	xdr.union("ExternalSystemAccountIdExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct ExternalSystemAccountID
@@ -6337,7 +4300,6 @@ var StellarBase =
 	//   	longstring data;
 	//   
 	//   	 // reserved for future use
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -6347,21 +4309,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("PaymentRequestEntry",[["paymentId",xdr.lookup("Uint64")],["sourceBalance",xdr.lookup("BalanceId")],["destinationBalance",xdr.option(xdr.lookup("BalanceId"))],["sourceSend",xdr.lookup("Int64")],["sourceSendUniversal",xdr.lookup("Int64")],["destinationReceive",xdr.lookup("Int64")],["createdAt",xdr.lookup("Uint64")],["invoiceId",xdr.option(xdr.lookup("Uint64"))],["ext",xdr.lookup("PaymentRequestEntryExt")]]); // === xdr source ============================================================
-	//
-	//   enum ErrorCode
-	//   {
-	//       MISC = 0, // Unspecific error
-	//       DATA = 1, // Malformed data
-	//       CONF = 2, // Misconfiguration error
-	//       AUTH = 3, // Authentication failure
-	//       LOAD = 4  // System overloaded
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ErrorCode",{misc:0,datum:1,conf:2,auth:3,load:4}); // === xdr source ============================================================
-=======
 	xdr.struct("ExternalSystemAccountId",[["accountId",xdr.lookup("AccountId")],["externalSystemType",xdr.lookup("Int32")],["data",xdr.lookup("Longstring")],["ext",xdr.lookup("ExternalSystemAccountIdExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
@@ -6388,63 +4335,14 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("UpdateSaleEndTimeRequest",[["saleId",xdr.lookup("Uint64")],["newEndTime",xdr.lookup("Uint64")],["ext",xdr.lookup("UpdateSaleEndTimeRequestExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
-	//   struct Error
-	//   {
-	//       ErrorCode code;
-	//       string msg<100>;
-	//   };
-	//
-	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("Error",[["code",xdr.lookup("ErrorCode")],["msg",xdr.string(100)]]); // === xdr source ============================================================
-	//
-	//   struct AuthCert
-	//   {
-	//       Curve25519Public pubkey;
-	//       uint64 expiration;
-	//       Signature sig;
-	//   };
+	//   union switch (LedgerVersion v)
+	//       {
+	//       case EMPTY_VERSION:
+	//           void;
+	//       }
 	//
 	// ===========================================================================
-	xdr.struct("AuthCert",[["pubkey",xdr.lookup("Curve25519Public")],["expiration",xdr.lookup("Uint64")],["sig",xdr.lookup("Signature")]]); // === xdr source ============================================================
-	//
-	//   struct Hello
-	//   {
-	//       uint32 ledgerVersion;
-	//       uint32 overlayVersion;
-	//       uint32 overlayMinVersion;
-	//       Hash networkID;
-	//       string versionStr<100>;
-	//       int listeningPort;
-	//       NodeID peerID;
-	//       AuthCert cert;
-	//       uint256 nonce;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("Hello",[["ledgerVersion",xdr.lookup("Uint32")],["overlayVersion",xdr.lookup("Uint32")],["overlayMinVersion",xdr.lookup("Uint32")],["networkId",xdr.lookup("Hash")],["versionStr",xdr.string(100)],["listeningPort",xdr.int()],["peerId",xdr.lookup("NodeId")],["cert",xdr.lookup("AuthCert")],["nonce",xdr.lookup("Uint256")]]); // === xdr source ============================================================
-	//
-	//   struct Auth
-	//   {
-	//       // Empty message, just to confirm
-	//       // establishment of MAC keys.
-	//       int unused;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("Auth",[["unused",xdr.int()]]); // === xdr source ============================================================
-	//
-	//   enum IPAddrType
-	//   {
-	//       IPv4 = 0,
-	//       IPv6 = 1
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("IpAddrType",{iPv4:0,iPv6:1}); // === xdr source ============================================================
-=======
 	xdr.union("StatisticsV2EntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct StatisticsV2Entry
@@ -6526,24 +4424,14 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("CreateAccountResultCode",{success:0,malformed:-1,accountTypeMismatched:-2,typeNotAllowed:-3,nameDuplication:-4,referrerNotFound:-5,invalidAccountVersion:-6,notVerifiedCannotHavePolicy:-7,externalSysAccNotAllowed:-8,externalSysIdExist:-9}); // === xdr source ============================================================
->>>>>>> master
 	//
-	//   union switch (IPAddrType type)
+	//   union switch (LedgerVersion v)
 	//       {
-	//       case IPv4:
-	//           opaque ipv4[4];
-	//       case IPv6:
-	//           opaque ipv6[16];
+	//       case EMPTY_VERSION:
+	//           void;
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("PeerAddressIp",{switchOn:xdr.lookup("IpAddrType"),switchName:"type",switches:[["iPv4","ipv4"],["iPv6","ipv6"]],arms:{ipv4:xdr.opaque(4),ipv6:xdr.opaque(16)}}); // === xdr source ============================================================
-	//
-	//   struct PeerAddress
-	//   {
-	//       union switch (IPAddrType type)
-=======
 	xdr.union("CreateAccountSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct CreateAccountSuccess
@@ -6551,60 +4439,14 @@ var StellarBase =
 	//   	ExternalSystemAccountID externalSystemIDs<>;
 	//   	 // reserved for future use
 	//       union switch (LedgerVersion v)
->>>>>>> master
 	//       {
-	//       case IPv4:
-	//           opaque ipv4[4];
-	//       case IPv6:
-	//           opaque ipv6[16];
+	//       case EMPTY_VERSION:
+	//           void;
 	//       }
-	//       ip;
-	//       uint32 port;
-	//       uint32 numFailures;
+	//       ext;
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("PeerAddress",[["ip",xdr.lookup("PeerAddressIp")],["port",xdr.lookup("Uint32")],["numFailures",xdr.lookup("Uint32")]]); // === xdr source ============================================================
-	//
-	//   enum MessageType
-	//   {
-	//       ERROR_MSG = 0,
-	//       AUTH = 2,
-	//       DONT_HAVE = 3,
-	//   
-	//       GET_PEERS = 4, // gets a list of peers this guy knows about
-	//       PEERS = 5,
-	//   
-	//       GET_TX_SET = 6, // gets a particular txset by hash
-	//       TX_SET = 7,
-	//   
-	//       TRANSACTION = 8, // pass on a tx you have heard about
-	//   
-	//       // SCP
-	//       GET_SCP_QUORUMSET = 9,
-	//       SCP_QUORUMSET = 10,
-	//       SCP_MESSAGE = 11,
-	//       GET_SCP_STATE = 12,
-	//   
-	//       // new messages
-	//       HELLO = 13
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("MessageType",{errorMsg:0,auth:2,dontHave:3,getPeer:4,peer:5,getTxSet:6,txSet:7,transaction:8,getScpQuorumset:9,scpQuorumset:10,scpMessage:11,getScpState:12,hello:13}); // === xdr source ============================================================
-	//
-	//   struct DontHave
-	//   {
-	//       MessageType type;
-	//       uint256 reqHash;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("DontHave",[["type",xdr.lookup("MessageType")],["reqHash",xdr.lookup("Uint256")]]); // === xdr source ============================================================
-	//
-	//   union StellarMessage switch (MessageType type)
-=======
 	xdr.struct("CreateAccountSuccess",[["externalSystemIDs",xdr.varArray(xdr.lookup("ExternalSystemAccountId"),2147483647)],["ext",xdr.lookup("CreateAccountSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union CreateAccountResult switch (CreateAccountResultCode code)
@@ -6648,91 +4490,10 @@ var StellarBase =
 	xdr.struct("CreateIssuanceRequestOp",[["request",xdr.lookup("IssuanceRequest")],["reference",xdr.lookup("String64")],["ext",xdr.lookup("CreateIssuanceRequestOpExt")]]); // === xdr source ============================================================
 	//
 	//   enum CreateIssuanceRequestResultCode
->>>>>>> master
 	//   {
-	//   case ERROR_MSG:
-	//       Error error;
-	//   case HELLO:
-	//       Hello hello;
-	//   case AUTH:
-	//       Auth auth;
-	//   case DONT_HAVE:
-	//       DontHave dontHave;
-	//   case GET_PEERS:
-	//       void;
-	//   case PEERS:
-	//       PeerAddress peers<>;
+	//       // codes considered as "success" for the operation
+	//       SUCCESS = 0,
 	//   
-<<<<<<< HEAD
-	//   case GET_TX_SET:
-	//       uint256 txSetHash;
-	//   case TX_SET:
-	//       TransactionSet txSet;
-	//   
-	//   case TRANSACTION:
-	//       TransactionEnvelope transaction;
-	//   
-	//   // SCP
-	//   case GET_SCP_QUORUMSET:
-	//       uint256 qSetHash;
-	//   case SCP_QUORUMSET:
-	//       SCPQuorumSet qSet;
-	//   case SCP_MESSAGE:
-	//       SCPEnvelope envelope;
-	//   case GET_SCP_STATE:
-	//       uint32 getSCPLedgerSeq; // ledger seq requested ; if 0, requests the latest
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("StellarMessage",{switchOn:xdr.lookup("MessageType"),switchName:"type",switches:[["errorMsg","error"],["hello","hello"],["auth","auth"],["dontHave","dontHave"],["getPeer",xdr["void"]()],["peer","peers"],["getTxSet","txSetHash"],["txSet","txSet"],["transaction","transaction"],["getScpQuorumset","qSetHash"],["scpQuorumset","qSet"],["scpMessage","envelope"],["getScpState","getScpLedgerSeq"]],arms:{error:xdr.lookup("Error"),hello:xdr.lookup("Hello"),auth:xdr.lookup("Auth"),dontHave:xdr.lookup("DontHave"),peers:xdr.varArray(xdr.lookup("PeerAddress"),2147483647),txSetHash:xdr.lookup("Uint256"),txSet:xdr.lookup("TransactionSet"),transaction:xdr.lookup("TransactionEnvelope"),qSetHash:xdr.lookup("Uint256"),qSet:xdr.lookup("ScpQuorumSet"),envelope:xdr.lookup("ScpEnvelope"),getScpLedgerSeq:xdr.lookup("Uint32")}}); // === xdr source ============================================================
-	//
-	//   struct
-	//   {
-	//      uint64 sequence;
-	//      StellarMessage message;
-	//      HmacSha256Mac mac;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("AuthenticatedMessageV0",[["sequence",xdr.lookup("Uint64")],["message",xdr.lookup("StellarMessage")],["mac",xdr.lookup("HmacSha256Mac")]]); // === xdr source ============================================================
-	//
-	//   union AuthenticatedMessage switch (LedgerVersion v)
-	//   {
-	//   case EMPTY_VERSION:
-	//       struct
-	//   {
-	//      uint64 sequence;
-	//      StellarMessage message;
-	//      HmacSha256Mac mac;
-	//       } v0;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("AuthenticatedMessage",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion","v0"]],arms:{v0:xdr.lookup("AuthenticatedMessageV0")}}); // === xdr source ============================================================
-	//
-	//   enum ManageTrustAction
-	//   {
-	//       TRUST_ADD = 0,
-	//       TRUST_REMOVE = 1
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ManageTrustAction",{trustAdd:0,trustRemove:1}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   	{
-	//   	case EMPTY_VERSION:
-	//   		void;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.union("TrustDataExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct TrustData {
-	//       TrustEntry trust;
-	//       ManageTrustAction action;
-	//   	// reserved for future use
-=======
 	//       // codes considered as "failure" for the operation
 	//       ASSET_NOT_FOUND = -1,
 	//   	INVALID_AMOUNT = -2,
@@ -6904,7 +4665,6 @@ var StellarBase =
 	//   
 	//   	uint64 requestID;
 	//   
->>>>>>> master
 	//   	union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -6984,1164 +4744,195 @@ var StellarBase =
 	// ===========================================================================
 	xdr.union("ManageInvoiceRequestResult",{switchOn:xdr.lookup("ManageInvoiceRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageInvoiceRequestResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
-	//   enum SignerType
+	//   enum ErrorCode
 	//   {
-	//   	READER = 1,                  // can only read data from API and Horizon
-	//   	NOT_VERIFIED_ACC_MANAGER = 2,// can manage not verified account and block/unblock general
-	//   	GENERAL_ACC_MANAGER = 4,     // allowed to create account, block/unblock, change limits for particular general account
-	//   	DIRECT_DEBIT_OPERATOR = 8, // allowed to perform direct debit operation
-	//   	ASSET_MANAGER = 16, // allowed to create assets/asset pairs and update policies, set fees
-	//   	ASSET_RATE_MANAGER = 32, // allowed to set physical asset price
-	//   	BALANCE_MANAGER = 64, // allowed to create balances, spend assets from balances
-	//   	ISSUANCE_MANAGER = 128, // allowed to make preissuance request, review issuance
-	//   	INVOICE_MANAGER = 256, // allowed to create payment requests to other accounts
-	//   	PAYMENT_OPERATOR = 512, // allowed to review payment requests
-	//   	LIMITS_MANAGER = 1024, // allowed to change limits
-	//   	ACCOUNT_MANAGER = 2048, // allowed to add/delete signers and trust
-	//   	COMMISSION_BALANCE_MANAGER  = 4096,// allowed to spend from commission balances
-	//   	OPERATIONAL_BALANCE_MANAGER = 8192, // allowed to spend from operational balances
-	//   	EVENTS_CHECKER = 16384, // allow to check and trigger events
-	//   	EXCHANGE_ACC_MANAGER = 32768, // can manage exchange account
-	//   	SYNDICATE_ACC_MANAGER = 65536 // can manage syndicate account
+	//       MISC = 0, // Unspecific error
+	//       DATA = 1, // Malformed data
+	//       CONF = 2, // Misconfiguration error
+	//       AUTH = 3, // Authentication failure
+	//       LOAD = 4  // System overloaded
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("SignerType",{reader:1,notVerifiedAccManager:2,generalAccManager:4,directDebitOperator:8,assetManager:16,assetRateManager:32,balanceManager:64,issuanceManager:128,invoiceManager:256,paymentOperator:512,limitsManager:1024,accountManager:2048,commissionBalanceManager:4096,operationalBalanceManager:8192,eventsChecker:16384,exchangeAccManager:32768,syndicateAccManager:65536}); // === xdr source ============================================================
+	xdr["enum"]("ErrorCode",{misc:0,datum:1,conf:2,auth:3,load:4}); // === xdr source ============================================================
 	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("SignerExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct Signer
+	//   struct Error
 	//   {
-	//       AccountID pubKey;
-	//       uint32 weight; // really only need 1byte
-	//   	uint32 signerType;
-	//   	uint32 identity;
-	//   	string256 name;
-	//   
-	//   	 // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
+	//       ErrorCode code;
+	//       string msg<100>;
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("Signer",[["pubKey",xdr.lookup("AccountId")],["weight",xdr.lookup("Uint32")],["signerType",xdr.lookup("Uint32")],["identity",xdr.lookup("Uint32")],["name",xdr.lookup("String256")],["ext",xdr.lookup("SignerExt")]]); // === xdr source ============================================================
+	xdr.struct("Error",[["code",xdr.lookup("ErrorCode")],["msg",xdr.string(100)]]); // === xdr source ============================================================
 	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("TrustEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct TrustEntry
+	//   struct AuthCert
 	//   {
-	//       AccountID allowedAccount;
-	//       BalanceID balanceToUse;
-	//   
-	//   	 // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
+	//       Curve25519Public pubkey;
+	//       uint64 expiration;
+	//       Signature sig;
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("TrustEntry",[["allowedAccount",xdr.lookup("AccountId")],["balanceToUse",xdr.lookup("BalanceId")],["ext",xdr.lookup("TrustEntryExt")]]); // === xdr source ============================================================
+	xdr.struct("AuthCert",[["pubkey",xdr.lookup("Curve25519Public")],["expiration",xdr.lookup("Uint64")],["sig",xdr.lookup("Signature")]]); // === xdr source ============================================================
 	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("LimitsExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct Limits
+	//   struct Hello
 	//   {
-	//       int64 dailyOut;
-	//   	int64 weeklyOut;
-	//   	int64 monthlyOut;
-	//       int64 annualOut;
-	//   
-	//   	 // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//       
+	//       uint32 ledgerVersion;
+	//       uint32 overlayVersion;
+	//       uint32 overlayMinVersion;
+	//       Hash networkID;
+	//       string versionStr<100>;
+	//       int listeningPort;
+	//       NodeID peerID;
+	//       AuthCert cert;
+	//       uint256 nonce;
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("Limits",[["dailyOut",xdr.lookup("Int64")],["weeklyOut",xdr.lookup("Int64")],["monthlyOut",xdr.lookup("Int64")],["annualOut",xdr.lookup("Int64")],["ext",xdr.lookup("LimitsExt")]]); // === xdr source ============================================================
+	xdr.struct("Hello",[["ledgerVersion",xdr.lookup("Uint32")],["overlayVersion",xdr.lookup("Uint32")],["overlayMinVersion",xdr.lookup("Uint32")],["networkId",xdr.lookup("Hash")],["versionStr",xdr.string(100)],["listeningPort",xdr.int()],["peerId",xdr.lookup("NodeId")],["cert",xdr.lookup("AuthCert")],["nonce",xdr.lookup("Uint256")]]); // === xdr source ============================================================
 	//
-	//   enum AccountPolicies
+	//   struct Auth
 	//   {
-	//   	NO_PERMISSIONS = 0,
-	//   	ALLOW_TO_CREATE_USER_VIA_API = 1
+	//       // Empty message, just to confirm
+	//       // establishment of MAC keys.
+	//       int unused;
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("AccountPolicies",{noPermission:0,allowToCreateUserViaApi:1}); // === xdr source ============================================================
+	xdr.struct("Auth",[["unused",xdr.int()]]); // === xdr source ============================================================
 	//
-	//   enum AccountType
+	//   enum IPAddrType
 	//   {
-	//   	OPERATIONAL = 1,       // operational account of the system 
-	//   	GENERAL = 2,           // general account can perform payments, setoptions, be source account for tx, etc.
-	//   	COMMISSION = 3,        // commission account
-	//   	MASTER = 4,            // master account
-	//       NOT_VERIFIED = 5,
-	//   	SYNDICATE = 6, // can create asset
-	//   	EXCHANGE = 7
+	//       IPv4 = 0,
+	//       IPv6 = 1
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("AccountType",{operational:1,general:2,commission:3,master:4,notVerified:5,syndicate:6,exchange:7}); // === xdr source ============================================================
+	xdr["enum"]("IpAddrType",{iPv4:0,iPv6:1}); // === xdr source ============================================================
 	//
-	//   enum BlockReasons
+	//   union switch (IPAddrType type)
+	//       {
+	//       case IPv4:
+	//           opaque ipv4[4];
+	//       case IPv6:
+	//           opaque ipv6[16];
+	//       }
+	//
+	// ===========================================================================
+	xdr.union("PeerAddressIp",{switchOn:xdr.lookup("IpAddrType"),switchName:"type",switches:[["iPv4","ipv4"],["iPv6","ipv6"]],arms:{ipv4:xdr.opaque(4),ipv6:xdr.opaque(16)}}); // === xdr source ============================================================
+	//
+	//   struct PeerAddress
 	//   {
-	//   	RECOVERY_REQUEST = 1,
-	//   	KYC_UPDATE = 2,
-	//   	SUSPICIOUS_BEHAVIOR = 4
+	//       union switch (IPAddrType type)
+	//       {
+	//       case IPv4:
+	//           opaque ipv4[4];
+	//       case IPv6:
+	//           opaque ipv6[16];
+	//       }
+	//       ip;
+	//       uint32 port;
+	//       uint32 numFailures;
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("BlockReasons",{recoveryRequest:1,kycUpdate:2,suspiciousBehavior:4}); // === xdr source ============================================================
+	xdr.struct("PeerAddress",[["ip",xdr.lookup("PeerAddressIp")],["port",xdr.lookup("Uint32")],["numFailures",xdr.lookup("Uint32")]]); // === xdr source ============================================================
 	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("AccountEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct AccountEntry
+	//   enum MessageType
 	//   {
-	//       AccountID accountID;      // master public key for this account
-	//       AccountID recoveryID;
+	//       ERROR_MSG = 0,
+	//       AUTH = 2,
+	//       DONT_HAVE = 3,
 	//   
-	//       // fields used for signatures
-	//       // thresholds stores unsigned bytes: [weight of master|low|medium|high]
-	//       Thresholds thresholds;
+	//       GET_PEERS = 4, // gets a list of peers this guy knows about
+	//       PEERS = 5,
 	//   
-	//       Signer signers<>; // possible signers for this account
-	//       Limits* limits;
+	//       GET_TX_SET = 6, // gets a particular txset by hash
+	//       TX_SET = 7,
 	//   
-	//   	uint32 blockReasons;
-	//       AccountType accountType; // type of the account
-	//       
-	//       // Referral marketing
-	//       AccountID* referrer;     // parent account
+	//       TRANSACTION = 8, // pass on a tx you have heard about
 	//   
-	//   	int32 policies;
+	//       // SCP
+	//       GET_SCP_QUORUMSET = 9,
+	//       SCP_QUORUMSET = 10,
+	//       SCP_MESSAGE = 11,
+	//       GET_SCP_STATE = 12,
 	//   
-	//       // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
+	//       // new messages
+	//       HELLO = 13
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("AccountEntry",[["accountId",xdr.lookup("AccountId")],["recoveryId",xdr.lookup("AccountId")],["thresholds",xdr.lookup("Thresholds")],["signers",xdr.varArray(xdr.lookup("Signer"),2147483647)],["limits",xdr.option(xdr.lookup("Limits"))],["blockReasons",xdr.lookup("Uint32")],["accountType",xdr.lookup("AccountType")],["referrer",xdr.option(xdr.lookup("AccountId"))],["policies",xdr.lookup("Int32")],["ext",xdr.lookup("AccountEntryExt")]]); // === xdr source ============================================================
+	xdr["enum"]("MessageType",{errorMsg:0,auth:2,dontHave:3,getPeer:4,peer:5,getTxSet:6,txSet:7,transaction:8,getScpQuorumset:9,scpQuorumset:10,scpMessage:11,getScpState:12,hello:13}); // === xdr source ============================================================
 	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("PreIssuanceRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct PreIssuanceRequest {
-	//   	AssetCode asset;
-	//   	uint64 amount;
-	//   	DecoratedSignature signature;
-	//   	string64 reference;
-	//   
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("PreIssuanceRequest",[["asset",xdr.lookup("AssetCode")],["amount",xdr.lookup("Uint64")],["signature",xdr.lookup("DecoratedSignature")],["reference",xdr.lookup("String64")],["ext",xdr.lookup("PreIssuanceRequestExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("IssuanceRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct IssuanceRequest {
-	//   	AssetCode asset;
-	//   	uint64 amount;
-	//   	BalanceID receiver;
-	//   	longstring externalDetails; // details of the issuance (External system id, etc.)
-	//   	Fee fee; //totalFee to be payed (calculated automatically)
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("IssuanceRequest",[["asset",xdr.lookup("AssetCode")],["amount",xdr.lookup("Uint64")],["receiver",xdr.lookup("BalanceId")],["externalDetails",xdr.lookup("Longstring")],["fee",xdr.lookup("Fee")],["ext",xdr.lookup("IssuanceRequestExt")]]); // === xdr source ============================================================
-	//
-	//   enum FeeType
+	//   struct DontHave
 	//   {
-	//       PAYMENT_FEE = 0,
-	//   	OFFER_FEE = 1,
-	//       WITHDRAWAL_FEE = 2,
-	//       ISSUANCE_FEE = 3,
-	//       PAYOUT_FEE = 4
+	//       MessageType type;
+	//       uint256 reqHash;
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("FeeType",{paymentFee:0,offerFee:1,withdrawalFee:2,issuanceFee:3,payoutFee:4}); // === xdr source ============================================================
+	xdr.struct("DontHave",[["type",xdr.lookup("MessageType")],["reqHash",xdr.lookup("Uint256")]]); // === xdr source ============================================================
 	//
-	//   enum EmissionFeeType
+	//   union StellarMessage switch (MessageType type)
 	//   {
-	//   	PRIMARY_MARKET = 1,
-	//   	SECONDARY_MARKET = 2
+	//   case ERROR_MSG:
+	//       Error error;
+	//   case HELLO:
+	//       Hello hello;
+	//   case AUTH:
+	//       Auth auth;
+	//   case DONT_HAVE:
+	//       DontHave dontHave;
+	//   case GET_PEERS:
+	//       void;
+	//   case PEERS:
+	//       PeerAddress peers<>;
+	//   
+	//   case GET_TX_SET:
+	//       uint256 txSetHash;
+	//   case TX_SET:
+	//       TransactionSet txSet;
+	//   
+	//   case TRANSACTION:
+	//       TransactionEnvelope transaction;
+	//   
+	//   // SCP
+	//   case GET_SCP_QUORUMSET:
+	//       uint256 qSetHash;
+	//   case SCP_QUORUMSET:
+	//       SCPQuorumSet qSet;
+	//   case SCP_MESSAGE:
+	//       SCPEnvelope envelope;
+	//   case GET_SCP_STATE:
+	//       uint32 getSCPLedgerSeq; // ledger seq requested ; if 0, requests the latest
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("EmissionFeeType",{primaryMarket:1,secondaryMarket:2}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("FeeEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct FeeEntry
-	//   {
-	//       FeeType feeType;
-	//       AssetCode asset;
-	//       int64 fixedFee; // fee paid for operation
-	//   	int64 percentFee; // percent of transfer amount to be charged
-	//   
-	//       AccountID* accountID;
-	//       AccountType* accountType;
-	//       int64 subtype; // for example, different withdrawals — bars or coins
-	//   
-	//       int64 lowerBound;
-	//       int64 upperBound;
-	//   
-	//       Hash hash;
-	//   
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("FeeEntry",[["feeType",xdr.lookup("FeeType")],["asset",xdr.lookup("AssetCode")],["fixedFee",xdr.lookup("Int64")],["percentFee",xdr.lookup("Int64")],["accountId",xdr.option(xdr.lookup("AccountId"))],["accountType",xdr.option(xdr.lookup("AccountType"))],["subtype",xdr.lookup("Int64")],["lowerBound",xdr.lookup("Int64")],["upperBound",xdr.lookup("Int64")],["hash",xdr.lookup("Hash")],["ext",xdr.lookup("FeeEntryExt")]]); // === xdr source ============================================================
-	//
-	//   enum AssetPairPolicy
-	//   {
-	//   	TRADEABLE_SECONDARY_MARKET = 1, // if not set pair can not be traided on secondary market
-	//   	PHYSICAL_PRICE_RESTRICTION = 2, // if set, then prices for new offers must be greater then physical price with correction
-	//   	CURRENT_PRICE_RESTRICTION = 4 // if set, then price for new offers must be in interval of (1 +- maxPriceStep)*currentPrice
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("AssetPairPolicy",{tradeableSecondaryMarket:1,physicalPriceRestriction:2,currentPriceRestriction:4}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("AssetPairEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct AssetPairEntry
-	//   {
-	//       AssetCode base;
-	//   	AssetCode quote;
-	//   
-	//       int64 currentPrice;
-	//       int64 physicalPrice;
-	//   
-	//   	int64 physicalPriceCorrection; // correction of physical price in percents. If physical price is set and restriction by physical price set, mininal price for offer for this pair will be physicalPrice * physicalPriceCorrection
-	//   	int64 maxPriceStep; // max price step in percent. User is allowed to set offer with price < (1 - maxPriceStep)*currentPrice and > (1 + maxPriceStep)*currentPrice
-	//   
-	//   
-	//   	int32 policies;
-	//   
-	//       // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("AssetPairEntry",[["base",xdr.lookup("AssetCode")],["quote",xdr.lookup("AssetCode")],["currentPrice",xdr.lookup("Int64")],["physicalPrice",xdr.lookup("Int64")],["physicalPriceCorrection",xdr.lookup("Int64")],["maxPriceStep",xdr.lookup("Int64")],["policies",xdr.lookup("Int32")],["ext",xdr.lookup("AssetPairEntryExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("CreateWithdrawalRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct CreateWithdrawalRequestOp
-	//   {
-	//       WithdrawalRequest request;
-	//   
-	//   	union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("CreateWithdrawalRequestOp",[["request",xdr.lookup("WithdrawalRequest")],["ext",xdr.lookup("CreateWithdrawalRequestOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum CreateWithdrawalRequestResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,
-	//   
-	//       // codes considered as "failure" for the operation
-	//   	INVALID_AMOUNT = -1, // amount is 0
-	//       INVALID_EXTERNAL_DETAILS = -2, // external details size exceeds max allowed
-	//   	BALANCE_NOT_FOUND = -3, // balance not found
-	//   	ASSET_IS_NOT_WITHDRAWABLE = -4, // asset is not withdrawable
-	//   	CONVERSION_PRICE_IS_NOT_AVAILABLE = -5, // failed to find conversion price - conversion is not allowed
-	//   	FEE_MISMATCHED = -6, // expected fee does not match calculated fee
-	//   	CONVERSION_OVERFLOW = -7, // overflow during converting source asset to dest asset
-	//   	CONVERTED_AMOUNT_MISMATCHED = -8, // expected converted amount passed by user, does not match calculated
-	//   	BALANCE_LOCK_OVERFLOW = -9, // overflow while tried to lock amount
-	//   	UNDERFUNDED = -10, // insufficient balance to perform operation
-	//   	INVALID_UNIVERSAL_AMOUNT = -11, // non-zero universal amount
-	//   	STATS_OVERFLOW = -12, // statistics overflowed by the operation
-	//       LIMITS_EXCEEDED = -13, // withdraw exceeds limits for source account
-	//   	INVALID_PRE_CONFIRMATION_DETAILS = -14 // it's not allowed to pass pre confirmation details
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("CreateWithdrawalRequestResultCode",{success:0,invalidAmount:-1,invalidExternalDetail:-2,balanceNotFound:-3,assetIsNotWithdrawable:-4,conversionPriceIsNotAvailable:-5,feeMismatched:-6,conversionOverflow:-7,convertedAmountMismatched:-8,balanceLockOverflow:-9,underfunded:-10,invalidUniversalAmount:-11,statsOverflow:-12,limitsExceeded:-13,invalidPreConfirmationDetail:-14}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("CreateWithdrawalSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct CreateWithdrawalSuccess {
-	//   	uint64 requestID;
-	//   
-	//   	union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("CreateWithdrawalSuccess",[["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("CreateWithdrawalSuccessExt")]]); // === xdr source ============================================================
-	//
-	//   union CreateWithdrawalRequestResult switch (CreateWithdrawalRequestResultCode code)
-	//   {
-	//       case SUCCESS:
-	//           CreateWithdrawalSuccess success;
-	//       default:
-	//           void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("CreateWithdrawalRequestResult",{switchOn:xdr.lookup("CreateWithdrawalRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreateWithdrawalSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-	//
-	//   enum ExternalSystemType
-	//   {
-	//   	BITCOIN = 1,
-	//   	ETHEREUM = 2,
-	//   	SECURE_VOTE = 3
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ExternalSystemType",{bitcoin:1,ethereum:2,secureVote:3}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("ExternalSystemAccountIdExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ExternalSystemAccountID
-	//   {
-	//       AccountID accountID;
-	//       ExternalSystemType externalSystemType;
-	//   	longstring data;
-	//   
-	//   	 // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ExternalSystemAccountId",[["accountId",xdr.lookup("AccountId")],["externalSystemType",xdr.lookup("ExternalSystemType")],["data",xdr.lookup("Longstring")],["ext",xdr.lookup("ExternalSystemAccountIdExt")]]); // === xdr source ============================================================
-	//
-	//   enum ExternalSystemIDGeneratorType {
-	//   	BITCOIN_BASIC = 1,
-	//   	ETHEREUM_BASIC = 2
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ExternalSystemIdGeneratorType",{bitcoinBasic:1,ethereumBasic:2}); // === xdr source ============================================================
-	//
-	//   typedef opaque UpgradeType<128>;
-	//
-	// ===========================================================================
-	xdr.typedef("UpgradeType",xdr.varOpaque(128)); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("StellarValueExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct StellarValue
-	//   {
-	//       Hash txSetHash;   // transaction set to apply to previous ledger
-	//       uint64 closeTime; // network close time
-	//   
-	//       // upgrades to apply to the previous ledger (usually empty)
-	//       // this is a vector of encoded 'LedgerUpgrade' so that nodes can drop
-	//       // unknown steps during consensus if needed.
-	//       // see notes below on 'LedgerUpgrade' for more detail
-	//       // max size is dictated by number of upgrade types (+ room for future)
-	//       UpgradeType upgrades<6>;
-	//   
-	//       // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("StellarValue",[["txSetHash",xdr.lookup("Hash")],["closeTime",xdr.lookup("Uint64")],["upgrades",xdr.varArray(xdr.lookup("UpgradeType"),6)],["ext",xdr.lookup("StellarValueExt")]]); // === xdr source ============================================================
-	//
-	//   struct IdGenerator {
-	//   	LedgerEntryType entryType; // type of the entry, for which ids will be generated
-	//   	uint64 idPool; // last used entry specific ID, used for generating entry of specified type
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("IdGenerator",[["entryType",xdr.lookup("LedgerEntryType")],["idPool",xdr.lookup("Uint64")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("LedgerHeaderExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct LedgerHeader
-	//   {
-	//       uint32 ledgerVersion;    // the protocol version of the ledger
-	//       Hash previousLedgerHash; // hash of the previous ledger header
-	//       StellarValue scpValue;   // what consensus agreed to
-	//       Hash txSetResultHash;    // the TransactionResultSet that led to this ledger
-	//       Hash bucketListHash;     // hash of the ledger state
-	//   
-	//       uint32 ledgerSeq; // sequence number of this ledger
-	//   
-	//       IdGenerator idGenerators<>; // generators of ids
-	//   
-	//       uint32 baseFee;     // base fee per operation in stroops
-	//       uint32 baseReserve; // account base reserve in stroops
-	//   
-	//       uint32 maxTxSetSize; // maximum size a transaction set can be
-	//   
-	//       ExternalSystemIDGeneratorType externalSystemIDGenerators<>;
-	//       int64 txExpirationPeriod;
-	//       
-	//       Hash skipList[4]; // hashes of ledgers in the past. allows you to jump back
-	//                         // in time without walking the chain back ledger by ledger
-	//                         // each slot contains the oldest ledger that is mod of
-	//                         // either 50  5000  50000 or 500000 depending on index
-	//                         // skipList[0] mod(50), skipList[1] mod(5000), etc
-	//   
-	//       // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("LedgerHeader",[["ledgerVersion",xdr.lookup("Uint32")],["previousLedgerHash",xdr.lookup("Hash")],["scpValue",xdr.lookup("StellarValue")],["txSetResultHash",xdr.lookup("Hash")],["bucketListHash",xdr.lookup("Hash")],["ledgerSeq",xdr.lookup("Uint32")],["idGenerators",xdr.varArray(xdr.lookup("IdGenerator"),2147483647)],["baseFee",xdr.lookup("Uint32")],["baseReserve",xdr.lookup("Uint32")],["maxTxSetSize",xdr.lookup("Uint32")],["externalSystemIdGenerators",xdr.varArray(xdr.lookup("ExternalSystemIdGeneratorType"),2147483647)],["txExpirationPeriod",xdr.lookup("Int64")],["skipList",xdr.array(xdr.lookup("Hash"),4)],["ext",xdr.lookup("LedgerHeaderExt")]]); // === xdr source ============================================================
-	//
-	//   enum LedgerUpgradeType
-	//   {
-	//       VERSION = 1,
-	//       MAX_TX_SET_SIZE = 2,
-	//       TX_EXPIRATION_PERIOD = 3,
-	//   	EXTERNAL_SYSTEM_ID_GENERATOR = 4
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("LedgerUpgradeType",{version:1,maxTxSetSize:2,txExpirationPeriod:3,externalSystemIdGenerator:4}); // === xdr source ============================================================
-	//
-	//   union LedgerUpgrade switch (LedgerUpgradeType type)
-	//   {
-	//   case VERSION:
-	//       uint32 newLedgerVersion; // update ledgerVersion
-	//   case MAX_TX_SET_SIZE:
-	//       uint32 newMaxTxSetSize; // update maxTxSetSize
-	//   case EXTERNAL_SYSTEM_ID_GENERATOR:
-	//       ExternalSystemIDGeneratorType newExternalSystemIDGenerators<>;
-	//   case TX_EXPIRATION_PERIOD:
-	//       int64 newTxExpirationPeriod;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("LedgerUpgrade",{switchOn:xdr.lookup("LedgerUpgradeType"),switchName:"type",switches:[["version","newLedgerVersion"],["maxTxSetSize","newMaxTxSetSize"],["externalSystemIdGenerator","newExternalSystemIdGenerators"],["txExpirationPeriod","newTxExpirationPeriod"]],arms:{newLedgerVersion:xdr.lookup("Uint32"),newMaxTxSetSize:xdr.lookup("Uint32"),newExternalSystemIdGenerators:xdr.varArray(xdr.lookup("ExternalSystemIdGeneratorType"),2147483647),newTxExpirationPeriod:xdr.lookup("Int64")}}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyAccountExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
+	xdr.union("StellarMessage",{switchOn:xdr.lookup("MessageType"),switchName:"type",switches:[["errorMsg","error"],["hello","hello"],["auth","auth"],["dontHave","dontHave"],["getPeer",xdr["void"]()],["peer","peers"],["getTxSet","txSetHash"],["txSet","txSet"],["transaction","transaction"],["getScpQuorumset","qSetHash"],["scpQuorumset","qSet"],["scpMessage","envelope"],["getScpState","getScpLedgerSeq"]],arms:{error:xdr.lookup("Error"),hello:xdr.lookup("Hello"),auth:xdr.lookup("Auth"),dontHave:xdr.lookup("DontHave"),peers:xdr.varArray(xdr.lookup("PeerAddress"),2147483647),txSetHash:xdr.lookup("Uint256"),txSet:xdr.lookup("TransactionSet"),transaction:xdr.lookup("TransactionEnvelope"),qSetHash:xdr.lookup("Uint256"),qSet:xdr.lookup("ScpQuorumSet"),envelope:xdr.lookup("ScpEnvelope"),getScpLedgerSeq:xdr.lookup("Uint32")}}); // === xdr source ============================================================
 	//
 	//   struct
-	//       {
-	//           AccountID accountID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyAccount",[["accountId",xdr.lookup("AccountId")],["ext",xdr.lookup("LedgerKeyAccountExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyFeeStateExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//           Hash hash;
-	//   		int64 lowerBound;
-	//   		int64 upperBound;
-	//   		 union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyFeeState",[["hash",xdr.lookup("Hash")],["lowerBound",xdr.lookup("Int64")],["upperBound",xdr.lookup("Int64")],["ext",xdr.lookup("LedgerKeyFeeStateExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyBalanceExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct
-	//       {
-	//   		BalanceID balanceID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyBalance",[["balanceId",xdr.lookup("BalanceId")],["ext",xdr.lookup("LedgerKeyBalanceExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyPaymentRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct
-	//       {
-	//   		uint64 paymentID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyPaymentRequest",[["paymentId",xdr.lookup("Uint64")],["ext",xdr.lookup("LedgerKeyPaymentRequestExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyAssetExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct
-	//       {
-	//   		AssetCode code;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyAsset",[["code",xdr.lookup("AssetCode")],["ext",xdr.lookup("LedgerKeyAssetExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyReferenceExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct
-	//       {
-	//   		AccountID sender;
-	//   		string64 reference;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyReference",[["sender",xdr.lookup("AccountId")],["reference",xdr.lookup("String64")],["ext",xdr.lookup("LedgerKeyReferenceExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyAccountTypeLimitsExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//           AccountType accountType;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyAccountTypeLimits",[["accountType",xdr.lookup("AccountType")],["ext",xdr.lookup("LedgerKeyAccountTypeLimitsExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyStatsExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//           AccountID accountID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyStats",[["accountId",xdr.lookup("AccountId")],["ext",xdr.lookup("LedgerKeyStatsExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyTrustExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//           AccountID allowedAccount;
-	//           BalanceID balanceToUse;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyTrust",[["allowedAccount",xdr.lookup("AccountId")],["balanceToUse",xdr.lookup("BalanceId")],["ext",xdr.lookup("LedgerKeyTrustExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyAccountLimitsExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//           AccountID accountID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyAccountLimits",[["accountId",xdr.lookup("AccountId")],["ext",xdr.lookup("LedgerKeyAccountLimitsExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyAssetPairExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//            AssetCode base;
-	//   		 AssetCode quote;
-	//   		 union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyAssetPair",[["base",xdr.lookup("AssetCode")],["quote",xdr.lookup("AssetCode")],["ext",xdr.lookup("LedgerKeyAssetPairExt")]]); // === xdr source ============================================================
-	//
-	//   struct {
-	//   		uint64 offerID;
-	//   		AccountID ownerID;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyOffer",[["offerId",xdr.lookup("Uint64")],["ownerId",xdr.lookup("AccountId")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyInvoiceExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//           uint64 invoiceID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyInvoice",[["invoiceId",xdr.lookup("Uint64")],["ext",xdr.lookup("LedgerKeyInvoiceExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyReviewableRequestExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//           uint64 requestID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       }
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyReviewableRequest",[["requestId",xdr.lookup("Uint64")],["ext",xdr.lookup("LedgerKeyReviewableRequestExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeyExternalSystemAccountIdExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//   		AccountID accountID;
-	//   		ExternalSystemType externalSystemType;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeyExternalSystemAccountId",[["accountId",xdr.lookup("AccountId")],["externalSystemType",xdr.lookup("ExternalSystemType")],["ext",xdr.lookup("LedgerKeyExternalSystemAccountIdExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("LedgerKeySaleExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//   		uint64 saleID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.struct("LedgerKeySale",[["saleId",xdr.lookup("Uint64")],["ext",xdr.lookup("LedgerKeySaleExt")]]); // === xdr source ============================================================
-	//
-	//   union LedgerKey switch (LedgerEntryType type)
 	//   {
-	//   case ACCOUNT:
+	//      uint64 sequence;
+	//      StellarMessage message;
+	//      HmacSha256Mac mac;
+	//       }
+	//
+	// ===========================================================================
+	xdr.struct("AuthenticatedMessageV0",[["sequence",xdr.lookup("Uint64")],["message",xdr.lookup("StellarMessage")],["mac",xdr.lookup("HmacSha256Mac")]]); // === xdr source ============================================================
+	//
+	//   union AuthenticatedMessage switch (LedgerVersion v)
+	//   {
+	//   case EMPTY_VERSION:
 	//       struct
-	//       {
-	//           AccountID accountID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } account;
-	//   case FEE:
-	//       struct {
-	//           Hash hash;
-	//   		int64 lowerBound;
-	//   		int64 upperBound;
-	//   		 union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } feeState;
-	//   case BALANCE:
-	//       struct
-	//       {
-	//   		BalanceID balanceID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } balance;
-	//   case PAYMENT_REQUEST:
-	//       struct
-	//       {
-	//   		uint64 paymentID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } paymentRequest;
-	//   case ASSET:
-	//       struct
-	//       {
-	//   		AssetCode code;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } asset;
-	//   case REFERENCE_ENTRY:
-	//       struct
-	//       {
-	//   		AccountID sender;
-	//   		string64 reference;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } reference;
-	//   case ACCOUNT_TYPE_LIMITS:
-	//       struct {
-	//           AccountType accountType;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } accountTypeLimits;
-	//   case STATISTICS:
-	//       struct {
-	//           AccountID accountID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } stats;
-	//   case TRUST:
-	//       struct {
-	//           AccountID allowedAccount;
-	//           BalanceID balanceToUse;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } trust;
-	//   case ACCOUNT_LIMITS:
-	//       struct {
-	//           AccountID accountID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } accountLimits;
-	//   case ASSET_PAIR:
-	//   	struct {
-	//            AssetCode base;
-	//   		 AssetCode quote;
-	//   		 union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } assetPair;
-	//   case OFFER_ENTRY:
-	//   	struct {
-	//   		uint64 offerID;
-	//   		AccountID ownerID;
-	//   	} offer;
-	//   case INVOICE:
-	//       struct {
-	//           uint64 invoiceID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } invoice;
-	//   case REVIEWABLE_REQUEST:
-	//       struct {
-	//           uint64 requestID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       } reviewableRequest;
-	//   case EXTERNAL_SYSTEM_ACCOUNT_ID:
-	//   	struct {
-	//   		AccountID accountID;
-	//   		ExternalSystemType externalSystemType;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//   	} externalSystemAccountID;
-	//   case SALE:
-	//   	struct {
-	//   		uint64 saleID;
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//   	} sale;
-	//   };
-	//
-	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("LedgerKey",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["paymentRequest","paymentRequest"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["invoice","invoice"],["reviewableRequest","reviewableRequest"],["externalSystemAccountId","externalSystemAccountId"],["sale","sale"]],arms:{account:xdr.lookup("LedgerKeyAccount"),feeState:xdr.lookup("LedgerKeyFeeState"),balance:xdr.lookup("LedgerKeyBalance"),paymentRequest:xdr.lookup("LedgerKeyPaymentRequest"),asset:xdr.lookup("LedgerKeyAsset"),reference:xdr.lookup("LedgerKeyReference"),accountTypeLimits:xdr.lookup("LedgerKeyAccountTypeLimits"),stats:xdr.lookup("LedgerKeyStats"),trust:xdr.lookup("LedgerKeyTrust"),accountLimits:xdr.lookup("LedgerKeyAccountLimits"),assetPair:xdr.lookup("LedgerKeyAssetPair"),offer:xdr.lookup("LedgerKeyOffer"),invoice:xdr.lookup("LedgerKeyInvoice"),reviewableRequest:xdr.lookup("LedgerKeyReviewableRequest"),externalSystemAccountId:xdr.lookup("LedgerKeyExternalSystemAccountId"),sale:xdr.lookup("LedgerKeySale")}}); // === xdr source ============================================================
-	//
-	//   enum BucketEntryType
 	//   {
-	//       LIVEENTRY = 0,
-	//       DEADENTRY = 1
+	//      uint64 sequence;
+	//      StellarMessage message;
+	//      HmacSha256Mac mac;
+	//       } v0;
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("BucketEntryType",{liveentry:0,deadentry:1}); // === xdr source ============================================================
-	//
-	//   union BucketEntry switch (BucketEntryType type)
-	//   {
-	//   case LIVEENTRY:
-	//       LedgerEntry liveEntry;
-	//   
-	//   case DEADENTRY:
-	//       LedgerKey deadEntry;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("BucketEntry",{switchOn:xdr.lookup("BucketEntryType"),switchName:"type",switches:[["liveentry","liveEntry"],["deadentry","deadEntry"]],arms:{liveEntry:xdr.lookup("LedgerEntry"),deadEntry:xdr.lookup("LedgerKey")}}); // === xdr source ============================================================
-	//
-	//   struct TransactionSet
-	//   {
-	//       Hash previousLedgerHash;
-	//       TransactionEnvelope txs<>;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("TransactionSet",[["previousLedgerHash",xdr.lookup("Hash")],["txes",xdr.varArray(xdr.lookup("TransactionEnvelope"),2147483647)]]); // === xdr source ============================================================
-	//
-	//   struct TransactionResultPair
-	//   {
-	//       Hash transactionHash;
-	//       TransactionResult result; // result for the transaction
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("TransactionResultPair",[["transactionHash",xdr.lookup("Hash")],["result",xdr.lookup("TransactionResult")]]); // === xdr source ============================================================
-	//
-	//   struct TransactionResultSet
-	//   {
-	//       TransactionResultPair results<>;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("TransactionResultSet",[["results",xdr.varArray(xdr.lookup("TransactionResultPair"),2147483647)]]); // === xdr source ============================================================
-=======
 	xdr.union("AuthenticatedMessage",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion","v0"]],arms:{v0:xdr.lookup("AuthenticatedMessageV0")}}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
@@ -8316,11 +5107,12 @@ var StellarBase =
 	//       ISSUANCE_FEE = 3,
 	//       INVEST_FEE = 4, // fee to be taken while creating sale participation
 	//       CAPITAL_DEPLOYMENT_FEE = 5, // fee to be taken when sale close
-	//       OPERATION_FEE = 6
+	//       OPERATION_FEE = 6,
+	//       PAYOUT_FEE = 7
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("FeeType",{paymentFee:0,offerFee:1,withdrawalFee:2,issuanceFee:3,investFee:4,capitalDeploymentFee:5,operationFee:6}); // === xdr source ============================================================
+	xdr["enum"]("FeeType",{paymentFee:0,offerFee:1,withdrawalFee:2,issuanceFee:3,investFee:4,capitalDeploymentFee:5,operationFee:6,payoutFee:7}); // === xdr source ============================================================
 	//
 	//   enum EmissionFeeType
 	//   {
@@ -8380,7 +5172,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("FeeEntry",[["feeType",xdr.lookup("FeeType")],["asset",xdr.lookup("AssetCode")],["fixedFee",xdr.lookup("Int64")],["percentFee",xdr.lookup("Int64")],["accountId",xdr.option(xdr.lookup("AccountId"))],["accountType",xdr.option(xdr.lookup("AccountType"))],["subtype",xdr.lookup("Int64")],["lowerBound",xdr.lookup("Int64")],["upperBound",xdr.lookup("Int64")],["hash",xdr.lookup("Hash")],["ext",xdr.lookup("FeeEntryExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -8389,14 +5180,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("TransactionHistoryEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct TransactionHistoryEntry
-	//   {
-	//       uint32 ledgerSeq;
-	//       TransactionSet txSet;
-=======
 	xdr.union("StatisticsEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct StatisticsEntry
@@ -8409,7 +5192,6 @@ var StellarBase =
 	//   	uint64 annualOutcome;
 	//   
 	//   	int64 updatedAt;
->>>>>>> master
 	//   
 	//       // reserved for future use
 	//       union switch (LedgerVersion v)
@@ -8421,9 +5203,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("TransactionHistoryEntry",[["ledgerSeq",xdr.lookup("Uint32")],["txSet",xdr.lookup("TransactionSet")],["ext",xdr.lookup("TransactionHistoryEntryExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("StatisticsEntry",[["accountId",xdr.lookup("AccountId")],["dailyOutcome",xdr.lookup("Uint64")],["weeklyOutcome",xdr.lookup("Uint64")],["monthlyOutcome",xdr.lookup("Uint64")],["annualOutcome",xdr.lookup("Uint64")],["updatedAt",xdr.lookup("Int64")],["ext",xdr.lookup("StatisticsEntryExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
@@ -8458,7 +5237,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("ExternalSystemAccountIdPoolEntry",[["poolEntryId",xdr.lookup("Uint64")],["externalSystemType",xdr.lookup("Int32")],["data",xdr.lookup("Longstring")],["accountId",xdr.option(xdr.lookup("AccountId"))],["expiresAt",xdr.lookup("Uint64")],["bindedAt",xdr.lookup("Uint64")],["parent",xdr.lookup("Uint64")],["isDeleted",xdr.bool()],["ext",xdr.lookup("ExternalSystemAccountIdPoolEntryExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -8467,16 +5245,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("TransactionHistoryResultEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct TransactionHistoryResultEntry
-	//   {
-	//       uint32 ledgerSeq;
-	//       TransactionResultSet txResultSet;
-	//   
-	//       // reserved for future use
-=======
 	xdr.union("DirectDebitOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct DirectDebitOp
@@ -8484,7 +5252,6 @@ var StellarBase =
 	//       AccountID from;
 	//       PaymentOp paymentOp;
 	//   	 // reserved for future use
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -8494,9 +5261,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("TransactionHistoryResultEntry",[["ledgerSeq",xdr.lookup("Uint32")],["txResultSet",xdr.lookup("TransactionResultSet")],["ext",xdr.lookup("TransactionHistoryResultEntryExt")]]); // === xdr source ============================================================
-=======
 	xdr.struct("DirectDebitOp",[["from",xdr.lookup("AccountId")],["paymentOp",xdr.lookup("PaymentOp")],["ext",xdr.lookup("DirectDebitOpExt")]]); // === xdr source ============================================================
 	//
 	//   enum DirectDebitResultCode
@@ -8522,7 +5286,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr["enum"]("DirectDebitResultCode",{success:0,malformed:-1,underfunded:-2,lineFull:-3,feeMismatched:-4,balanceNotFound:-5,balanceAccountMismatched:-6,balanceAssetsMismatched:-7,srcBalanceNotFound:-8,referenceDuplication:-9,statsOverflow:-10,limitsExceeded:-11,notAllowedByAssetPolicy:-12,noTrust:-13}); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -8531,22 +5294,11 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("LedgerHeaderHistoryEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct LedgerHeaderHistoryEntry
-	//   {
-	//       Hash hash;
-	//       LedgerHeader header;
-	//   
-	//       // reserved for future use
-=======
 	xdr.union("DirectDebitSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct DirectDebitSuccess {
 	//   	PaymentResponse paymentResponse;
 	//   	// reserved for future use
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -8556,96 +5308,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("LedgerHeaderHistoryEntry",[["hash",xdr.lookup("Hash")],["header",xdr.lookup("LedgerHeader")],["ext",xdr.lookup("LedgerHeaderHistoryEntryExt")]]); // === xdr source ============================================================
-	//
-	//   struct LedgerSCPMessages
-	//   {
-	//       uint32 ledgerSeq;
-	//       SCPEnvelope messages<>;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("LedgerScpMessages",[["ledgerSeq",xdr.lookup("Uint32")],["messages",xdr.varArray(xdr.lookup("ScpEnvelope"),2147483647)]]); // === xdr source ============================================================
-	//
-	//   struct SCPHistoryEntryV0
-	//   {
-	//       SCPQuorumSet quorumSets<>; // additional quorum sets used by ledgerMessages
-	//       LedgerSCPMessages ledgerMessages;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ScpHistoryEntryV0",[["quorumSets",xdr.varArray(xdr.lookup("ScpQuorumSet"),2147483647)],["ledgerMessages",xdr.lookup("LedgerScpMessages")]]); // === xdr source ============================================================
-	//
-	//   union SCPHistoryEntry switch (LedgerVersion v)
-	//   {
-	//   case EMPTY_VERSION:
-	//       SCPHistoryEntryV0 v0;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("ScpHistoryEntry",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion","v0"]],arms:{v0:xdr.lookup("ScpHistoryEntryV0")}}); // === xdr source ============================================================
-	//
-	//   enum LedgerEntryChangeType
-	//   {
-	//       CREATED = 0, // entry was added to the ledger
-	//       UPDATED = 1, // entry was modified in the ledger
-	//       REMOVED = 2, // entry was removed from the ledger
-	//       STATE = 3    // value of the entry
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("LedgerEntryChangeType",{created:0,updated:1,removed:2,state:3}); // === xdr source ============================================================
-	//
-	//   union LedgerEntryChange switch (LedgerEntryChangeType type)
-	//   {
-	//   case CREATED:
-	//       LedgerEntry created;
-	//   case UPDATED:
-	//       LedgerEntry updated;
-	//   case REMOVED:
-	//       LedgerKey removed;
-	//   case STATE:
-	//       LedgerEntry state;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("LedgerEntryChange",{switchOn:xdr.lookup("LedgerEntryChangeType"),switchName:"type",switches:[["created","created"],["updated","updated"],["removed","removed"],["state","state"]],arms:{created:xdr.lookup("LedgerEntry"),updated:xdr.lookup("LedgerEntry"),removed:xdr.lookup("LedgerKey"),state:xdr.lookup("LedgerEntry")}}); // === xdr source ============================================================
-	//
-	//   typedef LedgerEntryChange LedgerEntryChanges<>;
-	//
-	// ===========================================================================
-	xdr.typedef("LedgerEntryChanges",xdr.varArray(xdr.lookup("LedgerEntryChange"),2147483647)); // === xdr source ============================================================
-	//
-	//   struct OperationMeta
-	//   {
-	//       LedgerEntryChanges changes;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("OperationMeta",[["changes",xdr.lookup("LedgerEntryChanges")]]); // === xdr source ============================================================
-	//
-	//   union TransactionMeta switch (LedgerVersion v)
-	//   {
-	//   case EMPTY_VERSION:
-	//       OperationMeta operations<>;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("TransactionMeta",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion","operations"]],arms:{operations:xdr.varArray(xdr.lookup("OperationMeta"),2147483647)}}); // === xdr source ============================================================
-	//
-	//   enum ManageAssetPairAction
-	//   {
-	//       CREATE = 0,
-	//       UPDATE_PRICE = 1,
-	//       UPDATE_POLICIES = 2
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ManageAssetPairAction",{create:0,updatePrice:1,updatePolicy:2}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-=======
 	xdr.struct("DirectDebitSuccess",[["paymentResponse",xdr.lookup("PaymentResponse")],["ext",xdr.lookup("DirectDebitSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union DirectDebitResult switch (DirectDebitResultCode code)
@@ -8836,7 +5498,6 @@ var StellarBase =
 	//   	BalanceID balanceID;
 	//   	// reserved for future use
 	//       union switch (LedgerVersion v)
->>>>>>> master
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
@@ -8845,53 +5506,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("ManageAssetPairOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ManageAssetPairOp
-	//   {
-	//       ManageAssetPairAction action;
-	//   	AssetCode base;
-	//   	AssetCode quote;
-	//   
-	//       int64 physicalPrice;
-	//   
-	//   	int64 physicalPriceCorrection; // correction of physical price in percents. If physical price is set and restriction by physical price set, mininal price for offer for this pair will be physicalPrice * physicalPriceCorrection
-	//   	int64 maxPriceStep;
-	//   
-	//   	int32 policies;
-	//   
-	//   	 // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ManageAssetPairOp",[["action",xdr.lookup("ManageAssetPairAction")],["base",xdr.lookup("AssetCode")],["quote",xdr.lookup("AssetCode")],["physicalPrice",xdr.lookup("Int64")],["physicalPriceCorrection",xdr.lookup("Int64")],["maxPriceStep",xdr.lookup("Int64")],["policies",xdr.lookup("Int32")],["ext",xdr.lookup("ManageAssetPairOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum ManageAssetPairResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,
-	//   
-	//       // codes considered as "failure" for the operation
-	//   	NOT_FOUND = -1,           // failed to find asset with such code
-	//   	ALREADY_EXISTS = -2,
-	//       MALFORMED = -3,
-	//   	INVALID_ASSET = -4,
-	//   	INVALID_ACTION = -5,
-	//   	INVALID_POLICIES = -6,
-	//   	ASSET_NOT_FOUND = -7
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ManageAssetPairResultCode",{success:0,notFound:-1,alreadyExist:-2,malformed:-3,invalidAsset:-4,invalidAction:-5,invalidPolicy:-6,assetNotFound:-7}); // === xdr source ============================================================
-	//
-=======
 	xdr.struct("ManageBalanceSuccess",[["balanceId",xdr.lookup("BalanceId")],["ext",xdr.lookup("ManageBalanceSuccessExt")]]); // === xdr source ============================================================
 	//
 	//   union ManageBalanceResult switch (ManageBalanceResultCode code)
@@ -8918,7 +5532,6 @@ var StellarBase =
 	// ===========================================================================
 	xdr.typedef("UpgradeType",xdr.varOpaque(128)); // === xdr source ============================================================
 	//
->>>>>>> master
 	//   union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
@@ -8926,14 +5539,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("ManageAssetPairSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ManageAssetPairSuccess
-	//   {
-	//   	int64 currentPrice;
-	//   	// reserved for future use
-=======
 	xdr.union("StellarValueExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct StellarValue
@@ -8949,51 +5554,12 @@ var StellarBase =
 	//       UpgradeType upgrades<6>;
 	//   
 	//       // reserved for future use
->>>>>>> master
 	//       union switch (LedgerVersion v)
 	//       {
 	//       case EMPTY_VERSION:
 	//           void;
 	//       }
 	//       ext;
-<<<<<<< HEAD
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ManageAssetPairSuccess",[["currentPrice",xdr.lookup("Int64")],["ext",xdr.lookup("ManageAssetPairSuccessExt")]]); // === xdr source ============================================================
-	//
-	//   union ManageAssetPairResult switch (ManageAssetPairResultCode code)
-	//   {
-	//   case SUCCESS:
-	//       ManageAssetPairSuccess success;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("ManageAssetPairResult",{switchOn:xdr.lookup("ManageAssetPairResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("ManageAssetPairSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-	//
-	//   enum AssetPolicy
-	//   {
-	//   	TRANSFERABLE = 1,
-	//   	BASE_ASSET = 2,
-	//   	STATS_QUOTE_ASSET = 4,
-	//   	WITHDRAWABLE = 8,
-	//   	TWO_STEP_WITHDRAWAL = 16,
-	//   	REQUIRES_KYC = 32
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("AssetPolicy",{transferable:1,baseAsset:2,statsQuoteAsset:4,withdrawable:8,twoStepWithdrawal:16,requiresKyc:32}); // === xdr source ============================================================
-	//
-	//   enum AssetSystemPolicies
-	//   {
-	//   	TWO_STEP_WITHDRAW = 1
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("AssetSystemPolicies",{twoStepWithdraw:1}); // === xdr source ============================================================
-=======
 	//   };
 	//
 	// ===========================================================================
@@ -9006,7 +5572,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("IdGenerator",[["entryType",xdr.lookup("LedgerEntryType")],["idPool",xdr.lookup("Uint64")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -9015,21 +5580,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("AssetEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct AssetEntry
-	//   {
-	//       AssetCode code;
-	//   	AccountID owner;
-	//   	AccountID preissuedAssetSigner; // signer of pre issuance tokens
-	//   	longstring details;
-	//   	uint64 maxIssuanceAmount; // max number of tokens to be issued
-	//   	uint64 availableForIssueance; // pre issued tokens available for issuance
-	//   	uint64 issued; // number of issued tokens
-	//   	uint64 pendingIssuance; // number of tokens locked for entries like token sale. lockedIssuance + issued can not be > maxIssuanceAmount
-	//       uint32 policies;
-=======
 	xdr.union("LedgerHeaderExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct LedgerHeader
@@ -9057,7 +5607,6 @@ var StellarBase =
 	//                         // each slot contains the oldest ledger that is mod of
 	//                         // either 50  5000  50000 or 500000 depending on index
 	//                         // skipList[0] mod(50), skipList[1] mod(5000), etc
->>>>>>> master
 	//   
 	//       // reserved for future use
 	//       union switch (LedgerVersion v)
@@ -9069,95 +5618,6 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("AssetEntry",[["code",xdr.lookup("AssetCode")],["owner",xdr.lookup("AccountId")],["preissuedAssetSigner",xdr.lookup("AccountId")],["details",xdr.lookup("Longstring")],["maxIssuanceAmount",xdr.lookup("Uint64")],["availableForIssueance",xdr.lookup("Uint64")],["issued",xdr.lookup("Uint64")],["pendingIssuance",xdr.lookup("Uint64")],["policies",xdr.lookup("Uint32")],["ext",xdr.lookup("AssetEntryExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("SetFeesOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct SetFeesOp
-	//       {
-	//           FeeEntry* fee;
-	//   		bool isDelete;
-	//   		// reserved for future use
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//       };
-	//
-	// ===========================================================================
-	xdr.struct("SetFeesOp",[["fee",xdr.option(xdr.lookup("FeeEntry"))],["isDelete",xdr.bool()],["ext",xdr.lookup("SetFeesOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum SetFeesResultCode
-	//       {
-	//           // codes considered as "success" for the operation
-	//           SUCCESS = 0,
-	//           
-	//           // codes considered as "failure" for the operation
-	//           INVALID_AMOUNT = -1,      // amount is negative
-	//   		INVALID_FEE_TYPE = -2,     // operation type is invalid
-	//           ASSET_NOT_FOUND = -3,
-	//           INVALID_ASSET = -4,
-	//           MALFORMED = -5,
-	//   		MALFORMED_RANGE = -6,
-	//   		RANGE_OVERLAP = -7,
-	//   		NOT_FOUND = -8,
-	//   		SUB_TYPE_NOT_EXIST = -9
-	//       };
-	//
-	// ===========================================================================
-	xdr["enum"]("SetFeesResultCode",{success:0,invalidAmount:-1,invalidFeeType:-2,assetNotFound:-3,invalidAsset:-4,malformed:-5,malformedRange:-6,rangeOverlap:-7,notFound:-8,subTypeNotExist:-9}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   				{
-	//   				case EMPTY_VERSION:
-	//   					void;
-	//   				}
-	//
-	// ===========================================================================
-	xdr.union("SetFeesResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//   				// reserved for future use
-	//   				union switch (LedgerVersion v)
-	//   				{
-	//   				case EMPTY_VERSION:
-	//   					void;
-	//   				}
-	//   				ext;
-	//   			}
-	//
-	// ===========================================================================
-	xdr.struct("SetFeesResultSuccess",[["ext",xdr.lookup("SetFeesResultSuccessExt")]]); // === xdr source ============================================================
-	//
-	//   union SetFeesResult switch (SetFeesResultCode code)
-	//       {
-	//           case SUCCESS:
-	//               struct {
-	//   				// reserved for future use
-	//   				union switch (LedgerVersion v)
-	//   				{
-	//   				case EMPTY_VERSION:
-	//   					void;
-	//   				}
-	//   				ext;
-	//   			} success;
-	//           default:
-	//               void;
-	//       };
-	//
-	// ===========================================================================
-	xdr.union("SetFeesResult",{switchOn:xdr.lookup("SetFeesResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("SetFeesResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-=======
 	xdr.struct("LedgerHeader",[["ledgerVersion",xdr.lookup("Uint32")],["previousLedgerHash",xdr.lookup("Hash")],["scpValue",xdr.lookup("StellarValue")],["txSetResultHash",xdr.lookup("Hash")],["bucketListHash",xdr.lookup("Hash")],["ledgerSeq",xdr.lookup("Uint32")],["idGenerators",xdr.varArray(xdr.lookup("IdGenerator"),2147483647)],["baseFee",xdr.lookup("Uint32")],["baseReserve",xdr.lookup("Uint32")],["maxTxSetSize",xdr.lookup("Uint32")],["externalSystemIdGenerators",xdr.varArray(xdr.lookup("ExternalSystemIdGeneratorType"),2147483647)],["txExpirationPeriod",xdr.lookup("Int64")],["skipList",xdr.array(xdr.lookup("Hash"),4)],["ext",xdr.lookup("LedgerHeaderExt")]]); // === xdr source ============================================================
 	//
 	//   enum LedgerUpgradeType
@@ -9232,7 +5692,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("LedgerKeyFeeState",[["hash",xdr.lookup("Hash")],["lowerBound",xdr.lookup("Int64")],["upperBound",xdr.lookup("Int64")],["ext",xdr.lookup("LedgerKeyFeeStateExt")]]); // === xdr source ============================================================
->>>>>>> master
 	//
 	//   union switch (LedgerVersion v)
 	//   		{
@@ -9255,17 +5714,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.union("AccountTypeLimitsEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct AccountTypeLimitsEntry
-	//   {
-	//   	AccountType accountType;
-	//       Limits limits;
-	//   
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-=======
 	xdr.struct("LedgerKeyBalance",[["balanceId",xdr.lookup("BalanceId")],["ext",xdr.lookup("LedgerKeyBalanceExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
@@ -9301,7 +5749,6 @@ var StellarBase =
 	xdr.union("LedgerKeyReferenceExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
 	//
 	//   struct
->>>>>>> master
 	//       {
 	//   		AccountID sender;
 	//   		string64 reference;
@@ -9314,320 +5761,6 @@ var StellarBase =
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("AccountTypeLimitsEntry",[["accountType",xdr.lookup("AccountType")],["limits",xdr.lookup("Limits")],["ext",xdr.lookup("AccountTypeLimitsEntryExt")]]); // === xdr source ============================================================
-	//
-	//   enum InvoiceState
-	//   {
-	//       INVOICE_NEEDS_PAYMENT = 0,
-	//       INVOICE_NEEDS_PAYMENT_REVIEW = 1
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("InvoiceState",{invoiceNeedsPayment:0,invoiceNeedsPaymentReview:1}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("InvoiceEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct InvoiceEntry
-	//   {
-	//       uint64 invoiceID;
-	//       AccountID receiverAccount;
-	//       BalanceID receiverBalance;
-	//   	AccountID sender;
-	//       int64 amount;
-	//       
-	//       InvoiceState state;
-	//   
-	//       // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("InvoiceEntry",[["invoiceId",xdr.lookup("Uint64")],["receiverAccount",xdr.lookup("AccountId")],["receiverBalance",xdr.lookup("BalanceId")],["sender",xdr.lookup("AccountId")],["amount",xdr.lookup("Int64")],["state",xdr.lookup("InvoiceState")],["ext",xdr.lookup("InvoiceEntryExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   	{
-	//   	case EMPTY_VERSION:
-	//   		void;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.union("ReviewPaymentRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ReviewPaymentRequestOp
-	//   {
-	//       uint64 paymentID;
-	//   
-	//   	bool accept;
-	//       string256* rejectReason;
-	//   	// reserved for future use
-	//   	union switch (LedgerVersion v)
-	//   	{
-	//   	case EMPTY_VERSION:
-	//   		void;
-	//   	}
-	//   	ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ReviewPaymentRequestOp",[["paymentId",xdr.lookup("Uint64")],["accept",xdr.bool()],["rejectReason",xdr.option(xdr.lookup("String256"))],["ext",xdr.lookup("ReviewPaymentRequestOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum ReviewPaymentRequestResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,
-	//   
-	//       // codes considered as "failure" for the operation
-	//   	NOT_FOUND = -1,           // failed to find Recovery request with such ID
-	//       LINE_FULL = -2
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ReviewPaymentRequestResultCode",{success:0,notFound:-1,lineFull:-2}); // === xdr source ============================================================
-	//
-	//   enum PaymentState
-	//   {
-	//       PENDING = 0,
-	//       PROCESSED = 1,
-	//       REJECTED = 2
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("PaymentState",{pending:0,processed:1,rejected:2}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   	{
-	//   	case EMPTY_VERSION:
-	//   		void;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.union("ReviewPaymentResponseExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ReviewPaymentResponse {
-	//       PaymentState state;
-	//       
-	//       uint64* relatedInvoiceID;
-	//   	// reserved for future use
-	//   	union switch (LedgerVersion v)
-	//   	{
-	//   	case EMPTY_VERSION:
-	//   		void;
-	//   	}
-	//   	ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ReviewPaymentResponse",[["state",xdr.lookup("PaymentState")],["relatedInvoiceId",xdr.option(xdr.lookup("Uint64"))],["ext",xdr.lookup("ReviewPaymentResponseExt")]]); // === xdr source ============================================================
-	//
-	//   union ReviewPaymentRequestResult switch (ReviewPaymentRequestResultCode code)
-	//   {
-	//   case SUCCESS:
-	//       ReviewPaymentResponse reviewPaymentResponse;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("ReviewPaymentRequestResult",{switchOn:xdr.lookup("ReviewPaymentRequestResultCode"),switchName:"code",switches:[["success","reviewPaymentResponse"]],arms:{reviewPaymentResponse:xdr.lookup("ReviewPaymentResponse")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-	//
-	//   enum ThresholdIndexes
-	//   {
-	//       MASTER_WEIGHT = 0,
-	//       LOW = 1,
-	//       MED = 2,
-	//       HIGH = 3
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("ThresholdIndices",{masterWeight:0,low:1,med:2,high:3}); // === xdr source ============================================================
-	//
-	//   enum LedgerEntryType
-	//   {
-	//       ACCOUNT = 0,
-	//       FEE = 2,
-	//       BALANCE = 4,
-	//       PAYMENT_REQUEST = 5,
-	//       ASSET = 6,
-	//       REFERENCE_ENTRY = 7,
-	//       ACCOUNT_TYPE_LIMITS = 8,
-	//       STATISTICS = 9,
-	//       TRUST = 10,
-	//       ACCOUNT_LIMITS = 11,
-	//   	ASSET_PAIR = 12,
-	//   	OFFER_ENTRY = 13,
-	//       INVOICE = 14,
-	//   	REVIEWABLE_REQUEST = 15,
-	//   	EXTERNAL_SYSTEM_ACCOUNT_ID = 16,
-	//   	SALE = 17
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("LedgerEntryType",{account:0,fee:2,balance:4,paymentRequest:5,asset:6,referenceEntry:7,accountTypeLimit:8,statistic:9,trust:10,accountLimit:11,assetPair:12,offerEntry:13,invoice:14,reviewableRequest:15,externalSystemAccountId:16,sale:17}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerEntryType type)
-	//       {
-	//       case ACCOUNT:
-	//           AccountEntry account;
-	//       case FEE:
-	//           FeeEntry feeState;
-	//       case BALANCE:
-	//           BalanceEntry balance;
-	//       case PAYMENT_REQUEST:
-	//           PaymentRequestEntry paymentRequest;
-	//       case ASSET:
-	//           AssetEntry asset;
-	//       case REFERENCE_ENTRY:
-	//           ReferenceEntry reference;
-	//       case ACCOUNT_TYPE_LIMITS:
-	//           AccountTypeLimitsEntry accountTypeLimits;
-	//       case STATISTICS:
-	//           StatisticsEntry stats;
-	//       case TRUST:
-	//           TrustEntry trust;
-	//       case ACCOUNT_LIMITS:
-	//           AccountLimitsEntry accountLimits;
-	//   	case ASSET_PAIR: 
-	//   		AssetPairEntry assetPair;
-	//   	case OFFER_ENTRY:
-	//   		OfferEntry offer;
-	//       case INVOICE:
-	//           InvoiceEntry invoice;
-	//   	case REVIEWABLE_REQUEST:
-	//   		ReviewableRequestEntry reviewableRequest;
-	//   	case EXTERNAL_SYSTEM_ACCOUNT_ID:
-	//   		ExternalSystemAccountID externalSystemAccountID;
-	//   	case SALE:
-	//   		SaleEntry sale;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("LedgerEntryData",{switchOn:xdr.lookup("LedgerEntryType"),switchName:"type",switches:[["account","account"],["fee","feeState"],["balance","balance"],["paymentRequest","paymentRequest"],["asset","asset"],["referenceEntry","reference"],["accountTypeLimit","accountTypeLimits"],["statistic","stats"],["trust","trust"],["accountLimit","accountLimits"],["assetPair","assetPair"],["offerEntry","offer"],["invoice","invoice"],["reviewableRequest","reviewableRequest"],["externalSystemAccountId","externalSystemAccountId"],["sale","sale"]],arms:{account:xdr.lookup("AccountEntry"),feeState:xdr.lookup("FeeEntry"),balance:xdr.lookup("BalanceEntry"),paymentRequest:xdr.lookup("PaymentRequestEntry"),asset:xdr.lookup("AssetEntry"),reference:xdr.lookup("ReferenceEntry"),accountTypeLimits:xdr.lookup("AccountTypeLimitsEntry"),stats:xdr.lookup("StatisticsEntry"),trust:xdr.lookup("TrustEntry"),accountLimits:xdr.lookup("AccountLimitsEntry"),assetPair:xdr.lookup("AssetPairEntry"),offer:xdr.lookup("OfferEntry"),invoice:xdr.lookup("InvoiceEntry"),reviewableRequest:xdr.lookup("ReviewableRequestEntry"),externalSystemAccountId:xdr.lookup("ExternalSystemAccountId"),sale:xdr.lookup("SaleEntry")}}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("LedgerEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct LedgerEntry
-	//   {
-	//       uint32 lastModifiedLedgerSeq; // ledger the LedgerEntry was last changed
-	//   
-	//       union switch (LedgerEntryType type)
-	//       {
-	//       case ACCOUNT:
-	//           AccountEntry account;
-	//       case FEE:
-	//           FeeEntry feeState;
-	//       case BALANCE:
-	//           BalanceEntry balance;
-	//       case PAYMENT_REQUEST:
-	//           PaymentRequestEntry paymentRequest;
-	//       case ASSET:
-	//           AssetEntry asset;
-	//       case REFERENCE_ENTRY:
-	//           ReferenceEntry reference;
-	//       case ACCOUNT_TYPE_LIMITS:
-	//           AccountTypeLimitsEntry accountTypeLimits;
-	//       case STATISTICS:
-	//           StatisticsEntry stats;
-	//       case TRUST:
-	//           TrustEntry trust;
-	//       case ACCOUNT_LIMITS:
-	//           AccountLimitsEntry accountLimits;
-	//   	case ASSET_PAIR: 
-	//   		AssetPairEntry assetPair;
-	//   	case OFFER_ENTRY:
-	//   		OfferEntry offer;
-	//       case INVOICE:
-	//           InvoiceEntry invoice;
-	//   	case REVIEWABLE_REQUEST:
-	//   		ReviewableRequestEntry reviewableRequest;
-	//   	case EXTERNAL_SYSTEM_ACCOUNT_ID:
-	//   		ExternalSystemAccountID externalSystemAccountID;
-	//   	case SALE:
-	//   		SaleEntry sale;
-	//       }
-	//       data;
-	//   
-	//       // reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("LedgerEntry",[["lastModifiedLedgerSeq",xdr.lookup("Uint32")],["data",xdr.lookup("LedgerEntryData")],["ext",xdr.lookup("LedgerEntryExt")]]); // === xdr source ============================================================
-	//
-	//   enum EnvelopeType
-	//   {
-	//       SCP = 1,
-	//       TX = 2,
-	//       AUTH = 3
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("EnvelopeType",{scp:1,tx:2,auth:3}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   	{
-	//   	case EMPTY_VERSION:
-	//   		void;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.union("SetLimitsOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct SetLimitsOp
-	//   {
-	//       AccountID* account;
-	//       AccountType* accountType;
-	//   
-	//       Limits limits;
-	//   	// reserved for future use
-	//   	union switch (LedgerVersion v)
-	//   	{
-	//   	case EMPTY_VERSION:
-	//   		void;
-	//   	}
-	//   	ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("SetLimitsOp",[["account",xdr.option(xdr.lookup("AccountId"))],["accountType",xdr.option(xdr.lookup("AccountType"))],["limits",xdr.lookup("Limits")],["ext",xdr.lookup("SetLimitsOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum SetLimitsResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,
-	//       // codes considered as "failure" for the operation
-	//       MALFORMED = -1
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("SetLimitsResultCode",{success:0,malformed:-1}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-=======
 	xdr.struct("LedgerKeyReference",[["sender",xdr.lookup("AccountId")],["reference",xdr.lookup("String64")],["ext",xdr.lookup("LedgerKeyReferenceExt")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
@@ -9873,92 +6006,10 @@ var StellarBase =
 	//   struct {
 	//   		uint64 poolEntryID;
 	//   		union switch (LedgerVersion v)
->>>>>>> master
 	//   		{
 	//   		case EMPTY_VERSION:
 	//   			void;
 	//   		}
-<<<<<<< HEAD
-	//
-	// ===========================================================================
-	xdr.union("SetLimitsResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//   		// reserved for future use
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.struct("SetLimitsResultSuccess",[["ext",xdr.lookup("SetLimitsResultSuccessExt")]]); // === xdr source ============================================================
-	//
-	//   union SetLimitsResult switch (SetLimitsResultCode code)
-	//   {
-	//   case SUCCESS:
-	//       struct {
-	//   		// reserved for future use
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//   	} success;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("SetLimitsResult",{switchOn:xdr.lookup("SetLimitsResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("SetLimitsResultSuccess")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("ReferenceEntryExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct ReferenceEntry
-	//   {
-	//   	AccountID sender;
-	//       string64 reference;
-	//   
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//       ext;
-	//   };
-	//
-	// ===========================================================================
-	xdr.struct("ReferenceEntry",[["sender",xdr.lookup("AccountId")],["reference",xdr.lookup("String64")],["ext",xdr.lookup("ReferenceEntryExt")]]); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-	//       }
-	//
-	// ===========================================================================
-	xdr.union("CreatePreIssuanceRequestOpExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct CreatePreIssuanceRequestOp
-	//   {
-	//       PreIssuanceRequest request;
-	//   	// reserved for future use
-	//       union switch (LedgerVersion v)
-	//       {
-	//       case EMPTY_VERSION:
-	//           void;
-=======
 	//   		ext;
 	//   	}
 	//
@@ -10025,76 +6076,9 @@ var StellarBase =
 	//               void;
 	//           }
 	//           ext;
->>>>>>> master
 	//       }
 	//
 	// ===========================================================================
-<<<<<<< HEAD
-	xdr.struct("CreatePreIssuanceRequestOp",[["request",xdr.lookup("PreIssuanceRequest")],["ext",xdr.lookup("CreatePreIssuanceRequestOpExt")]]); // === xdr source ============================================================
-	//
-	//   enum CreatePreIssuanceRequestResultCode
-	//   {
-	//       // codes considered as "success" for the operation
-	//       SUCCESS = 0,
-	//   
-	//       // codes considered as "failure" for the operation
-	//       ASSET_NOT_FOUND = -1,
-	//       REFERENCE_DUPLICATION = -2,    // reference is already used
-	//       NOT_AUTHORIZED_UPLOAD = -3, // tries to pre issue asset for not owned asset
-	//       INVALID_SIGNATURE = -4,
-	//       EXCEEDED_MAX_AMOUNT = -5,
-	//   	INVALID_AMOUNT = -6,
-	//   	INVALID_REFERENCE = -7
-	//   };
-	//
-	// ===========================================================================
-	xdr["enum"]("CreatePreIssuanceRequestResultCode",{success:0,assetNotFound:-1,referenceDuplication:-2,notAuthorizedUpload:-3,invalidSignature:-4,exceededMaxAmount:-5,invalidAmount:-6,invalidReference:-7}); // === xdr source ============================================================
-	//
-	//   union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//
-	// ===========================================================================
-	xdr.union("CreatePreIssuanceRequestResultSuccessExt",{switchOn:xdr.lookup("LedgerVersion"),switchName:"v",switches:[["emptyVersion",xdr["void"]()]],arms:{}}); // === xdr source ============================================================
-	//
-	//   struct {
-	//   		uint64 requestID;
-	//   		bool fulfilled;
-	//   		// reserved for future use
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//   	}
-	//
-	// ===========================================================================
-	xdr.struct("CreatePreIssuanceRequestResultSuccess",[["requestId",xdr.lookup("Uint64")],["fulfilled",xdr.bool()],["ext",xdr.lookup("CreatePreIssuanceRequestResultSuccessExt")]]); // === xdr source ============================================================
-	//
-	//   union CreatePreIssuanceRequestResult switch (CreatePreIssuanceRequestResultCode code)
-	//   {
-	//   case SUCCESS:
-	//       struct {
-	//   		uint64 requestID;
-	//   		bool fulfilled;
-	//   		// reserved for future use
-	//   		union switch (LedgerVersion v)
-	//   		{
-	//   		case EMPTY_VERSION:
-	//   			void;
-	//   		}
-	//   		ext;
-	//   	} success;
-	//   default:
-	//       void;
-	//   };
-	//
-	// ===========================================================================
-	xdr.union("CreatePreIssuanceRequestResult",{switchOn:xdr.lookup("CreatePreIssuanceRequestResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("CreatePreIssuanceRequestResultSuccess")},defaultArm:xdr["void"]()});});exports["default"] = types;module.exports = exports["default"];
-=======
 	xdr.struct("LedgerKeyStatisticsV2",[["id",xdr.lookup("Uint64")],["ext",xdr.lookup("LedgerKeyStatisticsV2Ext")]]); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
@@ -11471,11 +7455,12 @@ var StellarBase =
 	//       PAYMENT_OUT = 1,
 	//       WITHDRAW = 2,
 	//       SPEND = 3,
-	//       DEPOSIT = 4
+	//       DEPOSIT = 4,
+	//       PAYOUT = 5
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("StatsOpType",{paymentOut:1,withdraw:2,spend:3,deposit:4}); // === xdr source ============================================================
+	xdr["enum"]("StatsOpType",{paymentOut:1,withdraw:2,spend:3,deposit:4,payout:5}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
@@ -11838,11 +7823,12 @@ var StellarBase =
 	//       CREATE_MANAGE_LIMITS_REQUEST = 28,
 	//       MANAGE_CONTRACT_REQUEST = 29,
 	//       MANAGE_CONTRACT = 30,
-	//       CANCEL_SALE_REQUEST = 31
+	//       CANCEL_SALE_REQUEST = 31,
+	//       PAYOUT = 32
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("OperationType",{createAccount:0,payment:1,setOption:2,createIssuanceRequest:3,setFee:5,manageAccount:6,createWithdrawalRequest:7,manageBalance:9,manageAsset:11,createPreissuanceRequest:12,manageLimit:13,directDebit:14,manageAssetPair:15,manageOffer:16,manageInvoiceRequest:17,reviewRequest:18,createSaleRequest:19,checkSaleState:20,createAmlAlert:21,createKycRequest:22,paymentV2:23,manageExternalSystemAccountIdPoolEntry:24,bindExternalSystemAccountId:25,manageSale:26,manageKeyValue:27,createManageLimitsRequest:28,manageContractRequest:29,manageContract:30,cancelSaleRequest:31}); // === xdr source ============================================================
+	xdr["enum"]("OperationType",{createAccount:0,payment:1,setOption:2,createIssuanceRequest:3,setFee:5,manageAccount:6,createWithdrawalRequest:7,manageBalance:9,manageAsset:11,createPreissuanceRequest:12,manageLimit:13,directDebit:14,manageAssetPair:15,manageOffer:16,manageInvoiceRequest:17,reviewRequest:18,createSaleRequest:19,checkSaleState:20,createAmlAlert:21,createKycRequest:22,paymentV2:23,manageExternalSystemAccountIdPoolEntry:24,bindExternalSystemAccountId:25,manageSale:26,manageKeyValue:27,createManageLimitsRequest:28,manageContractRequest:29,manageContract:30,cancelSaleRequest:31,payout:32}); // === xdr source ============================================================
 	//
 	//   struct DecoratedSignature
 	//   {
@@ -12683,7 +8669,6 @@ var StellarBase =
 	//
 	// ===========================================================================
 	xdr.struct("SaleAnteEntry",[["saleId",xdr.lookup("Uint64")],["participantBalanceId",xdr.lookup("BalanceId")],["amount",xdr.lookup("Uint64")],["ext",xdr.lookup("SaleAnteEntryExt")]]);});exports["default"] = types;module.exports = exports["default"];
->>>>>>> master
 
 /***/ }),
 /* 3 */
@@ -12691,29 +8676,17 @@ var StellarBase =
 
 	"use strict";
 
-<<<<<<< HEAD
-	var _defaults = __webpack_require__(4)["default"];
-
-	var _interopRequireWildcard = __webpack_require__(6)["default"];
-=======
 	var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
 
 	var _defaults = function (obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; };
->>>>>>> master
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-<<<<<<< HEAD
-	_defaults(exports, _interopRequireWildcard(__webpack_require__(7)));
-
-	var _config = __webpack_require__(47);
-=======
 	_defaults(exports, _interopRequireWildcard(__webpack_require__(4)));
 
 	var _config = __webpack_require__(38);
->>>>>>> master
 
 	_defaults(exports, _interopRequireWildcard(_config));
 
@@ -12725,2405 +8698,6 @@ var StellarBase =
 
 	"use strict";
 
-<<<<<<< HEAD
-	var _core = __webpack_require__(5)["default"];
-
-	exports["default"] = function (obj, defaults) {
-	  var keys = _core.Object.getOwnPropertyNames(defaults);
-
-	  for (var i = 0; i < keys.length; i++) {
-	    var key = keys[i];
-
-	    var value = _core.Object.getOwnPropertyDescriptor(defaults, key);
-
-	    if (value && value.configurable && obj[key] === undefined) {
-	      Object.defineProperty(obj, key, value);
-	    }
-	  }
-
-	  return obj;
-	};
-
-	exports.__esModule = true;
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-	/**
-	 * Core.js 0.6.1
-	 * https://github.com/zloirock/core-js
-	 * License: http://rock.mit-license.org
-	 * © 2015 Denis Pushkarev
-	 */
-	!function(global, framework, undefined){
-	'use strict';
-
-	/******************************************************************************
-	 * Module : common                                                            *
-	 ******************************************************************************/
-
-	  // Shortcuts for [[Class]] & property names
-	var OBJECT          = 'Object'
-	  , FUNCTION        = 'Function'
-	  , ARRAY           = 'Array'
-	  , STRING          = 'String'
-	  , NUMBER          = 'Number'
-	  , REGEXP          = 'RegExp'
-	  , DATE            = 'Date'
-	  , MAP             = 'Map'
-	  , SET             = 'Set'
-	  , WEAKMAP         = 'WeakMap'
-	  , WEAKSET         = 'WeakSet'
-	  , SYMBOL          = 'Symbol'
-	  , PROMISE         = 'Promise'
-	  , MATH            = 'Math'
-	  , ARGUMENTS       = 'Arguments'
-	  , PROTOTYPE       = 'prototype'
-	  , CONSTRUCTOR     = 'constructor'
-	  , TO_STRING       = 'toString'
-	  , TO_STRING_TAG   = TO_STRING + 'Tag'
-	  , TO_LOCALE       = 'toLocaleString'
-	  , HAS_OWN         = 'hasOwnProperty'
-	  , FOR_EACH        = 'forEach'
-	  , ITERATOR        = 'iterator'
-	  , FF_ITERATOR     = '@@' + ITERATOR
-	  , PROCESS         = 'process'
-	  , CREATE_ELEMENT  = 'createElement'
-	  // Aliases global objects and prototypes
-	  , Function        = global[FUNCTION]
-	  , Object          = global[OBJECT]
-	  , Array           = global[ARRAY]
-	  , String          = global[STRING]
-	  , Number          = global[NUMBER]
-	  , RegExp          = global[REGEXP]
-	  , Date            = global[DATE]
-	  , Map             = global[MAP]
-	  , Set             = global[SET]
-	  , WeakMap         = global[WEAKMAP]
-	  , WeakSet         = global[WEAKSET]
-	  , Symbol          = global[SYMBOL]
-	  , Math            = global[MATH]
-	  , TypeError       = global.TypeError
-	  , RangeError      = global.RangeError
-	  , setTimeout      = global.setTimeout
-	  , setImmediate    = global.setImmediate
-	  , clearImmediate  = global.clearImmediate
-	  , parseInt        = global.parseInt
-	  , isFinite        = global.isFinite
-	  , process         = global[PROCESS]
-	  , nextTick        = process && process.nextTick
-	  , document        = global.document
-	  , html            = document && document.documentElement
-	  , navigator       = global.navigator
-	  , define          = global.define
-	  , console         = global.console || {}
-	  , ArrayProto      = Array[PROTOTYPE]
-	  , ObjectProto     = Object[PROTOTYPE]
-	  , FunctionProto   = Function[PROTOTYPE]
-	  , Infinity        = 1 / 0
-	  , DOT             = '.';
-
-	// http://jsperf.com/core-js-isobject
-	function isObject(it){
-	  return it !== null && (typeof it == 'object' || typeof it == 'function');
-	}
-	function isFunction(it){
-	  return typeof it == 'function';
-	}
-	// Native function?
-	var isNative = ctx(/./.test, /\[native code\]\s*\}\s*$/, 1);
-
-	// Object internal [[Class]] or toStringTag
-	// http://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring
-	var toString = ObjectProto[TO_STRING];
-	function setToStringTag(it, tag, stat){
-	  if(it && !has(it = stat ? it : it[PROTOTYPE], SYMBOL_TAG))hidden(it, SYMBOL_TAG, tag);
-	}
-	function cof(it){
-	  return toString.call(it).slice(8, -1);
-	}
-	function classof(it){
-	  var O, T;
-	  return it == undefined ? it === undefined ? 'Undefined' : 'Null'
-	    : typeof (T = (O = Object(it))[SYMBOL_TAG]) == 'string' ? T : cof(O);
-	}
-
-	// Function
-	var call  = FunctionProto.call
-	  , apply = FunctionProto.apply
-	  , REFERENCE_GET;
-	// Partial apply
-	function part(/* ...args */){
-	  var fn     = assertFunction(this)
-	    , length = arguments.length
-	    , args   = Array(length)
-	    , i      = 0
-	    , _      = path._
-	    , holder = false;
-	  while(length > i)if((args[i] = arguments[i++]) === _)holder = true;
-	  return function(/* ...args */){
-	    var that    = this
-	      , _length = arguments.length
-	      , i = 0, j = 0, _args;
-	    if(!holder && !_length)return invoke(fn, args, that);
-	    _args = args.slice();
-	    if(holder)for(;length > i; i++)if(_args[i] === _)_args[i] = arguments[j++];
-	    while(_length > j)_args.push(arguments[j++]);
-	    return invoke(fn, _args, that);
-	  }
-	}
-	// Optional / simple context binding
-	function ctx(fn, that, length){
-	  assertFunction(fn);
-	  if(~length && that === undefined)return fn;
-	  switch(length){
-	    case 1: return function(a){
-	      return fn.call(that, a);
-	    }
-	    case 2: return function(a, b){
-	      return fn.call(that, a, b);
-	    }
-	    case 3: return function(a, b, c){
-	      return fn.call(that, a, b, c);
-	    }
-	  } return function(/* ...args */){
-	      return fn.apply(that, arguments);
-	  }
-	}
-	// Fast apply
-	// http://jsperf.lnkit.com/fast-apply/5
-	function invoke(fn, args, that){
-	  var un = that === undefined;
-	  switch(args.length | 0){
-	    case 0: return un ? fn()
-	                      : fn.call(that);
-	    case 1: return un ? fn(args[0])
-	                      : fn.call(that, args[0]);
-	    case 2: return un ? fn(args[0], args[1])
-	                      : fn.call(that, args[0], args[1]);
-	    case 3: return un ? fn(args[0], args[1], args[2])
-	                      : fn.call(that, args[0], args[1], args[2]);
-	    case 4: return un ? fn(args[0], args[1], args[2], args[3])
-	                      : fn.call(that, args[0], args[1], args[2], args[3]);
-	    case 5: return un ? fn(args[0], args[1], args[2], args[3], args[4])
-	                      : fn.call(that, args[0], args[1], args[2], args[3], args[4]);
-	  } return              fn.apply(that, args);
-	}
-
-	// Object:
-	var create           = Object.create
-	  , getPrototypeOf   = Object.getPrototypeOf
-	  , setPrototypeOf   = Object.setPrototypeOf
-	  , defineProperty   = Object.defineProperty
-	  , defineProperties = Object.defineProperties
-	  , getOwnDescriptor = Object.getOwnPropertyDescriptor
-	  , getKeys          = Object.keys
-	  , getNames         = Object.getOwnPropertyNames
-	  , getSymbols       = Object.getOwnPropertySymbols
-	  , isFrozen         = Object.isFrozen
-	  , has              = ctx(call, ObjectProto[HAS_OWN], 2)
-	  // Dummy, fix for not array-like ES3 string in es5 module
-	  , ES5Object        = Object
-	  , Dict;
-	function toObject(it){
-	  return ES5Object(assertDefined(it));
-	}
-	function returnIt(it){
-	  return it;
-	}
-	function returnThis(){
-	  return this;
-	}
-	function get(object, key){
-	  if(has(object, key))return object[key];
-	}
-	function ownKeys(it){
-	  assertObject(it);
-	  return getSymbols ? getNames(it).concat(getSymbols(it)) : getNames(it);
-	}
-	// 19.1.2.1 Object.assign(target, source, ...)
-	var assign = Object.assign || function(target, source){
-	  var T = Object(assertDefined(target))
-	    , l = arguments.length
-	    , i = 1;
-	  while(l > i){
-	    var S      = ES5Object(arguments[i++])
-	      , keys   = getKeys(S)
-	      , length = keys.length
-	      , j      = 0
-	      , key;
-	    while(length > j)T[key = keys[j++]] = S[key];
-	  }
-	  return T;
-	}
-	function keyOf(object, el){
-	  var O      = toObject(object)
-	    , keys   = getKeys(O)
-	    , length = keys.length
-	    , index  = 0
-	    , key;
-	  while(length > index)if(O[key = keys[index++]] === el)return key;
-	}
-
-	// Array
-	// array('str1,str2,str3') => ['str1', 'str2', 'str3']
-	function array(it){
-	  return String(it).split(',');
-	}
-	var push    = ArrayProto.push
-	  , unshift = ArrayProto.unshift
-	  , slice   = ArrayProto.slice
-	  , splice  = ArrayProto.splice
-	  , indexOf = ArrayProto.indexOf
-	  , forEach = ArrayProto[FOR_EACH];
-	/*
-	 * 0 -> forEach
-	 * 1 -> map
-	 * 2 -> filter
-	 * 3 -> some
-	 * 4 -> every
-	 * 5 -> find
-	 * 6 -> findIndex
-	 */
-	function createArrayMethod(type){
-	  var isMap       = type == 1
-	    , isFilter    = type == 2
-	    , isSome      = type == 3
-	    , isEvery     = type == 4
-	    , isFindIndex = type == 6
-	    , noholes     = type == 5 || isFindIndex;
-	  return function(callbackfn/*, that = undefined */){
-	    var O      = Object(assertDefined(this))
-	      , that   = arguments[1]
-	      , self   = ES5Object(O)
-	      , f      = ctx(callbackfn, that, 3)
-	      , length = toLength(self.length)
-	      , index  = 0
-	      , result = isMap ? Array(length) : isFilter ? [] : undefined
-	      , val, res;
-	    for(;length > index; index++)if(noholes || index in self){
-	      val = self[index];
-	      res = f(val, index, O);
-	      if(type){
-	        if(isMap)result[index] = res;             // map
-	        else if(res)switch(type){
-	          case 3: return true;                    // some
-	          case 5: return val;                     // find
-	          case 6: return index;                   // findIndex
-	          case 2: result.push(val);               // filter
-	        } else if(isEvery)return false;           // every
-	      }
-	    }
-	    return isFindIndex ? -1 : isSome || isEvery ? isEvery : result;
-	  }
-	}
-	function createArrayContains(isContains){
-	  return function(el /*, fromIndex = 0 */){
-	    var O      = toObject(this)
-	      , length = toLength(O.length)
-	      , index  = toIndex(arguments[1], length);
-	    if(isContains && el != el){
-	      for(;length > index; index++)if(sameNaN(O[index]))return isContains || index;
-	    } else for(;length > index; index++)if(isContains || index in O){
-	      if(O[index] === el)return isContains || index;
-	    } return !isContains && -1;
-	  }
-	}
-	function generic(A, B){
-	  // strange IE quirks mode bug -> use typeof vs isFunction
-	  return typeof A == 'function' ? A : B;
-	}
-
-	// Math
-	var MAX_SAFE_INTEGER = 0x1fffffffffffff // pow(2, 53) - 1 == 9007199254740991
-	  , pow    = Math.pow
-	  , abs    = Math.abs
-	  , ceil   = Math.ceil
-	  , floor  = Math.floor
-	  , max    = Math.max
-	  , min    = Math.min
-	  , random = Math.random
-	  , trunc  = Math.trunc || function(it){
-	      return (it > 0 ? floor : ceil)(it);
-	    }
-	// 20.1.2.4 Number.isNaN(number)
-	function sameNaN(number){
-	  return number != number;
-	}
-	// 7.1.4 ToInteger
-	function toInteger(it){
-	  return isNaN(it) ? 0 : trunc(it);
-	}
-	// 7.1.15 ToLength
-	function toLength(it){
-	  return it > 0 ? min(toInteger(it), MAX_SAFE_INTEGER) : 0;
-	}
-	function toIndex(index, length){
-	  var index = toInteger(index);
-	  return index < 0 ? max(index + length, 0) : min(index, length);
-	}
-	function lz(num){
-	  return num > 9 ? num : '0' + num;
-	}
-
-	function createReplacer(regExp, replace, isStatic){
-	  var replacer = isObject(replace) ? function(part){
-	    return replace[part];
-	  } : replace;
-	  return function(it){
-	    return String(isStatic ? it : this).replace(regExp, replacer);
-	  }
-	}
-	function createPointAt(toString){
-	  return function(pos){
-	    var s = String(assertDefined(this))
-	      , i = toInteger(pos)
-	      , l = s.length
-	      , a, b;
-	    if(i < 0 || i >= l)return toString ? '' : undefined;
-	    a = s.charCodeAt(i);
-	    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
-	      ? toString ? s.charAt(i) : a
-	      : toString ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
-	  }
-	}
-
-	// Assertion & errors
-	var REDUCE_ERROR = 'Reduce of empty object with no initial value';
-	function assert(condition, msg1, msg2){
-	  if(!condition)throw TypeError(msg2 ? msg1 + msg2 : msg1);
-	}
-	function assertDefined(it){
-	  if(it == undefined)throw TypeError('Function called on null or undefined');
-	  return it;
-	}
-	function assertFunction(it){
-	  assert(isFunction(it), it, ' is not a function!');
-	  return it;
-	}
-	function assertObject(it){
-	  assert(isObject(it), it, ' is not an object!');
-	  return it;
-	}
-	function assertInstance(it, Constructor, name){
-	  assert(it instanceof Constructor, name, ": use the 'new' operator!");
-	}
-
-	// Property descriptors & Symbol
-	function descriptor(bitmap, value){
-	  return {
-	    enumerable  : !(bitmap & 1),
-	    configurable: !(bitmap & 2),
-	    writable    : !(bitmap & 4),
-	    value       : value
-	  }
-	}
-	function simpleSet(object, key, value){
-	  object[key] = value;
-	  return object;
-	}
-	function createDefiner(bitmap){
-	  return DESC ? function(object, key, value){
-	    return defineProperty(object, key, descriptor(bitmap, value));
-	  } : simpleSet;
-	}
-	function uid(key){
-	  return SYMBOL + '(' + key + ')_' + (++sid + random())[TO_STRING](36);
-	}
-	function getWellKnownSymbol(name, setter){
-	  return (Symbol && Symbol[name]) || (setter ? Symbol : safeSymbol)(SYMBOL + DOT + name);
-	}
-	// The engine works fine with descriptors? Thank's IE8 for his funny defineProperty.
-	var DESC = !!function(){
-	      try {
-	        return defineProperty({}, 'a', {get: function(){ return 2 }}).a == 2;
-	      } catch(e){}
-	    }()
-	  , sid    = 0
-	  , hidden = createDefiner(1)
-	  , set    = Symbol ? simpleSet : hidden
-	  , safeSymbol = Symbol || uid;
-	function assignHidden(target, src){
-	  for(var key in src)hidden(target, key, src[key]);
-	  return target;
-	}
-
-	var SYMBOL_UNSCOPABLES = getWellKnownSymbol('unscopables')
-	  , ArrayUnscopables   = ArrayProto[SYMBOL_UNSCOPABLES] || {}
-	  , SYMBOL_TAG         = getWellKnownSymbol(TO_STRING_TAG)
-	  , SYMBOL_SPECIES     = getWellKnownSymbol('species')
-	  , SYMBOL_ITERATOR;
-	function setSpecies(C){
-	  if(DESC && (framework || !isNative(C)))defineProperty(C, SYMBOL_SPECIES, {
-	    configurable: true,
-	    get: returnThis
-	  });
-	}
-
-	/******************************************************************************
-	 * Module : common.export                                                     *
-	 ******************************************************************************/
-
-	var NODE = cof(process) == PROCESS
-	  , core = {}
-	  , path = framework ? global : core
-	  , old  = global.core
-	  , exportGlobal
-	  // type bitmap
-	  , FORCED = 1
-	  , GLOBAL = 2
-	  , STATIC = 4
-	  , PROTO  = 8
-	  , BIND   = 16
-	  , WRAP   = 32;
-	function $define(type, name, source){
-	  var key, own, out, exp
-	    , isGlobal = type & GLOBAL
-	    , target   = isGlobal ? global : (type & STATIC)
-	        ? global[name] : (global[name] || ObjectProto)[PROTOTYPE]
-	    , exports  = isGlobal ? core : core[name] || (core[name] = {});
-	  if(isGlobal)source = name;
-	  for(key in source){
-	    // there is a similar native
-	    own = !(type & FORCED) && target && key in target
-	      && (!isFunction(target[key]) || isNative(target[key]));
-	    // export native or passed
-	    out = (own ? target : source)[key];
-	    // prevent global pollution for namespaces
-	    if(!framework && isGlobal && !isFunction(target[key]))exp = source[key];
-	    // bind timers to global for call from export context
-	    else if(type & BIND && own)exp = ctx(out, global);
-	    // wrap global constructors for prevent change them in library
-	    else if(type & WRAP && !framework && target[key] == out){
-	      exp = function(param){
-	        return this instanceof out ? new out(param) : out(param);
-	      }
-	      exp[PROTOTYPE] = out[PROTOTYPE];
-	    } else exp = type & PROTO && isFunction(out) ? ctx(call, out) : out;
-	    // extend global
-	    if(framework && target && !own){
-	      if(isGlobal)target[key] = out;
-	      else delete target[key] && hidden(target, key, out);
-	    }
-	    // export
-	    if(exports[key] != out)hidden(exports, key, exp);
-	  }
-	}
-	// CommonJS export
-	if(typeof module != 'undefined' && module.exports)module.exports = core;
-	// RequireJS export
-	else if(isFunction(define) && define.amd)define(function(){return core});
-	// Export to global object
-	else exportGlobal = true;
-	if(exportGlobal || framework){
-	  core.noConflict = function(){
-	    global.core = old;
-	    return core;
-	  }
-	  global.core = core;
-	}
-
-	/******************************************************************************
-	 * Module : common.iterators                                                  *
-	 ******************************************************************************/
-
-	SYMBOL_ITERATOR = getWellKnownSymbol(ITERATOR);
-	var ITER  = safeSymbol('iter')
-	  , KEY   = 1
-	  , VALUE = 2
-	  , Iterators = {}
-	  , IteratorPrototype = {}
-	    // Safari has byggy iterators w/o `next`
-	  , BUGGY_ITERATORS = 'keys' in ArrayProto && !('next' in [].keys());
-	// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-	setIterator(IteratorPrototype, returnThis);
-	function setIterator(O, value){
-	  hidden(O, SYMBOL_ITERATOR, value);
-	  // Add iterator for FF iterator protocol
-	  FF_ITERATOR in ArrayProto && hidden(O, FF_ITERATOR, value);
-	}
-	function createIterator(Constructor, NAME, next, proto){
-	  Constructor[PROTOTYPE] = create(proto || IteratorPrototype, {next: descriptor(1, next)});
-	  setToStringTag(Constructor, NAME + ' Iterator');
-	}
-	function defineIterator(Constructor, NAME, value, DEFAULT){
-	  var proto = Constructor[PROTOTYPE]
-	    , iter  = get(proto, SYMBOL_ITERATOR) || get(proto, FF_ITERATOR) || (DEFAULT && get(proto, DEFAULT)) || value;
-	  if(framework){
-	    // Define iterator
-	    setIterator(proto, iter);
-	    if(iter !== value){
-	      var iterProto = getPrototypeOf(iter.call(new Constructor));
-	      // Set @@toStringTag to native iterators
-	      setToStringTag(iterProto, NAME + ' Iterator', true);
-	      // FF fix
-	      has(proto, FF_ITERATOR) && setIterator(iterProto, returnThis);
-	    }
-	  }
-	  // Plug for library
-	  Iterators[NAME] = iter;
-	  // FF & v8 fix
-	  Iterators[NAME + ' Iterator'] = returnThis;
-	  return iter;
-	}
-	function defineStdIterators(Base, NAME, Constructor, next, DEFAULT, IS_SET){
-	  function createIter(kind){
-	    return function(){
-	      return new Constructor(this, kind);
-	    }
-	  }
-	  createIterator(Constructor, NAME, next);
-	  var entries = createIter(KEY+VALUE)
-	    , values  = createIter(VALUE);
-	  if(DEFAULT == VALUE)values = defineIterator(Base, NAME, values, 'values');
-	  else entries = defineIterator(Base, NAME, entries, 'entries');
-	  if(DEFAULT){
-	    $define(PROTO + FORCED * BUGGY_ITERATORS, NAME, {
-	      entries: entries,
-	      keys: IS_SET ? values : createIter(KEY),
-	      values: values
-	    });
-	  }
-	}
-	function iterResult(done, value){
-	  return {value: value, done: !!done};
-	}
-	function isIterable(it){
-	  var O      = Object(it)
-	    , Symbol = global[SYMBOL]
-	    , hasExt = (Symbol && Symbol[ITERATOR] || FF_ITERATOR) in O;
-	  return hasExt || SYMBOL_ITERATOR in O || has(Iterators, classof(O));
-	}
-	function getIterator(it){
-	  var Symbol  = global[SYMBOL]
-	    , ext     = it[Symbol && Symbol[ITERATOR] || FF_ITERATOR]
-	    , getIter = ext || it[SYMBOL_ITERATOR] || Iterators[classof(it)];
-	  return assertObject(getIter.call(it));
-	}
-	function stepCall(fn, value, entries){
-	  return entries ? invoke(fn, value) : fn(value);
-	}
-	function checkDangerIterClosing(fn){
-	  var danger = true;
-	  var O = {
-	    next: function(){ throw 1 },
-	    'return': function(){ danger = false }
-	  };
-	  O[SYMBOL_ITERATOR] = returnThis;
-	  try {
-	    fn(O);
-	  } catch(e){}
-	  return danger;
-	}
-	function closeIterator(iterator){
-	  var ret = iterator['return'];
-	  if(ret !== undefined)ret.call(iterator);
-	}
-	function safeIterClose(exec, iterator){
-	  try {
-	    exec(iterator);
-	  } catch(e){
-	    closeIterator(iterator);
-	    throw e;
-	  }
-	}
-	function forOf(iterable, entries, fn, that){
-	  safeIterClose(function(iterator){
-	    var f = ctx(fn, that, entries ? 2 : 1)
-	      , step;
-	    while(!(step = iterator.next()).done)if(stepCall(f, step.value, entries) === false){
-	      return closeIterator(iterator);
-	    }
-	  }, getIterator(iterable));
-	}
-
-	/******************************************************************************
-	 * Module : es6.symbol                                                        *
-	 ******************************************************************************/
-
-	// ECMAScript 6 symbols shim
-	!function(TAG, SymbolRegistry, AllSymbols, setter){
-	  // 19.4.1.1 Symbol([description])
-	  if(!isNative(Symbol)){
-	    Symbol = function(description){
-	      assert(!(this instanceof Symbol), SYMBOL + ' is not a ' + CONSTRUCTOR);
-	      var tag = uid(description)
-	        , sym = set(create(Symbol[PROTOTYPE]), TAG, tag);
-	      AllSymbols[tag] = sym;
-	      DESC && setter && defineProperty(ObjectProto, tag, {
-	        configurable: true,
-	        set: function(value){
-	          hidden(this, tag, value);
-	        }
-	      });
-	      return sym;
-	    }
-	    hidden(Symbol[PROTOTYPE], TO_STRING, function(){
-	      return this[TAG];
-	    });
-	  }
-	  $define(GLOBAL + WRAP, {Symbol: Symbol});
-	  
-	  var symbolStatics = {
-	    // 19.4.2.1 Symbol.for(key)
-	    'for': function(key){
-	      return has(SymbolRegistry, key += '')
-	        ? SymbolRegistry[key]
-	        : SymbolRegistry[key] = Symbol(key);
-	    },
-	    // 19.4.2.4 Symbol.iterator
-	    iterator: SYMBOL_ITERATOR || getWellKnownSymbol(ITERATOR),
-	    // 19.4.2.5 Symbol.keyFor(sym)
-	    keyFor: part.call(keyOf, SymbolRegistry),
-	    // 19.4.2.10 Symbol.species
-	    species: SYMBOL_SPECIES,
-	    // 19.4.2.13 Symbol.toStringTag
-	    toStringTag: SYMBOL_TAG = getWellKnownSymbol(TO_STRING_TAG, true),
-	    // 19.4.2.14 Symbol.unscopables
-	    unscopables: SYMBOL_UNSCOPABLES,
-	    pure: safeSymbol,
-	    set: set,
-	    useSetter: function(){setter = true},
-	    useSimple: function(){setter = false}
-	  };
-	  // 19.4.2.2 Symbol.hasInstance
-	  // 19.4.2.3 Symbol.isConcatSpreadable
-	  // 19.4.2.6 Symbol.match
-	  // 19.4.2.8 Symbol.replace
-	  // 19.4.2.9 Symbol.search
-	  // 19.4.2.11 Symbol.split
-	  // 19.4.2.12 Symbol.toPrimitive
-	  forEach.call(array('hasInstance,isConcatSpreadable,match,replace,search,split,toPrimitive'),
-	    function(it){
-	      symbolStatics[it] = getWellKnownSymbol(it);
-	    }
-	  );
-	  $define(STATIC, SYMBOL, symbolStatics);
-	  
-	  setToStringTag(Symbol, SYMBOL);
-	  
-	  $define(STATIC + FORCED * !isNative(Symbol), OBJECT, {
-	    // 19.1.2.7 Object.getOwnPropertyNames(O)
-	    getOwnPropertyNames: function(it){
-	      var names = getNames(toObject(it)), result = [], key, i = 0;
-	      while(names.length > i)has(AllSymbols, key = names[i++]) || result.push(key);
-	      return result;
-	    },
-	    // 19.1.2.8 Object.getOwnPropertySymbols(O)
-	    getOwnPropertySymbols: function(it){
-	      var names = getNames(toObject(it)), result = [], key, i = 0;
-	      while(names.length > i)has(AllSymbols, key = names[i++]) && result.push(AllSymbols[key]);
-	      return result;
-	    }
-	  });
-	  
-	  // 20.2.1.9 Math[@@toStringTag]
-	  setToStringTag(Math, MATH, true);
-	  // 24.3.3 JSON[@@toStringTag]
-	  setToStringTag(global.JSON, 'JSON', true);
-	}(safeSymbol('tag'), {}, {}, true);
-
-	/******************************************************************************
-	 * Module : es6.object.statics                                                *
-	 ******************************************************************************/
-
-	!function(){
-	  var objectStatic = {
-	    // 19.1.3.1 Object.assign(target, source)
-	    assign: assign,
-	    // 19.1.3.10 Object.is(value1, value2)
-	    is: function(x, y){
-	      return x === y ? x !== 0 || 1 / x === 1 / y : x != x && y != y;
-	    }
-	  };
-	  // 19.1.3.19 Object.setPrototypeOf(O, proto)
-	  // Works with __proto__ only. Old v8 can't works with null proto objects.
-	  '__proto__' in ObjectProto && function(buggy, set){
-	    try {
-	      set = ctx(call, getOwnDescriptor(ObjectProto, '__proto__').set, 2);
-	      set({}, ArrayProto);
-	    } catch(e){ buggy = true }
-	    objectStatic.setPrototypeOf = setPrototypeOf = setPrototypeOf || function(O, proto){
-	      assertObject(O);
-	      assert(proto === null || isObject(proto), proto, ": can't set as prototype!");
-	      if(buggy)O.__proto__ = proto;
-	      else set(O, proto);
-	      return O;
-	    }
-	  }();
-	  $define(STATIC, OBJECT, objectStatic);
-	}();
-
-	/******************************************************************************
-	 * Module : es6.object.statics-accept-primitives                              *
-	 ******************************************************************************/
-
-	!function(){
-	  // Object static methods accept primitives
-	  function wrapObjectMethod(key, MODE){
-	    var fn  = Object[key]
-	      , exp = core[OBJECT][key]
-	      , f   = 0
-	      , o   = {};
-	    if(!exp || isNative(exp)){
-	      o[key] = MODE == 1 ? function(it){
-	        return isObject(it) ? fn(it) : it;
-	      } : MODE == 2 ? function(it){
-	        return isObject(it) ? fn(it) : true;
-	      } : MODE == 3 ? function(it){
-	        return isObject(it) ? fn(it) : false;
-	      } : MODE == 4 ? function(it, key){
-	        return fn(toObject(it), key);
-	      } : function(it){
-	        return fn(toObject(it));
-	      };
-	      try { fn(DOT) }
-	      catch(e){ f = 1 }
-	      $define(STATIC + FORCED * f, OBJECT, o);
-	    }
-	  }
-	  wrapObjectMethod('freeze', 1);
-	  wrapObjectMethod('seal', 1);
-	  wrapObjectMethod('preventExtensions', 1);
-	  wrapObjectMethod('isFrozen', 2);
-	  wrapObjectMethod('isSealed', 2);
-	  wrapObjectMethod('isExtensible', 3);
-	  wrapObjectMethod('getOwnPropertyDescriptor', 4);
-	  wrapObjectMethod('getPrototypeOf');
-	  wrapObjectMethod('keys');
-	  wrapObjectMethod('getOwnPropertyNames');
-	}();
-
-	/******************************************************************************
-	 * Module : es6.number.statics                                                *
-	 ******************************************************************************/
-
-	!function(isInteger){
-	  $define(STATIC, NUMBER, {
-	    // 20.1.2.1 Number.EPSILON
-	    EPSILON: pow(2, -52),
-	    // 20.1.2.2 Number.isFinite(number)
-	    isFinite: function(it){
-	      return typeof it == 'number' && isFinite(it);
-	    },
-	    // 20.1.2.3 Number.isInteger(number)
-	    isInteger: isInteger,
-	    // 20.1.2.4 Number.isNaN(number)
-	    isNaN: sameNaN,
-	    // 20.1.2.5 Number.isSafeInteger(number)
-	    isSafeInteger: function(number){
-	      return isInteger(number) && abs(number) <= MAX_SAFE_INTEGER;
-	    },
-	    // 20.1.2.6 Number.MAX_SAFE_INTEGER
-	    MAX_SAFE_INTEGER: MAX_SAFE_INTEGER,
-	    // 20.1.2.10 Number.MIN_SAFE_INTEGER
-	    MIN_SAFE_INTEGER: -MAX_SAFE_INTEGER,
-	    // 20.1.2.12 Number.parseFloat(string)
-	    parseFloat: parseFloat,
-	    // 20.1.2.13 Number.parseInt(string, radix)
-	    parseInt: parseInt
-	  });
-	// 20.1.2.3 Number.isInteger(number)
-	}(Number.isInteger || function(it){
-	  return !isObject(it) && isFinite(it) && floor(it) === it;
-	});
-
-	/******************************************************************************
-	 * Module : es6.math                                                          *
-	 ******************************************************************************/
-
-	// ECMAScript 6 shim
-	!function(){
-	  // 20.2.2.28 Math.sign(x)
-	  var E    = Math.E
-	    , exp  = Math.exp
-	    , log  = Math.log
-	    , sqrt = Math.sqrt
-	    , sign = Math.sign || function(x){
-	        return (x = +x) == 0 || x != x ? x : x < 0 ? -1 : 1;
-	      };
-	  
-	  // 20.2.2.5 Math.asinh(x)
-	  function asinh(x){
-	    return !isFinite(x = +x) || x == 0 ? x : x < 0 ? -asinh(-x) : log(x + sqrt(x * x + 1));
-	  }
-	  // 20.2.2.14 Math.expm1(x)
-	  function expm1(x){
-	    return (x = +x) == 0 ? x : x > -1e-6 && x < 1e-6 ? x + x * x / 2 : exp(x) - 1;
-	  }
-	    
-	  $define(STATIC, MATH, {
-	    // 20.2.2.3 Math.acosh(x)
-	    acosh: function(x){
-	      return (x = +x) < 1 ? NaN : isFinite(x) ? log(x / E + sqrt(x + 1) * sqrt(x - 1) / E) + 1 : x;
-	    },
-	    // 20.2.2.5 Math.asinh(x)
-	    asinh: asinh,
-	    // 20.2.2.7 Math.atanh(x)
-	    atanh: function(x){
-	      return (x = +x) == 0 ? x : log((1 + x) / (1 - x)) / 2;
-	    },
-	    // 20.2.2.9 Math.cbrt(x)
-	    cbrt: function(x){
-	      return sign(x = +x) * pow(abs(x), 1 / 3);
-	    },
-	    // 20.2.2.11 Math.clz32(x)
-	    clz32: function(x){
-	      return (x >>>= 0) ? 32 - x[TO_STRING](2).length : 32;
-	    },
-	    // 20.2.2.12 Math.cosh(x)
-	    cosh: function(x){
-	      return (exp(x = +x) + exp(-x)) / 2;
-	    },
-	    // 20.2.2.14 Math.expm1(x)
-	    expm1: expm1,
-	    // 20.2.2.16 Math.fround(x)
-	    // TODO: fallback for IE9-
-	    fround: function(x){
-	      return new Float32Array([x])[0];
-	    },
-	    // 20.2.2.17 Math.hypot([value1[, value2[, … ]]])
-	    hypot: function(value1, value2){
-	      var sum  = 0
-	        , len1 = arguments.length
-	        , len2 = len1
-	        , args = Array(len1)
-	        , larg = -Infinity
-	        , arg;
-	      while(len1--){
-	        arg = args[len1] = +arguments[len1];
-	        if(arg == Infinity || arg == -Infinity)return Infinity;
-	        if(arg > larg)larg = arg;
-	      }
-	      larg = arg || 1;
-	      while(len2--)sum += pow(args[len2] / larg, 2);
-	      return larg * sqrt(sum);
-	    },
-	    // 20.2.2.18 Math.imul(x, y)
-	    imul: function(x, y){
-	      var UInt16 = 0xffff
-	        , xn = +x
-	        , yn = +y
-	        , xl = UInt16 & xn
-	        , yl = UInt16 & yn;
-	      return 0 | xl * yl + ((UInt16 & xn >>> 16) * yl + xl * (UInt16 & yn >>> 16) << 16 >>> 0);
-	    },
-	    // 20.2.2.20 Math.log1p(x)
-	    log1p: function(x){
-	      return (x = +x) > -1e-8 && x < 1e-8 ? x - x * x / 2 : log(1 + x);
-	    },
-	    // 20.2.2.21 Math.log10(x)
-	    log10: function(x){
-	      return log(x) / Math.LN10;
-	    },
-	    // 20.2.2.22 Math.log2(x)
-	    log2: function(x){
-	      return log(x) / Math.LN2;
-	    },
-	    // 20.2.2.28 Math.sign(x)
-	    sign: sign,
-	    // 20.2.2.30 Math.sinh(x)
-	    sinh: function(x){
-	      return (abs(x = +x) < 1) ? (expm1(x) - expm1(-x)) / 2 : (exp(x - 1) - exp(-x - 1)) * (E / 2);
-	    },
-	    // 20.2.2.33 Math.tanh(x)
-	    tanh: function(x){
-	      var a = expm1(x = +x)
-	        , b = expm1(-x);
-	      return a == Infinity ? 1 : b == Infinity ? -1 : (a - b) / (exp(x) + exp(-x));
-	    },
-	    // 20.2.2.34 Math.trunc(x)
-	    trunc: trunc
-	  });
-	}();
-
-	/******************************************************************************
-	 * Module : es6.string                                                        *
-	 ******************************************************************************/
-
-	!function(fromCharCode){
-	  function assertNotRegExp(it){
-	    if(cof(it) == REGEXP)throw TypeError();
-	  }
-	  
-	  $define(STATIC, STRING, {
-	    // 21.1.2.2 String.fromCodePoint(...codePoints)
-	    fromCodePoint: function(x){
-	      var res = []
-	        , len = arguments.length
-	        , i   = 0
-	        , code
-	      while(len > i){
-	        code = +arguments[i++];
-	        if(toIndex(code, 0x10ffff) !== code)throw RangeError(code + ' is not a valid code point');
-	        res.push(code < 0x10000
-	          ? fromCharCode(code)
-	          : fromCharCode(((code -= 0x10000) >> 10) + 0xd800, code % 0x400 + 0xdc00)
-	        );
-	      } return res.join('');
-	    },
-	    // 21.1.2.4 String.raw(callSite, ...substitutions)
-	    raw: function(callSite){
-	      var raw = toObject(callSite.raw)
-	        , len = toLength(raw.length)
-	        , sln = arguments.length
-	        , res = []
-	        , i   = 0;
-	      while(len > i){
-	        res.push(String(raw[i++]));
-	        if(i < sln)res.push(String(arguments[i]));
-	      } return res.join('');
-	    }
-	  });
-	  
-	  $define(PROTO, STRING, {
-	    // 21.1.3.3 String.prototype.codePointAt(pos)
-	    codePointAt: createPointAt(false),
-	    // 21.1.3.6 String.prototype.endsWith(searchString [, endPosition])
-	    endsWith: function(searchString /*, endPosition = @length */){
-	      assertNotRegExp(searchString);
-	      var that = String(assertDefined(this))
-	        , endPosition = arguments[1]
-	        , len = toLength(that.length)
-	        , end = endPosition === undefined ? len : min(toLength(endPosition), len);
-	      searchString += '';
-	      return that.slice(end - searchString.length, end) === searchString;
-	    },
-	    // 21.1.3.7 String.prototype.includes(searchString, position = 0)
-	    includes: function(searchString /*, position = 0 */){
-	      assertNotRegExp(searchString);
-	      return !!~String(assertDefined(this)).indexOf(searchString, arguments[1]);
-	    },
-	    // 21.1.3.13 String.prototype.repeat(count)
-	    repeat: function(count){
-	      var str = String(assertDefined(this))
-	        , res = ''
-	        , n   = toInteger(count);
-	      if(0 > n || n == Infinity)throw RangeError("Count can't be negative");
-	      for(;n > 0; (n >>>= 1) && (str += str))if(n & 1)res += str;
-	      return res;
-	    },
-	    // 21.1.3.18 String.prototype.startsWith(searchString [, position ])
-	    startsWith: function(searchString /*, position = 0 */){
-	      assertNotRegExp(searchString);
-	      var that  = String(assertDefined(this))
-	        , index = toLength(min(arguments[1], that.length));
-	      searchString += '';
-	      return that.slice(index, index + searchString.length) === searchString;
-	    }
-	  });
-	}(String.fromCharCode);
-
-	/******************************************************************************
-	 * Module : es6.array.statics                                                 *
-	 ******************************************************************************/
-
-	!function(){
-	  $define(STATIC + FORCED * checkDangerIterClosing(Array.from), ARRAY, {
-	    // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
-	    from: function(arrayLike/*, mapfn = undefined, thisArg = undefined*/){
-	      var O       = Object(assertDefined(arrayLike))
-	        , mapfn   = arguments[1]
-	        , mapping = mapfn !== undefined
-	        , f       = mapping ? ctx(mapfn, arguments[2], 2) : undefined
-	        , index   = 0
-	        , length, result, step;
-	      if(isIterable(O)){
-	        result = new (generic(this, Array));
-	        safeIterClose(function(iterator){
-	          for(; !(step = iterator.next()).done; index++){
-	            result[index] = mapping ? f(step.value, index) : step.value;
-	          }
-	        }, getIterator(O));
-	      } else {
-	        result = new (generic(this, Array))(length = toLength(O.length));
-	        for(; length > index; index++){
-	          result[index] = mapping ? f(O[index], index) : O[index];
-	        }
-	      }
-	      result.length = index;
-	      return result;
-	    }
-	  });
-	  
-	  $define(STATIC, ARRAY, {
-	    // 22.1.2.3 Array.of( ...items)
-	    of: function(/* ...args */){
-	      var index  = 0
-	        , length = arguments.length
-	        , result = new (generic(this, Array))(length);
-	      while(length > index)result[index] = arguments[index++];
-	      result.length = length;
-	      return result;
-	    }
-	  });
-	  
-	  setSpecies(Array);
-	}();
-
-	/******************************************************************************
-	 * Module : es6.array.prototype                                               *
-	 ******************************************************************************/
-
-	!function(){
-	  $define(PROTO, ARRAY, {
-	    // 22.1.3.3 Array.prototype.copyWithin(target, start, end = this.length)
-	    copyWithin: function(target /* = 0 */, start /* = 0, end = @length */){
-	      var O     = Object(assertDefined(this))
-	        , len   = toLength(O.length)
-	        , to    = toIndex(target, len)
-	        , from  = toIndex(start, len)
-	        , end   = arguments[2]
-	        , fin   = end === undefined ? len : toIndex(end, len)
-	        , count = min(fin - from, len - to)
-	        , inc   = 1;
-	      if(from < to && to < from + count){
-	        inc  = -1;
-	        from = from + count - 1;
-	        to   = to + count - 1;
-	      }
-	      while(count-- > 0){
-	        if(from in O)O[to] = O[from];
-	        else delete O[to];
-	        to += inc;
-	        from += inc;
-	      } return O;
-	    },
-	    // 22.1.3.6 Array.prototype.fill(value, start = 0, end = this.length)
-	    fill: function(value /*, start = 0, end = @length */){
-	      var O      = Object(assertDefined(this))
-	        , length = toLength(O.length)
-	        , index  = toIndex(arguments[1], length)
-	        , end    = arguments[2]
-	        , endPos = end === undefined ? length : toIndex(end, length);
-	      while(endPos > index)O[index++] = value;
-	      return O;
-	    },
-	    // 22.1.3.8 Array.prototype.find(predicate, thisArg = undefined)
-	    find: createArrayMethod(5),
-	    // 22.1.3.9 Array.prototype.findIndex(predicate, thisArg = undefined)
-	    findIndex: createArrayMethod(6)
-	  });
-	  
-	  if(framework){
-	    // 22.1.3.31 Array.prototype[@@unscopables]
-	    forEach.call(array('find,findIndex,fill,copyWithin,entries,keys,values'), function(it){
-	      ArrayUnscopables[it] = true;
-	    });
-	    SYMBOL_UNSCOPABLES in ArrayProto || hidden(ArrayProto, SYMBOL_UNSCOPABLES, ArrayUnscopables);
-	  }
-	}();
-
-	/******************************************************************************
-	 * Module : es6.iterators                                                     *
-	 ******************************************************************************/
-
-	!function(at){
-	  // 22.1.3.4 Array.prototype.entries()
-	  // 22.1.3.13 Array.prototype.keys()
-	  // 22.1.3.29 Array.prototype.values()
-	  // 22.1.3.30 Array.prototype[@@iterator]()
-	  defineStdIterators(Array, ARRAY, function(iterated, kind){
-	    set(this, ITER, {o: toObject(iterated), i: 0, k: kind});
-	  // 22.1.5.2.1 %ArrayIteratorPrototype%.next()
-	  }, function(){
-	    var iter  = this[ITER]
-	      , O     = iter.o
-	      , kind  = iter.k
-	      , index = iter.i++;
-	    if(!O || index >= O.length){
-	      iter.o = undefined;
-	      return iterResult(1);
-	    }
-	    if(kind == KEY)  return iterResult(0, index);
-	    if(kind == VALUE)return iterResult(0, O[index]);
-	                     return iterResult(0, [index, O[index]]);
-	  }, VALUE);
-	  
-	  // argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
-	  Iterators[ARGUMENTS] = Iterators[ARRAY];
-	  
-	  // 21.1.3.27 String.prototype[@@iterator]()
-	  defineStdIterators(String, STRING, function(iterated){
-	    set(this, ITER, {o: String(iterated), i: 0});
-	  // 21.1.5.2.1 %StringIteratorPrototype%.next()
-	  }, function(){
-	    var iter  = this[ITER]
-	      , O     = iter.o
-	      , index = iter.i
-	      , point;
-	    if(index >= O.length)return iterResult(1);
-	    point = at.call(O, index);
-	    iter.i += point.length;
-	    return iterResult(0, point);
-	  });
-	}(createPointAt(true));
-
-	/******************************************************************************
-	 * Module : web.immediate                                                     *
-	 ******************************************************************************/
-
-	// setImmediate shim
-	// Node.js 0.9+ & IE10+ has setImmediate, else:
-	isFunction(setImmediate) && isFunction(clearImmediate) || function(ONREADYSTATECHANGE){
-	  var postMessage      = global.postMessage
-	    , addEventListener = global.addEventListener
-	    , MessageChannel   = global.MessageChannel
-	    , counter          = 0
-	    , queue            = {}
-	    , defer, channel, port;
-	  setImmediate = function(fn){
-	    var args = [], i = 1;
-	    while(arguments.length > i)args.push(arguments[i++]);
-	    queue[++counter] = function(){
-	      invoke(isFunction(fn) ? fn : Function(fn), args);
-	    }
-	    defer(counter);
-	    return counter;
-	  }
-	  clearImmediate = function(id){
-	    delete queue[id];
-	  }
-	  function run(id){
-	    if(has(queue, id)){
-	      var fn = queue[id];
-	      delete queue[id];
-	      fn();
-	    }
-	  }
-	  function listner(event){
-	    run(event.data);
-	  }
-	  // Node.js 0.8-
-	  if(NODE){
-	    defer = function(id){
-	      nextTick(part.call(run, id));
-	    }
-	  // Modern browsers, skip implementation for WebWorkers
-	  // IE8 has postMessage, but it's sync & typeof its postMessage is object
-	  } else if(addEventListener && isFunction(postMessage) && !global.importScripts){
-	    defer = function(id){
-	      postMessage(id, '*');
-	    }
-	    addEventListener('message', listner, false);
-	  // WebWorkers
-	  } else if(isFunction(MessageChannel)){
-	    channel = new MessageChannel;
-	    port    = channel.port2;
-	    channel.port1.onmessage = listner;
-	    defer = ctx(port.postMessage, port, 1);
-	  // IE8-
-	  } else if(document && ONREADYSTATECHANGE in document[CREATE_ELEMENT]('script')){
-	    defer = function(id){
-	      html.appendChild(document[CREATE_ELEMENT]('script'))[ONREADYSTATECHANGE] = function(){
-	        html.removeChild(this);
-	        run(id);
-	      }
-	    }
-	  // Rest old browsers
-	  } else {
-	    defer = function(id){
-	      setTimeout(run, 0, id);
-	    }
-	  }
-	}('onreadystatechange');
-	$define(GLOBAL + BIND, {
-	  setImmediate:   setImmediate,
-	  clearImmediate: clearImmediate
-	});
-
-	/******************************************************************************
-	 * Module : es6.promise                                                       *
-	 ******************************************************************************/
-
-	// ES6 promises shim
-	// Based on https://github.com/getify/native-promise-only/
-	!function(Promise, test){
-	  isFunction(Promise) && isFunction(Promise.resolve)
-	  && Promise.resolve(test = new Promise(function(){})) == test
-	  || function(asap, RECORD){
-	    function isThenable(it){
-	      var then;
-	      if(isObject(it))then = it.then;
-	      return isFunction(then) ? then : false;
-	    }
-	    function handledRejectionOrHasOnRejected(promise){
-	      var record = promise[RECORD]
-	        , chain  = record.c
-	        , i      = 0
-	        , react;
-	      if(record.h)return true;
-	      while(chain.length > i){
-	        react = chain[i++];
-	        if(react.fail || handledRejectionOrHasOnRejected(react.P))return true;
-	      }
-	    }
-	    function notify(record, reject){
-	      var chain = record.c;
-	      if(reject || chain.length)asap(function(){
-	        var promise = record.p
-	          , value   = record.v
-	          , ok      = record.s == 1
-	          , i       = 0;
-	        if(reject && !handledRejectionOrHasOnRejected(promise)){
-	          setTimeout(function(){
-	            if(!handledRejectionOrHasOnRejected(promise)){
-	              if(NODE){
-	                if(!process.emit('unhandledRejection', value, promise)){
-	                  // default node.js behavior
-	                }
-	              } else if(isFunction(console.error)){
-	                console.error('Unhandled promise rejection', value);
-	              }
-	            }
-	          }, 1e3);
-	        } else while(chain.length > i)!function(react){
-	          var cb = ok ? react.ok : react.fail
-	            , ret, then;
-	          try {
-	            if(cb){
-	              if(!ok)record.h = true;
-	              ret = cb === true ? value : cb(value);
-	              if(ret === react.P){
-	                react.rej(TypeError(PROMISE + '-chain cycle'));
-	              } else if(then = isThenable(ret)){
-	                then.call(ret, react.res, react.rej);
-	              } else react.res(ret);
-	            } else react.rej(value);
-	          } catch(err){
-	            react.rej(err);
-	          }
-	        }(chain[i++]);
-	        chain.length = 0;
-	      });
-	    }
-	    function resolve(value){
-	      var record = this
-	        , then, wrapper;
-	      if(record.d)return;
-	      record.d = true;
-	      record = record.r || record; // unwrap
-	      try {
-	        if(then = isThenable(value)){
-	          wrapper = {r: record, d: false}; // wrap
-	          then.call(value, ctx(resolve, wrapper, 1), ctx(reject, wrapper, 1));
-	        } else {
-	          record.v = value;
-	          record.s = 1;
-	          notify(record);
-	        }
-	      } catch(err){
-	        reject.call(wrapper || {r: record, d: false}, err); // wrap
-	      }
-	    }
-	    function reject(value){
-	      var record = this;
-	      if(record.d)return;
-	      record.d = true;
-	      record = record.r || record; // unwrap
-	      record.v = value;
-	      record.s = 2;
-	      notify(record, true);
-	    }
-	    function getConstructor(C){
-	      var S = assertObject(C)[SYMBOL_SPECIES];
-	      return S != undefined ? S : C;
-	    }
-	    // 25.4.3.1 Promise(executor)
-	    Promise = function(executor){
-	      assertFunction(executor);
-	      assertInstance(this, Promise, PROMISE);
-	      var record = {
-	        p: this,      // promise
-	        c: [],        // chain
-	        s: 0,         // state
-	        d: false,     // done
-	        v: undefined, // value
-	        h: false      // handled rejection
-	      };
-	      hidden(this, RECORD, record);
-	      try {
-	        executor(ctx(resolve, record, 1), ctx(reject, record, 1));
-	      } catch(err){
-	        reject.call(record, err);
-	      }
-	    }
-	    assignHidden(Promise[PROTOTYPE], {
-	      // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
-	      then: function(onFulfilled, onRejected){
-	        var S = assertObject(assertObject(this)[CONSTRUCTOR])[SYMBOL_SPECIES];
-	        var react = {
-	          ok:   isFunction(onFulfilled) ? onFulfilled : true,
-	          fail: isFunction(onRejected)  ? onRejected  : false
-	        } , P = react.P = new (S != undefined ? S : Promise)(function(resolve, reject){
-	          react.res = assertFunction(resolve);
-	          react.rej = assertFunction(reject);
-	        }), record = this[RECORD];
-	        record.c.push(react);
-	        record.s && notify(record);
-	        return P;
-	      },
-	      // 25.4.5.1 Promise.prototype.catch(onRejected)
-	      'catch': function(onRejected){
-	        return this.then(undefined, onRejected);
-	      }
-	    });
-	    assignHidden(Promise, {
-	      // 25.4.4.1 Promise.all(iterable)
-	      all: function(iterable){
-	        var Promise = getConstructor(this)
-	          , values  = [];
-	        return new Promise(function(resolve, reject){
-	          forOf(iterable, false, push, values);
-	          var remaining = values.length
-	            , results   = Array(remaining);
-	          if(remaining)forEach.call(values, function(promise, index){
-	            Promise.resolve(promise).then(function(value){
-	              results[index] = value;
-	              --remaining || resolve(results);
-	            }, reject);
-	          });
-	          else resolve(results);
-	        });
-	      },
-	      // 25.4.4.4 Promise.race(iterable)
-	      race: function(iterable){
-	        var Promise = getConstructor(this);
-	        return new Promise(function(resolve, reject){
-	          forOf(iterable, false, function(promise){
-	            Promise.resolve(promise).then(resolve, reject);
-	          });
-	        });
-	      },
-	      // 25.4.4.5 Promise.reject(r)
-	      reject: function(r){
-	        return new (getConstructor(this))(function(resolve, reject){
-	          reject(r);
-	        });
-	      },
-	      // 25.4.4.6 Promise.resolve(x)
-	      resolve: function(x){
-	        return isObject(x) && RECORD in x && getPrototypeOf(x) === this[PROTOTYPE]
-	          ? x : new (getConstructor(this))(function(resolve, reject){
-	            resolve(x);
-	          });
-	      }
-	    });
-	  }(nextTick || setImmediate, safeSymbol('record'));
-	  setToStringTag(Promise, PROMISE);
-	  setSpecies(Promise);
-	  $define(GLOBAL + FORCED * !isNative(Promise), {Promise: Promise});
-	}(global[PROMISE]);
-
-	/******************************************************************************
-	 * Module : es6.collections                                                   *
-	 ******************************************************************************/
-
-	// ECMAScript 6 collections shim
-	!function(){
-	  var UID   = safeSymbol('uid')
-	    , O1    = safeSymbol('O1')
-	    , WEAK  = safeSymbol('weak')
-	    , LEAK  = safeSymbol('leak')
-	    , LAST  = safeSymbol('last')
-	    , FIRST = safeSymbol('first')
-	    , SIZE  = DESC ? safeSymbol('size') : 'size'
-	    , uid   = 0
-	    , tmp   = {};
-	  
-	  function getCollection(C, NAME, methods, commonMethods, isMap, isWeak){
-	    var ADDER = isMap ? 'set' : 'add'
-	      , proto = C && C[PROTOTYPE]
-	      , O     = {};
-	    function initFromIterable(that, iterable){
-	      if(iterable != undefined)forOf(iterable, isMap, that[ADDER], that);
-	      return that;
-	    }
-	    function fixSVZ(key, chain){
-	      var method = proto[key];
-	      if(framework)proto[key] = function(a, b){
-	        var result = method.call(this, a === 0 ? 0 : a, b);
-	        return chain ? this : result;
-	      };
-	    }
-	    if(!isNative(C) || !(isWeak || (!BUGGY_ITERATORS && has(proto, FOR_EACH) && has(proto, 'entries')))){
-	      // create collection constructor
-	      C = isWeak
-	        ? function(iterable){
-	            assertInstance(this, C, NAME);
-	            set(this, UID, uid++);
-	            initFromIterable(this, iterable);
-	          }
-	        : function(iterable){
-	            var that = this;
-	            assertInstance(that, C, NAME);
-	            set(that, O1, create(null));
-	            set(that, SIZE, 0);
-	            set(that, LAST, undefined);
-	            set(that, FIRST, undefined);
-	            initFromIterable(that, iterable);
-	          };
-	      assignHidden(assignHidden(C[PROTOTYPE], methods), commonMethods);
-	      isWeak || !DESC || defineProperty(C[PROTOTYPE], 'size', {get: function(){
-	        return assertDefined(this[SIZE]);
-	      }});
-	    } else {
-	      var Native = C
-	        , inst   = new C
-	        , chain  = inst[ADDER](isWeak ? {} : -0, 1)
-	        , buggyZero;
-	      // wrap to init collections from iterable
-	      if(checkDangerIterClosing(function(O){ new C(O) })){
-	        C = function(iterable){
-	          assertInstance(this, C, NAME);
-	          return initFromIterable(new Native, iterable);
-	        }
-	        C[PROTOTYPE] = proto;
-	        if(framework)proto[CONSTRUCTOR] = C;
-	      }
-	      isWeak || inst[FOR_EACH](function(val, key){
-	        buggyZero = 1 / key === -Infinity;
-	      });
-	      // fix converting -0 key to +0
-	      if(buggyZero){
-	        fixSVZ('delete');
-	        fixSVZ('has');
-	        isMap && fixSVZ('get');
-	      }
-	      // + fix .add & .set for chaining
-	      if(buggyZero || chain !== inst)fixSVZ(ADDER, true);
-	    }
-	    setToStringTag(C, NAME);
-	    setSpecies(C);
-	    
-	    O[NAME] = C;
-	    $define(GLOBAL + WRAP + FORCED * !isNative(C), O);
-	    
-	    // add .keys, .values, .entries, [@@iterator]
-	    // 23.1.3.4, 23.1.3.8, 23.1.3.11, 23.1.3.12, 23.2.3.5, 23.2.3.8, 23.2.3.10, 23.2.3.11
-	    isWeak || defineStdIterators(C, NAME, function(iterated, kind){
-	      set(this, ITER, {o: iterated, k: kind});
-	    }, function(){
-	      var iter  = this[ITER]
-	        , kind  = iter.k
-	        , entry = iter.l;
-	      // revert to the last existing entry
-	      while(entry && entry.r)entry = entry.p;
-	      // get next entry
-	      if(!iter.o || !(iter.l = entry = entry ? entry.n : iter.o[FIRST])){
-	        // or finish the iteration
-	        iter.o = undefined;
-	        return iterResult(1);
-	      }
-	      // return step by kind
-	      if(kind == KEY)  return iterResult(0, entry.k);
-	      if(kind == VALUE)return iterResult(0, entry.v);
-	                       return iterResult(0, [entry.k, entry.v]);   
-	    }, isMap ? KEY+VALUE : VALUE, !isMap);
-	    
-	    return C;
-	  }
-	  
-	  function fastKey(it, create){
-	    // return primitive with prefix
-	    if(!isObject(it))return (typeof it == 'string' ? 'S' : 'P') + it;
-	    // can't set id to frozen object
-	    if(isFrozen(it))return 'F';
-	    if(!has(it, UID)){
-	      // not necessary to add id
-	      if(!create)return 'E';
-	      // add missing object id
-	      hidden(it, UID, ++uid);
-	    // return object id with prefix
-	    } return 'O' + it[UID];
-	  }
-	  function getEntry(that, key){
-	    // fast case
-	    var index = fastKey(key), entry;
-	    if(index != 'F')return that[O1][index];
-	    // frozen object case
-	    for(entry = that[FIRST]; entry; entry = entry.n){
-	      if(entry.k == key)return entry;
-	    }
-	  }
-	  function def(that, key, value){
-	    var entry = getEntry(that, key)
-	      , prev, index;
-	    // change existing entry
-	    if(entry)entry.v = value;
-	    // create new entry
-	    else {
-	      that[LAST] = entry = {
-	        i: index = fastKey(key, true), // <- index
-	        k: key,                        // <- key
-	        v: value,                      // <- value
-	        p: prev = that[LAST],          // <- previous entry
-	        n: undefined,                  // <- next entry
-	        r: false                       // <- removed
-	      };
-	      if(!that[FIRST])that[FIRST] = entry;
-	      if(prev)prev.n = entry;
-	      that[SIZE]++;
-	      // add to index
-	      if(index != 'F')that[O1][index] = entry;
-	    } return that;
-	  }
-
-	  var collectionMethods = {
-	    // 23.1.3.1 Map.prototype.clear()
-	    // 23.2.3.2 Set.prototype.clear()
-	    clear: function(){
-	      for(var that = this, data = that[O1], entry = that[FIRST]; entry; entry = entry.n){
-	        entry.r = true;
-	        if(entry.p)entry.p = entry.p.n = undefined;
-	        delete data[entry.i];
-	      }
-	      that[FIRST] = that[LAST] = undefined;
-	      that[SIZE] = 0;
-	    },
-	    // 23.1.3.3 Map.prototype.delete(key)
-	    // 23.2.3.4 Set.prototype.delete(value)
-	    'delete': function(key){
-	      var that  = this
-	        , entry = getEntry(that, key);
-	      if(entry){
-	        var next = entry.n
-	          , prev = entry.p;
-	        delete that[O1][entry.i];
-	        entry.r = true;
-	        if(prev)prev.n = next;
-	        if(next)next.p = prev;
-	        if(that[FIRST] == entry)that[FIRST] = next;
-	        if(that[LAST] == entry)that[LAST] = prev;
-	        that[SIZE]--;
-	      } return !!entry;
-	    },
-	    // 23.2.3.6 Set.prototype.forEach(callbackfn, thisArg = undefined)
-	    // 23.1.3.5 Map.prototype.forEach(callbackfn, thisArg = undefined)
-	    forEach: function(callbackfn /*, that = undefined */){
-	      var f = ctx(callbackfn, arguments[1], 3)
-	        , entry;
-	      while(entry = entry ? entry.n : this[FIRST]){
-	        f(entry.v, entry.k, this);
-	        // revert to the last existing entry
-	        while(entry && entry.r)entry = entry.p;
-	      }
-	    },
-	    // 23.1.3.7 Map.prototype.has(key)
-	    // 23.2.3.7 Set.prototype.has(value)
-	    has: function(key){
-	      return !!getEntry(this, key);
-	    }
-	  }
-	  
-	  // 23.1 Map Objects
-	  Map = getCollection(Map, MAP, {
-	    // 23.1.3.6 Map.prototype.get(key)
-	    get: function(key){
-	      var entry = getEntry(this, key);
-	      return entry && entry.v;
-	    },
-	    // 23.1.3.9 Map.prototype.set(key, value)
-	    set: function(key, value){
-	      return def(this, key === 0 ? 0 : key, value);
-	    }
-	  }, collectionMethods, true);
-	  
-	  // 23.2 Set Objects
-	  Set = getCollection(Set, SET, {
-	    // 23.2.3.1 Set.prototype.add(value)
-	    add: function(value){
-	      return def(this, value = value === 0 ? 0 : value, value);
-	    }
-	  }, collectionMethods);
-	  
-	  function defWeak(that, key, value){
-	    if(isFrozen(assertObject(key)))leakStore(that).set(key, value);
-	    else {
-	      has(key, WEAK) || hidden(key, WEAK, {});
-	      key[WEAK][that[UID]] = value;
-	    } return that;
-	  }
-	  function leakStore(that){
-	    return that[LEAK] || hidden(that, LEAK, new Map)[LEAK];
-	  }
-	  
-	  var weakMethods = {
-	    // 23.3.3.2 WeakMap.prototype.delete(key)
-	    // 23.4.3.3 WeakSet.prototype.delete(value)
-	    'delete': function(key){
-	      if(!isObject(key))return false;
-	      if(isFrozen(key))return leakStore(this)['delete'](key);
-	      return has(key, WEAK) && has(key[WEAK], this[UID]) && delete key[WEAK][this[UID]];
-	    },
-	    // 23.3.3.4 WeakMap.prototype.has(key)
-	    // 23.4.3.4 WeakSet.prototype.has(value)
-	    has: function(key){
-	      if(!isObject(key))return false;
-	      if(isFrozen(key))return leakStore(this).has(key);
-	      return has(key, WEAK) && has(key[WEAK], this[UID]);
-	    }
-	  };
-	  
-	  // 23.3 WeakMap Objects
-	  WeakMap = getCollection(WeakMap, WEAKMAP, {
-	    // 23.3.3.3 WeakMap.prototype.get(key)
-	    get: function(key){
-	      if(isObject(key)){
-	        if(isFrozen(key))return leakStore(this).get(key);
-	        if(has(key, WEAK))return key[WEAK][this[UID]];
-	      }
-	    },
-	    // 23.3.3.5 WeakMap.prototype.set(key, value)
-	    set: function(key, value){
-	      return defWeak(this, key, value);
-	    }
-	  }, weakMethods, true, true);
-	  
-	  // IE11 WeakMap frozen keys fix
-	  if(framework && new WeakMap().set(Object.freeze(tmp), 7).get(tmp) != 7){
-	    forEach.call(array('delete,has,get,set'), function(key){
-	      var method = WeakMap[PROTOTYPE][key];
-	      WeakMap[PROTOTYPE][key] = function(a, b){
-	        // store frozen objects on leaky map
-	        if(isObject(a) && isFrozen(a)){
-	          var result = leakStore(this)[key](a, b);
-	          return key == 'set' ? this : result;
-	        // store all the rest on native weakmap
-	        } return method.call(this, a, b);
-	      };
-	    });
-	  }
-	  
-	  // 23.4 WeakSet Objects
-	  WeakSet = getCollection(WeakSet, WEAKSET, {
-	    // 23.4.3.1 WeakSet.prototype.add(value)
-	    add: function(value){
-	      return defWeak(this, value, true);
-	    }
-	  }, weakMethods, false, true);
-	}();
-
-	/******************************************************************************
-	 * Module : es6.reflect                                                       *
-	 ******************************************************************************/
-
-	!function(){
-	  function Enumerate(iterated){
-	    var keys = [], key;
-	    for(key in iterated)keys.push(key);
-	    set(this, ITER, {o: iterated, a: keys, i: 0});
-	  }
-	  createIterator(Enumerate, OBJECT, function(){
-	    var iter = this[ITER]
-	      , keys = iter.a
-	      , key;
-	    do {
-	      if(iter.i >= keys.length)return iterResult(1);
-	    } while(!((key = keys[iter.i++]) in iter.o));
-	    return iterResult(0, key);
-	  });
-	  
-	  function wrap(fn){
-	    return function(it){
-	      assertObject(it);
-	      try {
-	        return fn.apply(undefined, arguments), true;
-	      } catch(e){
-	        return false;
-	      }
-	    }
-	  }
-	  
-	  function reflectGet(target, propertyKey/*, receiver*/){
-	    var receiver = arguments.length < 3 ? target : arguments[2]
-	      , desc = getOwnDescriptor(assertObject(target), propertyKey), proto;
-	    if(desc)return has(desc, 'value')
-	      ? desc.value
-	      : desc.get === undefined
-	        ? undefined
-	        : desc.get.call(receiver);
-	    return isObject(proto = getPrototypeOf(target))
-	      ? reflectGet(proto, propertyKey, receiver)
-	      : undefined;
-	  }
-	  function reflectSet(target, propertyKey, V/*, receiver*/){
-	    var receiver = arguments.length < 4 ? target : arguments[3]
-	      , ownDesc  = getOwnDescriptor(assertObject(target), propertyKey)
-	      , existingDescriptor, proto;
-	    if(!ownDesc){
-	      if(isObject(proto = getPrototypeOf(target))){
-	        return reflectSet(proto, propertyKey, V, receiver);
-	      }
-	      ownDesc = descriptor(0);
-	    }
-	    if(has(ownDesc, 'value')){
-	      if(ownDesc.writable === false || !isObject(receiver))return false;
-	      existingDescriptor = getOwnDescriptor(receiver, propertyKey) || descriptor(0);
-	      existingDescriptor.value = V;
-	      return defineProperty(receiver, propertyKey, existingDescriptor), true;
-	    }
-	    return ownDesc.set === undefined
-	      ? false
-	      : (ownDesc.set.call(receiver, V), true);
-	  }
-	  var isExtensible = Object.isExtensible || returnIt;
-	  
-	  var reflect = {
-	    // 26.1.1 Reflect.apply(target, thisArgument, argumentsList)
-	    apply: ctx(call, apply, 3),
-	    // 26.1.2 Reflect.construct(target, argumentsList [, newTarget])
-	    construct: function(target, argumentsList /*, newTarget*/){
-	      var proto    = assertFunction(arguments.length < 3 ? target : arguments[2])[PROTOTYPE]
-	        , instance = create(isObject(proto) ? proto : ObjectProto)
-	        , result   = apply.call(target, instance, argumentsList);
-	      return isObject(result) ? result : instance;
-	    },
-	    // 26.1.3 Reflect.defineProperty(target, propertyKey, attributes)
-	    defineProperty: wrap(defineProperty),
-	    // 26.1.4 Reflect.deleteProperty(target, propertyKey)
-	    deleteProperty: function(target, propertyKey){
-	      var desc = getOwnDescriptor(assertObject(target), propertyKey);
-	      return desc && !desc.configurable ? false : delete target[propertyKey];
-	    },
-	    // 26.1.5 Reflect.enumerate(target)
-	    enumerate: function(target){
-	      return new Enumerate(assertObject(target));
-	    },
-	    // 26.1.6 Reflect.get(target, propertyKey [, receiver])
-	    get: reflectGet,
-	    // 26.1.7 Reflect.getOwnPropertyDescriptor(target, propertyKey)
-	    getOwnPropertyDescriptor: function(target, propertyKey){
-	      return getOwnDescriptor(assertObject(target), propertyKey);
-	    },
-	    // 26.1.8 Reflect.getPrototypeOf(target)
-	    getPrototypeOf: function(target){
-	      return getPrototypeOf(assertObject(target));
-	    },
-	    // 26.1.9 Reflect.has(target, propertyKey)
-	    has: function(target, propertyKey){
-	      return propertyKey in target;
-	    },
-	    // 26.1.10 Reflect.isExtensible(target)
-	    isExtensible: function(target){
-	      return !!isExtensible(assertObject(target));
-	    },
-	    // 26.1.11 Reflect.ownKeys(target)
-	    ownKeys: ownKeys,
-	    // 26.1.12 Reflect.preventExtensions(target)
-	    preventExtensions: wrap(Object.preventExtensions || returnIt),
-	    // 26.1.13 Reflect.set(target, propertyKey, V [, receiver])
-	    set: reflectSet
-	  }
-	  // 26.1.14 Reflect.setPrototypeOf(target, proto)
-	  if(setPrototypeOf)reflect.setPrototypeOf = function(target, proto){
-	    return setPrototypeOf(assertObject(target), proto), true;
-	  };
-	  
-	  $define(GLOBAL, {Reflect: {}});
-	  $define(STATIC, 'Reflect', reflect);
-	}();
-
-	/******************************************************************************
-	 * Module : es7.proposals                                                     *
-	 ******************************************************************************/
-
-	!function(){
-	  $define(PROTO, ARRAY, {
-	    // https://github.com/domenic/Array.prototype.includes
-	    includes: createArrayContains(true)
-	  });
-	  $define(PROTO, STRING, {
-	    // https://github.com/mathiasbynens/String.prototype.at
-	    at: createPointAt(true)
-	  });
-	  
-	  function createObjectToArray(isEntries){
-	    return function(object){
-	      var O      = toObject(object)
-	        , keys   = getKeys(object)
-	        , length = keys.length
-	        , i      = 0
-	        , result = Array(length)
-	        , key;
-	      if(isEntries)while(length > i)result[i] = [key = keys[i++], O[key]];
-	      else while(length > i)result[i] = O[keys[i++]];
-	      return result;
-	    }
-	  }
-	  $define(STATIC, OBJECT, {
-	    // https://gist.github.com/WebReflection/9353781
-	    getOwnPropertyDescriptors: function(object){
-	      var O      = toObject(object)
-	        , result = {};
-	      forEach.call(ownKeys(O), function(key){
-	        defineProperty(result, key, descriptor(0, getOwnDescriptor(O, key)));
-	      });
-	      return result;
-	    },
-	    // https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-04/apr-9.md#51-objectentries-objectvalues
-	    values:  createObjectToArray(false),
-	    entries: createObjectToArray(true)
-	  });
-	  $define(STATIC, REGEXP, {
-	    // https://gist.github.com/kangax/9698100
-	    escape: createReplacer(/([\\\-[\]{}()*+?.,^$|])/g, '\\$1', true)
-	  });
-	}();
-
-	/******************************************************************************
-	 * Module : es7.abstract-refs                                                 *
-	 ******************************************************************************/
-
-	// https://github.com/zenparsing/es-abstract-refs
-	!function(REFERENCE){
-	  REFERENCE_GET = getWellKnownSymbol(REFERENCE+'Get', true);
-	  var REFERENCE_SET = getWellKnownSymbol(REFERENCE+SET, true)
-	    , REFERENCE_DELETE = getWellKnownSymbol(REFERENCE+'Delete', true);
-	  
-	  $define(STATIC, SYMBOL, {
-	    referenceGet: REFERENCE_GET,
-	    referenceSet: REFERENCE_SET,
-	    referenceDelete: REFERENCE_DELETE
-	  });
-	  
-	  hidden(FunctionProto, REFERENCE_GET, returnThis);
-	  
-	  function setMapMethods(Constructor){
-	    if(Constructor){
-	      var MapProto = Constructor[PROTOTYPE];
-	      hidden(MapProto, REFERENCE_GET, MapProto.get);
-	      hidden(MapProto, REFERENCE_SET, MapProto.set);
-	      hidden(MapProto, REFERENCE_DELETE, MapProto['delete']);
-	    }
-	  }
-	  setMapMethods(Map);
-	  setMapMethods(WeakMap);
-	}('reference');
-
-	/******************************************************************************
-	 * Module : core.dict                                                         *
-	 ******************************************************************************/
-
-	!function(DICT){
-	  Dict = function(iterable){
-	    var dict = create(null);
-	    if(iterable != undefined){
-	      if(isIterable(iterable)){
-	        forOf(iterable, true, function(key, value){
-	          dict[key] = value;
-	        });
-	      } else assign(dict, iterable);
-	    }
-	    return dict;
-	  }
-	  Dict[PROTOTYPE] = null;
-	  
-	  function DictIterator(iterated, kind){
-	    set(this, ITER, {o: toObject(iterated), a: getKeys(iterated), i: 0, k: kind});
-	  }
-	  createIterator(DictIterator, DICT, function(){
-	    var iter = this[ITER]
-	      , O    = iter.o
-	      , keys = iter.a
-	      , kind = iter.k
-	      , key;
-	    do {
-	      if(iter.i >= keys.length){
-	        iter.o = undefined;
-	        return iterResult(1);
-	      }
-	    } while(!has(O, key = keys[iter.i++]));
-	    if(kind == KEY)  return iterResult(0, key);
-	    if(kind == VALUE)return iterResult(0, O[key]);
-	                     return iterResult(0, [key, O[key]]);
-	  });
-	  function createDictIter(kind){
-	    return function(it){
-	      return new DictIterator(it, kind);
-	    }
-	  }
-	  
-	  /*
-	   * 0 -> forEach
-	   * 1 -> map
-	   * 2 -> filter
-	   * 3 -> some
-	   * 4 -> every
-	   * 5 -> find
-	   * 6 -> findKey
-	   * 7 -> mapPairs
-	   */
-	  function createDictMethod(type){
-	    var isMap    = type == 1
-	      , isEvery  = type == 4;
-	    return function(object, callbackfn, that /* = undefined */){
-	      var f      = ctx(callbackfn, that, 3)
-	        , O      = toObject(object)
-	        , result = isMap || type == 7 || type == 2 ? new (generic(this, Dict)) : undefined
-	        , key, val, res;
-	      for(key in O)if(has(O, key)){
-	        val = O[key];
-	        res = f(val, key, object);
-	        if(type){
-	          if(isMap)result[key] = res;             // map
-	          else if(res)switch(type){
-	            case 2: result[key] = val; break      // filter
-	            case 3: return true;                  // some
-	            case 5: return val;                   // find
-	            case 6: return key;                   // findKey
-	            case 7: result[res[0]] = res[1];      // mapPairs
-	          } else if(isEvery)return false;         // every
-	        }
-	      }
-	      return type == 3 || isEvery ? isEvery : result;
-	    }
-	  }
-	  function createDictReduce(isTurn){
-	    return function(object, mapfn, init){
-	      assertFunction(mapfn);
-	      var O      = toObject(object)
-	        , keys   = getKeys(O)
-	        , length = keys.length
-	        , i      = 0
-	        , memo, key, result;
-	      if(isTurn)memo = init == undefined ? new (generic(this, Dict)) : Object(init);
-	      else if(arguments.length < 3){
-	        assert(length, REDUCE_ERROR);
-	        memo = O[keys[i++]];
-	      } else memo = Object(init);
-	      while(length > i)if(has(O, key = keys[i++])){
-	        result = mapfn(memo, O[key], key, object);
-	        if(isTurn){
-	          if(result === false)break;
-	        } else memo = result;
-	      }
-	      return memo;
-	    }
-	  }
-	  var findKey = createDictMethod(6);
-	  function includes(object, el){
-	    return (el == el ? keyOf(object, el) : findKey(object, sameNaN)) !== undefined;
-	  }
-	  
-	  var dictMethods = {
-	    keys:    createDictIter(KEY),
-	    values:  createDictIter(VALUE),
-	    entries: createDictIter(KEY+VALUE),
-	    forEach: createDictMethod(0),
-	    map:     createDictMethod(1),
-	    filter:  createDictMethod(2),
-	    some:    createDictMethod(3),
-	    every:   createDictMethod(4),
-	    find:    createDictMethod(5),
-	    findKey: findKey,
-	    mapPairs:createDictMethod(7),
-	    reduce:  createDictReduce(false),
-	    turn:    createDictReduce(true),
-	    keyOf:   keyOf,
-	    includes:includes,
-	    // Has / get / set own property
-	    has: has,
-	    get: get,
-	    set: createDefiner(0),
-	    isDict: function(it){
-	      return isObject(it) && getPrototypeOf(it) === Dict[PROTOTYPE];
-	    }
-	  };
-	  
-	  if(REFERENCE_GET)for(var key in dictMethods)!function(fn){
-	    function method(){
-	      for(var args = [this], i = 0; i < arguments.length;)args.push(arguments[i++]);
-	      return invoke(fn, args);
-	    }
-	    fn[REFERENCE_GET] = function(){
-	      return method;
-	    }
-	  }(dictMethods[key]);
-	  
-	  $define(GLOBAL + FORCED, {Dict: assignHidden(Dict, dictMethods)});
-	}('Dict');
-
-	/******************************************************************************
-	 * Module : core.$for                                                         *
-	 ******************************************************************************/
-
-	!function(ENTRIES, FN){  
-	  function $for(iterable, entries){
-	    if(!(this instanceof $for))return new $for(iterable, entries);
-	    this[ITER]    = getIterator(iterable);
-	    this[ENTRIES] = !!entries;
-	  }
-	  
-	  createIterator($for, 'Wrapper', function(){
-	    return this[ITER].next();
-	  });
-	  var $forProto = $for[PROTOTYPE];
-	  setIterator($forProto, function(){
-	    return this[ITER]; // unwrap
-	  });
-	  
-	  function createChainIterator(next){
-	    function Iter(I, fn, that){
-	      this[ITER]    = getIterator(I);
-	      this[ENTRIES] = I[ENTRIES];
-	      this[FN]      = ctx(fn, that, I[ENTRIES] ? 2 : 1);
-	    }
-	    createIterator(Iter, 'Chain', next, $forProto);
-	    setIterator(Iter[PROTOTYPE], returnThis); // override $forProto iterator
-	    return Iter;
-	  }
-	  
-	  var MapIter = createChainIterator(function(){
-	    var step = this[ITER].next();
-	    return step.done ? step : iterResult(0, stepCall(this[FN], step.value, this[ENTRIES]));
-	  });
-	  
-	  var FilterIter = createChainIterator(function(){
-	    for(;;){
-	      var step = this[ITER].next();
-	      if(step.done || stepCall(this[FN], step.value, this[ENTRIES]))return step;
-	    }
-	  });
-	  
-	  assignHidden($forProto, {
-	    of: function(fn, that){
-	      forOf(this, this[ENTRIES], fn, that);
-	    },
-	    array: function(fn, that){
-	      var result = [];
-	      forOf(fn != undefined ? this.map(fn, that) : this, false, push, result);
-	      return result;
-	    },
-	    filter: function(fn, that){
-	      return new FilterIter(this, fn, that);
-	    },
-	    map: function(fn, that){
-	      return new MapIter(this, fn, that);
-	    }
-	  });
-	  
-	  $for.isIterable  = isIterable;
-	  $for.getIterator = getIterator;
-	  
-	  $define(GLOBAL + FORCED, {$for: $for});
-	}('entries', safeSymbol('fn'));
-
-	/******************************************************************************
-	 * Module : core.delay                                                        *
-	 ******************************************************************************/
-
-	// https://esdiscuss.org/topic/promise-returning-delay-function
-	$define(GLOBAL + FORCED, {
-	  delay: function(time){
-	    return new Promise(function(resolve){
-	      setTimeout(resolve, time, true);
-	    });
-	  }
-	});
-
-	/******************************************************************************
-	 * Module : core.binding                                                      *
-	 ******************************************************************************/
-
-	!function(_, toLocaleString){
-	  // Placeholder
-	  core._ = path._ = path._ || {};
-
-	  $define(PROTO + FORCED, FUNCTION, {
-	    part: part,
-	    only: function(numberArguments, that /* = @ */){
-	      var fn     = assertFunction(this)
-	        , n      = toLength(numberArguments)
-	        , isThat = arguments.length > 1;
-	      return function(/* ...args */){
-	        var length = min(n, arguments.length)
-	          , args   = Array(length)
-	          , i      = 0;
-	        while(length > i)args[i] = arguments[i++];
-	        return invoke(fn, args, isThat ? that : this);
-	      }
-	    }
-	  });
-	  
-	  function tie(key){
-	    var that  = this
-	      , bound = {};
-	    return hidden(that, _, function(key){
-	      if(key === undefined || !(key in that))return toLocaleString.call(that);
-	      return has(bound, key) ? bound[key] : (bound[key] = ctx(that[key], that, -1));
-	    })[_](key);
-	  }
-	  
-	  hidden(path._, TO_STRING, function(){
-	    return _;
-	  });
-	  
-	  hidden(ObjectProto, _, tie);
-	  DESC || hidden(ArrayProto, _, tie);
-	  // IE8- dirty hack - redefined toLocaleString is not enumerable
-	}(DESC ? uid('tie') : TO_LOCALE, ObjectProto[TO_LOCALE]);
-
-	/******************************************************************************
-	 * Module : core.object                                                       *
-	 ******************************************************************************/
-
-	!function(){
-	  function define(target, mixin){
-	    var keys   = ownKeys(toObject(mixin))
-	      , length = keys.length
-	      , i = 0, key;
-	    while(length > i)defineProperty(target, key = keys[i++], getOwnDescriptor(mixin, key));
-	    return target;
-	  };
-	  $define(STATIC + FORCED, OBJECT, {
-	    isObject: isObject,
-	    classof: classof,
-	    define: define,
-	    make: function(proto, mixin){
-	      return define(create(proto), mixin);
-	    }
-	  });
-	}();
-
-	/******************************************************************************
-	 * Module : core.array                                                        *
-	 ******************************************************************************/
-
-	$define(PROTO + FORCED, ARRAY, {
-	  turn: function(fn, target /* = [] */){
-	    assertFunction(fn);
-	    var memo   = target == undefined ? [] : Object(target)
-	      , O      = ES5Object(this)
-	      , length = toLength(O.length)
-	      , index  = 0;
-	    while(length > index)if(fn(memo, O[index], index++, this) === false)break;
-	    return memo;
-	  }
-	});
-	if(framework)ArrayUnscopables.turn = true;
-
-	/******************************************************************************
-	 * Module : core.number                                                       *
-	 ******************************************************************************/
-
-	!function(numberMethods){  
-	  function NumberIterator(iterated){
-	    set(this, ITER, {l: toLength(iterated), i: 0});
-	  }
-	  createIterator(NumberIterator, NUMBER, function(){
-	    var iter = this[ITER]
-	      , i    = iter.i++;
-	    return i < iter.l ? iterResult(0, i) : iterResult(1);
-	  });
-	  defineIterator(Number, NUMBER, function(){
-	    return new NumberIterator(this);
-	  });
-	  
-	  numberMethods.random = function(lim /* = 0 */){
-	    var a = +this
-	      , b = lim == undefined ? 0 : +lim
-	      , m = min(a, b);
-	    return random() * (max(a, b) - m) + m;
-	  };
-
-	  forEach.call(array(
-	      // ES3:
-	      'round,floor,ceil,abs,sin,asin,cos,acos,tan,atan,exp,sqrt,max,min,pow,atan2,' +
-	      // ES6:
-	      'acosh,asinh,atanh,cbrt,clz32,cosh,expm1,hypot,imul,log1p,log10,log2,sign,sinh,tanh,trunc'
-	    ), function(key){
-	      var fn = Math[key];
-	      if(fn)numberMethods[key] = function(/* ...args */){
-	        // ie9- dont support strict mode & convert `this` to object -> convert it to number
-	        var args = [+this]
-	          , i    = 0;
-	        while(arguments.length > i)args.push(arguments[i++]);
-	        return invoke(fn, args);
-	      }
-	    }
-	  );
-	  
-	  $define(PROTO + FORCED, NUMBER, numberMethods);
-	}({});
-
-	/******************************************************************************
-	 * Module : core.string                                                       *
-	 ******************************************************************************/
-
-	!function(){
-	  var escapeHTMLDict = {
-	    '&': '&amp;',
-	    '<': '&lt;',
-	    '>': '&gt;',
-	    '"': '&quot;',
-	    "'": '&apos;'
-	  }, unescapeHTMLDict = {}, key;
-	  for(key in escapeHTMLDict)unescapeHTMLDict[escapeHTMLDict[key]] = key;
-	  $define(PROTO + FORCED, STRING, {
-	    escapeHTML:   createReplacer(/[&<>"']/g, escapeHTMLDict),
-	    unescapeHTML: createReplacer(/&(?:amp|lt|gt|quot|apos);/g, unescapeHTMLDict)
-	  });
-	}();
-
-	/******************************************************************************
-	 * Module : core.date                                                         *
-	 ******************************************************************************/
-
-	!function(formatRegExp, flexioRegExp, locales, current, SECONDS, MINUTES, HOURS, MONTH, YEAR){
-	  function createFormat(prefix){
-	    return function(template, locale /* = current */){
-	      var that = this
-	        , dict = locales[has(locales, locale) ? locale : current];
-	      function get(unit){
-	        return that[prefix + unit]();
-	      }
-	      return String(template).replace(formatRegExp, function(part){
-	        switch(part){
-	          case 's'  : return get(SECONDS);                  // Seconds : 0-59
-	          case 'ss' : return lz(get(SECONDS));              // Seconds : 00-59
-	          case 'm'  : return get(MINUTES);                  // Minutes : 0-59
-	          case 'mm' : return lz(get(MINUTES));              // Minutes : 00-59
-	          case 'h'  : return get(HOURS);                    // Hours   : 0-23
-	          case 'hh' : return lz(get(HOURS));                // Hours   : 00-23
-	          case 'D'  : return get(DATE);                     // Date    : 1-31
-	          case 'DD' : return lz(get(DATE));                 // Date    : 01-31
-	          case 'W'  : return dict[0][get('Day')];           // Day     : Понедельник
-	          case 'N'  : return get(MONTH) + 1;                // Month   : 1-12
-	          case 'NN' : return lz(get(MONTH) + 1);            // Month   : 01-12
-	          case 'M'  : return dict[2][get(MONTH)];           // Month   : Январь
-	          case 'MM' : return dict[1][get(MONTH)];           // Month   : Января
-	          case 'Y'  : return get(YEAR);                     // Year    : 2014
-	          case 'YY' : return lz(get(YEAR) % 100);           // Year    : 14
-	        } return part;
-	      });
-	    }
-	  }
-	  function addLocale(lang, locale){
-	    function split(index){
-	      var result = [];
-	      forEach.call(array(locale.months), function(it){
-	        result.push(it.replace(flexioRegExp, '$' + index));
-	      });
-	      return result;
-	    }
-	    locales[lang] = [array(locale.weekdays), split(1), split(2)];
-	    return core;
-	  }
-	  $define(PROTO + FORCED, DATE, {
-	    format:    createFormat('get'),
-	    formatUTC: createFormat('getUTC')
-	  });
-	  addLocale(current, {
-	    weekdays: 'Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday',
-	    months: 'January,February,March,April,May,June,July,August,September,October,November,December'
-	  });
-	  addLocale('ru', {
-	    weekdays: 'Воскресенье,Понедельник,Вторник,Среда,Четверг,Пятница,Суббота',
-	    months: 'Январ:я|ь,Феврал:я|ь,Март:а|,Апрел:я|ь,Ма:я|й,Июн:я|ь,' +
-	            'Июл:я|ь,Август:а|,Сентябр:я|ь,Октябр:я|ь,Ноябр:я|ь,Декабр:я|ь'
-	  });
-	  core.locale = function(locale){
-	    return has(locales, locale) ? current = locale : current;
-	  };
-	  core.addLocale = addLocale;
-	}(/\b\w\w?\b/g, /:(.*)\|(.*)$/, {}, 'en', 'Seconds', 'Minutes', 'Hours', 'Month', 'FullYear');
-
-	/******************************************************************************
-	 * Module : core.global                                                       *
-	 ******************************************************************************/
-
-	$define(GLOBAL + FORCED, {global: global});
-
-	/******************************************************************************
-	 * Module : js.array.statics                                                  *
-	 ******************************************************************************/
-
-	// JavaScript 1.6 / Strawman array statics shim
-	!function(arrayStatics){
-	  function setArrayStatics(keys, length){
-	    forEach.call(array(keys), function(key){
-	      if(key in ArrayProto)arrayStatics[key] = ctx(call, ArrayProto[key], length);
-	    });
-	  }
-	  setArrayStatics('pop,reverse,shift,keys,values,entries', 1);
-	  setArrayStatics('indexOf,every,some,forEach,map,filter,find,findIndex,includes', 3);
-	  setArrayStatics('join,slice,concat,push,splice,unshift,sort,lastIndexOf,' +
-	                  'reduce,reduceRight,copyWithin,fill,turn');
-	  $define(STATIC, ARRAY, arrayStatics);
-	}({});
-
-	/******************************************************************************
-	 * Module : web.dom.itarable                                                  *
-	 ******************************************************************************/
-
-	!function(NodeList){
-	  if(framework && NodeList && !(SYMBOL_ITERATOR in NodeList[PROTOTYPE])){
-	    hidden(NodeList[PROTOTYPE], SYMBOL_ITERATOR, Iterators[ARRAY]);
-	  }
-	  Iterators.NodeList = Iterators[ARRAY];
-	}(global.NodeList);
-
-	/******************************************************************************
-	 * Module : core.log                                                          *
-	 ******************************************************************************/
-
-	!function(log, enabled){
-	  // Methods from https://github.com/DeveloperToolsWG/console-object/blob/master/api.md
-	  forEach.call(array('assert,clear,count,debug,dir,dirxml,error,exception,' +
-	      'group,groupCollapsed,groupEnd,info,isIndependentlyComposed,log,' +
-	      'markTimeline,profile,profileEnd,table,time,timeEnd,timeline,' +
-	      'timelineEnd,timeStamp,trace,warn'), function(key){
-	    log[key] = function(){
-	      if(enabled && key in console)return apply.call(console[key], console, arguments);
-	    };
-	  });
-	  $define(GLOBAL + FORCED, {log: assign(log.log, log, {
-	    enable: function(){
-	      enabled = true;
-	    },
-	    disable: function(){
-	      enabled = false;
-	    }
-	  })});
-	}({}, true);
-	}(typeof self != 'undefined' && self.Math === Math ? self : Function('return this')(), false);
-	module.exports = { "default": module.exports, __esModule: true };
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-	"use strict";
-
-	exports["default"] = function (obj) {
-	  return obj && obj.__esModule ? obj : {
-	    "default": obj
-	  };
-	};
-
-	exports.__esModule = true;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _defaults = __webpack_require__(4)["default"];
-
-	var _interopRequireWildcard = __webpack_require__(6)["default"];
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	_defaults(exports, _interopRequireWildcard(__webpack_require__(8)));
-
-	_defaults(exports, _interopRequireWildcard(__webpack_require__(27)));
-=======
 	var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
 
 	var _defaults = function (obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; };
@@ -15151,7 +8725,6 @@ var StellarBase =
 	_defaults(exports, _interopRequireWildcard(__webpack_require__(29)));
 
 	_defaults(exports, _interopRequireWildcard(__webpack_require__(30)));
->>>>>>> master
 
 	_defaults(exports, _interopRequireWildcard(__webpack_require__(31)));
 
@@ -15167,42 +8740,15 @@ var StellarBase =
 
 	_defaults(exports, _interopRequireWildcard(__webpack_require__(37)));
 
-<<<<<<< HEAD
-	_defaults(exports, _interopRequireWildcard(__webpack_require__(38)));
-
-	_defaults(exports, _interopRequireWildcard(__webpack_require__(39)));
-
-	_defaults(exports, _interopRequireWildcard(__webpack_require__(40)));
-
-	_defaults(exports, _interopRequireWildcard(__webpack_require__(41)));
-
-	_defaults(exports, _interopRequireWildcard(__webpack_require__(42)));
-
-	_defaults(exports, _interopRequireWildcard(__webpack_require__(43)));
-
-	_defaults(exports, _interopRequireWildcard(__webpack_require__(44)));
-
-	_defaults(exports, _interopRequireWildcard(__webpack_require__(45)));
-
-	_defaults(exports, _interopRequireWildcard(__webpack_require__(49)));
-
-/***/ }),
-/* 8 */
-=======
 	_defaults(exports, _interopRequireWildcard(__webpack_require__(40)));
 
 /***/ }),
 /* 5 */
->>>>>>> master
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-<<<<<<< HEAD
-	var _interopRequire = __webpack_require__(9)["default"];
-=======
 	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
->>>>>>> master
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -38281,504 +31827,7 @@ var StellarBase =
 	/* (ignored) */
 
 /***/ }),
-<<<<<<< HEAD
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj["default"] = obj; return newObj; } }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var _network = __webpack_require__(65);
-
-	var _signing = __webpack_require__(61);
-
-	var _base58 = __webpack_require__(66);
-
-	var base58 = _interopRequireWildcard(_base58);
-
-	var _strkey = __webpack_require__(70);
-
-	var strkey = _interopRequireWildcard(_strkey);
-
-	var _generatedStellarXdr_generated = __webpack_require__(2);
-
-	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
-
-	var nacl = __webpack_require__(62);
-
-	var Keypair = (function () {
-	  /**
-	   * `Keypair` represents public (and secret) keys of the account.
-	   *
-	   * Use more convenient methods to create `Keypair` object:
-	   * * `{@link Keypair.fromAccountId}`
-	   * * `{@link Keypair.fromSecret}`
-	   * * `{@link Keypair.random}`
-	   *
-	   * @constructor
-	   * @param {object} keys
-	   * @param {string} keys.publicKey Raw public key
-	   * @param {string} [keys.secretSeed] Raw secret key seed.
-	   */
-
-	  function Keypair(keys) {
-	    _classCallCheck(this, Keypair);
-
-	    this._publicKey = new Buffer(keys.publicKey);
-
-	    if (keys.secretSeed) {
-	      this._secretSeed = new Buffer(keys.secretSeed);
-	      this._secretKey = new Buffer(keys.secretKey);
-	    }
-	  }
-
-	  /**
-	   * @param {string} seed Secret key seed
-	   * @deprecated Use {@link Keypair.fromSecret}
-	   * @returns {Keypair}
-	   */
-
-	  _createClass(Keypair, [{
-	    key: "xdrAccountId",
-	    value: function xdrAccountId() {
-	      return new _generatedStellarXdr_generated2["default"].AccountId.keyTypeEd25519(this._publicKey);
-	    }
-	  }, {
-	    key: "xdrBalanceId",
-	    value: function xdrBalanceId() {
-	      return new _generatedStellarXdr_generated2["default"].BalanceId.keyTypeEd25519(this._publicKey);
-	    }
-	  }, {
-	    key: "xdrPublicKey",
-	    value: function xdrPublicKey() {
-	      return new _generatedStellarXdr_generated2["default"].PublicKey.keyTypeEd25519(this._publicKey);
-	    }
-
-	    /**
-	     * Returns raw public key
-	     * @returns {Buffer}
-	     */
-	  }, {
-	    key: "rawPublicKey",
-	    value: function rawPublicKey() {
-	      return this._publicKey;
-	    }
-	  }, {
-	    key: "signatureHint",
-	    value: function signatureHint() {
-	      var a = this.xdrAccountId().toXDR();
-
-	      return a.slice(a.length - 4);
-	    }
-
-	    /**
-	     * Returns account ID associated with this `Keypair` object.
-	     * @returns {string}
-	     */
-	  }, {
-	    key: "accountId",
-	    value: function accountId() {
-	      return strkey.encodeCheck("accountId", this._publicKey);
-	    }
-	  }, {
-	    key: "balanceId",
-	    value: function balanceId() {
-	      return strkey.encodeCheck("balanceId", this._publicKey);
-	    }
-
-	    /**
-	     * @deprecated Use {@link Keypair.secret}
-	     * @returns {string}
-	     */
-	  }, {
-	    key: "seed",
-	    value: function seed() {
-	      console.log('Keypair.seed() is deprecated. Use Keypair.secret().');
-	      return this.secret();
-	    }
-
-	    /**
-	     * Returns secret key associated with this `Keypair` object
-	     * @returns {string}
-	     */
-	  }, {
-	    key: "secret",
-	    value: function secret() {
-	      return strkey.encodeCheck("seed", this._secretSeed);
-	    }
-
-	    /**
-	     * Returns raw secret key seed.
-	     * @deprecated
-	     * @returns {Buffer}
-	     */
-	  }, {
-	    key: "rawSeed",
-	    value: function rawSeed() {
-	      console.log('Keypair.rawSeed() is deprecated.');
-	      return this._secretSeed;
-	    }
-
-	    /**
-	     * Returns raw secret key.
-	     * @returns {Buffer}
-	     */
-	  }, {
-	    key: "rawSecretKey",
-	    value: function rawSecretKey() {
-	      return this._secretKey;
-	    }
-
-	    /**
-	     * Returns `true` if this `Keypair` object contains secret key and can sign.
-	     * @returns {boolean}
-	     */
-	  }, {
-	    key: "canSign",
-	    value: function canSign() {
-	      return !!this._secretKey;
-	    }
-
-	    /**
-	     * Signs data.
-	     * @param {Buffer} data Data to sign
-	     * @returns {Buffer}
-	     */
-	  }, {
-	    key: "sign",
-	    value: function sign(data) {
-	      if (!this.canSign()) {
-	        throw new Error("cannot sign: no secret key available");
-	      }
-
-	      return (0, _signing.sign)(data, this._secretKey);
-	    }
-
-	    /**
-	     * Verifies if `signature` for `data` is valid.
-	     * @param {Buffer} data Signed data
-	     * @param {Buffer} signature Signature
-	     * @returns {boolean}
-	     */
-	  }, {
-	    key: "verify",
-	    value: function verify(data, signature) {
-	      return (0, _signing.verify)(data, signature, this._publicKey);
-	    }
-	  }, {
-	    key: "signDecorated",
-	    value: function signDecorated(data) {
-	      var signature = this.sign(data);
-	      var hint = this.signatureHint();
-
-	      return new _generatedStellarXdr_generated2["default"].DecoratedSignature({ hint: hint, signature: signature });
-	    }
-	  }], [{
-	    key: "fromSeed",
-	    value: function fromSeed(seed) {
-	      console.log('Keypair.fromSeed() is deprecated. Use Keypair.fromSecret().');
-	      return Keypair.fromSecret(seed);
-	    }
-
-	    /**
-	     * Creates a new `Keypair` instance from secret key.
-	     * @param {string} secretKey Secret key
-	     * @returns {Keypair}
-	     */
-	  }, {
-	    key: "fromSecret",
-	    value: function fromSecret(secretKey) {
-	      var rawSeed = strkey.decodeCheck("seed", secretKey);
-	      return this.fromRawSeed(rawSeed);
-	    }
-
-	    /**
-	     * Base58 address encoding is **DEPRECATED**! Use this method only for transition to strkey encoding.
-	     * @param {string} seed Base58 secret seed
-	     * @deprecated Use {@link Keypair.fromSecret}
-	     * @returns {Keypair}
-	     */
-	  }, {
-	    key: "fromBase58Seed",
-	    value: function fromBase58Seed(seed) {
-	      var rawSeed = base58.decodeBase58Check("seed", seed);
-	      return this.fromRawSeed(rawSeed);
-	    }
-
-	    /**
-	     * Creates a new `Keypair` object from secret seed raw bytes.
-	     *
-	     * @param {Buffer} rawSeed Buffer containing secret seed
-	     * @returns {Keypair}
-	     */
-	  }, {
-	    key: "fromRawSeed",
-	    value: function fromRawSeed(rawSeed) {
-	      rawSeed = new Buffer(rawSeed);
-	      var rawSeedU8 = new Uint8Array(rawSeed);
-	      var keys = nacl.sign.keyPair.fromSeed(rawSeedU8);
-	      keys.secretSeed = rawSeed;
-
-	      return new this(keys);
-	    }
-
-	    /**
-	     * Returns `Keypair` object representing network master key.
-	     * @returns {Keypair}
-	     */
-	  }, {
-	    key: "master",
-	    value: function master() {
-	      return this.fromRawSeed(_network.Network.current().networkId());
-	    }
-
-	    /**
-	     * Creates a new `Keypair` object from account ID.
-	     * @param {string} accountId account ID (ex. `GB3KJPLFUYN5VL6R3GU3EGCGVCKFDSD7BEDX42HWG5BWFKB3KQGJJRMA`)
-	     * @returns {Keypair}
-	     */
-	  }, {
-	    key: "fromAccountId",
-	    value: function fromAccountId(accountId) {
-	      var publicKey = strkey.decodeCheck("accountId", accountId);
-	      if (publicKey.length !== 32) {
-	        throw new Error('Invalid Stellar accountId');
-	      }
-	      return new this({ publicKey: publicKey });
-	    }
-	  }, {
-	    key: "fromBalanceId",
-	    value: function fromBalanceId(balanceId) {
-	      var publicKey = strkey.decodeCheck("balanceId", balanceId);
-	      if (publicKey.length !== 32) {
-	        throw new Error('Invalid Stellar balanceId');
-	      }
-	      return new this({ publicKey: publicKey });
-	    }
-
-	    /**
-	     * Create a random `Keypair` object.
-	     * @returns {Keypair}
-	     */
-	  }, {
-	    key: "random",
-	    value: function random() {
-	      var seed = nacl.randomBytes(32);
-	      return this.fromRawSeed(seed);
-	    }
-
-	    /**
-	     * Returns true if the given Stellar public key is valid.
-	     * @param {string} publicKey public key to check
-	     * @returns {boolean}
-	     */
-	  }, {
-	    key: "isValidPublicKey",
-	    value: function isValidPublicKey(publicKey) {
-	      if (publicKey && publicKey.length != 56) {
-	        return false;
-	      }
-
-	      try {
-	        var decoded = strkey.decodeCheck("accountId", publicKey);
-	        if (decoded.length !== 32) {
-	          return false;
-	        }
-	      } catch (err) {
-	        return false;
-	      }
-	      return true;
-	    }
-	  }, {
-	    key: "isValidBalanceKey",
-	    value: function isValidBalanceKey(publicKey) {
-	      if (publicKey && publicKey.length != 56) {
-	        return false;
-	      }
-
-	      try {
-	        var decoded = strkey.decodeCheck("balanceId", publicKey);
-	        if (decoded.length !== 32) {
-	          return false;
-	        }
-	      } catch (err) {
-	        return false;
-	      }
-	      return true;
-	    }
-
-	    /**
-	     * Returns true if the given Stellar secret key is valid.
-	     * @param {string} secretKey secret key to check
-	     * @returns {boolean}
-	     */
-	  }, {
-	    key: "isValidSecretKey",
-	    value: function isValidSecretKey(secretKey) {
-	      if (secretKey && secretKey.length != 56) {
-	        return false;
-	      }
-
-	      try {
-	        var decoded = strkey.decodeCheck("seed", secretKey);
-	        if (decoded.length !== 32) {
-	          return false;
-	        }
-	      } catch (err) {
-	        return false;
-	      }
-	      return true;
-	    }
-	  }]);
-
-	  return Keypair;
-	})();
-
-	exports.Keypair = Keypair;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13).Buffer))
-
-/***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var _hashing = __webpack_require__(50);
-
-	/**
-	 * Contains passphrases for common networks:
-	 * * `Networks.PUBLIC`: `Public Global Stellar Network ; September 2015`
-	 * * `Networks.TESTNET`: `Test SDF Network ; September 2015`
-	 * @type {{PUBLIC: string, TESTNET: string}}
-	 */
-	var Networks = {
-		PUBLIC: "Public Global Stellar Network ; September 2015",
-		TESTNET: "Test SDF Network ; September 2015"
-	};
-
-	exports.Networks = Networks;
-	var _current;
-
-	var Network = (function () {
-		/**
-	   * The Network class provides helper methods to get the passphrase or id for different
-	   * stellar networks.  It also provides the {@link Network.current} class method that returns the network
-	   * that will be used by this process for the purposes of generating signatures.
-	   *
-	   * The test network is the default, but you can also override the default by using the `use`,
-	   * `usePublicNetwork` and `useTestNetwork` helper methods.
-	   *
-	  * Creates a new `Network` object.
-	  * @constructor
-	  * @param {string} networkPassphrase Network passphrase
-	  */
-
-		function Network(networkPassphrase) {
-			_classCallCheck(this, Network);
-
-			this._networkPassphrase = networkPassphrase;
-		}
-
-		/**
-	  * Use default network (right now default network is `testnet`).
-	  */
-
-		_createClass(Network, [{
-			key: "networkPassphrase",
-
-			/**
-	   * Returns network passphrase.
-	   * @returns {string}
-	   */
-			value: function networkPassphrase() {
-				return this._networkPassphrase;
-			}
-
-			/**
-	   * Returns Network ID. Network ID is SHA-256 hash of network passphrase.
-	   * @returns {string}
-	   */
-		}, {
-			key: "networkId",
-			value: function networkId() {
-				return (0, _hashing.hash)(this.networkPassphrase());
-			}
-		}], [{
-			key: "useDefault",
-			value: function useDefault() {
-				this.useTestNetwork();
-			}
-
-			/**
-	   * Use Stellar Public Network
-	   */
-		}, {
-			key: "usePublicNetwork",
-			value: function usePublicNetwork() {
-				this.use(new Network(Networks.PUBLIC));
-			}
-
-			/**
-	   * Use test network.
-	   */
-		}, {
-			key: "useTestNetwork",
-			value: function useTestNetwork() {
-				this.use(new Network(Networks.TESTNET));
-			}
-
-			/**
-	   * Use network defined by Network object.
-	   * @param {Network} network Network to use
-	   */
-		}, {
-			key: "use",
-			value: function use(network) {
-				_current = network;
-			}
-
-			/**
-	   * Returns currently selected network.
-	   * @returns {Network}
-	   */
-		}, {
-			key: "current",
-			value: function current() {
-				return _current;
-			}
-		}]);
-
-		return Network;
-	})();
-
-	exports.Network = Network;
-
-	Network.useDefault();
-
-/***/ }),
-/* 66 */
-=======
 /* 59 */
->>>>>>> master
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
@@ -40733,146 +33782,8 @@ var StellarBase =
 	    (isObjectLike(value) && baseGetTag(value) == symbolTag);
 	}
 
-<<<<<<< HEAD
-	module.exports = overArg;
-
-
-/***/ }),
-/* 127 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var _index = __webpack_require__(1);
-
-	var _strkey = __webpack_require__(70);
-
-	var _operation = __webpack_require__(128);
-
-	var _network = __webpack_require__(65);
-
-	var _lodashMap = __webpack_require__(226);
-
-	var _lodashMap2 = _interopRequireDefault(_lodashMap);
-
-	var _lodashEach = __webpack_require__(302);
-
-	var _lodashEach2 = _interopRequireDefault(_lodashEach);
-
-	var MIN_LEDGER = 0;
-	var MAX_LEDGER = 0xFFFFFFFF; // max uint32
-
-	var Transaction = (function () {
-	    /**
-	    * A new Transaction object is created from a transaction envelope or via {@link TransactionBuilder}.
-	    * Once a Transaction has been created from an envelope, its attributes and operations
-	    * should not be changed. You should only add signers (using {@link Transaction#sign}) to a Transaction object before
-	    * submitting to the network or forwarding on to additional signers.
-	    * @constructor
-	    * @param {string|xdr.TransactionEnvelope} envelope - The transaction envelope object or base64 encoded string.
-	    */
-
-	    function Transaction(envelope) {
-	        _classCallCheck(this, Transaction);
-
-	        if (typeof envelope === "string") {
-	            var buffer = new Buffer(envelope, "base64");
-	            envelope = _index.xdr.TransactionEnvelope.fromXDR(buffer);
-	        }
-	        // since this transaction is immutable, save the tx
-	        this.tx = envelope.tx();
-	        this.source = (0, _strkey.encodeCheck)("accountId", envelope.tx().sourceAccount().ed25519());
-	        this.memo = this.tx.memo();
-	        this.salt = this.tx.salt().toString();
-	        var timeBounds = this.tx.timeBounds();
-	        this.timeBounds = {
-	            minTime: timeBounds.minTime().toString(),
-	            maxTime: timeBounds.maxTime().toString()
-	        };
-
-	        var operations = this.tx.operations() || [];
-	        this.operations = (0, _lodashMap2["default"])(operations, function (op) {
-	            return _operation.Operation.operationToObject(op);
-	        });
-
-	        var signatures = envelope.signatures() || [];
-	        this.signatures = (0, _lodashMap2["default"])(signatures, function (s) {
-	            return s;
-	        });
-	    }
-
-	    /**
-	     * Signs the transaction with the given {@link Keypair}.
-	     * @param {...Keypair} keypairs Keypairs of signers
-	     * @returns {void}
-	     */
-
-	    _createClass(Transaction, [{
-	        key: "sign",
-	        value: function sign() {
-	            var _this = this;
-
-	            var txHash = this.hash();
-
-	            for (var _len = arguments.length, keypairs = Array(_len), _key = 0; _key < _len; _key++) {
-	                keypairs[_key] = arguments[_key];
-	            }
-
-	            var newSigs = (0, _lodashEach2["default"])(keypairs, function (kp) {
-	                var sig = kp.signDecorated(txHash);
-	                _this.signatures.push(sig);
-	            });
-	        }
-
-	        /**
-	         * Returns a hash for this transaction, suitable for signing.
-	         * @returns {Buffer}
-	         */
-	    }, {
-	        key: "hash",
-	        value: function hash() {
-	            return (0, _index.hash)(this.signatureBase());
-	        }
-
-	        /**
-	         * Returns the "signature base" of this transaction, which is the value
-	         * that, when hashed, should be signed to create a signature that
-	         * validators on the Stellar Network will accept.
-	         *
-	         * It is composed of a 4 prefix bytes followed by the xdr-encoded form
-	         * of this transaction.
-	         * @returns {Buffer}
-	         */
-	    }, {
-	        key: "signatureBase",
-	        value: function signatureBase() {
-	            return Buffer.concat([_network.Network.current().networkId(), _index.xdr.EnvelopeType.tx().toXDR(), this.tx.toXDR()]);
-	        }
-
-	        /**
-	         * To envelope returns a xdr.TransactionEnvelope which can be submitted to the network.
-	         * @returns {xdr.TransactionEnvelope}
-	         */
-	    }, {
-	        key: "toEnvelope",
-	        value: function toEnvelope() {
-	            var tx = this.tx;
-	            var signatures = this.signatures;
-	            var envelope = new _index.xdr.TransactionEnvelope({ tx: tx, signatures: signatures });
-=======
 	module.exports = isSymbol;
 
->>>>>>> master
 
 /***/ }),
 /* 101 */
@@ -41156,16 +34067,9 @@ var StellarBase =
 	module.exports = baseIsArguments;
 
 
-<<<<<<< HEAD
-	var _operationsPayout_builder = __webpack_require__(225);
-
-	var Operation = (function (_BaseOperation) {
-	    _inherits(Operation, _BaseOperation);
-=======
 /***/ }),
 /* 109 */
 /***/ (function(module, exports, __webpack_require__) {
->>>>>>> master
 
 	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(88),
 	    stubFalse = __webpack_require__(110);
@@ -41176,32 +34080,8 @@ var StellarBase =
 	/** Detect free variable `module`. */
 	var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
 
-<<<<<<< HEAD
-	        /**
-	         * Create and fund a non existent account.
-	         * @param {object} opts
-	         * @param {string} opts.destination - Destination account ID to create an account for.
-	         * @param {string} opts.recoveryKey - AccountID of recovery signer.
-	         * @param {string} opts.accountType - Type of the account to be created.
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * * @param {string} opts.accountPolicies - The policies of the account.
-	         * @returns {xdr.CreateAccountOp}
-	         */
-	        value: function createAccount(opts) {
-	            if (!_keypair.Keypair.isValidPublicKey(opts.destination)) {
-	                throw new Error("destination is invalid");
-	            }
-	            if (!_keypair.Keypair.isValidPublicKey(opts.recoveryKey)) {
-	                throw new Error("recoveryKey is invalid");
-	            }
-	            var attributes = {};
-	            attributes.destination = _keypair.Keypair.fromAccountId(opts.destination).xdrAccountId();
-	            attributes.recoveryKey = _keypair.Keypair.fromAccountId(opts.recoveryKey).xdrAccountId();
-	            attributes.accountType = Operation._accountTypeFromNumber(opts.accountType);
-=======
 	/** Detect the popular CommonJS extension `module.exports`. */
 	var moduleExports = freeModule && freeModule.exports === freeExports;
->>>>>>> master
 
 	/** Built-in value references. */
 	var Buffer = moduleExports ? root.Buffer : undefined;
@@ -41230,38 +34110,7 @@ var StellarBase =
 
 	module.exports = isBuffer;
 
-<<<<<<< HEAD
-	        /**
-	         * Create a payment operation.
-	         * @param {object} opts
-	         * @param {string} opts.sourceBalanceId - The balance id of source.
-	         * @param {string} opts.destinationBalanceId - The destination balance ID.
-	         * @param {boolean} opts.feeFromSource - if true - fee charged from source account, if false - from destination
-	         * @param {string} opts.amount - The amount to send.
-	         * @param {string} opts.paymentFee - The payment fee.
-	         * @param {string} opts.fixedFee - The fixed fee.
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * @returns {xdr.PaymentOp}
-	         */
-	    }, {
-	        key: "payment",
-	        value: function payment(opts) {
-	            var attributes = {};
-	            if (!Operation.isValidAmount(opts.amount)) {
-	                throw new TypeError('amount argument must be of type String and represent a positive number');
-	            }
-	            if (!_keypair.Keypair.isValidBalanceKey(opts.sourceBalanceId)) {
-	                throw new TypeError('sourceBalanceId is invalid');
-	            }
-	            if (!_keypair.Keypair.isValidBalanceKey(opts.destinationBalanceId)) {
-	                throw new TypeError('destinationBalanceId is invalid');
-	            }
-	            if (!Operation.isValidSubject(opts.subject)) {
-	                throw new Error("subject argument must be of type String 0-256 long");
-	            }
-=======
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
->>>>>>> master
 
 /***/ }),
 /* 110 */
@@ -41297,29 +34146,6 @@ var StellarBase =
 	/** Used to detect unsigned integer values. */
 	var reIsUint = /^(?:0|[1-9]\d*)$/;
 
-<<<<<<< HEAD
-	        /**
-	         * Create a recovery op.
-	         * @param {object} opts
-	         * @param {string} opts.account - The target account to recover
-	         * @param {string} opts.oldSigner - Signer to recover.
-	         * @param {string} opts.newSigner - Signer to recover to.
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * @returns {xdr.RecoverOp}
-	         */
-	    }, {
-	        key: "recover",
-	        value: function recover(opts) {
-	            if (!_keypair.Keypair.isValidPublicKey(opts.account)) {
-	                throw new TypeError('account is invalid');
-	            }
-	            if (!_keypair.Keypair.isValidPublicKey(opts.oldSigner)) {
-	                throw new TypeError('oldSigner is invalid');
-	            }
-	            if (!_keypair.Keypair.isValidPublicKey(opts.newSigner)) {
-	                throw new TypeError('newSigner is invalid');
-	            }
-=======
 	/**
 	 * Checks if `value` is a valid array-like index.
 	 *
@@ -41331,7 +34157,6 @@ var StellarBase =
 	function isIndex(value, length) {
 	  var type = typeof value;
 	  length = length == null ? MAX_SAFE_INTEGER : length;
->>>>>>> master
 
 	  return !!length &&
 	    (type == 'number' ||
@@ -41342,29 +34167,9 @@ var StellarBase =
 	module.exports = isIndex;
 
 
-<<<<<<< HEAD
-	        /**
-	         * Set Fees to the ledger
-	         * @param {object} opts
-	         * @param {string} opts.destination - Destination account ID to create an account for.
-	         * @param {Object} [opts.fee] - Amount in XLM the account should be funded for.
-	         * @param {string} opts.fee.feeType - feeType
-	         * @param {string} opts.fee.feeAmount - fee amount
-	         * @param {bool} [opts.isDelete] - isDelete - true for remove fee
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * @returns {xdr.SetFeesOp}
-	         */
-	    }, {
-	        key: "setFees",
-	        value: function setFees(opts) {
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].SetFeesOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            };
-=======
 /***/ }),
 /* 112 */
 /***/ (function(module, exports, __webpack_require__) {
->>>>>>> master
 
 	var baseIsTypedArray = __webpack_require__(113),
 	    baseUnary = __webpack_require__(114),
@@ -41394,22 +34199,6 @@ var StellarBase =
 
 	module.exports = isTypedArray;
 
-<<<<<<< HEAD
-	        /**
-	         * Returns an XDR ManageAccountOp. A "manage account" operations block|ublocks account.
-	         * @param {object} opts
-	         * @param {string} opts.account - Account to be managed.
-	         * @param {boolean} [opts.block] - True to block account.
-	         * @returns {xdr.ManageAccountOp}
-	         */
-	    }, {
-	        key: "manageAccount",
-	        value: function manageAccount(opts) {
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].ManageAccountOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            };
-=======
->>>>>>> master
 
 /***/ }),
 /* 113 */
@@ -41474,23 +34263,7 @@ var StellarBase =
 	    isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
 	}
 
-<<<<<<< HEAD
-	        /**
-	         * Returns an XDR ManageBalanceOp. A "manage account" operations creates|deletes balance for account.
-	         * @param {object} opts
-	         * @param {string} opts.destination - Account to create account for.
-	         * @param {xdr.ManageBalanceAction} – Delete or create
-	         * @returns {xdr.ManageBalanceOp}
-	         */
-	    }, {
-	        key: "manageBalance",
-	        value: function manageBalance(opts) {
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].ManageBalanceOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            };
-=======
 	module.exports = baseIsTypedArray;
->>>>>>> master
 
 
 /***/ }),
@@ -41525,32 +34298,8 @@ var StellarBase =
 	/** Detect free variable `module`. */
 	var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
 
-<<<<<<< HEAD
-	        /**
-	         * Returns an XDR ManageAssetPairOp. A "manage asset pair" operations creates|updates asset pair.
-	         * @param {object} opts
-	         * @param {string} opts.base - base asset
-	         * @param {string} opts.quote - quote asset
-	         * @param {number|string} opts.policies - asset pair policies
-	         * @param {number|string} opts.physicalPriceCorrection - correction of physical price in percents. If physical price is set and restriction by physical price set, mininal price for offer for this pair will be physicalPrice * physicalPriceCorrection
-	         * @param {number|string} opts.maxPriceStep - max price step in percent. User is allowed to set offer with price < (1 - maxPriceStep)*currentPrice and > (1 + maxPriceStep)*currentPrice
-	         * @param {number|string} opts.physicalPrice - physical price
-	         * @param {xdr.ManageAssetPairAction} – Create or update
-	         * @returns {xdr.ManageBalanceOp}
-	         */
-	    }, {
-	        key: "manageAssetPair",
-	        value: function manageAssetPair(opts) {
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2["default"].ManageAssetPairOpExt(_generatedStellarXdr_generated2["default"].LedgerVersion.emptyVersion())
-	            };
-	            if (!Operation.isValidAsset(opts.base)) {
-	                throw new TypeError('base is invalid');
-	            }
-=======
 	/** Detect the popular CommonJS extension `module.exports`. */
 	var moduleExports = freeModule && freeModule.exports === freeExports;
->>>>>>> master
 
 	/** Detect free variable `process` from Node.js. */
 	var freeProcess = moduleExports && freeGlobal.process;
@@ -41617,20 +34366,6 @@ var StellarBase =
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
 
-<<<<<<< HEAD
-	        /**
-	         * Converts the XDR Operation object to the opts object used to create the XDR
-	         * operation.
-	         * @param {xdr.Operation} operation - An XDR Operation.
-	         * @return {Operation}
-	         */
-	    }, {
-	        key: "operationToObject",
-	        value: function operationToObject(operation) {
-	            function accountIdtoAddress(accountId) {
-	                return (0, _strkey.encodeCheck)("accountId", accountId.ed25519());
-	            }
-=======
 	/**
 	 * Checks if `value` is likely a prototype object.
 	 *
@@ -41641,7 +34376,6 @@ var StellarBase =
 	function isPrototype(value) {
 	  var Ctor = value && value.constructor,
 	      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
->>>>>>> master
 
 	  return value === proto;
 	}
@@ -41649,158 +34383,9 @@ var StellarBase =
 	module.exports = isPrototype;
 
 
-<<<<<<< HEAD
-	                    if (attrs.referrer()) {
-	                        result.referrer = accountIdtoAddress(attrs.referrer());
-	                    }
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.payment():
-	                    result.amount = Operation._fromXDRAmount(attrs.amount());
-	                    result.feeFromSource = attrs.feeFromSource;
-	                    result.sourceBalanceId = balanceIdtoString(attrs.sourceBalanceId());
-	                    result.destinationBalanceId = balanceIdtoString(attrs.destinationBalanceId());
-	                    result.subject = attrs.subject();
-	                    result.reference = attrs.reference();
-	                    result.feeData = {
-	                        sourceFee: {
-	                            paymentFee: Operation._fromXDRAmount(attrs.feeData().sourceFee().paymentFee()),
-	                            fixedFee: Operation._fromXDRAmount(attrs.feeData().sourceFee().fixedFee())
-	                        },
-	                        destinationFee: {
-	                            paymentFee: Operation._fromXDRAmount(attrs.feeData().destinationFee().paymentFee()),
-	                            fixedFee: Operation._fromXDRAmount(attrs.feeData().destinationFee().fixedFee())
-	                        },
-	                        sourcePaysForDest: attrs.feeData().sourcePaysForDest()
-	                    };
-	                    if (attrs.invoiceReference()) {
-	                        result.invoiceReference = {
-	                            invoiceId: attrs.invoiceReference().invoiceId().toString(),
-	                            accept: attrs.invoiceReference().accept()
-	                        };
-	                    }
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.directDebit():
-	                    var paymentOp = attrs.paymentOp();
-	                    result.amount = Operation._fromXDRAmount(paymentOp.amount());
-	                    result.feeFromSource = paymentOp.feeFromSource;
-	                    result.sourceBalanceId = balanceIdtoString(paymentOp.sourceBalanceId());
-	                    result.destinationBalanceId = balanceIdtoString(paymentOp.destinationBalanceId());
-	                    result.subject = paymentOp.subject();
-	                    result.reference = paymentOp.reference();
-	                    result.from = accountIdtoAddress(attrs.from());
-	                    result.feeData = {
-	                        sourceFee: {
-	                            paymentFee: Operation._fromXDRAmount(paymentOp.feeData().sourceFee().paymentFee()),
-	                            fixedFee: Operation._fromXDRAmount(paymentOp.feeData().sourceFee().fixedFee())
-	                        },
-	                        destinationFee: {
-	                            paymentFee: Operation._fromXDRAmount(paymentOp.feeData().destinationFee().paymentFee()),
-	                            fixedFee: Operation._fromXDRAmount(paymentOp.feeData().destinationFee().fixedFee())
-	                        },
-	                        sourcePaysForDest: paymentOp.feeData().sourcePaysForDest()
-	                    };
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.setOption():
-	                    _operationsSet_options_builder.SetOptionsBuilder.setOptionsToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.setFee():
-	                    if (!(0, _lodashIsUndefined2["default"])(attrs.fee())) {
-	                        result.fee = {};
-	                        result.fee.fixedFee = Operation._fromXDRAmount(attrs.fee().fixedFee());
-	                        result.fee.percentFee = Operation._fromXDRAmount(attrs.fee().percentFee());
-	                        result.fee.feeType = attrs.fee().feeType();
-	                        result.fee.asset = attrs.fee().asset();
-	                        result.fee.subtype = attrs.fee().subtype().toString();
-	                        result.fee.lowerBound = Operation._fromXDRAmount(attrs.fee().lowerBound());
-	                        result.fee.upperBound = Operation._fromXDRAmount(attrs.fee().upperBound());
-	                        if (attrs.fee().accountId()) {
-	                            result.fee.accountId = accountIdtoAddress(attrs.fee().accountId());
-	                        }
-	                        if (attrs.fee().accountType()) {
-	                            result.fee.accountType = attrs.fee().accountType();
-	                        }
-	                        result.fee.hash = attrs.fee().hash();
-	                    }
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageAccount():
-	                    result.account = accountIdtoAddress(attrs.account());
-	                    result.blockReasonsToAdd = attrs.blockReasonsToAdd();
-	                    result.blockReasonsToRemove = attrs.blockReasonsToRemove();
-	                    result.accountType = attrs.accountType().value;
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageBalance():
-	                    result.action = attrs.action();
-	                    result.destination = accountIdtoAddress(attrs.destination());
-	                    result.asset = attrs.asset();
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.reviewPaymentRequest():
-	                    result.accept = attrs.accept();
-	                    result.paymentId = attrs.paymentId().toString();
-	                    if (attrs.rejectReason()) {
-	                        result.rejectReason = attrs.rejectReason();
-	                    }
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageAsset():
-	                    _operationsManage_asset_builder.ManageAssetBuilder.manageAssetToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.createPreissuanceRequest():
-	                    _operationsPre_issuance_request_op_builder.PreIssuanceRequestOpBuilder.preIssuanceRequestOpToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.setLimit():
-	                    if (attrs.account()) {
-	                        result.account = accountIdtoAddress(attrs.account());
-	                    }
-	                    if (attrs.accountType()) {
-	                        result.accountType = attrs.accountType().value;
-	                    }
-	                    result.limits = {};
-	                    result.limits.dailyOut = Operation._fromXDRAmount(attrs.limits().dailyOut());
-	                    result.limits.weeklyOut = Operation._fromXDRAmount(attrs.limits().weeklyOut());
-	                    result.limits.monthlyOut = Operation._fromXDRAmount(attrs.limits().monthlyOut());
-	                    result.limits.annualOut = Operation._fromXDRAmount(attrs.limits().annualOut());
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageOffer():
-	                    _operationsManage_offer_builder.ManageOfferBuilder.manageOfferOpToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageInvoice():
-	                    result.amount = Operation._fromXDRAmount(attrs.amount());
-	                    result.sender = accountIdtoAddress(attrs.sender());
-	                    result.receiverBalance = balanceIdtoString(attrs.receiverBalance());
-	                    result.invoiceId = attrs.invoiceId().toString();
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.manageAssetPair():
-	                    result.action = attrs.action();
-	                    result.base = attrs.base();
-	                    result.quote = attrs.quote();
-	                    result.policies = attrs.policies();
-	                    result.physicalPriceCorrection = Operation._fromXDRAmount(attrs.physicalPriceCorrection());
-	                    result.maxPriceStep = Operation._fromXDRAmount(attrs.maxPriceStep());
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.reviewRequest():
-	                    _operationsReview_request_builder.ReviewRequestBuilder.reviewRequestToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.createIssuanceRequest():
-	                    _operationsCreate_issuance_request_builder.CreateIssuanceRequestBuilder.createIssuanceRequestOpToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.createWithdrawalRequest():
-	                    _operationsCreate_withdraw_request_builder.CreateWithdrawRequestBuilder.createWithdrawalRequestOpToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.createSaleRequest():
-	                    _operationsSale_request_builder.SaleRequestBuilder.crateSaleCreationRequestToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.checkSaleState():
-	                    _operationsSale_request_builder.SaleRequestBuilder.checkSaleStateToObject(result, attrs);
-	                    break;
-	                case _generatedStellarXdr_generated2["default"].OperationType.payout():
-	                    _operationsPayout_builder.PayoutOpBuilder.payoutOpToObject(result, attrs);
-	                    break;
-	                default:
-	                    throw new Error("Unknown operation");
-=======
 /***/ }),
 /* 118 */
 /***/ (function(module, exports, __webpack_require__) {
->>>>>>> master
 
 	var overArg = __webpack_require__(119);
 
@@ -46659,18 +39244,8 @@ var StellarBase =
 /* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-	/**
-	 * Calculates and returns the best rational approximation of the given real number.
-	 * @private
-	 * @param {string|number|BigNumber} number
-	 * @throws Error Throws `Error` when the best rational approximation cannot be found.
-	 * @returns {array} first element is n (numerator), second element is d (denominator)
-	 */
-=======
 	/* WEBPACK VAR INJECTION */(function(Buffer) {
 	module.exports = ripemd160
->>>>>>> master
 
 
 
@@ -51645,11 +44220,11 @@ var StellarBase =
 
 	var _network = __webpack_require__(44);
 
-	var _lodashMap = __webpack_require__(228);
+	var _lodashMap = __webpack_require__(229);
 
 	var _lodashMap2 = _interopRequireDefault(_lodashMap);
 
-	var _lodashEach = __webpack_require__(304);
+	var _lodashEach = __webpack_require__(305);
 
 	var _lodashEach2 = _interopRequireDefault(_lodashEach);
 
@@ -51857,27 +44432,29 @@ var StellarBase =
 
 	var _operationsSet_options_builder = __webpack_require__(220);
 
-	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(221);
+	var _operationsPayout_builder = __webpack_require__(221);
+
+	var _operationsManage_external_system_account_id_pool_entry_builder = __webpack_require__(222);
 
 	var _operationsBind_external_system_account_id_builder = __webpack_require__(41);
 
-	var _operationsCreate_aml_request_builder = __webpack_require__(222);
+	var _operationsCreate_aml_request_builder = __webpack_require__(223);
 
-	var _operationsCreate_update_kyc_request_builder = __webpack_require__(223);
+	var _operationsCreate_update_kyc_request_builder = __webpack_require__(224);
 
 	var _operationsPayment_v2_builder = __webpack_require__(212);
 
-	var _operationsManage_sale = __webpack_require__(224);
+	var _operationsManage_sale = __webpack_require__(225);
 
 	var _operationsManage_limits_builder = __webpack_require__(205);
 
 	var _operationsCreate_manage_limits_request_builder = __webpack_require__(206);
 
-	var _operationsManage_invoice_request_builder = __webpack_require__(225);
+	var _operationsManage_invoice_request_builder = __webpack_require__(226);
 
-	var _operationsManage_contract_request_builder = __webpack_require__(226);
+	var _operationsManage_contract_request_builder = __webpack_require__(227);
 
-	var _operationsManage_contract_builder = __webpack_require__(227);
+	var _operationsManage_contract_builder = __webpack_require__(228);
 
 	var Operation = (function (_BaseOperation) {
 	    _inherits(Operation, _BaseOperation);
@@ -52472,6 +45049,9 @@ var StellarBase =
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].OperationType.checkSaleState():
 	                    _operationsSale_request_builder.SaleRequestBuilder.checkSaleStateToObject(result, attrs);
+	                    break;
+	                case _generatedStellarXdr_generated2["default"].OperationType.payout():
+	                    _operationsPayout_builder.PayoutOpBuilder.payoutOpToObject(result, attrs);
 	                    break;
 	                case _generatedStellarXdr_generated2["default"].OperationType.manageExternalSystemAccountIdPoolEntry():
 	                    _operationsManage_external_system_account_id_pool_entry_builder.ManageExternalSystemAccountIdPoolEntryBuilder.manageExternalSystemAccountIdPoolEntryToObject(result, attrs);
@@ -53879,18 +46459,6 @@ var StellarBase =
 	        _classCallCheck(this, CreateWithdrawRequestBuilder);
 	    }
 
-<<<<<<< HEAD
-	        /**
-	         * Returns value converted to uint32 value or undefined.
-	         * If `value` is not `Number`, `String` or `Undefined` then throws an error.
-	         * Used in {@link Operation.setOptions}.
-	         * @private
-	         * @param {string} name Name of the property (used in error message only)
-	         * @param {*} value Value to check
-	         * @param {function(value, name)} isValidFunction Function to check other constraints (the argument will be a `Number`)
-	         * @returns {undefined|Number}
-	         * @private
-=======
 	    _createClass(CreateWithdrawRequestBuilder, null, [{
 	        key: 'createWithdrawWithAutoConversion',
 
@@ -53907,7 +46475,6 @@ var StellarBase =
 	         * @param {string} opts.expectedDestAssetAmount - Expected dest asset amount
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         * @returns {xdr.CreateWithdrawalRequestOp}
->>>>>>> master
 	         */
 	        value: function createWithdrawWithAutoConversion(opts) {
 	            var attrs = {};
@@ -53929,78 +46496,10 @@ var StellarBase =
 	                throw new Error("opts.fee is invalid");
 	            }
 
-<<<<<<< HEAD
-	            throw new Error(name + " value is invalid");
-	        }
-	    }, {
-	        key: "calcPercentFee",
-	        value: function calcPercentFee(amountValue, percentValue) {
-	            var amount = new _bignumberJs2["default"](amountValue);
-	            var rate = new _bignumberJs2["default"](percentValue).div(100);
-	            return amount.times(rate).toString();
-	        }
-
-	        /**
-	         * @private
-	         */
-	    }, {
-	        key: "_toXDRAmount",
-	        value: function _toXDRAmount(value) {
-	            var amount = new _bignumberJs2["default"](value).mul(ONE);
-	            return _jsXdr.Hyper.fromString(amount.toString());
-	        }
-
-	        /**
-	         * @private
-	         */
-	    }, {
-	        key: "_toUnsignedXDRAmount",
-	        value: function _toUnsignedXDRAmount(value) {
-	            var amount = new _bignumberJs2["default"](value).mul(ONE);
-	            return _jsXdr.UnsignedHyper.fromString(amount.toString());
-	        }
-
-	        /**
-	         * @private
-	         */
-	    }, {
-	        key: "_fromXDRAmount",
-	        value: function _fromXDRAmount(value) {
-	            return new _bignumberJs2["default"](value).div(ONE).toString();
-	        }
-
-	        /**
-	         * @private
-	         */
-	    }, {
-	        key: "_fromXDRPrice",
-	        value: function _fromXDRPrice(price) {
-	            var n = new _bignumberJs2["default"](price.n());
-	            return n.div(new _bignumberJs2["default"](price.d())).toString();
-	        }
-
-	        /**
-	         * @private
-	         */
-	    }, {
-	        key: "_toXDRPrice",
-	        value: function _toXDRPrice(price) {
-	            var xdrObject = undefined;
-	            if (price.n && price.d) {
-	                xdrObject = new _generatedStellarXdr_generated2["default"].Price(price);
-	            } else {
-	                price = new _bignumberJs2["default"](price);
-	                var approx = (0, _utilContinued_fraction.best_r)(price);
-	                xdrObject = new _generatedStellarXdr_generated2["default"].Price({
-	                    n: parseInt(approx[0]),
-	                    d: parseInt(approx[1])
-	                });
-=======
 	            attrs.fee = _base_operation.BaseOperation.feeToXdr(opts.fee);
 
 	            if ((0, _lodashIsUndefined2['default'])(opts.externalDetails)) {
 	                throw new Error("externalDetails is invalid");
->>>>>>> master
 	            }
 
 	            attrs.externalDetails = JSON.stringify(opts.externalDetails);
@@ -54033,15 +46532,6 @@ var StellarBase =
 	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
 	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
 	        }
-<<<<<<< HEAD
-
-	        /**
-	         * This operation set SourceAccount
-	         * @param {object} [opts]
-	         * @returns undefined
-	         */
-=======
->>>>>>> master
 	    }, {
 	        key: 'createWithdrawalRequestOpToObject',
 	        value: function createWithdrawalRequestOpToObject(result, attrs) {
@@ -54105,31 +46595,6 @@ var StellarBase =
 	        key: 'createSaleCreationRequest',
 
 	        /**
-<<<<<<< HEAD
-	         * Creates operation to create asset creation request
-	         * @param {object} opts
-	         *
-	         * @param {string} opts.requestID - request ID, if 0 - creates new, updates otherwise
-	         * @param {string} opts.code - Asset code
-	         * @param {string} opts.preissuedAssetSigner - AccountID of keypair which will sign request for asset to be authrorized to be issued
-	         * @param {string} opts.maxIssuanceAmount - Max amount can be issued of that asset
-	         * @param {number} opts.policies - Asset policies
-	         * @param {string} opts.initialPreissuedAmount - Amount of pre issued tokens available after creation of the asset
-	         *
-	         * @param {object} opts.details - Additional details about asset
-	         * @param {string} opts.details.name - Name of the asset
-	         * @param {array}  opts.details.documents - Documents attached to asset
-	         * @param {string} opts.details.logo - Asset picture
-	         * @param {string} opts.details.logo.key - Key to compose asset picture url
-	         * @param {string} opts.details.logo.type - Content type of asset logo
-	         * @param {string} opts.details.terms - Asset terms
-	         * @param {string} opts.details.terms.type - Content type of terms document
-	         * @param {string} opts.details.terms.name - Name of terms document
-	         *
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         *
-	         * @returns {xdr.ManageAssetOp}
-=======
 	         * Creates operation to create sale request
 	         * @param {object} opts
 	         * @param {string} opts.requestID - ID of the request. 0 - to create new;
@@ -54152,7 +46617,6 @@ var StellarBase =
 	         * @param {SaleState} opts.saleState - specifies the initial state of the sale
 	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
 	         * @returns {xdr.CreateSaleCreationRequestOp}
->>>>>>> master
 	         */
 	        value: function createSaleCreationRequest(opts) {
 	            var request = this.validateSaleCreationRequest(opts);
@@ -54234,37 +46698,7 @@ var StellarBase =
 	                attrs.saleType = opts.saleType;
 	            }
 
-<<<<<<< HEAD
-	        /**
-	         * Creates operation to create asset update request
-	         * @param {object} opts
-	         *
-	         * @param {string} opts.requestID - request ID, if 0 - creates new, updates otherwise
-	         * @param {string} opts.code - Asset code
-	         * @param {number} opts.policies - asset policies
-	         *
-	         * @param {object} opts.details - Additional details about asset
-	         * @param {string} opts.details.name - Name of the asset
-	         * @param {string} opts.details.logo - Asset picture
-	         * @param {string} opts.details.logo.key - Key to compose asset picture url
-	         * @param {string} opts.details.logo.type - Content type of asset logo
-	         * @param {string} opts.details.terms - Asset terms
-	         * @param {string} opts.details.terms.type - Content type of terms document
-	         * @param {string} opts.details.terms.name - Name of terms document
-	         *
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         *
-	         * @returns {xdr.ManageAssetOp}
-	         */
-	    }, {
-	        key: 'assetUpdateRequest',
-	        value: function assetUpdateRequest(opts) {
-	            var attrs = ManageAssetBuilder._createUpdateAttrs(opts);
-	            attrs.ext = new _generatedStellarXdr_generated2['default'].AssetUpdateRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion());
-	            var assetUpdateRequest = new _generatedStellarXdr_generated2['default'].AssetUpdateRequest(attrs);
-=======
 	            var hasBaseAssetForHardCap = !(0, _lodashIsUndefined2['default'])(opts.baseAssetForHardCap);
->>>>>>> master
 
 	            var saleTypeExt;
 	            var saleTypeExtTypedSale;
@@ -54304,22 +46738,6 @@ var StellarBase =
 	                    }
 	            }
 
-<<<<<<< HEAD
-	        /**
-	         * Creates operation to cancel asset creation/update request
-	         * @param {object} opts
-	         * @param {string} opts.requestID - request ID
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * @returns {xdr.ManageAssetOp}
-	         */
-	    }, {
-	        key: 'cancelAssetRequest',
-	        value: function cancelAssetRequest(opts) {
-	            var attrs = {
-	                ext: new _generatedStellarXdr_generated2['default'].CancelAssetRequestExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
-	            };
-	            var cancelAssetRequest = new _generatedStellarXdr_generated2['default'].CancelAssetRequest(attrs);
-=======
 	            if (hasBaseAssetForHardCap && (0, _lodashIsUndefined2['default'])(opts.saleState) && attrs.saleType !== _generatedStellarXdr_generated2['default'].SaleType.fixedPrice().value) {
 	                var extV2 = new _generatedStellarXdr_generated2['default'].SaleCreationRequestExtV2({
 	                    saleTypeExt: saleTypeExt,
@@ -54338,7 +46756,6 @@ var StellarBase =
 	            } else if (attrs.saleType === _generatedStellarXdr_generated2['default'].SaleType.fixedPrice().value && (!hasBaseAssetForHardCap || (0, _lodashIsUndefined2['default'])(opts.saleState))) {
 	                throw new Error("opts.saleType is FixedPrice, but no baseAssetForHardCap and/or saleState not provided");
 	            }
->>>>>>> master
 
 	            var request = new _generatedStellarXdr_generated2['default'].SaleCreationRequest(attrs);
 
@@ -54514,17 +46931,6 @@ var StellarBase =
 	        key: 'manageOffer',
 
 	        /**
-<<<<<<< HEAD
-	         * Creates operation to review reviewable request
-	         * @param {object} opts
-	         * @param {string} opts.requestID - request ID
-	         * @param {string} opts.requestHash - Hash of the request to be reviewed
-	         * @param {number} opts.requestType - Type of the request to be reviewed (xdr.ReviewableRequestType)
-	         * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
-	         * @param {string} opts.reason - Reject reason
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * @returns {xdr.ReviewRequestOp}
-=======
 	         * Returns an XDR ManageOffer. A "manage offer" operations creates offer.
 	         * @param {object} opts
 	         * @param {string} opts.baseBalance
@@ -54534,7 +46940,6 @@ var StellarBase =
 	         * @param {number|string} opts.price - Price of the offer
 	         * @param {number|string} opts.orderBookID - 0 - for secondary market, otherwise to participate in sale
 	         * @returns {xdr.ManageBalanceOp}
->>>>>>> master
 	         */
 	        value: function manageOffer(opts) {
 	            var attributes = {
@@ -54572,27 +46977,8 @@ var StellarBase =
 	                opts.offerID = "0";
 	            }
 
-<<<<<<< HEAD
-	        /**
-	         * Creates operation to review withdraw request
-	         * @param {object} opts
-	         * @param {string} opts.requestID - request ID
-	         * @param {string} opts.requestHash - Hash of the request to be reviewed
-	         * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
-	         * @param {string} opts.reason - Reject reason
-	         * @param {string} opts.externalDetails - External System details
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * @returns {xdr.ReviewRequestOp}
-	         */
-	    }, {
-	        key: 'reviewWithdrawRequest',
-	        value: function reviewWithdrawRequest(opts) {
-	            if ((0, _lodashIsUndefined2['default'])(opts.externalDetails)) {
-	                throw new Error("opts.externalDetails is invalid");
-=======
 	            if ((0, _lodashIsUndefined2['default'])(opts.orderBookID)) {
 	                opts.orderBookID = "0";
->>>>>>> master
 	            }
 
 	            attributes.offerId = _jsXdr.UnsignedHyper.fromString(opts.offerID);
@@ -54610,17 +46996,6 @@ var StellarBase =
 	        }
 
 	        /**
-<<<<<<< HEAD
-	         * Creates operation to review two step withdraw request
-	         * @param {object} opts
-	         * @param {string} opts.requestID - request ID
-	         * @param {string} opts.requestHash - Hash of the request to be reviewed
-	         * @param {number} opts.action - action to be performed over request (xdr.ReviewRequestOpAction)
-	         * @param {string} opts.reason - Reject reason
-	         * @param {string} opts.externalDetails - External System details
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * @returns {xdr.ReviewRequestOp}
-=======
 	         * Returns an XDR ManageOffer. A "manage offer" operations deletes offer.
 	         * @param {object} opts
 	         * @param {string} opts.baseBalance
@@ -54629,7 +47004,6 @@ var StellarBase =
 	         * @param {number|string} opts.offerID - offer id
 	         * @param {number|string} opts.orderBookID - 0 - for secondary market, otherwise to participate in sale
 	         * @returns {xdr.ManageBalanceOp}
->>>>>>> master
 	         */
 	    }, {
 	        key: 'cancelOffer',
@@ -54700,11 +47074,6 @@ var StellarBase =
 	        key: "putKeyValue",
 
 	        /**
-<<<<<<< HEAD
-	         * Creates and returns a `xdr.Hash`.
-	         * @param {array|string} hash - 32 byte hash or hex encoded string
-	         * @returns {xdr.Hash}
-=======
 	         * Creates put key value operation
 	         * @param {object} opts
 	         *
@@ -54714,7 +47083,6 @@ var StellarBase =
 	         * @param {string} [opts.source] - The source account for the creation. Defaults to the transaction's source account.
 	         *
 	         * @returns {xdr.ManageKeyValueOp}
->>>>>>> master
 	         */
 	        value: function putKeyValue(opts) {
 	            var attributes = {};
@@ -54742,11 +47110,6 @@ var StellarBase =
 	        }
 
 	        /**
-<<<<<<< HEAD
-	         * Creates and returns a `MEMO_RETURN` memo.
-	         * @param {array|string} hash - 32 byte hash or hex encoded string
-	         * @returns {xdr.Memo}
-=======
 	         * Creates delete key value operation
 	         * @param {object} opts
 	         *
@@ -54755,7 +47118,6 @@ var StellarBase =
 	         * @param {string} [opts.source] - The source account for the creation. Defaults to the transaction's source account.
 	         *
 	         * @returns {xdr.ManageKeyValueOp}
->>>>>>> master
 	         */
 	    }, {
 	        key: "deleteKeyValue",
@@ -54859,13 +47221,6 @@ var StellarBase =
 	        key: 'setOptions',
 
 	        /**
-<<<<<<< HEAD
-	         * Creates operation to review reviewable request
-	         * @param {object} opts
-	         * @param {xdr.PreIssuanceRequest} opts.request - signed pre issuance request
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * @returns {xdr.ManageAssetOp}
-=======
 	         * Returns an XDR SetOptionsOp. A "set options" operations set or clear account flags,
 	         * set the account's inflation destination, and/or add new signers to the account.
 	         * The flags used in `opts.clearFlags` and `opts.setFlags` can be the following:
@@ -54891,7 +47246,6 @@ var StellarBase =
 	         * @param {string} [opts.source] - The source account (defaults to transaction source).
 	         * @returns {xdr.SetOptionsOp}
 	         * @see [Account flags](https://www.stellar.org/developers/guides/concepts/accounts.html#flags)
->>>>>>> master
 	         */
 	        value: function setOptions(opts) {
 	            var attributes = {
@@ -55059,6 +47413,125 @@ var StellarBase =
 
 	var _jsXdr = __webpack_require__(3);
 
+	var PayoutOpBuilder = (function () {
+	    function PayoutOpBuilder() {
+	        _classCallCheck(this, PayoutOpBuilder);
+	    }
+
+	    _createClass(PayoutOpBuilder, null, [{
+	        key: 'payoutOp',
+
+	        /**
+	         * Create a payout operation.
+	         * @param {object} opts
+	         * @param {string} opts.asset - Asset, whose holders will receive dividends
+	         * @param {string} opts.sourceBalanceId - Id of balance from
+	         * which payout will be performed
+	         * @param {string} opts.maxPayoutAmount -
+	         *                  The maximum amount of payout for all balances
+	         * @param {string} opts.minPayoutAmount -
+	         *                  The minimum amount of payout to each balance
+	         * @param {string} opts.minAssetHolderAmount -
+	         *                  The minimum amount of tokens on holders balances
+	         * @param {object} opts.fee - fee to be charged
+	         * @param {string} opts.fee.fixed - The fixed fee
+	         * @param {string} opts.fee.percent - The calculated payout fee
+	         * @param {string} [opts.source] - The source account for the payout.
+	         * @returns {xdr.PayoutOp}
+	         */
+	        value: function payoutOp(opts) {
+	            var attributes = {
+	                ext: new _generatedStellarXdr_generated2['default'].PayoutOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
+	            };
+
+	            if (!_base_operation.BaseOperation.isValidAsset(opts.asset)) {
+	                throw new TypeError('opts.asset is invalid');
+	            }
+
+	            if (!_keypair.Keypair.isValidBalanceKey(opts.sourceBalanceId)) {
+	                throw new TypeError('opts.sourceBalanceId is invalid');
+	            }
+
+	            if (!_base_operation.BaseOperation.isValidAmount(opts.maxPayoutAmount)) {
+	                throw new TypeError('opts.maxPayoutAmount is invalid');
+	            }
+
+	            if (!_base_operation.BaseOperation.isValidAmount(opts.minPayoutAmount)) {
+	                throw new TypeError('opts.minPayoutAmount is invalid');
+	            }
+
+	            if (!_base_operation.BaseOperation.isValidAmount(opts.minAssetHolderAmount)) {
+	                throw new TypeError('opts.minAssetHolderAmount is invalid');
+	            }
+
+	            if (!_base_operation.BaseOperation.isFeeValid(opts.fee)) {
+	                throw new TypeError('opts.fee is invalid');
+	            }
+
+	            attributes.asset = opts.asset;
+	            attributes.sourceBalanceId = _keypair.Keypair.fromBalanceId(opts.sourceBalanceId).xdrBalanceId();
+	            attributes.maxPayoutAmount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.maxPayoutAmount);
+	            attributes.minPayoutAmount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.minPayoutAmount);
+	            attributes.minAssetHolderAmount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.minAssetHolderAmount);
+	            attributes.fee = _base_operation.BaseOperation.feeToXdr(opts.fee);
+
+	            var payout = new _generatedStellarXdr_generated2['default'].PayoutOp(attributes);
+
+	            var opAttributes = {};
+	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.payout(payout);
+	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
+	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
+	        }
+	    }, {
+	        key: 'payoutOpToObject',
+	        value: function payoutOpToObject(result, attrs) {
+	            result.asset = attrs.asset();
+	            result.sourceBalanceId = _base_operation.BaseOperation.balanceIdtoString(attrs.sourceBalanceId());
+	            result.maxPayoutAmount = _base_operation.BaseOperation._fromXDRAmount(attrs.maxPayoutAmount());
+	            result.minAssetHolderAmount = _base_operation.BaseOperation._fromXDRAmount(attrs.minAssetHolderAmount());
+	            result.minPayoutAmount = _base_operation.BaseOperation._fromXDRAmount(attrs.minPayoutAmount());
+	            result.fee = {
+	                fixed: _base_operation.BaseOperation._fromXDRAmount(attrs.fee().fixed()),
+	                percent: _base_operation.BaseOperation._fromXDRAmount(attrs.fee().percent())
+	            };
+	        }
+	    }]);
+
+	    return PayoutOpBuilder;
+	})();
+
+	exports.PayoutOpBuilder = PayoutOpBuilder;
+
+/***/ }),
+/* 222 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _generatedStellarXdr_generated = __webpack_require__(2);
+
+	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
+
+	var _lodashIsUndefined = __webpack_require__(61);
+
+	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
+
+	var _base_operation = __webpack_require__(42);
+
+	var _keypair = __webpack_require__(43);
+
+	var _jsXdr = __webpack_require__(3);
+
 	var ManageExternalSystemAccountIdPoolEntryBuilder = (function () {
 	    function ManageExternalSystemAccountIdPoolEntryBuilder() {
 	        _classCallCheck(this, ManageExternalSystemAccountIdPoolEntryBuilder);
@@ -55068,15 +47541,6 @@ var StellarBase =
 	        key: 'createExternalSystemAccountIdPoolEntry',
 
 	        /**
-<<<<<<< HEAD
-	         * Creates pre issuance request
-	         * @param {object} opts
-	         * @param {string} opts.amount - amount to be preissued
-	         * @param {string} opts.reference - reference of the request
-	         * @param {string} opts.asset - asset to be pre issued
-	         * @param {KeyPair} opts.keyPair - signer of the pre issued asset request
-	         * @returns {xdr.PreIssuanceRequest}
-=======
 	         * Creates operation for new pool entry creation
 	         * @param {object} opts
 	         *
@@ -55088,7 +47552,6 @@ var StellarBase =
 	         * @param {string} [opts.source] - The source account for the creation. Defaults to the transaction's source account.
 	         *
 	         * @returns {xdr.ManageExternalSystemAccountIdPoolEntryOp}
->>>>>>> master
 	         */
 	        value: function createExternalSystemAccountIdPoolEntry(opts) {
 	            var attrs = {};
@@ -55190,7 +47653,7 @@ var StellarBase =
 	exports.ManageExternalSystemAccountIdPoolEntryBuilder = ManageExternalSystemAccountIdPoolEntryBuilder;
 
 /***/ }),
-/* 222 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55228,17 +47691,6 @@ var StellarBase =
 	        key: 'createAMLAlert',
 
 	        /**
-<<<<<<< HEAD
-	         * Creates operation to create issuance request
-	         * @param {object} opts
-	         * @param {string} opts.asset - asset to be issued
-	         * @param {string} opts.amount - amount to be issued
-	         * @param {string} opts.receiver - balance ID of the receiver
-	         * @param {string} opts.reference - Reference of the request
-	         * @param {object} opts.externalDetails - External details needed for PSIM to process withdraw operation
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * @returns {xdr.CreateIssuanceRequestOp}
-=======
 	         * Creates operation to create aml alert
 	         * @param {object} opts
 	         *
@@ -55249,7 +47701,6 @@ var StellarBase =
 	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
 	         *
 	         * @returns {xdr.CreateAMLAlertRequestOp}
->>>>>>> master
 	         */
 	        value: function createAMLAlert(opts) {
 	            var rawRequest = {};
@@ -55297,7 +47748,7 @@ var StellarBase =
 	exports.CreateAMLRequestBuilder = CreateAMLRequestBuilder;
 
 /***/ }),
-/* 223 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55335,20 +47786,6 @@ var StellarBase =
 	        key: 'createUpdateKYCRequest',
 
 	        /**
-<<<<<<< HEAD
-	         * Creates operation to create withdraw request with autoconversion
-	         * @param {object} opts
-	         * @param {string} opts.balance - Balance ID from which withdraw will be perfromed
-	         * @param {string} opts.amount - amount to be withdrawn
-	         * @param {object} opts.fee - fee to be charged
-	         * @param {string} opts.fee.fixed - fixed fee to be charged
-	         * @param {string} opts.fee.percent - percent fee to be charged
-	         * @param {object} opts.externalDetails - External details needed for PSIM to process withdraw operation
-	         * @param {string} opts.destAsset - Asset in which specifed amount will be autoconverted
-	         * @param {string} opts.expectedDestAssetAmount - Expected dest asset amount
-	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
-	         * @returns {xdr.CreateWithdrawalRequestOp}
-=======
 	         * Creates operation to create KYC request
 	         * @param {object} opts
 	         * @param {number|string} opts.requestID - set to zero to create new request
@@ -55359,7 +47796,6 @@ var StellarBase =
 	         * @param {number|string} opts.allTasks
 	         * @param {string} [opts.source] - The source account for the payment. Defaults to the transaction's source account.
 	         * @returns {xdr.CreateUpdateKycRequestOp}
->>>>>>> master
 	         */
 	        value: function createUpdateKYCRequest(opts) {
 	            var attrs = {};
@@ -55409,7 +47845,7 @@ var StellarBase =
 	exports.CreateUpdateKYCRequestBuilder = CreateUpdateKYCRequestBuilder;
 
 /***/ }),
-/* 224 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55447,27 +47883,6 @@ var StellarBase =
 	        key: 'createUpdateSaleDetailsRequest',
 
 	        /**
-<<<<<<< HEAD
-	         * Creates operation to create withdraw request with autoconversion
-	         * @param {object} opts
-	         * @param {string} opts.requestID - ID of the request. 0 - to create new;
-	         * @param {string} opts.baseAsset - asset for which sale will be performed
-	         * @param {string} opts.defaultQuoteAsset - asset in which hardcap/soft cap will be calculated
-	         * @param {string} opts.startTime - start time of the sale
-	         * @param {string} opts.endTime - close time of the sale
-	         * @param {string} opts.softCap - minimum amount of quote asset to be received at which sale will be considered a successful
-	         * @param {string} opts.hardCap - max amount of quote asset to be received
-	         * @param {object} opts.details - sale specific details
-	         * @param {object} opts.details.name - name of the sale
-	         * @param {object} opts.details.short_description - short description of the sale
-	         * @param {object} opts.details.desciption - sale specific details
-	         * @param {object} opts.details.logo - details of the logo
-	         * @param {array} opts.quoteAssets - accepted assets
-	         * @param {object} opts.quoteAssets.price - price for 1 baseAsset in terms of quote asset 
-	         * @param {object} opts.quoteAssets.asset - asset code of the quote asset
-	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
-	         * @returns {xdr.CreateSaleCreationRequestOp}
-=======
 	         * Creates request to update manage sale details
 	         * @param {object} opts
 	         * @param {number|string} opts.requestID - set to zero to create new request
@@ -55479,7 +47894,6 @@ var StellarBase =
 	         * @param {object} opts.newDetails.logo - details of the logo
 	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageSaleOp}
->>>>>>> master
 	         */
 	        value: function createUpdateSaleDetailsRequest(opts) {
 	            if ((0, _lodashIsUndefined2['default'])(opts.requestID)) {
@@ -55631,20 +48045,12 @@ var StellarBase =
 	        }
 
 	        /**
-<<<<<<< HEAD
-	         * Creates operation to check sale state
-	         * @param {object} opts
-	         * @param {string} saleID - id of the sale to check
-	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
-	         * @returns {xdr.CheckSaleStateOp}
-=======
 	         * Sets sale state (only allowed for admins)
 	         * @param {object} opts
 	         * @param {string} opts.saleID - ID of the sale to cancel
 	         * @param {string} opts.saleState - state to set
 	         * @param {string} [opts.source] - The source account for the operation. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageSaleOp}
->>>>>>> master
 	         */
 	    }, {
 	        key: 'setSaleState',
@@ -55736,7 +48142,7 @@ var StellarBase =
 	exports.ManageSaleBuilder = ManageSaleBuilder;
 
 /***/ }),
-/* 225 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55774,17 +48180,6 @@ var StellarBase =
 	        key: 'createInvoiceRequest',
 
 	        /**
-<<<<<<< HEAD
-	         * Returns an XDR ManageOffer. A "manage offer" operations creates offer.
-	         * @param {object} opts
-	         * @param {string} opts.baseBalance
-	         * @param {string} opts.quoteBalance
-	         * @param {boolean} opts.isBuy - if true - buys base asset, false - sells base asset
-	         * @param {number|string} opts.amount - Amount of the base asset
-	         * @param {number|string} opts.price - Price of the offer
-	         * @param {number|string} opts.orderBookID - 0 - for secondary market, otherwise to participate in sale
-	         * @returns {xdr.ManageBalanceOp}
-=======
 	         * Create invoice request
 	         * @param {object} opts
 	         * @param {string} opts.sender - payer account
@@ -55794,7 +48189,6 @@ var StellarBase =
 	         * @param {string} [opts.contractID] - contract to which invoice will be attached
 	         * @param {string} [opts.source] - The source account for the invoice request. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageInvoiceRequestOp}
->>>>>>> master
 	         */
 	        value: function createInvoiceRequest(opts) {
 	            var invoiceRequestAttr = {
@@ -55885,7 +48279,7 @@ var StellarBase =
 	exports.ManageInvoiceRequestBuilder = ManageInvoiceRequestBuilder;
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55964,22 +48358,11 @@ var StellarBase =
 	        }
 
 	        /**
-<<<<<<< HEAD
-	         * Returns an XDR ManageOffer. A "manage offer" operations deletes offer.
-	         * @param {object} opts
-	         * @param {string} opts.baseBalance
-	         * @param {string} opts.quoteBalance
-	         * @param {string} opts.price
-	         * @param {number|string} opts.offerID - offer id
-	         * @param {number|string} opts.orderBookID - 0 - for secondary market, otherwise to participate in sale
-	         * @returns {xdr.ManageBalanceOp}
-=======
 	         * Remove contract request
 	         * @param {object} opts
 	         * @param {string} opts.requestId - contract request id to remove
 	         * @param {string} [opts.source] - The source account for the contract request. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageContractRequestOp}
->>>>>>> master
 	         */
 	    }, {
 	        key: 'removeContractRequest',
@@ -56032,7 +48415,7 @@ var StellarBase =
 	exports.ManageContractRequestBuilder = ManageContractRequestBuilder;
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56070,40 +48453,12 @@ var StellarBase =
 	        key: 'addDetails',
 
 	        /**
-<<<<<<< HEAD
-	         * Returns an XDR SetOptionsOp. A "set options" operations set or clear account flags,
-	         * set the account's inflation destination, and/or add new signers to the account.
-	         * The flags used in `opts.clearFlags` and `opts.setFlags` can be the following:
-	         *   - `{@link AuthRequiredFlag}`
-	         *   - `{@link AuthRevocableFlag}`
-	         *   - `{@link AuthImmutableFlag}`
-	         *
-	         * It's possible to set/clear multiple flags at once using logical or.
-	         * @param {object} opts
-	         * @param {number|string} [opts.masterWeight] - The master key weight.
-	         * @param {number|string} [opts.lowThreshold] - The sum weight for the low threshold.
-	         * @param {number|string} [opts.medThreshold] - The sum weight for the medium threshold.
-	         * @param {number|string} [opts.highThreshold] - The sum weight for the high threshold.
-	         * @param {object} [opts.signer] - Add or remove a signer from the account. The signer is
-	         *                                 deleted if the weight is 0.
-	         * @param {string} [opts.signer.pubKey] - The public key of the new signer (old `address` field name is deprecated).
-	         * @param {number|string} [opts.signer.weight] - The weight of the new signer (0 to delete or 1-255)
-	         * @param {number|string} [opts.signer.signerType] - The type of the new signer
-	         * @param {number|string} [opts.signer.identity] - The identity of the new signer
-	         * * @param {string} [opts.signer.name] - Name of the signer
-	         * @param {object} [opts.limitsUpdateRequestData] - required data for LimitsUpdateRequest creation
-	         * * @param {string} [opts.limitsUpdateRequestData.documentHash] - hash of the document to review
-	         * @param {string} [opts.source] - The source account (defaults to transaction source).
-	         * @returns {xdr.SetOptionsOp}
-	         * @see [Account flags](https://www.stellar.org/developers/guides/concepts/accounts.html#flags)
-=======
 	         * Add contract details
 	         * @param {object} opts
 	         * @param {string} opts.contractID - contract id
 	         * @param {object} opts.details - contract details
 	         * @param {string} [opts.source] - The source account for the manage contract. Defaults to the transaction's source account.
 	         * @returns {xdr.ManageContractOp}
->>>>>>> master
 	         */
 	        value: function addDetails(opts) {
 	            var details = _generatedStellarXdr_generated2['default'].ManageContractOpData.addDetail(JSON.stringify(opts.details));
@@ -56208,121 +48563,13 @@ var StellarBase =
 	exports.ManageContractBuilder = ManageContractBuilder;
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _generatedStellarXdr_generated = __webpack_require__(2);
-
-	var _generatedStellarXdr_generated2 = _interopRequireDefault(_generatedStellarXdr_generated);
-
-	var _lodashIsUndefined = __webpack_require__(68);
-
-	var _lodashIsUndefined2 = _interopRequireDefault(_lodashIsUndefined);
-
-	var _base_operation = __webpack_require__(214);
-
-	var _keypair = __webpack_require__(64);
-
-	var _jsXdr = __webpack_require__(3);
-
-	var PayoutOpBuilder = (function () {
-	    function PayoutOpBuilder() {
-	        _classCallCheck(this, PayoutOpBuilder);
-	    }
-
-	    _createClass(PayoutOpBuilder, null, [{
-	        key: 'payoutOp',
-
-	        /**
-	         * Create a payout operation.
-	         * @param {object} opts
-	         * @param {string} opts.asset - Asset, whose holders will receive dividends
-	         * @param {string} opts.sourceBalanceId - Id of balance from which payout will be performed
-	         * @param {string} opts.maxPayoutAmount - The maximum amount of payout
-	         * @param {string} opts.fee - fee to be charged
-	         * @param {string} opts.fee.fixed - The fixed fee
-	         * @param {string} opts.fee.percent - The payout fee
-	         * @param {string} [opts.source] - The source account for the payout.
-	         * @returns {xdr.PayoutOp}
-	         */
-	        value: function payoutOp(opts) {
-	            var attributes = {
-	                ext: new _generatedStellarXdr_generated2['default'].PayoutOpExt(_generatedStellarXdr_generated2['default'].LedgerVersion.emptyVersion())
-	            };
-
-	            if (!_base_operation.BaseOperation.isValidAsset(opts.asset)) {
-	                throw new TypeError('opts.asset is invalid');
-	            }
-
-	            if (!_keypair.Keypair.isValidBalanceKey(opts.sourceBalanceId)) {
-	                throw new TypeError('opts.sourceBalanceId is invalid');
-	            }
-
-	            if (!_base_operation.BaseOperation.isValidAmount(opts.maxPayoutAmount)) {
-	                throw new TypeError('opts.maxPayoutAmount is invalid');
-	            }
-
-	            if (!_base_operation.BaseOperation.isFeeValid(opts.fee)) {
-	                throw new TypeError('opts.fee is invalid');
-	            }
-
-	            attributes.asset = opts.asset;
-	            attributes.sourceBalanceId = _keypair.Keypair.fromBalanceId(opts.sourceBalanceId).xdrBalanceId();
-	            attributes.maxPayoutAmount = _base_operation.BaseOperation._toUnsignedXDRAmount(opts.maxPayoutAmount);
-	            attributes.fee = _base_operation.BaseOperation.feeToXdr(opts.fee);
-
-	            var payout = new _generatedStellarXdr_generated2['default'].PayoutOp(attributes);
-
-	            var opAttributes = {};
-	            opAttributes.body = _generatedStellarXdr_generated2['default'].OperationBody.payout(payout);
-	            _base_operation.BaseOperation.setSourceAccount(opAttributes, opts);
-	            return new _generatedStellarXdr_generated2['default'].Operation(opAttributes);
-	        }
-	    }, {
-	        key: 'payoutOpToObject',
-	        value: function payoutOpToObject(result, attrs) {
-	            result.asset = attrs.asset();
-	            result.sourceBalanceId = _base_operation.BaseOperation.balanceIdtoString(attrs.sourceBalanceId());
-	            result.maxPayoutAmount = _base_operation.BaseOperation._fromXDRAmount(attrs.maxPayoutAmount());
-	            result.fee = {
-	                fixed: _base_operation.BaseOperation._fromXDRAmount(attrs.fee().fixed()),
-	                percent: _base_operation.BaseOperation._fromXDRAmount(attrs.fee().percent())
-	            };
-	        }
-	    }]);
-
-	    return PayoutOpBuilder;
-	})();
-
-	exports.PayoutOpBuilder = PayoutOpBuilder;
-
-/***/ }),
-/* 226 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var arrayMap = __webpack_require__(110),
-	    baseIteratee = __webpack_require__(227),
-	    baseMap = __webpack_require__(296),
-	    isArray = __webpack_require__(102);
-=======
 	var arrayMap = __webpack_require__(103),
-	    baseIteratee = __webpack_require__(229),
-	    baseMap = __webpack_require__(298),
+	    baseIteratee = __webpack_require__(230),
+	    baseMap = __webpack_require__(299),
 	    isArray = __webpack_require__(95);
->>>>>>> master
 
 	/**
 	 * Creates an array of values by running each element in `collection` thru
@@ -56375,25 +48622,14 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 227 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseMatches = __webpack_require__(228),
-	    baseMatchesProperty = __webpack_require__(281),
-	    identity = __webpack_require__(293),
-	    isArray = __webpack_require__(102),
-	    property = __webpack_require__(294);
-=======
-/* 229 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseMatches = __webpack_require__(230),
-	    baseMatchesProperty = __webpack_require__(283),
-	    identity = __webpack_require__(295),
+	var baseMatches = __webpack_require__(231),
+	    baseMatchesProperty = __webpack_require__(284),
+	    identity = __webpack_require__(296),
 	    isArray = __webpack_require__(95),
-	    property = __webpack_require__(296);
->>>>>>> master
+	    property = __webpack_require__(297);
 
 	/**
 	 * The base implementation of `_.iteratee`.
@@ -56423,21 +48659,12 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 228 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsMatch = __webpack_require__(229),
-	    getMatchData = __webpack_require__(278),
-	    matchesStrictComparable = __webpack_require__(280);
-=======
-/* 230 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseIsMatch = __webpack_require__(231),
-	    getMatchData = __webpack_require__(280),
-	    matchesStrictComparable = __webpack_require__(282);
->>>>>>> master
+	var baseIsMatch = __webpack_require__(232),
+	    getMatchData = __webpack_require__(281),
+	    matchesStrictComparable = __webpack_require__(283);
 
 	/**
 	 * The base implementation of `_.matches` which doesn't clone `source`.
@@ -56460,19 +48687,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 229 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Stack = __webpack_require__(230),
-	    baseIsEqual = __webpack_require__(259);
-=======
-/* 231 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var Stack = __webpack_require__(232),
-	    baseIsEqual = __webpack_require__(261);
->>>>>>> master
+	var Stack = __webpack_require__(233),
+	    baseIsEqual = __webpack_require__(262);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1,
@@ -56536,27 +48755,15 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 230 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var ListCache = __webpack_require__(231),
-	    stackClear = __webpack_require__(239),
-	    stackDelete = __webpack_require__(240),
-	    stackGet = __webpack_require__(241),
-	    stackHas = __webpack_require__(242),
-	    stackSet = __webpack_require__(243);
-=======
-/* 232 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var ListCache = __webpack_require__(233),
-	    stackClear = __webpack_require__(241),
-	    stackDelete = __webpack_require__(242),
-	    stackGet = __webpack_require__(243),
-	    stackHas = __webpack_require__(244),
-	    stackSet = __webpack_require__(245);
->>>>>>> master
+	var ListCache = __webpack_require__(234),
+	    stackClear = __webpack_require__(242),
+	    stackDelete = __webpack_require__(243),
+	    stackGet = __webpack_require__(244),
+	    stackHas = __webpack_require__(245),
+	    stackSet = __webpack_require__(246);
 
 	/**
 	 * Creates a stack cache object to store key-value pairs.
@@ -56581,25 +48788,14 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 231 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var listCacheClear = __webpack_require__(232),
-	    listCacheDelete = __webpack_require__(233),
-	    listCacheGet = __webpack_require__(236),
-	    listCacheHas = __webpack_require__(237),
-	    listCacheSet = __webpack_require__(238);
-=======
-/* 233 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var listCacheClear = __webpack_require__(234),
-	    listCacheDelete = __webpack_require__(235),
-	    listCacheGet = __webpack_require__(238),
-	    listCacheHas = __webpack_require__(239),
-	    listCacheSet = __webpack_require__(240);
->>>>>>> master
+	var listCacheClear = __webpack_require__(235),
+	    listCacheDelete = __webpack_require__(236),
+	    listCacheGet = __webpack_require__(239),
+	    listCacheHas = __webpack_require__(240),
+	    listCacheSet = __webpack_require__(241);
 
 	/**
 	 * Creates an list cache object.
@@ -56630,11 +48826,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 232 */
-=======
-/* 234 */
->>>>>>> master
+/* 235 */
 /***/ (function(module, exports) {
 
 	/**
@@ -56653,17 +48845,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 233 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(234);
-=======
-/* 235 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var assocIndexOf = __webpack_require__(236);
->>>>>>> master
+	var assocIndexOf = __webpack_require__(237);
 
 	/** Used for built-in method references. */
 	var arrayProto = Array.prototype;
@@ -56701,17 +48886,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 234 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var eq = __webpack_require__(235);
-=======
-/* 236 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var eq = __webpack_require__(237);
->>>>>>> master
+	var eq = __webpack_require__(238);
 
 	/**
 	 * Gets the index at which the `key` is found in `array` of key-value pairs.
@@ -56735,11 +48913,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 235 */
-=======
-/* 237 */
->>>>>>> master
+/* 238 */
 /***/ (function(module, exports) {
 
 	/**
@@ -56782,17 +48956,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 236 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(234);
-=======
-/* 238 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var assocIndexOf = __webpack_require__(236);
->>>>>>> master
+	var assocIndexOf = __webpack_require__(237);
 
 	/**
 	 * Gets the list cache value for `key`.
@@ -56814,17 +48981,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 237 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(234);
-=======
-/* 239 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var assocIndexOf = __webpack_require__(236);
->>>>>>> master
+	var assocIndexOf = __webpack_require__(237);
 
 	/**
 	 * Checks if a list cache value for `key` exists.
@@ -56843,17 +49003,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 238 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assocIndexOf = __webpack_require__(234);
-=======
-/* 240 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var assocIndexOf = __webpack_require__(236);
->>>>>>> master
+	var assocIndexOf = __webpack_require__(237);
 
 	/**
 	 * Sets the list cache `key` to `value`.
@@ -56882,17 +49035,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 239 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var ListCache = __webpack_require__(231);
-=======
-/* 241 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var ListCache = __webpack_require__(233);
->>>>>>> master
+	var ListCache = __webpack_require__(234);
 
 	/**
 	 * Removes all key-value entries from the stack.
@@ -56910,11 +49056,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 240 */
-=======
-/* 242 */
->>>>>>> master
+/* 243 */
 /***/ (function(module, exports) {
 
 	/**
@@ -56938,11 +49080,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 241 */
-=======
-/* 243 */
->>>>>>> master
+/* 244 */
 /***/ (function(module, exports) {
 
 	/**
@@ -56962,11 +49100,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 242 */
-=======
-/* 244 */
->>>>>>> master
+/* 245 */
 /***/ (function(module, exports) {
 
 	/**
@@ -56986,21 +49120,12 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 243 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var ListCache = __webpack_require__(231),
-	    Map = __webpack_require__(157),
-	    MapCache = __webpack_require__(244);
-=======
-/* 245 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var ListCache = __webpack_require__(233),
+	var ListCache = __webpack_require__(234),
 	    Map = __webpack_require__(148),
-	    MapCache = __webpack_require__(246);
->>>>>>> master
+	    MapCache = __webpack_require__(247);
 
 	/** Used as the size to enable large array optimizations. */
 	var LARGE_ARRAY_SIZE = 200;
@@ -57035,25 +49160,14 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 244 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var mapCacheClear = __webpack_require__(245),
-	    mapCacheDelete = __webpack_require__(253),
-	    mapCacheGet = __webpack_require__(256),
-	    mapCacheHas = __webpack_require__(257),
-	    mapCacheSet = __webpack_require__(258);
-=======
-/* 246 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var mapCacheClear = __webpack_require__(247),
-	    mapCacheDelete = __webpack_require__(255),
-	    mapCacheGet = __webpack_require__(258),
-	    mapCacheHas = __webpack_require__(259),
-	    mapCacheSet = __webpack_require__(260);
->>>>>>> master
+	var mapCacheClear = __webpack_require__(248),
+	    mapCacheDelete = __webpack_require__(256),
+	    mapCacheGet = __webpack_require__(259),
+	    mapCacheHas = __webpack_require__(260),
+	    mapCacheSet = __webpack_require__(261);
 
 	/**
 	 * Creates a map cache object to store key-value pairs.
@@ -57084,21 +49198,12 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 245 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Hash = __webpack_require__(246),
-	    ListCache = __webpack_require__(231),
-	    Map = __webpack_require__(157);
-=======
-/* 247 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var Hash = __webpack_require__(248),
-	    ListCache = __webpack_require__(233),
+	var Hash = __webpack_require__(249),
+	    ListCache = __webpack_require__(234),
 	    Map = __webpack_require__(148);
->>>>>>> master
 
 	/**
 	 * Removes all key-value entries from the map.
@@ -57120,25 +49225,14 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 246 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var hashClear = __webpack_require__(247),
-	    hashDelete = __webpack_require__(249),
-	    hashGet = __webpack_require__(250),
-	    hashHas = __webpack_require__(251),
-	    hashSet = __webpack_require__(252);
-=======
-/* 248 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var hashClear = __webpack_require__(249),
-	    hashDelete = __webpack_require__(251),
-	    hashGet = __webpack_require__(252),
-	    hashHas = __webpack_require__(253),
-	    hashSet = __webpack_require__(254);
->>>>>>> master
+	var hashClear = __webpack_require__(250),
+	    hashDelete = __webpack_require__(252),
+	    hashGet = __webpack_require__(253),
+	    hashHas = __webpack_require__(254),
+	    hashSet = __webpack_require__(255);
 
 	/**
 	 * Creates a hash object.
@@ -57169,17 +49263,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 247 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(248);
-=======
-/* 249 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var nativeCreate = __webpack_require__(250);
->>>>>>> master
+	var nativeCreate = __webpack_require__(251);
 
 	/**
 	 * Removes all key-value entries from the hash.
@@ -57197,11 +49284,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 248 */
-=======
-/* 250 */
->>>>>>> master
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(142);
@@ -57213,11 +49296,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 249 */
-=======
-/* 251 */
->>>>>>> master
+/* 252 */
 /***/ (function(module, exports) {
 
 	/**
@@ -57240,17 +49319,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 250 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(248);
-=======
-/* 252 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var nativeCreate = __webpack_require__(250);
->>>>>>> master
+	var nativeCreate = __webpack_require__(251);
 
 	/** Used to stand-in for `undefined` hash values. */
 	var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -57283,17 +49355,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 251 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(248);
-=======
-/* 253 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var nativeCreate = __webpack_require__(250);
->>>>>>> master
+	var nativeCreate = __webpack_require__(251);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -57319,17 +49384,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 252 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var nativeCreate = __webpack_require__(248);
-=======
-/* 254 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var nativeCreate = __webpack_require__(250);
->>>>>>> master
+	var nativeCreate = __webpack_require__(251);
 
 	/** Used to stand-in for `undefined` hash values. */
 	var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -57355,17 +49413,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 253 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(254);
-=======
-/* 255 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var getMapData = __webpack_require__(256);
->>>>>>> master
+	var getMapData = __webpack_require__(257);
 
 	/**
 	 * Removes `key` and its value from the map.
@@ -57386,17 +49437,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 254 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isKeyable = __webpack_require__(255);
-=======
-/* 256 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var isKeyable = __webpack_require__(257);
->>>>>>> master
+	var isKeyable = __webpack_require__(258);
 
 	/**
 	 * Gets the data for `map`.
@@ -57417,11 +49461,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 255 */
-=======
-/* 257 */
->>>>>>> master
+/* 258 */
 /***/ (function(module, exports) {
 
 	/**
@@ -57442,17 +49482,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 256 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(254);
-=======
-/* 258 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var getMapData = __webpack_require__(256);
->>>>>>> master
+	var getMapData = __webpack_require__(257);
 
 	/**
 	 * Gets the map value for `key`.
@@ -57471,17 +49504,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 257 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(254);
-=======
-/* 259 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var getMapData = __webpack_require__(256);
->>>>>>> master
+	var getMapData = __webpack_require__(257);
 
 	/**
 	 * Checks if a map value for `key` exists.
@@ -57500,17 +49526,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 258 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getMapData = __webpack_require__(254);
-=======
-/* 260 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var getMapData = __webpack_require__(256);
->>>>>>> master
+	var getMapData = __webpack_require__(257);
 
 	/**
 	 * Sets the map `key` to `value`.
@@ -57535,19 +49554,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 259 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsEqualDeep = __webpack_require__(260),
-	    isObjectLike = __webpack_require__(103);
-=======
-/* 261 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseIsEqualDeep = __webpack_require__(262),
+	var baseIsEqualDeep = __webpack_require__(263),
 	    isObjectLike = __webpack_require__(96);
->>>>>>> master
 
 	/**
 	 * The base implementation of `_.isEqual` which supports partial comparisons
@@ -57577,31 +49588,17 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 260 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Stack = __webpack_require__(230),
-	    equalArrays = __webpack_require__(261),
-	    equalByTag = __webpack_require__(267),
-	    equalObjects = __webpack_require__(271),
-	    getTag = __webpack_require__(149),
-	    isArray = __webpack_require__(102),
-	    isBuffer = __webpack_require__(116),
-	    isTypedArray = __webpack_require__(119);
-=======
-/* 262 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var Stack = __webpack_require__(232),
-	    equalArrays = __webpack_require__(263),
-	    equalByTag = __webpack_require__(269),
-	    equalObjects = __webpack_require__(273),
+	var Stack = __webpack_require__(233),
+	    equalArrays = __webpack_require__(264),
+	    equalByTag = __webpack_require__(270),
+	    equalObjects = __webpack_require__(274),
 	    getTag = __webpack_require__(140),
 	    isArray = __webpack_require__(95),
 	    isBuffer = __webpack_require__(109),
 	    isTypedArray = __webpack_require__(112);
->>>>>>> master
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1;
@@ -57680,21 +49677,12 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 261 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var SetCache = __webpack_require__(262),
-	    arraySome = __webpack_require__(265),
-	    cacheHas = __webpack_require__(266);
-=======
-/* 263 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var SetCache = __webpack_require__(264),
-	    arraySome = __webpack_require__(267),
-	    cacheHas = __webpack_require__(268);
->>>>>>> master
+	var SetCache = __webpack_require__(265),
+	    arraySome = __webpack_require__(268),
+	    cacheHas = __webpack_require__(269);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1,
@@ -57778,21 +49766,12 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 262 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var MapCache = __webpack_require__(244),
-	    setCacheAdd = __webpack_require__(263),
-	    setCacheHas = __webpack_require__(264);
-=======
-/* 264 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var MapCache = __webpack_require__(246),
-	    setCacheAdd = __webpack_require__(265),
-	    setCacheHas = __webpack_require__(266);
->>>>>>> master
+	var MapCache = __webpack_require__(247),
+	    setCacheAdd = __webpack_require__(266),
+	    setCacheHas = __webpack_require__(267);
 
 	/**
 	 *
@@ -57820,11 +49799,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 263 */
-=======
-/* 265 */
->>>>>>> master
+/* 266 */
 /***/ (function(module, exports) {
 
 	/** Used to stand-in for `undefined` hash values. */
@@ -57849,11 +49824,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 264 */
-=======
-/* 266 */
->>>>>>> master
+/* 267 */
 /***/ (function(module, exports) {
 
 	/**
@@ -57873,11 +49844,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 265 */
-=======
-/* 267 */
->>>>>>> master
+/* 268 */
 /***/ (function(module, exports) {
 
 	/**
@@ -57906,11 +49873,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 266 */
-=======
-/* 268 */
->>>>>>> master
+/* 269 */
 /***/ (function(module, exports) {
 
 	/**
@@ -57929,27 +49892,15 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 267 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var Symbol = __webpack_require__(94),
-	    Uint8Array = __webpack_require__(268),
-	    eq = __webpack_require__(235),
-	    equalArrays = __webpack_require__(261),
-	    mapToArray = __webpack_require__(269),
-	    setToArray = __webpack_require__(270);
-=======
-/* 269 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var Symbol = __webpack_require__(87),
-	    Uint8Array = __webpack_require__(270),
-	    eq = __webpack_require__(237),
-	    equalArrays = __webpack_require__(263),
-	    mapToArray = __webpack_require__(271),
-	    setToArray = __webpack_require__(272);
->>>>>>> master
+	    Uint8Array = __webpack_require__(271),
+	    eq = __webpack_require__(238),
+	    equalArrays = __webpack_require__(264),
+	    mapToArray = __webpack_require__(272),
+	    setToArray = __webpack_require__(273);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1,
@@ -58059,11 +50010,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 268 */
-=======
-/* 270 */
->>>>>>> master
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var root = __webpack_require__(88);
@@ -58075,11 +50022,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 269 */
-=======
-/* 271 */
->>>>>>> master
+/* 272 */
 /***/ (function(module, exports) {
 
 	/**
@@ -58103,11 +50046,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 270 */
-=======
-/* 272 */
->>>>>>> master
+/* 273 */
 /***/ (function(module, exports) {
 
 	/**
@@ -58131,17 +50070,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 271 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var getAllKeys = __webpack_require__(272);
-=======
-/* 273 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var getAllKeys = __webpack_require__(274);
->>>>>>> master
+	var getAllKeys = __webpack_require__(275);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1;
@@ -58233,21 +50165,12 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 272 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetAllKeys = __webpack_require__(273),
-	    getSymbols = __webpack_require__(275),
-	    keys = __webpack_require__(111);
-=======
-/* 274 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseGetAllKeys = __webpack_require__(275),
-	    getSymbols = __webpack_require__(277),
+	var baseGetAllKeys = __webpack_require__(276),
+	    getSymbols = __webpack_require__(278),
 	    keys = __webpack_require__(104);
->>>>>>> master
 
 	/**
 	 * Creates an array of own enumerable property names and symbols of `object`.
@@ -58264,19 +50187,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 273 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayPush = __webpack_require__(274),
-	    isArray = __webpack_require__(102);
-=======
-/* 275 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var arrayPush = __webpack_require__(276),
+	var arrayPush = __webpack_require__(277),
 	    isArray = __webpack_require__(95);
->>>>>>> master
 
 	/**
 	 * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
@@ -58298,11 +50213,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 274 */
-=======
-/* 276 */
->>>>>>> master
+/* 277 */
 /***/ (function(module, exports) {
 
 	/**
@@ -58328,19 +50239,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 275 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayFilter = __webpack_require__(276),
-	    stubArray = __webpack_require__(277);
-=======
-/* 277 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var arrayFilter = __webpack_require__(278),
-	    stubArray = __webpack_require__(279);
->>>>>>> master
+	var arrayFilter = __webpack_require__(279),
+	    stubArray = __webpack_require__(280);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -58372,11 +50275,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 276 */
-=======
-/* 278 */
->>>>>>> master
+/* 279 */
 /***/ (function(module, exports) {
 
 	/**
@@ -58407,11 +50306,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 277 */
-=======
-/* 279 */
->>>>>>> master
+/* 280 */
 /***/ (function(module, exports) {
 
 	/**
@@ -58440,19 +50335,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 278 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isStrictComparable = __webpack_require__(279),
-	    keys = __webpack_require__(111);
-=======
-/* 280 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var isStrictComparable = __webpack_require__(281),
+	var isStrictComparable = __webpack_require__(282),
 	    keys = __webpack_require__(104);
->>>>>>> master
 
 	/**
 	 * Gets the property names, values, and compare flags of `object`.
@@ -58478,11 +50365,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 279 */
-=======
-/* 281 */
->>>>>>> master
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(92);
@@ -58503,11 +50386,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 280 */
-=======
-/* 282 */
->>>>>>> master
+/* 283 */
 /***/ (function(module, exports) {
 
 	/**
@@ -58533,29 +50412,16 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 281 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsEqual = __webpack_require__(259),
-	    get = __webpack_require__(282),
-	    hasIn = __webpack_require__(290),
-	    isKey = __webpack_require__(285),
-	    isStrictComparable = __webpack_require__(279),
-	    matchesStrictComparable = __webpack_require__(280),
-	    toKey = __webpack_require__(289);
-=======
-/* 283 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseIsEqual = __webpack_require__(261),
-	    get = __webpack_require__(284),
-	    hasIn = __webpack_require__(292),
-	    isKey = __webpack_require__(287),
-	    isStrictComparable = __webpack_require__(281),
-	    matchesStrictComparable = __webpack_require__(282),
-	    toKey = __webpack_require__(291);
->>>>>>> master
+	var baseIsEqual = __webpack_require__(262),
+	    get = __webpack_require__(285),
+	    hasIn = __webpack_require__(293),
+	    isKey = __webpack_require__(288),
+	    isStrictComparable = __webpack_require__(282),
+	    matchesStrictComparable = __webpack_require__(283),
+	    toKey = __webpack_require__(292);
 
 	/** Used to compose bitmasks for value comparisons. */
 	var COMPARE_PARTIAL_FLAG = 1,
@@ -58585,17 +50451,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 282 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(283);
-=======
-/* 284 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseGet = __webpack_require__(285);
->>>>>>> master
+	var baseGet = __webpack_require__(286);
 
 	/**
 	 * Gets the value at `path` of `object`. If the resolved value is
@@ -58631,19 +50490,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 283 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var castPath = __webpack_require__(284),
-	    toKey = __webpack_require__(289);
-=======
-/* 285 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var castPath = __webpack_require__(286),
-	    toKey = __webpack_require__(291);
->>>>>>> master
+	var castPath = __webpack_require__(287),
+	    toKey = __webpack_require__(292);
 
 	/**
 	 * The base implementation of `_.get` without support for default values.
@@ -58669,23 +50520,13 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 284 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var isArray = __webpack_require__(102),
-	    isKey = __webpack_require__(285),
-	    stringToPath = __webpack_require__(286),
-	    toString = __webpack_require__(145);
-=======
-/* 286 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isArray = __webpack_require__(95),
-	    isKey = __webpack_require__(287),
-	    stringToPath = __webpack_require__(288),
+	    isKey = __webpack_require__(288),
+	    stringToPath = __webpack_require__(289),
 	    toString = __webpack_require__(136);
->>>>>>> master
 
 	/**
 	 * Casts `value` to a path array if it's not one.
@@ -58706,11 +50547,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 285 */
-=======
-/* 287 */
->>>>>>> master
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isArray = __webpack_require__(95),
@@ -58745,17 +50582,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 286 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var memoizeCapped = __webpack_require__(287);
-=======
-/* 288 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var memoizeCapped = __webpack_require__(289);
->>>>>>> master
+	var memoizeCapped = __webpack_require__(290);
 
 	/** Used to match property names within property paths. */
 	var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
@@ -58785,17 +50615,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 287 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var memoize = __webpack_require__(288);
-=======
-/* 289 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var memoize = __webpack_require__(290);
->>>>>>> master
+	var memoize = __webpack_require__(291);
 
 	/** Used as the maximum memoize cache size. */
 	var MAX_MEMOIZE_SIZE = 500;
@@ -58824,17 +50647,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 288 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var MapCache = __webpack_require__(244);
-=======
-/* 290 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var MapCache = __webpack_require__(246);
->>>>>>> master
+	var MapCache = __webpack_require__(247);
 
 	/** Error message constants. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -58910,11 +50726,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 289 */
-=======
-/* 291 */
->>>>>>> master
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isSymbol = __webpack_require__(100);
@@ -58941,19 +50753,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 290 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseHasIn = __webpack_require__(291),
-	    hasPath = __webpack_require__(292);
-=======
-/* 292 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseHasIn = __webpack_require__(293),
-	    hasPath = __webpack_require__(294);
->>>>>>> master
+	var baseHasIn = __webpack_require__(294),
+	    hasPath = __webpack_require__(295);
 
 	/**
 	 * Checks if `path` is a direct or inherited property of `object`.
@@ -58989,11 +50793,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 291 */
-=======
-/* 293 */
->>>>>>> master
+/* 294 */
 /***/ (function(module, exports) {
 
 	/**
@@ -59012,27 +50812,15 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 292 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var castPath = __webpack_require__(284),
-	    isArguments = __webpack_require__(114),
-	    isArray = __webpack_require__(102),
-	    isIndex = __webpack_require__(118),
-	    isLength = __webpack_require__(100),
-	    toKey = __webpack_require__(289);
-=======
-/* 294 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var castPath = __webpack_require__(286),
+	var castPath = __webpack_require__(287),
 	    isArguments = __webpack_require__(107),
 	    isArray = __webpack_require__(95),
 	    isIndex = __webpack_require__(111),
 	    isLength = __webpack_require__(93),
-	    toKey = __webpack_require__(291);
->>>>>>> master
+	    toKey = __webpack_require__(292);
 
 	/**
 	 * Checks if `path` exists on `object`.
@@ -59069,11 +50857,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 293 */
-=======
-/* 295 */
->>>>>>> master
+/* 296 */
 /***/ (function(module, exports) {
 
 	/**
@@ -59100,23 +50884,13 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 294 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseProperty = __webpack_require__(140),
-	    basePropertyDeep = __webpack_require__(295),
-	    isKey = __webpack_require__(285),
-	    toKey = __webpack_require__(289);
-=======
-/* 296 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var baseProperty = __webpack_require__(131),
-	    basePropertyDeep = __webpack_require__(297),
-	    isKey = __webpack_require__(287),
-	    toKey = __webpack_require__(291);
->>>>>>> master
+	    basePropertyDeep = __webpack_require__(298),
+	    isKey = __webpack_require__(288),
+	    toKey = __webpack_require__(292);
 
 	/**
 	 * Creates a function that returns the value at `path` of a given object.
@@ -59148,17 +50922,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 295 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(283);
-=======
-/* 297 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseGet = __webpack_require__(285);
->>>>>>> master
+	var baseGet = __webpack_require__(286);
 
 	/**
 	 * A specialized version of `baseProperty` which supports deep paths.
@@ -59177,19 +50944,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 296 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseEach = __webpack_require__(297),
-	    isArrayLike = __webpack_require__(91);
-=======
-/* 298 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseEach = __webpack_require__(299),
+	var baseEach = __webpack_require__(300),
 	    isArrayLike = __webpack_require__(84);
->>>>>>> master
 
 	/**
 	 * The base implementation of `_.map` without support for iteratee shorthands.
@@ -59213,19 +50972,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 297 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseForOwn = __webpack_require__(298),
-	    createBaseEach = __webpack_require__(301);
-=======
-/* 299 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseForOwn = __webpack_require__(300),
-	    createBaseEach = __webpack_require__(303);
->>>>>>> master
+	var baseForOwn = __webpack_require__(301),
+	    createBaseEach = __webpack_require__(304);
 
 	/**
 	 * The base implementation of `_.forEach` without support for iteratee shorthands.
@@ -59241,19 +50992,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 298 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseFor = __webpack_require__(299),
-	    keys = __webpack_require__(111);
-=======
-/* 300 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseFor = __webpack_require__(301),
+	var baseFor = __webpack_require__(302),
 	    keys = __webpack_require__(104);
->>>>>>> master
 
 	/**
 	 * The base implementation of `_.forOwn` without support for iteratee shorthands.
@@ -59271,17 +51014,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 299 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var createBaseFor = __webpack_require__(300);
-=======
-/* 301 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var createBaseFor = __webpack_require__(302);
->>>>>>> master
+	var createBaseFor = __webpack_require__(303);
 
 	/**
 	 * The base implementation of `baseForOwn` which iterates over `object`
@@ -59300,11 +51036,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 300 */
-=======
-/* 302 */
->>>>>>> master
+/* 303 */
 /***/ (function(module, exports) {
 
 	/**
@@ -59335,11 +51067,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 301 */
-=======
-/* 303 */
->>>>>>> master
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isArrayLike = __webpack_require__(84);
@@ -59377,37 +51105,20 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 302 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(303);
-
-
-/***/ }),
-/* 303 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var arrayEach = __webpack_require__(304),
-	    baseEach = __webpack_require__(297),
-	    castFunction = __webpack_require__(305),
-	    isArray = __webpack_require__(102);
-=======
-/* 304 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(305);
-
-
-/***/ }),
 /* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayEach = __webpack_require__(306),
-	    baseEach = __webpack_require__(299),
-	    castFunction = __webpack_require__(307),
+	module.exports = __webpack_require__(306);
+
+
+/***/ }),
+/* 306 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var arrayEach = __webpack_require__(307),
+	    baseEach = __webpack_require__(300),
+	    castFunction = __webpack_require__(308),
 	    isArray = __webpack_require__(95);
->>>>>>> master
 
 	/**
 	 * Iterates over elements of `collection` and invokes `iteratee` for each element.
@@ -59448,11 +51159,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 304 */
-=======
-/* 306 */
->>>>>>> master
+/* 307 */
 /***/ (function(module, exports) {
 
 	/**
@@ -59480,17 +51187,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 305 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(293);
-=======
-/* 307 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var identity = __webpack_require__(295);
->>>>>>> master
+	var identity = __webpack_require__(296);
 
 	/**
 	 * Casts `value` to `identity` if it's not a function.
@@ -59507,11 +51207,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 306 */
-=======
-/* 308 */
->>>>>>> master
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -59538,39 +51234,23 @@ var StellarBase =
 
 	var _keypair = __webpack_require__(43);
 
-<<<<<<< HEAD
-	var _account = __webpack_require__(307);
-=======
-	var _account = __webpack_require__(309);
->>>>>>> master
+	var _account = __webpack_require__(310);
 
 	var _operation = __webpack_require__(208);
 
 	var _transaction = __webpack_require__(207);
 
-<<<<<<< HEAD
-	var _memo = __webpack_require__(308);
-=======
-	var _memo = __webpack_require__(310);
->>>>>>> master
+	var _memo = __webpack_require__(311);
 
 	var _bignumberJs = __webpack_require__(120);
 
 	var _bignumberJs2 = _interopRequireDefault(_bignumberJs);
 
-<<<<<<< HEAD
-	var _lodashClone = __webpack_require__(309);
+	var _lodashClone = __webpack_require__(312);
 
 	var _lodashClone2 = _interopRequireDefault(_lodashClone);
 
-	var _lodashMap = __webpack_require__(226);
-=======
-	var _lodashClone = __webpack_require__(311);
-
-	var _lodashClone2 = _interopRequireDefault(_lodashClone);
-
-	var _lodashMap = __webpack_require__(228);
->>>>>>> master
+	var _lodashMap = __webpack_require__(229);
 
 	var _lodashMap2 = _interopRequireDefault(_lodashMap);
 
@@ -59624,10 +51304,7 @@ var StellarBase =
 	     * @param {string} [opts.timebounds.minTime] - 64 bit unix timestamp
 	     * @param {string} [opts.timebounds.maxTime] - 64 bit unix timestamp
 	     * @param {Memo} [opts.memo] - The memo for the transaction
-<<<<<<< HEAD
-=======
 	     * @param {number|string} [opts.MaxTotalFee] - Max fee amount that source is willing to pay
->>>>>>> master
 	     */
 
 	    function TransactionBuilder(sourceAccount) {
@@ -59677,8 +51354,6 @@ var StellarBase =
 	        }
 
 	        /**
-<<<<<<< HEAD
-=======
 	         * Adds max total fee to the transaction.
 	         * @param {number|string} maxTotalFee.
 	         * @returns {TransactionBuilder}
@@ -59691,7 +51366,6 @@ var StellarBase =
 	        }
 
 	        /**
->>>>>>> master
 	         * This will build the transaction.
 	         * It will also increment the source account's sequence number by 1.
 	         * @returns {Transaction} This method will return the built {@link Transaction}.
@@ -59745,11 +51419,7 @@ var StellarBase =
 	exports.TransactionBuilder = TransactionBuilder;
 
 /***/ }),
-<<<<<<< HEAD
-/* 307 */
-=======
-/* 309 */
->>>>>>> master
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59837,11 +51507,7 @@ var StellarBase =
 	exports.Account = Account;
 
 /***/ }),
-<<<<<<< HEAD
-/* 308 */
-=======
-/* 310 */
->>>>>>> master
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {"use strict";
@@ -60020,17 +51686,10 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9).Buffer))
 
 /***/ }),
-<<<<<<< HEAD
-/* 309 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseClone = __webpack_require__(310);
-=======
-/* 311 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseClone = __webpack_require__(312);
->>>>>>> master
+	var baseClone = __webpack_require__(313);
 
 	/** Used to compose bitmasks for cloning. */
 	var CLONE_SYMBOLS_FLAG = 4;
@@ -60069,55 +51728,30 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 310 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Stack = __webpack_require__(230),
-	    arrayEach = __webpack_require__(304),
-	    assignValue = __webpack_require__(311),
-	    baseAssign = __webpack_require__(314),
-	    baseAssignIn = __webpack_require__(316),
-	    cloneBuffer = __webpack_require__(320),
-	    copyArray = __webpack_require__(321),
-	    copySymbols = __webpack_require__(322),
-	    copySymbolsIn = __webpack_require__(323),
-	    getAllKeys = __webpack_require__(272),
-	    getAllKeysIn = __webpack_require__(326),
-	    getTag = __webpack_require__(149),
-	    initCloneArray = __webpack_require__(327),
-	    initCloneByTag = __webpack_require__(328),
-	    initCloneObject = __webpack_require__(339),
-	    isArray = __webpack_require__(102),
-	    isBuffer = __webpack_require__(116),
-	    isObject = __webpack_require__(99),
-	    keys = __webpack_require__(111);
-=======
-/* 312 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var Stack = __webpack_require__(232),
-	    arrayEach = __webpack_require__(306),
-	    assignValue = __webpack_require__(313),
-	    baseAssign = __webpack_require__(316),
-	    baseAssignIn = __webpack_require__(318),
-	    cloneBuffer = __webpack_require__(322),
-	    copyArray = __webpack_require__(323),
-	    copySymbols = __webpack_require__(324),
-	    copySymbolsIn = __webpack_require__(325),
-	    getAllKeys = __webpack_require__(274),
-	    getAllKeysIn = __webpack_require__(328),
+	var Stack = __webpack_require__(233),
+	    arrayEach = __webpack_require__(307),
+	    assignValue = __webpack_require__(314),
+	    baseAssign = __webpack_require__(317),
+	    baseAssignIn = __webpack_require__(319),
+	    cloneBuffer = __webpack_require__(323),
+	    copyArray = __webpack_require__(324),
+	    copySymbols = __webpack_require__(325),
+	    copySymbolsIn = __webpack_require__(326),
+	    getAllKeys = __webpack_require__(275),
+	    getAllKeysIn = __webpack_require__(329),
 	    getTag = __webpack_require__(140),
-	    initCloneArray = __webpack_require__(329),
-	    initCloneByTag = __webpack_require__(330),
-	    initCloneObject = __webpack_require__(336),
+	    initCloneArray = __webpack_require__(330),
+	    initCloneByTag = __webpack_require__(331),
+	    initCloneObject = __webpack_require__(337),
 	    isArray = __webpack_require__(95),
 	    isBuffer = __webpack_require__(109),
-	    isMap = __webpack_require__(338),
+	    isMap = __webpack_require__(339),
 	    isObject = __webpack_require__(92),
-	    isSet = __webpack_require__(340),
+	    isSet = __webpack_require__(341),
 	    keys = __webpack_require__(104);
->>>>>>> master
 
 	/** Used to compose bitmasks for cloning. */
 	var CLONE_DEEP_FLAG = 1,
@@ -60271,19 +51905,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 311 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseAssignValue = __webpack_require__(312),
-	    eq = __webpack_require__(235);
-=======
-/* 313 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseAssignValue = __webpack_require__(314),
-	    eq = __webpack_require__(237);
->>>>>>> master
+	var baseAssignValue = __webpack_require__(315),
+	    eq = __webpack_require__(238);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -60313,17 +51939,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 312 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var defineProperty = __webpack_require__(313);
-=======
-/* 314 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var defineProperty = __webpack_require__(315);
->>>>>>> master
+	var defineProperty = __webpack_require__(316);
 
 	/**
 	 * The base implementation of `assignValue` and `assignMergeValue` without
@@ -60351,11 +51970,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 313 */
-=======
-/* 315 */
->>>>>>> master
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getNative = __webpack_require__(142);
@@ -60372,19 +51987,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 314 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var copyObject = __webpack_require__(315),
-	    keys = __webpack_require__(111);
-=======
-/* 316 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var copyObject = __webpack_require__(317),
+	var copyObject = __webpack_require__(318),
 	    keys = __webpack_require__(104);
->>>>>>> master
 
 	/**
 	 * The base implementation of `_.assign` without support for multiple sources
@@ -60403,19 +52010,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 315 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var assignValue = __webpack_require__(311),
-	    baseAssignValue = __webpack_require__(312);
-=======
-/* 317 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var assignValue = __webpack_require__(313),
-	    baseAssignValue = __webpack_require__(314);
->>>>>>> master
+	var assignValue = __webpack_require__(314),
+	    baseAssignValue = __webpack_require__(315);
 
 	/**
 	 * Copies properties of `source` to `object`.
@@ -60457,19 +52056,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 316 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var copyObject = __webpack_require__(315),
-	    keysIn = __webpack_require__(317);
-=======
-/* 318 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var copyObject = __webpack_require__(317),
-	    keysIn = __webpack_require__(319);
->>>>>>> master
+	var copyObject = __webpack_require__(318),
+	    keysIn = __webpack_require__(320);
 
 	/**
 	 * The base implementation of `_.assignIn` without support for multiple sources
@@ -60488,21 +52079,12 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 317 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var arrayLikeKeys = __webpack_require__(112),
-	    baseKeysIn = __webpack_require__(318),
-	    isArrayLike = __webpack_require__(91);
-=======
-/* 319 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var arrayLikeKeys = __webpack_require__(105),
-	    baseKeysIn = __webpack_require__(320),
+	    baseKeysIn = __webpack_require__(321),
 	    isArrayLike = __webpack_require__(84);
->>>>>>> master
 
 	/**
 	 * Creates an array of the own and inherited enumerable property names of `object`.
@@ -60535,21 +52117,12 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 318 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var isObject = __webpack_require__(99),
-	    isPrototype = __webpack_require__(124),
-	    nativeKeysIn = __webpack_require__(319);
-=======
-/* 320 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(92),
 	    isPrototype = __webpack_require__(117),
-	    nativeKeysIn = __webpack_require__(321);
->>>>>>> master
+	    nativeKeysIn = __webpack_require__(322);
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -60583,11 +52156,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 319 */
-=======
-/* 321 */
->>>>>>> master
+/* 322 */
 /***/ (function(module, exports) {
 
 	/**
@@ -60613,11 +52182,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 320 */
-=======
-/* 322 */
->>>>>>> master
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(88);
@@ -60659,11 +52224,7 @@ var StellarBase =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
-<<<<<<< HEAD
-/* 321 */
-=======
-/* 323 */
->>>>>>> master
+/* 324 */
 /***/ (function(module, exports) {
 
 	/**
@@ -60689,19 +52250,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 322 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var copyObject = __webpack_require__(315),
-	    getSymbols = __webpack_require__(275);
-=======
-/* 324 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var copyObject = __webpack_require__(317),
-	    getSymbols = __webpack_require__(277);
->>>>>>> master
+	var copyObject = __webpack_require__(318),
+	    getSymbols = __webpack_require__(278);
 
 	/**
 	 * Copies own symbols of `source` to `object`.
@@ -60719,19 +52272,11 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 323 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var copyObject = __webpack_require__(315),
-	    getSymbolsIn = __webpack_require__(324);
-=======
-/* 325 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var copyObject = __webpack_require__(317),
-	    getSymbolsIn = __webpack_require__(326);
->>>>>>> master
+	var copyObject = __webpack_require__(318),
+	    getSymbolsIn = __webpack_require__(327);
 
 	/**
 	 * Copies own and inherited symbols of `source` to `object`.
@@ -60749,23 +52294,13 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 324 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var arrayPush = __webpack_require__(274),
-	    getPrototype = __webpack_require__(325),
-	    getSymbols = __webpack_require__(275),
-	    stubArray = __webpack_require__(277);
-=======
-/* 326 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var arrayPush = __webpack_require__(276),
-	    getPrototype = __webpack_require__(327),
-	    getSymbols = __webpack_require__(277),
-	    stubArray = __webpack_require__(279);
->>>>>>> master
+	var arrayPush = __webpack_require__(277),
+	    getPrototype = __webpack_require__(328),
+	    getSymbols = __webpack_require__(278),
+	    stubArray = __webpack_require__(280);
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeGetSymbols = Object.getOwnPropertySymbols;
@@ -60790,11 +52325,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 325 */
-=======
-/* 327 */
->>>>>>> master
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var overArg = __webpack_require__(119);
@@ -60806,21 +52337,12 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 326 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseGetAllKeys = __webpack_require__(273),
-	    getSymbolsIn = __webpack_require__(324),
-	    keysIn = __webpack_require__(317);
-=======
-/* 328 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseGetAllKeys = __webpack_require__(275),
-	    getSymbolsIn = __webpack_require__(326),
-	    keysIn = __webpack_require__(319);
->>>>>>> master
+	var baseGetAllKeys = __webpack_require__(276),
+	    getSymbolsIn = __webpack_require__(327),
+	    keysIn = __webpack_require__(320);
 
 	/**
 	 * Creates an array of own and inherited enumerable property names and
@@ -60838,11 +52360,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 327 */
-=======
-/* 329 */
->>>>>>> master
+/* 330 */
 /***/ (function(module, exports) {
 
 	/** Used for built-in method references. */
@@ -60874,27 +52392,14 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 328 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var cloneArrayBuffer = __webpack_require__(329),
-	    cloneDataView = __webpack_require__(330),
-	    cloneMap = __webpack_require__(331),
+	var cloneArrayBuffer = __webpack_require__(332),
+	    cloneDataView = __webpack_require__(333),
 	    cloneRegExp = __webpack_require__(334),
-	    cloneSet = __webpack_require__(335),
-	    cloneSymbol = __webpack_require__(337),
-	    cloneTypedArray = __webpack_require__(338);
-=======
-/* 330 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var cloneArrayBuffer = __webpack_require__(331),
-	    cloneDataView = __webpack_require__(332),
-	    cloneRegExp = __webpack_require__(333),
-	    cloneSymbol = __webpack_require__(334),
-	    cloneTypedArray = __webpack_require__(335);
->>>>>>> master
+	    cloneSymbol = __webpack_require__(335),
+	    cloneTypedArray = __webpack_require__(336);
 
 	/** `Object#toString` result references. */
 	var boolTag = '[object Boolean]',
@@ -60970,17 +52475,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 329 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Uint8Array = __webpack_require__(268);
-=======
-/* 331 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var Uint8Array = __webpack_require__(270);
->>>>>>> master
+	var Uint8Array = __webpack_require__(271);
 
 	/**
 	 * Creates a clone of `arrayBuffer`.
@@ -60999,17 +52497,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 330 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var cloneArrayBuffer = __webpack_require__(329);
-=======
-/* 332 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var cloneArrayBuffer = __webpack_require__(331);
->>>>>>> master
+	var cloneArrayBuffer = __webpack_require__(332);
 
 	/**
 	 * Creates a clone of `dataView`.
@@ -61028,92 +52519,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 331 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var addMapEntry = __webpack_require__(332),
-	    arrayReduce = __webpack_require__(333),
-	    mapToArray = __webpack_require__(269);
-
-	/** Used to compose bitmasks for cloning. */
-	var CLONE_DEEP_FLAG = 1;
-
-	/**
-	 * Creates a clone of `map`.
-	 *
-	 * @private
-	 * @param {Object} map The map to clone.
-	 * @param {Function} cloneFunc The function to clone values.
-	 * @param {boolean} [isDeep] Specify a deep clone.
-	 * @returns {Object} Returns the cloned map.
-	 */
-	function cloneMap(map, isDeep, cloneFunc) {
-	  var array = isDeep ? cloneFunc(mapToArray(map), CLONE_DEEP_FLAG) : mapToArray(map);
-	  return arrayReduce(array, addMapEntry, new map.constructor);
-	}
-
-	module.exports = cloneMap;
-
-
-/***/ }),
-/* 332 */
-/***/ (function(module, exports) {
-
-	/**
-	 * Adds the key-value `pair` to `map`.
-	 *
-	 * @private
-	 * @param {Object} map The map to modify.
-	 * @param {Array} pair The key-value pair to add.
-	 * @returns {Object} Returns `map`.
-	 */
-	function addMapEntry(map, pair) {
-	  // Don't return `map.set` because it's not chainable in IE 11.
-	  map.set(pair[0], pair[1]);
-	  return map;
-	}
-
-	module.exports = addMapEntry;
-
-
-/***/ }),
-/* 333 */
-/***/ (function(module, exports) {
-
-	/**
-	 * A specialized version of `_.reduce` for arrays without support for
-	 * iteratee shorthands.
-	 *
-	 * @private
-	 * @param {Array} [array] The array to iterate over.
-	 * @param {Function} iteratee The function invoked per iteration.
-	 * @param {*} [accumulator] The initial value.
-	 * @param {boolean} [initAccum] Specify using the first element of `array` as
-	 *  the initial value.
-	 * @returns {*} Returns the accumulated value.
-	 */
-	function arrayReduce(array, iteratee, accumulator, initAccum) {
-	  var index = -1,
-	      length = array == null ? 0 : array.length;
-
-	  if (initAccum && length) {
-	    accumulator = array[++index];
-	  }
-	  while (++index < length) {
-	    accumulator = iteratee(accumulator, array[index], index, array);
-	  }
-	  return accumulator;
-	}
-
-	module.exports = arrayReduce;
-
-
-/***/ }),
 /* 334 */
-=======
-/* 333 */
->>>>>>> master
 /***/ (function(module, exports) {
 
 	/** Used to match `RegExp` flags from their coerced string values. */
@@ -61139,60 +52545,7 @@ var StellarBase =
 /* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-	var addSetEntry = __webpack_require__(336),
-	    arrayReduce = __webpack_require__(333),
-	    setToArray = __webpack_require__(270);
-
-	/** Used to compose bitmasks for cloning. */
-	var CLONE_DEEP_FLAG = 1;
-
-	/**
-	 * Creates a clone of `set`.
-	 *
-	 * @private
-	 * @param {Object} set The set to clone.
-	 * @param {Function} cloneFunc The function to clone values.
-	 * @param {boolean} [isDeep] Specify a deep clone.
-	 * @returns {Object} Returns the cloned set.
-	 */
-	function cloneSet(set, isDeep, cloneFunc) {
-	  var array = isDeep ? cloneFunc(setToArray(set), CLONE_DEEP_FLAG) : setToArray(set);
-	  return arrayReduce(array, addSetEntry, new set.constructor);
-	}
-
-	module.exports = cloneSet;
-
-
-/***/ }),
-/* 336 */
-/***/ (function(module, exports) {
-
-	/**
-	 * Adds `value` to `set`.
-	 *
-	 * @private
-	 * @param {Object} set The set to modify.
-	 * @param {*} value The value to add.
-	 * @returns {Object} Returns `set`.
-	 */
-	function addSetEntry(set, value) {
-	  // Don't return `set.add` because it's not chainable in IE 11.
-	  set.add(value);
-	  return set;
-	}
-
-	module.exports = addSetEntry;
-
-
-/***/ }),
-/* 337 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var Symbol = __webpack_require__(94);
-=======
 	var Symbol = __webpack_require__(87);
->>>>>>> master
 
 	/** Used to convert symbols to primitives and strings. */
 	var symbolProto = Symbol ? Symbol.prototype : undefined,
@@ -61213,17 +52566,10 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 338 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var cloneArrayBuffer = __webpack_require__(329);
-=======
-/* 335 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var cloneArrayBuffer = __webpack_require__(331);
->>>>>>> master
+	var cloneArrayBuffer = __webpack_require__(332);
 
 	/**
 	 * Creates a clone of `typedArray`.
@@ -61242,21 +52588,12 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 339 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseCreate = __webpack_require__(340),
-	    getPrototype = __webpack_require__(325),
-	    isPrototype = __webpack_require__(124);
-=======
-/* 336 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var baseCreate = __webpack_require__(337),
-	    getPrototype = __webpack_require__(327),
+	var baseCreate = __webpack_require__(338),
+	    getPrototype = __webpack_require__(328),
 	    isPrototype = __webpack_require__(117);
->>>>>>> master
 
 	/**
 	 * Initializes an object clone.
@@ -61275,11 +52612,7 @@ var StellarBase =
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 340 */
-=======
-/* 337 */
->>>>>>> master
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(92);
@@ -61315,10 +52648,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 338 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsMap = __webpack_require__(339),
+	var baseIsMap = __webpack_require__(340),
 	    baseUnary = __webpack_require__(114),
 	    nodeUtil = __webpack_require__(115);
 
@@ -61348,7 +52681,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 339 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getTag = __webpack_require__(140),
@@ -61372,10 +52705,10 @@ var StellarBase =
 
 
 /***/ }),
-/* 340 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsSet = __webpack_require__(341),
+	var baseIsSet = __webpack_require__(342),
 	    baseUnary = __webpack_require__(114),
 	    nodeUtil = __webpack_require__(115);
 
@@ -61405,7 +52738,7 @@ var StellarBase =
 
 
 /***/ }),
-/* 341 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var getTag = __webpack_require__(140),
