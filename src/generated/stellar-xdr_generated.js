@@ -1,4 +1,4 @@
-// Automatically generated on 2018-09-18T15:10:15+03:00
+// Automatically generated on 2018-09-19T14:31:55+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -1512,6 +1512,7 @@ xdr.union("PayoutSuccessResultExt", {
 //   {
 //       PayoutResponse payoutResponses<>;
 //       uint64 actualPayoutAmount;
+//       Fee actualFee;
 //   
 //       // reserved for future use
 //       union switch (LedgerVersion v)
@@ -1526,6 +1527,7 @@ xdr.union("PayoutSuccessResultExt", {
 xdr.struct("PayoutSuccessResult", [
   ["payoutResponses", xdr.varArray(xdr.lookup("PayoutResponse"), 2147483647)],
   ["actualPayoutAmount", xdr.lookup("Uint64")],
+  ["actualFee", xdr.lookup("Fee")],
   ["ext", xdr.lookup("PayoutSuccessResultExt")],
 ]);
 
@@ -1534,7 +1536,7 @@ xdr.struct("PayoutSuccessResult", [
 //   union PayoutResult switch (PayoutResultCode code)
 //   {
 //       case SUCCESS:
-//           PayoutSuccessResult payoutSuccessResult;
+//           PayoutSuccessResult success;
 //       default:
 //           void;
 //   };
@@ -1544,10 +1546,10 @@ xdr.union("PayoutResult", {
   switchOn: xdr.lookup("PayoutResultCode"),
   switchName: "code",
   switches: [
-    ["success", "payoutSuccessResult"],
+    ["success", "success"],
   ],
   arms: {
-    payoutSuccessResult: xdr.lookup("PayoutSuccessResult"),
+    success: xdr.lookup("PayoutSuccessResult"),
   },
   defaultArm: xdr.void(),
 });

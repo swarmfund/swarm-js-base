@@ -420,7 +420,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-09-18T15:10:15+03:00
+	// Automatically generated on 2018-09-19T14:31:55+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -1344,6 +1344,7 @@ var StellarBase =
 	//   {
 	//       PayoutResponse payoutResponses<>;
 	//       uint64 actualPayoutAmount;
+	//       Fee actualFee;
 	//   
 	//       // reserved for future use
 	//       union switch (LedgerVersion v)
@@ -1355,18 +1356,18 @@ var StellarBase =
 	//   };
 	//
 	// ===========================================================================
-	xdr.struct("PayoutSuccessResult",[["payoutResponses",xdr.varArray(xdr.lookup("PayoutResponse"),2147483647)],["actualPayoutAmount",xdr.lookup("Uint64")],["ext",xdr.lookup("PayoutSuccessResultExt")]]); // === xdr source ============================================================
+	xdr.struct("PayoutSuccessResult",[["payoutResponses",xdr.varArray(xdr.lookup("PayoutResponse"),2147483647)],["actualPayoutAmount",xdr.lookup("Uint64")],["actualFee",xdr.lookup("Fee")],["ext",xdr.lookup("PayoutSuccessResultExt")]]); // === xdr source ============================================================
 	//
 	//   union PayoutResult switch (PayoutResultCode code)
 	//   {
 	//       case SUCCESS:
-	//           PayoutSuccessResult payoutSuccessResult;
+	//           PayoutSuccessResult success;
 	//       default:
 	//           void;
 	//   };
 	//
 	// ===========================================================================
-	xdr.union("PayoutResult",{switchOn:xdr.lookup("PayoutResultCode"),switchName:"code",switches:[["success","payoutSuccessResult"]],arms:{payoutSuccessResult:xdr.lookup("PayoutSuccessResult")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
+	xdr.union("PayoutResult",{switchOn:xdr.lookup("PayoutResultCode"),switchName:"code",switches:[["success","success"]],arms:{success:xdr.lookup("PayoutSuccessResult")},defaultArm:xdr["void"]()}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {
