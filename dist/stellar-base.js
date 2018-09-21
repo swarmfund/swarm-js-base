@@ -420,7 +420,7 @@ var StellarBase =
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// Automatically generated on 2018-09-19T14:31:55+03:00
+	// Automatically generated on 2018-09-21T18:22:13+03:00
 	// DO NOT EDIT or your changes may be overwritten
 	/* jshint maxstatements:2147483647  */ /* jshint esnext:true  */"use strict";Object.defineProperty(exports,"__esModule",{value:true});function _interopRequireWildcard(obj){if(obj && obj.__esModule){return obj;}else {var newObj={};if(obj != null){for(var key in obj) {if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key] = obj[key];}}newObj["default"] = obj;return newObj;}}var _jsXdr=__webpack_require__(3);var XDR=_interopRequireWildcard(_jsXdr);var types=XDR.config(function(xdr){ // === xdr source ============================================================
 	//
@@ -1295,14 +1295,14 @@ var StellarBase =
 	//       TOTAL_FEE_OVERFLOW = -8,
 	//       UNDERFUNDED = -9, // not enough amount on source balance
 	//       HOLDERS_NOT_FOUND = -10, // there is no holders of such asset
-	//       MIN_AMOUNT_TOO_MUCH = -11, // there is no appropriate holders balances
+	//       MIN_AMOUNT_TOO_BIG = -11, // there is no appropriate holders balances
 	//       LINE_FULL = -12, // destination balance amount overflows
 	//       STATS_OVERFLOW = -13, // source statistics overflow
 	//       LIMITS_EXCEEDED = -14 // source account limit exceeded
 	//   };
 	//
 	// ===========================================================================
-	xdr["enum"]("PayoutResultCode",{success:0,invalidAmount:-1,invalidAsset:-2,assetNotFound:-3,assetNotTransferable:-4,balanceNotFound:-5,insufficientFeeAmount:-6,feeExceedsActualAmount:-7,totalFeeOverflow:-8,underfunded:-9,holdersNotFound:-10,minAmountTooMuch:-11,lineFull:-12,statsOverflow:-13,limitsExceeded:-14}); // === xdr source ============================================================
+	xdr["enum"]("PayoutResultCode",{success:0,invalidAmount:-1,invalidAsset:-2,assetNotFound:-3,assetNotTransferable:-4,balanceNotFound:-5,insufficientFeeAmount:-6,feeExceedsActualAmount:-7,totalFeeOverflow:-8,underfunded:-9,holdersNotFound:-10,minAmountTooBig:-11,lineFull:-12,statsOverflow:-13,limitsExceeded:-14}); // === xdr source ============================================================
 	//
 	//   union switch (LedgerVersion v)
 	//       {

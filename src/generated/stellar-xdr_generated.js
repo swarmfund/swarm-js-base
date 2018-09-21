@@ -1,4 +1,4 @@
-// Automatically generated on 2018-09-19T14:31:55+03:00
+// Automatically generated on 2018-09-21T18:22:13+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -1418,7 +1418,7 @@ xdr.struct("PayoutOp", [
 //       TOTAL_FEE_OVERFLOW = -8,
 //       UNDERFUNDED = -9, // not enough amount on source balance
 //       HOLDERS_NOT_FOUND = -10, // there is no holders of such asset
-//       MIN_AMOUNT_TOO_MUCH = -11, // there is no appropriate holders balances
+//       MIN_AMOUNT_TOO_BIG = -11, // there is no appropriate holders balances
 //       LINE_FULL = -12, // destination balance amount overflows
 //       STATS_OVERFLOW = -13, // source statistics overflow
 //       LIMITS_EXCEEDED = -14 // source account limit exceeded
@@ -1437,7 +1437,7 @@ xdr.enum("PayoutResultCode", {
   totalFeeOverflow: -8,
   underfunded: -9,
   holdersNotFound: -10,
-  minAmountTooMuch: -11,
+  minAmountTooBig: -11,
   lineFull: -12,
   statsOverflow: -13,
   limitsExceeded: -14,
