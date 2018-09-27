@@ -1,4 +1,4 @@
-// Automatically generated on 2018-09-13T19:30:07+03:00
+// Automatically generated on 2018-09-21T18:22:13+03:00
 // DO NOT EDIT or your changes may be overwritten
 
 /* jshint maxstatements:2147483647  */
@@ -141,6 +141,8 @@ xdr.struct("BalanceEntry", [
 //   		CreateSaleCreationRequestOp createSaleCreationRequestOp;
 //   	case CHECK_SALE_STATE:
 //   		CheckSaleStateOp checkSaleStateOp;
+//   	case PAYOUT:
+//   	    PayoutOp payoutOp;
 //   	case CREATE_AML_ALERT:
 //   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 //   	case MANAGE_KEY_VALUE:
@@ -188,6 +190,7 @@ xdr.union("OperationBody", {
     ["reviewRequest", "reviewRequestOp"],
     ["createSaleRequest", "createSaleCreationRequestOp"],
     ["checkSaleState", "checkSaleStateOp"],
+    ["payout", "payoutOp"],
     ["createAmlAlert", "createAmlAlertRequestOp"],
     ["manageKeyValue", "manageKeyValueOp"],
     ["createKycRequest", "createUpdateKycRequestOp"],
@@ -219,6 +222,7 @@ xdr.union("OperationBody", {
     reviewRequestOp: xdr.lookup("ReviewRequestOp"),
     createSaleCreationRequestOp: xdr.lookup("CreateSaleCreationRequestOp"),
     checkSaleStateOp: xdr.lookup("CheckSaleStateOp"),
+    payoutOp: xdr.lookup("PayoutOp"),
     createAmlAlertRequestOp: xdr.lookup("CreateAmlAlertRequestOp"),
     manageKeyValueOp: xdr.lookup("ManageKeyValueOp"),
     createUpdateKycRequestOp: xdr.lookup("CreateUpdateKycRequestOp"),
@@ -280,6 +284,8 @@ xdr.union("OperationBody", {
 //   		CreateSaleCreationRequestOp createSaleCreationRequestOp;
 //   	case CHECK_SALE_STATE:
 //   		CheckSaleStateOp checkSaleStateOp;
+//   	case PAYOUT:
+//   	    PayoutOp payoutOp;
 //   	case CREATE_AML_ALERT:
 //   	    CreateAMLAlertRequestOp createAMLAlertRequestOp;
 //   	case MANAGE_KEY_VALUE:
@@ -524,6 +530,8 @@ xdr.enum("OperationResultCode", {
 //   		CreateSaleCreationRequestResult createSaleCreationRequestResult;
 //   	case CHECK_SALE_STATE:
 //   		CheckSaleStateResult checkSaleStateResult;
+//   	case PAYOUT:
+//   	    PayoutResult payoutResult;
 //   	case CREATE_AML_ALERT:
 //   	    CreateAMLAlertRequestResult createAMLAlertRequestResult;
 //   	case MANAGE_KEY_VALUE:
@@ -571,6 +579,7 @@ xdr.union("OperationResultTr", {
     ["reviewRequest", "reviewRequestResult"],
     ["createSaleRequest", "createSaleCreationRequestResult"],
     ["checkSaleState", "checkSaleStateResult"],
+    ["payout", "payoutResult"],
     ["createAmlAlert", "createAmlAlertRequestResult"],
     ["manageKeyValue", "manageKeyValueResult"],
     ["createKycRequest", "createUpdateKycRequestResult"],
@@ -602,6 +611,7 @@ xdr.union("OperationResultTr", {
     reviewRequestResult: xdr.lookup("ReviewRequestResult"),
     createSaleCreationRequestResult: xdr.lookup("CreateSaleCreationRequestResult"),
     checkSaleStateResult: xdr.lookup("CheckSaleStateResult"),
+    payoutResult: xdr.lookup("PayoutResult"),
     createAmlAlertRequestResult: xdr.lookup("CreateAmlAlertRequestResult"),
     manageKeyValueResult: xdr.lookup("ManageKeyValueResult"),
     createUpdateKycRequestResult: xdr.lookup("CreateUpdateKycRequestResult"),
@@ -659,6 +669,8 @@ xdr.union("OperationResultTr", {
 //   		CreateSaleCreationRequestResult createSaleCreationRequestResult;
 //   	case CHECK_SALE_STATE:
 //   		CheckSaleStateResult checkSaleStateResult;
+//   	case PAYOUT:
+//   	    PayoutResult payoutResult;
 //   	case CREATE_AML_ALERT:
 //   	    CreateAMLAlertRequestResult createAMLAlertRequestResult;
 //   	case MANAGE_KEY_VALUE:
@@ -1335,6 +1347,212 @@ xdr.struct("WithdrawalRequest", [
   ["details", xdr.lookup("WithdrawalRequestDetails")],
   ["ext", xdr.lookup("WithdrawalRequestExt")],
 ]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("PayoutOpExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct PayoutOp
+//   {
+//       AssetCode asset; // asset, which holders will receive dividends
+//       BalanceID sourceBalanceID; // balance, from which payout will be performed
+//   
+//       uint64 maxPayoutAmount; // max amount of asset, that owner wants to pay out
+//       uint64 minPayoutAmount; // min tokens amount which will be payed for one balance;
+//       uint64 minAssetHolderAmount; // min tokens amount for which holder will received dividends
+//   
+//       Fee fee;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("PayoutOp", [
+  ["asset", xdr.lookup("AssetCode")],
+  ["sourceBalanceId", xdr.lookup("BalanceId")],
+  ["maxPayoutAmount", xdr.lookup("Uint64")],
+  ["minPayoutAmount", xdr.lookup("Uint64")],
+  ["minAssetHolderAmount", xdr.lookup("Uint64")],
+  ["fee", xdr.lookup("Fee")],
+  ["ext", xdr.lookup("PayoutOpExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   enum PayoutResultCode
+//   {
+//       // codes considered as "success" for the operation
+//       SUCCESS = 0,    // payout successfully completed
+//   
+//       // codes considered as "failure" for the operation
+//       INVALID_AMOUNT = -1, // max payout amount can not be zero
+//       INVALID_ASSET = -2,
+//       ASSET_NOT_FOUND = -3,
+//       ASSET_NOT_TRANSFERABLE = -4, // asset must have policy transferable
+//       BALANCE_NOT_FOUND = -5,
+//       INSUFFICIENT_FEE_AMOUNT = -6,
+//       FEE_EXCEEDS_ACTUAL_AMOUNT = -7,
+//       TOTAL_FEE_OVERFLOW = -8,
+//       UNDERFUNDED = -9, // not enough amount on source balance
+//       HOLDERS_NOT_FOUND = -10, // there is no holders of such asset
+//       MIN_AMOUNT_TOO_BIG = -11, // there is no appropriate holders balances
+//       LINE_FULL = -12, // destination balance amount overflows
+//       STATS_OVERFLOW = -13, // source statistics overflow
+//       LIMITS_EXCEEDED = -14 // source account limit exceeded
+//   };
+//
+// ===========================================================================
+xdr.enum("PayoutResultCode", {
+  success: 0,
+  invalidAmount: -1,
+  invalidAsset: -2,
+  assetNotFound: -3,
+  assetNotTransferable: -4,
+  balanceNotFound: -5,
+  insufficientFeeAmount: -6,
+  feeExceedsActualAmount: -7,
+  totalFeeOverflow: -8,
+  underfunded: -9,
+  holdersNotFound: -10,
+  minAmountTooBig: -11,
+  lineFull: -12,
+  statsOverflow: -13,
+  limitsExceeded: -14,
+});
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("PayoutResponseExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct PayoutResponse
+//   {
+//       AccountID receiverID;
+//       BalanceID receiverBalanceID;
+//       uint64 receivedAmount;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("PayoutResponse", [
+  ["receiverId", xdr.lookup("AccountId")],
+  ["receiverBalanceId", xdr.lookup("BalanceId")],
+  ["receivedAmount", xdr.lookup("Uint64")],
+  ["ext", xdr.lookup("PayoutResponseExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//
+// ===========================================================================
+xdr.union("PayoutSuccessResultExt", {
+  switchOn: xdr.lookup("LedgerVersion"),
+  switchName: "v",
+  switches: [
+    ["emptyVersion", xdr.void()],
+  ],
+  arms: {
+  },
+});
+
+// === xdr source ============================================================
+//
+//   struct PayoutSuccessResult
+//   {
+//       PayoutResponse payoutResponses<>;
+//       uint64 actualPayoutAmount;
+//       Fee actualFee;
+//   
+//       // reserved for future use
+//       union switch (LedgerVersion v)
+//       {
+//       case EMPTY_VERSION:
+//           void;
+//       }
+//       ext;
+//   };
+//
+// ===========================================================================
+xdr.struct("PayoutSuccessResult", [
+  ["payoutResponses", xdr.varArray(xdr.lookup("PayoutResponse"), 2147483647)],
+  ["actualPayoutAmount", xdr.lookup("Uint64")],
+  ["actualFee", xdr.lookup("Fee")],
+  ["ext", xdr.lookup("PayoutSuccessResultExt")],
+]);
+
+// === xdr source ============================================================
+//
+//   union PayoutResult switch (PayoutResultCode code)
+//   {
+//       case SUCCESS:
+//           PayoutSuccessResult success;
+//       default:
+//           void;
+//   };
+//
+// ===========================================================================
+xdr.union("PayoutResult", {
+  switchOn: xdr.lookup("PayoutResultCode"),
+  switchName: "code",
+  switches: [
+    ["success", "success"],
+  ],
+  arms: {
+    success: xdr.lookup("PayoutSuccessResult"),
+  },
+  defaultArm: xdr.void(),
+});
 
 // === xdr source ============================================================
 //
@@ -7469,7 +7687,8 @@ xdr.union("CancelSaleCreationRequestResult", {
 //       ISSUANCE_FEE = 3,
 //       INVEST_FEE = 4, // fee to be taken while creating sale participation
 //       CAPITAL_DEPLOYMENT_FEE = 5, // fee to be taken when sale close
-//       OPERATION_FEE = 6
+//       OPERATION_FEE = 6,
+//       PAYOUT_FEE = 7
 //   };
 //
 // ===========================================================================
@@ -7481,6 +7700,7 @@ xdr.enum("FeeType", {
   investFee: 4,
   capitalDeploymentFee: 5,
   operationFee: 6,
+  payoutFee: 7,
 });
 
 // === xdr source ============================================================
@@ -11312,7 +11532,8 @@ xdr.union("PaymentV2Result", {
 //       PAYMENT_OUT = 1,
 //       WITHDRAW = 2,
 //       SPEND = 3,
-//       DEPOSIT = 4
+//       DEPOSIT = 4,
+//       PAYOUT = 5
 //   };
 //
 // ===========================================================================
@@ -11321,6 +11542,7 @@ xdr.enum("StatsOpType", {
   withdraw: 2,
   spend: 3,
   deposit: 4,
+  payout: 5,
 });
 
 // === xdr source ============================================================
@@ -11890,7 +12112,8 @@ xdr.struct("Fee", [
 //       CREATE_MANAGE_LIMITS_REQUEST = 28,
 //       MANAGE_CONTRACT_REQUEST = 29,
 //       MANAGE_CONTRACT = 30,
-//       CANCEL_SALE_REQUEST = 31
+//       CANCEL_SALE_REQUEST = 31,
+//       PAYOUT = 32
 //   };
 //
 // ===========================================================================
@@ -11924,6 +12147,7 @@ xdr.enum("OperationType", {
   manageContractRequest: 29,
   manageContract: 30,
   cancelSaleRequest: 31,
+  payout: 32,
 });
 
 // === xdr source ============================================================

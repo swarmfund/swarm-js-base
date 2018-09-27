@@ -23,6 +23,7 @@ import { SaleRequestBuilder } from './operations/sale_request_builder';
 import { ManageOfferBuilder } from './operations/manage_offer_builder';
 import { ManageKeyValueBuilder } from './operations/manage_key_value_builder';
 import { SetOptionsBuilder} from "./operations/set_options_builder";
+import {PayoutOpBuilder} from "./operations/payout_builder";
 import { ManageExternalSystemAccountIdPoolEntryBuilder } from "./operations/manage_external_system_account_id_pool_entry_builder";
 import { BindExternalSystemAccountIdBuilder} from "./operations/bind_external_system_account_id_builder";
 import { CreateAMLRequestBuilder } from "./operations/create_aml_request_builder";
@@ -605,6 +606,9 @@ export class Operation extends BaseOperation {
                 break;
             case xdr.OperationType.checkSaleState():
                 SaleRequestBuilder.checkSaleStateToObject(result, attrs);
+                break;
+            case xdr.OperationType.payout():
+                PayoutOpBuilder.payoutOpToObject(result, attrs);
                 break;
             case xdr.OperationType.manageExternalSystemAccountIdPoolEntry():
                 ManageExternalSystemAccountIdPoolEntryBuilder.manageExternalSystemAccountIdPoolEntryToObject(result, attrs);
